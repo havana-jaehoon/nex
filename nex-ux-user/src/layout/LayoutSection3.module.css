@@ -1,0 +1,115 @@
+/* NexAppPage.css */
+.layout {
+  display: grid;
+  grid-template-areas:
+    "head head"
+    "left main";
+  grid-template-rows: 1fr 9fr; /* 각 행의 높이를 비율로 설정 */
+  grid-template-columns: 1fr 9fr;
+  gap: 5px;
+  height: 100vh; /* 전체 높이를 뷰포트 높이에 맞춤 */
+  width: 100VW;
+}
+
+.head {
+  grid-area: head;
+  font-size: 1rem; /* 기본 폰트 크기 */
+  padding: 5px;
+  background-color: #f0f0f0;
+}
+
+.left {
+  grid-area: left;
+  font-size: 1rem; /* 기본 폰트 크기 */
+  padding: 5px;
+  background-color: #e0e0e0;
+}
+
+.main {
+  grid-area: main;
+  font-size: 1.5rem; /* 기본 폰트 크기 */
+  padding: 5px;
+  background-color: #717070;
+}
+
+.right {
+  grid-area: right;
+  font-size: 1rem; /* 기본 폰트 크기 */
+  padding: 5px;
+  background-color: #c0c0c0;
+}
+
+.bottom {
+  grid-area: bottom;
+  font-size: 0.75rem; /* 기본 폰트 크기 */
+  padding: 5px;
+  background-color: #b0b0b0;
+}
+
+/* 미디어 쿼리: 화면 너비가 768px 이하일 때 */
+@media (max-width: 768px) {
+  .layout {
+    grid-template-areas:
+      "head"
+      "main"
+      "left"
+      "right"
+      "bottom";
+    grid-template-rows: auto 1fr auto auto auto;
+    grid-template-columns: 1fr;
+  }
+
+  .head {
+    font-size: 1.5rem; /* 작은 화면에서 폰트 크기 조절 */
+  }
+
+  .left {
+    font-size: 0.875rem; /* 작은 화면에서 폰트 크기 조절 */
+  }
+
+  .main {
+    font-size: 1.25rem; /* 작은 화면에서 폰트 크기 조절 */
+  }
+
+  .right {
+    font-size: 0.875rem; /* 작은 화면에서 폰트 크기 조절 */
+  }
+
+  .bottom {
+    font-size: 0.875rem; /* 작은 화면에서 폰트 크기 조절 */
+  }
+}
+
+/* 미디어 쿼리: 화면 너비가 480px 이하일 때 */
+@media (max-width: 480px) {
+  .layout {
+    grid-template-areas:
+      "head"
+      "main"
+      "left"
+      "right"
+      "bottom";
+    grid-template-rows: auto 1fr auto auto auto;
+    grid-template-columns: 1fr;
+  }
+
+  .head {
+    font-size: 1.25rem; /* 더 작은 화면에서 폰트 크기 조절 */
+  }
+
+  .left {
+    font-size: 0.75rem; /* 더 작은 화면에서 폰트 크기 조절 */
+  }
+
+  .main {
+    font-size: 1rem; /* 더 작은 화면에서 폰트 크기 조절 */
+  }
+
+  .right {
+    font-size: 0.75rem; /* 더 작은 화면에서 폰트 크기 조절 */
+  }
+
+  .bottom {
+    font-size: 0.75rem; /* 더 작은 화면에서 폰트 크기 조절 */
+  }
+}

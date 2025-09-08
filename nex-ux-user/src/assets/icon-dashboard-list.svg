@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20">
+  <g data-name="그룹 1931">
+    <g fill="none" stroke="currentColor" data-name="그룹 1927">
+      <g stroke-width="2" data-name="사각형 1932">
+        <rect width="9" height="9" stroke="none" rx="3" />
+        <rect width="7" height="7" x="1" y="1" rx="2" />
+      </g>
+      <g stroke-width="2" data-name="사각형 1933" transform="translate(0 11)">
+        <rect width="9" height="9" stroke="none" rx="3" />
+        <rect width="7" height="7" x="1" y="1" rx="2" />
+      </g>
+      <path stroke-linecap="round" stroke-width="4" d="M12.849 17.5H20" data-name="선 177" />
+      <path stroke-linecap="round" stroke-width="4" d="M12.849 2.457H20" data-name="선 178" />
+      <path stroke-linecap="round" stroke-width="4" d="M12.849 9.979H20" data-name="선 179" />
+    </g>
+  </g>
+</svg>

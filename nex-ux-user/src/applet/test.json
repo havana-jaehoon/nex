@@ -1,0 +1,26 @@
+{
+  "field": [
+    { "key": "type", "type": "string" },
+    { "key": "project", "type": "string" },
+    { "key": "system", "type": "string" },
+    { "key": "path", "type": "string" },
+    { "key": "name", "type": "string" },
+    { "key": "dispName", "type": "string" },
+    { "key": "description", "type": "string" },
+    { "key": "icon", "type": "string" },
+    { "key": "color", "type": "string" },
+    { "key": "featureType", "type": "string" },
+    {
+      "key": "literals",
+      "type": "literals",
+      "records": [
+        { "key": "value", "type": "string" },
+        { "key": "description", "type": "string" },
+        { "key": "icon", "type": "string" },
+        { "key": "color", "type": "string" }
+      ]
+    }
+  ],
+  "child": "literals",
+  "property": false
+}
