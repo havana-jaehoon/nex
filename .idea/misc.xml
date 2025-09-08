@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Black">
+    <option name="sdkName" value="Remote Python 3.12.3 (sftp://hdkim@127.0.0.1:10022/home/hdkim/.virtualenvs/data-analy-solution/bin/python)" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Remote Python 3.8.10 (sftp://cbm@121.134.202.23:10022/home/cbm/.virtualenvs/data-analy-solution/bin/python)" project-jdk-type="Python SDK" />
+</project>

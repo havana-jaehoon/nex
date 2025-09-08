@@ -1,0 +1,53 @@
+{
+  "name": "CfgServer",
+  "dispName": "설정 서버",
+  "description": "설정 서버 폴더",
+  "type": "folder",
+  "children": [
+    {
+      "name": "auth",
+      "dispName": "인증",
+      "type": "format",
+      "features": [
+        {
+          "name": "project",
+          "dispName": "프로젝트명",
+          "icon": null,
+          "color": null,
+          "type": "feature",
+          "isKey": true,
+          "featureType": "STRING"
+        },
+        {
+          "name": "system",
+          "dispName": "시스템명",
+          "icon": null,
+          "color": null,
+          "type": "feature",
+          "isKey": true,
+          "featureType": "STRING"
+        },
+        {
+          "name": "key",
+          "dispName": "인증키",
+          "icon": null,
+          "color": null,
+          "type": "feature",
+          "isKey": false,
+          "featureType": "STRING"
+        },
+        {
+          "name": "created_at",
+          "dispName": "생성시간",
+          "icon": null,
+          "color": null,
+          "type": "feature",
+          "isKey": false,
+          "featureType": "TIMESTAMP",
+          "default": "now",
+          "parameter": []
+        }
+      ]
+    }
+  ]
+}

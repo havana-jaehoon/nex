@@ -1,0 +1,32 @@
+{
+	"name": "CfgServer",
+	"dispName": "설정 서버",
+	"description": "설정 서버 폴더",
+	"type": "folder",
+	"children": [
+		{
+			"name": "SystemAuth",
+			"dispName": "시스템 인증",
+			"description": "시스템 인증 엘리먼트",
+			"type": "element",
+			"format": "/CfgServer/auth",
+			"store": "/db/auth",
+			"processor": "/provisioning/server",
+			"processingInterval": 0,
+			"processingUnit": null,
+			"sources": null
+		},
+      {
+			"name": "download",
+			"dispName": "시스템 인증",
+			"description": "시스템 인증 엘리먼트",
+			"type": "element",
+			"format": "/CfgServer/auth",
+			"store": "/db/auth",
+			"processor": "/provisioning/server",
+			"processingInterval": 0,
+			"processingUnit": null,
+			"sources": null
+		}
+	]
+}

@@ -1,0 +1,20 @@
+{
+	"name": "status",
+	"dispName": "상태",
+	"description": "상태 데이터 엘리먼트 폴더",
+	"type": "folder",
+	"children": [
+		{
+			"name": "DegradPerLine",
+			"dispName": "노선별 열화 현황",
+			"description": "노선별 열화 현황 데이터 엘리먼트",
+			"type": "element",
+			"format": "/status/alert-warning",
+			"store": "/db/status",
+			"processor": "/common/proc_test2",
+			"processingInterval": 1,
+			"processingUnit": "MIN",
+			"sources": "project1:system1:/status/DegradPerDevice"
+		}
+	]
+}
