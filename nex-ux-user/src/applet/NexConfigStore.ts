@@ -18,40 +18,23 @@ import {
 } from "type/NexTheme";
 import { appletConfig } from "test/data/config/appletConfig";
 import { contentsConfig } from "test/data/config/contentsConfig";
+import { systemConfig } from "test/data/config/systemConfig";
 
 class NexConfigStore {
   url: string = ""; // URL 정보
   projectName: string = ""; // 프로젝트 이름
   systemPath: string = "/webui"; // 시스템 경로
 
-  data : {
-    projects : {
-      name: string;
+  initCfg: any = {
+    projects: projectConfig,
+    formats: formatConfig,
+    stores: storeConfig,
+    processors: processorConfig,
+    systems: systemConfig,
+    elements: elementConfig,
+    contents: contentsConfig,
+  };
 
-      dispName: string;
-      description: string;
-      type: string;
-      children: [
-        formats : [
-          {
-
-          },
-        ], 
-        stores : [
-
-        ],
-        processors : [
-
-        ],
-        systems : 
-        ],
-        elements : [
-        ],
-        contents : [
-        ]
-      ]
-    }
-  } = {};
   // web 서버로 부터 설정 정보를 수신하여 초기화 해야할 데이터
   //current User Store 필요 => 향후 사용자별 theme 및 page layout 정보 를 관리
   projects: NexNode[] = []; // 프로젝트 정보

@@ -1,6 +1,6 @@
 import { NexNodeType, NexSystemNode } from "type/NexNode";
 
-const systemConfig: NexSystemNode[] = [
+export const systemConfig: NexSystemNode[] = [
   {
     project: "/emu150cbm", // project path
     name: "collector",
