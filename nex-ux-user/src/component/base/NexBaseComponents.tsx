@@ -124,7 +124,6 @@ export const NexButton = styled.button.withConfig({
 })<NexButtonProps>`
   background-color: ${(props) => props.bgColor || "#252525"};
   color: ${(props) => props.color || "#ffffff"};
-  padding: 0.2em 0.5em;
   border: ${(props) => props.border || "1px solid transparent"};
   font-size: ${(props) => props.fontSize || "1em"};
   border-radius: ${(props) => props.borderRadius || "0"};

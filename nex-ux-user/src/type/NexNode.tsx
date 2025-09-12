@@ -18,8 +18,9 @@ export enum NexNodeType {
 
   SYSTEM = "system",
   ELEMENT = "element",
+  CONTENTS = "contents",
 
-  WEBAPPLET = "webapplet",
+  APPLET = "applet",
 
   //WEBPAGE = "webpage",
   WEBSECTION = "websection",
@@ -29,43 +30,61 @@ export enum NexNodeType {
   WEBUSER = "webuser",
 }
 
+export enum NexFeatureType {
+  UINT8 = "UINT8",
+  UINT16 = "UINT16",
+  UINT32 = "UINT32",
+  UINT64 = "UINT64",
+  INT8 = "INT8",
+  INT16 = "INT16",
+  INT32 = "INT32",
+  INT64 = "INT64",
+  FLOAT = "FLOAT",
+  DOUBLE = "DOUBLE",
+  STRING = "STRING",
+  BOOLEAN = "BOOLEAN",
+  BINARY = "BINARY",
+  DATE = "DATE",
+  TIME_SEC = "TIME_SEC",
+  TIME_MSEC = "TIME_MSEC",
+  TIME_USEC = "TIME_USEC",
+  TIME_HOUR = "TIME_HOUR",
+  TIMESTAMP = "TIMESTAMP",
+  EMAIL = "EMAIL",
+  PHONE = "PHONE",
+  ADDRESS = "ADDRESS",
+  URL = "URL",
+  LITERALS = "LITERALS", // 문자열 목록 중에서 선택
+  RECORDS = "RECORDS", // 레코드 목록 중에서 선택
+}
+
 export interface NexNode {
+  path?: string; // e.g., "system-name/element-path"
+  project?: string | null; // e.g., "project-path"
+  system?: string | null; // e.g., "system-path"
   name: string; //"Enter Name of Object",
-  dispName?: string; //"Enter Display Name of Object",
-  description?: string; //"Enter Description of Object",
-  type: string; //"Enter Type of Object", // e.g., "project", "system", "format", "storage"
+  dispName?: string | null; //"Enter Display Name of Object",
+  description?: string | null; //"Enter Description of Object",
+  type: NexNodeType; //"Enter Type of Object", // e.g., "project", "system", "format", "storage"
   //children?: NexNode[]; // Optional array of child objects (could be systems, formats, etc.)
 
-  //formats?: string; // Optional format path for the object, e.g., "system-name/format-path"
-  //stores?: string; // Optional store path for the object, e.g., "system-name
-  //icon?: string; //"Enter Icon for Object",
-  //color?: string; //"Enter Color for Object",
+  icon?: string | null; //"Enter Icon for Object",
+  color?: string | null; //"Enter Color for Object",
   //size?: number; // Optional size property for the object, e.g., for storage size
   //direction?: "row" | "column"; // Optional direction property for layout, e.g., "row" or "column"
   [key: string]: any; // Additional properties can be added dynamically
 }
 
-export interface NexProject extends NexNode {
-  systems: NexSystem[]; // Array of systems associated with the project
+export interface NexProjectNode extends NexNode {}
 
-  formats: NexFormat[]; // Array of formats associated with the project
-  stores: NexStore[];
-  processors: NexProcessor[]; // Array of processors associated with the project
-
-  webpages: NexNode[]; // Array of webpages associated with the project
-  webthemes: NexTheme[]; // Array of webthemes associated with the project
-  webthemeUsers: NexThemeUser[]; // Array of webtheme users associated with the project
-  applets: any[]; // Array of applets associated with the project
-}
-
-export interface NexFolder extends NexNode {
+export interface NexFolderNode extends NexNode {
   children: NexNode[]; // Array of child objects (could be systems, formats,
 }
 
-export interface NexSystem extends NexNode {
+export interface NexSystemNode extends NexNode {
   address: {
     ip: string; //"Enter IP Address for System API",
-    port: number; //"Enter Port for System API",
+    port: string; //"Enter Port for System API",
   };
   hdfs: {
     ip: string; //"Enter IP Address for HDFS",
@@ -74,26 +93,34 @@ export interface NexSystem extends NexNode {
   };
   db: {
     ip: string; //"Enter IP Address for Database",
-    port: number; //"Enter Port for Database",
-    id: string; //"Enter ID for Database",
-    passwd: string; //"Enter Password for Database",
-    name: string; //"Enter Name for Database",
+    port: string; //"Enter Port for Database",
+    user: string; //"Enter User ID for Database",
+    password: string; //"Enter Password for Database",
+    database: string; //"Enter Name for Database",
   };
 }
 
-export interface NexFormat extends NexNode {
-  isTree: boolean; // Whether this element is a tree structure
-  volatility: "static" | "mutable" | "immutable"; // Volatility of the element
-  features: NexNode[]; // Array of features associated with the format // feature or folder
-}
-
-export interface NexFeature extends NexNode {
-  isKey?: boolean; // Whether this feature is a key
-  featureType?: string; // Type of the feature, e.g., "UINT32", "STRING", etc.
+export interface NexFeatureNode extends NexNode {
+  isKey: boolean; // Whether this feature is a key
+  featureType: NexFeatureType; // Type of the feature, e.g., "UINT32", "STRING", etc.
   children?: NexNode[]; // Array of child objects (could be systems, formats,
 }
 
-export interface NexElement extends NexNode {
+export interface NexFormatNode extends NexNode {
+  isTree?: boolean; // Whether this element is a tree structure
+  //volatility: "static" | "mutable" | "immutable"; // Volatility of the element
+  features: NexFeatureNode[]; // Array of features associated with the format // feature or folder
+}
+
+export interface NexStoreNode extends NexNode {
+  // Additional properties specific to stores can be added here
+}
+
+export interface NexProcessorNode extends NexNode {
+  // Additional properties specific to processors can be added here
+}
+
+export interface NexElementNode extends NexNode {
   //isTree?: boolean; // Whether this element is a tree structure
   //volatility?: "static" | "mutable" | "immutable"; // Volatility of the element
 
@@ -114,12 +141,43 @@ export interface NexElement extends NexNode {
   source: string; // Source paths for the element, e.g., ["/system-name/element-path1", "/system-name/element-path2"]
 }
 
-export interface NexStore extends NexNode {
-  // Additional properties specific to stores can be added here
+export type NexCondition = {
+  key: string; // Feature name for the condition
+  feature: string; // Feature value for the condition
+  method:
+    | "match"
+    | "path-match"
+    | "starts-with"
+    | "ends-with"
+    | "contains"
+    | "greater-than"
+    | "less-than"; // Condition method
+};
+
+export type NexSelection = {
+  key: string; // Feature key for the selection
+  feature: string; // Feature name for the selection
+};
+
+export interface NexContentsNode extends NexNode {
+  element: string; // Element path, e.g., "/system-name/element-path"
+  condition?: NexCondition[]; // Conditions for the content
+  selection?: NexSelection[]; // Selections for the content
 }
 
-export interface NexProcessor extends NexNode {
-  // Additional properties specific to processors can be added here
+export interface NexAppletNode extends NexNode {
+  applet: string; // Applet path, e.g., "/applet-path"
+}
+
+export interface NexWebSectionNode extends NexNode {
+  //webpage: string; // Webpage path, e.g., "/webpage-path"
+  size?: string | null; // 같은 상위 섹션내의 section 크기 비율 (1, 2, 3, ...)
+  direction?: "row" | "column"; // 섹션내부 정렬 방향 (row, column)
+  padding?: string; // 섹션내부 여백 (8px, 10px, ...)
+  route?: string | null; // 페이지 라우팅 경로, e.g., "page-route"
+  applet?: string | null; // Applet path, e.g., "/applet-path"
+  contents?: string[] | null; // Contents path list, e.g., ["/system-name/element-path1", "/system-name/element-path2"]
+  children?: NexWebSectionNode[]; // Array of child sections
 }
 
 export const initObjects = {
@@ -136,7 +194,7 @@ export const initObjects = {
     webthemes: [defaultTheme],
     webthemeUsers: [defaultThemeUser],
     applets: [],
-  } as NexProject,
+  } as NexProjectNode,
 
   [NexNodeType.FOLDER]: {
     name: "",
@@ -144,17 +202,17 @@ export const initObjects = {
     description: "",
     type: NexNodeType.FOLDER,
     children: [],
-  } as NexFolder,
+  } as NexFolderNode,
   [NexNodeType.SYSTEM]: {
     name: "",
     dispName: "",
     description: "",
     type: NexNodeType.SYSTEM,
 
-    address: { ip: "", port: 0 },
+    address: { ip: "", port: "" },
     hdfs: { ip: "", port: "", path: "" },
-    db: { ip: "", port: 0, id: "", passwd: "", name: "" },
-  } as NexSystem,
+    db: { ip: "", port: "", user: "", password: "", database: "" },
+  } as NexSystemNode,
   [NexNodeType.FORMAT]: {
     name: "",
     dispName: "",
@@ -163,17 +221,17 @@ export const initObjects = {
     isTree: false,
     volatility: "immutable",
     features: [],
-  } as NexFormat,
+  } as NexFormatNode,
   [NexNodeType.FEATURE]: {
     name: "",
     dispName: "",
     description: "",
     type: NexNodeType.FEATURE,
     isKey: false,
-    featureType: "",
+    featureType: NexFeatureType.STRING,
     icon: "",
     color: "",
-  } as NexFeature,
+  } as NexFeatureNode,
   [NexNodeType.ELEMENT]: {
     name: "",
     dispName: "",
@@ -187,7 +245,7 @@ export const initObjects = {
     processingInterval: 0, // 0: 초기 한번 수집
     processingUnit: "NONE", // MSEC, SEC, MIN, SEC, HOUR, DAY, MONTH, YEAR
     source: "",
-  } as NexElement,
+  } as NexElementNode,
   [NexNodeType.STORE]: {
     name: "",
     dispName: "",
@@ -195,7 +253,7 @@ export const initObjects = {
     type: NexNodeType.STORE,
     icon: "",
     color: "",
-  } as NexStore,
+  } as NexStoreNode,
 };
 
 /* 프로젝트, 카테고리, 시스템명, 출력이름, 설명, 아이콘, 컬러 */

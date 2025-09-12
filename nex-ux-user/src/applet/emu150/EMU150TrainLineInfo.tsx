@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import { NexDiv } from "../../component/base/NexBaseComponents";
 
 import { clamp } from "../../utils/util";
-import NexDataStore, { NexCondition, NexData } from "../NexDataStore";
+import NexDataStore from "../NexDataStore";
 import NexLineChartApp from "../chart/NexLineChartApp";
 import EMU150TrainAccordion from "./lib/EMU150TrainAccordion";
 
@@ -47,7 +47,7 @@ const EMU150TrainLineInfoApp: React.FC<NexAppProps> = observer((props) => {
     useState<NexDataStore | null>(null);
   const handleSelect = (obj: any) => {
     console.log("Selected:", obj);
-    const condition: NexCondition[] = [];
+    const condition: any[] = [];
 
     if (obj && obj.line) {
       condition.push({ feature: "line", value: obj.line, method: "match" });

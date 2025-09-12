@@ -39,7 +39,6 @@ const useOutSideClick = (
 interface NexModalProps {
   isOpen: boolean;
   onClose?: () => void;
-  label?: string;
   elementId?: string;
   style?: { overlay?: React.CSSProperties; content?: React.CSSProperties };
   children: ReactNode;
@@ -48,7 +47,6 @@ interface NexModalProps {
 const NexModal = ({
   isOpen,
   onClose,
-  label,
   elementId,
   children,
   style,
@@ -76,18 +74,24 @@ const NexModal = ({
   return (
     <ModalContainer elementId={elementId || "root"}>
       <Overlay style={style?.overlay}>
-        <ModalWrap direction='column' ref={modalRef} style={style?.content}>
-          <NexDiv direction='row' align='end'>
-            <NexButton>
+        <ModalWrap direction="column" ref={modalRef} style={style?.content}>
+          <NexDiv direction="row" justify="end" width="100%">
+            <NexButton
+              style={{
+                background: "transparent",
+                transition: "box-shadow 0.2s",
+                border: "none",
+              }}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.boxShadow =
+                  "0 4px 12px rgba(0,0,0,0.15)")
+              }
+              onMouseOut={(e) => (e.currentTarget.style.boxShadow = "")}
+            >
               <MdCancel onClick={handleClose} />
             </NexButton>
           </NexDiv>
-          {label ? (
-            <NexDiv direction='column' align='center'>
-              <h2>{label}</h2>
-            </NexDiv>
-          ) : null}
-          <NexDiv direction='column' align='center' margin='1rem'>
+          <NexDiv direction="column" align="center" width="100%" padding="1rem">
             {children}
           </NexDiv>
         </ModalWrap>

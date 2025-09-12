@@ -1,29 +1,31 @@
+import { NexCondition, NexContentsNode, NexNodeType, NexSelection } from "type/NexNode";
+
 // Common Contents
-const menuContents = {
+const menuContents :NexContentsNode = {
   name: "menu",
   dispName: "Menu",
-  type: "contents",
+  type: NexNodeType.CONTENTS,
   element: "/common/menu",
   condition: [],
   selection: [],
 };
 
-const sampleContents = {
+const sampleContents :NexContentsNode = {
   name: "sample",
   dispName: "Sample",
-  type: "contents",
+  type: NexNodeType.CONTENTS,
   element: "/emu150cbm/history/LossHistoryPerDevice",
   condition: [],
   selection: [],
 };
 
 //emu150cbm Contents
-const lineSelection = {
+const lineSelection : NexSelection = {
   key: "line",
   feature: "line",
 };
 
-const lineCondition = {
+const lineCondition : NexCondition = {
   key: "line",
   feature: "line",
   method: "match",
@@ -67,51 +69,51 @@ const emu150cbmContents = {
   config: {
     Line: {
       name: "Line",
-      type: "contents",
+      type: NexNodeType.CONTENTS,
       element: "/emu150cbm/config/Line",
       condition: [],
       selection: [lineSelection],
-    },
+    } as NexContentsNode,
     TrainPerLine: {
       name: "TrainPerLine",
-      type: "contents",
+      type: NexNodeType.CONTENTS,
       element: "/emu150cbm/config/TrainPerLine",
       condition: [],
       selection: [trainSelection],
     },
     SelectedTrain: {
       name: "SelectedTrain",
-      type: "contents",
+      type: NexNodeType.CONTENTS,
       element: "/emu150cbm/config/TrainPerLine",
       condition: [lineCondition],
       selection: [trainSelection],
     },
     CarPerTrain: {
       name: "CarPerTrain",
-      type: "contents",
+      type: NexNodeType.CONTENTS,
       element: "/emu150cbm/config/CarPerTrain",
       condition: [],
       selection: [carSelection],
     },
     SelectedCar: {
       name: "SelectedCar",
-      type: "contents",
+      type: NexNodeType.CONTENTS,
       element: "/emu150cbm/config/CarPerTrain",
-      condition: [trainCondition, carSelection],
+      condition: [trainCondition],
       selection: [carSelection],
     },
     Device: {
       name: "Device",
-      type: "contents",
+      type: NexNodeType.CONTENTS,
       element: "/emu150cbm/config/Device", // Device / car
       condition: [],
       selection: [deviceSelection],
     },
     SelectedDevice: {
       name: "SelectedDevice",
-      type: "contents",
+      type: NexNodeType.CONTENTS,
       element: "/emu150cbm/config/Device",
-      condition: [carCondition, deviceCondition],
+      condition: [carCondition],
       selection: [],
     },
   },
@@ -120,14 +122,14 @@ const emu150cbmContents = {
   status: {
     LossPerLine: {
       name: "LossPerLine",
-      type: "contents",
+      type: NexNodeType.CONTENTS,
       element: "/emu150cbm/status/LossPerLine",
       condition: [],
       selection: [],
     },
     LossPerDevice: {
       name: "LossPerDevice",
-      type: "contents",
+      type: NexNodeType.CONTENTS,
       element: "/emu150cbm/status/LossPerDevice",
       condition: [],
       selection: [],
@@ -135,7 +137,7 @@ const emu150cbmContents = {
 
     TrainCountPerLine: {
       name: "TrainCountPerLine",
-      type: "contents",
+      type: NexNodeType.CONTENTS,
       element: "/emu150cbm/status/TrainCountPerLine",
       condition: [],
       selection: [],
@@ -146,35 +148,35 @@ const emu150cbmContents = {
   history: {
     LossHistoryPerLine: {
       name: "LossHistoryPerLine",
-      type: "contents",
+      type: NexNodeType.CONTENTS,
       element: "/emu150cbm/history/LossHistoryPerLine",
       condition: [],
       selection: [],
     },
     LossHistoryPerDevice: {
       name: "LossHistoryPerDevice",
-      type: "contents",
+      type: NexNodeType.CONTENTS,
       element: "/emu150cbm/history/LossHistoryPerDevice",
       condition: [],
       selection: [],
     },
     MaintenancePerLineHistory: {
       name: "MaintenancePerLineHistory",
-      type: "contents",
+      type: NexNodeType.CONTENTS,
       element: "/emu150cbm/history/MaintenanceHistoryPerLine",
       condition: [],
       selection: [],
     },
     DetailLossLevelHistory: {
       name: "DetailLossLevelHistory",
-      type: "contents",
+      type: NexNodeType.CONTENTS,
       element: "/emu150cbm/history/DetailLossLevelHistory",
       condition: [],
       selection: [],
     },
     SelectedDetailLossLevelHistory: {
       name: "SelectedDetailLossLevelHistory",
-      type: "contents",
+      type: NexNodeType.CONTENTS,
       element: "/emu150cbm/history/DetailLossLevelHistory",
       condition: [],
       selection: [],
@@ -185,14 +187,14 @@ const emu150cbmContents = {
   event: {
     RTMaintenanceInfo: {
       name: "RTMaintenanceInfo",
-      type: "contents",
+      type: NexNodeType.CONTENTS,
       element: "/emu150cbm/event/RTMaintenanceInfo",
       condition: [],
       selection: [],
     },
     SystemEventInfo: {
       name: "SystemEventInfo",
-      type: "contents",
+      type: NexNodeType.CONTENTS,
       element: "/emu150cbm/event/SystemEventInfo",
       condition: [],
       selection: [],
@@ -281,7 +283,7 @@ const websectionCondition = {
 const projectContents = {
   name: "project",
   dispName: "프로젝트",
-  type: "contents",
+  type: NexNodeType.CONTENTS,
   element: "/admin/project",
   conditions: [],
   selections: [projectSelection],
@@ -290,7 +292,7 @@ const projectContents = {
 const oneProjectContents = {
   name: "SelectedProject",
   dispName: "프로젝트",
-  type: "contents",
+  type: NexNodeType.CONTENTS,
   element: "/admin/project",
   conditions: [projectCondition],
   selections: [],
@@ -298,7 +300,7 @@ const oneProjectContents = {
 
 const formatContents = {
   name: "format",
-  type: "contents",
+  type: NexNodeType.CONTENTS,
   element: "/admin/format",
   conditions: [projectCondition],
   selections: [formatSelection],
@@ -306,7 +308,7 @@ const formatContents = {
 
 const oneFormatContents = {
   name: "SelectedFormat",
-  type: "contents",
+  type: NexNodeType.CONTENTS,
   element: "/admin/format",
   conditions: [projectCondition, formatCondition],
   selections: [],
@@ -315,7 +317,7 @@ const oneFormatContents = {
 const storeContents = {
   name: "store",
   dispName: "저장소",
-  type: "contents",
+  type: NexNodeType.CONTENTS,
   element: "/admin/store",
   conditions: [projectCondition],
   selections: [storeSelection],
@@ -324,7 +326,7 @@ const storeContents = {
 const oneStoreContents = {
   name: "SelectedStore",
   dispName: "저장소",
-  type: "contents",
+  type: NexNodeType.CONTENTS,
   element: "/admin/store",
   conditions: [projectCondition, storeCondition],
   selections: [],
@@ -333,7 +335,7 @@ const oneStoreContents = {
 const processorContents = {
   name: "processor",
   dispName: "프로세서",
-  type: "contents",
+  type: NexNodeType.CONTENTS,
   element: "/admin/processor",
   conditions: [projectCondition],
   selections: [processorSelection],
@@ -342,7 +344,7 @@ const processorContents = {
 const oneProcessorContents = {
   name: "SelectedProcessor",
   dispName: "프로세서",
-  type: "contents",
+  type: NexNodeType.CONTENTS,
   element: "/admin/processor",
   conditions: [projectCondition, processorCondition],
   selections: [],
@@ -351,7 +353,7 @@ const oneProcessorContents = {
 const systemContents = {
   name: "system",
   dispName: "시스템",
-  type: "contents",
+  type: NexNodeType.CONTENTS,
   element: "/admin/system",
   conditions: [projectCondition],
   selections: [systemSelection],
@@ -360,7 +362,7 @@ const systemContents = {
 const oneSystemContents = {
   name: "SelectedSystem",
   dispName: "시스템",
-  type: "contents",
+  type: NexNodeType.CONTENTS,
   element: "/admin/system",
   conditions: [projectCondition, systemCondition],
   selections: [],
@@ -369,7 +371,7 @@ const oneSystemContents = {
 const elementContents = {
   name: "element",
   dispName: "엘리먼트",
-  type: "contents",
+  type: NexNodeType.CONTENTS,
   element: "/admin/element",
   conditions: [projectCondition, systemCondition],
   selections: [elementSelection],
@@ -378,7 +380,7 @@ const elementContents = {
 const oneElementContents = {
   name: "SelectedElement",
   dispName: "엘리먼트",
-  type: "contents",
+  type: NexNodeType.CONTENTS,
   element: "/admin/element",
   conditions: [projectCondition, systemCondition, elementCondition],
   selections: [],
@@ -387,7 +389,7 @@ const oneElementContents = {
 const websectionContents = {
   name: "websection",
   dispName: "웹 섹션",
-  type: "contents",
+  type: NexNodeType.CONTENTS,
   element: "/admin/websection",
   conditions: [], //[projectCondition],
   selections: [websectionSelection],
@@ -396,7 +398,7 @@ const websectionContents = {
 const oneWebsectionContents = {
   name: "SelectedWebsection",
   dispName: "웹 섹션",
-  type: "contents",
+  type: NexNodeType.CONTENTS,
   element: "/admin/websection",
   conditions: [websectionCondition], //[projectCondition, systemCondition, websectionCondition],
   selections: [],

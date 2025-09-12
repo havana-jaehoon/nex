@@ -2,10 +2,8 @@ import { action, makeObservable, observable, runInAction } from "mobx";
 import { getTestElement } from "test/data/config/elementConfig";
 import { getTestFormat } from "test/data/config/formatConfig";
 import { getTestData } from "test/data/user/testData";
+import { NexCondition } from "type/NexNode";
 import { makeSampleJsonAndCsv, parseCsv2Json } from "type/nexNodeConv";
-
-
-
 
 export interface NexData {
   csv: any[]; // conditions 가 반영된 CSV data
@@ -132,13 +130,6 @@ function buildTreeData(odata: any[], format: any): any {
   return result;
 }
 
-export type NexCondition = {
-  feature: string; // 조건을 검사할 feature 이름
-  value: string; // 조건 값
-  method?: string; //"match" | "startwith" | "endwith" | "include"; // 전체일치 | 앞 부분 일치 | 뒷 부분 일치 | 포함"
-};
-
-export type NexSelection = { key: string; feature: string };
 
 const makePeriodMSec = (
   intervalStr: string,
@@ -458,7 +449,7 @@ export class NexDataStore {
   }
 
   getValuesByCondition(
-    conditions: NexCondition[],
+    conditions: any[],
     tFeatures?: string[] // 출력 할 행의 feature 이름들
   ): NexData {
     //const newDataStore = new NexDataStore("", "", "");
@@ -487,17 +478,21 @@ export class NexDataStore {
               const cell = row[condition.index];
               const value = condition.value;
               switch (condition.method) {
-                case "startwith":
+                case "starts-with":
                   return typeof cell === "string" && cell.startsWith(value);
-                case "endwith":
+                case "ends-with":
                   return typeof cell === "string" && cell.endsWith(value);
-                case "include":
+                case "contains":
                   return typeof cell === "string" && cell.includes(value);
-                case "pathmatch":
+                case "path-match":
                   return (
                     cell === value ||
                     (typeof cell === "string" && cell.startsWith(value + "."))
                   );
+                case "greater-than":
+                  return Number(cell) > Number(value);
+                case "less-than":
+                  return Number(cell) < Number(value);
                 case "match":
                 default:
                   return cell === value;
@@ -536,7 +531,7 @@ export class NexDataStore {
   }
 
   getCountByCondition(
-    conditions: NexCondition[], // 조건에 해당하는 행의 고유한(Target) 값을 반환
+    conditions: any[], // 조건에 해당하는 행의 고유한(Target) 값을 반환
     cFeature: string, // 카운팅할 원본데이터의 freature 이름
     cValues: string[], // 해당 인덱스 의 값 중 카운팅할 값 들 향후 fearture 에 추가
     tFeatures: string[] // 그룹화 / 출력할 데이터의 feature 이름들
@@ -573,12 +568,17 @@ export class NexDataStore {
               const cell = row[condition.index];
               const value = condition.value;
               switch (condition.method) {
-                case "startwith":
+                case "starts-with":
                   return typeof cell === "string" && cell.startsWith(value);
-                case "endwith":
+                case "ends-with":
                   return typeof cell === "string" && cell.endsWith(value);
-                case "include":
+                case "contains":
                   return typeof cell === "string" && cell.includes(value);
+                case "path-match":
+                  return (
+                    cell === value ||
+                    (typeof cell === "string" && cell.startsWith(value))
+                  );
                 case "match":
                 default:
                   return cell === value;
@@ -874,7 +874,7 @@ export class NexDataStore {
       return null;
     }
 
-    return makeSampleJsonAndCsv(format.features);
+    return makeSampleJsonAndCsv("/", "new", format.features);
   }
 
   getNewRow(): any {
@@ -884,7 +884,7 @@ export class NexDataStore {
       ? this.format.children[0].features
       : this.format.features;
     // 기본 형식(format)에서 새로운 row를 생성
-    return makeSampleJsonAndCsv(features);
+    return makeSampleJsonAndCsv("/", "new", features);
   }
 
   findRowFromPath(path: string): any {

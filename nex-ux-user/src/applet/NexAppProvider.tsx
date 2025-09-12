@@ -89,7 +89,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
               feature: condition.feature,
               value: selector.get(condition.key),
               method: condition.method || "match",
-            }));
+            } ));
             newData = store.getValuesByCondition(conds) || null;
           } else {
             newData = store.getData();

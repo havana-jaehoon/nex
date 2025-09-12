@@ -1,21 +1,25 @@
-import { NexNode } from "type/NexNode";
+import {
+  NexFolderNode,
+  NexNodeType,
+  NexProcessorNode,
+} from "type/NexNode";
 
-export const processorConfig: NexNode[] = [
+export const processorConfig: (NexFolderNode | NexProcessorNode)[] = [
   {
     name: "common",
     dispName: "관리자용 데이터",
     description: "관리자용 데이터 엘리먼트 폴더",
-    type: "folder",
+    type: NexNodeType.FOLDER,
     children: [
       {
         name: "transparent",
         dispName: "",
-        type: "processor",
+        type: NexNodeType.PROCESSOR,
         module: {
           version: "0", // 0: 초기 한번 수집
           history: "",
         },
-      },
+      } as NexProcessorNode,
     ],
   },
 ];
@@ -42,7 +46,7 @@ export const getTestProcessor = (path: string) => {
     list = (node.children as any[]) || [];
   }
 
-  if (!node || node.type !== "processor") return null;
+  if (!node || node.type !== NexNodeType.PROCESSOR) return null;
   return node;
 };
 

@@ -1,10 +1,10 @@
-import { NexNode } from "type/NexNode";
+import { NexNodeType, NexProjectNode } from "type/NexNode";
 
-export const projectConfig: NexNode[] = [
-    {
-        type: "project",
-        name: "nex-admin",
-        dispName: "NexUX Admin",
-        description: "NexUX Admin Project",
-    },
+export const projectConfig: NexProjectNode[] = [
+  {
+    type: NexNodeType.PROJECT,
+    name: "nex-admin",
+    dispName: "NexUX Admin",
+    description: "NexUX Admin Project",
+  },
 ];

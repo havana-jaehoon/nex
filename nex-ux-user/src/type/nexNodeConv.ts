@@ -91,7 +91,11 @@ function makeSampleValue(featureType: string, name: string, idx: number = 0) {
 }
 
 // 2. 샘플 데이터 생성
-export function makeSampleJsonAndCsv(features: any[]): {
+export function makeSampleJsonAndCsv(
+  dir: string,
+  name: string,
+  features: any[]
+): {
   json: any;
   csv: any[];
 } {
@@ -106,9 +110,9 @@ export function makeSampleJsonAndCsv(features: any[]): {
     ) {
       // 복합 객체
       //const group = makeSampleJsonAndCsv(feature.attributes, depth + 1);
+
       json[feature.name] = {}; // group.json;
       for (const attr of feature.attributes) json[feature.name][attr.name] = "";
-      csv.push("");
     } else if (
       feature.featureType === "records" &&
       Array.isArray(feature.records)
@@ -139,8 +143,15 @@ export function makeSampleJsonAndCsv(features: any[]): {
       csv.push(feature.literals[0].value);
     } else {
       // 일반 필드
-      json[feature.name] = "";
-      csv.push("");
+      if (feature.name === "path") {
+        json[feature.name] = `${dir}/${name}`;
+        csv.push(`${dir}/${name}`);
+      } else if (feature.name === "name") {
+        json[feature.name] = name;
+        csv.push(name);
+      } else {
+        csv.push("");
+      }
     }
   }
   return { json, csv };

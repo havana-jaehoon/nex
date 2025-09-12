@@ -1,16 +1,16 @@
-import { NexNode } from "type/NexNode";
+import { NexFolderNode, NexNodeType, NexStoreNode } from "type/NexNode";
 
 // 보관 정책 설정 데이터
-export const storeConfig: NexNode[] = [
+export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
   {
     name: "memory",
     dispName: "공통",
     description: "공통 데이터 엘리먼트 폴더",
-    type: "folder",
+    type: NexNodeType.FOLDER,
     children: [
       {
         name: "static", // 정적 데이터
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "memory", // memory, disk, hdfs
           nature: "static", //  정적 데이터 : static,  시간단위데이터: temporary
@@ -21,7 +21,7 @@ export const storeConfig: NexNode[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "status", // 마지막 상태 데이터
         type: "store",
@@ -86,7 +86,7 @@ export const storeConfig: NexNode[] = [
     name: "disk",
     dispName: "공통",
     description: "공통 데이터 엘리먼트 폴더",
-    type: "folder",
+    type: NexNodeType.FOLDER,
     children: [
       {
         name: "static", // 정적 데이터
@@ -280,11 +280,11 @@ export const storeConfig: NexNode[] = [
     name: "hdfs",
     dispName: "공통",
     description: "공통 데이터 엘리먼트 폴더",
-    type: "folder",
+    type: NexNodeType.FOLDER,
     children: [
       {
         name: "static", // 정적 데이터
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "hdfs", // memory, disk, hdfs
           nature: "static", //  정적 데이터 : static,  시간단위데이터: temporary
@@ -490,7 +490,7 @@ export const getTestStore = (path: string) => {
     list = (node.children as any[]) || [];
   }
 
-  if (!node || node.type !== "store") return null;
+  if (!node || node.type !== NexNodeType.STORE) return null;
   return node;
 };
 

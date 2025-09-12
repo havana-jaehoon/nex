@@ -7,11 +7,14 @@ import NexNodeItem from "./lib/NexNodeItem";
 
 import { MdAdd, MdDelete, MdEdit } from "react-icons/md";
 import { clamp } from "utils/util";
+import NexModalNodeEditer from "modal/NexModalNodeEditer";
 
 const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const { contents, theme, themeUser, onSelect, onChange, onAdd, onRemove } =
     props;
 
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isAdding, setIsAdding] = useState<boolean>(false);
   const [selectedPath, setSelectedPath] = useState<string>("");
   const color = theme?.applet?.colors[0];
   const bgColor = theme?.applet?.bgColors[0];
@@ -35,8 +38,9 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
 
   const store = contents[0].store;
 
+  const format = contents[0].format;
+
   const handleClick = (path: string) => {
-    
     setSelectedPath(path);
     if (onSelect) {
       const row = store.findRowFromPath(path);
@@ -52,6 +56,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       console.warn("NexNodeTreeApp: addNode - onAdd is not provided");
       return;
     }
+    setIsAdding(true);
     const curRow = store.findRowFromPath(selectedPath);
     const newRow = store.getNewRowFromPath(selectedPath);
 
@@ -116,6 +121,17 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
           ))}
         </Stack>
       </NexDiv>
+      {isAdding && (
+        <NexModalNodeEditer
+          isOpen={isAdding}
+          format={format}
+          type="add"
+          node={null}
+          onSetValue={(key, value) => {}}
+          onApply={() => setIsAdding(false)}
+          onCancel={() => setIsAdding(false)}
+        />
+      )}
     </NexApplet>
   );
 });

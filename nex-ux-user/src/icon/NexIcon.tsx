@@ -88,7 +88,7 @@ export const nexAddNodeIcon = (type: NexNodeType, size: string) => {
       icon = <MdNewLabel style={{ fontSize: size }} />;
       break;
 
-    case NexNodeType.WEBAPPLET:
+    case NexNodeType.APPLET:
       icon = <MdAddChart style={{ fontSize: size }} />;
       break;
 
@@ -139,7 +139,7 @@ export const nexNodeIcon = (type: NexNodeType, size: string) => {
       icon = <MdNote style={{ fontSize: size }} />;
       break;
 
-    case NexNodeType.WEBAPPLET:
+    case NexNodeType.APPLET:
       icon = <MdAddChart style={{ fontSize: size }} />;
       break;
 

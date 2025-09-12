@@ -23,6 +23,7 @@ export const appletData = [
     "menu",
     "#FF5733",
     "/menu/NexMenu",
+    ""
   ],
   [
     "nex-admin",
