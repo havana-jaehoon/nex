@@ -1,0 +1,24 @@
+{
+  "name": "db",
+  "dispName": "db",
+  "description": "db 저장 정책 폴더",
+  "type": "folder",
+  "children": [
+    {
+      "name": "status",
+      "type": "store",
+      "storageName": "oracle1",
+      "record": {
+        "type": "static",
+        "unit": null,
+        "block": null,
+        "expire": 0,
+        "expireUnit": null,
+        "allowDuplication": false,
+        "allowKeepValue": false,
+        "allowUpsert": true,
+        "chunkSize": 1000
+      }
+    }
+  ]
+}

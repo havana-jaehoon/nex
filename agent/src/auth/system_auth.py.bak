@@ -1,0 +1,69 @@
+import hmac , hashlib, time
+
+import pandas as pd
+
+import const_def
+from api.api_proc import ApiReq
+from system_info import SystemInfoMgr
+from util.net_util import NetUtil
+from util.log_util import Logger
+
+
+class SystemAuth:
+
+    @staticmethod
+    def _create_auth_key_from_secretkey(project_name: str, system_name: str, secret_key: str, unix_time: int) -> str:
+        message = f"{project_name}|{system_name}|{unix_time}"
+        key_bytes = secret_key.encode('utf-8')
+        message_bytes = message.encode('utf-8')
+        hmac_object = hmac.new(key_bytes, msg=message_bytes, digestmod=hashlib.sha256)
+        return hmac_object.hexdigest()
+
+    @staticmethod
+    def create_auth_key(project_name: str, system_name: str, nic_name: str, unix_time: int) -> str:
+        message = f"{project_name}|{system_name}|{unix_time}"
+        secret_key = NetUtil.get_mac_address_from_name(nic_name)
+        key_bytes = secret_key.encode('utf-8')
+        message_bytes = message.encode('utf-8')
+        hmac_object = hmac.new(key_bytes, msg=message_bytes, digestmod=hashlib.sha256)
+        return hmac_object.hexdigest()
+
+    @staticmethod
+    def auth_req(system_info: SystemInfoMgr, api_req: ApiReq):
+        source = f'{const_def.CONFIG_PROJECT_NAME}:{const_def.CONFIG_SYSTEM_NAME}:{const_def.CONFIG_SYSTEM_AUTH_ID}'
+        while True:
+            unix_time = int(time.time())
+            auth_key = SystemAuth.create_auth_key(system_info.own_project_name,
+                                                  system_info.own_system_name,
+                                                  system_info.nic_name,
+                                                  unix_time)
+            body = {'project_name': system_info.own_project_name,
+                    'system_name': system_info.own_system_name,
+                    'unix_time': unix_time,
+                    'auth_key': auth_key}
+            status, _ = api_req.postReq(source, body)
+            if status == 200:
+                return
+            else:
+                Logger().log_error(f'agent_auth : status : {status}')
+            time.sleep(10)
+
+    @staticmethod
+    def check_auth_key(recv_body: dict, saved_auth_data: pd.DataFrame) -> bool:
+        project_name = recv_body.get('project_name')
+        system_name = recv_body.get('system_name')
+        unix_time = recv_body.get('unix_time')
+        recv_auth_key = recv_body.get('auth_key')
+        if not project_name or not system_name or not unix_time or not recv_auth_key:
+            return False
+        query_result = saved_auth_data.query("project == @project_name and system == @system_name")
+        if len(query_result) == 0:
+            return False
+        else:
+            secret_key = query_result.iloc[0]['key']
+            saved_auth_key = SystemAuth._create_auth_key_from_secretkey(project_name, system_name, secret_key, unix_time)
+            if saved_auth_key != recv_auth_key:
+                Logger().log_error(f'{project_name}@{system_name} : auth fail : saved_auth_key={saved_auth_key}, recv_auth_key={recv_auth_key}')
+                return False
+            else:
+                return True
