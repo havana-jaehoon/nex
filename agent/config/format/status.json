@@ -24,7 +24,7 @@
           "color": "#f0142f",
           "type": "feature",
           "isKey": false,
-          "featureType": "UINT16"
+          "featureType": "INT"
         },
         {
           "name": "warning",
@@ -33,7 +33,7 @@
           "color": "#feb200",
           "type": "feature",
           "isKey": false,
-          "featureType": "UINT32"
+          "featureType": "INT"
         },
         {
           "name": "created_at",

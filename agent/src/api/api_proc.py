@@ -1,11 +1,12 @@
 import json, io
 import pandas as pd
-from typing import List, Tuple
+from typing import List, Tuple, Callable, Awaitable
 
 from system_info import SystemInfoMgr
 from util.singleton import SingletonInstance
 from util.pi_http.http_client import HttpClient
 from util.pi_http.http_util import HttpUtil
+from util.async_util import NewLoop
 from util.log_util import Logger
 
 
@@ -76,3 +77,24 @@ class ApiReq(SingletonInstance):
         except Exception as e:
             Logger().log_error(f"HttpClient : postReq({url}) exception : {e}")
             return 500, str(e)
+
+
+class InternalReq:
+
+    @staticmethod
+    def getReq(source_list: List[str], func: Callable[[str], Awaitable[pd.DataFrame]]) -> List[pd.DataFrame]:
+        new_loop = NewLoop()
+        indexed_futures = []
+        for idx, source in enumerate(source_list):
+            fut = new_loop.run_async(func(source))
+            indexed_futures.append((idx, fut, source))
+
+        results: List[pd.DataFrame] = [pd.DataFrame()] * len(source_list)
+        for idx, fut, source in indexed_futures:
+            try:
+                results[idx] = fut.result()
+            except Exception as e:
+                Logger().log_error(f"InternalReq : getReq({source}) exception : {e}")
+                results[idx] = pd.DataFrame()
+        new_loop.stop()
+        return results

@@ -301,7 +301,7 @@ class OrmProc:
                              schema_name: str,
                              filters: Optional[Dict[str, Any]] = None,
                              columns: Optional[List[str]] = None) -> pd.DataFrame:
-        loop = asyncio.get_running_loop()
         # @@@@@@ only python version < 3.9
+        loop = asyncio.get_running_loop()
         return await loop.run_in_executor(None, self.get_data, schema_name, filters, columns)
         # return await asyncio.to_thread(self.get_data, schema_name, filters, columns)

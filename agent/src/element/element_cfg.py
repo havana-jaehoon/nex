@@ -1,42 +1,30 @@
+from abc import abstractmethod, ABC
 from typing import List, Optional
 
 import const_def
 
 
-class ElementConfig:
+class BaseElementConfig(ABC):
 
-    def __init__(self, parent_list: List[str], json_data: dict):
+    def __init__(self, json_data: dict):
         if not json_data:
-            raise Exception("ElementConfig : json_data is None")
-
-        json_type = json_data.get("type", '')
-        if json_type.upper() != const_def.ELEMENT_TYPE.upper():
-            raise Exception("ElementConfig : type is not ELEMENT")
+            raise Exception("BaseElementConfig : json_data is None")
 
         self._name: str = json_data.get("name")
-        if not self._name: raise Exception("ElementConfig : name is empty")
+        if not self._name: raise Exception("BaseElementConfig : name is empty")
         self._dispName: str = json_data.get("dispName")
         if not self._dispName: self._dispName = self._name
         self._description: str = json_data.get("description")
         if not self._description: self._description = self._name
-        self._format: str = json_data.get("format")
-        self._store: str = json_data.get("store")
-        self._processor: str = json_data.get("processor")
-        if not self._processor: raise Exception("ElementConfig : processor is empty")
-        self._processingInterval: int = json_data.get("processingInterval", 0)
-        self._processingUnit: str = json_data.get("processingUnit")
-        self._sources: str = json_data.get("sources")
-        self._id = f'/{"/".join(parent_list)}/{self._name}'
+        self._id: str = self._gen_id()
 
-    def __str__(self):
-        return (f'id={self._id}, '
-                f'name={self._name}, '
-                f'format={self._format}, '
-                f'store={self._store}, '
-                f'processor={self._processor}, '
-                f'processingInterval={self._processingInterval}, '
-                f'processingUnit={self._processingUnit}, '
-                f'sources={self._sources}')
+    @abstractmethod
+    def _gen_id(self, *args, **kwargs) -> str:
+        pass
+
+    @property
+    def id(self) -> str:
+        return self._id
 
     @property
     def name(self) -> str:
@@ -50,20 +38,55 @@ class ElementConfig:
     def description(self) -> str:
         return self._description
 
+
+class ElementConfig(BaseElementConfig):
+
+    def __init__(self, parent_list: List[str], json_data: dict):
+        super().__init__(json_data)
+
+        json_type = json_data.get("type", '')
+        if json_type.upper() != const_def.ELEMENT_TYPE.upper():
+            raise Exception("ElementConfig : type is not ELEMENT")
+
+        self._format: str = json_data.get("format")
+        if not self._format: raise Exception("ElementConfig : format is empty")
+        self._store: str = json_data.get("store")
+        if not self._store: raise Exception("ElementConfig : store is empty")
+        self._processor: Optional[str] = json_data.get("processor")
+        self._processingInterval: Optional[int] = json_data.get("processingInterval")
+        self._processingUnit: Optional[str] = json_data.get("processingUnit")
+        self._sources: List[str] = json_data.get("sources")
+        self._id = self._gen_id(parent_list=parent_list)
+
+    def _gen_id(self, *args, **kwargs) -> str:
+        parent_list = kwargs.get("parent_list", [])
+        parent_path = f'/{"/".join(parent_list)}' if parent_list else ''
+        return f'{parent_path}/{self._name}'
+
+    def __str__(self):
+        return (f'id={self._id}, '
+                f'name={self._name}, '
+                f'format={self._format}, '
+                f'store={self._store}, '
+                f'processor={self._processor}, '
+                f'processingInterval={self._processingInterval}, '
+                f'processingUnit={self._processingUnit}, '
+                f'sources={self._sources}')
+
     @property
-    def format(self) -> str:
+    def format(self) -> Optional[str]:
         return self._format
 
     @property
-    def store(self) -> str:
+    def store(self) -> Optional[str]:
         return self._store
 
     @property
-    def processor(self) -> str:
+    def processor(self) -> Optional[str]:
         return self._processor
 
     @property
-    def processingInterval(self) -> int:
+    def processingInterval(self) -> Optional[int]:
         return self._processingInterval
 
     @property
@@ -71,9 +94,51 @@ class ElementConfig:
         return self._processingUnit
 
     @property
-    def sources(self) -> Optional[str]:
+    def sources(self) -> List[str]:
         return self._sources
 
+
+class FuncElementConfig(BaseElementConfig):
+
+    def __init__(self, parent_list: List[str], json_data: dict):
+        super().__init__(json_data)
+
+        json_type = json_data.get("type", '')
+        if json_type.upper() != const_def.FUNC_ELEMENT_TYPE.upper():
+            raise Exception("FuncElementConfig : type is not FUNC_ELEMENT")
+
+        self._processor: str = json_data.get("processor")
+        if not self._processor: raise Exception("FuncElementConfig : processor is empty")
+        self._inputs: List[str] = json_data.get("inputs")
+        self._outputs: List[str] = json_data.get("outputs")
+        sub_paths = json_data.get("subPaths")
+        self._id = self._gen_id(parent_list=parent_list, sub_paths=sub_paths)
+
+    def _gen_id(self, *args, **kwargs) -> str:
+        parent_list = kwargs.get("parent_list", [])
+        parent_path = f'/{"/".join(parent_list)}' if parent_list else ''
+        sub_paths = kwargs.get("sub_paths", [])
+        if sub_paths:
+            sub_paths_str = "|".join(sub_paths)
+            return fr'{parent_path}/{self._name}/({sub_paths_str})'
+        else:
+            return f'{parent_path}/{self._name}'
+
+    def __str__(self):
+        return (f'id={self._id}, '
+                f'name={self._name}, '
+                f'processor={self._processor}, '                
+                f'inputs={self._inputs}, '
+                f'outputs={self._outputs}')
+
     @property
-    def id(self) -> str:
-        return self._id
+    def processor(self) -> str:
+        return self._processor
+
+    @property
+    def inputs(self) -> List[str]:
+        return self._inputs
+
+    @property
+    def outputs(self) -> List[str]:
+        return self._outputs

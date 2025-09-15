@@ -5,7 +5,7 @@
   "type": "folder",
   "children": [
     {
-      "name": "auth",
+      "name": "admin_config",
       "type": "store",
       "storageName": "oracle1",
       "record": {

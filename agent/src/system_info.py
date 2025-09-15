@@ -17,12 +17,12 @@ class SystemInfoMgr(SingletonInstance):
         self._src_dir = f'{self._base_dir}/{src_subdir}'
         config = configparser.ConfigParser()
         config.read(f'{self._config_dir}/config.ini')
-        self._own_project_name = config['project']['name']
-        self._own_system_name = config['system']['name']
+        self._own_project_name = config['project'].get('name', None)
+        self._own_system_name = config['system'].get('name', None)
         self._agent_id = config['system'].get('agent_id', None)
+        self._secret_key = config['system'].get('secret_key', None)
         self._ip = config['system']['ip']
         self._port = int(config['system']['port'])
-        self._nic_name = config['system']['nic_name']
         self._log_retention_day = int(config['log']['retention_day'])
 
         self._routes: Dict[str, Tuple[str, int]] = {} # key: project_system, value: tuple(ip, port)
@@ -41,13 +41,25 @@ class SystemInfoMgr(SingletonInstance):
     def own_project_name(self) -> str:
         return self._own_project_name
 
+    @own_project_name.setter
+    def own_project_name(self, value: str):
+        self._own_project_name = value
+
     @property
     def own_system_name(self) -> str:
         return self._own_system_name
 
+    @own_system_name.setter
+    def own_system_name(self, value: str):
+        self._own_system_name = value
+
     @property
     def agent_id(self) -> str:
         return self._agent_id
+
+    @property
+    def secret_key(self) -> str:
+        return self._secret_key
 
     @property
     def ip(self) -> str:
@@ -56,10 +68,6 @@ class SystemInfoMgr(SingletonInstance):
     @property
     def port(self) -> int:
         return self._port
-
-    @property
-    def nic_name(self) -> str:
-        return self._nic_name
 
     @property
     def log_retention_day(self) -> int:
