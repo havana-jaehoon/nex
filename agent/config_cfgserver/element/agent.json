@@ -18,8 +18,8 @@
 		},
         {
 			"name": "access",
-			"dispName": "agent 접근정보",
-			"description": "agent 접근정보 데이터 엘리먼트",
+			"dispName": "agent 접속 정보",
+			"description": "agent 접속 정보 데이터 엘리먼트",
 			"type": "element",
 			"format": "/agent/access",
 			"store": "/db/admin_config",
@@ -27,6 +27,6 @@
 			"processingInterval": null,
 			"processingUnit": null,
 			"sources": []
-		}
+        }
     ]
 }

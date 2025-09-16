@@ -20,12 +20,14 @@ class AgentInitResponse(BaseModel):
 class AgentTokenRequest(BaseModel):
     agent_id: str
     auth_token: str
-    ip: str
-    port: int
+
+
+class AgentTokenResponsePayload(BaseModel):
+    project: str
+    system: str
 
 
 class AgentTokenResponse(BaseModel):
     access_token: str
     token_type: str
-    project: str
-    system: str
+    payload: AgentTokenResponsePayload

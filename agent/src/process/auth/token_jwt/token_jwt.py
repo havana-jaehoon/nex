@@ -2,8 +2,7 @@ import jwt
 from typing import Optional
 from datetime import datetime, timezone, timedelta
 
-from auth.auth_process import AuthProcess
-from util.log_util import Logger
+from command.auth.auth_process import AuthProcess
 
 
 class token_jwt(AuthProcess):

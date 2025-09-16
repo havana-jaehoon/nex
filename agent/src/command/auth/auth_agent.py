@@ -2,9 +2,9 @@ import time, json, os
 from typing import Optional
 from pydantic import ValidationError
 
-from auth.auth_process import AuthProcess
+from command.auth.auth_process import AuthProcess
 from api.api_proc import ApiReq
-from auth.msg_def import AgentInitResponse, AgentTokenResponse, AuthElement
+from command.auth.msg_def import AgentInitResponse, AgentTokenResponse, AuthElement
 from system_info import SystemInfoMgr
 from util.module_loader import ModuleLoader
 from util.log_util import Logger
@@ -14,7 +14,7 @@ class AuthAgent:
 
     CONFIG_PROJECT_NAME = 'Admin'
     CONFIG_SYSTEM_NAME = 'CfgServer'
-    AUTH_DIR = '/auth/'
+    AUTH_DIR = '/cmd/auth/'
 
     @staticmethod
     def _init_req(system_info: SystemInfoMgr, api_req: ApiReq) -> Optional[AgentInitResponse]:
@@ -51,7 +51,7 @@ class AuthAgent:
         if processor is None or not isinstance(processor, AuthProcess):
             raise SystemExit(f"token method({token_method}) is not valid")
         auth_token = processor.gen_auth_token(system_info.agent_id, challenge, system_info.secret_key)
-        body = {'agent_id': system_info.agent_id, 'auth_token': auth_token, 'ip': system_info.ip, 'port': system_info.port}
+        body = {'agent_id': system_info.agent_id, 'auth_token': auth_token}
         Logger().log_info(f'token_req : auth_token : {auth_token}')
         status, rsp_body_str = api_req.postReq(source, body)
         if status == 200:

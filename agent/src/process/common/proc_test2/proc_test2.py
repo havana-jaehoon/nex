@@ -1,7 +1,7 @@
 import pandas as pd
 from typing import Optional, List
 
-from base_process import BaseProcess
+from element.base_process import BaseProcess
 
 
 class proc_test2(BaseProcess):

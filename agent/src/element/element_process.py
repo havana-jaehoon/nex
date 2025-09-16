@@ -21,17 +21,3 @@ class ElementProcess(ABC):
     @abstractmethod
     def process(self, sources: List[Tuple[str, pd.DataFrame]], *args, **kwargs) -> Optional[pd.DataFrame]:
         pass
-
-
-class FuncElementProcess(ABC):
-
-    def __init__(self):
-        pass
-
-    @abstractmethod
-    async def process(self,
-                      exp: re.Match,
-                      body: BodyData,
-                      inputs: List[Tuple[str, pd.DataFrame]],
-                      kwargs: dict) -> Tuple[HandlerResult, List[pd.DataFrame]]:
-        pass

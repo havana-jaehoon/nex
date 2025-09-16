@@ -6,7 +6,7 @@ import const_def
 
 class BaseElementConfig(ABC):
 
-    def __init__(self, json_data: dict):
+    def __init__(self, parent_list: List[str], json_data: dict):
         if not json_data:
             raise Exception("BaseElementConfig : json_data is None")
 
@@ -16,15 +16,24 @@ class BaseElementConfig(ABC):
         if not self._dispName: self._dispName = self._name
         self._description: str = json_data.get("description")
         if not self._description: self._description = self._name
-        self._id: str = self._gen_id()
+        self._id: str = self._gen_id(parent_list, json_data)
+        self._subUrl: str = self._gen_subUrl(parent_list, json_data)
 
     @abstractmethod
-    def _gen_id(self, *args, **kwargs) -> str:
+    def _gen_id(self, parent_list: List[str], json_data: dict) -> str:
+        pass
+
+    @abstractmethod
+    def _gen_subUrl(self, parent_list: List[str], json_data: dict) -> str:
         pass
 
     @property
     def id(self) -> str:
         return self._id
+
+    @property
+    def subUrl(self) -> str:
+        return self._subUrl
 
     @property
     def name(self) -> str:
@@ -42,7 +51,7 @@ class BaseElementConfig(ABC):
 class ElementConfig(BaseElementConfig):
 
     def __init__(self, parent_list: List[str], json_data: dict):
-        super().__init__(json_data)
+        super().__init__(parent_list, json_data)
 
         json_type = json_data.get("type", '')
         if json_type.upper() != const_def.ELEMENT_TYPE.upper():
@@ -56,12 +65,20 @@ class ElementConfig(BaseElementConfig):
         self._processingInterval: Optional[int] = json_data.get("processingInterval")
         self._processingUnit: Optional[str] = json_data.get("processingUnit")
         self._sources: List[str] = json_data.get("sources")
-        self._id = self._gen_id(parent_list=parent_list)
 
-    def _gen_id(self, *args, **kwargs) -> str:
-        parent_list = kwargs.get("parent_list", [])
+    def _gen_id(self, parent_list: List[str], json_data: dict) -> str:
         parent_path = f'/{"/".join(parent_list)}' if parent_list else ''
         return f'{parent_path}/{self._name}'
+
+    def _gen_subUrl(self, parent_list: List[str], json_data: dict) -> str:
+        parent_path = f'/{"/".join(parent_list)}' if parent_list else ''
+        sub_paths = json_data.get("subPaths")
+        if sub_paths:
+            sub_paths_str = "|".join(sub_paths)
+            return fr'{parent_path}/{self._name}/({sub_paths_str})'
+        else:
+            return f'{parent_path}/{self._name}'
+
 
     def __str__(self):
         return (f'id={self._id}, '
@@ -96,49 +113,3 @@ class ElementConfig(BaseElementConfig):
     @property
     def sources(self) -> List[str]:
         return self._sources
-
-
-class FuncElementConfig(BaseElementConfig):
-
-    def __init__(self, parent_list: List[str], json_data: dict):
-        super().__init__(json_data)
-
-        json_type = json_data.get("type", '')
-        if json_type.upper() != const_def.FUNC_ELEMENT_TYPE.upper():
-            raise Exception("FuncElementConfig : type is not FUNC_ELEMENT")
-
-        self._processor: str = json_data.get("processor")
-        if not self._processor: raise Exception("FuncElementConfig : processor is empty")
-        self._inputs: List[str] = json_data.get("inputs")
-        self._outputs: List[str] = json_data.get("outputs")
-        sub_paths = json_data.get("subPaths")
-        self._id = self._gen_id(parent_list=parent_list, sub_paths=sub_paths)
-
-    def _gen_id(self, *args, **kwargs) -> str:
-        parent_list = kwargs.get("parent_list", [])
-        parent_path = f'/{"/".join(parent_list)}' if parent_list else ''
-        sub_paths = kwargs.get("sub_paths", [])
-        if sub_paths:
-            sub_paths_str = "|".join(sub_paths)
-            return fr'{parent_path}/{self._name}/({sub_paths_str})'
-        else:
-            return f'{parent_path}/{self._name}'
-
-    def __str__(self):
-        return (f'id={self._id}, '
-                f'name={self._name}, '
-                f'processor={self._processor}, '                
-                f'inputs={self._inputs}, '
-                f'outputs={self._outputs}')
-
-    @property
-    def processor(self) -> str:
-        return self._processor
-
-    @property
-    def inputs(self) -> List[str]:
-        return self._inputs
-
-    @property
-    def outputs(self) -> List[str]:
-        return self._outputs

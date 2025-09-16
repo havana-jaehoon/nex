@@ -1,10 +1,11 @@
 import time
 
-from auth.auth_agent import AuthAgent
+from command.auth.auth_agent import AuthAgent
 from system_info import SystemInfoMgr
 from element.element_mgr import ElementMgr
 from format.format_mgr import FormatMgr
 from store.store_mgr import StoreMgr
+from command.cmd_mgr import CmdMgr
 from api.api_proc import ApiReq
 from util.pi_http.http_server import HttpServer
 from util.log_util import Logger
@@ -30,6 +31,7 @@ if __name__ == '__main__':
         format_mgr = FormatMgr()
         store_mgr = StoreMgr(f"{system_info.config_dir}/config_storage.ini")
         element_mgr = ElementMgr()
+        cmd_mgr = CmdMgr(element_mgr)
 
         # auth and provisioning (only for agent mode)
         if system_info.agent_id:
@@ -37,7 +39,8 @@ if __name__ == '__main__':
 
         # http setup
         http_server = HttpServer(system_info.ip, system_info.port)
-        http_server.add_dynamic_rules(element_mgr.get_handler_list())
+        http_server.add_dynamic_rules(element_mgr.get_query_handlers())
+        http_server.add_dynamic_rules(cmd_mgr.get_query_handlers())
         http_server.start()
 
         # element schedule start

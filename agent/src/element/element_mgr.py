@@ -6,7 +6,7 @@ from apscheduler.executors.pool import ThreadPoolExecutor
 
 import const_def
 from system_info import SystemInfoMgr
-from element.element_entity import BaseElementEntity, ElementEntity, FuncElementEntity
+from element.element_entity import ElementEntity
 from util.pi_http.http_handler import Server_Dynamic_Handler
 from util.singleton import SingletonInstance
 from util.log_util import Logger
@@ -18,19 +18,15 @@ class ElementMgr(SingletonInstance):
         self._logger = Logger()
         self._scheduler = BackgroundScheduler(timezone='Asia/Seoul')
         self._scheduler.add_executor(ThreadPoolExecutor(max_workers=20))
-        self._elements: Dict[str, BaseElementEntity] = {}   # key: element_id
+        self._elements: Dict[str, ElementEntity] = {}   # key: element_id
         for element_file in glob.glob(f'{SystemInfoMgr().config_dir}/element/**/*.json', recursive=True):
             with open(element_file, 'r', encoding='utf-8') as f:
                 json_data = json.load(f)
                 Logger().log_info(f'ElementMgr : element_file : {element_file}, element_json : {json_data}')
                 element_json_list = self._find_elements_with_top_parent_name(json_data)
                 for element_json in element_json_list:
-                    element_type = BaseElementEntity.get_element_type(element_json[1])
-                    if element_type.upper() == const_def.ELEMENT_TYPE.upper():
-                        element_entity = ElementEntity(element_json[0], element_json[1], self)
-                        element_entity.register_interval(self._scheduler)
-                    elif element_type.upper() == const_def.FUNC_ELEMENT_TYPE.upper():
-                        element_entity = FuncElementEntity(element_json[0], element_json[1], self)
+                    element_entity = ElementEntity(element_json[0], element_json[1], self)
+                    element_entity.register_interval(self._scheduler)
                     self._elements[element_entity.get_id()] = element_entity
                     self._logger.log_info(f'Element is registered: {element_entity}')
 
@@ -62,11 +58,11 @@ class ElementMgr(SingletonInstance):
         if self._scheduler.running:
             self._scheduler.shutdown()
 
-    def get_handler_list(self) -> List[Tuple[str, Server_Dynamic_Handler, dict]]:
+    def get_query_handlers(self) -> List[Tuple[str, Server_Dynamic_Handler, dict]]:
         return_list = []
         for element in self._elements.values():
-            handler, kwargs = element.get_req_handler()
-            return_list.append((element.get_id(), handler, kwargs))
+            handler, kwargs = element.get_query_handler()
+            return_list.append((element.get_subUrl(), handler, kwargs))
         return return_list
 
     async def get_all_data(self, element_id: str) -> pd.DataFrame:

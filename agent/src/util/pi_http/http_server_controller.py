@@ -102,7 +102,7 @@ class HttpServerController:
         self._health_controller = HealthController()
         self._controller_mapping = {
             HttpServerController.SUB_URL_HEALTH:    (self._health_controller.health, ["GET"]),
-            HttpServerController.SUB_URL_DYNAMIC:   (self._dynamic_controller.route, ["GET", "POST", "PUT", "PATCH"])
+            HttpServerController.SUB_URL_DYNAMIC:   (self._dynamic_controller.route, ["GET", "POST", "PUT", "PATCH", "DELETE"])
         }
         self._controller_register(router)
 

@@ -7,8 +7,8 @@ from typing import List, Tuple, Optional
 from pydantic import ValidationError
 from abc import abstractmethod
 
-from auth.msg_def import AuthElement, AgentInitRequest, AgentTokenRequest
-from base_process import FuncElementProcess
+from command.auth.msg_def import AuthElement, AgentInitRequest, AgentTokenRequest
+from command.cmd_process import CmdProcess
 from system_info import SystemInfoMgr
 from util.pi_http.http_handler import HandlerResult, BodyData
 from util.log_util import Logger
@@ -18,12 +18,10 @@ from util.log_util import Logger
 class AgentAccess:
     project: str
     system: str
-    ip: str
-    port: int
     updated_at: datetime
 
 
-class AuthProcess(FuncElementProcess):
+class AuthProcess(CmdProcess):
 
     def __init__(self):
         super().__init__()
@@ -62,7 +60,8 @@ class AuthProcess(FuncElementProcess):
             handler_result.body = {'token_method': self._self_name(), 'challenge': challenge}
         return validated_request.agent_id, handler_result
 
-    def _proc_token(self, body: BodyData, auth_info: pd.DataFrame) -> Tuple[str, HandlerResult, Optional[AgentAccess]]:
+    def _proc_token(self, body: BodyData, auth_info: pd.DataFrame) \
+            -> Tuple[str, HandlerResult, Optional[AgentAccess]]:
         handler_result = HandlerResult()
         agent_access: Optional[AgentAccess] = None
         if isinstance(body, dict):
@@ -71,8 +70,6 @@ class AuthProcess(FuncElementProcess):
             validated_request = AgentTokenRequest.model_validate_json(body)
         agent_id = validated_request.agent_id
         auth_token = validated_request.auth_token
-        ip = validated_request.ip
-        port = validated_request.port
         server_auth_info = auth_info[auth_info['agent_id'] == agent_id]
         if server_auth_info.empty:
             handler_result.status = 401
@@ -90,12 +87,14 @@ class AuthProcess(FuncElementProcess):
                     handler_result.body = {
                         'access_token': self.gen_access_token(agent_id, SystemInfoMgr().secret_key),
                         'token_type': 'Bearer',
-                        'project': server_auth_info['project'].iloc[0],
-                        'system': server_auth_info['system'].iloc[0]
+                        'payload': {
+                            'project': server_auth_info['project'].iloc[0],
+                            'system': server_auth_info['system'].iloc[0]
+                        }
                     }
                     agent_access = AgentAccess(server_auth_info['project'].iloc[0],
                                                server_auth_info['system'].iloc[0],
-                                               ip, port, datetime.now())
+                                               datetime.now())
                 else:
                     handler_result.status = 401
                     handler_result.body = 'auth_token is not valid'
@@ -115,7 +114,8 @@ class AuthProcess(FuncElementProcess):
                 agent_id, handler_result = self._proc_initiate(body, inputs[0][1])
             elif sub_path == AuthElement.AUTH_TOKEN_ELEMENT:
                 agent_id, handler_result, agent_access = self._proc_token(body, inputs[0][1])
-                df_list.append(pd.DataFrame([asdict(agent_access)]))
+                if handler_result.status == 200:
+                    df_list.append(pd.DataFrame([asdict(agent_access)]))
             else:
                 Logger().log_error(f'AuthProcess : req_custom_handler : unknown sub-path : {sub_path}')
                 handler_result.status = 404
