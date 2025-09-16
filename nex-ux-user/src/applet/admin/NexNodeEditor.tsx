@@ -14,9 +14,10 @@ import {
   psychedelicTheme,
 } from "json-edit-react";
 import ReactJson from "react-json-view";
+import { defaultThemeStyle } from "type/NexTheme";
 
 const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
-  const { contents, theme, themeUser } = props;
+  const { contents, theme, user } = props;
 
   // 1. Apllet 의 기본 적인 코드
   // 1.1 NexApplet 의 데이터 유형 체크
@@ -28,11 +29,11 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
     return null;
   };
 
-  const fontLevel = themeUser?.fontLevel || 5; // Default font level if not provided
+  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
+  const style = theme?.default || defaultThemeStyle;
   const fontSize =
-    theme?.applet?.fontSize[
-      clamp(fontLevel - 1, 0, theme.applet?.fontSize?.length - 1)
-    ] || "1rem";
+    style.fontSize[clamp(fontLevel - 1, 0, style.fontSize.length - 1)] ||
+    "1rem";
 
   const data = contents?.[0]?.json[0] || null;
 

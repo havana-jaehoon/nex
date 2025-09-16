@@ -3,10 +3,10 @@ import { createContext, useMemo } from "react";
 import { observer } from "mobx-react-lite";
 import NexConfigStore from "applet/NexConfigStore";
 import {
-  NexTheme,
   NexThemeUser,
   defaultThemeUser,
   defaultTheme,
+  NexTheme,
 } from "type/NexTheme";
 import nexApplets from "applet/nexApplets";
 import NexSelector from "store/NexSelector";
@@ -21,7 +21,7 @@ export interface NexStoreContextValue {
   appMap: Record<string, React.FC<any>>; // key applet  path, value NexApplet
   contentsMap: Record<string, any>; // key contents path, value contents data
   theme: NexTheme;
-  themeUser: NexThemeUser;
+  user: NexThemeUser;
   elementNodeMap: Record<string, any>; // element nodes
   appNodeMap: Record<string, any>; // applet nodes
   selector: NexSelector; //
@@ -32,7 +32,7 @@ export const NexStoreContext = createContext<NexStoreContextValue>({
   appMap: {},
   contentsMap: {},
   theme: defaultTheme,
-  themeUser: defaultThemeUser,
+  user: defaultThemeUser,
   elementNodeMap: {},
   appNodeMap: {},
   selector: new NexSelector(), // 기본값으로 빈 NexSelector 인스턴스
@@ -65,43 +65,38 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
     /*
     const project = useMemo(
       () => collectNode(configStore.projects, "project"),
-      [configStore.projects]
+      [configStore.config.projects]
     );
 */
     const elements = useMemo(
-      () => collectNode(configStore.elements, "element"),
-      [configStore.elements]
+      () => collectNode(configStore.config.elements, "element"),
+      [configStore.config.elements]
     );
 
     const applets = useMemo(
-      () => collectNode(configStore.applets, "applet"),
-      [configStore.applets]
+      () => collectNode(configStore.config.applets, "applet"),
+      [configStore.config.applets]
     );
 
     const contentsMap = useMemo(
-      () => collectNode(configStore.contents, "contents"),
-      [configStore.contents]
+      () => collectNode(configStore.config.contents, "contents"),
+      [configStore.config.contents]
     );
 
-    const themeUser = useMemo(() => {
-      const user = configStore.webThemeUsers.find(
-        (user: any) => user.id === userid
+    const themeUser: NexThemeUser = useMemo(() => {
+      const userNode = configStore.config.webThemeUsers.find(
+        (user: any) => user.user === userid
       );
-      if (!user) {
-        return defaultThemeUser;
-      }
-      return user;
-    }, [configStore.webThemeUsers]);
 
-    const theme = useMemo(() => {
-      const theme = configStore.webThemes.find(
+      return userNode?.user || defaultThemeUser;
+    }, [configStore.config.webThemeUsers]);
+
+    const theme: NexTheme = useMemo(() => {
+      const themeNode = configStore.config.webThemes.find(
         (t: any) => t.name === themeUser.theme
       );
-      if (!theme) {
-        return defaultTheme;
-      }
-      return theme;
-    }, [configStore.webThemes, themeUser]);
+      return themeNode?.theme || defaultTheme;
+    }, [configStore.config.webThemes, themeUser]);
 
     const storeMap = useMemo(() => {
       const storeMap: Record<string, NexDataStore> = {};
@@ -132,8 +127,8 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
       storeMap: storeMap,
       appMap: appMap,
       contentsMap: contentsMap,
-      theme,
-      themeUser,
+      theme: theme,
+      user: themeUser,
       elementNodeMap: elements,
       appNodeMap: applets,
       selector,

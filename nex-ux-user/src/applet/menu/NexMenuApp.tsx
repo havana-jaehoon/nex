@@ -12,7 +12,7 @@ import { clamp } from "utils/util";
 // CSV-Style menu data : type(item | folder), path, name, dispName, description, icon, color, route )
 
 const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
-  const { contents, themeUser, theme } = props;
+  const { contents, user, theme } = props;
 
   const [selectedPath, setSelectedPath] = useState<string>("");
   const color = theme?.menu?.colors[0];
@@ -28,7 +28,7 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
   };
 
   // 1.2 Apllet 에서 사용할 contents 의 폰트 사이즈를 theme 로 부터 가져오기
-  const fontLevel = themeUser?.fontLevel || 5; // Default font level if not provided
+  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
 
   const contentsFontSize =
     theme?.table?.fontSize[

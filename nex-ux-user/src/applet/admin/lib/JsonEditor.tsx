@@ -2,6 +2,7 @@ import { Stack } from "@mui/material";
 import { NexDiv, NexInput, NexLabel } from "component/base/NexBaseComponents";
 import React, { useEffect, useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowRight } from "react-icons/md";
+import { defaultThemeStyle, NexTheme, NexThemeStyle } from "type/NexTheme";
 
 const colorSelection = "#0F6CED";
 const colorTitle = "#EEEEEE";
@@ -16,7 +17,7 @@ interface JsonEditorProps {
   isForbidden?: boolean;
   path?: string;
   depth: number;
-  theme?: any;
+  theme?: NexTheme;
   editName?: (name: string, dispName: string) => void; // 이름 변경시 바로 UI 반영
   data: { [key: string]: any };
   onFocus: (focus: boolean) => void;
@@ -48,10 +49,12 @@ const JsonEditor: React.FC<JsonEditorProps> = ({
     //console.log("changeValue : ", JSON.stringify(newData, null, 2));
   };
 
-  const color = theme?.applet?.colors[0] || "#393c45";
-  const bgColor = theme?.applet?.bgColors[0] || "#e8edf7";
-  const colorInput = theme?.input?.colors[0] || "#393c45";
-  const bgColorInput = theme?.input?.bgColors[0] || "#ffffff";
+  const style = theme?.default || defaultThemeStyle;
+  const styleInput = theme?.input || defaultThemeStyle;
+  const color = style.colors[0];
+  const bgColor = style.bgColors[0];
+  const colorInput = styleInput.colors[0];
+  const bgColorInput = styleInput.bgColors[0];
 
   const setValue = (e: React.KeyboardEvent<HTMLInputElement>) => {
     console.log("setValue : ", e.key);

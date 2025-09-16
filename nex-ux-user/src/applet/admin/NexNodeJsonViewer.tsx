@@ -8,7 +8,7 @@ import { set } from "mobx";
 import { Alert, AlertTitle } from "@mui/material";
 
 const NexNodeJsonViewer: React.FC<NexAppProps> = observer((props) => {
-  const { contents, theme, themeUser } = props;
+  const { contents, theme, user } = props;
 
   // 1. Apllet 의 기본 적인 코드
   // 1.1 NexApplet 의 데이터 유형 체크
@@ -20,7 +20,7 @@ const NexNodeJsonViewer: React.FC<NexAppProps> = observer((props) => {
     return null;
   };
 
-  const fontLevel = themeUser?.fontLevel || 5; // Default font level if not provided
+  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
   const fontSize =
     theme?.applet?.fontSize[
       clamp(fontLevel - 1, 0, theme.applet?.fontSize?.length - 1)

@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { Alert, AlertTitle } from "@mui/material";
 import { NexDiv, NexLabel } from "../component/base/NexBaseComponents";
 
-import { NexTheme } from "type/NexTheme";
+import { defaultThemeStyle, NexTheme } from "type/NexTheme";
 import { clamp } from "utils/util";
 import NexSelector from "store/NexSelector";
 import { NexThemeUser } from "../type/NexTheme";
@@ -24,7 +24,7 @@ export interface NexAppProps {
   contents: any[];
   selector: NexSelector | null; // Optional selector prop for handling selections
   theme?: NexTheme;
-  themeUser?: NexThemeUser;
+  user?: NexThemeUser;
   error?: string | null;
   applet?: any;
   elements?: any[]; // Optional elements prop for additional data
@@ -36,7 +36,7 @@ export interface NexAppProps {
 }
 
 const NexApplet: React.FC<NexAppProps> = observer(
-  ({ name, error, theme, themeUser, applet, children }) => {
+  ({ name, error, theme, user, applet, children }) => {
     //console.log("NexApplet theme: ", theme);
     // Applet 의 공통 속성을 적용하는 코드
 
@@ -49,19 +49,19 @@ const NexApplet: React.FC<NexAppProps> = observer(
       );
     }
 
-    const fontLevel = themeUser?.fontLevel || 5; // Default font level if not provided
+    const fontLevel = user?.fontLevel || 5; // Default font level if not provided
 
+    const style = theme?.applet || defaultThemeStyle;
     const fontSize =
-      theme?.applet?.fontSize[
-        clamp(fontLevel, 0, theme.applet?.fontSize?.length - 1)
-      ] || "1rem";
+      style?.fontSize[clamp(fontLevel, 0, style?.fontSize?.length - 1)] ||
+      "1rem";
 
-    const color = theme?.applet?.colors?.[0] || "#000000";
-    const bgColor = theme?.applet?.bgColors?.[0] || "#FFFFFF";
-    const contentsBGColor = theme?.applet?.bgColors?.[1] || "#FFFFFF";
+    const color = style?.colors?.[0] || "#000000";
+    const bgColor = style?.bgColors?.[0] || "#FFFFFF";
+    const contentsBGColor = style?.bgColors?.[1] || "#FFFFFF";
 
-    const gap = theme?.applet?.gap || "8px";
-    const padding = theme?.applet?.padding || "8px";
+    const gap = style?.gap || "8px";
+    const padding = style?.padding || "8px";
     return (
       <NexDiv width="100%" height="100%">
         <NexDiv
@@ -70,8 +70,8 @@ const NexApplet: React.FC<NexAppProps> = observer(
           height="100%"
           color={color}
           bgColor={bgColor}
-          fontFamily={theme?.applet?.fontFamily}
-          borderRadius={theme?.applet?.borderRadius || "8px"}
+          fontFamily={style?.fontFamily}
+          borderRadius={style?.borderRadius || "8px"}
           padding={padding}
           fontSize={fontSize}
         >

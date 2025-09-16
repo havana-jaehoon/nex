@@ -23,8 +23,8 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
       contentsMap,
       appNodeMap,
       elementNodeMap,
-      theme,
-      themeUser,
+      theme: theme,
+      user: user,
       selector,
     } = context;
 
@@ -89,7 +89,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
               feature: condition.feature,
               value: selector.get(condition.key),
               method: condition.method || "match",
-            } ));
+            }));
             newData = store.getValuesByCondition(conds) || null;
           } else {
             newData = store.getData();
@@ -165,7 +165,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
             name: name,
             contents: contents,
             selector: selector,
-            themeUser: themeUser,
+            user: user,
             theme: theme,
             applet: appNodeMap[appletPath],
             elements: elementList,

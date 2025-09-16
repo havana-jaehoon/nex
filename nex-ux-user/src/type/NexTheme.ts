@@ -27,9 +27,7 @@ export interface NexThemeStyle {
 }
 
 export interface NexTheme {
-  name: string;
-  //  fontLevel: number; // fontSize Index (Optional level for theme hierarchy)
-  common: NexThemeStyle;
+  default: NexThemeStyle;
   applet?: NexThemeStyle; // Optional applet style, can be used for specific applet themes
   button?: NexThemeStyle;
   input?: NexThemeStyle;
@@ -39,47 +37,44 @@ export interface NexTheme {
 }
 
 export interface NexThemeUser {
-  name: string; // User-defined theme name
   id: string; // User ID associated with the theme
   theme: string; // The theme Name from NexTheme
-
   fontLevel: number; // Font size level for the user, default is 5 (0~9)
 }
 
 export const defaultThemeUser: NexThemeUser = {
-  name: "default",
   id: "default",
   theme: "default",
-
   fontLevel: 5, // Default font level
 };
 
+export const defaultThemeStyle: NexThemeStyle = {
+  colors: ["#393c45", "#03dac6"],
+  bgColors: ["#eeeeee", "#e8edf7"],
+  bdColors: ["#cccccc", "#ccccee"], // 테두리 색상, 여러 색상을 지원하기 위해 배열로 변경
+  activeColors: ["#393c45", "#045bac"],
+  activeBgColors: ["#e8edf7", "#ffffff"], // 활성화 배경색, 여러 색상을 지원하기 위해 배열로 변경
+  hoverColors: ["#393c45", "#045bac"],
+  hoverBgColors: ["#e8edf7", "#ffffff"], // 호버 배경색, 여러 색상을 지원하기 위해 배열로 변경
+  fontFamily: "Arial, sans-serif",
+  gap: "1rem",
+  padding: "0.2rem",
+  fontSize: [
+    "0.5rem",
+    "0.6rem",
+    "0.7rem",
+    "0.8rem",
+    "0.9rem",
+    "1rem",
+    "1.25rem",
+    "1.5rem",
+    "1.75rem",
+    "2rem",
+  ], // 0~N levels of font size
+};
+
 export const defaultTheme: NexTheme = {
-  name: "default",
-  common: {
-    colors: ["#393c45", "#03dac6"],
-    bgColors: ["#eeeeee", "#e8edf7"],
-    bdColors: ["#cccccc", "#ccccee"], // 테두리 색상, 여러 색상을 지원하기 위해 배열로 변경
-    activeColors: ["#393c45", "#045bac"],
-    activeBgColors: ["#e8edf7", "#ffffff"], // 활성화 배경색, 여러 색상을 지원하기 위해 배열로 변경
-    hoverColors: ["#393c45", "#045bac"],
-    hoverBgColors: ["#e8edf7", "#ffffff"], // 호버 배경색, 여러 색상을 지원하기 위해 배열로 변경
-    fontFamily: "Arial, sans-serif",
-    gap: "1rem",
-    padding: "0.2rem",
-    fontSize: [ 
-      "0.5rem",
-      "0.6rem",
-      "0.7rem",
-      "0.8rem",
-      "0.9rem",
-      "1rem",
-      "1.25rem",
-      "1.5rem",
-      "1.75rem",
-      "2rem",
-    ], // 0~N levels of font size
-  },
+  default: defaultThemeStyle,
   applet: {
     colors: ["#393c45", "#045bac"],
     bgColors: ["#e8edf7", "#ffffff"],

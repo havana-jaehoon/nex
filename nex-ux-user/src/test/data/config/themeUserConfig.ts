@@ -1,24 +1,18 @@
-import { NexThemeUser } from "type/NexTheme";
+import { NexNodeType, NexWebThemeUserNode } from "type/NexNode";
 
-export const themeUserConfig: NexThemeUser[] = [
+export const themeUserConfig: NexWebThemeUserNode[] = [
   // Default user for testing purposes
   {
     name: "default",
-    id: "default",
-    fontLevel: 6,
-    theme: "default",
-  },
-
-  {
-    name: "user1",
-    id: "user1",
-    fontLevel: 4,
-    theme: "default",
-  },
-  {
-    name: "user2",
-    id: "user2",
-    fontLevel: 3,
-    theme: "dark",
+    dispName: "Default User Theme",
+    description: "Default User Theme",
+    type: NexNodeType.WEBUSER,
+    icon: "user",
+    color: "#33A1FF",
+    user: {
+      id: "default",
+      fontLevel: 6,
+      theme: "default",
+    },
   },
 ];

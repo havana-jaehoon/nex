@@ -1,3 +1,4 @@
+import argparse
 import time
 
 from command.auth.auth_agent import AuthAgent
@@ -14,8 +15,12 @@ from util.log_util import Logger
 
 if __name__ == '__main__':
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--config-dir', type=str, default=None, help='Configuration directory path')
+    args = parser.parse_args()
+
     # load system-info
-    system_info = SystemInfoMgr()
+    system_info = SystemInfoMgr(config_dir=args.config_dir) if args.config_dir else SystemInfoMgr()
     system_name = system_info.agent_id if system_info.agent_id else f'{system_info.own_project_name}_{system_info.own_system_name}'
 
     # init logger

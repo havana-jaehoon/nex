@@ -6,13 +6,14 @@ import NexApplet, { NexAppProps } from "applet/NexApplet";
 import { observer } from "mobx-react-lite";
 import { Stack } from "@mui/material";
 import { clamp } from "utils/util";
+import { defaultThemeStyle } from "type/NexTheme";
 
 const colorSelection = "#0F6CED";
 
 const borderColorSection = "#555555";
 
 const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
-  const { contents, theme, themeUser } = props;
+  const { contents, theme, user } = props;
 
   const [isMouseEnter, setMouseEnter] = useState(false);
   const [isFocus, setFocus] = useState(false);
@@ -28,14 +29,15 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
   };
   const data = contents?.[0]?.json[0] || null;
 
-  const fontLevel = themeUser?.fontLevel || 5; // Default font level if not provided
+  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
+  const style = theme?.default || defaultThemeStyle;
   const fontSize =
-    theme?.applet?.fontSize[
-      clamp(fontLevel - 1, 0, theme.applet?.fontSize?.length - 1)
+    style?.fontSize[
+      clamp(fontLevel - 1, 0, style?.fontSize?.length - 1)
     ] || "1rem";
 
-  const color = theme?.applet?.colors[0] || "#393c45";
-  const bgColor = theme?.applet?.bgColors[0] || "#e8edf7";
+  const color = style?.colors[0] || "#393c45";
+  const bgColor = style?.bgColors[0] || "#e8edf7";
 
   const [node, setNode] = useState<any>(data);
   useEffect(() => {

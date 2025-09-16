@@ -6,8 +6,8 @@ from util.singleton import SingletonInstance
 
 class SystemInfoMgr(SingletonInstance):
 
-    def _on_init_once(self):
-        config_subdir = 'config'
+    def _on_init_once(self, config_dir=None):
+        config_subdir = config_dir if config_dir else 'config'
         log_subdir = 'logs'
         src_subdir = 'src'
 

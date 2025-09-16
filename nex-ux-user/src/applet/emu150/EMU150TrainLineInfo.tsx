@@ -10,7 +10,7 @@ import NexLineChartApp from "../chart/NexLineChartApp";
 import EMU150TrainAccordion from "./lib/EMU150TrainAccordion";
 
 const EMU150TrainLineInfoApp: React.FC<NexAppProps> = observer((props) => {
-  const { contents, theme, applet, themeUser } = props;
+  const { contents, theme, applet, user } = props;
 
   // 1. Apllet 의 기본 적인 코드
   // 1.1 NexApplet 의 데이터 유형 체크
@@ -22,7 +22,7 @@ const EMU150TrainLineInfoApp: React.FC<NexAppProps> = observer((props) => {
   };
 
   // 1.2 Apllet 에서 사용할 contents 의 폰트 사이즈를 theme 로 부터 가져오기
-  const fontLevel = themeUser?.fontLevel || 5; // Default font level if not provided
+  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
 
   const contentsFontSize =
     theme?.table?.fontSize[

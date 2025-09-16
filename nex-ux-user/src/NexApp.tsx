@@ -17,7 +17,7 @@ interface NexAppProps {
 const NexApp: React.FC<NexAppProps> = observer((props) => {
   const { configStore } = props;
 
-  const section = configStore?.websections[0];
+  const section = configStore?.config.websections[0];
 
   //console.log("NexApp section:", JSON.stringify(section, null, 2));
   return (

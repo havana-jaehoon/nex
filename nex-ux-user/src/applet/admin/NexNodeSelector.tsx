@@ -9,7 +9,7 @@ import { MdAdd, MdDelete, MdEdit } from "react-icons/md";
 import { clamp } from "utils/util";
 
 const NexNodeSelctor: React.FC<NexAppProps> = observer((props) => {
-  const { contents, theme, themeUser, onSelect, onChange, onAdd, onRemove } =
+  const { contents, theme, user, onSelect, onChange, onAdd, onRemove } =
     props;
 
   const [selectedIndexs, setSelectedIndexs] = useState<number[]>([]);
@@ -35,7 +35,7 @@ const NexNodeSelctor: React.FC<NexAppProps> = observer((props) => {
     return null;
   };
 
-  const fontLevel = themeUser?.fontLevel || 5; // Default font level if not provided
+  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
   const fontSize =
     theme?.applet?.fontSize[
       clamp(fontLevel, 0, theme.applet?.fontSize?.length - 1)

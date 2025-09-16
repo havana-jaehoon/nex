@@ -12,7 +12,7 @@ import { clamp } from "utils/util";
 
 interface NexNodeItemProps {
   theme?: NexTheme; // Optional theme prop, can be used for styling
-  themeUser?: NexThemeUser; // Optional theme user prop, can be used for user-specific theme settings
+  user?: NexThemeUser; // Optional theme user prop, can be used for user-specific theme settings
   depts: number;
   path: string; // Optional path prop, can be used for routing
   node: NexNode;
@@ -25,7 +25,7 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
   path,
   selectedPath,
   theme,
-  themeUser,
+  user,
   depts,
   node,
   onClick,
@@ -51,17 +51,17 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
   const color =
     depts !== 0
       ? "inherit"
-      : theme?.menu?.colors[0] || theme?.common.colors[0] || "inherit";
+      : theme?.menu?.colors[0] || theme?.default.colors[0] || "inherit";
   const bgColor =
     depts !== 0
       ? "inherit"
-      : theme?.menu?.bgColors[0] || theme?.common.bgColors[0] || "#FFFFFF";
+      : theme?.menu?.bgColors[0] || theme?.default.bgColors[0] || "#FFFFFF";
 
   const selectedColor = theme?.menu?.activeColors[0] || "blue";
   const selectedBgColor =
     depts !== 0 ? "inherit" : theme?.menu?.activeBgColors[0] || "#444444";
 
-  const fontLevel = (themeUser?.fontLevel || 5) - depts; // Default font level if not provided
+  const fontLevel = (user?.fontLevel || 5) - depts; // Default font level if not provided
 
   const fontSize =
     theme?.applet?.fontSize[

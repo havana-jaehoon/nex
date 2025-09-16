@@ -1,9 +1,4 @@
-import {
-  defaultTheme,
-  defaultThemeUser,
-  NexTheme,
-  NexThemeUser,
-} from "./NexTheme";
+import { NexTheme, NexThemeStyle, NexThemeUser } from "./NexTheme";
 
 export enum NexNodeType {
   FOLDER = "folder",
@@ -180,6 +175,14 @@ export interface NexWebSectionNode extends NexNode {
   children?: NexWebSectionNode[]; // Array of child sections
 }
 
+export interface NexWebThemeNode extends NexNode {
+  theme: NexTheme;
+}
+
+export interface NexWebThemeUserNode extends NexNode {
+  user: NexThemeUser; // User ID associated with the theme
+}
+
 export const initObjects = {
   [NexNodeType.PROJECT]: {
     name: "",
@@ -191,8 +194,8 @@ export const initObjects = {
     stores: [],
     processors: [],
     webpages: [],
-    webthemes: [defaultTheme],
-    webthemeUsers: [defaultThemeUser],
+    webthemes: [],
+    webthemeUsers: [],
     applets: [],
   } as NexProjectNode,
 

@@ -13,9 +13,10 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { TableFooter, TablePagination } from "@mui/material";
 import { clamp } from "../../utils/util";
+import { defaultThemeStyle } from "type/NexTheme";
 
 const NexTableApp: React.FC<NexAppProps> = observer((props) => {
-  const { contents, themeUser, theme } = props;
+  const { contents, user, theme } = props;
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -29,12 +30,11 @@ const NexTableApp: React.FC<NexAppProps> = observer((props) => {
   };
 
   // 1.2 Apllet 에서 사용할 contents 의 폰트 사이즈를 theme 로 부터 가져오기
-  const fontLevel = themeUser?.fontLevel || 5; // Default font level if not provided
-
+  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
+  const style = theme?.table || theme?.default || defaultThemeStyle;
   const contentsFontSize =
-    theme?.table?.fontSize[
-      clamp(fontLevel - 1, 0, theme.table.fontSize?.length - 1)
-    ] || "1rem";
+    style?.fontSize[clamp(fontLevel - 1, 0, style?.fontSize?.length - 1)] ||
+    "1rem";
 
   // 1.3 Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
   // 향후 구현 필요

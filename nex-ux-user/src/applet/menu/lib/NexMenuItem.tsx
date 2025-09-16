@@ -5,7 +5,7 @@ import {
   MdKeyboardArrowRight,
   MdOutlineArrowLeft,
 } from "react-icons/md";
-import { NexTheme } from "type/NexTheme";
+import { defaultThemeStyle, NexTheme } from "type/NexTheme";
 import { NexMenuNode } from "./NexMenuNode";
 
 interface NexMenuItemProps {
@@ -49,34 +49,17 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
     }
   }, [isSelectedRoot]);
 
-  const color =
-    depts !== 0
-      ? "inherit"
-      : theme?.menu?.colors[0] || theme?.common.colors[0] || "inherit";
-  const bgColor =
-    depts !== 0
-      ? "inherit"
-      : theme?.menu?.bgColors[0] || theme?.common.bgColors[0] || "#FFFFFF";
+  const defaultStyle = theme?.default || defaultThemeStyle;
+  const menuStyle = theme?.menu || defaultThemeStyle;
 
-  const selectedColor = theme?.menu?.activeColors[0] || "blue";
-  const selectedBgColor =
-    depts !== 0 ? "inherit" : theme?.menu?.activeBgColors[0] || "#444444";
+  const color = depts !== 0 ? "inherit" : defaultStyle.colors[0];
+  const bgColor = depts !== 0 ? "inherit" : menuStyle.bgColors[0];
 
-  const fontSizeList = theme?.menu?.fontSize ||
-    theme?.common.fontSize || [
-      "0.5rem",
-      "0.6rem",
-      "0.7rem",
-      "0.8rem",
-      "0.9rem",
-      "1rem",
-      "1.25rem",
-      "1.5rem",
-      "1.75rem",
-      "2rem",
-    ];
-  const fontSizeIndex = Math.max(0, fontSizeList.length - 3 - depts);
-  const fontSize = fontSizeList[fontSizeIndex];
+  const selectedColor = menuStyle.activeColors[0];
+  const selectedBgColor = depts !== 0 ? "inherit" : menuStyle.activeBgColors[0];
+
+  const fontSizeIndex = Math.max(0, defaultStyle.fontSize.length - 3 - depts);
+  const fontSize = defaultStyle.fontSize[fontSizeIndex];
 
   //console.log("theme:", theme)
 

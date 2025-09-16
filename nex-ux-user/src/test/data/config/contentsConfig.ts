@@ -1,7 +1,13 @@
-import { NexCondition, NexContentsNode, NexNodeType, NexSelection } from "type/NexNode";
+import {
+  NexCondition,
+  NexContentsNode,
+  NexNode,
+  NexNodeType,
+  NexSelection,
+} from "type/NexNode";
 
 // Common Contents
-const menuContents :NexContentsNode = {
+const menuContents: NexContentsNode = {
   name: "menu",
   dispName: "Menu",
   type: NexNodeType.CONTENTS,
@@ -10,7 +16,7 @@ const menuContents :NexContentsNode = {
   selection: [],
 };
 
-const sampleContents :NexContentsNode = {
+const sampleContents: NexContentsNode = {
   name: "sample",
   dispName: "Sample",
   type: NexNodeType.CONTENTS,
@@ -20,12 +26,12 @@ const sampleContents :NexContentsNode = {
 };
 
 //emu150cbm Contents
-const lineSelection : NexSelection = {
+const lineSelection: NexSelection = {
   key: "line",
   feature: "line",
 };
 
-const lineCondition : NexCondition = {
+const lineCondition: NexCondition = {
   key: "line",
   feature: "line",
   method: "match",
@@ -404,22 +410,22 @@ const oneWebsectionContents = {
   selections: [],
 };
 
-export const contentsConfig = [
+export const contentsConfig: NexNode[] = [
   {
-    type: "folder",
+    type: NexNodeType.FOLDER,
     name: "common",
     dispName: "공통",
     description: "공통 폴더",
     children: [menuContents, sampleContents],
   },
   {
-    type: "folder",
+    type: NexNodeType.FOLDER,
     name: "emu150cbm",
     dispName: "emu150cbm",
     description: "emu150cbm 용 컨텐츠 폴더",
     children: [
       {
-        type: "folder",
+        type: NexNodeType.FOLDER,
         name: "config",
         dispName: "설정 데이터",
         description: "설정 데이터 컨텐츠 폴더",
@@ -434,7 +440,7 @@ export const contentsConfig = [
         ],
       },
       {
-        type: "folder",
+        type: NexNodeType.FOLDER,
         name: "status",
         dispName: "상태 데이터",
         description: "상태 데이터 컨텐츠 폴더",
@@ -445,7 +451,7 @@ export const contentsConfig = [
         ],
       },
       {
-        type: "folder",
+        type: NexNodeType.FOLDER,
         name: "history",
         dispName: "이력 데이터",
         description: "이력 데이터 컨텐츠 폴더",
@@ -458,7 +464,7 @@ export const contentsConfig = [
         ],
       },
       {
-        type: "folder",
+        type: NexNodeType.FOLDER,
         name: "event",
         dispName: "이벤트 데이터",
         description: "이벤트 데이터 컨텐츠 폴더",
@@ -470,7 +476,7 @@ export const contentsConfig = [
     ],
   },
   {
-    type: "folder",
+    type: NexNodeType.FOLDER,
     name: "admin",
     dispName: "Admin",
     description: "Admin 용 컨텐츠 폴더",

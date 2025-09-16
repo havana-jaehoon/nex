@@ -20,6 +20,8 @@ class ElementEntity:
         self._element_mgr = element_mgr
         self._element_cfg = ElementConfig(folder_tree, element_cfg)
 
+        # print self
+        print(self)
         # create new-scheme
         if folder_tree:
             cheme_name = f'{"_".join(folder_tree)}_{self._element_cfg.name}'.lower()

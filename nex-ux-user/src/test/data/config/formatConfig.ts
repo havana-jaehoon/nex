@@ -2770,7 +2770,7 @@ export const adminFormatConfig: NexNode[] = [
   //...emu150FormatData,
 ];
 
-export const formatConfig: NexNode[] = [
+export const formatConfig: (NexFolderNode | NexFormatNode)[] = [
   {
     name: "web",
     dispName: "web 데이터 포맷",

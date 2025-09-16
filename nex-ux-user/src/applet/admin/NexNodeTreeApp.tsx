@@ -10,8 +10,7 @@ import { clamp } from "utils/util";
 import NexModalNodeEditer from "modal/NexModalNodeEditer";
 
 const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
-  const { contents, theme, themeUser, onSelect, onChange, onAdd, onRemove } =
-    props;
+  const { contents, theme, user, onSelect, onChange, onAdd, onRemove } = props;
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isAdding, setIsAdding] = useState<boolean>(false);
@@ -28,7 +27,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     return null;
   };
 
-  const fontLevel = themeUser?.fontLevel || 5; // Default font level if not provided
+  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
   const fontSize =
     theme?.applet?.fontSize[
       clamp(fontLevel, 0, theme.applet?.fontSize?.length - 1)
@@ -113,7 +112,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
               depts={0}
               node={node}
               theme={theme}
-              themeUser={themeUser}
+              user={user}
               path={node.path}
               onClick={handleClick}
               selectedPath={selectedPath}

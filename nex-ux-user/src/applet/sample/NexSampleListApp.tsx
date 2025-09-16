@@ -11,7 +11,7 @@ import NexDataStore from "applet/NexDataStore";
 //import { fieldPaths } from "test/data/testProjects";
 
 const NexSampleListApp: React.FC<NexAppProps> = observer((props) => {
-  const { contents, themeUser, theme } = props;
+  const { contents, user, theme } = props;
   // 1. Apllet 의 기본 적인 코드
   // 1.1 NexApplet 의 데이터 유형 체크
   const errorMsg = () => {
@@ -22,11 +22,11 @@ const NexSampleListApp: React.FC<NexAppProps> = observer((props) => {
   };
 
   // 1.2 Apllet 에서 사용할 contents 의 폰트 사이즈를 theme 로 부터 가져오기
-  const fontLevel = themeUser?.fontLevel || 5; // Default font level if not provided
+  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
 
   const contentsFontSize =
-    theme?.table?.fontSize[
-      clamp(fontLevel - 1, 0, theme.table.fontSize?.length - 1)
+    theme?.default?.fontSize[
+      clamp(fontLevel - 1, 0, theme?.default?.fontSize?.length - 1)
     ] || "1rem";
 
   // 1.3 Freatures 에서 feature 별 Icon, color 정보 등을 가져오기

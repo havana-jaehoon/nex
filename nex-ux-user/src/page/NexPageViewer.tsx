@@ -4,6 +4,7 @@ import { NexDiv, NexLabel } from "../component/base/NexBaseComponents";
 import { Route, Routes } from "react-router-dom";
 import { NexStoreContext } from "provider/NexStoreProvider";
 import NexAppProvider from "applet/NexAppProvider";
+import { defaultThemeStyle } from "type/NexTheme";
 
 interface NexPageViewerProps {
   section: any;
@@ -22,8 +23,10 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
   const isRoutes = section && section.isRoutes === true;
   const isContents = section && section.contents;
   //console.log("NexPageViewer section:", JSON.stringify(section, null, 2));
-  const color = theme?.common?.colors[0] || "#FF0000";
-  const bgColor = theme?.common?.bgColors[0] || "#11FFFF";
+
+  const style = theme?.default || defaultThemeStyle;
+  const color = style.colors[0];
+  const bgColor = style.bgColors[0];
 
   if (!section) return null;
   //console.log("### NexPageViewer:", JSON.stringify(section, null, 2));
