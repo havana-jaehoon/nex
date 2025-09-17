@@ -11,7 +11,7 @@ from api.api_proc import ApiReq
 from util.pi_http.http_server import HttpServer
 from util.log_util import Logger
 
-
+from command.admin_mgr import AdminMgr
 
 if __name__ == '__main__':
 
@@ -39,6 +39,8 @@ if __name__ == '__main__':
         element_mgr = ElementMgr()
         cmd_mgr = CmdMgr(element_mgr)
 
+        admin_mgr = AdminMgr()  # admin command manager
+
         # auth and provisioning (only for agent mode)
         if system_info.agent_id:
             AuthAgent.auth_req(system_info, ApiReq())
@@ -47,6 +49,7 @@ if __name__ == '__main__':
         http_server = HttpServer(system_info.ip, system_info.port)
         http_server.add_dynamic_rules(element_mgr.get_query_handlers())
         http_server.add_dynamic_rules(cmd_mgr.get_query_handlers())
+        http_server.add_dynamic_rules(admin_mgr.get_query_handlers())
         http_server.start()
 
         # element schedule start

@@ -2,9 +2,9 @@ import { NexAppletNode, NexFolderNode, NexNodeType } from "type/NexNode";
 
 export const appletConfig: (NexFolderNode | NexAppletNode)[] = [
   {
-    name: "menu",
-    dispName: "Menu",
-    description: "Menu Applet 폴더",
+    name: "common",
+    dispName: "공용 폴더",
+    description: "공용 폴더",
     type: NexNodeType.FOLDER,
     icon: "",
     color: "",

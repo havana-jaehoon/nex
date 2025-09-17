@@ -1,0 +1,8 @@
+{
+    "name": "common",
+    "dispName": "공용폴더",
+    "description": "Applet 공용 폴더",
+    "type": "folder",
+    "icon": "",
+    "color": ""
+}
