@@ -1,15 +1,12 @@
-import threading, re
+import threading
 import pandas as pd
-from typing import List, Tuple
+from typing import Dict, Tuple, Optional
 from fastapi import APIRouter, Request
 from starlette.responses import JSONResponse, PlainTextResponse, Response
 
-from util.pi_http.http_util import HttpUtil
-from util.pi_http.http_handler import BodyData, Server_Dynamic_Handler, HandlerResult, CSVLike
+from util.pi_http.http_util import HttpUtil, HttpException
+from util.pi_http.http_handler import BodyData, Server_Dynamic_Handler, HandlerResult, HandlerArgs
 from util.log_util import Logger
-
-
-Rule = Tuple[re.Pattern, Server_Dynamic_Handler, dict]
 
 
 def _http_response(result: HandlerResult) -> Response:
@@ -28,6 +25,38 @@ def _http_response(result: HandlerResult) -> Response:
         return PlainTextResponse(content=body, status_code=status, headers=headers, media_type=media or "text/plain")
     return Response(status_code=status, headers=headers)
 
+async def _get_body_from_request(req: Request) -> Optional[BodyData]:
+    content_type = req.headers.get("content-type", "")
+    # content_encoding = req.headers.get("content-encoding", "").lower()
+    media_type, charset = HttpUtil.parse_content_type_header(content_type)
+    try:
+        if req.method in ("POST", "PUT", "PATCH"):
+            if media_type == "application/json":
+                body_data = await req.json()
+            elif media_type == "text/csv":
+                body_data = []
+                async for csv_row in HttpUtil.iter_csv_rows_from_stream(req.stream(), encoding=charset):
+                    body_data.append(csv_row)
+                # suffix = ".csv.gz" if "gzip" in content_encoding else ".csv"
+                # path = await HttpUtil.spool_body_to_temp(req.stream(), suffix=suffix)
+                # body_data = HttpUtil.iter_csv_rows_from_path(path, encoding=charset)
+            else:
+                raise HttpException(f"Unsupported media type: {media_type}", 415)
+            return body_data
+        else:
+            return None
+    except Exception as e:
+        raise HttpException(f"exception : {e}", 500)
+
+async def _encode_reqHandler_args(request: Request) -> HandlerArgs:
+    body_data = await _get_body_from_request(request)
+    return HandlerArgs(request.method,
+                       request.path_params['full_path'],
+                       dict(request.query_params),
+                       dict(request.headers),
+                       request.cookies,
+                       body_data)
+
 
 class HealthController:
 
@@ -42,54 +71,43 @@ class DynamicController:
 
     def __init__(self):
         self._logger = Logger()
-        self._routes: List[Rule] = []
+        self._routes: Dict[str, Tuple[Server_Dynamic_Handler, dict]] = {}
         self._lock = threading.Lock()
 
-    def add_route(self, pattern: str, handler: Server_Dynamic_Handler, kwargs: dict = None):
-        compiled = re.compile(pattern)
+    def add_route(self, path: str, handler: Server_Dynamic_Handler, kwargs: dict = None):
         with self._lock:
-            self._routes.append((compiled, handler, kwargs))
+            self._routes[path] = (handler, kwargs)
 
-    def remove_route(self, pattern: str):
-        compiled = re.compile(pattern)
+    def remove_route(self, path: str):
         with self._lock:
-            self._routes = [(p, h, k) for (p, h, k) in self._routes if p.pattern != compiled.pattern]
+            del self._routes[path]
 
     async def route(self, req: Request, full_path: str) -> Response:
-        content_type = req.headers.get("content-type", "")
-        # content_encoding = req.headers.get("content-encoding", "").lower()
-        media_type, charset = HttpUtil.parse_content_type_header(content_type)
-        body_data: BodyData = None
+        # encode args
         try:
-            if req.method in ("POST", "PUT", "PATCH"):
-                if media_type == "application/json":
-                    body_data = await req.json()
-                elif media_type == "text/csv":
-                    body_data = []
-                    async for csv_row in HttpUtil.iter_csv_rows_from_stream(req.stream(), encoding=charset):
-                        body_data.append(csv_row)
-                    # suffix = ".csv.gz" if "gzip" in content_encoding else ".csv"
-                    # path = await HttpUtil.spool_body_to_temp(req.stream(), suffix=suffix)
-                    # body_data = HttpUtil.iter_csv_rows_from_path(path, encoding=charset)
-                else:
-                    self._logger.log_error(f"HttpServer : route({full_path}) : fail : Unsupported media type: {media_type}")
-                    return PlainTextResponse(status_code=415, content=f"Unsupported media type: {media_type}")
+            handler_args = await _encode_reqHandler_args(req)
+        except HttpException as e:
+            Logger().log_error(f"HttpServer : route({full_path}) : fail : exception : {e}")
+            return PlainTextResponse(status_code=e.error_code, content=e.message)
+
+        # find handler
+        match_base_path = ""
+        for base_path in self._routes.keys():
+            if HttpUtil.is_match_url(base_path, full_path) and len(base_path) > len(match_base_path):
+                match_base_path = base_path
+        if len(match_base_path) == 0:
+            self._logger.log_error(f"HttpServer : route({full_path}) : fail : No route")
+            return PlainTextResponse(status_code=404, content=f"No route for '{full_path}'")
+        handler, kwargs = self._routes[match_base_path]
+
+        # execute handler
+        try:
+            handler_result = await handler(handler_args, kwargs)
+            self._logger.log_info(f"HttpServer : route({full_path}) : rsp={handler_result.status}")
+            return _http_response(handler_result)
         except Exception as e:
             self._logger.log_error(f"HttpServer : route({full_path}) : fail : exception : {e}")
             return PlainTextResponse(status_code=500, content=f"exception : {e}")
-
-        for pattern, handler, kwargs in list(self._routes):
-            match = pattern.fullmatch(full_path)
-            if match:
-                try:
-                    handler_result = await handler(match, body_data, kwargs)
-                    self._logger.log_info(f"HttpServer : route({full_path}) : rsp={handler_result.status}")
-                    return _http_response(handler_result)
-                except Exception as e:
-                    self._logger.log_error(f"HttpServer : route({full_path}) : fail : exception : {e}")
-                    return PlainTextResponse(status_code=500, content=f"exception : {e}")
-        self._logger.log_error(f"HttpServer : route({full_path}) : fail : No route")
-        return PlainTextResponse(status_code=404, content=f"No route for '{full_path}'")
 
 
 class HttpServerController:
@@ -102,7 +120,7 @@ class HttpServerController:
         self._health_controller = HealthController()
         self._controller_mapping = {
             HttpServerController.SUB_URL_HEALTH:    (self._health_controller.health, ["GET"]),
-            HttpServerController.SUB_URL_DYNAMIC:   (self._dynamic_controller.route, ["GET", "POST", "PUT", "PATCH", "DELETE"])
+            HttpServerController.SUB_URL_DYNAMIC:   (self._dynamic_controller.route, ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"])
         }
         self._controller_register(router)
 
@@ -110,8 +128,8 @@ class HttpServerController:
         for url, (controller, method_list) in self._controller_mapping.items():
             router.add_api_route(url, controller, methods=method_list)
 
-    def add_dynamic_route(self, pattern: str, handler: Server_Dynamic_Handler, kwargs: dict = None):
-        self._dynamic_controller.add_route(pattern, handler, kwargs)
+    def add_dynamic_route(self, path: str, handler: Server_Dynamic_Handler, kwargs: dict = None):
+        self._dynamic_controller.add_route(path, handler, kwargs)
 
-    def del_dynamic_route(self, pattern: str):
-        self._dynamic_controller.remove_route(pattern)
+    def del_dynamic_route(self, path: str):
+        self._dynamic_controller.remove_route(path)

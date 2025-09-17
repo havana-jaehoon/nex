@@ -17,23 +17,14 @@ class BaseElementConfig(ABC):
         self._description: str = json_data.get("description")
         if not self._description: self._description = self._name
         self._id: str = self._gen_id(parent_list, json_data)
-        self._subUrl: str = self._gen_subUrl(parent_list, json_data)
 
     @abstractmethod
     def _gen_id(self, parent_list: List[str], json_data: dict) -> str:
         pass
 
-    @abstractmethod
-    def _gen_subUrl(self, parent_list: List[str], json_data: dict) -> str:
-        pass
-
     @property
     def id(self) -> str:
         return self._id
-
-    @property
-    def subUrl(self) -> str:
-        return self._subUrl
 
     @property
     def name(self) -> str:
@@ -69,16 +60,6 @@ class ElementConfig(BaseElementConfig):
     def _gen_id(self, parent_list: List[str], json_data: dict) -> str:
         parent_path = f'/{"/".join(parent_list)}' if parent_list else ''
         return f'{parent_path}/{self._name}'
-
-    def _gen_subUrl(self, parent_list: List[str], json_data: dict) -> str:
-        parent_path = f'/{"/".join(parent_list)}' if parent_list else ''
-        sub_paths = json_data.get("subPaths")
-        if sub_paths:
-            sub_paths_str = "|".join(sub_paths)
-            return fr'{parent_path}/{self._name}/({sub_paths_str})'
-        else:
-            return f'{parent_path}/{self._name}'
-
 
     def __str__(self):
         return (f'id={self._id}, '

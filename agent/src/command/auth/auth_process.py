@@ -1,4 +1,4 @@
-import re, json, os
+import json, os
 import pandas as pd
 from dataclasses import dataclass, asdict
 from datetime import datetime
@@ -10,8 +10,9 @@ from abc import abstractmethod
 from command.auth.msg_def import AuthElement, AgentInitRequest, AgentTokenRequest
 from command.cmd_process import CmdProcess
 from system_info import SystemInfoMgr
-from util.pi_http.http_handler import HandlerResult, BodyData
+from util.pi_http.http_handler import HandlerResult, HandlerArgs, BodyData
 from util.log_util import Logger
+from util.pi_http.http_util import HttpUtil
 
 
 @dataclass
@@ -101,19 +102,19 @@ class AuthProcess(CmdProcess):
         return agent_id, handler_result, agent_access
 
     async def process(self,
-                      exp: re.Match,
-                      body: BodyData,
+                      handler_args: HandlerArgs,
                       inputs: List[Tuple[str, pd.DataFrame]],
                       kwargs: dict) -> Tuple[HandlerResult, List[pd.DataFrame]]:
         handler_result = HandlerResult()
         df_list: List[pd.DataFrame] = []
         agent_id = ''
         try:
-            sub_path = exp.group(1)
+            cmd_id = kwargs['cmd_id']
+            sub_path = HttpUtil.get_first_sub_path(cmd_id, handler_args.full_path)
             if sub_path == AuthElement.AUTH_INIT_ELEMENT:
-                agent_id, handler_result = self._proc_initiate(body, inputs[0][1])
+                agent_id, handler_result = self._proc_initiate(handler_args.body, inputs[0][1])
             elif sub_path == AuthElement.AUTH_TOKEN_ELEMENT:
-                agent_id, handler_result, agent_access = self._proc_token(body, inputs[0][1])
+                agent_id, handler_result, agent_access = self._proc_token(handler_args.body, inputs[0][1])
                 if handler_result.status == 200:
                     df_list.append(pd.DataFrame([asdict(agent_access)]))
             else:
@@ -125,7 +126,7 @@ class AuthProcess(CmdProcess):
             handler_result.status = 400
             handler_result.body = 'body is not valid'
         except json.JSONDecodeError:
-            Logger().log_error(f'AuthProcess : req_custom_handler : JSON decode failed. Response: {body}')
+            Logger().log_error(f'AuthProcess : req_custom_handler : JSON decode failed. Response: {handler_args.body}')
             handler_result.status = 400
             handler_result.body = 'body is not valid'
         except Exception as e:

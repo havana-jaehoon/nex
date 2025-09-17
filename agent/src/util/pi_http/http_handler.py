@@ -1,4 +1,3 @@
-import re
 import pandas as pd
 from typing import List, Union, Dict, Callable, Awaitable, Optional, Any
 from dataclasses import dataclass, field
@@ -16,4 +15,15 @@ class HandlerResult:
     headers: Dict[str, str] = field(default_factory=dict)
     media_type: Optional[str] = None  #"application/json", "text/csv"
 
-Server_Dynamic_Handler = Callable[[re.Match, Optional[BodyData], dict], Awaitable[HandlerResult]]
+
+@dataclass
+class HandlerArgs:
+    method: str
+    full_path: str
+    query_params: Dict[str, str] = field(default_factory=dict)
+    headers: Dict[str, str] = field(default_factory=dict)
+    cookies: Dict[str, str] = field(default_factory=dict)
+    body: Optional[BodyData] = None
+
+
+Server_Dynamic_Handler = Callable[[HandlerArgs, dict], Awaitable[HandlerResult]]

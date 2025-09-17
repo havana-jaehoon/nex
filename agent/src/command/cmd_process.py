@@ -1,9 +1,9 @@
 import re
 import pandas as pd
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 from abc import ABC, abstractmethod
 
-from util.pi_http.http_handler import HandlerResult, BodyData
+from util.pi_http.http_handler import HandlerResult, HandlerArgs
 
 
 class CmdProcess(ABC):
@@ -13,8 +13,17 @@ class CmdProcess(ABC):
 
     @abstractmethod
     async def process(self,
-                      exp: re.Match,
-                      body: BodyData,
+                      handler_args: HandlerArgs,
                       inputs: List[Tuple[str, pd.DataFrame]],
                       kwargs: dict) -> Tuple[HandlerResult, List[pd.DataFrame]]:
+        pass
+
+
+class CmdIntervalProcess(ABC):
+
+    def __init__(self):
+        pass
+
+    @abstractmethod
+    def interval_process(self, inputs: List[Tuple[str, pd.DataFrame]], *args, **kwargs) -> Optional[pd.DataFrame]:
         pass

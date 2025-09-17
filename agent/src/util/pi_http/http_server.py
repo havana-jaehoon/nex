@@ -3,7 +3,7 @@ from fastapi import FastAPI, APIRouter
 from typing import Optional, List, Tuple
 
 from util.pi_http.http_server_controller import HttpServerController
-from util.pi_http.http_handler import Server_Dynamic_Handler, BodyData, HandlerResult
+from util.pi_http.http_handler import Server_Dynamic_Handler
 from util.log_util import Logger
 
 
@@ -72,29 +72,10 @@ class HttpServer:
         for rule in rules:
             self.add_dynamic_rule(rule[0], rule[1], rule[2])
 
-    def add_dynamic_rule(self, pattern: str, handler: Server_Dynamic_Handler, kwargs: dict = None):
-        self._controller.add_dynamic_route(pattern, handler, kwargs)
-        self._logger.log_info(f'http server add dynamic rule: {pattern}')
+    def add_dynamic_rule(self, path: str, handler: Server_Dynamic_Handler, kwargs: dict = None):
+        self._controller.add_dynamic_route(path, handler, kwargs)
+        self._logger.log_info(f'http server add dynamic rule: {path}')
 
-    def del_dynamic_rule(self, pattern: str):
-        self._controller.del_dynamic_route(pattern)
-        self._logger.log_info(f'http server del dynamic rule: {pattern}')
-
-
-
-if __name__ == "__main__":
-    import re, time
-
-    async def user_detail(m: re.Match, body_data: BodyData, kwargs: dict) -> HandlerResult:
-        user_id = m.group("user_id")
-        return HandlerResult(status=200, headers={'test_header': f'{user_id}'})
-
-    server = HttpServer(host="0.0.0.0", port=8080)
-    server.add_dynamic_rule(r"^users/(?P<user_id>\d+)$", user_detail, None)
-
-    try:
-        while True:
-            time.sleep(1)
-            pass
-    except KeyboardInterrupt:
-        server.stop(5.0)
+    def del_dynamic_rule(self, path: str):
+        self._controller.del_dynamic_route(path)
+        self._logger.log_info(f'http server del dynamic rule: {path}')

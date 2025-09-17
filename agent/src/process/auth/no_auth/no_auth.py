@@ -1,4 +1,4 @@
-import re, json
+import json
 import pandas as pd
 from datetime import datetime
 from dataclasses import asdict
@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from pydantic import ValidationError
 from command.auth.auth_process import AgentAccess
 from command.cmd_process import CmdProcess
-from util.pi_http.http_handler import HandlerResult, BodyData
+from util.pi_http.http_handler import HandlerResult, HandlerArgs, BodyData
 from util.log_util import Logger
 
 
@@ -21,7 +21,8 @@ class no_auth(CmdProcess):
     def __init__(self):
         super().__init__()
 
-    def _proc(self, body: BodyData, auth_info: pd.DataFrame) -> Tuple[str, HandlerResult, Optional[AgentAccess]]:
+    @staticmethod
+    def _proc(body: BodyData, auth_info: pd.DataFrame) -> Tuple[str, HandlerResult, Optional[AgentAccess]]:
         handler_result = HandlerResult()
         agent_access: Optional[AgentAccess] = None
         if isinstance(body, dict):
@@ -45,15 +46,14 @@ class no_auth(CmdProcess):
         return agent_id, handler_result, agent_access
 
     async def process(self,
-                      exp: re.Match,
-                      body: BodyData,
+                      handler_args: HandlerArgs,
                       inputs: List[Tuple[str, pd.DataFrame]],
                       kwargs: dict) -> Tuple[HandlerResult, List[pd.DataFrame]]:
         handler_result = HandlerResult()
         df_list: List[pd.DataFrame] = []
         agent_id = ''
         try:
-            agent_id, handler_result, agent_access = self._proc(body, inputs[0][1])
+            agent_id, handler_result, agent_access = self._proc(handler_args.body, inputs[0][1])
             if handler_result.status == 200:
                 df_list.append(pd.DataFrame([asdict(agent_access)]))
         except ValidationError as e:
@@ -61,7 +61,7 @@ class no_auth(CmdProcess):
             handler_result.status = 400
             handler_result.body = 'body is not valid'
         except json.JSONDecodeError:
-            Logger().log_error(f'no_auth : req_custom_handler : JSON decode failed. Response: {body}')
+            Logger().log_error(f'no_auth : req_custom_handler : JSON decode failed. Response: {handler_args.body}')
             handler_result.status = 400
             handler_result.body = 'body is not valid'
         except Exception as e:

@@ -1,8 +1,17 @@
 import csv, tempfile, gzip, io
 from typing import AsyncIterator, Iterable, Tuple, Dict
+from urllib.parse import urlparse
+from pathlib import PurePath
 from asyncstdlib import anext   # @@@@@@ only python version < 3.10
 
 from util.pi_http.http_handler import CSVLike, CSVRow
+
+
+class HttpException(Exception):
+    def __init__(self, message: str, error_code: int):
+        self.message = message
+        self.error_code = error_code
+        super().__init__(f"HttpException: {error_code}, {message}")
 
 
 class HttpUtil:
@@ -88,3 +97,36 @@ class HttpUtil:
             writer.writerows(csv_like_data)
             csv_content = string_buffer.getvalue()
         return csv_content
+
+    @staticmethod
+    def is_match_url(base_path: str, full_url: str) -> bool:
+        try:
+            full_url_path = urlparse(full_url).path
+            full_url_path_obj = PurePath(full_url_path)
+            base_path_obj = PurePath(base_path)
+            return full_url_path_obj == base_path_obj or base_path_obj in full_url_path_obj.parents
+        except Exception as e:
+            return False
+
+    @staticmethod
+    def get_first_sub_path(base_path: str, full_url: str) -> str:
+        try:
+            full_url_path = urlparse(full_url).path
+            full_url_path_obj = PurePath(full_url_path)
+            base_path_obj = PurePath(base_path)
+            relative_path = full_url_path_obj.relative_to(base_path_obj)
+            if relative_path.parts:
+                return relative_path.parts[0]
+            else:
+                return ''
+        except Exception as e:
+            return ''
+
+
+if __name__ == '__main__':
+    print(HttpUtil.is_match_url('/api/v1/test', 'http://localhost:8080/api/v1/test?b=1'))
+    print(HttpUtil.is_match_url('/api/v1', 'http://localhost:8080/api/v1/test/?a=1'))
+    print(HttpUtil.is_match_url('/api', 'http://localhost:8080/api/v1/test/?a=1'))
+    print(HttpUtil.is_match_url('/api/v1/tes', 'http://localhost:8080/api/v1/test/?a=1'))
+
+    print('1 '+HttpUtil.get_first_sub_path('/api/v1', 'http://localhost:8080/api/v1/test?b=1'))

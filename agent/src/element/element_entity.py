@@ -1,4 +1,4 @@
-import os, re
+import os
 import pandas as pd
 from typing import List, Tuple
 from apscheduler.schedulers.base import BaseScheduler
@@ -11,7 +11,7 @@ from element.element_process import ElementProcess
 from element.element_cfg import ElementConfig
 from api.api_proc import ApiReq
 from util.module_loader import ModuleLoader
-from util.pi_http.http_handler import HandlerResult, BodyData, Server_Dynamic_Handler
+from util.pi_http.http_handler import HandlerResult, HandlerArgs, Server_Dynamic_Handler
 from util.log_util import Logger
 
 
@@ -20,8 +20,6 @@ class ElementEntity:
         self._element_mgr = element_mgr
         self._element_cfg = ElementConfig(folder_tree, element_cfg)
 
-        # print self
-        print(self)
         # create new-scheme
         if folder_tree:
             cheme_name = f'{"_".join(folder_tree)}_{self._element_cfg.name}'.lower()
@@ -66,9 +64,9 @@ class ElementEntity:
         except Exception as e:
             Logger().log_error(f'ElementEntity({self._element_cfg.id}) : process error : {e}')
 
-    async def _query_handler(self, exp: re.Match, body: BodyData, kwargs: dict) -> HandlerResult:
+    async def _query_handler(self, handler_args: HandlerArgs, kwargs: dict) -> HandlerResult:
         if self._processor and self._processor.is_query_custom_handler:
-            return await self._processor.query_custom_handler(exp, body, kwargs)
+            return await self._processor.query_custom_handler(handler_args, kwargs)
         else:
             # set columns and filter from exp later
             # ??????
@@ -84,9 +82,6 @@ class ElementEntity:
 
     def get_id(self) -> str:
         return self._element_cfg.id if self._element_cfg else ''
-
-    def get_subUrl(self) -> str:
-        return self._element_cfg.subUrl if self._element_cfg else ''
 
     def register_interval(self, scheduler: BaseScheduler):
         if self._element_cfg.processingInterval and self._element_cfg.processingInterval > 0 and self._element_cfg.processingUnit:
@@ -110,6 +105,7 @@ class ElementEntity:
     def get_query_handler(self) -> Tuple[Server_Dynamic_Handler, dict]:
         kwargs = {
             "element_mgr" : self._element_mgr,
+            "element_id" : self._element_cfg.id,
             "get_own_data_func" : self.get_all_data
         }
         return self._query_handler, kwargs

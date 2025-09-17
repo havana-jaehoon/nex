@@ -1,5 +1,7 @@
 import glob, json
 from typing import Dict, List, Tuple
+from apscheduler.schedulers.background  import BackgroundScheduler
+from apscheduler.executors.pool import ThreadPoolExecutor
 
 import const_def
 from system_info import SystemInfoMgr
@@ -15,6 +17,8 @@ class CmdMgr(SingletonInstance):
     def _on_init_once(self, element_mgr: ElementMgr):
         self._logger = Logger()
         self._cmds: Dict[str, CmdEntity] = {}   # key: cmd_id
+        self._scheduler = BackgroundScheduler(timezone='Asia/Seoul')
+        self._scheduler.add_executor(ThreadPoolExecutor(max_workers=20))
         for cmd_file in glob.glob(f'{SystemInfoMgr().config_dir}/command/**/*.json', recursive=True):
             with open(cmd_file, 'r', encoding='utf-8') as f:
                 json_data = json.load(f)
@@ -22,6 +26,7 @@ class CmdMgr(SingletonInstance):
                 cmd_json_list = self._find_cmds_with_top_parent_name(json_data)
                 for cmd_json in cmd_json_list:
                     cmd_entity = CmdEntity(cmd_json[0], cmd_json[1], element_mgr)
+                    # cmd_entity.register_interval(self._scheduler)
                     self._cmds[cmd_entity.get_id()] = cmd_entity
                     self._logger.log_info(f'Cmd is registered: {cmd_entity}')
 
@@ -46,9 +51,16 @@ class CmdMgr(SingletonInstance):
         _traverse(json_data, [])
         return final_result
 
+    def start(self):
+        self._scheduler.start()
+
+    def stop(self):
+        if self._scheduler.running:
+            self._scheduler.shutdown()
+
     def get_query_handlers(self) -> List[Tuple[str, Server_Dynamic_Handler, dict]]:
         return_list = []
         for cmd in self._cmds.values():
             handler, kwargs = cmd.get_query_handler()
-            return_list.append((cmd.get_subUrl(), handler, kwargs))
+            return_list.append((cmd.get_id(), handler, kwargs))
         return return_list

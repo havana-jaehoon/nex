@@ -28,6 +28,7 @@ if __name__ == '__main__':
                     log_file_prefix= system_name,
                     retention_day=system_info.log_retention_day)
 
+    cmd_mgr = None
     element_mgr = None
     http_server = None
     try:
@@ -50,10 +51,12 @@ if __name__ == '__main__':
 
         # element schedule start
         element_mgr.start()
+        cmd_mgr.start()
 
         while True:
             time.sleep(1)
     except (KeyboardInterrupt, SystemExit) as e:
         logger.log_info(f'==================== {system_name} stop : {e} ====================')
+        if cmd_mgr: cmd_mgr.stop()
         if element_mgr: element_mgr.stop()
         if http_server: http_server.stop(5)

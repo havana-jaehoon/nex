@@ -3,7 +3,7 @@ import pandas as pd
 from typing import Optional, List, Tuple
 from abc import ABC, abstractmethod
 
-from util.pi_http.http_handler import HandlerResult, BodyData
+from util.pi_http.http_handler import HandlerResult, HandlerArgs
 
 
 class ElementProcess(ABC):
@@ -11,7 +11,7 @@ class ElementProcess(ABC):
     def __init__(self):
         self._is_query_custom_handler = False
 
-    async def query_custom_handler(self, exp: re.Match, body: BodyData, kwargs: dict) -> HandlerResult:
+    async def query_custom_handler(self, handler_args: HandlerArgs, kwargs: dict) -> HandlerResult:
         pass
 
     @property
