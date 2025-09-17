@@ -62,10 +62,5 @@ class CmdMgr(SingletonInstance):
         return_list = []
         for cmd in self._cmds.values():
             handler, kwargs = cmd.get_query_handler()
-<<<<<<< Updated upstream
             return_list.append((cmd.get_id(), handler, kwargs))
-=======
-            return_list.append((cmd.get_subUrl(), handler, kwargs))
-
->>>>>>> Stashed changes
         return return_list
