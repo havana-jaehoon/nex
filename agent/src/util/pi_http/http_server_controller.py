@@ -109,30 +109,6 @@ class DynamicController:
             self._logger.log_error(f"HttpServer : route({full_path}) : fail : exception : {e}")
             return PlainTextResponse(status_code=500, content=f"exception : {e}")
 
-<<<<<<< Updated upstream
-=======
-        for pattern, handler, kwargs in list(self._routes):
-            match = pattern.fullmatch(full_path)
-            if match:
-                try:
-                    print("method:", req.method)
-                    print("url:", req.url)
-                    print("headers:", dict(req.headers))
-                    print("query_params:", dict(req.query_params))
-                    print("path_params:", req.path_params)
-                    print("cookies:", req.cookies)
-                    print("client:", req.client)
-                    print("body:", await req.body())
-                    handler_result = await handler(match, body_data, kwargs)
-                    self._logger.log_info(f"HttpServer : route({full_path}) : rsp={handler_result.status}")
-                    return _http_response(handler_result)
-                except Exception as e:
-                    self._logger.log_error(f"HttpServer : route({full_path}) : fail : exception : {e}")
-                    return PlainTextResponse(status_code=500, content=f"exception : {e}")
-        self._logger.log_error(f"HttpServer : route({full_path}) : fail : No route")
-        return PlainTextResponse(status_code=404, content=f"No route for '{full_path}'")
-
->>>>>>> Stashed changes
 
 class HttpServerController:
     SUB_URL_HEALTH = "/health"
