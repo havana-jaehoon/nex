@@ -1,26 +1,27 @@
+import { NexNodeType } from "type/NexNode";
+
 export const processorData = [
   [
-    "folder",
-    "/nex-admin",
-    "",
-    "/common/",
-    "common",
-    "공용",
-    "공용 프로세스 폴더",
-    "",
-    "",
+    "/common",
+    {
+      name: "common",
+      dispName: "관리자용 데이터",
+      description: "관리자용 데이터 엘리먼트 폴더",
+      type: NexNodeType.FOLDER,
+      icon: null,
+      color: null,
+    },
   ],
   [
-    "processor",
-    "/nex-admin",
-    "",
-    "/common/transparent/",
-    "transparent",
-    "기본 프로세스", // "변환없이 수집하는 프로세스"
-    "기본 프로세스",
-    "", //icon
-    "", //color
-    "0.2", //version
-    "0.1, 0.2", // version history
+    "/common/transparent",
+    {
+      name: "transparent",
+      dispName: "",
+      type: NexNodeType.PROCESSOR,
+      module: {
+        version: "0", // 0: 초기 한번 수집
+        history: "",
+      },
+    },
   ],
 ];

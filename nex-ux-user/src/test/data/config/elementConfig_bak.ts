@@ -228,7 +228,19 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
     children: [
       {
         name: "format",
-        dispName: "데이터 포맷",
+        dispName: "포맷 설정",
+        description: "데이터 포맷",
+        type: NexNodeType.ELEMENT,
+        format: "/admin/formatGroup", // 데이터 유형 (경로)
+        store: "/memory/static", // 보관 정책 (경로)
+        processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
+        processingInterval: "10", // 0: 초기 한번 수집
+        processingUnit: "SEC", // MSEC, SEC, MIN, SEC, HOUR, DAY, MONTH, YEAR
+        sources: "",
+      },
+      {
+        name: "formats",
+        dispName: "데이터 포맷", 
         description: "데이터 포맷",
         type: NexNodeType.ELEMENT,
         format: "/admin/node", // 데이터 유형 (경로)
@@ -236,11 +248,11 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
         processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
         processingInterval: "10", // 0: 초기 한번 수집
         processingUnit: "SEC", // MSEC, SEC, MIN, SEC, HOUR, DAY, MONTH, YEAR
-        sources: "/config/admin/format",
+        sources: "",
       },
       {
         name: "store",
-        dispName: "데이터 저장 정책",
+        dispName: "데이터 저장 정책", 
         description: "데이터 저장 정책",
         type: NexNodeType.ELEMENT,
         format: "/admin/node", // 데이터 유형 (경로)
@@ -248,11 +260,11 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
         processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
         processingInterval: "10", // 0: 초기 한번 수집
         processingUnit: "SEC", // MSEC, SEC, MIN, SEC, HOUR, DAY, MONTH, YEAR
-        sources: "/config/admin/store",
+        sources: "",
       },
       {
         name: "processor",
-        dispName: "데이터 프로세서",
+        dispName: "데이터 프로세서", 
         description: "데이터 프로세서",
         type: NexNodeType.ELEMENT,
         format: "/admin/node", // 데이터 유형 (경로)
@@ -260,11 +272,11 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
         processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
         processingInterval: "10", // 0: 초기 한번 수집
         processingUnit: "SEC", // MSEC, SEC, MIN, SEC, HOUR, DAY, MONTH, YEAR
-        sources: "/config/admin/processor",
+        sources: "",
       },
       {
         name: "system",
-        dispName: "시스템",
+        dispName: "시스템", 
         description: "시스템",
         type: NexNodeType.ELEMENT,
         format: "/admin/node", // 데이터 유형 (경로)
@@ -272,11 +284,11 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
         processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
         processingInterval: "10", // 0: 초기 한번 수집
         processingUnit: "SEC", // MSEC, SEC, MIN, SEC, HOUR, DAY, MONTH, YEAR
-        sources: "/config/admin/system",
+        sources: "",
       },
       {
         name: "element",
-        dispName: "데이터 엘리먼트",
+        dispName: "데이터 엘리먼트", 
         description: "데이터 엘리먼트",
         type: NexNodeType.ELEMENT,
         format: "/admin/node", // 데이터 유형 (경로)
@@ -284,79 +296,103 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
         processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
         processingInterval: "10", // 0: 초기 한번 수집
         processingUnit: "SEC", // MSEC, SEC, MIN, SEC, HOUR, DAY, MONTH, YEAR
-        sources: "/config/admin/element",
-      },
-      {
-        name: "source",
-        dispName: "데이터 소스",
-        description: "데이터 소스",
-        type: NexNodeType.ELEMENT,
-        format: "/admin/node", // 데이터 유형 (경로)
-        store: "/memory/static", // 보관 정책 (경로)
-        processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
-        processingInterval: "10", // 0: 초기 한번 수집
-        processingUnit: "SEC", // MSEC, SEC, MIN, SEC, HOUR, DAY, MONTH, YEAR
-        sources: "/config/admin/source",
+        sources: "",
       },
       {
         name: "contents",
-        dispName: "컨텐츠",
-        description: "컨텐츠",
+        dispName: "컨텐츠", 
+        description: "컨텐츠 엘리먼트",
         type: NexNodeType.ELEMENT,
         format: "/admin/node", // 데이터 유형 (경로)
         store: "/memory/static", // 보관 정책 (경로)
         processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
         processingInterval: "10", // 0: 초기 한번 수집
         processingUnit: "SEC", // MSEC, SEC, MIN, SEC, HOUR, DAY, MONTH, YEAR
-        sources: "/config/admin/contents",
+        sources: "",
+      },
+      {
+        name: "store",
+        dispName: "스토어",
+        description: "스토어 데이터 엘리먼트",
+        type: NexNodeType.ELEMENT,
+        format: "/admin/storeGroup", // 데이터 유형 (경로)
+        store: "/memory/static", // 보관 정책 (경로)
+        processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
+        processingInterval: "10", // 0: 초기 한번 수집
+        processingUnit: "SEC", // MSEC, SEC, MIN, SEC, HOUR, DAY, MONTH, YEAR
+        sources: "",
+      },
+      {
+        name: "processor",
+        dispName: "프로세서",
+        description: "프로세서 데이터 엘리먼트",
+        type: NexNodeType.ELEMENT,
+        format: "/admin/processorGroup", // 데이터 유형 (경로)
+        store: "/memory/static", // 보관 정책 (경로)
+        processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
+        processingInterval: "10", // 0: 초기 한번 수집
+        processingUnit: "SEC", // MSEC, SEC, MIN, SEC, HOUR, DAY, MONTH, YEAR
+        sources: "",
+      },
+      {
+        name: "system",
+        dispName: "시스템",
+        description: "시스템 데이터 엘리먼트",
+        type: NexNodeType.ELEMENT,
+        format: "/admin/systemGroup",
+        store: "/memory/static", // 보관 정책 (경로)
+        processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
+        processingInterval: "10", // 0: 초기 한번 수집
+        processingUnit: "SEC", // MSEC, SEC, MIN, SEC, HOUR, DAY, MONTH, YEAR
+        sources: "/webserver/admin/config/system",
+      }, // 시스템 데이터 엘리먼트
+      {
+        name: "element",
+        dispName: "엘리먼트",
+        description: "엘리먼트 데이터 엘리먼트",
+        type: NexNodeType.ELEMENT,
+        format: "/admin/elementsGroup", // 데이터 유형 (경로)
+        store: "/memory/static", // 보관 정책 (경로)
+        processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
+        processingInterval: "10", // 0: 초기 한번 수집
+        processingUnit: "SEC", // MSEC, SEC, MIN, SEC, HOUR, DAY, MONTH, YEAR
+        sources: "/webserver/admin/config/element",
       },
       {
         name: "applet",
         dispName: "애플릿",
-        description: "애플릿",
+        description: "애플릿 데이터 엘리먼트",
         type: NexNodeType.ELEMENT,
-        format: "/admin/node", // 데이터 유형 (경로)
+        format: "/admin/applet", // 데이터 유형 (경로)
         store: "/memory/static", // 보관 정책 (경로)
         processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
         processingInterval: "10", // 0: 초기 한번 수집
         processingUnit: "SEC", // MSEC, SEC, MIN, SEC, HOUR, DAY, MONTH, YEAR
-        sources: "/config/admin/applet",
+        sources: "/webserver/admin/config/applet",
       },
       {
-        name: "section",
-        dispName: "웹섹션",
-        description: "웹섹션",
+        name: "themeUser",
+        dispName: "사용자테마",
+        description: "사용자테마 데이터 엘리먼트",
         type: NexNodeType.ELEMENT,
-        format: "/admin/node", // 데이터 유형 (경로)
+        format: "/admin/themeUser", // 데이터 유형 (경로)
         store: "/memory/static", // 보관 정책 (경로)
         processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
         processingInterval: "10", // 0: 초기 한번 수집
         processingUnit: "SEC", // MSEC, SEC, MIN, SEC, HOUR, DAY, MONTH, YEAR
-        sources: "/config/admin/section",
+        sources: "/webserver/admin/config/themeUser",
       },
       {
-        name: "user",
-        dispName: "사용자",
-        description: "사용자",
+        name: "websection",
+        dispName: "웹페이지",
+        description: "웹페이지 데이터 엘리먼트",
         type: NexNodeType.ELEMENT,
-        format: "/admin/node", // 데이터 유형 (경로)
+        format: "/admin/websectionGroup", // 데이터 유형 (경로)
         store: "/memory/static", // 보관 정책 (경로)
         processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
         processingInterval: "10", // 0: 초기 한번 수집
         processingUnit: "SEC", // MSEC, SEC, MIN, SEC, HOUR, DAY, MONTH, YEAR
-        sources: "/config/admin/user",
-      },
-      {
-        name: "theme",
-        dispName: "테마",
-        description: "테마",
-        type: NexNodeType.ELEMENT,
-        format: "/admin/node", // 데이터 유형 (경로)
-        store: "/memory/static", // 보관 정책 (경로)
-        processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
-        processingInterval: "10", // 0: 초기 한번 수집
-        processingUnit: "SEC", // MSEC, SEC, MIN, SEC, HOUR, DAY, MONTH, YEAR
-        sources: "/config/admin/theme",
+        sources: "/webserver/admin/config/webpage",
       },
     ],
   },

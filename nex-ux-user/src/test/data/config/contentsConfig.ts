@@ -70,155 +70,142 @@ const deviceCondition = {
   method: "match",
 };
 
-const emu150cbmContents = {
-  // config
-  config: {
-    Line: {
-      name: "Line",
-      type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/config/Line",
-      condition: [],
-      selection: [lineSelection],
-    } as NexContentsNode,
-    TrainPerLine: {
-      name: "TrainPerLine",
-      type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/config/TrainPerLine",
-      condition: [],
-      selection: [trainSelection],
-    },
-    SelectedTrain: {
-      name: "SelectedTrain",
-      type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/config/TrainPerLine",
-      condition: [lineCondition],
-      selection: [trainSelection],
-    },
-    CarPerTrain: {
-      name: "CarPerTrain",
-      type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/config/CarPerTrain",
-      condition: [],
-      selection: [carSelection],
-    },
-    SelectedCar: {
-      name: "SelectedCar",
-      type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/config/CarPerTrain",
-      condition: [trainCondition],
-      selection: [carSelection],
-    },
-    Device: {
-      name: "Device",
-      type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/config/Device", // Device / car
-      condition: [],
-      selection: [deviceSelection],
-    },
-    SelectedDevice: {
-      name: "SelectedDevice",
-      type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/config/Device",
-      condition: [carCondition],
-      selection: [],
-    },
+const cbmConfigContents = [
+  {
+    name: "Line",
+    type: NexNodeType.CONTENTS,
+    element: "/cbm/config/Line",
+    condition: [],
+    selection: [lineSelection],
+  } as NexContentsNode,
+  {
+    name: "TrainPerLine",
+    type: NexNodeType.CONTENTS,
+    element: "/cbm/config/TrainPerLine",
+    condition: [],
+    selection: [trainSelection],
+  },
+  {
+    name: "SelectedTrain",
+    type: NexNodeType.CONTENTS,
+    element: "/cbm/config/TrainPerLine",
+    condition: [lineCondition],
+    selection: [trainSelection],
+  },
+  {
+    name: "CarPerTrain",
+    type: NexNodeType.CONTENTS,
+    element: "/cbm/config/CarPerTrain",
+    condition: [],
+    selection: [carSelection],
+  },
+  {
+    name: "SelectedCar",
+    type: NexNodeType.CONTENTS,
+    element: "/cbm/config/CarPerTrain",
+    condition: [trainCondition],
+    selection: [carSelection],
+  },
+  {
+    name: "Device",
+    type: NexNodeType.CONTENTS,
+    element: "/cbm/config/Device", // Device / car
+    condition: [],
+    selection: [deviceSelection],
+  },
+  {
+    name: "SelectedDevice",
+    type: NexNodeType.CONTENTS,
+    element: "/cbm/config/Device",
+    condition: [carCondition],
+    selection: [],
+  },
+];
+
+//status
+const cbmStatusContents = [
+  {
+    name: "LossPerLine",
+    type: NexNodeType.CONTENTS,
+    element: "/cbm/status/LossPerLine",
+    condition: [],
+    selection: [],
+  },
+  {
+    name: "LossPerDevice",
+    type: NexNodeType.CONTENTS,
+    element: "/cbm/status/LossPerDevice",
+    condition: [],
+    selection: [],
   },
 
-  //status
-  status: {
-    LossPerLine: {
-      name: "LossPerLine",
-      type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/status/LossPerLine",
-      condition: [],
-      selection: [],
-    },
-    LossPerDevice: {
-      name: "LossPerDevice",
-      type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/status/LossPerDevice",
-      condition: [],
-      selection: [],
-    },
-
-    TrainCountPerLine: {
-      name: "TrainCountPerLine",
-      type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/status/TrainCountPerLine",
-      condition: [],
-      selection: [],
-    },
+  {
+    name: "TrainCountPerLine",
+    type: NexNodeType.CONTENTS,
+    element: "/cbm/status/TrainCountPerLine",
+    condition: [],
+    selection: [],
   },
+];
 
-  // history
-  history: {
-    LossHistoryPerLine: {
-      name: "LossHistoryPerLine",
-      type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/history/LossHistoryPerLine",
-      condition: [],
-      selection: [],
-    },
-    LossHistoryPerDevice: {
-      name: "LossHistoryPerDevice",
-      type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/history/LossHistoryPerDevice",
-      condition: [],
-      selection: [],
-    },
-    MaintenancePerLineHistory: {
-      name: "MaintenancePerLineHistory",
-      type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/history/MaintenanceHistoryPerLine",
-      condition: [],
-      selection: [],
-    },
-    DetailLossLevelHistory: {
-      name: "DetailLossLevelHistory",
-      type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/history/DetailLossLevelHistory",
-      condition: [],
-      selection: [],
-    },
-    SelectedDetailLossLevelHistory: {
-      name: "SelectedDetailLossLevelHistory",
-      type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/history/DetailLossLevelHistory",
-      condition: [],
-      selection: [],
-    },
+// history
+const cbmHistoryContents = [
+  {
+    name: "LossHistoryPerLine",
+    type: NexNodeType.CONTENTS,
+    element: "/cbm/history/LossHistoryPerLine",
+    condition: [],
+    selection: [],
   },
+  {
+    name: "LossHistoryPerDevice",
+    type: NexNodeType.CONTENTS,
+    element: "/cbm/history/LossHistoryPerDevice",
+    condition: [],
+    selection: [],
+  },
+  {
+    name: "MaintenancePerLineHistory",
+    type: NexNodeType.CONTENTS,
+    element: "/cbm/history/MaintenanceHistoryPerLine",
+    condition: [],
+    selection: [],
+  },
+  {
+    name: "DetailLossLevelHistory",
+    type: NexNodeType.CONTENTS,
+    element: "/cbm/history/DetailLossLevelHistory",
+    condition: [],
+    selection: [],
+  },
+  {
+    name: "SelectedDetailLossLevelHistory",
+    type: NexNodeType.CONTENTS,
+    element: "/cbm/history/DetailLossLevelHistory",
+    condition: [],
+    selection: [],
+  },
+];
 
-  //event
-  event: {
-    RTMaintenanceInfo: {
-      name: "RTMaintenanceInfo",
-      type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/event/RTMaintenanceInfo",
-      condition: [],
-      selection: [],
-    },
-    SystemEventInfo: {
-      name: "SystemEventInfo",
-      type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/event/SystemEventInfo",
-      condition: [],
-      selection: [],
-    },
+//event
+const cbmEventContents = [
+  {
+    name: "RTMaintenanceInfo",
+    type: NexNodeType.CONTENTS,
+    element: "/cbm/event/RTMaintenanceInfo",
+    condition: [],
+    selection: [],
   },
-};
+  {
+    name: "SystemEventInfo",
+    type: NexNodeType.CONTENTS,
+    element: "/cbm/event/SystemEventInfo",
+    condition: [],
+    selection: [],
+  },
+];
 
 // Admin Contents
-const projectSelection = {
-  key: "project-path",
-  feature: "path",
-};
-
-const projectCondition = {
-  key: "project-path",
-  feature: "project",
-  method: "pathmatch",
-};
 
 const formatSelection = {
   key: "format-path",
@@ -286,29 +273,11 @@ const websectionCondition = {
   method: "pathmatch",
 };
 
-const projectContents = {
-  name: "project",
-  dispName: "프로젝트",
-  type: NexNodeType.CONTENTS,
-  element: "/admin/project",
-  conditions: [],
-  selections: [projectSelection],
-};
-
-const oneProjectContents = {
-  name: "SelectedProject",
-  dispName: "프로젝트",
-  type: NexNodeType.CONTENTS,
-  element: "/admin/project",
-  conditions: [projectCondition],
-  selections: [],
-};
-
 const formatContents = {
   name: "format",
   type: NexNodeType.CONTENTS,
   element: "/admin/format",
-  conditions: [projectCondition],
+  conditions: [],
   selections: [formatSelection],
 };
 
@@ -316,7 +285,7 @@ const oneFormatContents = {
   name: "SelectedFormat",
   type: NexNodeType.CONTENTS,
   element: "/admin/format",
-  conditions: [projectCondition, formatCondition],
+  conditions: [formatCondition],
   selections: [],
 };
 
@@ -325,7 +294,7 @@ const storeContents = {
   dispName: "저장소",
   type: NexNodeType.CONTENTS,
   element: "/admin/store",
-  conditions: [projectCondition],
+  conditions: [],
   selections: [storeSelection],
 };
 
@@ -334,7 +303,7 @@ const oneStoreContents = {
   dispName: "저장소",
   type: NexNodeType.CONTENTS,
   element: "/admin/store",
-  conditions: [projectCondition, storeCondition],
+  conditions: [storeCondition],
   selections: [],
 };
 
@@ -343,7 +312,7 @@ const processorContents = {
   dispName: "프로세서",
   type: NexNodeType.CONTENTS,
   element: "/admin/processor",
-  conditions: [projectCondition],
+  conditions: [],
   selections: [processorSelection],
 };
 
@@ -352,7 +321,7 @@ const oneProcessorContents = {
   dispName: "프로세서",
   type: NexNodeType.CONTENTS,
   element: "/admin/processor",
-  conditions: [projectCondition, processorCondition],
+  conditions: [processorCondition],
   selections: [],
 };
 
@@ -361,7 +330,7 @@ const systemContents = {
   dispName: "시스템",
   type: NexNodeType.CONTENTS,
   element: "/admin/system",
-  conditions: [projectCondition],
+  conditions: [],
   selections: [systemSelection],
 };
 
@@ -370,7 +339,7 @@ const oneSystemContents = {
   dispName: "시스템",
   type: NexNodeType.CONTENTS,
   element: "/admin/system",
-  conditions: [projectCondition, systemCondition],
+  conditions: [systemCondition],
   selections: [],
 };
 
@@ -379,7 +348,7 @@ const elementContents = {
   dispName: "엘리먼트",
   type: NexNodeType.CONTENTS,
   element: "/admin/element",
-  conditions: [projectCondition, systemCondition],
+  conditions: [systemCondition],
   selections: [elementSelection],
 };
 
@@ -388,7 +357,7 @@ const oneElementContents = {
   dispName: "엘리먼트",
   type: NexNodeType.CONTENTS,
   element: "/admin/element",
-  conditions: [projectCondition, systemCondition, elementCondition],
+  conditions: [systemCondition, elementCondition],
   selections: [],
 };
 
@@ -429,49 +398,28 @@ export const contentsConfig: NexNode[] = [
         name: "config",
         dispName: "설정 데이터",
         description: "설정 데이터 컨텐츠 폴더",
-        children: [
-          emu150cbmContents.config.Line,
-          emu150cbmContents.config.TrainPerLine,
-          emu150cbmContents.config.CarPerTrain,
-          emu150cbmContents.config.SelectedTrain,
-          emu150cbmContents.config.SelectedCar,
-          emu150cbmContents.config.Device,
-          emu150cbmContents.config.SelectedDevice,
-        ],
+        children: [...cbmConfigContents],
       },
       {
         type: NexNodeType.FOLDER,
         name: "status",
         dispName: "상태 데이터",
         description: "상태 데이터 컨텐츠 폴더",
-        children: [
-          emu150cbmContents.status.LossPerLine,
-          emu150cbmContents.status.LossPerDevice,
-          emu150cbmContents.status.TrainCountPerLine,
-        ],
+        children: [...cbmStatusContents],
       },
       {
         type: NexNodeType.FOLDER,
         name: "history",
         dispName: "이력 데이터",
         description: "이력 데이터 컨텐츠 폴더",
-        children: [
-          emu150cbmContents.history.LossHistoryPerLine,
-          emu150cbmContents.history.LossHistoryPerDevice,
-          emu150cbmContents.history.DetailLossLevelHistory,
-          emu150cbmContents.history.SelectedDetailLossLevelHistory,
-          emu150cbmContents.history.MaintenancePerLineHistory,
-        ],
+        children: [...cbmHistoryContents],
       },
       {
         type: NexNodeType.FOLDER,
         name: "event",
         dispName: "이벤트 데이터",
         description: "이벤트 데이터 컨텐츠 폴더",
-        children: [
-          emu150cbmContents.event.RTMaintenanceInfo,
-          emu150cbmContents.event.SystemEventInfo,
-        ],
+        children: [...cbmEventContents],
       },
     ],
   },
@@ -481,8 +429,6 @@ export const contentsConfig: NexNode[] = [
     dispName: "Admin",
     description: "Admin 용 컨텐츠 폴더",
     children: [
-      projectContents,
-      oneProjectContents,
       formatContents,
       oneFormatContents,
       storeContents,

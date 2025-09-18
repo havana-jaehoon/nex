@@ -505,7 +505,6 @@ const adminPage : NexWebSectionNode = {
               direction: "row",
 
               children: [
-                projectSection,
                 formatSection,
                 storeSection,
                 processorSection,

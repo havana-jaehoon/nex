@@ -2,25 +2,15 @@ import { NexNodeType, NexSystemNode } from "type/NexNode";
 
 export const systemConfig: NexSystemNode[] = [
   {
-    project: "/emu150cbm", // project path
-    name: "collector",
-    dispName: "수집서버",
-    description: "EMU150-CBM 수집서버",
+    name: "config",
+    dispName: "설정서버",
+    description: "설정 서버",
     type: NexNodeType.SYSTEM,
     address: {
       // api address
       ip: "192.168.0.1",
       port: "8080",
     },
-    //향후 storage 별도 분리
-    /*
-        storage: [ //storage path List
-            "/hdfs",
-            "/db/oracle",
-            "/db/mysql",
-            "/db/postgresql"
-        ]
-        */
     hdfs: {
       ip: "192.168.0.20",
       port: "9000",
@@ -35,7 +25,6 @@ export const systemConfig: NexSystemNode[] = [
     },
   },
   {
-    project: "/emu150cbm", // project path
     name: "webserver",
     dispName: "웹서버",
     description: "EMU150-CBM 웹서버",
@@ -59,16 +48,24 @@ export const systemConfig: NexSystemNode[] = [
     },
   },
   {
-    project: "/admin", // project path
-    name: "webserver",
-    dispName: "웹서버",
-    description: "Admin 웹서버",
+    name: "collector",
+    dispName: "수집서버",
+    description: "EMU150-CBM 수집서버",
     type: NexNodeType.SYSTEM,
     address: {
       // api address
-      ip: "192.168.0.2",
+      ip: "192.168.0.3",
       port: "8080",
     },
+    //향후 storage 별도 분리
+    /*
+        storage: [ //storage path List
+            "/hdfs",
+            "/db/oracle",
+            "/db/mysql",
+            "/db/postgresql"
+        ]
+        */
     hdfs: {
       ip: "192.168.0.20",
       port: "9000",

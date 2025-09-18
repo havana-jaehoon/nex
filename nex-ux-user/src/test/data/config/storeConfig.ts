@@ -4,8 +4,8 @@ import { NexFolderNode, NexNodeType, NexStoreNode } from "type/NexNode";
 export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
   {
     name: "memory",
-    dispName: "공통",
-    description: "공통 데이터 엘리먼트 폴더",
+    dispName: "메모리",
+    description: "메모리 저장 정책 폴더",
     type: NexNodeType.FOLDER,
     children: [
       {

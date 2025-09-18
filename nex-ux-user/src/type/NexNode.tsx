@@ -37,6 +37,8 @@ export enum NexFeatureType {
   FLOAT = "FLOAT",
   DOUBLE = "DOUBLE",
   STRING = "STRING",
+  PATH = "PATH", // 경로 /test1/.../node-name
+  JSON = "JSON",
   BOOLEAN = "BOOLEAN",
   BINARY = "BINARY",
   DATE = "DATE",

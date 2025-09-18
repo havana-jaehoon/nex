@@ -47,7 +47,7 @@ def read_dir(path, includeChildren=False):
                 if(child_node == None):  
                     return None
                 node['children'].append(child_node)
-        print("# 1. node:", node)
+        print("# 1. node:", json.dumps(node, ensure_ascii=False, indent=4))
         return node 
     #{ "data": {"node":node, "path":related_path}, "status": "success", "message": "loaded successfully." }
     except Exception as e:

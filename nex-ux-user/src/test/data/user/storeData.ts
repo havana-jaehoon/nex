@@ -1,4 +1,4 @@
-import { NexNode } from "type/NexNode";
+import { NexNode, NexNodeType } from "type/NexNode";
 
 // 보관 정책 설정 데이터
 
@@ -6,610 +6,348 @@ import { NexNode } from "type/NexNode";
 
 export const storeData = [
   [
-    "folder",
-    "/nex-admin",
-    "",
     "/memory",
-    "memory",
-    "메모리",
-    "메모리 저장 정책 폴더",
-    "",
-    "",
+    {
+      name: "memory",
+      dispName: "메모리",
+      description: "메모리 저장 정책 폴더",
+      type: NexNodeType.FOLDER,
+      icon: null,
+      color: null,
+    },
   ],
   [
-    "store",
-    "/nex-admin",
-    "",
     "/memory/static",
-    "static",
-    "STATIC",
-    "정적저장",
-    "",
-    "",
-    "memory",
-    // storage
-    "static", // nature
-    "NONE", // unit
-    "NONE", // block
-    -1,
-    "NONE",
-    false,
-    false,
+    {
+      name: "static", // 정적 데이터
+      type: NexNodeType.STORE,
+      record: {
+        storage: "memory", // memory, disk, hdfs
+        nature: "static", //  정적 데이터 : static,  시간단위데이터: temporary
+        unit: "NONE",
+        block: "NONE",
+        expire: "-1", // (sec 단위)  0: 임시 저장, -1: 영구 저장,
+        expireUnit: "NONE", // NONE, SEC, MIN, HOUR, DAY
+        allowDuplication: "false", // 중복 허용 여부
+        allowKeepValue: "false", // 값 유지 여부
+      },
+    },
   ],
-
   [
-    "store",
-    "/nex-admin",
-    "",
     "/memory/status",
-    "status",
-    "STATUS",
-    "상태저장",
-    "",
-    "",
-    "memory",
+    {
+      name: "status", // 마지막 상태 데이터
+      type: "store",
+      record: {
+        storage: "memory", // memory, disk, hdfs
+        nature: "temporary", //  정적 데이터 : static,  시간단위데이터: temporary
+        unit: "SEC",
+        block: "MIN",
+        expire: "0", // (sec 단위)  0: 임시 저장(최신값만 저장), -1: 영구 저장,
+        expireUnit: "NONE", // NONE, SEC, MIN, HOUR, DAY
 
-    "temporary",
-    "SEC",
-    "MIN",
-    0,
-    "NONE",
-    false,
-    false,
+        allowDuplication: "false", // 중복 허용 여부
+        allowKeepValue: "false", // 값 유지 여부
+      },
+    },
   ],
   [
-    "store",
-    "/nex-admin",
-    "",
     "/memory/1min",
-    "1min",
-    "1MIN",
-    "1분저장",
-    "",
-    "",
-    "memory",
+    {
+      name: "1min",
+      type: "store",
+      record: {
+        storage: "memory", // memory, disk, hdfs
+        nature: "temporary", //  정적 데이터 : static,  시간 데이터: temporary,
+        unit: "SEC",
+        block: "MIN",
+        expire: "1", // (sec 단위)  0: 임시 저장(최신값만 저장), -1: 영구 저장,
+        expireUnit: "MIN", // NONE, SEC, MIN, HOUR, DAY
 
-    "temporary",
-    "SEC",
-    "MIN",
-    1,
-    "MIN",
-    false,
-    false,
+        allowDuplication: "false", // 중복 허용 여부
+        allowKeepValue: "false", // 값 유지 여부
+      },
+    },
   ],
   [
-    "store",
-    "/nex-admin",
-    "",
     "/memory/10min",
-    "10min",
-    "10MIN",
-    "10분저장",
-    "",
-    "",
-    "memory",
-
-    "temporary",
-    "SEC",
-    "MIN",
-    10,
-    "MIN",
-    false,
-    false,
+    {
+      name: "10min",
+      type: "store",
+      record: {
+        storage: "memory", // memory, disk, hdfs
+        nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
+        unit: "SEC",
+        block: "MIN",
+        expire: "10", // (sec 단위)  0: 임시 저장(최신값만 저장), -1: 영구 저장,
+        expireUnit: "MIN", // NONE, SEC, MIN, HOUR, DAY
+        allowDuplication: "false", // 중복 허용 여부
+        allowKeepValue: "false", // 값 유지 여부
+      },
+    },
   ],
   [
-    "store",
-    "/nex-admin",
-    "",
     "/memory/1hour",
-    "1hour",
-    "1HOUR",
-    "1시간저장",
-    "",
-    "",
-    "memory",
-
-    "temporary",
-    "SEC",
-    "MIN",
-    1,
-    "HOUR",
-    false,
-    false,
+    {
+      name: "1hour",
+      type: "store",
+      record: {
+        storage: "memory", // memory, disk, hdfs
+        nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
+        unit: "SEC",
+        block: "MIN",
+        expire: "1", // (sec 단위)  0: 임시 저장(최신값만 저장), -1: 영구 저장,
+        expireUnit: "HOUR", // NONE, SEC, MIN, HOUR, DAY
+        allowDuplication: "false", // 중복 허용 여부
+        allowKeepValue: "false", // 값 유지 여부
+      },
+    },
   ],
 
   [
-    "folder",
-    "/nex-admin",
-    "",
     "/disk",
-    "disk",
-    "디스크",
-    "디스크 저장 정책 폴더",
-    "",
-    "",
+    {
+      name: "disk",
+      dispName: "디스크",
+      description: "디스크 저장 정책 폴더",
+      type: NexNodeType.FOLDER,
+      icon: null,
+      color: null,
+    },
   ],
   [
-    "store",
-    "/nex-admin",
-    "",
     "/disk/static",
-    "static",
-    "STATIC",
-    "정적저장",
-    "",
-    "",
-    "disk",
-
-    "static",
-    "NONE",
-    "NONE",
-    -1,
-    "NONE",
-    false,
-    false,
+    {
+      name: "static", // 정적 데이터
+      type: NexNodeType.STORE,
+      record: {
+        storage: "disk", // memory, disk, hdfs
+        nature: "static", //  정적 데이터 : static,  시간단위데이터: temporary
+        unit: "NONE",
+        block: "NONE",
+        expire: "-1", // (sec 단위)  0: 임시 저장, -1: 영구 저장,
+        expireUnit: "NONE", // NONE, SEC, MIN, HOUR, DAY
+        allowDuplication: "false", // 중복 허용 여부
+        allowKeepValue: "false", // 값 유지 여부
+      },
+    },
   ],
   [
-    "store",
-    "/nex-admin",
-    "",
     "/disk/status",
-    "status",
-    "STATUS",
-    "상태저장",
-    "",
-    "",
-    "disk",
+    {
+      name: "status", // 마지막 상태 데이터
+      type: "store",
+      record: {
+        storage: "disk", // memory, disk, hdfs
+        nature: "temporary", //  정적 데이터 : static,  시간단위데이터: temporary
+        unit: "SEC",
+        block: "MIN",
+        expire: "0", // (sec 단위)  0: 임시 저장(최신값만 저장), -1: 영구 저장,
+        expireUnit: "NONE", // NONE, SEC, MIN, HOUR, DAY
 
-    "temporary",
-    "SEC",
-    "MIN",
-    0,
-    "NONE",
-    false,
-    false,
+        allowDuplication: "false", // 중복 허용 여부
+        allowKeepValue: "false", // 값 유지 여부
+      },
+    },
   ],
   [
-    "store",
-    "/nex-admin",
-    "",
     "/disk/1min",
-    "1min",
-    "1MIN",
-    "1분저장",
-    "",
-    "",
-    "disk",
+    {
+      name: "1min",
+      type: "store",
+      record: {
+        storage: "disk", // memory, disk, hdfs
+        nature: "temporary", //  정적 데이터 : static,  시간 데이터: temporary,
+        unit: "SEC",
+        block: "MIN",
+        expire: "1", // (sec 단위)  0: 임시 저장(최신값만 저장), -1: 영구 저장,
+        expireUnit: "MIN", // NONE, SEC, MIN, HOUR, DAY
 
-    "temporary",
-    "SEC",
-    "MIN",
-    1,
-    "MIN",
-    false,
-    false,
+        allowDuplication: "false", // 중복 허용 여부
+        allowKeepValue: "false", // 값 유지 여부
+      },
+    },
   ],
   [
-    "store",
-    "/nex-admin",
-    "",
     "/disk/10min",
-    "10min",
-    "10MIN",
-    "10분저장",
-    "",
-    "",
-    "disk",
-
-    "temporary",
-    "SEC",
-    "MIN",
-    10,
-    "MIN",
-    false,
-    false,
+    {
+      name: "10min",
+      type: "store",
+      record: {
+        storage: "disk", // memory, disk, hdfs
+        nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
+        unit: "SEC",
+        block: "MIN",
+        expire: "10", // (sec 단위)  0: 임시 저장(최신값만 저장), -1: 영구 저장,
+        expireUnit: "MIN", // NONE, SEC, MIN, HOUR, DAY
+        allowDuplication: "false", // 중복 허용 여부
+        allowKeepValue: "false", // 값 유지 여부
+      },
+    },
   ],
   [
-    "store",
-    "/nex-admin",
-    "",
     "/disk/1hour",
-    "1hour",
-    "1HOUR",
-    "1시간저장",
-    "",
-    "",
-    "disk",
-
-    "temporary",
-    "SEC",
-    "MIN",
-    1,
-    "HOUR",
-    false,
-    false,
+    {
+      name: "1hour",
+      type: "store",
+      record: {
+        storage: "disk", // memory, disk, hdfs
+        nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
+        unit: "SEC",
+        block: "MIN",
+        expire: "1", // (sec 단위)  0: 임시 저장(최신값만 저장), -1: 영구 저장,
+        expireUnit: "HOUR", // NONE, SEC, MIN, HOUR, DAY
+        allowDuplication: "false", // 중복 허용 여부
+        allowKeepValue: "false", // 값 유지 여부
+      },
+    },
   ],
   [
-    "store",
-    "/nex-admin",
-    "",
     "/disk/1day",
-    "1day",
-    "1DAY",
-    "1일저장",
-    "",
-    "",
-    "disk",
+    {
+      name: "1day",
+      type: "store",
+      record: {
+        storage: "disk", // memory, disk, hdfs
+        nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
+        unit: "SEC",
+        block: "MIN",
+        expire: "1", // (sec 단위)  0: 임시 저장(최신값만 저장), -1: 영구 저장,
+        expireUnit: "DAY", // NONE, SEC, MIN, HOUR, DAY
 
-    "temporary",
-    "SEC",
-    "MIN",
-    1,
-    "DAY",
-    false,
-    false,
+        allowDuplication: "false", // 중복 허용 여부
+        allowKeepValue: "false", // 값 유지 여부
+      },
+    },
   ],
   [
-    "store",
-    "/nex-admin",
-    "",
     "/disk/7day",
-    "7day",
-    "7DAY",
-    "7일저장",
-    "",
-    "",
-    "disk",
-
-    "temporary",
-    "SEC",
-    "MIN",
-    7,
-    "DAY",
-    false,
-    false,
+    {
+      name: "7day",
+      type: "store",
+      record: {
+        storage: "disk", // memory, disk, hdfs
+        nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
+        unit: "SEC",
+        block: "MIN",
+        expire: "7", // (sec 단위)  0: 임시 저장(최신값만 저장), -1: 영구 저장,
+        expireUnit: "DAY", // NONE, SEC, MIN, HOUR, DAY
+        allowDuplication: "false", // 중복 허용 여부
+        allowKeepValue: "false", // 값 유지 여부
+      },
+    },
   ],
   [
-    "store",
-    "/nex-admin",
-    "",
     "/disk/10day",
-    "10day",
-    "10DAY",
-    "10일저장",
-    "",
-    "",
-    "disk",
-
-    "temporary",
-    "SEC",
-    "MIN",
-    10,
-    "DAY",
-    false,
-    false,
+    {
+      name: "10day",
+      type: "store",
+      record: {
+        storage: "disk", // memory, disk, hdfs
+        nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
+        unit: "SEC",
+        block: "MIN",
+        expire: "10", // (sec 단위)  0: 임시 저장(최신값만 저장), -1: 영구 저장,
+        expireUnit: "DAY", // NONE, SEC, MIN, HOUR, DAY, MONTH
+        allowDuplication: "false", // 중복 허용 여부
+        allowKeepValue: "false", // 값 유지 여부
+      },
+    },
   ],
   [
-    "store",
-    "/nex-admin",
-    "",
     "/disk/1month",
-    "1month",
-    "1MONTH",
-    "1개월저장",
-    "",
-    "",
-    "disk",
-
-    "temporary",
-    "SEC",
-    "MIN",
-    1,
-    "MONTH",
-    false,
-    false,
+    {
+      name: "1month",
+      type: "store",
+      record: {
+        storage: "disk", // memory, disk, hdfs
+        nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
+        unit: "SEC",
+        block: "MIN",
+        expire: "1", // (sec 단위)  0: 임시 저장(최신값만 저장), -1: 영구 저장,
+        expireUnit: "MONTH", // NONE, SEC, MIN, HOUR, DAY, MONTH, YEAR
+        allowDuplication: "false", // 중복 허용 여부
+        allowKeepValue: "false", // 값 유지 여부
+      },
+    },
   ],
   [
-    "store",
-    "/nex-admin",
-    "",
     "/disk/1year",
-    "1year",
-    "1YEAR",
-    "1년저장",
-    "",
-    "",
-    "disk",
-
-    "temporary",
-    "SEC",
-    "MIN",
-    1,
-    "YEAR",
-    false,
-    false,
+    {
+      name: "1year",
+      type: "store",
+      record: {
+        storage: "disk", // memory, disk, hdfs
+        nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
+        unit: "SEC",
+        block: "MIN",
+        expire: "1", // (sec 단위)  0: 임시 저장(최신값만 저장), -1: 영구 저장,
+        expireUnit: "YEAR", // NONE, SEC, MIN, HOUR, DAY, MONTH, YEAR
+        allowDuplication: "false", // 중복 허용 여부
+        allowKeepValue: "false", // 값 유지 여부
+      },
+    },
   ],
   [
-    "store",
-    "/nex-admin",
-    "",
     "/disk/5year",
-    "5year",
-    "5YEAR",
-    "5년저장",
-    "",
-    "",
-    "disk",
-
-    "temporary",
-    "SEC",
-    "MIN",
-    5,
-    "YEAR",
-    false,
-    false,
+    {
+      name: "5year",
+      type: "store",
+      record: {
+        storage: "disk", // memory, disk, hdfs
+        nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
+        unit: "SEC",
+        block: "MIN",
+        expire: "5", // (sec 단위)  0: 임시 저장(최신값만 저장), -1: 영구 저장,
+        expireUnit: "YEAR", // NONE, SEC, MIN, HOUR, DAY, MONTH, YEAR
+        allowDuplication: "false", // 중복 허용 여부
+        allowKeepValue: "false", // 값 유지 여부
+      },
+    },
   ],
   [
-    "store",
-    "/nex-admin",
-    "",
     "/disk/10year",
-    "10year",
-    "10YEAR",
-    "10년저장",
-    "",
-    "",
-    "disk",
-
-    "temporary",
-    "SEC",
-    "MIN",
-    10,
-    "YEAR",
-    false,
-    false,
+    {
+      name: "10year",
+      type: "store",
+      record: {
+        storage: "disk", // memory, disk, hdfs
+        nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
+        unit: "SEC",
+        block: "MIN",
+        expire: "10", // (sec 단위)  0: 임시 저장(최신값만 저장), -1: 영구 저장,
+        expireUnit: "YEAR", // NONE, SEC, MIN, HOUR, DAY, MONTH, YEAR
+        allowDuplication: "false", // 중복 허용 여부
+        allowKeepValue: "false", // 값 유지 여부
+      },
+    },
   ],
   [
-    "store",
-    "/nex-admin",
-    "",
     "/disk/infinite",
-    "infinite",
-    "INFINITE",
-    "무제한저장(전체보관)",
-    "",
-    "",
-    "disk",
-
-    "temporary",
-    "SEC",
-    "MIN",
-    -1,
-    "NONE",
-    false,
-    false,
+    {
+      name: "infinite",
+      type: "store",
+      record: {
+        storage: "disk", // memory, disk, hdfs
+        nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
+        unit: "SEC",
+        block: "MIN",
+        expire: "-1", // (sec 단위)  0: 임시 저장(최신값만 저장), -1: 영구 저장(전체 보관),
+        expireUnit: "NONE", // NONE, SEC, MIN, HOUR, DAY, MONTH, YEAR
+        allowDuplication: "false", // 중복 허용 여부
+        allowKeepValue: "false", // 값 유지 여부
+      },
+    },
   ],
-
   [
-    "folder",
-    "/nex-admin",
-    "",
     "/hdfs",
-    "hdfs",
-    "HDFS",
-    "HDFS 저장 정책 폴더",
-    "",
-    "",
-  ],
-  [
-    "store",
-    "/nex-admin",
-    "",
-    "/hdfs/static",
-    "static",
-    "STATIC",
-    "정적저장",
-    "",
-    "",
-    "hdfs",
-
-    "static",
-    "NONE",
-    "NONE",
-    -1,
-    "NONE",
-    false,
-    false,
-  ],
-  [
-    "store",
-    "/nex-admin",
-    "",
-    "/hdfs/status",
-    "status",
-    "STATUS",
-    "상태저장",
-    "hdfs",
-    "temporary",
-    "SEC",
-    "MIN",
-    0,
-    "NONE",
-    false,
-    false,
-  ],
-  [
-    "store",
-    "/nex-admin",
-    "",
-    "/hdfs/1hour",
-    "1hour",
-    "1HOUR",
-    "1시간저장",
-    "",
-    "",
-    "hdfs",
-
-    "temporary",
-    "SEC",
-    "MIN",
-    1,
-    "HOUR",
-    false,
-    false,
-  ],
-  [
-    "store",
-    "/nex-admin",
-    "",
-    "/hdfs/1day",
-    "1day",
-    "1DAY",
-    "1일저장",
-    "",
-    "",
-    "hdfs",
-
-    "temporary",
-    "SEC",
-    "MIN",
-    1,
-    "DAY",
-    false,
-    false,
-  ],
-  [
-    "store",
-    "/nex-admin",
-    "",
-    "/hdfs/7day",
-    "7day",
-    "7DAY",
-    "7일저장",
-    "",
-    "",
-    "hdfs",
-
-    "temporary",
-    "SEC",
-    "MIN",
-    7,
-    "DAY",
-    false,
-    false,
-  ],
-  [
-    "store",
-    "/nex-admin",
-    "",
-    "/hdfs/10day",
-    "10day",
-    "10DAY",
-    "10일저장",
-    "",
-    "",
-    "hdfs",
-    "temporary",
-    "SEC",
-    "MIN",
-    10,
-    "DAY",
-    false,
-    false,
-  ],
-  [
-    "store",
-    "/nex-admin",
-    "",
-    "/hdfs/1month",
-    "1month",
-    "1MONTH",
-    "1개월저장",
-    "",
-    "",
-    "hdfs",
-    "temporary",
-    "SEC",
-    "MIN",
-    1,
-    "MONTH",
-    false,
-    false,
-  ],
-  [
-    "store",
-    "/nex-admin",
-    "",
-    "/hdfs/1year",
-    "1year",
-    "1YEAR",
-    "1년저장",
-    "",
-    "",
-    "hdfs",
-    "temporary",
-    "SEC",
-    "MIN",
-    1,
-    "YEAR",
-    false,
-    false,
-  ],
-  [
-    "store",
-    "/nex-admin",
-    "",
-    "/hdfs/5year",
-    "5year",
-    "5YEAR",
-    "5년저장",
-    "",
-    "",
-    "hdfs",
-    "temporary",
-    "SEC",
-    "MIN",
-    5,
-    "YEAR",
-    false,
-    false,
-  ],
-  [
-    "store",
-    "/nex-admin",
-    "",
-    "/hdfs/10year",
-    "10year",
-    "10YEAR",
-    "10년저장",
-    "",
-    "",
-    "hdfs",
-    "temporary",
-    "SEC",
-    "MIN",
-    10,
-    "YEAR",
-    false,
-    false,
-  ],
-  [
-    "store",
-    "/nex-admin",
-    "",
-    "/hdfs/infinite",
-    "infinite",
-    "INFINITE",
-    "무제한저장(전체보관)",
-    "",
-    "",
-    "hdfs",
-    "temporary",
-    "SEC",
-    "MIN",
-    -1,
-    "NONE",
-    false,
-    false,
+    {
+      name: "memory",
+      dispName: "메모리",
+      description: "메모리 저장 정책 폴더",
+      type: NexNodeType.FOLDER,
+      icon: null,
+      color: null,
+    },
   ],
 ];
