@@ -34,7 +34,7 @@ export const systemData = [
     {
       name: "webserver",
       dispName: "웹서버",
-      description: "EMU150-CBM 웹서버",
+      description: "CBM 웹서버",
       type: NexNodeType.SYSTEM,
       address: {
         // api address
@@ -60,7 +60,7 @@ export const systemData = [
     {
       name: "collector",
       dispName: "수집서버",
-      description: "EMU150-CBM 수집서버",
+      description: "CBM 수집서버",
       type: NexNodeType.SYSTEM,
       address: {
         ip: "192.168.0.3",

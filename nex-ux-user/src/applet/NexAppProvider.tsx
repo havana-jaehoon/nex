@@ -9,6 +9,7 @@ import {
 import { data } from "react-router-dom";
 import NexDataStore from "./NexDataStore";
 import { features } from "process";
+import path from "path";
 
 export interface NexAppProviderProps {
   section: any;
@@ -32,39 +33,25 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     const appletPath = section?.applet || "";
     const app = appletPath ? appMap[appletPath] : null;
 
-    console.log(`NexAppProvider => appletPath=${appletPath}`);
-
-    //const elementList = elementPaths?.map((path) => elements[path]);
-    //const applet = section[appletPath];
     const contentsPaths = section?.contents || [];
 
     const name = section?.dispName;
 
     const padding = section.padding || "8px";
-    //const padding = theme?.applet?.padding || "8px";
 
     const contentsList = contentsPaths?.map((path: any) => {
       const contents = contentsMap[path];
-      console.log("path:", path);
+      //console.log("path:", path);
       //console.log("contents:", JSON.stringify(contents, null, 2));
-
       return contents;
     });
 
-    /*
-    const stores = contentsList?.map(
-      (path: any) => storeMap[path]
-    );
-    */
-
-    const tmpContents = contentsList?.map((content: any) => {
-      //console.log("Content:", JSON.stringify(contentsList, null, 2));
-      return {
-        store: storeMap[content.element],
-        selections: content.selections || [],
-        conditions: content.conditions || [],
-      };
-    });
+    if (appletPath !== "" && !app) {
+      console.log(
+        `NexAppProvider => section=${JSON.stringify(section)}, appletPath=${appletPath}`
+      );
+      return <NexDiv width='100%' height='100%' padding={padding}></NexDiv>;
+    }
 
     const selectorDeps = JSON.stringify(selector.map);
 
@@ -159,7 +146,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     );
     //const conditions = applet?.contents.
     return (
-      <NexDiv width="100%" height="100%" padding={padding}>
+      <NexDiv width='100%' height='100%' padding={padding}>
         {app &&
           React.createElement(app, {
             name: name,

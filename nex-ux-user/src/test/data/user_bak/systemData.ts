@@ -64,12 +64,12 @@ export const systemData = [
 
   [
     "system",
-    "/emu150cbm",
+    "/cbm",
     "/webserver",
     "/webserver",
     "webserver",
     "웹서버",
-    "EMU150 CBM 웹 서버",
+    "CBM 웹 서버",
     "",
     "",
     "",
@@ -84,13 +84,13 @@ export const systemData = [
   ],
   [
     "system",
-    "/emu150cbm",
+    "/cbm",
     "/webclient",
     "/webclient",
     "webclient",
     "WEB-UI",
     "WEB-UI",
-    "EMU150 CBM WEB-UI",
+    "CBM WEB-UI",
     "",
     "",
     "0",
@@ -104,7 +104,7 @@ export const systemData = [
   ],
   [
     "system",
-    "/emu150cbm",
+    "/cbm",
     "/collector",
     "/collector",
     "collector",
@@ -124,7 +124,7 @@ export const systemData = [
   ],
   [
     "system",
-    "/emu150cbm",
+    "/cbm",
     "/analysis",
     "/analysis",
     "analysis",

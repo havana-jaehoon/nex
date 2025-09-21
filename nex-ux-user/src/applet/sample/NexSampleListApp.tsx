@@ -3,11 +3,10 @@ import React, { useContext } from "react";
 import NexApplet, { NexAppProps } from "../NexApplet";
 import { observer } from "mobx-react-lite";
 //import { NexFeature } from "../nexAppletStore";
-import { NexDiv, NexLabel } from "../../component/base/NexBaseComponents";
+import { NexDiv } from "../../component/base/NexBaseComponents";
 import { clamp } from "../../utils/util";
 import { Box, Stack } from "@mui/material";
-import { NexStoreContext } from "provider/NexStoreProvider";
-import NexDataStore from "applet/NexDataStore";
+
 //import { fieldPaths } from "test/data/testProjects";
 
 const NexSampleListApp: React.FC<NexAppProps> = observer((props) => {
@@ -31,7 +30,7 @@ const NexSampleListApp: React.FC<NexAppProps> = observer((props) => {
 
   // 1.3 Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
   // 향후 구현 필요
-  console.log("## Contents:", JSON.stringify(contents, null, 2));
+  //console.log("## Contents:", JSON.stringify(contents, null, 2));
   const features: any[] = contents?.[0].format.features || [];
   const data = contents?.[0].csv || [];
 
@@ -45,13 +44,13 @@ const NexSampleListApp: React.FC<NexAppProps> = observer((props) => {
 
       {/* 4. Applet Contents 출력  */}
       <NexDiv
-        direction="column"
-        width="100%"
-        height="100%"
+        direction='column'
+        width='100%'
+        height='100%'
         fontSize={contentsFontSize}
       >
         {/* 5.1. Contents Header 출력(Features)  */}
-        <Stack direction="row" spacing={2} mb={2}>
+        <Stack direction='row' spacing={2} mb={2}>
           {features.map((feature: any, index: number) => (
             <Box key={index}>{feature.name}</Box>
           ))}
@@ -60,7 +59,7 @@ const NexSampleListApp: React.FC<NexAppProps> = observer((props) => {
         <Stack spacing={2} mb={2}>
           {/* 5.2. Contents Data 출력 */}
           {data.map((row: any[], index: number) => (
-            <Stack key={index} direction="row" spacing={2}>
+            <Stack key={index} direction='row' spacing={2}>
               {row.map((value: any, idx: number) => (
                 <span key={`${index}-${idx}`} style={{ marginLeft: 5 }}>
                   {value}

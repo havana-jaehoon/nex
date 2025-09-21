@@ -79,10 +79,10 @@ const webcontentsData = [
     "folder", //type
     "/nex-admin", //project-path
     "/webclient", //system-path
-    "/emu150cbm", //path
-    "emu150cbm", //name
-    "EMU150CBM", //displayName
-    "EMU150CBM 용 컨텐트 폴더", //description
+    "/cbm", //path
+    "cbm", //name
+    "CBM", //displayName
+    "CBM 용 컨텐트 폴더", //description
     "", //icon
     "", //color
   ],
@@ -90,7 +90,7 @@ const webcontentsData = [
     "folder", //type
     "/nex-admin", //project-path
     "/webclient", //system-path
-    "/emu150cbm/config", //path
+    "/cbm/config", //path
     "config", //name
     "설정 데이터", //displayName
     "설정 데이터 컨텐트 폴더", //description
@@ -101,7 +101,7 @@ const webcontentsData = [
     "folder", //type
     "/nex-admin", //project-path
     "/webclient", //system-path
-    "/emu150cbm/status", //path
+    "/cbm/status", //path
     "status", //name
     "상태 데이터", //displayName
     "상태 데이터 컨텐트 폴더", //description
@@ -112,7 +112,7 @@ const webcontentsData = [
     "folder", //type
     "/nex-admin", //project-path
     "/webclient", //system-path
-    "/emu150cbm/event", //path
+    "/cbm/event", //path
     "event", //name
     "이벤트 데이터", //displayName
     "이벤트 데이터 컨텐트 폴더", //description
@@ -123,7 +123,7 @@ const webcontentsData = [
     "folder", //type
     "/nex-admin", //project-path
     "/webclient", //system-path
-    "/emu150cbm/history", //path
+    "/cbm/history", //path
     "history", //name
     "이력 데이터", //displayName
     "이력 데이터 컨텐트 폴더", //description

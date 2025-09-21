@@ -10,7 +10,7 @@ export const appletConfig: (NexFolderNode | NexAppletNode)[] = [
     color: "",
     children: [
       {
-        name: "NexMenu",
+        name: "menu",
         dispName: "Nex Menu",
         description: "Nex Menu Applet",
         type: NexNodeType.APPLET,
@@ -83,26 +83,6 @@ export const appletConfig: (NexFolderNode | NexAppletNode)[] = [
         icon: "",
         color: "#A133FF", // Default color
         applet: "/status/NexCount",
-      },
-    ],
-  },
-
-  {
-    name: "tree",
-    dispName: "Tree",
-    description: "Tree Applet 폴더",
-    type: NexNodeType.FOLDER,
-    icon: "",
-    color: "",
-    children: [
-      {
-        name: "NexTree",
-        dispName: "Nex Tree",
-        description: "Nex Tree Applet",
-        type: NexNodeType.APPLET,
-        icon: "tree",
-        color: "#FF33A1",
-        applet: "/tree/NexTree",
       },
     ],
   },

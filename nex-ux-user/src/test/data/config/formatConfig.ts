@@ -81,8 +81,8 @@ const adminFormatConfig = {
 
 const cbmFormatConfig: NexFolderNode = {
   name: "cbm",
-  dispName: "emu150cbm 설정 데이터",
-  description: "emu150cbm 설정 데이터 엘리먼트 폴더",
+  dispName: "CBM 설정 데이터",
+  description: "CBM 설정 데이터 엘리먼트 폴더",
   type: NexNodeType.FOLDER,
   children: [
     {

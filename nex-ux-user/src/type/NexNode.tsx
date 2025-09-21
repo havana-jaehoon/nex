@@ -18,11 +18,11 @@ export enum NexNodeType {
   APPLET = "applet",
 
   //WEBPAGE = "webpage",
-  WEBSECTION = "websection",
+  SECTION = "section",
 
-  WEBSTYLE = "webstyle", // WEBSTYLE attribute : color, bgColor, ...
+  THEME = "theme", // THEME attribute : color, bgColor, ...
 
-  WEBUSER = "webuser",
+  USER = "user",
 }
 
 export enum NexFeatureType {

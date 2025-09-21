@@ -172,7 +172,7 @@ export const websectionData = [
 
   [
     "websection",
-    "/emu150cbm",
+    "/cbm",
     "/webclient",
     "/dashboard",
     "dashboard",

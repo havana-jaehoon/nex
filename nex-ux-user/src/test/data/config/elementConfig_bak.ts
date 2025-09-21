@@ -22,15 +22,15 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
     ],
   },
   {
-    name: "emu150cbm",
-    dispName: "EMU150-CBM",
-    description: "EMU150-CBM 전용 데이터 엘리먼트 폴더",
+    name: "cbm",
+    dispName: "CBM",
+    description: "CBM 전용 데이터 엘리먼트 폴더",
     type: NexNodeType.FOLDER,
     children: [
       {
         name: "config",
-        dispName: "EMU150CBM",
-        description: "EMU150-CBM 전용 데이터 엘리먼트 폴더",
+        dispName: "CBM",
+        description: "CBM 전용 데이터 엘리먼트 폴더",
         type: NexNodeType.FOLDER,
         children: [
           {
@@ -240,7 +240,7 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
       },
       {
         name: "formats",
-        dispName: "데이터 포맷", 
+        dispName: "데이터 포맷",
         description: "데이터 포맷",
         type: NexNodeType.ELEMENT,
         format: "/admin/node", // 데이터 유형 (경로)
@@ -252,7 +252,7 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
       },
       {
         name: "store",
-        dispName: "데이터 저장 정책", 
+        dispName: "데이터 저장 정책",
         description: "데이터 저장 정책",
         type: NexNodeType.ELEMENT,
         format: "/admin/node", // 데이터 유형 (경로)
@@ -264,7 +264,7 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
       },
       {
         name: "processor",
-        dispName: "데이터 프로세서", 
+        dispName: "데이터 프로세서",
         description: "데이터 프로세서",
         type: NexNodeType.ELEMENT,
         format: "/admin/node", // 데이터 유형 (경로)
@@ -276,7 +276,7 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
       },
       {
         name: "system",
-        dispName: "시스템", 
+        dispName: "시스템",
         description: "시스템",
         type: NexNodeType.ELEMENT,
         format: "/admin/node", // 데이터 유형 (경로)
@@ -288,7 +288,7 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
       },
       {
         name: "element",
-        dispName: "데이터 엘리먼트", 
+        dispName: "데이터 엘리먼트",
         description: "데이터 엘리먼트",
         type: NexNodeType.ELEMENT,
         format: "/admin/node", // 데이터 유형 (경로)
@@ -300,7 +300,7 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
       },
       {
         name: "contents",
-        dispName: "컨텐츠", 
+        dispName: "컨텐츠",
         description: "컨텐츠 엘리먼트",
         type: NexNodeType.ELEMENT,
         format: "/admin/node", // 데이터 유형 (경로)

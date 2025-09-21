@@ -1530,10 +1530,10 @@ const adminWebsectionFormat = {
   ],
 };
 
-const emu150FormatData: NexFolderNode = {
-  name: "emu150cbm",
-  dispName: "emu150cbm 설정 데이터",
-  description: "emu150cbm 설정 데이터 엘리먼트 폴더",
+const cbmFormatData: NexFolderNode = {
+  name: "cbm",
+  dispName: "CBM 설정 데이터",
+  description: "CBM 설정 데이터 엘리먼트 폴더",
   type: NexNodeType.FOLDER,
 
   children: [
@@ -2767,7 +2767,7 @@ export const adminFormatConfig: NexNode[] = [
     ],
   },
 
-  //...emu150FormatData,
+  //...cbmFormatData,
 ];
 
 export const formatConfig: (NexFolderNode | NexFormatNode)[] = [

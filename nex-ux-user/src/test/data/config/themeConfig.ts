@@ -6,7 +6,7 @@ export const themeConfig: NexWebThemeNode[] = [
     name: "default",
     dispName: "Default Theme",
     description: "Default Theme",
-    type: NexNodeType.WEBSTYLE,
+    type: NexNodeType.THEME,
     icon: "theme",
     color: "#33A1FF",
     theme: defaultTheme,

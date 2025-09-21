@@ -14,14 +14,12 @@ import { themeConfig } from "test/data/config/themeConfig";
 import { themeUserConfig } from "test/data/config/themeUserConfig";
 import { elementConfig } from "test/data/config/elementConfig";
 import { storeConfig } from "test/data/config/storeConfig";
-import { projectConfig } from "test/data/config/projectConfig";
 
 import { appletConfig } from "test/data/config/appletConfig";
 import { contentsConfig } from "test/data/config/contentsConfig";
 import { systemConfig } from "test/data/config/systemConfig";
 
 interface NexConfig {
-  projects: NexNode[]; // 프로젝트 정보
   formats: NexNode[]; // 포맷 정보
   stores: NexNode[]; // 스토어 정보
   processors: NexNode[]; // 프로세서 정보
@@ -40,7 +38,6 @@ class NexConfigStore {
   systemPath: string = "/webui"; // 시스템 경로
 
   config: NexConfig = {
-    projects: [],
     formats: [],
     stores: [],
     processors: [],
@@ -80,7 +77,6 @@ class NexConfigStore {
     // this.element.process
     try {
       runInAction(() => {
-        this.config.projects = projectConfig;
         this.config.formats = formatConfig;
         this.config.stores = storeConfig;
         this.config.processors = processorConfig;

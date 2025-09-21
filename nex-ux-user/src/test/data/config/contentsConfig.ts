@@ -20,12 +20,12 @@ const sampleContents: NexContentsNode = {
   name: "sample",
   dispName: "Sample",
   type: NexNodeType.CONTENTS,
-  element: "/emu150cbm/history/LossHistoryPerDevice",
+  element: "/cbm/history/LossHistoryPerDevice",
   condition: [],
   selection: [],
 };
 
-//emu150cbm Contents
+//cbm Contents
 const lineSelection: NexSelection = {
   key: "line",
   feature: "line",
@@ -389,9 +389,9 @@ export const contentsConfig: NexNode[] = [
   },
   {
     type: NexNodeType.FOLDER,
-    name: "emu150cbm",
-    dispName: "emu150cbm",
-    description: "emu150cbm 용 컨텐츠 폴더",
+    name: "cbm",
+    dispName: "CBM",
+    description: "CBM 용 컨텐츠 폴더",
     children: [
       {
         type: NexNodeType.FOLDER,

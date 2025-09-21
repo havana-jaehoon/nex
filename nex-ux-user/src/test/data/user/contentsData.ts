@@ -19,7 +19,7 @@ const sampleContents: NexContentsNode = {
   name: "sample",
   dispName: "Sample",
   type: NexNodeType.CONTENTS,
-  element: "/emu150cbm/history/LossHistoryPerDevice",
+  element: "/cbm/history/LossHistoryPerDevice",
   condition: [],
   selection: [],
 };
@@ -51,7 +51,7 @@ export const commonContents = [
       name: "sample",
       dispName: "Sample",
       type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/history/LossHistoryPerDevice",
+      element: "/cbm/history/LossHistoryPerDevice",
       condition: [],
       selection: [],
     },
@@ -131,7 +131,7 @@ const cbmContents = [
     {
       name: "Line",
       type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/config/Line",
+      element: "/cbm/config/Line",
       condition: [],
       selection: [lineSelection],
     },
@@ -141,7 +141,7 @@ const cbmContents = [
     {
       name: "TrainPerLine",
       type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/config/TrainPerLine",
+      element: "/cbm/config/TrainPerLine",
       condition: [],
       selection: [trainSelection],
     },
@@ -152,7 +152,7 @@ const cbmContents = [
     {
       name: "SelectedTrain",
       type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/config/TrainPerLine",
+      element: "/cbm/config/TrainPerLine",
       condition: [lineCondition],
       selection: [trainSelection],
     },
@@ -162,7 +162,7 @@ const cbmContents = [
     {
       name: "CarPerTrain",
       type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/config/CarPerTrain",
+      element: "/cbm/config/CarPerTrain",
       condition: [],
       selection: [carSelection],
     },
@@ -172,7 +172,7 @@ const cbmContents = [
     {
       name: "SelectedCar",
       type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/config/CarPerTrain",
+      element: "/cbm/config/CarPerTrain",
       condition: [trainCondition],
       selection: [carSelection],
     },
@@ -182,7 +182,7 @@ const cbmContents = [
     {
       name: "Device",
       type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/config/Device", // Device / car
+      element: "/cbm/config/Device", // Device / car
       condition: [],
       selection: [deviceSelection],
     },
@@ -192,7 +192,7 @@ const cbmContents = [
     {
       name: "SelectedDevice",
       type: NexNodeType.CONTENTS,
-      element: "/emu150cbm/config/Device",
+      element: "/cbm/config/Device",
       condition: [carCondition],
       selection: [],
     },

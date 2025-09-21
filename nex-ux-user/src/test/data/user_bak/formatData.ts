@@ -1,4 +1,4 @@
-// format, folder, project 
+// format, folder, project
 // CSV-like array: [type, project-path, system-path, path, name, dispName, description, icon, color]
 const webFormatData = [
   [
@@ -1271,14 +1271,14 @@ const adminElementFormatData = [
   ],
 ];
 
-const emu150FormatData = [
-  // emu150cbm 프로젝트용 데이터 유형 정의
+const cbmFormatData = [
+  // cbm 프로젝트용 데이터 유형 정의
   [
     "folder",
     "/nex-admin",
     "",
-    "/emu150cbm",
-    "emu150cbm",
+    "/cbm",
+    "cbm",
     "프로젝트용 데이터 유형",
     "프로젝트용 데이터 유형 폴더",
     "", // icon
@@ -1286,15 +1286,15 @@ const emu150FormatData = [
   ],
 
   //config, status, event, history, system folders
-  // emu150cbm - Config 설정 데이터 유형 정의
+  // cbm - Config 설정 데이터 유형 정의
   [
     "folder",
     "/nex-admin",
     "",
-    "/emu150cbm/config",
+    "/cbm/config",
     "config",
-    "EMU150 CBM 설정 데이터 유형",
-    "EMU150 CBM 설정 데이터 유형 폴더",
+    "CBM 설정 데이터 유형",
+    "CBM 설정 데이터 유형 폴더",
     "", // icon
     "", // color
   ],
@@ -1302,7 +1302,7 @@ const emu150FormatData = [
     "format",
     "/nex-admin",
     "",
-    "/emu150cbm/config/line",
+    "/cbm/config/line",
     "line",
     "호선",
     "호선 데이터 포맷",
@@ -1313,7 +1313,7 @@ const emu150FormatData = [
     "feature",
     "/nex-admin",
     "",
-    "/emu150cbm/config/line/name",
+    "/cbm/config/line/name",
     "name",
     "호선명",
     "호선명",
@@ -1347,51 +1347,51 @@ const emu150FormatData = [
     ],
   ],
 
-  // emu150cbm - 상태 데이터 유형 정의
+  // cbm - 상태 데이터 유형 정의
   [
     "folder",
     "/nex-admin",
     "",
-    "/emu150cbm/status",
+    "/cbm/status",
     "status",
-    "EMU150 CBM 상태 데이터 유형",
-    "EMU150 CBM 상태 데이터 유형 폴더",
+    "CBM 상태 데이터 유형",
+    "CBM 상태 데이터 유형 폴더",
     "", // icon
     "", // color
   ],
-  // emu150cbm - 이벤트 데이터 유형 정의
+  // cbm - 이벤트 데이터 유형 정의
   [
     "folder",
     "/nex-admin",
     "",
-    "/emu150cbm/event",
+    "/cbm/event",
     "event",
-    "EMU150 CBM 이벤트 데이터 유형",
-    "EMU150 CBM 이벤트 데이터 유형 폴더",
+    "CBM 이벤트 데이터 유형",
+    "CBM 이벤트 데이터 유형 폴더",
     "", // icon
     "", // color
   ],
-  // emu150cbm - 이력 데이터 유형 정의
+  // cbm - 이력 데이터 유형 정의
   [
     "folder",
     "/nex-admin",
     "",
-    "/emu150cbm/history",
+    "/cbm/history",
     "history",
-    "EMU150 CBM 이력 데이터 유형",
-    "EMU150 CBM 이력 데이터 유형 폴더",
+    "CBM 이력 데이터 유형",
+    "CBM 이력 데이터 유형 폴더",
     "", // icon
     "", // color
   ],
-  // emu150cbm - 시스템 데이터 유형 정의
+  // cbm - 시스템 데이터 유형 정의
   [
     "folder",
     "/nex-admin",
     "",
-    "/emu150cbm/system",
+    "/cbm/system",
     "system",
-    "EMU150 CBM 시스템 데이터 유형",
-    "EMU150 CBM 시스템 데이터 유형 폴더",
+    "CBM 시스템 데이터 유형",
+    "CBM 시스템 데이터 유형 폴더",
     "", // icon
     "", // color
   ],
@@ -1421,5 +1421,5 @@ export const formatData = [
 
   //...adminElementFormatData,
 
-  ...emu150FormatData,
+  ...cbmFormatData,
 ];

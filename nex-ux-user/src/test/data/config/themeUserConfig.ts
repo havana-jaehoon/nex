@@ -6,7 +6,7 @@ export const themeUserConfig: NexWebThemeUserNode[] = [
     name: "default",
     dispName: "Default User Theme",
     description: "Default User Theme",
-    type: NexNodeType.WEBUSER,
+    type: NexNodeType.USER,
     icon: "user",
     color: "#33A1FF",
     user: {

@@ -115,6 +115,7 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
           //console.log("NexStoreProvider applet:", path, node.applet);
           const AppletComponent = nexApplets(node.applet); // Assuming node.applet is a React component
           if (AppletComponent) appMap[path] = AppletComponent;
+          else console.error("NexStoreProvider: Unknown applet", node.applet);
         }
       });
       return appMap;

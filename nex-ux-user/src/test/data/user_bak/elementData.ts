@@ -20,15 +20,15 @@ export const elementConfig: any[] = [
     ],
   },
   {
-    name: "emu150cbm",
-    dispName: "EMU150-CBM",
-    description: "EMU150-CBM 전용 데이터 엘리먼트 폴더",
+    name: "cbm",
+    dispName: "CBM",
+    description: "CBM 전용 데이터 엘리먼트 폴더",
     type: "folder",
     children: [
       {
         name: "config",
-        dispName: "EMU150CBM",
-        description: "EMU150-CBM 전용 데이터 엘리먼트 폴더",
+        dispName: "Config",
+        description: "CBM Config 데이터 엘리먼트 폴더",
         type: "folder",
         children: [
           {
@@ -384,10 +384,10 @@ export const elementData = [
     "folder",
     "/nex-admin",
     "/webclient",
-    "/emu150cbm",
-    "emu150cbm",
-    "EMU150-CBM",
-    "EMU150-CBM 전용 데이터 엘리먼트 폴더",
+    "/cbm",
+    "cbm",
+    "CBM",
+    "CBM 전용 데이터 엘리먼트 폴더",
     "",
     "",
   ],
@@ -395,10 +395,10 @@ export const elementData = [
     "folder",
     "/nex-admin",
     "/webclient",
-    "/emu150cbm/config",
+    "/cbm/config",
     "config",
-    "EMU150CBM",
-    "EMU150-CBM 설정 데이터 엘리먼트 폴더",
+    "Config",
+    "CBM 설정 데이터 엘리먼트 폴더",
     "",
     "",
   ],
@@ -406,7 +406,7 @@ export const elementData = [
     "element",
     "/nex-admin",
     "/webclient",
-    "/emu150cbm/config/Line",
+    "/cbm/config/Line",
     "Line",
     "노선",
     "노선정보 데이터 엘리먼트",
@@ -423,7 +423,7 @@ export const elementData = [
     "element",
     "/nex-admin",
     "/webclient",
-    "/emu150cbm/config/TrainPerLine",
+    "/cbm/config/TrainPerLine",
     "TrainPerLine",
     "노선별편성정보",
     "노선별 편성정보 데이터 엘리먼트",
@@ -440,7 +440,7 @@ export const elementData = [
     "element",
     "/nex-admin",
     "/webclient",
-    "/emu150cbm/config/CarPerTrain",
+    "/cbm/config/CarPerTrain",
     "CarPerTrain",
     "편성별차량정보",
     "편성별차량정보 데이터 엘리먼트",
@@ -457,7 +457,7 @@ export const elementData = [
     "element",
     "/nex-admin",
     "/webclient",
-    "/emu150cbm/config/DevicePerCar",
+    "/cbm/config/DevicePerCar",
     "DevicePerCar",
     "차량별장치정보",
     "차량별장치정보 데이터 엘리먼트",
@@ -474,7 +474,7 @@ export const elementData = [
     "folder",
     "/nex-admin",
     "/webclient",
-    "/emu150cbm/status",
+    "/cbm/status",
     "status",
     "상태",
     "상태 데이터 엘리먼트 폴더",
@@ -485,7 +485,7 @@ export const elementData = [
     "element", // LossPerLine
     "/nex-admin",
     "/webclient", // webclient
-    "/emu150cbm/status/LossPerLine", // path
+    "/cbm/status/LossPerLine", // path
     "LossPerLine", // name
     "노선별 열화 현황", // dispName
     "노선별 열화 현상 데이터 엘리먼트", // description
@@ -502,7 +502,7 @@ export const elementData = [
     "element", // LossPerDevice
     "/nex-admin",
     "/webclient", // webclient
-    "/emu150cbm/status/LossPerDevice", // path
+    "/cbm/status/LossPerDevice", // path
     "LossPerDevice", // name
     "장치별 열화 현상", // dispName
     "장치치별 열화 현상 데이터 엘리먼트", // description
@@ -519,7 +519,7 @@ export const elementData = [
     "element",
     "/nex-admin",
     "/webclient", // webclient
-    "/emu150cbm/status/TrainCountPerLine", // path
+    "/cbm/status/TrainCountPerLine", // path
     "TrainCountPerLine", // name
     "노선별 편성 수", // dispName
     "노선별 편성 수 데이터 엘리먼트", // description
@@ -536,7 +536,7 @@ export const elementData = [
     "folder",
     "/nex-admin",
     "/webclient",
-    "/emu150cbm/event",
+    "/cbm/event",
     "event",
     "이벤트",
     "이벤트 데이터 엘리먼트 폴더",
@@ -547,7 +547,7 @@ export const elementData = [
     "element", // RTMaintanaceInfo
     "/nex-admin",
     "/webclient", // webclient
-    "/emu150cbm/event/RTMaintanaceInfo", // path
+    "/cbm/event/RTMaintanaceInfo", // path
     "RTMaintanaceInfo", // name
     "실시간 유지보수 정보", // dispName
     "실시간 유지보수 정보 데이터 엘리먼트", // description
@@ -564,7 +564,7 @@ export const elementData = [
     "element", // SystemEventInfo
     "/nex-admin",
     "/webclient", // webclient
-    "/emu150cbm/event/SystemEventInfo", // path
+    "/cbm/event/SystemEventInfo", // path
     "SystemEventInfo", // name
     "시스템 이벤트 정보", // dispName
     "시스템 이벤트 정보 데이터 엘리먼트", // description
@@ -581,7 +581,7 @@ export const elementData = [
     "folder",
     "/nex-admin",
     "/webclient",
-    "/emu150cbm/history",
+    "/cbm/history",
     "history",
     "이력",
     "이력 데이터 엘리먼트 폴더",
@@ -592,7 +592,7 @@ export const elementData = [
     "element",
     "/nex-admin",
     "/webclient",
-    "/emu150cbm/history/LossHistoryPerLine",
+    "/cbm/history/LossHistoryPerLine",
     "LossHistoryPerLine",
     "노선별 열화 이력",
     "노선별 열화 이력 데이터 엘리먼트",
@@ -609,7 +609,7 @@ export const elementData = [
     "element",
     "/nex-admin",
     "/webclient",
-    "/emu150cbm/history/LossHistoryPerDevice",
+    "/cbm/history/LossHistoryPerDevice",
     "LossHistoryPerDevice",
     "장치별 열화 이력",
     "장치치별 열화 이력 데이터 엘리먼트",
@@ -626,7 +626,7 @@ export const elementData = [
     "element",
     "/nex-admin",
     "/webclient",
-    "/emu150cbm/history/MaintenanceHistoryPerLine",
+    "/cbm/history/MaintenanceHistoryPerLine",
     "MaintenanceHistoryPerLine",
     "노선별 유지보수 이력",
     "노선선별 유지보수 이력 데이터 엘리먼트",
@@ -643,7 +643,7 @@ export const elementData = [
     "element",
     "/nex-admin",
     "/webclient",
-    "/emu150cbm/history/DetailLossLevelHistory",
+    "/cbm/history/DetailLossLevelHistory",
     "DetailLossLevelHistory",
     "상세 열화등급 이력",
     "상세 열화등급 이력 데이터 엘리먼트",

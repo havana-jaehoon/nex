@@ -38,7 +38,7 @@ const NexTableApp: React.FC<NexAppProps> = observer((props) => {
 
   // 1.3 Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
   // 향후 구현 필요
-  console.log("## Contents:", JSON.stringify(contents, null, 2));
+  //console.log("## Contents:", JSON.stringify(contents, null, 2));
   const features: any[] = contents?.[0].format.features || [];
   const data = contents?.[0].csv || [];
 
@@ -61,13 +61,13 @@ const NexTableApp: React.FC<NexAppProps> = observer((props) => {
       {/* 3. 기본 Apllet 의 속성 적용 */}
 
       {/* 4. Applet Contents 출력  */}
-      <NexDiv width="100%" height="100%" fontSize={contentsFontSize}>
+      <NexDiv width='100%' height='100%' fontSize={contentsFontSize}>
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+          <Table sx={{ minWidth: 650 }} size='small' aria-label='a dense table'>
             <TableHead>
               <TableRow>
                 {features.map((feature: any, index: number) => (
-                  <TableCell key={index} align="left">
+                  <TableCell key={index} align='left'>
                     {feature.dispName || feature.name}
                   </TableCell>
                 ))}
@@ -86,7 +86,7 @@ const NexTableApp: React.FC<NexAppProps> = observer((props) => {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   {row.map((cell, index) => (
-                    <TableCell key={index} align="left">
+                    <TableCell key={index} align='left'>
                       {cell}
                     </TableCell>
                   ))}

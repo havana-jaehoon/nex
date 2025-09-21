@@ -130,7 +130,6 @@ function buildTreeData(odata: any[], format: any): any {
   return result;
 }
 
-
 const makePeriodMSec = (
   intervalStr: string,
   unit: "MSEC" | "SEC" | "MIN" | "HOUR" | "DAY" | "MONTH" | "YEAR"
@@ -224,7 +223,9 @@ export class NexDataStore {
       this.odata = getTestData(this.element?.name);
       this.format = getTestFormat(this.element?.format);
 
-      //console.log(`NexDataStore: element=${elementPath} format=${this.element?.format}`);   );
+      //console.log(
+      //  `NexDataStore: element=${elementPath} format=${this.element?.format}`
+      //);
 
       if (!this.format || !this.element) {
         console.error(

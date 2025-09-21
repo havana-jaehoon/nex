@@ -92,14 +92,14 @@ export const nexAddNodeIcon = (type: NexNodeType, size: string) => {
       icon = <MdAddChart style={{ fontSize: size }} />;
       break;
 
-    case NexNodeType.WEBSECTION:
+    case NexNodeType.SECTION:
       icon = <MdOutlineAddBox style={{ fontSize: size }} />;
       break;
 
-    case NexNodeType.WEBSTYLE:
+    case NexNodeType.THEME:
       icon = <MdPlaylistAddCircle style={{ fontSize: size }} />;
       break;
-    case NexNodeType.WEBUSER:
+    case NexNodeType.USER:
       icon = <MdPersonAdd style={{ fontSize: size }} />;
       break;
 
@@ -143,14 +143,14 @@ export const nexNodeIcon = (type: NexNodeType, size: string) => {
       icon = <MdAddChart style={{ fontSize: size }} />;
       break;
 
-    case NexNodeType.WEBSECTION:
+    case NexNodeType.SECTION:
       icon = <MdOutlineOutbox style={{ fontSize: size }} />;
       break;
 
-    case NexNodeType.WEBSTYLE:
+    case NexNodeType.THEME:
       icon = <MdOutlineFeaturedPlayList style={{ fontSize: size }} />;
       break;
-    case NexNodeType.WEBUSER:
+    case NexNodeType.USER:
       icon = <MdPerson style={{ fontSize: size }} />;
       break;
   }

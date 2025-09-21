@@ -3,9 +3,7 @@ import { observer } from "mobx-react-lite";
 import NexApplet, { NexAppProps } from "../NexApplet";
 import { NexDiv } from "../../component/base/NexBaseComponents";
 import NexMenuItem from "./lib/NexMenuItem";
-import { Alert, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { testDataMenu } from "test/data/user/testData";
 import { buildMenuTree } from "./lib/NexMenuNode";
 import { clamp } from "utils/util";
 
@@ -42,7 +40,7 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
 
   const menuData = buildMenuTree(data);
 
-  //console.log("NexMenuApp menuData:", JSON.stringify(menuData, null, 2));
+  console.log("NexMenuApp menuData:", JSON.stringify(menuData, null, 2));
 
   const navigate = useNavigate();
   const handleClick = (path: string) => {
@@ -52,15 +50,15 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
 
   return (
     <NexDiv
-      flex="1"
-      direction="column"
-      align="center"
-      justify="flex-start"
+      flex='1'
+      direction='column'
+      align='center'
+      justify='flex-start'
       color={color}
       bgColor={bgColor}
-      width="100%"
-      height="100%"
-      overflow="auto"
+      width='100%'
+      height='100%'
+      overflow='auto'
     >
       {menuData.map((node: any, index: number) => (
         <NexMenuItem

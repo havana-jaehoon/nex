@@ -22,15 +22,15 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
     ],
   },
   {
-    name: "emu150cbm",
-    dispName: "EMU150-CBM",
-    description: "EMU150-CBM 전용 데이터 엘리먼트 폴더",
+    name: "cbm",
+    dispName: "CBM",
+    description: "CBM 전용 데이터 엘리먼트 폴더",
     type: NexNodeType.FOLDER,
     children: [
       {
         name: "config",
-        dispName: "EMU150CBM",
-        description: "EMU150-CBM 전용 데이터 엘리먼트 폴더",
+        dispName: "CBM",
+        description: "CBM 전용 데이터 엘리먼트 폴더",
         type: NexNodeType.FOLDER,
         children: [
           {
@@ -38,7 +38,7 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
             dispName: "노선정보",
             description: "노선정보",
             type: NexNodeType.ELEMENT,
-            format: "/config/Line", // 데이터 유형 (경로)
+            format: "/cbm/config/Line", // 데이터 유형 (경로)
             store: "/memory/static", // 보관 정책 (경로)
             processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
             processingInterval: "10", // 0: 초기 한번 수집
@@ -50,7 +50,7 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
             dispName: "노선별편성정보",
             description: "노선별 편성정보",
             type: NexNodeType.ELEMENT,
-            format: "/config/TrainPerLine", // 데이터 유형 (경로)
+            format: "/cbm/config/TrainPerLine", // 데이터 유형 (경로)
             store: "/memory/static", // 보관 정책 (경로)
             processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
             processingInterval: "10", // 0: 초기 한번 수집
@@ -62,7 +62,7 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
             dispName: "편성별차량정보",
             description: "편성별차량정보",
             type: NexNodeType.ELEMENT,
-            format: "/config/CarPerTrain", // 데이터 유형 (경로)
+            format: "/cbm/config/CarPerTrain", // 데이터 유형 (경로)
             store: "/memory/static", // 보관 정책 (경로)
             processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
             processingInterval: "10", // 0: 초기 한번 수집
@@ -74,7 +74,7 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
             dispName: "차량별장치정보",
             description: "차량별장치정보",
             type: NexNodeType.ELEMENT,
-            format: "/config/DevicePerCar", // 데이터 유형 (경로)
+            format: "/cbm/config/DevicePerCar", // 데이터 유형 (경로)
             store: "/memory/static", // 보관 정책 (경로)
             processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
             processingInterval: "10", // 0: 초기 한번 수집
@@ -94,7 +94,7 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
             dispName: "노선별 열화 현황",
             description: "노선별 열화 현상 데이터 엘리먼트",
             type: NexNodeType.ELEMENT,
-            format: "/status/alert-warning", // 데이터 유형 (경로)
+            format: "/cbm/status/AlertCount", // 데이터 유형 (경로)
             store: "/memory/static", // 보관 정책 (경로) => status
             processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
             processingInterval: "10", // 0: 초기 한번 수집
@@ -106,7 +106,7 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
             dispName: "장치별 열화 현상",
             description: "장치치별 열화 현상 데이터 엘리먼트",
             type: NexNodeType.ELEMENT,
-            format: "/status/alert-warning", // 데이터 유형 (경로)
+            format: "/cbm/status/AlertCount", // 데이터 유형 (경로)
             store: "/memory/static", // 보관 정책 (경로) => status
             processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
             processingInterval: "10", // 0: 초기 한번 수집
@@ -118,7 +118,7 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
             dispName: "노선별 편성 수",
             description: "노선별 편성 수 데이터 엘리먼트",
             type: NexNodeType.ELEMENT,
-            format: "/status/TrainCountPerLine", // 데이터 유형 (경로)
+            format: "/cbm/status/TrainCountPerLine", // 데이터 유형 (경로)
             store: "/memory/static", // 보관 정책 (경로) => status
             processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
             processingInterval: "10", // 0: 초기 한번 수집
@@ -139,7 +139,7 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
             dispName: "실시간 유지보수 정보",
             description: "실시간 유지보수 정보 데이터 엘리먼트",
             type: NexNodeType.ELEMENT,
-            format: "/event/RTMaintenanceInfo", // 데이터 유형 (경로)
+            format: "/cbm/event/RTMaintenanceInfo", // 데이터 유형 (경로)
             store: "/memory/1year", // 보관 정책 (경로) => status
             processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
             processingInterval: "10", // 0: 초기 한번 수집
@@ -151,7 +151,7 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
             dispName: "시스템 이벤트 정보",
             description: "시스템 이벤트 정보 데이터 엘리먼트",
             type: NexNodeType.ELEMENT,
-            format: "/event/SystemEventInfo", // 데이터 유형 (경로)
+            format: "/cbm/event/SystemEventInfo", // 데이터 유형 (경로)
             store: "/memory/1year", // 보관 정책 (경로) => status
             processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
             processingInterval: "10", // 0: 초기 한번 수집
@@ -171,7 +171,7 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
             dispName: "노선별 열화 이력",
             description: "노선별 열화 이력 데이터 엘리먼트",
             type: NexNodeType.ELEMENT,
-            format: "/history/LossHistoryPerLine", // 데이터 유형 (경로)
+            format: "/cbm/history/LossHistoryPerLine", // 데이터 유형 (경로)
             store: "/memory/7day", // 보관 정책 (경로) => status
             processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
             processingInterval: "10", // 0: 초기 한번 수집
@@ -183,7 +183,7 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
             dispName: "장치별 열화 이력",
             description: "장치치별 열화 이력 데이터 엘리먼트",
             type: NexNodeType.ELEMENT,
-            format: "/history/LossHistoryPerDevice", // 데이터 유형 (경로)
+            format: "/cbm/history/LossHistoryPerDevice", // 데이터 유형 (경로)
             store: "/memory/7day", // 보관 정책 (경로) => status
             processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
             processingInterval: "10", // 0: 초기 한번 수집
@@ -196,7 +196,7 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
             dispName: "노선별 유지보수 이력",
             description: "노선선별 유지보수 이력 데이터 엘리먼트",
             type: NexNodeType.ELEMENT,
-            format: "/history/MaintenanceHistoryPerLine", // 데이터 유형 (경로)
+            format: "/cbm/history/MaintenanceHistoryPerLine", // 데이터 유형 (경로)
             store: "/memory/1year", // 보관 정책 (경로) => status
             processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
             processingInterval: "10", // 0: 초기 한번 수집
@@ -208,7 +208,7 @@ export const elementConfig: (NexFolderNode | NexElementNode)[] = [
             dispName: "상세 열화등급 이력",
             description: "상세 열화등급 이력 데이터 엘리먼트",
             type: NexNodeType.ELEMENT,
-            format: "/history/DetailLossLevelHistory", // 데이터 유형 (경로)
+            format: "/cbm/history/DetailLossLevelHistory", // 데이터 유형 (경로)
             store: "/memory/1year", // 보관 정책 (경로) => status
             processor: "/common/transparent", // 데이터 수집 및 처리 모듈(경로)
             processingInterval: "10", // 0: 초기 한번 수집
