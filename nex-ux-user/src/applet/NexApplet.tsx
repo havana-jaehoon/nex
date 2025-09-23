@@ -7,6 +7,7 @@ import { defaultThemeStyle, NexTheme } from "type/NexTheme";
 import { clamp } from "utils/util";
 import NexSelector from "store/NexSelector";
 import { NexThemeUser } from "../type/NexTheme";
+import { nexIcon, nexNodeIcon } from "icon/NexIcon";
 
 /*
 export interface NexAppData {
@@ -17,7 +18,7 @@ export interface NexAppData {
 */
 export interface NexAppProps {
   name?: string; // Optional name for the applet
-
+  icon?: string;
   //Contents of the applet, can be used for rendering
   // store, csv, json, format, 등 통합
   // 모든 applet 보완 이후  datas, stores, selector 등 불필요한 인자 제거 필요
@@ -36,7 +37,7 @@ export interface NexAppProps {
 }
 
 const NexApplet: React.FC<NexAppProps> = observer(
-  ({ name, error, theme, user, applet, children }) => {
+  ({ name, icon, error, theme, user, applet, children }) => {
     //console.log("NexApplet theme: ", theme);
     // Applet 의 공통 속성을 적용하는 코드
 
@@ -75,6 +76,7 @@ const NexApplet: React.FC<NexAppProps> = observer(
           padding={padding}
           fontSize={fontSize}
         >
+          {nexIcon(icon, fontSize)}
           {(name || name !== "") && (
             <NexDiv
               fontWeight="bold"

@@ -103,7 +103,7 @@ class NexConfigStore {
 
     if (pathList.length === 0) return null;
 
-    let list = null;
+    let list: any = null;
     let node = null;
     switch (type) {
       /* only 1 project

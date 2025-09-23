@@ -1,6 +1,6 @@
 import { NexElementNode, NexFolderNode, NexNodeType } from "type/NexNode";
 
-export const elementConfig: (NexFolderNode | NexElementNode)[] = [
+export const elementConfig: any[] = [
   {
     name: "common",
     dispName: "공통",

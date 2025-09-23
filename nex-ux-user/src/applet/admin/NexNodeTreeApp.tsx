@@ -8,6 +8,46 @@ import NexNodeItem from "./lib/NexNodeItem";
 import { MdAdd, MdDelete, MdEdit } from "react-icons/md";
 import { clamp } from "utils/util";
 import NexModalNodeEditer from "modal/NexModalNodeEditer";
+import { buildNexTree } from "utils/NexTreeNode";
+
+const nodeStyle = {
+  format: {
+    folder: ["folder", "format"],
+    format: ["feature"],
+    feature: [],
+    any: ["folder", "format"],
+  },
+  store: {
+    store: [],
+    any: ["folder", "store"],
+  },
+  processor: {
+    processor: [],
+    any: ["folder", "processor"],
+  },
+  system: {
+    system: [],
+    any: ["system"],
+  },
+  element: {
+    element: [],
+    any: ["folder", "element"],
+  },
+  section: {
+    any: ["section"],
+  },
+  contents: {
+    contents: [],
+    any: ["folder", "contents"],
+  },
+  theme: {
+    theme: [],
+    any: ["folder", "theme"],
+  },
+  user: {
+    any: ["user"],
+  },
+};
 
 const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const { contents, theme, user, onSelect, onChange, onAdd, onRemove } = props;
@@ -33,7 +73,16 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       clamp(fontLevel, 0, theme.applet?.fontSize?.length - 1)
     ] || "1rem";
 
-  const treeData = contents?.[0]?.json || [];
+  //const treeData = contents?.[0]?.json || [];
+  const csvData = contents?.[0]?.csv || [];
+  const nodeType = contents?.[0]?.name || "";
+
+  const nexTree = buildNexTree(csvData);
+
+  //console.log(
+  //  `NexNodeTreeApp: csvData=${JSON.stringify(contents, null, 2)}`
+  //);
+  const treeData = nexTree.roots;
 
   const store = contents[0].store;
 
@@ -42,7 +91,9 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const handleClick = (path: string) => {
     setSelectedPath(path);
     if (onSelect) {
-      const row = store.findRowFromPath(path);
+      const row = csvData[nexTree.pathMap[path].index];
+
+      console.log(`NexNodeTreeApp: onSelect path=${path}, row=`, row);
 
       if (row) {
         onSelect(0, row); // Assuming single store for now
@@ -56,19 +107,6 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       return;
     }
     setIsAdding(true);
-    const curRow = store.findRowFromPath(selectedPath);
-    const newRow = store.getNewRowFromPath(selectedPath);
-
-    console.log(
-      `NexNodeTreeApp: addNode curRow=${JSON.stringify(curRow, null, 2)}`
-    );
-    console.log(
-      `NexNodeTreeApp: addNode newRow=${JSON.stringify(newRow, null, 2)}`
-    );
-    if (newRow) {
-      onAdd(0, curRow, newRow);
-      console.log(`NexNodeTreeApp: addNode path=${selectedPath}`);
-    }
   };
 
   const editNode = () => {

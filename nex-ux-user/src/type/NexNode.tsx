@@ -2,7 +2,6 @@ import { NexTheme, NexThemeStyle, NexThemeUser } from "./NexTheme";
 
 export enum NexNodeType {
   FOLDER = "folder",
-  PROJECT = "project",
 
   FORMAT = "format",
   FEATURE = "feature",
@@ -53,12 +52,10 @@ export enum NexFeatureType {
   URL = "URL",
   LITERALS = "LITERALS", // 문자열 목록 중에서 선택
   RECORDS = "RECORDS", // 레코드 목록 중에서 선택
+  ATTRIBUTES = "ATTRIBUTES", // key-value 쌍의 속성 목록
 }
 
 export interface NexNode {
-  path?: string; // e.g., "system-name/element-path"
-  project?: string | null; // e.g., "project-path"
-  system?: string | null; // e.g., "system-path"
   name: string; //"Enter Name of Object",
   dispName?: string | null; //"Enter Display Name of Object",
   description?: string | null; //"Enter Description of Object",
@@ -69,7 +66,7 @@ export interface NexNode {
   color?: string | null; //"Enter Color for Object",
   //size?: number; // Optional size property for the object, e.g., for storage size
   //direction?: "row" | "column"; // Optional direction property for layout, e.g., "row" or "column"
-  [key: string]: any; // Additional properties can be added dynamically
+  //[key: string]: any; // Additional properties can be added dynamically
 }
 
 export interface NexProjectNode extends NexNode {}
@@ -100,6 +97,7 @@ export interface NexSystemNode extends NexNode {
 export interface NexFeatureNode extends NexNode {
   isKey: boolean; // Whether this feature is a key
   featureType: NexFeatureType; // Type of the feature, e.g., "UINT32", "STRING", etc.
+  literal?: any[];
   children?: NexNode[]; // Array of child objects (could be systems, formats,
 }
 
@@ -171,6 +169,7 @@ export interface NexWebSectionNode extends NexNode {
   size?: string | null; // 같은 상위 섹션내의 section 크기 비율 (1, 2, 3, ...)
   direction?: "row" | "column"; // 섹션내부 정렬 방향 (row, column)
   padding?: string; // 섹션내부 여백 (8px, 10px, ...)
+  isRoutes?: boolean; // 하위 섹션이 라우팅 섹션인지 여부
   route?: string | null; // 페이지 라우팅 경로, e.g., "page-route"
   applet?: string | null; // Applet path, e.g., "/applet-path"
   contents?: string[] | null; // Contents path list, e.g., ["/system-name/element-path1", "/system-name/element-path2"]
@@ -185,22 +184,7 @@ export interface NexWebThemeUserNode extends NexNode {
   user: NexThemeUser; // User ID associated with the theme
 }
 
-export const initObjects = {
-  [NexNodeType.PROJECT]: {
-    name: "",
-    dispName: "",
-    description: "",
-    type: NexNodeType.PROJECT,
-    systems: [],
-    formats: [],
-    stores: [],
-    processors: [],
-    webpages: [],
-    webthemes: [],
-    webthemeUsers: [],
-    applets: [],
-  } as NexProjectNode,
-
+export const initNodes = {
   [NexNodeType.FOLDER]: {
     name: "",
     dispName: "",
@@ -279,7 +263,7 @@ function extractPathsFromObject(obj: any, prefix = ""): string[] {
 
 // If you want to use fieldPaths, do something with it, otherwise remove it.
 // Example: Log all field paths for debugging
-export const fieldPaths = Object.values(initObjects).map((obj: any) =>
+export const fieldPaths = Object.values(initNodes).map((obj: any) =>
   extractPathsFromObject(obj)
 );
 

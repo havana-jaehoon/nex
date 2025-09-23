@@ -570,7 +570,7 @@ const adminSystemPage: NexWebSectionNode = {
   ],
 };
 
-export const webPageConfig: NexNode[] = [
+export const webPageConfig: NexWebSectionNode[] = [
   {
     name: "root",
     dispName: "root",

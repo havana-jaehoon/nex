@@ -35,7 +35,8 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
 
     const contentsPaths = section?.contents || [];
 
-    const name = section?.dispName;
+    const name = section?.dispName || "";
+    const icon = section?.icon || "";
 
     const padding = section.padding || "8px";
 

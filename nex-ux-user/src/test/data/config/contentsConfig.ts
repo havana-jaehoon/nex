@@ -1,6 +1,7 @@
 import {
   NexCondition,
   NexContentsNode,
+  NexFolderNode,
   NexNode,
   NexNodeType,
   NexSelection,
@@ -247,7 +248,7 @@ const systemSelection = {
 
 const systemCondition = {
   key: "system-path",
-  feature: "system",
+  feature: "path",
   method: "pathmatch",
 };
 
@@ -379,7 +380,7 @@ const oneWebsectionContents = {
   selections: [],
 };
 
-export const contentsConfig: NexNode[] = [
+export const contentsConfig: any[] = [
   {
     type: NexNodeType.FOLDER,
     name: "common",

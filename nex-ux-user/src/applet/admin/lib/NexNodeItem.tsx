@@ -15,7 +15,7 @@ interface NexNodeItemProps {
   user?: NexThemeUser; // Optional theme user prop, can be used for user-specific theme settings
   depts: number;
   path: string; // Optional path prop, can be used for routing
-  node: NexNode;
+  node: any;
 
   onClick(path: string): void;
   selectedPath: string; // Current path for comparison
@@ -40,7 +40,7 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
   const isSelected = selectedPath === path;
 
   //const nodeWithoutChildren = { ...node, children: undefined };
-  const caption = JSON.stringify(node, null, 2);
+  const caption = JSON.stringify(node.data, null, 2);
   /*
   useEffect(() => {
     if (!isSelectedRoot) {
@@ -114,7 +114,7 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
         <NexLabel width="1rem" height="100%"></NexLabel>
 
         <NexLabel width="96%" height="100%">
-          {node.dispName || node.name}
+          {node.data.dispName || node.data.name}
         </NexLabel>
         <NexDiv
           justify="end"

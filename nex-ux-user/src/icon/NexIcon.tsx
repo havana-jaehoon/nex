@@ -157,3 +157,23 @@ export const nexNodeIcon = (type: NexNodeType, size: string) => {
 
   return icon;
 };
+
+const nexIconMap: { [key: string]: any } = {
+  folder: MdFolder,
+  format: MdLocalLibrary,
+  feature: MdFormatListBulleted,
+  processor: MdDatasetLinked,
+  store: MdSdStorage,
+  system: MdImportantDevices,
+  element: MdLabel,
+  applet: MdAddChart,
+  section: MdOutlineOutbox,
+  theme: MdOutlineFeaturedPlayList,
+  user: MdPerson,
+};
+
+export const nexIcon = (iconName: string | null | undefined, size?: string) => {
+  if (!iconName) return null;
+  const IconComponent = nexIconMap[iconName as keyof typeof nexIconMap];
+  return IconComponent ? <IconComponent style={{ fontSize: size }} /> : null;
+};

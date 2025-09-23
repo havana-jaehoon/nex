@@ -7,6 +7,9 @@ import { observer } from "mobx-react-lite";
 import { Stack } from "@mui/material";
 import { clamp } from "utils/util";
 import { defaultThemeStyle } from "type/NexTheme";
+import AdminNodeEditor from "./lib/AdminNodeEditor";
+import { NexFeatureType, NexNodeType } from "type/NexNode";
+import { MdKeyboardArrowDown, MdKeyboardArrowRight } from "react-icons/md";
 
 const colorSelection = "#0F6CED";
 
@@ -27,14 +30,17 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
       return "NexNodeEditor must be one store element.";
     return null;
   };
-  const data = contents?.[0]?.json[0] || null;
+  const csvData = contents?.[0]?.csv || [];
+  //const data = contents?.[0]?.json[0] || null;
+
+  const data = csvData.length > 0 ? csvData[0][1] : null;
+  //console.log(`NexNodeEditor: csvData=${JSON.stringify(data, null, 2)}`);
 
   const fontLevel = user?.fontLevel || 5; // Default font level if not provided
   const style = theme?.default || defaultThemeStyle;
   const fontSize =
-    style?.fontSize[
-      clamp(fontLevel - 1, 0, style?.fontSize?.length - 1)
-    ] || "1rem";
+    style?.fontSize[clamp(fontLevel - 1, 0, style?.fontSize?.length - 1)] ||
+    "1rem";
 
   const color = style?.colors[0] || "#393c45";
   const bgColor = style?.bgColors[0] || "#e8edf7";
@@ -43,16 +49,6 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
   useEffect(() => {
     setNode(data);
   }, [data]);
-
-  /*
-  const handleUpdatePath = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      onChangePath(editingPath);
-    } else if (e.key === "Escape") {
-      setEditingPath(path);
-    }
-  };
-*/
 
   //onChange: (newData: { [key: string]: any }) => void; // 변경 완료시 데이터 업데이트
   const handleChange = (newData: { [key: string]: any }) => {
@@ -73,52 +69,25 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
           onMouseEnter={() => setMouseEnter(true)}
           onMouseLeave={() => setMouseEnter(false)}
         >
-          <NexDiv
-            direction="row"
-            align="flex-start"
-            width="100%"
-            height={`calc(${fontSize} * 2)`}
-            borderTop={
-              isMouseEnter || isFocus ? `4px solid ${colorSelection}` : "none"
-            }
-            borderBottom={`1px solid ${borderColorSection}`}
-            fontSize={`calc(${fontSize} * 1.3)`}
-          >
-            <Stack
-              title={data?.name || ""}
-              spacing={1}
-              direction="row"
-              width="100%"
-              style={isMouseEnter || isFocus ? { fontWeight: "bold" } : {}}
-            >
-              <NexLabel>{nexNodeIcon(data?.type, "1.2em")}</NexLabel>
-              <NexLabel>{data?.type?.toUpperCase() + " 노드 편집"}</NexLabel>
-            </Stack>
-          </NexDiv>
-          <NexDiv
-            direction="column"
-            align="flex-start"
-            justify="flex-start"
-            width="100%"
-            height="100%"
-            overflow="auto"
-            padding="1rem 0rem"
-          >
-            <Stack flex="2" spacing={0.5} direction="column" width="100%">
-              <NexDiv direction="row" width="100%">
-                <JsonEditor
-                  isForbidden={data?.isForbidden || false}
-                  depth={0}
-                  data={data}
-                  theme={theme}
-                  onFocus={setFocus}
-                  onChange={handleChange}
-                />
-              </NexDiv>
-            </Stack>
-          </NexDiv>
+
+          <AdminNodeEditor
+            nodeType={data.type}
+            node={data}
+            type="add"
+            onApply={() => {}}
+            onCancel={() => {}}
+            onSetValue={(key, value) => {}}
+          />
         </NexDiv>
-      ) : null}
+      ) : (
+        <AdminNodeEditor
+          nodeType={NexNodeType.FEATURE}
+          type="add"
+          onApply={() => {}}
+          onCancel={() => {}}
+          onSetValue={(key, value) => {}}
+        />
+      )}
     </NexApplet>
   );
 });

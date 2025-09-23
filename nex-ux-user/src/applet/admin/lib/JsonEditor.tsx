@@ -13,8 +13,20 @@ const colorSection = "#EEEEEE";
 const borderColorSection = "#555555";
 const fontSize = "1rem";
 
+interface InputProps {
+  id: string;
+  label: string;
+  placeholder?: string;
+  value: string | number;
+  onChange: (v: string) => void;
+  onFocus: (focus: boolean) => void;
+  type?: "text" | "number" | "password";
+  color?: string;
+  bgColor?: string;
+  fontSize?: string;
+}
+
 interface JsonEditorProps {
-  isForbidden?: boolean;
   path?: string;
   depth: number;
   theme?: NexTheme;
@@ -25,7 +37,6 @@ interface JsonEditorProps {
 }
 
 const JsonEditor: React.FC<JsonEditorProps> = ({
-  isForbidden,
   data,
   path,
   depth,
@@ -66,23 +77,10 @@ const JsonEditor: React.FC<JsonEditorProps> = ({
   };
 
   const isObject = (value: any) => typeof value === "object" && value !== null;
-  //const skipKeyPrefix = ["children", "isForbidden", "isOpen"];
-  //const skipKeyPrefix = ["children", "isOpen"];
-  //const notEditableKeys = ["type", "category"];
-  //const selectables = ["unit", "category"];
-  //const numberKeys = ["size", "gap"];
-  //const isSkipKey = (key: string) => false;
-  /*
-  const isSkipKey = (key: string) =>
-    skipKeyPrefix.some((skipKey) =>
-      key.toLowerCase().startsWith(skipKey.toLowerCase())
-    );
-*/
 
   const toggleSubItem = (key: string) => {
     const open = !(isOpen[key] !== false);
     setIsOpen({ ...isOpen, [key]: open });
-    //setLocalData({ ...localData, ["isOpen" + key]: open });
   };
 
   const iconSubItem = (key: string) => {
@@ -143,25 +141,20 @@ const JsonEditor: React.FC<JsonEditorProps> = ({
               >
                 <NexLabel>{key}</NexLabel>
                 <NexLabel> : </NexLabel>
-
-                {isForbidden ? (
-                  <NexLabel>{value}</NexLabel>
-                ) : (
-                  <NexInput
-                    value={value}
-                    onChange={(e) => changeValue(key, e.target.value)}
-                    onKeyDown={setValue}
-                    width="100%"
-                    height="100%"
-                    borderBottom="1px solid #555"
-                    borderRadius="0.2rem"
-                    color={colorInput}
-                    bgColor={bgColorInput}
-                    fontSize={fontSize}
-                    onFocus={() => onFocus(true)}
-                    onBlur={() => onFocus(false)}
-                  />
-                )}
+                <NexInput
+                  value={value}
+                  onChange={(e) => changeValue(key, e.target.value)}
+                  onKeyDown={setValue}
+                  width="100%"
+                  height="100%"
+                  borderBottom="1px solid #555"
+                  borderRadius="0.2rem"
+                  color={colorInput}
+                  bgColor={bgColorInput}
+                  fontSize={fontSize}
+                  onFocus={() => onFocus(true)}
+                  onBlur={() => onFocus(false)}
+                />
               </Stack>
             ) : (
               <NexDiv direction="column" align="flex-start">
@@ -172,7 +165,6 @@ const JsonEditor: React.FC<JsonEditorProps> = ({
                     ? value.map((item, index) => (
                         <JsonEditor
                           key={index}
-                          isForbidden={isForbidden}
                           data={item}
                           depth={depth + 1}
                           path={path}
@@ -186,7 +178,6 @@ const JsonEditor: React.FC<JsonEditorProps> = ({
                       ))
                     : isObject(value) && (
                         <JsonEditor
-                          isForbidden={isForbidden}
                           data={value}
                           depth={depth + 1}
                           path={path}

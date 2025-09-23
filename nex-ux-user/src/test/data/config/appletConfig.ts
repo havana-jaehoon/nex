@@ -121,15 +121,7 @@ export const appletConfig: (NexFolderNode | NexAppletNode)[] = [
         color: "#FF33A1",
         applet: "/admin/NexNodeJsonViewer",
       },
-      {
-        name: "NexNodeEditor",
-        dispName: "Nex Node Editor",
-        description: "Nex Node Editor Applet",
-        type: NexNodeType.APPLET,
-        icon: "tree",
-        color: "#FF33A1",
-        applet: "/admin/NexNodeEditor",
-      },
+
       {
         name: "NexNodeSelector",
         dispName: "Nex Node Selector",
@@ -157,7 +149,7 @@ export const appletConfig: (NexFolderNode | NexAppletNode)[] = [
         icon: "sample",
         color: "#33A1FF",
         applet: "/sample/NexSampleList",
-      },
+      } as NexAppletNode,
     ],
   },
 ];

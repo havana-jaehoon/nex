@@ -4,7 +4,16 @@ import isPropValid from "@emotion/is-prop-valid";
 interface NexDivProps {
   direction?: "row" | "column";
   align?: "start" | "center" | "end" | "flex-end" | "flex-start" | "stretch";
-  justify?: "start" | "center" | "end" | "flex-end" | "flex-start" | "stretch";
+  justify?:
+    | "start"
+    | "center"
+    | "end"
+    | "flex-end"
+    | "flex-start"
+    | "stretch"
+    | "space-between"
+    | "space-around"
+    | "space-evenly";
   flex?: string;
   border?: string;
   borderTop?: string;

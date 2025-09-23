@@ -1,8 +1,4 @@
-import {
-  NexFolderNode,
-  NexNodeType,
-  NexProcessorNode,
-} from "type/NexNode";
+import { NexFolderNode, NexNodeType, NexProcessorNode } from "type/NexNode";
 
 export const processorConfig: (NexFolderNode | NexProcessorNode)[] = [
   {
@@ -33,7 +29,7 @@ export const getTestProcessor = (path: string) => {
   //console.log("createDataStore path:", pathList);
   //return new NexAppletStoreTest("", path, testMenuElement);
 
-  let list = processorConfig;
+  let list = processorConfig as any[];
   let node = null;
 
   for (let i = 0; i < pathList.length; i++) {

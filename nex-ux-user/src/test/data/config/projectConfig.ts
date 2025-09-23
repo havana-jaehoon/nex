@@ -1,5 +1,5 @@
 import { NexNodeType, NexProjectNode } from "type/NexNode";
-
+/*
 export const projectConfig: NexProjectNode[] = [
   {
     type: NexNodeType.PROJECT,
@@ -8,3 +8,4 @@ export const projectConfig: NexProjectNode[] = [
     description: "NexUX Admin Project",
   },
 ];
+*/

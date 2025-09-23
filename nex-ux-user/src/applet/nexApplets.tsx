@@ -1,5 +1,4 @@
 import NexJsonEditor from "./admin/NexJsonEditor";
-import NexNodeEditor from "./admin/NexNodeEditor";
 import NexNodeJsonViewer from "./admin/NexNodeJsonViewer";
 import NexNodeSelctor from "./admin/NexNodeSelector";
 import NexNodeTreeApp from "./admin/NexNodeTreeApp";
@@ -108,11 +107,7 @@ const appletList = [
         type: "applet",
         app: NexNodeTreeApp,
       },
-      {
-        name: "NexNodeEditor",
-        type: "applet",
-        app: NexNodeEditor,
-      },
+
       {
         name: "NexNodeSelector",
         type: "applet",

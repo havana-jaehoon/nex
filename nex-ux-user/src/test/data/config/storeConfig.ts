@@ -24,7 +24,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
       } as NexStoreNode,
       {
         name: "status", // 마지막 상태 데이터
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "memory", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static,  시간단위데이터: temporary
@@ -32,14 +32,13 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           block: "MIN",
           expire: "0", // (sec 단위)  0: 임시 저장(최신값만 저장), -1: 영구 저장,
           expireUnit: "NONE", // NONE, SEC, MIN, HOUR, DAY
-
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "1min",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "memory", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static,  시간 데이터: temporary,
@@ -51,10 +50,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "10min",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "memory", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -65,10 +64,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "1hour",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "memory", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -79,7 +78,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
     ],
   },
   {
@@ -90,7 +89,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
     children: [
       {
         name: "static", // 정적 데이터
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "disk", // memory, disk, hdfs
           nature: "static", //  정적 데이터 : static,  시간단위데이터: temporary
@@ -101,10 +100,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "status", // 마지막 상태 데이터
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "disk", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static,  시간단위데이터: temporary
@@ -116,10 +115,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "1min",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "disk", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static,  시간 데이터: temporary,
@@ -131,10 +130,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "10min",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "disk", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -145,10 +144,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "1hour",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "disk", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -159,10 +158,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "1day",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "disk", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -174,10 +173,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "7day",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "disk", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -188,10 +187,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "10day",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "disk", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -202,10 +201,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "1month",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "disk", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -216,10 +215,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "1year",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "disk", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -230,10 +229,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "5year",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "disk", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -244,10 +243,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "10year",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "disk", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -258,10 +257,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "infinite",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "disk", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -272,7 +271,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
     ],
   },
 
@@ -295,10 +294,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "status", // 마지막 상태 데이터
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "hdfs", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static,  시간단위데이터: temporary
@@ -309,10 +308,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "1min",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "hdfs", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static,  시간 데이터: temporary,
@@ -323,10 +322,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "10min",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "hdfs", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -337,10 +336,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "1hour",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "hdfs", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -351,10 +350,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "1day",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "hdfs", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -365,10 +364,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "7day",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "hdfs", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -379,10 +378,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "10day",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "hdfs", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -393,10 +392,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "1month",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "hdfs", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -407,10 +406,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "1year",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "hdfs", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -421,10 +420,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "5year",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "hdfs", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -435,10 +434,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "10year",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "hdfs", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -449,10 +448,10 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
       {
         name: "infinite",
-        type: "store",
+        type: NexNodeType.STORE,
         record: {
           storage: "hdfs", // memory, disk, hdfs
           nature: "temporary", //  정적 데이터 : static, 시간 데이터: temporary,
@@ -463,7 +462,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      },
+      } as NexStoreNode,
     ],
   },
 ];
@@ -477,7 +476,7 @@ export const getTestStore = (path: string) => {
   //console.log("createDataStore path:", pathList);
   //return new NexAppletStoreTest("", path, testMenuElement);
 
-  let list = storeConfig;
+  let list = storeConfig as any[];
   let node = null;
 
   for (let i = 0; i < pathList.length; i++) {
@@ -487,7 +486,7 @@ export const getTestStore = (path: string) => {
     );
     if (!node) return null;
     //console.log("createDataStore element:", element);
-    list = (node.children as any[]) || [];
+    list = (node?.children as any[]) || [];
   }
 
   if (!node || node.type !== NexNodeType.STORE) return null;

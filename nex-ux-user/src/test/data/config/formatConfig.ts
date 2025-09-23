@@ -79,7 +79,7 @@ const adminFormatConfig = {
   ],
 };
 
-const cbmFormatConfig: NexFolderNode = {
+const cbmFormatConfig: any = {
   name: "cbm",
   dispName: "CBM 설정 데이터",
   description: "CBM 설정 데이터 엘리먼트 폴더",
@@ -841,7 +841,7 @@ const cbmFormatConfig: NexFolderNode = {
   ],
 };
 
-export const formatConfig: (NexFolderNode | NexFormatNode)[] = [
+export const formatConfig: any[] = [
   webFormatConfig,
   adminFormatConfig,
   cbmFormatConfig,
@@ -856,7 +856,7 @@ export const getTestFormat = (path: string) => {
   //console.log("createDataStore path:", pathList);
   //return new NexAppletStoreTest("", path, testMenuElement);
 
-  let list = formatConfig;
+  let list = formatConfig as any[];
   let node = null;
 
   for (let i = 0; i < pathList.length; i++) {
