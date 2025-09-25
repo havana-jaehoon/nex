@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   NexButton,
@@ -6,17 +6,11 @@ import {
   NexInput,
   NexLabel,
 } from "component/base/NexBaseComponents";
-import {
-  NexFeatureNode,
-  NexFeatureType,
-  NexNode,
-  NexNodeType,
-} from "type/NexNode";
-import { Stack } from "@mui/material";
-import { adminNodeDefs } from "./adminDataFormat";
+import { NexFeatureNode, NexFeatureType, NexNodeType } from "type/NexNode";
+import { Divider, Stack } from "@mui/material";
+import { adminNodeDefs, getAdminNodeFromFeatures } from "./adminDataFormat";
 import {
   MdCancel,
-  MdDelete,
   MdKeyboardArrowDown,
   MdKeyboardArrowRight,
 } from "react-icons/md";
@@ -39,27 +33,6 @@ function toLiteralTuple(
   }
   const value = String(item);
   return [value, value];
-}
-
-function buildInitialFromFeatures(features: any[]): any {
-  const obj: any = {};
-  console.log(
-    "# buildInitialFromFeatures : ",
-    JSON.stringify(features, null, 2)
-  );
-  for (const f of features) {
-    if (f.featureType === NexFeatureType.ATTRIBUTES) {
-      obj[f.name] = buildInitialFromFeatures(f.attributes);
-    } else if (f.featureType === NexFeatureType.LITERALS) {
-      obj[f.name] = ""; // empty until chosen
-    } else if (f.featureType === NexFeatureType.RECORDS) {
-      obj[f.name] = []; // array
-    } else {
-      // primitives → empty string for consistency with user's format2Json
-      obj[f.name] = "";
-    }
-  }
-  return obj;
 }
 
 function setDeep(obj: any, path: string[], value: any) {
@@ -106,33 +79,39 @@ function asFeatureValue(value: string, featureType: NexFeatureType) {
 
 // ===== UI atoms =====
 interface InputProps {
-  id: string;
   label: string;
   placeholder?: string;
   value: string | number;
-  onChange: (v: string) => void;
+  onChange?: (v: string) => void;
   type?: "text" | "number" | "password";
 }
 
 const LabeledInput: React.FC<InputProps> = ({
-  id,
   label,
   placeholder,
   value,
   onChange,
   type = "text",
 }) => (
-  <Stack direction="row" spacing={1} alignItems="center" width="100%">
+  <Stack
+    direction="row"
+    spacing={1}
+    alignItems="center"
+    width="100%"
+    title={placeholder}
+  >
     <NexLabel width="8rem">{label}</NexLabel>
-    <NexInput
-      id={id}
-      width="100%"
-      className="w-full rounded-lg border px-3 py-2 outline-none focus:ring"
-      placeholder={placeholder || label}
-      value={value as any}
-      type={type}
-      onChange={(e) => onChange(e.target.value)}
-    />
+    {onChange ? (
+      <NexInput
+        width="100%"
+        placeholder={placeholder || label}
+        value={value as any}
+        type={type}
+        onChange={(e) => onChange(e.target.value)}
+      />
+    ) : (
+      <NexLabel width="100%">{value}</NexLabel>
+    )}
   </Stack>
 );
 
@@ -153,7 +132,22 @@ const LabeledSelect: React.FC<SelectProps> = ({
 }) => {
   const fontSize = "1rem";
 
-  console.log("# LabeledSelect: options11=", JSON.stringify(options, null, 2));
+  const tValue =
+    value === null || value === undefined || value === ""
+      ? options[0][0]
+      : value;
+
+  const existsInOptions = options.some(
+    ([name, dispName]) => name === String(tValue)
+  );
+
+  if (!existsInOptions) {
+    console.warn(
+      `# LabeledSelect: no valid options : label=${label}, value=${value}, opts=${JSON.stringify(options, null, 2)}`
+    );
+    return null;
+  }
+
   return (
     <NexDiv
       direction="row"
@@ -161,6 +155,7 @@ const LabeledSelect: React.FC<SelectProps> = ({
       justify="flex-start"
       width="100%"
       fontSize={fontSize}
+      title={placeholder}
     >
       <Stack
         spacing={1}
@@ -172,22 +167,26 @@ const LabeledSelect: React.FC<SelectProps> = ({
       >
         <NexLabel width="8rem">{label}</NexLabel>
         <NexDiv width="100%">
-          <select
-            value={String(value)}
-            style={{ width: "100%", height: "100%" }}
-            onChange={(e) => onChange(e.target.value)}
-          >
-            <option value="" disabled>
-              {placeholder || "옵션을 선택하세요"}
-            </option>
-            {Array.isArray(options)
-              ? options.map(([value, label]) => (
-                  <option key={value} value={value}>
-                    {label}
-                  </option>
-                ))
-              : null}
-          </select>
+          {options.length === 1 ? (
+            <NexLabel>{tValue}</NexLabel>
+          ) : (
+            <select
+              value={String(tValue)}
+              style={{ width: "100%", height: "100%" }}
+              onChange={(e) => onChange(e.target.value)}
+            >
+              <option value="" disabled>
+                {placeholder || "옵션을 선택하세요"}
+              </option>
+              {Array.isArray(options)
+                ? options.map(([name, dispName]) => (
+                    <option key={name} value={name}>
+                      {dispName}
+                    </option>
+                  ))
+                : null}
+            </select>
+          )}
         </NexDiv>
       </Stack>
     </NexDiv>
@@ -217,7 +216,7 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
       const base: any = {};
       for (const f of recordFields) {
         if ((f as any).featureType === NexFeatureType.ATTRIBUTES) {
-          base[f.name] = buildInitialFromFeatures((f as any).attributes);
+          base[f.name] = getAdminNodeFromFeatures((f as any).attributes);
         } else if ((f as any).featureType === NexFeatureType.RECORDS) {
           base[f.name] = [];
         } else if ((f as any).featureType === NexFeatureType.LITERALS) {
@@ -264,22 +263,17 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
       ) : (
         <NexDiv width="100%">
           <table>
-            <thead className="bg-gray-50">
+            <thead>
               <tr>
                 {recordFields.map((f) => (
-                  <th
-                    key={`${id}.head.${f.name}`}
-                    className="px-3 py-2 text-left font-medium"
-                  >
-                    {f.dispName || f.name}
-                  </th>
+                  <th key={`${id}.head.${f.name}`}>{f.dispName || f.name}</th>
                 ))}
-                <th className="px-3 py-2" />
+                <th />
               </tr>
             </thead>
             <tbody>
               {rows.map((row: any, rIdx: number) => (
-                <tr key={`${id}.row.${rIdx}`} className="border-t">
+                <tr key={`${id}.row.${rIdx}`}>
                   {recordFields.map((f) => {
                     const cellId = `${id}.${rIdx}.${f.name}`;
                     const ph = (f as any).description || undefined;
@@ -289,37 +283,28 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
                         toLiteralTuple
                       );
                       return (
-                        <td key={cellId} className="px-3 py-2">
-                          <select
-                            className="w-full rounded-lg border px-2 py-1"
-                            value={String(row[f.name] ?? "")}
-                            onChange={(e) => {
+                        <td key={cellId}>
+                          <LabeledSelect
+                            key={id}
+                            label={f.name}
+                            placeholder={f.description || f.dispName || f.name}
+                            value={row[f.name]}
+                            options={opts}
+                            onChange={(v) => {
                               const next = rows.map((x, i) =>
-                                i === rIdx
-                                  ? { ...x, [f.name]: e.target.value }
-                                  : x
+                                i === rIdx ? { ...x, [f.name]: v } : x
                               );
                               setRows(next);
                             }}
-                          >
-                            <option value="" disabled>
-                              {ph || "선택"}
-                            </option>
-                            {opts.map(([v, d]: [string, string]) => (
-                              <option key={v} value={v}>
-                                {d}
-                              </option>
-                            ))}
-                          </select>
+                          />
                         </td>
                       );
                     }
 
                     //const isNumber = (f as any).featureType === "UINT32";
                     return (
-                      <td key={cellId} className="px-3 py-2">
-                        <input
-                          className="w-full rounded-lg border px-2 py-1"
+                      <td key={cellId}>
+                        <NexInput
                           placeholder={ph}
                           type={isNumber(f.featureType) ? "number" : "text"}
                           value={row[f.name] ?? ""}
@@ -337,14 +322,8 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
                       </td>
                     );
                   })}
-                  <td className="px-3 py-2 text-right">
-                    <button
-                      type="button"
-                      className="rounded-lg border px-2 py-1"
-                      onClick={() => removeRow(rIdx)}
-                    >
-                      삭제
-                    </button>
+                  <td>
+                    <NexButton onClick={() => removeRow(rIdx)}>삭제</NexButton>
                   </td>
                 </tr>
               ))}
@@ -361,36 +340,56 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
 
 // ===== Main component =====
 export interface AdminNodeEditorProps {
-  nodeType: NexNodeType;
-  node?: any; // node for input
+  data: any; // node for input
   fontLevel?: number; // 1~10
   style?: NexThemeStyle;
   //initialValue?: any;              // if omitted, the form will initialize from the schema
-  onChange?: (value: any) => void; // emit current JSON on every edit
-  onSubmit?: (value: any) => void; // submit handler
+  onChange?: (data: any) => void; // emit current JSON on every edit
+  //onSubmit: (value: any) => void; // submit handler
   submitText?: string;
 
-  type: "add" | "update" | "delete"; // add, update, delete
-  onSetValue(key: string, value: any): void;
-  onApply(): void;
+  mode: "add" | "edit"; // add, update, delete
+  onApply(data: any): void;
   onCancel(): void;
 }
 
 const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   const {
-    node,
-    nodeType,
+    data,
     fontLevel = 5,
     style = defaultThemeStyle,
-    onSetValue,
+    // onSetValue,
     onApply,
     onCancel,
     onChange,
-    onSubmit,
-    submitText = "저장",
+    //onSubmit,
+    // submitText = "저장",
   } = props;
 
   //const [data, setData] = useState<any>(node ? { ...base, ...node } : base);
+
+  const index = data[0];
+  const nodePath = data[1];
+  const parentPath = `${nodePath.substring(0, nodePath.lastIndexOf("/"))}`;
+  const node: any = data[2];
+
+  const [curNodePath, setCurNodePath] = useState<string>(nodePath);
+  const [newNode, setNode] = useState<any>(node);
+  const [isOpen, setIsOpen] = useState<{ [key: string]: boolean }>({});
+
+  useEffect(() => {
+    setNode(node);
+  }, [node]);
+
+  //console.log("### AdminNodeEditor: node : ", JSON.stringify(data[2], null, 2));
+  const format = adminNodeDefs[node.type as NexNodeType];
+  if (!format || !Array.isArray(format.features)) {
+    return <NexDiv>노드 타입이 올바르지 않습니다.</NexDiv>;
+  }
+
+  const features = format.features;
+  const tNode = getAdminNodeFromFeatures(features);
+  const label = format?.dispName || node.type;
 
   const fontSize =
     style.fontSize[clamp(fontLevel - 1, 0, style.fontSize.length - 1)] ||
@@ -399,47 +398,99 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   const color = style.colors[0];
   const bgColor = style.bgColors[0];
 
-  //const 
-
-  const curFormat = node ? adminNodeDefs[node.type as NexNodeType] : adminNodeDefs[nodeType];
-  const dispName = curFormat?.dispName || nodeType;
-
-  
-  const initData = node
-    ? node
-    : buildInitialFromFeatures(curFormat ? curFormat.features : []);
-  const [data, setData] = useState<any>(initData);
-  const [isOpen, setIsOpen] = useState<{ [key: string]: boolean }>({});
-
   const handleReset = () => {
-    const tData = buildInitialFromFeatures(curFormat.features);
-    // tData 와 initData 의 병합
-    const next = { ...tData, ...initData };
-    setData(next);
+    // 입력된 node 데이터와 format 에 의해 만들어진 데이터를 병합
+    const next = { ...tNode, ...node };
+    setNode(next);
+    onChange?.([index, nodePath, next]);
+  };
+
+  const handleApply = () => {
+    const newData = [index, curNodePath, newNode];
+    console.log(
+      "NexModalNodeEditer: handleApply",
+      JSON.stringify(newData, null, 2)
+    );
+
+    onApply(newData);
+  };
+
+  const handlePrimitiveChange = (
+    path: string[], // path within the node
+    featureType: NexFeatureType,
+    raw: string
+  ) => {
+    console.log(`# handlePrimitiveChange : ${path.join(".")} = ${raw}`);
+
+    const next = { ...newNode };
+    const value = asFeatureValue(raw, featureType);
+    setDeep(next, path, value);
+    setNode(next);
+
+    let newNodePath = curNodePath;
+    if (path.join(".") === "name") {
+      newNodePath = `${parentPath}/${raw}`;
+    }
+    setCurNodePath(newNodePath);
+    onChange?.([index, newNodePath, next]);
+  };
+
+  const handleLiteralChange = (path: string[], raw: string) => {
+    const next = { ...newNode };
+    setDeep(next, path, raw);
+    onChange?.([index, curNodePath, next]);
+  };
+
+  const handleRecordsChange = (path: string[], rows: any[]) => {
+    const next = { ...newNode };
+    setDeep(next, path, rows);
+    onChange?.([index, curNodePath, next]);
+  };
+
+  const toggleSubItem = (key: string) => {
+    const open = !(isOpen[key] !== false);
+    setIsOpen({ ...isOpen, [key]: open });
   };
 
   const headFields = () => {
-    return <NexDiv width="100%" direction="column"></NexDiv>;
+    return (
+      <NexDiv width="100%" direction="column">
+        <NexLabel fontSize={fontSize} style={{ fontWeight: "bold" }}>
+          {label}
+        </NexLabel>
+        {/* 간격 조정 */}
+        <span style={{ height: fontSize }} />
+        <Stack spacing={1} direction="column" width="100%" alignItems="center">
+          <LabeledInput
+            label={"index"}
+            placeholder={"Index(key) of Node"}
+            value={index}
+          />
+          <LabeledInput
+            label={"Path"}
+            placeholder={"Path of Node"}
+            value={curNodePath}
+          />
+        </Stack>
+        {/* 간격 조정 */}
+        <NexDiv height="0.5rem" width="100%" borderBottom="1px solid gray" />
+      </NexDiv>
+    );
   };
 
   const bodyFields = () => (
     <NexDiv width="100%" flex="1">
-      {curFormat && (
-        <Stack spacing={1} direction="column" width="100%">
-          <NexDiv flex="1" width="100%">
-            {curFormat.dispName}
-          </NexDiv>
-          <Stack
-            flex="1"
-            spacing={1}
-            direction="column"
-            width="100%"
-            alignItems="end"
-          >
-            {curFormat.features.map((f: NexFeatureNode) => renderFeature(f))}
-          </Stack>
+      <Stack spacing={1} direction="column" width="100%">
+        <Stack
+          flex="1"
+          spacing={1}
+          direction="column"
+          width="100%"
+          alignItems="end"
+        >
+          {features.map((f: NexFeatureNode) => renderFeature(f))}
         </Stack>
-      )}
+      </Stack>
     </NexDiv>
   );
 
@@ -452,7 +503,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
       alignItems="center"
       justifyContent="end"
     >
-      <NexButton flex="1" bgColor="blue" onClick={onApply}>
+      <NexButton flex="1" bgColor="blue" onClick={handleApply}>
         Apply
       </NexButton>
       <NexButton flex="1" bgColor="#777777" onClick={onCancel}>
@@ -463,41 +514,6 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
       </NexButton>
     </Stack>
   );
-
-  const emit = (next: any) => {
-    console.log("NexModalNodeEditer: emit", JSON.stringify(next, null, 2));
-    setData(next);
-    onChange?.(next);
-  };
-
-  const handlePrimitiveChange = (
-    path: string[],
-    featureType: NexFeatureType,
-    raw: string
-  ) => {
-    console.log(`# handlePrimitiveChange : ${path.join(".")} = ${raw}`);
-    const next = { ...data };
-    const value = asFeatureValue(raw, featureType);
-    setDeep(next, path, value);
-    emit(next);
-  };
-
-  const handleLiteralChange = (path: string[], raw: string) => {
-    const next = { ...data };
-    setDeep(next, path, raw);
-    emit(next);
-  };
-
-  const handleRecordsChange = (path: string[], rows: any[]) => {
-    const next = { ...data };
-    setDeep(next, path, rows);
-    emit(next);
-  };
-
-  const toggleSubItem = (key: string) => {
-    const open = !(isOpen[key] !== false);
-    setIsOpen({ ...isOpen, [key]: open });
-  };
 
   const iconSubItem = (key: string, label: string) => {
     return (
@@ -549,11 +565,8 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
 
     if (feature.featureType === NexFeatureType.LITERALS) {
       const options = (feature.literals || []).map(toLiteralTuple);
-      const value = String(getAtPath(data, path) ?? "");
-      console.log(
-        `# renderFeature: literals ${id} value=${value} options=`,
-        JSON.stringify(options, null, 2)
-      );
+      const value = String(getAtPath(newNode, path) ?? "");
+
       return (
         <LabeledSelect
           key={id}
@@ -567,7 +580,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
     }
 
     if (feature.featureType === NexFeatureType.RECORDS) {
-      const rows = (getAtPath(data, path) as any[]) || [];
+      const rows = (getAtPath(newNode, path) as any[]) || [];
       return (
         <RecordsEditor
           key={id}
@@ -582,7 +595,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
     }
 
     // Primitive (STRING / UINT32)
-    const value = getAtPath(data, path) ?? "";
+    const value = getAtPath(newNode, path) ?? "";
     const type = isNumber(feature.featureType)
       ? "number"
       : feature.name.toLowerCase().includes("passwd") ||
@@ -593,12 +606,11 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
     return (
       <LabeledInput
         key={id}
-        id={id}
         label={label}
         placeholder={placeholder}
         value={value}
         type={type}
-        onChange={(v) => handlePrimitiveChange(path, feature, v)}
+        onChange={(v) => handlePrimitiveChange(path, feature.featureType, v)}
       />
     );
   };
@@ -616,36 +628,23 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          onSubmit?.(data);
+          handleApply();
         }}
         style={{ width: "100%", height: "100%" }}
       >
-        <NexDiv direction="column" width="100%" height="100%">
-          <NexDiv flex="1" width="100%">
-            {headFields()}
-          </NexDiv>
+        <Stack spacing={2} direction="column" width="100%" height="100%">
+          <NexDiv width="100%">{headFields()}</NexDiv>
           <NexDiv flex="10" width="100%">
             {bodyFields()}
           </NexDiv>
-          {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+          {newNode && <pre>{JSON.stringify(newNode, null, 2)}</pre>}
           <NexDiv flex="1" width="100%">
             {tailFields()}
           </NexDiv>
-        </NexDiv>
+        </Stack>
       </form>
     </NexDiv>
   );
 };
 
 export default AdminNodeEditor;
-
-/**
- * Usage Example
- *
- * // Given your `format` JSON
- * <FormatDynamicForm
- *   format={format}
- *   onChange={(val) => console.log("change", val)}
- *   onSubmit={(val) => console.log("submit", val)}
- * />
- */

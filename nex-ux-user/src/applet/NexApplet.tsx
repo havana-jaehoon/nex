@@ -31,7 +31,7 @@ export interface NexAppProps {
   elements?: any[]; // Optional elements prop for additional data
   children?: React.ReactNode;
   onSelect?: (storeIndex: number, row: any) => void; // Optional onSelect prop for handling selection
-  onChange?: (storeIndex: number, curRow: any, newRow: any) => void; // Optional onChange prop for handling changes
+  onUpdate?: (storeIndex: number, newRow: any) => void; // Optional onChange prop for handling changes
   onAdd?: (storeIndex: number, curRow: any, newRow: any) => void; // Optional onAdd prop for handling additions
   onRemove?: (storeIndex: number, curRow: any) => void; // Optional onDelete prop for handling deletions
 }

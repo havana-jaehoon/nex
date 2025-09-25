@@ -2,56 +2,31 @@ import React, { useMemo, useState } from "react";
 import { observer } from "mobx-react-lite";
 import NexApplet, { NexAppProps } from "../NexApplet";
 import { NexDiv } from "../../component/base/NexBaseComponents";
-import { Button, ButtonGroup, Stack } from "@mui/material";
+import { Button, ButtonGroup, IconButton, Stack } from "@mui/material";
 import NexNodeItem from "./lib/NexNodeItem";
 
-import { MdAdd, MdDelete, MdEdit } from "react-icons/md";
+import {
+  MdAdd,
+  MdCreateNewFolder,
+  MdDelete,
+  MdEdit,
+  MdNewLabel,
+} from "react-icons/md";
 import { clamp } from "utils/util";
 import NexModalNodeEditer from "modal/NexModalNodeEditer";
 import { buildNexTree } from "utils/NexTreeNode";
-
-const nodeStyle = {
-  format: {
-    folder: ["folder", "format"],
-    format: ["feature"],
-    feature: [],
-    any: ["folder", "format"],
-  },
-  store: {
-    store: [],
-    any: ["folder", "store"],
-  },
-  processor: {
-    processor: [],
-    any: ["folder", "processor"],
-  },
-  system: {
-    system: [],
-    any: ["system"],
-  },
-  element: {
-    element: [],
-    any: ["folder", "element"],
-  },
-  section: {
-    any: ["section"],
-  },
-  contents: {
-    contents: [],
-    any: ["folder", "contents"],
-  },
-  theme: {
-    theme: [],
-    any: ["folder", "theme"],
-  },
-  user: {
-    any: ["user"],
-  },
-};
+import {
+  getAdminNodeFromFeatures,
+  getAdminNodeFromType,
+} from "./lib/adminDataFormat";
+import { set } from "mobx";
+import { NexNodeType } from "type/NexNode";
 
 const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
-  const { contents, theme, user, onSelect, onChange, onAdd, onRemove } = props;
+  const { contents, theme, user, onSelect, onUpdate, onAdd, onRemove } = props;
 
+  const [editingNode, setEditingNode] = useState<any>(null);
+  const [curData, setCurData] = useState<any>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isAdding, setIsAdding] = useState<boolean>(false);
   const [selectedPath, setSelectedPath] = useState<string>("");
@@ -67,6 +42,8 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     return null;
   };
 
+  const storeIndex = 0; // only 1 store
+
   const fontLevel = user?.fontLevel || 5; // Default font level if not provided
   const fontSize =
     theme?.applet?.fontSize[
@@ -74,8 +51,8 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     ] || "1rem";
 
   //const treeData = contents?.[0]?.json || [];
-  const csvData = contents?.[0]?.csv || [];
-  const nodeType = contents?.[0]?.name || "";
+  const csvData = contents?.[storeIndex]?.csv || [];
+  const nodeType = contents?.[storeIndex]?.name || "";
 
   const nexTree = buildNexTree(csvData);
 
@@ -84,36 +61,68 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   //);
   const treeData = nexTree.roots;
 
-  const store = contents[0].store;
+  const store = contents[storeIndex].store;
 
-  const format = contents[0].format;
+  const format = contents[storeIndex].format;
 
-  const handleClick = (path: string) => {
+  const handleSelect = (path: string) => {
     setSelectedPath(path);
+    const row = csvData[nexTree.pathMap[path].index];
+    setCurData(row);
+    console.log(`NexNodeTreeApp: onSelect path=${path}, row=`, row);
+
     if (onSelect) {
-      const row = csvData[nexTree.pathMap[path].index];
-
-      console.log(`NexNodeTreeApp: onSelect path=${path}, row=`, row);
-
-      if (row) {
-        onSelect(0, row); // Assuming single store for now
-      }
+      onSelect(0, row); // Assuming single store for now
     }
   };
 
-  const addNode = () => {
+  const addNode = (type: NexNodeType) => {
+    const newNode = getAdminNodeFromType(type);
+
+    const index = -1;
+    let parentNodePath = "";
+    if (!curData) {
+      parentNodePath = "/";
+    } else if (curData[2].type === NexNodeType.FOLDER) {
+      parentNodePath = curData[1] + "/";
+    } else {
+      parentNodePath =
+        curData[1].substring(0, curData[1].lastIndexOf("/")) + "/";
+    }
+    console.log("# parentNodePath=", parentNodePath);
+
+    setEditingNode([index, parentNodePath, newNode]);
+    console.log(
+      `NexNodeTreeApp: addFolder -> nodeType=${type}, newNode=${JSON.stringify(newNode, null, 2)}`
+    );
+
+    setIsAdding(true);
+  }
+
+  const handleAddFolder = () => {
+    if (!onAdd) {
+      console.warn("NexNodeTreeApp: addFolder - onAdd is not provided");
+      return;
+    }
+    //const store.element.name
+    const nodeType = "folder";
+    addNode(nodeType as NexNodeType);
+  };
+
+  const handleAddEntity = () => {
     if (!onAdd) {
       console.warn("NexNodeTreeApp: addNode - onAdd is not provided");
       return;
     }
-    setIsAdding(true);
+    const nodeType = store.element.name;
+    addNode(nodeType as NexNodeType);
   };
 
-  const editNode = () => {
+  const handleEdit = () => {
     console.log(`NexNodeTreeApp: editNode path=${selectedPath}`);
   };
 
-  const removeNode = () => {
+  const handleRemove = () => {
     console.log(`NexNodeTreeApp: removeNode path=${selectedPath}`);
   };
 
@@ -130,19 +139,25 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
         height="100%"
         overflow="auto"
         fontSize={fontSize}
+        onClick={(e) => {
+          // 컨테이너 자신을 직접 클릭한 경우(빈 영역)만 선택 해제
+          // 자식 요소를 클릭한 경우(e.target !== e.currentTarget)에는 무시
+          if (e.currentTarget !== e.target) return;
+          handleSelect("");
+        }}
       >
         {/* Add & Delete & Edit */}
-        <ButtonGroup variant="outlined" aria-label="Basic button group">
-          <Button title="Add" onClick={addNode}>
-            <MdAdd />
-          </Button>
-          <Button title="Edit" onClick={editNode}>
+        <Stack spacing={0.5} direction="row" justifyContent="end" width="100%">
+          <IconButton title="폴더 추가" color="primary" onClick={handleAddFolder}>
+            <MdCreateNewFolder />
+          </IconButton>
+          <IconButton title="Add" color="primary" onClick={handleAddEntity}>
+            <MdNewLabel />
+          </IconButton>
+          <IconButton title="Edit" color="primary" onClick={handleEdit}>
             <MdEdit />
-          </Button>
-          <Button title="Remove" onClick={removeNode}>
-            <MdDelete />
-          </Button>
-        </ButtonGroup>
+          </IconButton>
+        </Stack>
         <Stack spacing={0.5} direction="column" width="100%">
           {treeData.map((node: any, index: number) => (
             <NexNodeItem
@@ -152,7 +167,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
               theme={theme}
               user={user}
               path={node.path}
-              onClick={handleClick}
+              onSelect={handleSelect}
               selectedPath={selectedPath}
             />
           ))}
@@ -161,10 +176,8 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       {isAdding && (
         <NexModalNodeEditer
           isOpen={isAdding}
-          format={format}
-          type="add"
-          node={null}
-          onSetValue={(key, value) => {}}
+          data={editingNode}
+          mode="add"
           onApply={() => setIsAdding(false)}
           onCancel={() => setIsAdding(false)}
         />

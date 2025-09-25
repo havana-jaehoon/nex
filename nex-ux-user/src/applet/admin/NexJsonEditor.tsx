@@ -16,7 +16,7 @@ const colorSelection = "#0F6CED";
 const borderColorSection = "#555555";
 
 const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
-  const { contents, theme, user } = props;
+  const { contents, theme, user, onUpdate } = props;
 
   const [isMouseEnter, setMouseEnter] = useState(false);
   const [isFocus, setFocus] = useState(false);
@@ -33,8 +33,8 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
   const csvData = contents?.[0]?.csv || [];
   //const data = contents?.[0]?.json[0] || null;
 
-  const data = csvData.length > 0 ? csvData[0][1] : null;
-  //console.log(`NexNodeEditor: csvData=${JSON.stringify(data, null, 2)}`);
+  const data = csvData.length > 0 ? csvData[0] : null;
+  //console.log(`NexNodeEditor: csvData=${JSON.stringify(csvData, null, 2)}`);
 
   const fontLevel = user?.fontLevel || 5; // Default font level if not provided
   const style = theme?.default || defaultThemeStyle;
@@ -45,15 +45,9 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
   const color = style?.colors[0] || "#393c45";
   const bgColor = style?.bgColors[0] || "#e8edf7";
 
-  const [node, setNode] = useState<any>(data);
-  useEffect(() => {
-    setNode(data);
-  }, [data]);
-
-  //onChange: (newData: { [key: string]: any }) => void; // 변경 완료시 데이터 업데이트
-  const handleChange = (newData: { [key: string]: any }) => {
-    console.log("onChange : ", JSON.stringify(newData, null, 2));
-    //setNode(newData);
+  const handleApply = (newData: any) => {
+    console.log("onApply : ", JSON.stringify(newData, null, 2));
+    onUpdate?.(0, newData);
   };
 
   return (
@@ -69,25 +63,14 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
           onMouseEnter={() => setMouseEnter(true)}
           onMouseLeave={() => setMouseEnter(false)}
         >
-
           <AdminNodeEditor
-            nodeType={data.type}
-            node={data}
-            type="add"
-            onApply={() => {}}
+            data={data}
+            mode="add"
+            onApply={handleApply}
             onCancel={() => {}}
-            onSetValue={(key, value) => {}}
           />
         </NexDiv>
-      ) : (
-        <AdminNodeEditor
-          nodeType={NexNodeType.FEATURE}
-          type="add"
-          onApply={() => {}}
-          onCancel={() => {}}
-          onSetValue={(key, value) => {}}
-        />
-      )}
+      ) : null}
     </NexApplet>
   );
 });

@@ -10,6 +10,7 @@ import {
 import NexModal from "./NexModal";
 import { NexFeatureNode, NexFeatureType, NexNodeType } from "type/NexNode";
 import { Stack } from "@mui/material";
+import AdminNodeEditor from "applet/admin/lib/AdminNodeEditor";
 
 /**
  * FormatDynamicForm
@@ -425,224 +426,15 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
 // ===== Main component =====
 export interface NexModalNodeEditerProps {
   isOpen: boolean; // true: showing, false: don't showing
-  format: any;
-  node: any; // node for input
+  data: any;
+  mode: "add" | "edit"; // add, update, delete
   //initialValue?: any;              // if omitted, the form will initialize from the schema
-  onChange?: (value: any) => void; // emit current JSON on every edit
-  onSubmit?: (value: any) => void; // submit handler
-  submitText?: string;
-
-  type: "add" | "update" | "delete"; // add, update, delete
-  onSetValue(key: string, value: any): void;
-  onApply(): void;
+  onApply(data: any): void; // emit current JSON on every edit
   onCancel(): void;
 }
 
 const NexModalNodeEditer: React.FC<NexModalNodeEditerProps> = (props) => {
-  const {
-    isOpen,
-    node,
-    format,
-    onSetValue,
-    onApply,
-    onCancel,
-    onChange,
-    onSubmit,
-    submitText = "저장",
-  } = props;
-
-  /*
-  const base = useMemo(
-    () => buildInitialFromFeatures(format.features),
-    [format.features]
-  );
-
-  */
-
-  //const [data, setData] = useState<any>(node ? { ...base, ...node } : base);
-  const [data, setData] = useState<any>(null);
-
-  const [curFormat, setCurFormat] = useState<any>(
-    format.type === NexNodeType.FORMAT ? format : format.children?.[1] || null
-  );
-
-  const formats =
-    format.type === NexNodeType.FORMAT ? [format] : format.children || [];
-
-  const handleFormatChange = (formatName: string) => {
-    const f = formats.find((f: any) => f.name === formatName);
-    console.log("# handleFormatChange: ", JSON.stringify(f, null, 2));
-    const features = f ? f.features : [];
-    const next = buildInitialFromFeatures(features);
-    const value = asFeatureValue(formatName, NexFeatureType.STRING);
-
-    console.log(`# handleFormatChange: data=`, JSON.stringify(next, null, 2));
-
-    setDeep(next, ["type"], value);
-    emit(next);
-    setCurFormat(f);
-  };
-
-  const headFields = () => {
-    // type selector (if multiple formats)
-    // format 에 때라 입력 필드가 달라지므로 format 선택시 초기화
-    //console.log("# headFields: formats=", JSON.stringify(format, null, 2));
-    if (formats.length <= 1) return null;
-    const opts = formats.map((format: any) => [format.name, format.dispName]);
-
-    return (
-      <NexDiv width="100%" direction="column">
-        {format.type === NexNodeType.FOLDER ? (
-          <LabeledSelect
-            label="노드 선택"
-            options={opts}
-            value={curFormat?.name}
-            onChange={handleFormatChange}
-          />
-        ) : null}
-      </NexDiv>
-    );
-  };
-
-  const bodyFields = () => (
-    <>
-      {curFormat && (
-        <Stack spacing={1} direction="column" width="100%">
-          <NexDiv flex="1">{curFormat.dispName}</NexDiv>
-          <Stack
-            flex="1"
-            spacing={0.1}
-            direction="column"
-            width="100%"
-            alignItems="end"
-          >
-            {curFormat.features.map((f: NexFeatureNode) => renderFeature(f))}
-          </Stack>
-        </Stack>
-      )}
-    </>
-  );
-
-  const tailFields = () => (
-    <Stack
-      spacing={2}
-      direction="row"
-      width="100%"
-      alignContent="center"
-      alignItems="center"
-      justifyContent="center"
-    >
-      <NexButton flex="1" bgColor="blue" onClick={onApply}>
-        Apply
-      </NexButton>
-      <NexButton flex="1" bgColor="#777777" onClick={onCancel}>
-        Cancel
-      </NexButton>
-      <NexButton flex="1" bgColor="#999999">
-        Reset
-      </NexButton>
-    </Stack>
-  );
-
-  const emit = (next: any) => {
-    console.log("NexModalNodeEditer: emit", JSON.stringify(next, null, 2));
-    setData(next);
-    onChange?.(next);
-  };
-
-  const handlePrimitiveChange = (
-    path: string[],
-    featureType: NexFeatureType,
-    raw: string
-  ) => {
-    console.log(`# handlePrimitiveChange : ${path.join(".")} = ${raw}`);
-    const next = { ...data };
-    const value = asFeatureValue(raw, featureType);
-    setDeep(next, path, value);
-    emit(next);
-  };
-
-  const handleLiteralChange = (path: string[], raw: string) => {
-    const next = { ...data };
-    setDeep(next, path, raw);
-    emit(next);
-  };
-
-  const handleRecordsChange = (path: string[], rows: any[]) => {
-    const next = { ...data };
-    setDeep(next, path, rows);
-    emit(next);
-  };
-
-  const renderFeature = (feature: any, parentPath: string[] = []) => {
-    const path = [...parentPath, feature.name];
-    const id = path.join(".");
-    const label = feature.dispName || feature.name;
-    const placeholder = (feature as any).description || undefined;
-
-    //console.log("# renderFeature : ", JSON.stringify(feature, null, 2));
-
-    if (feature.featureType === "attributes") {
-      return (
-        <fieldset key={id}>
-          <legend>{label}</legend>
-          {feature.attributes.map((child: any) => renderFeature(child, path))}
-        </fieldset>
-      );
-    }
-
-    if (feature.featureType === "literals") {
-      const options = (feature.literals || []).map(toLiteralTuple);
-      const value = String(getAtPath(data, path) ?? "");
-      return (
-        <LabeledSelect
-          key={id}
-          label={label}
-          placeholder={placeholder}
-          value={value}
-          options={options}
-          onChange={(v) => handleLiteralChange(path, v)}
-        />
-      );
-    }
-
-    if (feature.featureType === "records") {
-      const rows = (getAtPath(data, path) as any[]) || [];
-      return (
-        <RecordsEditor
-          key={id}
-          id={id}
-          label={label}
-          placeholder={placeholder}
-          rows={rows}
-          setRows={(r) => handleRecordsChange(path, r)}
-          recordFields={feature.recordFields}
-        />
-      );
-    }
-
-    // Primitive (STRING / UINT32)
-    const value = getAtPath(data, path) ?? "";
-    const type =
-      feature.featureType === "UINT32"
-        ? "number"
-        : feature.name.toLowerCase().includes("passwd") ||
-            feature.name.toLowerCase().includes("password")
-          ? "password"
-          : "text";
-
-    return (
-      <LabeledInput
-        key={id}
-        id={id}
-        label={label}
-        placeholder={placeholder}
-        value={value}
-        type={type}
-        onChange={(v) => handlePrimitiveChange(path, feature, v)}
-      />
-    );
-  };
+  const { isOpen, data, onApply, onCancel } = props;
 
   return (
     <NexModal
@@ -676,42 +468,12 @@ const NexModalNodeEditer: React.FC<NexModalNodeEditerProps> = (props) => {
         width="100%"
         border="1px solid white"
       >
-        <form
-          className="max-w-4xl rounded-2xl border p-6 shadow-sm"
-          onSubmit={(e) => {
-            e.preventDefault();
-            onSubmit?.(data);
-          }}
-          style={{ width: "100%" }}
-        >
-          {headFields()}
-
-          {bodyFields()}
-          <div className="mt-6 flex gap-3">
-            <button
-              type="submit"
-              className="rounded-xl border px-4 py-2 hover:bg-gray-50"
-            >
-              {submitText}
-            </button>
-            <button
-              type="button"
-              className="rounded-xl border px-4 py-2 hover:bg-gray-50"
-              onClick={() =>
-                emit(
-                  curFormat ? buildInitialFromFeatures(curFormat.features) : []
-                )
-              }
-            >
-              초기화
-            </button>
-            <pre className="ml-auto max-h-64 w-full max-w-[50%] overflow-auto rounded-lg bg-gray-50 p-3 text-xs">
-              {JSON.stringify(data, null, 2)}
-            </pre>
-          </div>
-
-          {tailFields()}
-        </form>
+        <AdminNodeEditor
+          data={data}
+          mode="add"
+          onApply={onApply}
+          onCancel={() => {}}
+        />
       </NexDiv>
     </NexModal>
   );

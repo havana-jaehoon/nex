@@ -126,6 +126,24 @@ export const formatNodeDef: NexFormatNode = {
         },
       ],
     } as NexFeatureNode,
+    {
+      name: "icon",
+      dispName: "아이콘",
+      icon: null,
+      color: null,
+      type: NexNodeType.FEATURE,
+      isKey: false,
+      featureType: NexFeatureType.STRING,
+    },
+    {
+      name: "color",
+      dispName: "컬러 코드",
+      icon: null,
+      color: null,
+      type: NexNodeType.FEATURE,
+      isKey: false,
+      featureType: NexFeatureType.STRING,
+    },
   ],
 };
 
@@ -1131,3 +1149,46 @@ export const adminNodeDefs = {
   [NexNodeType.THEME]: {},
   [NexNodeType.USER]: {},
 };
+
+export function getAdminNodeFromFeatures(
+  features: any[],
+  type?: NexNodeType
+): any {
+  const obj: any = {};
+
+  for (const f of features) {
+    if (f.featureType === NexFeatureType.ATTRIBUTES) {
+      obj[f.name] = getAdminNodeFromFeatures(f.attributes);
+    } else if (f.featureType === NexFeatureType.LITERALS) {
+      if (type && f.name === "type") {
+        obj[f.name] = type;
+      } else {
+        f.literals && f.literals.length > 0
+          ? (obj[f.name] = f.literals[0].value)
+          : (obj[f.name] = "");
+      }
+    } else if (f.featureType === NexFeatureType.RECORDS) {
+      obj[f.name] = []; // array
+    } else {
+      // primitives → empty string for consistency with user's format2Json
+      type && f.name === "type" ? (obj[f.name] = type) : (obj[f.name] = "");
+    }
+  }
+  return obj;
+}
+
+export function getAdminNodeFromType(type: string): any {
+  // type is string but should be one of NexNodeType
+  const isValid = (Object.values(NexNodeType) as string[]).includes(type);
+  if (!isValid) {
+    console.warn(`getAdminNodeFromType: Unknown type=${type}`);
+    return null;
+  }
+
+  const format = adminNodeDefs[type as NexNodeType];
+  if (!format) {
+    console.warn(`getAdminNodeFromType: Unknown type=${type}`);
+    return null;
+  }
+  return getAdminNodeFromFeatures(format.features, type as NexNodeType);
+}

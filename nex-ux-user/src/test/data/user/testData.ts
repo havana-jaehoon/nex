@@ -517,17 +517,39 @@ export const testDataList = [
   { name: "DetailLossLevelHistory", data: detailLossLevelHistoryData },
 
   // admin data
-  { name: "format", data: formatData },
-  { name: "store", data: storeData },
-  { name: "processor", data: processorData },
-  { name: "system", data: systemData },
-  { name: "element", data: elementData },
-  { name: "applet", data: appletData },
-  { name: "section", data: sectionData },
+  {
+    name: "format",
+    data: (formatData as any[][]).map((row, i) => [i + 1, ...row]),
+  },
+  {
+    name: "store",
+    data: (storeData as any[][]).map((row, i) => [i + 1, ...row]),
+  },
+  {
+    name: "processor",
+    data: (processorData as any[][]).map((row, i) => [i + 1, ...row]),
+  },
+  {
+    name: "system",
+    data: (systemData as any[][]).map((row, i) => [i + 1, ...row]),
+  },
+  {
+    name: "element",
+    data: (elementData as any[][]).map((row, i) => [i + 1, ...row]),
+  },
+  {
+    name: "applet",
+    data: (appletData as any[][]).map((row, i) => [i + 1, ...row]),
+  },
+  {
+    name: "section",
+    data: (sectionData as any[][]).map((row, i) => [i + 1, ...row]),
+  },
 ];
 
 export const getTestData = (name: string) => {
   //return testDataList[name] || null;
   const dataItem = testDataList.find((item) => item.name === name);
+
   return dataItem ? dataItem.data : [];
 };

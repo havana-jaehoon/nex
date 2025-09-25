@@ -1,13 +1,24 @@
 import { useEffect, useState } from "react";
-import { NexDiv, NexLabel } from "../../../component/base/NexBaseComponents";
 import {
+  NexButton,
+  NexDiv,
+  NexLabel,
+} from "../../../component/base/NexBaseComponents";
+import {
+  MdCancel,
+  MdChevronRight,
+  MdClear,
+  MdClose,
+  MdClosedCaption,
+  MdFormatClear,
   MdKeyboardArrowDown,
   MdKeyboardArrowRight,
   MdOutlineArrowLeft,
+  MdOutlineDeleteForever,
 } from "react-icons/md";
 import { NexTheme, NexThemeUser } from "type/NexTheme";
 import { NexNode } from "type/NexNode";
-import { Stack } from "@mui/material";
+import { Button, IconButton, Stack } from "@mui/material";
 import { clamp } from "utils/util";
 
 interface NexNodeItemProps {
@@ -17,7 +28,8 @@ interface NexNodeItemProps {
   path: string; // Optional path prop, can be used for routing
   node: any;
 
-  onClick(path: string): void;
+  onSelect(path: string): void;
+  onRemove?(path: string): void;
   selectedPath: string; // Current path for comparison
 }
 
@@ -28,7 +40,8 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
   user,
   depts,
   node,
-  onClick,
+  onSelect,
+  onRemove,
 }) => {
   const [isChildOpend, setChildOpened] = useState<boolean>(false);
 
@@ -68,21 +81,24 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
       clamp(fontLevel, 0, theme.applet?.fontSize?.length - 1)
     ] || "1rem";
 
+  const borderFontSize = `calc(${fontSize} * 1.5)`;
+
+  // 들여쓰기 크기
+  const tabFontSize = `calc(${borderFontSize} * ${depts})`;
   //console.log("theme:", theme)
   //const tabSize = theme && theme.menu.tabSize ? theme.menu.tabSize : "1.5rem";
 
-  const handleClick = () => {
-    //if (e) e.stopPropagation();
+  const handleSelect = (path: string) => {
     //console.log("handleClick: path=", curPath);
 
-    onClick(path);
+    onSelect(path);
     if (isFolder) setChildOpened(!isChildOpend);
   };
 
-  const handleChildClick = (childPath: string) => {
+  const handleChildSelect = (childPath: string) => {
     //if (e) e.stopPropagation();
     //console.log("handleChildClick: node=", childPath);
-    onClick(childPath);
+    onSelect(childPath);
   };
 
   return (
@@ -98,11 +114,14 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
       <NexDiv
         direction="row"
         width="100%"
-        height={`calc(${fontSize} * 1.5)`}
+        height={borderFontSize}
         align="center"
         justify="flex-start"
         cursor="pointer"
-        onClick={handleClick}
+        onClick={(e) => {
+          e.preventDefault();
+          handleSelect(path);
+        }}
       >
         {isSelected ? (
           <NexDiv width="0.5rem" height="100%" bgColor={selectedColor} />
@@ -110,15 +129,11 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
           <NexDiv width="0.5rem" height="100%" bgColor="inherit" />
         )}
 
-        <span style={{ width: `calc(${fontSize} * ${depts})` }} />
-        <NexLabel width="1rem" height="100%"></NexLabel>
-
-        <NexLabel width="96%" height="100%">
-          {node.data.dispName || node.data.name}
-        </NexLabel>
+        <span style={{ width: tabFontSize }} />
         <NexDiv
-          justify="end"
-          width="2rem"
+          justify="center"
+          align="center"
+          width={borderFontSize}
           height="100%"
           color={selectedColor}
           cursor="pointer"
@@ -127,10 +142,24 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
             isChildOpend ? (
               <MdKeyboardArrowDown />
             ) : (
-              <MdKeyboardArrowRight />
+              <MdChevronRight size={fontSize} />
             )
           ) : null}
         </NexDiv>
+        <NexLabel width="96%" height="100%">
+          {node.data.dispName || node.data.name}
+        </NexLabel>
+
+        <IconButton
+          size="small"
+          onClick={(e) => {
+            e.stopPropagation();
+            if (onRemove) onRemove(path);
+          }}
+          title="삭제"
+        >
+          <MdClose fontSize={`calc(${fontSize} * 0.7)`} color={selectedColor} />
+        </IconButton>
       </NexDiv>
       {isChildOpend && isChildren ? (
         <NexDiv direction="row" width="100%" justify="start">
@@ -143,7 +172,7 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
                 theme={theme}
                 path={child.path}
                 selectedPath={selectedPath}
-                onClick={handleChildClick}
+                onSelect={handleChildSelect}
               />
             ))}
           </Stack>

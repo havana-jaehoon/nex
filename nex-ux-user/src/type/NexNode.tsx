@@ -25,6 +25,7 @@ export enum NexNodeType {
 }
 
 export enum NexFeatureType {
+  INDEX = "INDEX", // 자동 증가 숫자
   UINT8 = "UINT8",
   UINT16 = "UINT16",
   UINT32 = "UINT32",

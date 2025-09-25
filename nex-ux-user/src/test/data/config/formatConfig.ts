@@ -57,6 +57,15 @@ const adminFormatConfig = {
       type: NexNodeType.FORMAT,
       features: [
         {
+          name: "index",
+          dispName: "Index",
+          icon: null,
+          color: null,
+          type: NexNodeType.FEATURE,
+          isKey: true,
+          featureType: NexFeatureType.INDEX,
+        },
+        {
           name: "path",
           dispName: "경로",
           icon: null,

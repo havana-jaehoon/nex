@@ -216,11 +216,12 @@ export const NexInput = styled.input.withConfig({
 
   &:focus {
     outline: none;
-    box-shadow: 0 2px 0 0 ${(props) => props.borderColor || "#0F6CED"};
+    box-shadow: 0 1px 0 0 ${(props) => props.borderColor || "#0F6CED"};
   }
 
   &::selection {
-    background-color: #333333ff;
+    background-color: #0f6ced;
+    color: white;
   }
 `;
 

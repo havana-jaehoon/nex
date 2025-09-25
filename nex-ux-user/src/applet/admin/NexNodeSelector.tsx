@@ -9,8 +9,7 @@ import { MdAdd, MdDelete, MdEdit } from "react-icons/md";
 import { clamp } from "utils/util";
 
 const NexNodeSelctor: React.FC<NexAppProps> = observer((props) => {
-  const { contents, theme, user, onSelect, onChange, onAdd, onRemove } =
-    props;
+  const { contents, theme, user, onSelect } = props;
 
   const [selectedIndexs, setSelectedIndexs] = useState<number[]>([]);
 

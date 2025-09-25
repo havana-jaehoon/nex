@@ -2,7 +2,7 @@ import { action, makeObservable, observable, runInAction } from "mobx";
 import { getTestElement } from "test/data/config/elementConfig";
 import { getTestFormat } from "test/data/config/formatConfig";
 import { getTestData } from "test/data/user/testData";
-import { NexCondition } from "type/NexNode";
+import { NexCondition, NexFeatureType } from "type/NexNode";
 import { makeSampleJsonAndCsv, parseCsv2Json } from "type/nexNodeConv";
 
 export interface NexData {
@@ -191,8 +191,10 @@ export class NexDataStore {
   //features: any[] = []; // feature list
 
   // 데이터를 빠르게 찾기 위한 key & 데이터 관리
-  keyindexes: any[] = []; // key indexes
-  keyMap: Record<string, any> = {};
+  curRowIndex: number = -1;
+  keyIndex: number = 0; // key indexes
+  lastKeyIndex: number = 0; // last key index(max)
+  keyMap: Record<number, number> = {};
 
   idata: any[] = []; // input data
   odata: any[] = []; // 출력 데이터(conditions 에 맞는)
@@ -259,32 +261,27 @@ export class NexDataStore {
     }
     const features =
       this.format?.features || this.format.children[0].features || [];
-    this.keyindexes = features
-      .map((feature: any, index: number) => {
-        if (feature.isKey) return index;
-        return null;
-      })
-      .filter((index: any) => index !== null);
+    this.keyIndex = features.findIndex(
+      (feature: any) => feature.featureType === NexFeatureType.INDEX
+    );
 
     // keyMap: 각 row의 keyindexes 조합을 문자열로 만들어 row를 빠르게 찾기 위한 맵
 
     // 모든 row를 keyMap에 등록
-    if (this.keyindexes.length !== 0) {
+    if (this.keyIndex !== -1) {
       this.odata.forEach((row: any, index: number) => {
-        const key = this.makeKey(row);
+        const key = Number(row[this.keyIndex]);
         if (this.keyMap[key]) {
           console.warn(
             `NexDataStore: Duplicate key found for row at index ${index}: ${key}`
           );
           // 중복된 키가 있으면 기존 값을 덮어쓰지 않음
         } else {
-          this.keyMap[key] = { index: index, row: row };
+          this.lastKeyIndex = Math.max(this.lastKeyIndex, key);
+          this.keyMap[key] = index; // odata 의 row index 저장
         }
       });
-      //console.log("NexDataStore keyindexes:", this.keyindexes);
     }
-    //console.log("NexDataStore element:", this.element.name);
-    //console.log("NexDataStore odata:", JSON.stringify(this.odata, null, 2));
 
     makeObservable(this, {
       name: observable,
@@ -292,6 +289,7 @@ export class NexDataStore {
       element: observable,
       format: observable,
       idata: observable,
+      curRowIndex: observable,
       odata: observable,
       ioffset: observable,
       foffset: observable,
@@ -302,7 +300,7 @@ export class NexDataStore {
 
       add: action,
       remove: action,
-      //update: action,
+      update: action,
 
       getData: action,
       getValuesByCondition: action,
@@ -317,7 +315,7 @@ export class NexDataStore {
 
     this.add = this.add.bind(this);
     this.remove = this.remove.bind(this);
-    //this.update = this.update.bind(this);
+    this.update = this.update.bind(this);
 
     this.getData = this.getData.bind(this);
     this.getCountByCondition = this.getCountByCondition.bind(this);
@@ -330,10 +328,6 @@ export class NexDataStore {
       this.element?.processingUnit
     );
     if (this.element) this.startFetchInterval(interval);
-  }
-
-  makeKey(row: any): string {
-    return this.keyindexes.map((idx: number) => row[idx]).join("|");
   }
 
   async fetch() {
@@ -374,70 +368,77 @@ export class NexDataStore {
   }
 
   add(curRow: any, newRow: any) {
+    // curRow 는 현재 선택된 위치를 나타냄
     // 기존에 데이터가 있는지 확인하고 있으면 에러 출력
-    if (this.keyMap[this.makeKey(newRow)] !== undefined) {
-      console.warn(
-        "NexDataStore: add() row already exists, skipping duplicate"
-      );
-      return;
-    }
 
     // 현재 추가할 위치가 없으면 마지막에 추가
-    if (!curRow) {
-      // 맨 마지막에 추가
-      this.odata = [...this.odata, newRow];
-      return;
-    }
+    const newKeyIndex = this.lastKeyIndex++;
 
-    // 현재 위치의 row의 index를 찾아서 그 다음에 추가
-    const data = this.keyMap[this.makeKey(curRow)];
-    if (!data) {
-      console.warn("NexDataStore: add() curRow not found");
+    const updatedRow = [...newRow];
+    updatedRow[this.keyIndex] = newKeyIndex;
+
+    const curKeyIndex = curRow ? Number(curRow[this.keyIndex]) : -1;
+    if (curKeyIndex === -1) {
+      // 맨 마지막에 추가
+      this.keyMap[newKeyIndex] = this.odata.length;
+      this.odata = [...this.odata, updatedRow];
+      this.curRowIndex = this.odata.length - 1;
       return;
     }
-    // data.index 다음에 newRow를 삽입
-    const insertIndex = data.index + 1;
-    this.odata.splice(insertIndex, 0, newRow);
+    // curRow 의 위치 다음에 newRow를 삽입
+    const insertIndex = this.keyMap[curKeyIndex] + 1;
+
+    // 배열에 삽입
+    this.odata.splice(insertIndex, 0, updatedRow);
+
+    // 삽입 지점부터 끝까지의 keyMap만 갱신 (tail만 업데이트)
+    for (let i = insertIndex; i < this.odata.length; i++) {
+      const k = Number(this.odata[i][this.keyIndex]);
+      this.keyMap[k] = i;
+    }
+    this.curRowIndex = insertIndex;
   }
+
   remove(row: any) {
-    // row가 없거나 keyMap에 없는 경우 경고
-    if (!row || this.keyMap[this.makeKey(row)] === undefined) {
+    const curKeyIndex = row ? Number(row[this.keyIndex]) : -1;
+    if (curKeyIndex === -1) {
       console.warn("NexDataStore: remove() row not found or invalid");
       return;
     }
-
-    const key = this.makeKey(row);
-    const data = this.keyMap[key];
-    if (data) {
-      //console.log(`NexDataStore: remove() removing row at index ${data.index}`);
-      this.odata.splice(data.index, 1);
-      delete this.keyMap[key]; // keyMap에서 제거
-    } else {
-      console.warn(`NexDataStore: remove() row not found for key ${key}`);
+    const removeIndex = this.keyMap[curKeyIndex];
+    if (removeIndex === undefined) {
+      console.warn("NexDataStore: remove() key not found in keyMap");
+      return;
     }
+
+    this.odata.splice(removeIndex, 1);
+    delete this.keyMap[curKeyIndex];
+
+    // shift keyMap indices for the tail
+    for (let i = removeIndex; i < this.odata.length; i++) {
+      const k = Number(this.odata[i][this.keyIndex]);
+      this.keyMap[k] = i;
+    }
+    this.curRowIndex = this.odata.length > removeIndex ? removeIndex : -1;
   }
-  update(curRow: any, newRow: any) {
+
+  update(row: any) {
     // 단일 row를 업데이트: curRow를 지우고 그 자리에 newRow를 삽입
-    if (!curRow || !newRow) {
-      console.warn("NexDataStore: update() curRow or newRow is empty");
+    console.log(`NexDataStore: update() row=${JSON.stringify(row, null, 2)}`);
+    if (!row) {
+      console.warn("NexDataStore: update() row is empty");
       return;
     }
-
-    const curKey = this.makeKey(curRow);
-    const curData = this.keyMap[curKey];
-    if (!curData) {
-      console.warn(`NexDataStore: update() curRow not found for key ${curKey}`);
-      return;
+    // this.odata 에서 row의 keyIndex 가 동일한 값을 찾아서 교체
+    const rowIndex = this.odata.findIndex(
+      (r) => r[this.keyIndex] === row[this.keyIndex]
+    );
+    if (rowIndex !== -1) {
+      this.odata.splice(rowIndex, 1, row);
+    } else {
+      console.warn("NexDataStore: update() invalid index(key) value");
     }
-    const index = curData.index;
-
-    // 기존 curRow를 삭제하고 newRow로 대체
-    this.odata.splice(index, 1, newRow);
-
-    // keyMap 갱신: curRow의 key 삭제, newRow의 key 추가
-    delete this.keyMap[curKey];
-    const newKey = this.makeKey(newRow);
-    this.keyMap[newKey] = { index: index, row: newRow };
+    this.curRowIndex = rowIndex;
   }
 
   getData(): NexData {

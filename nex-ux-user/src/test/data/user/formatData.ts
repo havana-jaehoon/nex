@@ -16,11 +16,12 @@ const webFormatData = [
     },
   ],
   [
+    
     "/web/menu",
     {
       name: "menu",
-      dispName: "메뉴리스트",
-      description: "메뉴리스트",
+      dispName: "메뉴항목",
+      description: "메뉴 항목 데이터 포맷",
       type: NexNodeType.FORMAT,
       icon: "",
       color: "",

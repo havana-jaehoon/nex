@@ -115,12 +115,13 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
       }
     };
 
-    const handleChange = (contentsIndex: number, curRow: any, newRow: any) => {
-      if (curRow && newRow && contents.length > contentsIndex) {
+    const handleUpdate = (contentsIndex: number, newRow: any) => {
+      console.log(`NexAppProvider: handleUpdate contentsIndex=${contentsIndex}, newRow=${JSON.stringify(newRow, null, 2)}`);
+      if (newRow && contents.length > contentsIndex) {
         const store = contents[contentsIndex].store;
-        store.update(curRow, newRow);
+        store.update(newRow);
       } else {
-        console.warn("NexAppProvider: handleChange - Invalid row data");
+        console.warn("NexAppProvider: handleUpdate - Invalid row data");
       }
     };
 
@@ -133,12 +134,12 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
       }
     };
 
-    const handleDelete = (contentsIndex: number, row: any) => {
+    const handleRemove = (contentsIndex: number, row: any) => {
       if (row && contents.length > contentsIndex) {
         const store = contents[contentsIndex].store;
         store.delete(row);
       } else {
-        console.warn("NexAppProvider: handleDelete - Invalid row data");
+        console.warn("NexAppProvider: handleRemove - Invalid row data");
       }
     };
 
@@ -158,9 +159,9 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
             applet: appNodeMap[appletPath],
             elements: elementList,
             onSelect: handleSelect,
-            onChange: handleChange,
+            onUpdate: handleUpdate,
             onAdd: handleAdd,
-            onRemove: handleDelete,
+            onRemove: handleRemove,
           })}
       </NexDiv>
     );

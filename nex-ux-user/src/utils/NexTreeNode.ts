@@ -21,7 +21,9 @@ function normalizePath(p?: string): string {
 }
 
 /** path 배열 -> 트리/맵 빌드 */
-export function buildNexTree(pairs: Array<[string, JsonData]>): NexTree {
+export function buildNexTree(
+  pairs: Array<[number, string, JsonData]>
+): NexTree {
   const virtualRoot: NexTreeNode = {
     index: -1,
     name: "",
@@ -31,7 +33,7 @@ export function buildNexTree(pairs: Array<[string, JsonData]>): NexTree {
   const pathMap: Record<string, NexTreeNode> = { "": virtualRoot };
 
   let index = 0;
-  for (const [rawPath, data] of pairs) {
+  for (const [id, rawPath, data] of pairs) {
     const path = normalizePath(rawPath);
     const segments = path.split("/").filter(Boolean);
 
