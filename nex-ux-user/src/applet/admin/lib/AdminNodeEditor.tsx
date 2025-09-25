@@ -94,23 +94,23 @@ const LabeledInput: React.FC<InputProps> = ({
   type = "text",
 }) => (
   <Stack
-    direction="row"
+    direction='row'
     spacing={1}
-    alignItems="center"
-    width="100%"
+    alignItems='center'
+    width='100%'
     title={placeholder}
   >
-    <NexLabel width="8rem">{label}</NexLabel>
+    <NexLabel width='8rem'>{label}</NexLabel>
     {onChange ? (
       <NexInput
-        width="100%"
+        width='100%'
         placeholder={placeholder || label}
         value={value as any}
         type={type}
         onChange={(e) => onChange(e.target.value)}
       />
     ) : (
-      <NexLabel width="100%">{value}</NexLabel>
+      <NexLabel width='100%'>{value}</NexLabel>
     )}
   </Stack>
 );
@@ -150,23 +150,23 @@ const LabeledSelect: React.FC<SelectProps> = ({
 
   return (
     <NexDiv
-      direction="row"
-      align="flex-start"
-      justify="flex-start"
-      width="100%"
+      direction='row'
+      align='flex-start'
+      justify='flex-start'
+      width='100%'
       fontSize={fontSize}
       title={placeholder}
     >
       <Stack
         spacing={1}
-        direction="row"
-        width="100%"
-        alignItems="center"
-        alignContent="end"
-        justifyContent="center"
+        direction='row'
+        width='100%'
+        alignItems='center'
+        alignContent='end'
+        justifyContent='center'
       >
-        <NexLabel width="8rem">{label}</NexLabel>
-        <NexDiv width="100%">
+        <NexLabel width='8rem'>{label}</NexLabel>
+        <NexDiv width='100%'>
           {options.length === 1 ? (
             <NexLabel>{tValue}</NexLabel>
           ) : (
@@ -175,7 +175,7 @@ const LabeledSelect: React.FC<SelectProps> = ({
               style={{ width: "100%", height: "100%" }}
               onChange={(e) => onChange(e.target.value)}
             >
-              <option value="" disabled>
+              <option value='' disabled>
                 {placeholder || "옵션을 선택하세요"}
               </option>
               {Array.isArray(options)
@@ -238,14 +238,14 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
   };
 
   return (
-    <Stack spacing={1} width="100%" direction="row">
-      <NexDiv width="8rem">{label} </NexDiv>
+    <Stack spacing={1} width='100%' direction='row'>
+      <NexDiv width='8rem'>{label} </NexDiv>
       {!recordFields || recordFields.length === 0 ? (
-        <Stack width="100%" direction="column" spacing={0.2}>
+        <Stack width='100%' direction='column' spacing={0.2}>
           {rows.map((val: any, i: number) => (
-            <NexDiv key={`${id}.${i}`} width="100%">
+            <NexDiv key={`${id}.${i}`} width='100%'>
               <NexInput
-                width="100%"
+                width='100%'
                 placeholder={placeholder || label}
                 value={val}
                 onChange={(e) => {
@@ -255,13 +255,13 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
                 }}
               />
 
-              <MdCancel type="button" onClick={() => removeRow(i)} />
+              <MdCancel type='button' onClick={() => removeRow(i)} />
             </NexDiv>
           ))}
           <NexButton onClick={addRow}>+ 추가</NexButton>
         </Stack>
       ) : (
-        <NexDiv width="100%">
+        <NexDiv width='100%'>
           <table>
             <thead>
               <tr>
@@ -350,11 +350,12 @@ export interface AdminNodeEditorProps {
 
   mode: "add" | "edit"; // add, update, delete
   onApply(data: any): void;
-  onCancel(): void;
+  onCancel?(): void;
 }
 
 const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   const {
+    mode,
     data,
     fontLevel = 5,
     style = defaultThemeStyle,
@@ -454,13 +455,13 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
 
   const headFields = () => {
     return (
-      <NexDiv width="100%" direction="column">
+      <NexDiv width='100%' direction='column'>
         <NexLabel fontSize={fontSize} style={{ fontWeight: "bold" }}>
           {label}
         </NexLabel>
         {/* 간격 조정 */}
         <span style={{ height: fontSize }} />
-        <Stack spacing={1} direction="column" width="100%" alignItems="center">
+        <Stack spacing={1} direction='column' width='100%' alignItems='center'>
           <LabeledInput
             label={"index"}
             placeholder={"Index(key) of Node"}
@@ -473,20 +474,20 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
           />
         </Stack>
         {/* 간격 조정 */}
-        <NexDiv height="0.5rem" width="100%" borderBottom="1px solid gray" />
+        <NexDiv height='0.5rem' width='100%' borderBottom='1px solid gray' />
       </NexDiv>
     );
   };
 
   const bodyFields = () => (
-    <NexDiv width="100%" flex="1">
-      <Stack spacing={1} direction="column" width="100%">
+    <NexDiv width='100%' flex='1'>
+      <Stack spacing={1} direction='column' width='100%'>
         <Stack
-          flex="1"
+          flex='1'
           spacing={1}
-          direction="column"
-          width="100%"
-          alignItems="end"
+          direction='column'
+          width='100%'
+          alignItems='end'
         >
           {features.map((f: NexFeatureNode) => renderFeature(f))}
         </Stack>
@@ -497,20 +498,22 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   const tailFields = () => (
     <Stack
       spacing={2}
-      direction="row"
-      width="100%"
-      alignContent="end"
-      alignItems="center"
-      justifyContent="end"
+      direction='row'
+      width='100%'
+      alignContent='end'
+      alignItems='center'
+      justifyContent='end'
     >
-      <NexButton flex="1" bgColor="blue" onClick={handleApply}>
-        Apply
+      <NexButton flex='1' bgColor='blue' onClick={handleApply}>
+        {mode === "add" ? "추가" : "적용"}
       </NexButton>
-      <NexButton flex="1" bgColor="#777777" onClick={onCancel}>
-        Cancel
-      </NexButton>
-      <NexButton flex="1" bgColor="#999999" onClick={handleReset}>
-        Reset
+      {onCancel && (
+        <NexButton flex='1' bgColor='#777777' onClick={onCancel}>
+          취소
+        </NexButton>
+      )}
+      <NexButton flex='1' bgColor='#999999' onClick={handleReset}>
+        초기화
       </NexButton>
     </Stack>
   );
@@ -518,15 +521,15 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   const iconSubItem = (key: string, label: string) => {
     return (
       <NexDiv
-        direction="row"
-        align="center"
-        justify="space-between"
+        direction='row'
+        align='center'
+        justify='space-between'
         onClick={() => toggleSubItem(key)}
-        cursor="pointer"
-        width="100%"
+        cursor='pointer'
+        width='100%'
       >
         <NexLabel fontSize={fontSize}>{key}</NexLabel>
-        <NexDiv align="end">
+        <NexDiv align='end'>
           {isOpen[key] !== false ? (
             <MdKeyboardArrowDown />
           ) : (
@@ -546,12 +549,12 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
 
     if (feature.featureType === NexFeatureType.ATTRIBUTES) {
       return (
-        <NexDiv width="100%" direction="column">
+        <NexDiv width='100%' direction='column'>
           {iconSubItem(id, label)}
           <Stack
             spacing={0.5}
-            direction="column"
-            width="100%"
+            direction='column'
+            width='100%'
             paddingLeft={fontSize}
           >
             {isOpen[id] !== false &&
@@ -617,10 +620,10 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
 
   return (
     <NexDiv
-      direction="column"
-      width="100%"
-      height="100%"
-      padding="1rem"
+      direction='column'
+      width='100%'
+      height='100%'
+      padding='1rem'
       bgColor={bgColor}
       color={color}
       fontSize={fontSize}
@@ -632,13 +635,13 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
         }}
         style={{ width: "100%", height: "100%" }}
       >
-        <Stack spacing={2} direction="column" width="100%" height="100%">
-          <NexDiv width="100%">{headFields()}</NexDiv>
-          <NexDiv flex="10" width="100%">
+        <Stack spacing={2} direction='column' width='100%' height='100%'>
+          <NexDiv width='100%'>{headFields()}</NexDiv>
+          <NexDiv flex='10' width='100%'>
             {bodyFields()}
           </NexDiv>
           {newNode && <pre>{JSON.stringify(newNode, null, 2)}</pre>}
-          <NexDiv flex="1" width="100%">
+          <NexDiv flex='1' width='100%'>
             {tailFields()}
           </NexDiv>
         </Stack>

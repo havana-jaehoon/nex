@@ -3,7 +3,8 @@ import { createPortal } from "react-dom";
 import styled from "styled-components";
 
 import { MdCancel } from "react-icons/md";
-import { NexButton, NexDiv } from "component/base/NexBaseComponents";
+import { NexButton, NexDiv, NexLabel } from "component/base/NexBaseComponents";
+import { IconButton, Stack } from "@mui/material";
 
 const ModalContainer = ({
   children,
@@ -37,7 +38,9 @@ const useOutSideClick = (
 };
 
 interface NexModalProps {
+  label: string;
   isOpen: boolean;
+
   onClose?: () => void;
   elementId?: string;
   style?: { overlay?: React.CSSProperties; content?: React.CSSProperties };
@@ -45,6 +48,7 @@ interface NexModalProps {
 }
 
 const NexModal = ({
+  label,
   isOpen,
   onClose,
   elementId,
@@ -74,24 +78,19 @@ const NexModal = ({
   return (
     <ModalContainer elementId={elementId || "root"}>
       <Overlay style={style?.overlay}>
-        <ModalWrap direction="column" ref={modalRef} style={style?.content}>
-          <NexDiv direction="row" justify="end" width="100%">
-            <NexButton
-              style={{
-                background: "transparent",
-                transition: "box-shadow 0.2s",
-                border: "none",
-              }}
-              onMouseOver={(e) =>
-                (e.currentTarget.style.boxShadow =
-                  "0 4px 12px rgba(0,0,0,0.15)")
-              }
-              onMouseOut={(e) => (e.currentTarget.style.boxShadow = "")}
-            >
-              <MdCancel onClick={handleClose} />
-            </NexButton>
-          </NexDiv>
-          <NexDiv direction="column" align="center" width="100%" padding="1rem">
+        <ModalWrap direction='column' ref={modalRef} style={style?.content}>
+          <Stack direction='row' width='100%' justifyContent=''>
+            <NexLabel flex='1' fontSize='1.2rem' style={{ fontWeight: "bold" }}>
+              {label}
+            </NexLabel>
+            <IconButton size='small'>
+              <MdCancel
+                onClick={handleClose}
+                style={{ color: style?.content?.color }}
+              />
+            </IconButton>
+          </Stack>
+          <NexDiv direction='column' align='center' width='100%' padding='1rem'>
             {children}
           </NexDiv>
         </ModalWrap>

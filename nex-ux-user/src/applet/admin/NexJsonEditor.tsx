@@ -54,21 +54,16 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
     <NexApplet {...props} error={errorMsg()}>
       {data ? (
         <NexDiv
-          direction="column"
-          align="center"
-          width="100%"
-          height="100%"
+          direction='column'
+          align='center'
+          width='100%'
+          height='100%'
           color={color}
           bgColor={bgColor}
           onMouseEnter={() => setMouseEnter(true)}
           onMouseLeave={() => setMouseEnter(false)}
         >
-          <AdminNodeEditor
-            data={data}
-            mode="add"
-            onApply={handleApply}
-            onCancel={() => {}}
-          />
+          <AdminNodeEditor data={data} mode='add' onApply={handleApply} />
         </NexDiv>
       ) : null}
     </NexApplet>

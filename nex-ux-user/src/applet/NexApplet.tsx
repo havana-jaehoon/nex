@@ -30,10 +30,10 @@ export interface NexAppProps {
   applet?: any;
   elements?: any[]; // Optional elements prop for additional data
   children?: React.ReactNode;
-  onSelect?: (storeIndex: number, row: any) => void; // Optional onSelect prop for handling selection
-  onUpdate?: (storeIndex: number, newRow: any) => void; // Optional onChange prop for handling changes
-  onAdd?: (storeIndex: number, curRow: any, newRow: any) => void; // Optional onAdd prop for handling additions
-  onRemove?: (storeIndex: number, curRow: any) => void; // Optional onDelete prop for handling deletions
+  onSelect?: (storeIndex: number, curRow: any) => boolean; // Optional onSelect prop for handling selection
+  onUpdate?: (storeIndex: number, updatedRow: any) => boolean; // Optional onChange prop for handling changes
+  onAdd?: (storeIndex: number, newRow: any) => boolean; // Optional onAdd prop for handling additions
+  onRemove?: (storeIndex: number, curRow: any) => boolean; // Optional onDelete prop for handling deletions
 }
 
 const NexApplet: React.FC<NexAppProps> = observer(
@@ -43,7 +43,7 @@ const NexApplet: React.FC<NexAppProps> = observer(
 
     if (error) {
       return (
-        <Alert severity="error" sx={{ textAlign: "left" }}>
+        <Alert severity='error' sx={{ textAlign: "left" }}>
           <AlertTitle>Error</AlertTitle>
           {error}
         </Alert>
@@ -64,11 +64,11 @@ const NexApplet: React.FC<NexAppProps> = observer(
     const gap = style?.gap || "8px";
     const padding = style?.padding || "8px";
     return (
-      <NexDiv width="100%" height="100%">
+      <NexDiv width='100%' height='100%'>
         <NexDiv
-          direction="column"
-          width="100%"
-          height="100%"
+          direction='column'
+          width='100%'
+          height='100%'
           color={color}
           bgColor={bgColor}
           fontFamily={style?.fontFamily}
@@ -79,14 +79,14 @@ const NexApplet: React.FC<NexAppProps> = observer(
           {nexIcon(icon, fontSize)}
           {(name || name !== "") && (
             <NexDiv
-              fontWeight="bold"
+              fontWeight='bold'
               height={`calc(${fontSize} *2)`} // 0.5rem for padding
             >
               <NexLabel>{name}</NexLabel>
             </NexDiv>
           )}
 
-          <NexDiv width="100%" height="100%" bgColor={contentsBGColor}>
+          <NexDiv width='100%' height='100%' bgColor={contentsBGColor}>
             {children}
           </NexDiv>
         </NexDiv>
