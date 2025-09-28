@@ -32,7 +32,7 @@ export interface NexAppProps {
   children?: React.ReactNode;
   onSelect?: (storeIndex: number, curRow: any) => boolean; // Optional onSelect prop for handling selection
   onUpdate?: (storeIndex: number, updatedRow: any) => boolean; // Optional onChange prop for handling changes
-  onAdd?: (storeIndex: number, newRow: any) => boolean; // Optional onAdd prop for handling additions
+  onAdd?: (storeIndex: number, curRow: any, newRow: any) => boolean; // Optional onAdd prop for handling additions
   onRemove?: (storeIndex: number, curRow: any) => boolean; // Optional onDelete prop for handling deletions
 }
 

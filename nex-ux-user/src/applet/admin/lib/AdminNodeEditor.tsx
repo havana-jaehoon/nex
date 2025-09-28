@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import {
   NexButton,
@@ -374,23 +374,19 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   const parentPath = `${nodePath.substring(0, nodePath.lastIndexOf("/"))}`;
   const node: any = data[2];
 
+  const format = node ? adminNodeDefs[node.type as NexNodeType] : null;
+  const features = format?.features || [];
+  const tNode = getAdminNodeFromFeatures(features);
+  const label = format?.dispName || node.type;
+
   const [curNodePath, setCurNodePath] = useState<string>(nodePath);
   const [newNode, setNode] = useState<any>(node);
   const [isOpen, setIsOpen] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
     setNode(node);
-  }, [node]);
-
-  //console.log("### AdminNodeEditor: node : ", JSON.stringify(data[2], null, 2));
-  const format = adminNodeDefs[node.type as NexNodeType];
-  if (!format || !Array.isArray(format.features)) {
-    return <NexDiv>노드 타입이 올바르지 않습니다.</NexDiv>;
-  }
-
-  const features = format.features;
-  const tNode = getAdminNodeFromFeatures(features);
-  const label = format?.dispName || node.type;
+    setCurNodePath(nodePath);
+  }, [node, nodePath]);
 
   const fontSize =
     style.fontSize[clamp(fontLevel - 1, 0, style.fontSize.length - 1)] ||

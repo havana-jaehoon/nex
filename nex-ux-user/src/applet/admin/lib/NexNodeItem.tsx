@@ -25,7 +25,6 @@ interface NexNodeItemProps {
   theme?: NexTheme; // Optional theme prop, can be used for styling
   user?: NexThemeUser; // Optional theme user prop, can be used for user-specific theme settings
   depts: number;
-  path: string; // Optional path prop, can be used for routing
   node: any;
 
   onSelect(path: string): void;
@@ -34,7 +33,6 @@ interface NexNodeItemProps {
 }
 
 const NexNodeItem: React.FC<NexNodeItemProps> = ({
-  path,
   selectedPath,
   theme,
   user,
@@ -45,15 +43,22 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
 }) => {
   const [isChildOpend, setChildOpened] = useState<boolean>(false);
 
-  const isFolder = node.children || node.type === "folder" ? true : false; //node.type === "folder" ;
+  const isFolder = node.children ? true : false;
   const isChildren = node.children && node.children.length > 0;
 
   //const curPath = path === "/" ? `/${node.name}` : `${path}/${node.name}`;
-  const isSelectedRoot = selectedPath?.startsWith(path) && depts === 0;
-  const isSelected = selectedPath === path;
+  const isSelectedRoot = selectedPath?.startsWith(node.path) && depts === 0;
+  const isSelected = selectedPath === node.path;
 
   //const nodeWithoutChildren = { ...node, children: undefined };
-  const caption = JSON.stringify(node.data, null, 2);
+  const caption = JSON.stringify(node, null, 2);
+
+  const path = node.path;
+  const index = node.data[0];
+  const path2 = node.data[1]; // path 는  path2 같아야 함.
+  const jsonData = node.data[2];
+  const label = jsonData?.dispName || jsonData?.name || "No Name";
+
   /*
   useEffect(() => {
     if (!isSelectedRoot) {
@@ -103,40 +108,40 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
 
   return (
     <NexDiv
-      direction="column"
-      width="100%"
-      justify="flex-start"
+      direction='column'
+      width='100%'
+      justify='flex-start'
       bgColor={isSelectedRoot ? selectedBgColor : "inherit"}
       color={isSelectedRoot || isSelected ? selectedColor : "black"}
       fontSize={fontSize}
       title={caption}
     >
       <NexDiv
-        direction="row"
-        width="100%"
+        direction='row'
+        width='100%'
         height={borderFontSize}
-        align="center"
-        justify="flex-start"
-        cursor="pointer"
+        align='center'
+        justify='flex-start'
+        cursor='pointer'
         onClick={(e) => {
           e.preventDefault();
           handleSelect(path);
         }}
       >
         {isSelected ? (
-          <NexDiv width="0.5rem" height="100%" bgColor={selectedColor} />
+          <NexDiv width='0.5rem' height='100%' bgColor={selectedColor} />
         ) : (
-          <NexDiv width="0.5rem" height="100%" bgColor="inherit" />
+          <NexDiv width='0.5rem' height='100%' bgColor='inherit' />
         )}
 
         <span style={{ width: tabFontSize }} />
         <NexDiv
-          justify="center"
-          align="center"
+          justify='center'
+          align='center'
           width={borderFontSize}
-          height="100%"
+          height='100%'
           color={selectedColor}
-          cursor="pointer"
+          cursor='pointer'
         >
           {isFolder ? (
             isChildOpend ? (
@@ -146,33 +151,33 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
             )
           ) : null}
         </NexDiv>
-        <NexLabel width="96%" height="100%">
-          {node.data.dispName || node.data.name}
+        <NexLabel width='96%' height='100%'>
+          {label}
         </NexLabel>
 
         <IconButton
-          size="small"
+          size='small'
           onClick={(e) => {
             e.stopPropagation();
             if (onRemove) onRemove(path);
           }}
-          title="삭제"
+          title='삭제'
         >
           <MdClose fontSize={`calc(${fontSize} * 0.7)`} color={selectedColor} />
         </IconButton>
       </NexDiv>
       {isChildOpend && isChildren ? (
-        <NexDiv direction="row" width="100%" justify="start">
-          <Stack spacing={0.5} direction="column" width="100%">
+        <NexDiv direction='row' width='100%' justify='start'>
+          <Stack spacing={0.5} direction='column' width='100%'>
             {node.children?.map((child: any, index: number) => (
               <NexNodeItem
                 key={index}
                 depts={depts + 1}
                 node={child}
                 theme={theme}
-                path={child.path}
                 selectedPath={selectedPath}
                 onSelect={handleChildSelect}
+                onRemove={onRemove}
               />
             ))}
           </Stack>

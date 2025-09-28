@@ -367,7 +367,7 @@ export class NexDataStore {
     }
   }
 
-  add(curRow: any, newRow: any) {
+  add(curRow: any, newRow: any): boolean {
     // curRow 는 현재 선택된 위치를 나타냄
     // 기존에 데이터가 있는지 확인하고 있으면 에러 출력
 
@@ -383,7 +383,7 @@ export class NexDataStore {
       this.keyMap[newKeyIndex] = this.odata.length;
       this.odata = [...this.odata, updatedRow];
       this.curRowIndex = this.odata.length - 1;
-      return;
+      return true;
     }
     // curRow 의 위치 다음에 newRow를 삽입
     const insertIndex = this.keyMap[curKeyIndex] + 1;
@@ -397,18 +397,19 @@ export class NexDataStore {
       this.keyMap[k] = i;
     }
     this.curRowIndex = insertIndex;
+    return false;
   }
 
-  remove(row: any) {
+  remove(row: any): boolean {
     const curKeyIndex = row ? Number(row[this.keyIndex]) : -1;
     if (curKeyIndex === -1) {
       console.warn("NexDataStore: remove() row not found or invalid");
-      return;
+      return false;
     }
     const removeIndex = this.keyMap[curKeyIndex];
     if (removeIndex === undefined) {
       console.warn("NexDataStore: remove() key not found in keyMap");
-      return;
+      return false;
     }
 
     this.odata.splice(removeIndex, 1);
@@ -420,25 +421,35 @@ export class NexDataStore {
       this.keyMap[k] = i;
     }
     this.curRowIndex = this.odata.length > removeIndex ? removeIndex : -1;
+    return true;
   }
 
-  update(row: any) {
+  update(row: any): boolean {
     // 단일 row를 업데이트: curRow를 지우고 그 자리에 newRow를 삽입
     console.log(`NexDataStore: update() row=${JSON.stringify(row, null, 2)}`);
     if (!row) {
       console.warn("NexDataStore: update() row is empty");
-      return;
+      return false;
     }
     // this.odata 에서 row의 keyIndex 가 동일한 값을 찾아서 교체
+    const rowKey = Number(row[this.keyIndex]);
     const rowIndex = this.odata.findIndex(
-      (r) => r[this.keyIndex] === row[this.keyIndex]
+      (r) => Number(r[this.keyIndex]) === rowKey
     );
-    if (rowIndex !== -1) {
-      this.odata.splice(rowIndex, 1, row);
-    } else {
+
+    if (rowIndex === -1) {
       console.warn("NexDataStore: update() invalid index(key) value");
+      return false;
     }
+    console.log(
+      `NexDataStore: update() org=${JSON.stringify(this.odata[rowIndex], null, 2)}`
+    );
+    this.odata[rowIndex] = row;
+    console.log(
+      `NexDataStore: update() new=${JSON.stringify(this.odata[rowIndex], null, 2)}`
+    );
     this.curRowIndex = rowIndex;
+    return true;
   }
 
   getData(): NexData {

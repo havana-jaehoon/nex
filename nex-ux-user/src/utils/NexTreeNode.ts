@@ -1,17 +1,12 @@
-type JsonData = any;
-
-export interface NexTreeNode {
-  index: number; // 순서 (0부터 시작)
-  name: string;
+export interface NexTreeNodeObject {
   path: string; // 표준화된 절대경로 (루트는 "")
-  children: NexTreeNode[];
-  data?: JsonData; // 해당 경로의 json-data
+  children?: NexTreeNodeObject[];
+  data?: any; // 해당 경로의 json-data
 }
 
-export interface NexTree {
-  roots: NexTreeNode[]; // 최상위 노드들
-  pathMap: Record<string, NexTreeNode>; // path -> node
-  getNode: (path: string) => NexTreeNode | undefined;
+export interface NexNodeTree {
+  data: NexTreeNodeObject[] | undefined; // 최상위 노드들
+  getNode: (path: string) => NexTreeNodeObject | undefined; // path -> node
 }
 
 /** 경로 표준화: "", "/" -> ""; "/a/" -> "/a" */
@@ -21,56 +16,45 @@ function normalizePath(p?: string): string {
 }
 
 /** path 배열 -> 트리/맵 빌드 */
-export function buildNexTree(
-  pairs: Array<[number, string, JsonData]>
-): NexTree {
-  const virtualRoot: NexTreeNode = {
-    index: -1,
-    name: "",
+export function buildNexTree(datas: Array<[number, string, any]>): NexNodeTree {
+  const virtualRoot: NexTreeNodeObject = {
     path: "",
+    data: null,
     children: [],
   };
-  const pathMap: Record<string, NexTreeNode> = { "": virtualRoot };
+  const pathMap: Record<string, NexTreeNodeObject> = { "": virtualRoot };
 
-  let index = 0;
-  for (const [id, rawPath, data] of pairs) {
+  for (const row of datas) {
+    const [idx, rawPath, data] = row;
     const path = normalizePath(rawPath);
     const segments = path.split("/").filter(Boolean);
 
-    index += 1;
-
-    // 루트에 직접 데이터인 경우
-    if (segments.length === 0) {
-      pathMap[""].data = data;
-      continue;
-    }
-
-    // 누적 경로를 따라 노드 생성/탐색
     let cursor = virtualRoot;
     let accPath = ""; // 누적 경로(표준화된)
 
     for (const seg of segments) {
-      accPath = accPath ? `${accPath}/${seg}` : `/${seg}`;
+      accPath = accPath === "" ? `/${seg}` : `${accPath}/${seg}`;
       const key = normalizePath(accPath); // "/a" 형태
 
       let next = pathMap[key];
       if (!next) {
-        next = { index: index - 1, name: seg, path: key, children: [] };
-        cursor.children.push(next);
+        next = { path: key, data: null, children: [] };
         pathMap[key] = next;
+        // cursor.children은 항상 존재하므로 || [] 가 필요 없습니다.
+        cursor.children!.push(next);
       }
       cursor = next;
     }
 
-    // 마지막 노드에 data 세팅 (중복 path는 덮어쓰기)
-    cursor.data = data;
+    // 최종 경로의 노드에 data를 할당합니다.
+    // row 전체가 아닌 실제 data를 할당합니다.
+    cursor.data = row;
   }
 
   // 최상위들(루트 바로 아래)만 반환
   const roots = virtualRoot.children;
 
   const getNode = (raw: string) => pathMap[normalizePath(raw)];
-  //const getNode = (raw: string) => pathMap[normalizePath(raw)]?.data;
 
-  return { roots, pathMap, getNode };
+  return { data: roots, getNode: getNode };
 }

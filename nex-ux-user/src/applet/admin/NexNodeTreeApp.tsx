@@ -12,7 +12,7 @@ import { buildNexTree } from "utils/NexTreeNode";
 import { getAdminNodeFromType } from "./lib/adminDataFormat";
 import { NexNodeType } from "type/NexNode";
 import { set } from "mobx";
-import { data } from "react-router-dom";
+import { data, Route } from "react-router-dom";
 
 const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const { name, contents, theme, user, onSelect, onUpdate, onAdd, onRemove } =
@@ -48,11 +48,12 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const nodeType = contents?.[storeIndex]?.name || "";
 
   const nexTree = buildNexTree(csvData);
+  //console.log("# nexTree=", JSON.stringify(nexTree, null, 2));
 
   //console.log(
   //  `NexNodeTreeApp: csvData=${JSON.stringify(contents, null, 2)}`
   //);
-  const treeData = nexTree.roots;
+  const treeData = nexTree.data;
 
   const store = contents[storeIndex].store;
 
@@ -60,7 +61,12 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
 
   const handleSelect = (path: string) => {
     setSelectedPath(path);
-    const row = csvData[nexTree.pathMap[path].index];
+    const nodeObj = nexTree.getNode(path);
+    let row = null;
+    if (nodeObj) {
+      row = nodeObj.data;
+    }
+
     setCurData(row);
     console.log(`NexNodeTreeApp: onSelect path=${path}, row=`, row);
 
@@ -132,7 +138,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const handleApply = (mode: "add" | "edit", node: any) => {
     if (mode === "add") {
       console.log("NexNodeTreeApp: handleApply - add", node);
-      if (onAdd && onAdd(storeIndex, node)) {
+      if (onAdd && onAdd(storeIndex, curData, node)) {
         // 추가가 성공한 경우
         setIsAdding(false);
         setIsEditing(false);
@@ -157,16 +163,38 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     setIsEditing(false);
   };
 
-  const handleRemove = (node: any) => {
-    if (!node) {
-      window.alert("삭제할 노드를 선택하세요.");
+  const handleRemove = (path: string) => {
+    //    setSelectedPath(path);
+    const nodeObj = nexTree.getNode(path);
+    //setCurData(row);
+
+    let row = null;
+    if (nodeObj) {
+      row = nodeObj.data;
+    }
+
+    if (!row) {
+      window.alert("삭제할 노드가 올바르지 않습니다.");
       return;
     }
-    console.log(`NexNodeTreeApp: removeNode path=${selectedPath}`);
+
+    // onRemove  가 없으면 삭제 불가
+    if (!onRemove) {
+      console.warn("NexNodeTreeApp: handleRemove - onRemove is not provided");
+      return;
+    }
 
     // 정말로 삭제할까요?
     if (!window.confirm("정말로 삭제하시겠습니까?")) return;
-    onRemove && onRemove(storeIndex, node);
+    if (!onRemove(storeIndex, row)) {
+      // 삭제가 실패한 경우
+      window.alert("삭제에 실패했습니다.");
+      return;
+    }
+    // 삭제한 노드가 선택된 노드인 경우 선택 해제
+    if (path === selectedPath) {
+      handleSelect("");
+    }
   };
 
   return (
@@ -206,18 +234,19 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
           </IconButton>
         </Stack>
         <Stack spacing={0.5} direction='column' width='100%'>
-          {treeData.map((node: any, index: number) => (
-            <NexNodeItem
-              key={index}
-              depts={0}
-              node={node}
-              theme={theme}
-              user={user}
-              path={node.path}
-              onSelect={handleSelect}
-              selectedPath={selectedPath}
-            />
-          ))}
+          {treeData &&
+            treeData.map((obj: any, index: number) => (
+              <NexNodeItem
+                key={index}
+                depts={0}
+                node={obj}
+                theme={theme}
+                user={user}
+                onSelect={handleSelect}
+                onRemove={handleRemove}
+                selectedPath={selectedPath}
+              />
+            ))}
         </Stack>
       </NexDiv>
       {isEditing && (

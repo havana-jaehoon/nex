@@ -46,7 +46,7 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
   const bgColor = style?.bgColors[0] || "#e8edf7";
 
   const handleApply = (newData: any) => {
-    console.log("onApply : ", JSON.stringify(newData, null, 2));
+    //console.log("onApply : ", JSON.stringify(newData, null, 2));
     onUpdate?.(0, newData);
   };
 
@@ -63,7 +63,7 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
           onMouseEnter={() => setMouseEnter(true)}
           onMouseLeave={() => setMouseEnter(false)}
         >
-          <AdminNodeEditor data={data} mode='add' onApply={handleApply} />
+          <AdminNodeEditor data={data} mode='edit' onApply={handleApply} />
         </NexDiv>
       ) : null}
     </NexApplet>

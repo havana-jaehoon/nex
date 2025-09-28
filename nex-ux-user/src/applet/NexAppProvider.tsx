@@ -109,6 +109,10 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
             //contents[contentsIndex].csv.find((r: any) => {});
             if (featureIndex >= 0 && row[featureIndex] !== undefined) {
               selector.set(selection.key, row[featureIndex]);
+              console.log("NexAppProvider: handleSelect - ", {
+                key: selection.key,
+                value: row[featureIndex],
+              });
             }
           });
         }
@@ -116,7 +120,9 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     };
 
     const handleUpdate = (contentsIndex: number, newRow: any) => {
-      console.log(`NexAppProvider: handleUpdate contentsIndex=${contentsIndex}, newRow=${JSON.stringify(newRow, null, 2)}`);
+      console.log(
+        `NexAppProvider: handleUpdate contentsIndex=${contentsIndex}, newRow=${JSON.stringify(newRow, null, 2)}`
+      );
       if (newRow && contents.length > contentsIndex) {
         const store = contents[contentsIndex].store;
         store.update(newRow);
@@ -127,20 +133,20 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
 
     const handleAdd = (contentsIndex: number, curRow: any, newRow: any) => {
       if (newRow && contents.length > contentsIndex) {
-        const store = contents[contentsIndex].store;
-        store.add(curRow, newRow);
-      } else {
-        console.warn("NexAppProvider: handleAdd - Invalid row data");
+        const store: NexDataStore = contents[contentsIndex].store;
+        return store.add(curRow, newRow);
       }
+      console.warn("NexAppProvider: handleAdd - Invalid row data");
+      return false;
     };
 
     const handleRemove = (contentsIndex: number, row: any) => {
       if (row && contents.length > contentsIndex) {
-        const store = contents[contentsIndex].store;
-        store.delete(row);
-      } else {
-        console.warn("NexAppProvider: handleRemove - Invalid row data");
+        const store: NexDataStore = contents[contentsIndex].store;
+        return store.remove(row);
       }
+      console.warn("NexAppProvider: handleRemove - Invalid row data");
+      return false;
     };
 
     const elementList = contents?.map(
