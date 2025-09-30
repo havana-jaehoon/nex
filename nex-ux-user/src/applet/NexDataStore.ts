@@ -7,7 +7,6 @@ import { makeSampleJsonAndCsv, parseCsv2Json } from "type/nexNodeConv";
 
 export interface NexData {
   csv: any[]; // conditions 가 반영된 CSV data
-  json: any; // conditions 가 반영된 JSON data
   format: any; // format 정보
 }
 
@@ -174,7 +173,6 @@ export class NexDataStore {
 
   element: any = null; // element 정보
   format: any = null; // format 정보
-  formatMap: Record<string, any> = {}; // format 정보 맵
   // 아래 는 제거
   //name: string = ""; // label name
   //dispName: string = ""; // display name
@@ -221,6 +219,7 @@ export class NexDataStore {
     } else {
       this.elementPath = elementPath;
 
+      this.name = this.element?.name || "";
       this.element = getTestElement(elementPath);
       this.odata = getTestData(this.element?.name);
       this.format = getTestFormat(this.element?.format);
@@ -244,23 +243,7 @@ export class NexDataStore {
     this.ioffset = 0;
     this.foffset = 0;
 
-    if (
-      this.format.type === "folder" &&
-      this.format.children &&
-      this.format.children.length > 0
-    ) {
-      //this.keyFieldMap = buildKeyFieldsMap(this.format.children);
-      this.isTree = true;
-      this.format.children.forEach(
-        (child: any) => (this.formatMap[child.name] = child)
-      );
-
-      //console.log(
-      //  `NexDataStore(${this.label}) : keyFieldMap=${JSON.stringify(this.keyFieldMap, null, 2)}`
-      //);
-    }
-    const features =
-      this.format?.features || this.format.children[0].features || [];
+    const features = this.format?.features || [];
     this.keyIndex = features.findIndex(
       (feature: any) => feature.featureType === NexFeatureType.INDEX
     );
@@ -298,6 +281,7 @@ export class NexDataStore {
       startFetchInterval: action,
       stopFetchInterval: action,
 
+      select: action,
       add: action,
       remove: action,
       update: action,
@@ -306,13 +290,13 @@ export class NexDataStore {
       getValuesByCondition: action,
       getCountByCondition: action,
       //buildTreeData: action,
-      findRowFromPath: action,
     });
 
     this.fetch = this.fetch.bind(this);
     this.startFetchInterval = this.startFetchInterval.bind(this);
     this.stopFetchInterval = this.stopFetchInterval.bind(this);
 
+    this.select = this.select.bind(this);
     this.add = this.add.bind(this);
     this.remove = this.remove.bind(this);
     this.update = this.update.bind(this);
@@ -321,7 +305,6 @@ export class NexDataStore {
     this.getCountByCondition = this.getCountByCondition.bind(this);
     this.getValuesByCondition = this.getValuesByCondition.bind(this);
     //this.buildTreeData = this.buildTreeData.bind(this);
-    this.findRowFromPath = this.findRowFromPath.bind(this);
 
     const interval = makePeriodMSec(
       this.element?.processingInterval,
@@ -367,6 +350,17 @@ export class NexDataStore {
     }
   }
 
+  select(row: any): void {
+    if (!row) {
+      this.curRowIndex = -1;
+      return;
+    }
+    this.curRowIndex = Number(row[this.keyIndex]);
+    console.log(
+      `# select row=${JSON.stringify(row)}, index=${this.curRowIndex}`
+    );
+  }
+
   add(curRow: any, newRow: any): boolean {
     // curRow 는 현재 선택된 위치를 나타냄
     // 기존에 데이터가 있는지 확인하고 있으면 에러 출력
@@ -383,6 +377,7 @@ export class NexDataStore {
       this.keyMap[newKeyIndex] = this.odata.length;
       this.odata = [...this.odata, updatedRow];
       this.curRowIndex = this.odata.length - 1;
+
       return true;
     }
     // curRow 의 위치 다음에 newRow를 삽입
@@ -397,7 +392,7 @@ export class NexDataStore {
       this.keyMap[k] = i;
     }
     this.curRowIndex = insertIndex;
-    return false;
+    return true;
   }
 
   remove(row: any): boolean {
@@ -411,7 +406,22 @@ export class NexDataStore {
       console.warn("NexDataStore: remove() key not found in keyMap");
       return false;
     }
+    if (this.format.isTree) {
+      // tree 인경우 하위 노드들도 삭제
+      const pathIndex = this.format.features.findIndex(
+        (f: any) => f.name === "path"
+      );
+      if (pathIndex !== -1) {
+        const delPath = this.odata[removeIndex][pathIndex];
+        const delPathPrefix = delPath + "/";
 
+        // 하위 노드들도 삭제
+        this.odata = this.odata.filter((row) => {
+          const rowPath = row[pathIndex];
+          return !rowPath.startsWith(delPathPrefix);
+        });
+      }
+    }
     this.odata.splice(removeIndex, 1);
     delete this.keyMap[curKeyIndex];
 
@@ -426,7 +436,6 @@ export class NexDataStore {
 
   update(row: any): boolean {
     // 단일 row를 업데이트: curRow를 지우고 그 자리에 newRow를 삽입
-    console.log(`NexDataStore: update() row=${JSON.stringify(row, null, 2)}`);
     if (!row) {
       console.warn("NexDataStore: update() row is empty");
       return false;
@@ -441,13 +450,60 @@ export class NexDataStore {
       console.warn("NexDataStore: update() invalid index(key) value");
       return false;
     }
-    console.log(
-      `NexDataStore: update() org=${JSON.stringify(this.odata[rowIndex], null, 2)}`
-    );
-    this.odata[rowIndex] = row;
-    console.log(
-      `NexDataStore: update() new=${JSON.stringify(this.odata[rowIndex], null, 2)}`
-    );
+
+    // Prefer splice for observable arrays so MobX emits a proper change
+
+    if (this.format.isTree) {
+      // tree 인경우 feature 중 path 가 변경되었으면 하위 노드들도 경로를 변경
+
+      const oldRow = this.odata[rowIndex];
+
+      // path feature의 인덱스를 찾음
+      const pathIndex = this.format.features.findIndex(
+        (f: any) => f.name === "path"
+      );
+
+      if (pathIndex !== -1) {
+        const oldPath = oldRow[pathIndex];
+        const newPath = row[pathIndex];
+
+        if (oldPath !== newPath) {
+          // newPath 와 동일한 경로가 있는지 확인하고 있으면 false 반환
+          const duplicate = this.odata.find((r, i) => {
+            if (i === rowIndex) return false; // 현재 행은 제외
+            return r[pathIndex] === newPath;
+          });
+          if (duplicate) {
+            console.warn(
+              `NexDataStore: update() - Duplicate path "${newPath}" found. Update aborted.`
+            );
+            return false; // 중복 경로가 있으면 업데이트 중단
+          }
+
+          console.log(
+            "NexDataStore: update() isTree - update child paths if needed"
+          );
+          const oldPathPrefix = oldPath + "/";
+          const newPathPrefix = newPath + "/";
+
+          this.odata.forEach((r, i) => {
+            if (i === rowIndex) return; // Skip the row we just updated
+            const currentPath = r[pathIndex];
+            if (currentPath.startsWith(oldPathPrefix)) {
+              const updatedPath =
+                newPathPrefix + currentPath.substring(oldPathPrefix.length);
+              r[pathIndex] = updatedPath;
+
+              console.log({
+                message: `NexDataStore: update() - Updated child path from "${currentPath}" to "${updatedPath}"`,
+              });
+            }
+          });
+        }
+      }
+    }
+    this.odata.splice(rowIndex, 1, row);
+
     this.curRowIndex = rowIndex;
     return true;
   }
@@ -456,7 +512,6 @@ export class NexDataStore {
     //console.log(`NexDataStore: getData() odata=${JSON.stringify(this.odata, null, 2)}`);
     return {
       csv: this.odata,
-      json: buildTreeData(this.odata, this.format),
       format: this.format,
     };
   }
@@ -540,7 +595,62 @@ export class NexDataStore {
       };
     }
 
-    return { csv: data, json: buildTreeData(data, format), format: format };
+    return { csv: data, format: format };
+  }
+
+  getIndexesByCondition(conditions: any[]): number[] {
+    const matchingIndexes: number[] = [];
+
+    if (!conditions || conditions.length === 0) {
+      // 조건이 없으면 모든 인덱스를 반환
+      return this.odata.map((_, index) => index);
+    }
+
+    // format 그룹 즉 tree 구조일 경우를 고려 필요함.
+    const features =
+      this.format.features || this.format.children[0].features || [];
+    const conds = conditions.map((condition) => ({
+      index: features.findIndex(
+        (feature: any) => feature.name === condition.feature
+      ),
+      value: condition.value,
+      method: condition.method,
+    }));
+
+    // 조건에 맞는 행의 인덱스 추출
+    (this.odata ?? []).forEach((row: any, index: number) => {
+      const isMatch = conds.every((condition) => {
+        if (condition.index === -1) return false; // 조건에 해당하는 feature가 없으면 false
+        const cell = row[condition.index];
+        const value = condition.value;
+        switch (condition.method) {
+          case "starts-with":
+            return typeof cell === "string" && cell.startsWith(value);
+          case "ends-with":
+            return typeof cell === "string" && cell.endsWith(value);
+          case "contains":
+            return typeof cell === "string" && cell.includes(value);
+          case "path-match":
+            return (
+              cell === value ||
+              (typeof cell === "string" && cell.startsWith(value + "."))
+            );
+          case "greater-than":
+            return Number(cell) > Number(value);
+          case "less-than":
+            return Number(cell) < Number(value);
+          case "match":
+          default:
+            return cell === value;
+        }
+      });
+
+      if (isMatch) {
+        matchingIndexes.push(index);
+      }
+    });
+
+    return matchingIndexes;
   }
 
   getCountByCondition(
@@ -628,8 +738,6 @@ export class NexDataStore {
 
     //console.log(`Row Data: ${JSON.stringify(newDataStore.odata)}`);
     // features 설정
-
-    const features = tIndexes.map((idx) => this.format.features[idx]);
 
     // format & features 설정
     let format: any = {};
@@ -766,97 +874,6 @@ export class NexDataStore {
     return filterValidNodes(virtualRoot.children);
   }
 
-  buildTreeData2() {
-    if (!this.isTree) {
-      console.error(
-        `NexDataStore(${this.name}): buildTreeData() requires folder type with children.`
-      );
-
-      return [];
-    }
-
-    const formats = this.format.children;
-
-    const typeIndex = formats[0].features.findIndex(
-      (f: any) => f.name === "type"
-    );
-
-    //const nodes2 = parseCsv2Json(this.odata, features);
-
-    const nodes = this.odata.map((row) => {
-      const type = row[typeIndex];
-
-      const format = formats.find((fmt: any) => fmt.name === type);
-      if (!format) {
-        console.warn(
-          `NexDataStore(${this.name}): Unknown type "${type}" in row: ${JSON.stringify(row)}`
-        );
-        return null; // 해당 타입이 없으면 null 반환
-      }
-      const node = parseCsv2Json(row, format.features);
-      /*
-      if (row[0] === "feature") {
-        console.log(
-          `Parsing feature node:${JSON.stringify(node, null, 2)}, row: ${JSON.stringify(row, null, 2)}`
-        );
-      }
-      */
-      return node;
-    });
-
-    const virtualRoot: any = { children: [] };
-    for (const node of nodes) {
-      const parentSegments = node.path
-        ? node.path.split("/").filter(Boolean)
-        : [];
-      const name = node.name;
-
-      const lastSeg =
-        parentSegments.length > 0
-          ? parentSegments[parentSegments.length - 1]
-          : "";
-      if (lastSeg !== name) {
-        console.warn(
-          `[NexDataStore][${this.name}] path와 name 불일치! path="${node.path}", name="${name}"`
-        );
-        //continue; // 트리에 추가하지 않음
-      }
-
-      //const config = this.keyFieldMap[node.type] || {};
-      const format = this.formatMap[node.type] || {};
-      const isProperty = format.isProperty;
-      const childKey = "children"; // 기본 children 키
-
-      let cursor = virtualRoot;
-      for (const part of parentSegments.slice(0, -1)) {
-        const [seg, ...attrs] = part.split(".");
-        cursor.children = cursor.children || [];
-        let next = cursor.children.find((n: any) => n.name === seg);
-        if (!next) {
-          next = { name: seg, children: [] };
-          cursor.children.push(next);
-        }
-        cursor = next;
-        for (const attr of attrs) {
-          cursor[attr] = cursor[attr] || {};
-          cursor = cursor[attr];
-        }
-      }
-
-      if (isProperty) {
-        cursor[name] = node;
-        console.log(
-          `[NexDataStore][${this.name}] property node added: ${JSON.stringify(node, null, 2)}`
-        );
-      } else {
-        cursor[childKey] = cursor[childKey] || [];
-        cursor[childKey].push(node);
-      }
-    }
-
-    return filterValidNodes(virtualRoot.children);
-  }
-
   buildCSVData(treeData: any) {
     // CSV 형태로 변환
     if (!this.isTree) {
@@ -866,55 +883,6 @@ export class NexDataStore {
       return null;
     }
     return [];
-  }
-
-  getNewRowFromPath(path: string): any {
-    // path에 해당하는 row를 찾고, 해당 row의 형식(format)을 반환
-    const tdata = this.findRowFromPath(path);
-    if (!tdata) {
-      console.warn(`NexDataStore: No data found for path: ${path}`);
-      return this.getNewRow();
-    }
-
-    // path에 해당하는 row의 형식(format)을 반환
-    const typeIndex = this.format.children[0].features.findIndex(
-      (f: any) => f.name === "type"
-    );
-    const type = tdata[typeIndex];
-    const format = this.formatMap[type];
-    if (!format) {
-      console.warn(`NexDataStore: No format found for type: ${type}`);
-      return null;
-    }
-
-    return makeSampleJsonAndCsv("/", "new", format.features);
-  }
-
-  getNewRow(): any {
-    // 새로운 row를 생성하고 반환
-
-    const features = this.isTree
-      ? this.format.children[0].features
-      : this.format.features;
-    // 기본 형식(format)에서 새로운 row를 생성
-    return makeSampleJsonAndCsv("/", "new", features);
-  }
-
-  findRowFromPath(path: string): any {
-    // 경로 맵을 만들어서 빠르게 parent를 따라가며 전체 경로를 생성
-    //return null;
-    // path와 일치하는 row를 찾는 간단한 로직
-    const features = this.isTree
-      ? this.format.children[0].features
-      : this.format.features;
-
-    const pathIndex = features.findIndex((f: any) => f.name === "path");
-    //const nameIndex = features.findIndex((f: any) => f.name === "name");
-
-    const tdata = this.odata.find(
-      (row) => typeof row[pathIndex] === "string" && row[pathIndex] === path
-    );
-    return tdata;
   }
 }
 

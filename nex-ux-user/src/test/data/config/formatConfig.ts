@@ -55,6 +55,7 @@ const adminFormatConfig = {
       dispName: "Admin Node",
       description: "Admin Node 데이터 포맷",
       type: NexNodeType.FORMAT,
+      isTree: true,
       features: [
         {
           name: "index",

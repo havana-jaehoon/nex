@@ -1,4 +1,4 @@
-import { makeObservable, observable, runInAction } from "mobx";
+import { action, makeObservable, observable, runInAction } from "mobx";
 
 import {
   NexNode,
@@ -18,6 +18,7 @@ import { storeConfig } from "test/data/config/storeConfig";
 import { appletConfig } from "test/data/config/appletConfig";
 import { contentsConfig } from "test/data/config/contentsConfig";
 import { systemConfig } from "test/data/config/systemConfig";
+import axios from "axios";
 
 interface NexConfig {
   formats: NexNode[]; // 포맷 정보
@@ -68,12 +69,17 @@ class NexConfigStore {
     makeObservable(this, {
       url: observable,
       config: observable,
+
+      getNode: action,
     });
 
-    this.fetch();
+    this.getNode = this.getNode.bind(this);
+
+    this.fetchInternal();
+    
   }
 
-  async fetch() {
+  async fetchInternal() {
     // this.element.process
     try {
       runInAction(() => {
@@ -94,6 +100,29 @@ class NexConfigStore {
       console.error(
         `Failed to fetch from url: ${this.url}, project: ${this.projectName}, system: ${this.systemPath} : ${error})`
       );
+    }
+  }
+
+  async uploadConfig() {
+    try {
+      const url = this.url + "/api/admin/config";
+      const path = "";
+      const data = {
+        ...this.config,
+      };
+
+      const response = await axios.post(url, {
+        path: path, 
+        data: data,
+      });
+
+      console.log("response", JSON.stringify(response, null, 2));
+      if (response.status < 200 || response.status >= 300) {
+        console.error("Failed to fetch uploadConfig:", response);
+        return;
+      }
+    } catch (error) {
+      console.error("Failed to fetch projects:", error);
     }
   }
 

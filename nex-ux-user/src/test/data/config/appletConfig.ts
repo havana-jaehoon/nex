@@ -113,16 +113,6 @@ export const appletConfig: (NexFolderNode | NexAppletNode)[] = [
         applet: "/admin/NexJsonEditor",
       },
       {
-        name: "NexNodeJsonViewer",
-        dispName: "Nex Json Viewer",
-        description: "Nex Json Viewer Applet",
-        type: NexNodeType.APPLET,
-        icon: "tree",
-        color: "#FF33A1",
-        applet: "/admin/NexNodeJsonViewer",
-      },
-
-      {
         name: "NexNodeSelector",
         dispName: "Nex Node Selector",
         description: "Nex Node Selector Applet",

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import NexApplet, { NexAppProps } from "../NexApplet";
 import { observer } from "mobx-react-lite";
@@ -28,11 +28,26 @@ const NexSampleListApp: React.FC<NexAppProps> = observer((props) => {
       clamp(fontLevel - 1, 0, theme?.default?.fontSize?.length - 1)
     ] || "1rem";
 
-  // 1.3 Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
-  // 향후 구현 필요
-  //console.log("## Contents:", JSON.stringify(contents, null, 2));
-  const features: any[] = contents?.[0].format.features || [];
-  const data = contents?.[0].csv || [];
+  // 1.3 contents 에서 store, data, format 정보 가져오기
+  //  Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
+  const storeIndex = 0; // only 1 store
+  const [datas, setDatas] = useState<any[]>([]);
+  const [features, setFeatures] = useState<any[]>([]);
+  useEffect(() => {
+    const cts = contents?.[storeIndex];
+    if (!cts) {
+      setFeatures([]);
+      setDatas([]);
+      return;
+    }
+
+    const tdata = cts.indexes
+      ? cts.indexes?.map((i: number) => cts.data[i]) || []
+      : cts.data || [];
+
+    setFeatures(cts.format.features || []);
+    setDatas(tdata);
+  }, [contents]);
 
   // 2. data store 에서 출력할 데이터를 Applet 에서 사용할 수 있는 형태로 변환.
   // 외부 Component 사용시 자료구조가 store 에서 사용되는 구조와 다른 경우 변환.
@@ -44,13 +59,13 @@ const NexSampleListApp: React.FC<NexAppProps> = observer((props) => {
 
       {/* 4. Applet Contents 출력  */}
       <NexDiv
-        direction='column'
-        width='100%'
-        height='100%'
+        direction="column"
+        width="100%"
+        height="100%"
         fontSize={contentsFontSize}
       >
         {/* 5.1. Contents Header 출력(Features)  */}
-        <Stack direction='row' spacing={2} mb={2}>
+        <Stack direction="row" spacing={2} mb={2}>
           {features.map((feature: any, index: number) => (
             <Box key={index}>{feature.name}</Box>
           ))}
@@ -58,8 +73,8 @@ const NexSampleListApp: React.FC<NexAppProps> = observer((props) => {
 
         <Stack spacing={2} mb={2}>
           {/* 5.2. Contents Data 출력 */}
-          {data.map((row: any[], index: number) => (
-            <Stack key={index} direction='row' spacing={2}>
+          {datas.map((row: any[], index: number) => (
+            <Stack key={index} direction="row" spacing={2}>
               {row.map((value: any, idx: number) => (
                 <span key={`${index}-${idx}`} style={{ marginLeft: 5 }}>
                   {value}

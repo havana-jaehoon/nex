@@ -6,7 +6,7 @@ export interface NexTreeNodeObject {
 
 export interface NexNodeTree {
   data: NexTreeNodeObject[] | undefined; // 최상위 노드들
-  getNode: (path: string) => NexTreeNodeObject | undefined; // path -> node
+  getNode: (index: number) => any; // index -> node
 }
 
 /** 경로 표준화: "", "/" -> ""; "/a/" -> "/a" */
@@ -23,6 +23,7 @@ export function buildNexTree(datas: Array<[number, string, any]>): NexNodeTree {
     children: [],
   };
   const pathMap: Record<string, NexTreeNodeObject> = { "": virtualRoot };
+  const indexMap: Record<number, any> = {};
 
   for (const row of datas) {
     const [idx, rawPath, data] = row;
@@ -48,13 +49,14 @@ export function buildNexTree(datas: Array<[number, string, any]>): NexNodeTree {
 
     // 최종 경로의 노드에 data를 할당합니다.
     // row 전체가 아닌 실제 data를 할당합니다.
+    indexMap[idx] = row;
     cursor.data = row;
   }
 
   // 최상위들(루트 바로 아래)만 반환
   const roots = virtualRoot.children;
 
-  const getNode = (raw: string) => pathMap[normalizePath(raw)];
+  const getNode = (index: number) => indexMap[index] || null;
 
   return { data: roots, getNode: getNode };
 }

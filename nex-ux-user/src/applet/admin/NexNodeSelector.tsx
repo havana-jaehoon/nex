@@ -78,7 +78,7 @@ const NexNodeSelctor: React.FC<NexAppProps> = observer((props) => {
                   onClick={() => handleClick(contentsIndex, -1, null)}
                   sx={{ fontWeight: "bold", fontSize: fontSize }} // 또는 숫자값 사용 가능
                 >
-                  {contents[contentsIndex].name + " :"}
+                  {contents[contentsIndex].info.name + " :"}
                 </Button>
               </NexDiv>
               <NexDiv flex="92">

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { observer } from "mobx-react-lite";
 import NexApplet, { NexAppProps } from "../NexApplet";
 import { NexDiv } from "../../component/base/NexBaseComponents";
@@ -23,6 +23,8 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isAdding, setIsAdding] = useState<boolean>(false);
   const [selectedPath, setSelectedPath] = useState<string>("");
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+
   const color = theme?.applet?.colors[0];
   const bgColor = theme?.applet?.bgColors[0];
 
@@ -44,31 +46,42 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     ] || "1rem";
 
   //const treeData = contents?.[0]?.json || [];
-  const csvData = contents?.[storeIndex]?.csv || [];
-  const nodeType = contents?.[storeIndex]?.name || "";
 
-  const nexTree = buildNexTree(csvData);
-  //console.log("# nexTree=", JSON.stringify(nexTree, null, 2));
+  const [nexTree, setNexTree] = useState<any>(null);
+  const [store, setStore] = useState<any>(null);
+  const [format, setFormat] = useState<any>(null);
+  const [data, setData] = useState<any>(null);
 
-  //console.log(
-  //  `NexNodeTreeApp: csvData=${JSON.stringify(contents, null, 2)}`
-  //);
-  const treeData = nexTree.data;
+  useEffect(() => {
+    if (!contents || contents.length < 1) return;
 
-  const store = contents[storeIndex].store;
+    const cts = contents[storeIndex];
 
-  const format = contents[storeIndex].format;
-
-  const handleSelect = (path: string) => {
-    setSelectedPath(path);
-    const nodeObj = nexTree.getNode(path);
-    let row = null;
-    if (nodeObj) {
-      row = nodeObj.data;
+    const indexes = cts.indexes;
+    let csvData = [];
+    if (!indexes)
+      // indexes 가 없으면 전체 데이터
+      csvData = cts.data;
+    else {
+      csvData = indexes.map((index: number) => cts.data[index]);
     }
 
+    const tree = buildNexTree(csvData);
+    setNexTree(tree);
+    setStore(cts.store);
+    setFormat(cts.format);
+    setSelectedIndex(cts.selectedIndex);
+  }, [contents]);
+
+
+  const handleSelect = (index: number) => {
+    const row = nexTree?.getNode(index) || null;
+
     setCurData(row);
-    console.log(`NexNodeTreeApp: onSelect path=${path}, row=`, row);
+    console.log(
+      `NexNodeTreeApp: onSelect index=${index}, row=`,
+      JSON.stringify(row, null, 2)
+    );
 
     if (onSelect) {
       onSelect(0, row); // Assuming single store for now
@@ -163,15 +176,10 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     setIsEditing(false);
   };
 
-  const handleRemove = (path: string) => {
+  const handleRemove = (index: number) => {
     //    setSelectedPath(path);
-    const nodeObj = nexTree.getNode(path);
+    const row = nexTree.getNode(index);
     //setCurData(row);
-
-    let row = null;
-    if (nodeObj) {
-      row = nodeObj.data;
-    }
 
     if (!row) {
       window.alert("삭제할 노드가 올바르지 않습니다.");
@@ -192,61 +200,65 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       return;
     }
     // 삭제한 노드가 선택된 노드인 경우 선택 해제
-    if (path === selectedPath) {
-      handleSelect("");
+    if (index === selectedIndex) {
+      handleSelect(-1);
     }
   };
 
   return (
     <NexApplet {...props} error={errorMsg()}>
       <NexDiv
-        flex='1'
-        direction='column'
-        align='center'
-        justify='flex-start'
+        flex="1"
+        direction="column"
+        align="center"
+        justify="flex-start"
         color={color}
         bgColor={bgColor}
-        width='100%'
-        height='100%'
-        overflow='auto'
+        width="100%"
+        height="100%"
+        overflow="auto"
         fontSize={fontSize}
         onClick={(e) => {
           // 컨테이너 자신을 직접 클릭한 경우(빈 영역)만 선택 해제
           // 자식 요소를 클릭한 경우(e.target !== e.currentTarget)에는 무시
           if (e.currentTarget !== e.target) return;
-          handleSelect("");
+          handleSelect(-1);
         }}
       >
         {/* Add & Delete & Edit */}
-        <Stack spacing={0.5} direction='row' justifyContent='end' width='100%'>
+        <Stack spacing={0.5} direction="row" justifyContent="end" width="100%">
           <IconButton
-            title='폴더 추가'
-            color='primary'
+            title="폴더 추가"
+            color="primary"
             onClick={handleAddFolder}
           >
             <MdCreateNewFolder />
           </IconButton>
-          <IconButton title='Add' color='primary' onClick={handleAddEntity}>
+          <IconButton title="Add" color="primary" onClick={handleAddEntity}>
             <MdNewLabel />
           </IconButton>
-          <IconButton title='Edit' color='primary' onClick={handleEdit}>
+          <IconButton title="Edit" color="primary" onClick={handleEdit}>
             <MdEdit />
           </IconButton>
         </Stack>
-        <Stack spacing={0.5} direction='column' width='100%'>
-          {treeData &&
-            treeData.map((obj: any, index: number) => (
-              <NexNodeItem
-                key={index}
-                depts={0}
-                node={obj}
-                theme={theme}
-                user={user}
-                onSelect={handleSelect}
-                onRemove={handleRemove}
-                selectedPath={selectedPath}
-              />
-            ))}
+        <Stack spacing={0.5} direction="column" width="100%">
+          {nexTree &&
+            nexTree.data &&
+            nexTree.data.map(
+              (obj: any, index: number) =>
+                obj && (
+                  <NexNodeItem
+                    key={index}
+                    depts={0}
+                    node={obj}
+                    theme={theme}
+                    user={user}
+                    onSelect={handleSelect}
+                    onRemove={handleRemove}
+                    selectedIndex={selectedIndex}
+                  />
+                )
+            )}
         </Stack>
       </NexDiv>
       {isEditing && (

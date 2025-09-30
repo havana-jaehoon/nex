@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useEffect, useMemo } from "react";
 import Stack from "@mui/material/Stack";
 import { observer } from "mobx-react-lite";
 
@@ -29,12 +29,31 @@ const NexStatusApp: React.FC<NexAppProps> = observer((props) => {
       clamp(fontLevel - 1, 0, theme.table.fontSize?.length - 1)
     ] || "1rem";
 
-  // 1.3 Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
-  // 향후 구현 필요
-  const features: any[] = contents?.[0].format.features || [];
-  const data = contents?.[0].csv || [];
+  // 1.3 contents 에서 store, data, format 정보 가져오기
+  //  Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
+  const storeIndex = 0; // only 1 store
+  const [datas, setDatas] = useState<any[]>([]);
+  const [features, setFeatures] = useState<any[]>([]);
+  useEffect(() => {
+    const cts = contents?.[storeIndex];
+    if (!cts) {
+      setFeatures([]);
+      setDatas([]);
+      return;
+    }
 
-  const keyIndex = features.findIndex((feature: any) => feature.isKey);
+    const tdata = cts.indexes
+      ? cts.indexes?.map((i: number) => cts.data[i]) || []
+      : cts.data || [];
+
+    setFeatures(cts.format.features || []);
+    setDatas(tdata);
+  }, [contents]);
+
+  const keyIndex = useMemo(
+    () => features.findIndex((feature: any) => feature.isKey),
+    [features]
+  );
 
   const maxValue = 10;
   const progressBarWeight = 6; // 높이 설정
@@ -84,7 +103,7 @@ const NexStatusApp: React.FC<NexAppProps> = observer((props) => {
           gap={gap}
           mt={gap}
         >
-          {data.map((row: any[], index: number) => (
+          {datas.map((row: any[], index: number) => (
             <NexDiv
               key={index}
               direction="column"

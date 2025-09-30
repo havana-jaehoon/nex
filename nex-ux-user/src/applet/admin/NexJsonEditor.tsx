@@ -30,11 +30,25 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
       return "NexNodeEditor must be one store element.";
     return null;
   };
-  const csvData = contents?.[0]?.csv || [];
-  //const data = contents?.[0]?.json[0] || null;
 
-  const data = csvData.length > 0 ? csvData[0] : null;
-  //console.log(`NexNodeEditor: csvData=${JSON.stringify(csvData, null, 2)}`);
+  const storeIndex = 0; // only 1 store
+  const [data, setData] = useState<any>(null);
+  const [features, setFeatures] = useState<any[]>([]);
+  useEffect(() => {
+    const cts = contents?.[storeIndex];
+    if (!cts) {
+      setFeatures([]);
+      setData(null);
+      return;
+    }
+
+    const tdata = cts.indexes
+      ? cts.indexes?.map((i: number) => cts.data[i]) || []
+      : cts.data || [];
+
+    setFeatures(cts.format.features || []);
+    setData(tdata.length > 0 ? tdata[0] : null);
+  }, [contents]);
 
   const fontLevel = user?.fontLevel || 5; // Default font level if not provided
   const style = theme?.default || defaultThemeStyle;
@@ -47,23 +61,26 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
 
   const handleApply = (newData: any) => {
     //console.log("onApply : ", JSON.stringify(newData, null, 2));
-    onUpdate?.(0, newData);
+    const bres = onUpdate?.(0, newData);
+    if (!bres) {
+      window.alert("Data update failed");
+    }
   };
 
   return (
     <NexApplet {...props} error={errorMsg()}>
       {data ? (
         <NexDiv
-          direction='column'
-          align='center'
-          width='100%'
-          height='100%'
+          direction="column"
+          align="center"
+          width="100%"
+          height="100%"
           color={color}
           bgColor={bgColor}
           onMouseEnter={() => setMouseEnter(true)}
           onMouseLeave={() => setMouseEnter(false)}
         >
-          <AdminNodeEditor data={data} mode='edit' onApply={handleApply} />
+          <AdminNodeEditor data={data} mode="edit" onApply={handleApply} />
         </NexDiv>
       ) : null}
     </NexApplet>

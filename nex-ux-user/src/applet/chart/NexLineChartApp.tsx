@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   CartesianGrid,
   Legend,
@@ -55,25 +55,48 @@ const NexLineChartApp: React.FC<NexAppProps> = observer((props) => {
       clamp(fontLevel - 1, 0, theme?.chart.fontSize?.length - 1)
     ] || "1rem";
 
-  // 1.3 Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
-  // 1.4 data store 에서 출력할 데이터를 Applet 에서 사용할 수 있는 형태로 변환.
-  const features: NexFeature[] = contents?.[0].format.features || [];
+  // 1.3 contents 에서 store, data, format 정보 가져오기
+  //  Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
+  const storeIndex = 0; // only 1 store
+  const [datas, setDatas] = useState<any[]>([]);
+  const [features, setFeatures] = useState<any[]>([]);
+  useEffect(() => {
+    const cts = contents?.[storeIndex];
+    if (!cts) {
+      setFeatures([]);
+      setDatas([]);
+      return;
+    }
 
-  const chartData =
-    contents?.[0].csv.map((row: any) => {
-      const obj: Record<string, any> = {};
-      features.forEach((feature: any, idx) => {
-        obj[feature.dispName] = row[idx];
-      });
-      return obj;
-    }) || [];
+    const tdata = cts.indexes
+      ? cts.indexes?.map((i: number) => cts.data[i]) || []
+      : cts.data || [];
+
+    setFeatures(cts.format.features || []);
+    setDatas(tdata);
+  }, [contents]);
+
+  // 1.4 data store 에서 출력할 데이터를 Applet 에서 사용할 수 있는 형태로 변환.
+  const chartData = useMemo(() => {
+    return (
+      datas.map((row: any) => {
+        const obj: Record<string, any> = {};
+        features.forEach((feature: any, idx: number) => {
+          obj[feature.dispName] = row[idx];
+        });
+        return obj;
+      }) || []
+    );
+  }, [datas, features]);
 
   // X 축 을 Key로 지정된 데이터로
-  let keyFeature = features.find((feature) => feature.isKey);
-  if (!keyFeature && features.length > 0) {
-    keyFeature = features[0];
-  }
-  const key = keyFeature ? keyFeature.dispName || keyFeature.name : "";
+  let keyFeatureName = useMemo(() => {
+    let keyFeature = features.find((feature: any) => feature.isKey);
+    if (!keyFeature && features.length > 0) {
+      keyFeature = features[0];
+    }
+    return keyFeature ? keyFeature.dispName || keyFeature.name : "";
+  }, [features]);
 
   return (
     <NexApplet {...props} error={errorMsg()}>
@@ -89,7 +112,7 @@ const NexLineChartApp: React.FC<NexAppProps> = observer((props) => {
             margin={{ top: 10, right: 10, left: 0, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="1 1" />
-            <XAxis dataKey={key} type="category" />
+            <XAxis dataKey={keyFeatureName} type="category" />
             <YAxis
               type="number"
               domain={[0, (dataMax: number) => Math.ceil(dataMax * 1.1)]}

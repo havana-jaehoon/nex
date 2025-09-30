@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { observer } from "mobx-react-lite";
 import NexApplet, { NexAppProps } from "../NexApplet";
 import { NexDiv } from "../../component/base/NexBaseComponents";
@@ -33,14 +33,28 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
       clamp(fontLevel - 1, 0, theme.table.fontSize?.length - 1)
     ] || "1rem";
 
-  // 1.3 Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
-  // 향후 구현 필요
-  const features: any[] = contents?.[0].format.features || [];
-  const data = contents?.[0].csv || [];
+    // 1.3 contents 에서 store, data, format 정보 가져오기
+    //  Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
+    const storeIndex = 0; // only 1 store
+    const [datas, setDatas] = useState<any[]>([]);
+    const [features, setFeatures] = useState<any[]>([]);
+    useEffect(() => {
+      const cts = contents?.[storeIndex];
+      if (!cts) {
+        setFeatures([]);
+        setDatas([]);
+        return;
+      }
+  
+      const tdata = cts.indexes
+        ? cts.indexes?.map((i: number) => cts.data[i]) || []
+        : cts.data || [];
+  
+      setFeatures(cts.format.features || []);
+      setDatas(tdata);
+    }, [contents]);
 
-  const menuData = buildMenuTree(data);
-
-  console.log("NexMenuApp menuData:", JSON.stringify(menuData, null, 2));
+  const menuData = useMemo(() => buildMenuTree(datas), [datas]);
 
   const navigate = useNavigate();
   const handleClick = (path: string) => {

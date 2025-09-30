@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 
 import { NexDiv } from "../component/base/NexBaseComponents";
-import React, { useContext, useMemo } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import {
   NexStoreContext,
   NexStoreContextValue,
@@ -15,6 +15,15 @@ export interface NexAppProviderProps {
   section: any;
   context: NexStoreContextValue; // Context to access stores, apps, and theme:
 }
+
+export interface NexContents {
+  info: any;
+  store: any;
+  data: any[];
+  selectedIndex: number;
+  indexes: number[] | null;
+  format: any;
+};
 
 const NexAppProvider: React.FC<NexAppProviderProps> = observer(
   ({ section, context }) => {
@@ -39,8 +48,9 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     const icon = section?.icon || "";
 
     const padding = section.padding || "8px";
+    const [modifiedCount, setModifiedCount] = useState<number>(0);
 
-    const contentsList = contentsPaths?.map((path: any) => {
+    const contentsNodeList = contentsPaths?.map((path: any) => {
       const contents = contentsMap[path];
       //console.log("path:", path);
       //console.log("contents:", JSON.stringify(contents, null, 2));
@@ -51,24 +61,25 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
       console.log(
         `NexAppProvider => section=${JSON.stringify(section)}, appletPath=${appletPath}`
       );
-      return <NexDiv width='100%' height='100%' padding={padding}></NexDiv>;
+      return <NexDiv width="100%" height="100%" padding={padding}></NexDiv>;
     }
 
     const selectorDeps = JSON.stringify(selector.map);
 
-    const contents =
+    const contents: NexContents[] =
       useMemo(() => {
-        return contentsList?.map((content: any) => {
+        return contentsNodeList?.map((content: any) => {
           const store = storeMap[content.element];
           const conditions = content.conditions || [];
 
-          let newData: any = null;
+          let indexes: number[] | null = null;
           if (!store)
             return {
-              ...content,
+              info: content,
               store: store,
-              csv: null,
-              json: null,
+              data: [],
+              selectedIndex: -1,
+              indexes: null,
               format: null,
             };
 
@@ -78,28 +89,28 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
               value: selector.get(condition.key),
               method: condition.method || "match",
             }));
-            newData = store.getValuesByCondition(conds) || null;
-          } else {
-            newData = store.getData();
+            indexes = store.getIndexesByCondition(conds) || null;
           }
 
           return {
-            ...content,
+            info: content,
             store: store,
-            csv: newData.csv,
-            json: newData.json,
-            format: newData.format,
+            data: store.odata,
+            selectedIndex: store.curRowIndex,
+            indexes: indexes, // indexes is null then all data
+            format: store.format,
           };
         });
-      }, [selectorDeps]) || [];
+      }, [selectorDeps, modifiedCount]) || [];
 
     const handleSelect = (contentsIndex: number, row: any) => {
       if (row && contents.length > contentsIndex) {
-        const selections = contents[contentsIndex].selections || [];
+        const selections = contents[contentsIndex].info.selections || [];
+        const store = contents[contentsIndex].store;
+        const features = store.format.features || [];
+        store.select(row);
+        setModifiedCount(modifiedCount + 1);
         if (selections.length > 0) {
-          const store = contents[contentsIndex].store;
-          const features =
-            store.format?.features || store.format.children[0].features || [];
           selections.forEach((selection: any) => {
             const featureIndex = features.findIndex(
               (feature: any) => feature.name === selection.feature
@@ -108,11 +119,10 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
             // find data
             //contents[contentsIndex].csv.find((r: any) => {});
             if (featureIndex >= 0 && row[featureIndex] !== undefined) {
+              console.log(
+                `NexAppProvider: handleSelect - Setting selector ${selection.key} = ${row[featureIndex]}`
+              );
               selector.set(selection.key, row[featureIndex]);
-              console.log("NexAppProvider: handleSelect - ", {
-                key: selection.key,
-                value: row[featureIndex],
-              });
             }
           });
         }
@@ -125,16 +135,26 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
       );
       if (newRow && contents.length > contentsIndex) {
         const store = contents[contentsIndex].store;
-        store.update(newRow);
+        const bres = store.update(newRow);
+        if (bres) setModifiedCount(modifiedCount + 1);
+        return bres;
       } else {
         console.warn("NexAppProvider: handleUpdate - Invalid row data");
       }
+      return false;
     };
 
     const handleAdd = (contentsIndex: number, curRow: any, newRow: any) => {
       if (newRow && contents.length > contentsIndex) {
         const store: NexDataStore = contents[contentsIndex].store;
-        return store.add(curRow, newRow);
+        const bres = store.add(curRow, newRow);
+        if (bres) {
+          setModifiedCount(modifiedCount + 1);
+          console.log("NexAppProvider: handleAdd - Added row successfully");
+        } else {
+          console.warn("NexAppProvider: handleAdd - Failed to add row");
+        }
+        return bres;
       }
       console.warn("NexAppProvider: handleAdd - Invalid row data");
       return false;
@@ -143,7 +163,9 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     const handleRemove = (contentsIndex: number, row: any) => {
       if (row && contents.length > contentsIndex) {
         const store: NexDataStore = contents[contentsIndex].store;
-        return store.remove(row);
+        const bres = store.remove(row);
+        if (bres) setModifiedCount(modifiedCount + 1);
+        return bres;
       }
       console.warn("NexAppProvider: handleRemove - Invalid row data");
       return false;
@@ -154,7 +176,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     );
     //const conditions = applet?.contents.
     return (
-      <NexDiv width='100%' height='100%' padding={padding}>
+      <NexDiv width="100%" height="100%" padding={padding}>
         {app &&
           React.createElement(app, {
             name: name,

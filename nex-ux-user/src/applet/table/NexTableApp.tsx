@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import NexApplet, { NexAppProps } from "../NexApplet";
 import { observer } from "mobx-react-lite";
@@ -29,18 +29,33 @@ const NexTableApp: React.FC<NexAppProps> = observer((props) => {
     return null;
   };
 
-  // 1.2 Apllet 에서 사용할 contents 의 폰트 사이즈를 theme 로 부터 가져오기
+  //1.2 contents 에서 store, data, format 정보 가져오기
+  //  Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
+  const storeIndex = 0; // only 1 store
+  const [datas, setDatas] = useState<any[]>([]);
+  const [features, setFeatures] = useState<any[]>([]);
+  useEffect(() => {
+    const cts = contents?.[storeIndex];
+    if (!cts) {
+      setFeatures([]);
+      setDatas([]);
+      return;
+    }
+
+    const tdata = cts.indexes
+      ? cts.indexes?.map((i: number) => cts.data[i]) || []
+      : cts.data || [];
+
+    setFeatures(cts.format.features || []);
+    setDatas(tdata);
+  }, [contents]);
+
+  // 1.3 Apllet 에서 사용할 contents 의 폰트 사이즈를 theme 로 부터 가져오기
   const fontLevel = user?.fontLevel || 5; // Default font level if not provided
   const style = theme?.table || theme?.default || defaultThemeStyle;
   const contentsFontSize =
     style?.fontSize[clamp(fontLevel - 1, 0, style?.fontSize?.length - 1)] ||
     "1rem";
-
-  // 1.3 Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
-  // 향후 구현 필요
-  //console.log("## Contents:", JSON.stringify(contents, null, 2));
-  const features: any[] = contents?.[0].format.features || [];
-  const data = contents?.[0].csv || [];
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -61,13 +76,13 @@ const NexTableApp: React.FC<NexAppProps> = observer((props) => {
       {/* 3. 기본 Apllet 의 속성 적용 */}
 
       {/* 4. Applet Contents 출력  */}
-      <NexDiv width='100%' height='100%' fontSize={contentsFontSize}>
+      <NexDiv width="100%" height="100%" fontSize={contentsFontSize}>
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} size='small' aria-label='a dense table'>
+          <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
                 {features.map((feature: any, index: number) => (
-                  <TableCell key={index} align='left'>
+                  <TableCell key={index} align="left">
                     {feature.dispName || feature.name}
                   </TableCell>
                 ))}
@@ -75,18 +90,18 @@ const NexTableApp: React.FC<NexAppProps> = observer((props) => {
             </TableHead>
             <TableBody>
               {(rowsPerPage > 0
-                ? data.slice(
+                ? datas?.slice(
                     page * rowsPerPage,
                     page * rowsPerPage + rowsPerPage
                   )
-                : data
+                : datas
               ).map((row: any[], index: number) => (
                 <TableRow
                   key={index}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   {row.map((cell, index) => (
-                    <TableCell key={index} align='left'>
+                    <TableCell key={index} align="left">
                       {cell}
                     </TableCell>
                   ))}
@@ -99,7 +114,7 @@ const NexTableApp: React.FC<NexAppProps> = observer((props) => {
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                   colSpan={3}
-                  count={data.length}
+                  count={datas.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   slotProps={{

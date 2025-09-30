@@ -8,6 +8,7 @@ import { clamp } from "utils/util";
 import NexSelector from "store/NexSelector";
 import { NexThemeUser } from "../type/NexTheme";
 import { nexIcon, nexNodeIcon } from "icon/NexIcon";
+import { NexContents } from "./NexAppProvider";
 
 /*
 export interface NexAppData {
@@ -22,7 +23,7 @@ export interface NexAppProps {
   //Contents of the applet, can be used for rendering
   // store, csv, json, format, 등 통합
   // 모든 applet 보완 이후  datas, stores, selector 등 불필요한 인자 제거 필요
-  contents: any[];
+  contents: NexContents[];
   selector: NexSelector | null; // Optional selector prop for handling selections
   theme?: NexTheme;
   user?: NexThemeUser;

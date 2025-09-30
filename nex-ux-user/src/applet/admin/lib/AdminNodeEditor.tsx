@@ -94,23 +94,23 @@ const LabeledInput: React.FC<InputProps> = ({
   type = "text",
 }) => (
   <Stack
-    direction='row'
+    direction="row"
     spacing={1}
-    alignItems='center'
-    width='100%'
+    alignItems="center"
+    width="100%"
     title={placeholder}
   >
-    <NexLabel width='8rem'>{label}</NexLabel>
+    <NexLabel width="8rem">{label}</NexLabel>
     {onChange ? (
       <NexInput
-        width='100%'
+        width="100%"
         placeholder={placeholder || label}
         value={value as any}
         type={type}
         onChange={(e) => onChange(e.target.value)}
       />
     ) : (
-      <NexLabel width='100%'>{value}</NexLabel>
+      <NexLabel width="100%">{value}</NexLabel>
     )}
   </Stack>
 );
@@ -150,23 +150,23 @@ const LabeledSelect: React.FC<SelectProps> = ({
 
   return (
     <NexDiv
-      direction='row'
-      align='flex-start'
-      justify='flex-start'
-      width='100%'
+      direction="row"
+      align="flex-start"
+      justify="flex-start"
+      width="100%"
       fontSize={fontSize}
       title={placeholder}
     >
       <Stack
         spacing={1}
-        direction='row'
-        width='100%'
-        alignItems='center'
-        alignContent='end'
-        justifyContent='center'
+        direction="row"
+        width="100%"
+        alignItems="center"
+        alignContent="end"
+        justifyContent="center"
       >
-        <NexLabel width='8rem'>{label}</NexLabel>
-        <NexDiv width='100%'>
+        <NexLabel width="8rem">{label}</NexLabel>
+        <NexDiv width="100%">
           {options.length === 1 ? (
             <NexLabel>{tValue}</NexLabel>
           ) : (
@@ -175,7 +175,7 @@ const LabeledSelect: React.FC<SelectProps> = ({
               style={{ width: "100%", height: "100%" }}
               onChange={(e) => onChange(e.target.value)}
             >
-              <option value='' disabled>
+              <option value="" disabled>
                 {placeholder || "옵션을 선택하세요"}
               </option>
               {Array.isArray(options)
@@ -238,14 +238,14 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
   };
 
   return (
-    <Stack spacing={1} width='100%' direction='row'>
-      <NexDiv width='8rem'>{label} </NexDiv>
+    <Stack spacing={1} width="100%" direction="row">
+      <NexDiv width="8rem">{label} </NexDiv>
       {!recordFields || recordFields.length === 0 ? (
-        <Stack width='100%' direction='column' spacing={0.2}>
+        <Stack width="100%" direction="column" spacing={0.2}>
           {rows.map((val: any, i: number) => (
-            <NexDiv key={`${id}.${i}`} width='100%'>
+            <NexDiv key={`${id}.${i}`} width="100%">
               <NexInput
-                width='100%'
+                width="100%"
                 placeholder={placeholder || label}
                 value={val}
                 onChange={(e) => {
@@ -255,13 +255,15 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
                 }}
               />
 
-              <MdCancel type='button' onClick={() => removeRow(i)} />
+              <MdCancel type="button" onClick={() => removeRow(i)} />
             </NexDiv>
           ))}
-          <NexButton onClick={addRow}>+ 추가</NexButton>
+          <NexButton type="button" onClick={addRow}>
+            + 추가
+          </NexButton>
         </Stack>
       ) : (
-        <NexDiv width='100%'>
+        <NexDiv width="100%">
           <table>
             <thead>
               <tr>
@@ -369,24 +371,54 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
 
   //const [data, setData] = useState<any>(node ? { ...base, ...node } : base);
 
-  const index = data[0];
-  const nodePath = data[1];
-  const parentPath = `${nodePath.substring(0, nodePath.lastIndexOf("/"))}`;
-  const node: any = data[2];
+  //const index = data[0];
+  //const nodePath = data[1];
+  //const parentPath = `${nodePath.substring(0, nodePath.lastIndexOf("/"))}`;
+  //const node: any = data[2];
 
-  const format = node ? adminNodeDefs[node.type as NexNodeType] : null;
-  const features = format?.features || [];
-  const tNode = getAdminNodeFromFeatures(features);
-  const label = format?.dispName || node.type;
+  //const format = node ? adminNodeDefs[node.type as NexNodeType] : null;
+  //const features = format?.features || [];
+  //const tNode = getAdminNodeFromFeatures(features);
+  //const label = format?.dispName || node.type;
 
-  const [curNodePath, setCurNodePath] = useState<string>(nodePath);
-  const [newNode, setNode] = useState<any>(node);
+  const [index, setIndex] = useState<any>(null);
+  const [node, setNode] = useState<any>(null);
+  const [path, setPath] = useState<string>("");
+
+  const [format, setFormat] = useState<any>(null);
+  const [features, setFeatures] = useState<any>(null);
+  const [editingNode, setEditingNode] = useState<any>(null);
+  const [parentPath, setParentPath] = useState<string>("");
+
+  const [editingPath, setEdidtingPath] = useState<string>("");
+  //const [newNode, setNode] = useState<any>(node);
   const [isOpen, setIsOpen] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
-    setNode(node);
-    setCurNodePath(nodePath);
-  }, [node, nodePath]);
+    const index = data[0];
+    const nodePath = data[1];
+    const node: any = data[2];
+
+    const tformat = node ? adminNodeDefs[node.type as NexNodeType] : null;
+    const tfeatures = tformat?.features || [];
+
+    // Merge the node with the template format
+    const tNode = getAdminNodeFromFeatures(tfeatures);
+    const next = { ...tNode, ...node };
+
+    // original node setting
+    setIndex(index);
+    setNode(next);
+    setPath(nodePath);
+
+    // set editing state
+    setEditingNode(next);
+    setFormat(tformat);
+    setFeatures(tfeatures);
+    setEdidtingPath(nodePath);
+
+    setParentPath(`${nodePath.substring(0, nodePath.lastIndexOf("/"))}`);
+  }, [data]);
 
   const fontSize =
     style.fontSize[clamp(fontLevel - 1, 0, style.fontSize.length - 1)] ||
@@ -397,13 +429,13 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
 
   const handleReset = () => {
     // 입력된 node 데이터와 format 에 의해 만들어진 데이터를 병합
-    const next = { ...tNode, ...node };
-    setNode(next);
-    onChange?.([index, nodePath, next]);
+    setEditingNode(node);
+    setEdidtingPath(path);
+    console.log("# handleReset: ", JSON.stringify(editingNode));
   };
 
   const handleApply = () => {
-    const newData = [index, curNodePath, newNode];
+    const newData = [index, editingPath, editingNode];
     console.log(
       "NexModalNodeEditer: handleApply",
       JSON.stringify(newData, null, 2)
@@ -413,35 +445,43 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   };
 
   const handlePrimitiveChange = (
-    path: string[], // path within the node
+    argPath: string[], // path within the node
     featureType: NexFeatureType,
     raw: string
   ) => {
-    console.log(`# handlePrimitiveChange : ${path.join(".")} = ${raw}`);
+    console.log(`# handlePrimitiveChange : ${argPath.join(".")} = ${raw}`);
 
-    const next = { ...newNode };
+    const next = { ...editingNode };
     const value = asFeatureValue(raw, featureType);
-    setDeep(next, path, value);
-    setNode(next);
+    setDeep(next, argPath, value);
+    setEditingNode(next);
 
-    let newNodePath = curNodePath;
-    if (path.join(".") === "name") {
+    let newNodePath = editingPath;
+    if (argPath.join(".") === "name") {
       newNodePath = `${parentPath}/${raw}`;
     }
-    setCurNodePath(newNodePath);
+    setEdidtingPath(newNodePath);
     onChange?.([index, newNodePath, next]);
   };
 
-  const handleLiteralChange = (path: string[], raw: string) => {
-    const next = { ...newNode };
-    setDeep(next, path, raw);
-    onChange?.([index, curNodePath, next]);
+  const handleLiteralChange = (argPath: string[], raw: string) => {
+    console.log(`# handleLiteralChange : ${argPath.join(".")} = ${raw}`);
+    const next = { ...editingNode };
+    setDeep(next, argPath, raw);
+    console.log(
+      `# handleLiteralChange : ${argPath.join(".")} = ${JSON.stringify(next)}`
+    );
+    setEditingNode(next);
+
+    onChange?.([index, editingPath, next]);
   };
 
-  const handleRecordsChange = (path: string[], rows: any[]) => {
-    const next = { ...newNode };
-    setDeep(next, path, rows);
-    onChange?.([index, curNodePath, next]);
+  const handleRecordsChange = (argPath: string[], rows: any[]) => {
+    const next = { ...editingNode };
+    setDeep(next, argPath, rows);
+    setEditingNode(next);
+
+    onChange?.([index, editingPath, next]);
   };
 
   const toggleSubItem = (key: string) => {
@@ -451,13 +491,13 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
 
   const headFields = () => {
     return (
-      <NexDiv width='100%' direction='column'>
+      <NexDiv width="100%" direction="column">
         <NexLabel fontSize={fontSize} style={{ fontWeight: "bold" }}>
-          {label}
+          {format?.dispName}
         </NexLabel>
         {/* 간격 조정 */}
         <span style={{ height: fontSize }} />
-        <Stack spacing={1} direction='column' width='100%' alignItems='center'>
+        <Stack spacing={1} direction="column" width="100%" alignItems="center">
           <LabeledInput
             label={"index"}
             placeholder={"Index(key) of Node"}
@@ -466,26 +506,26 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
           <LabeledInput
             label={"Path"}
             placeholder={"Path of Node"}
-            value={curNodePath}
+            value={editingPath}
           />
         </Stack>
         {/* 간격 조정 */}
-        <NexDiv height='0.5rem' width='100%' borderBottom='1px solid gray' />
+        <NexDiv height="0.5rem" width="100%" borderBottom="1px solid gray" />
       </NexDiv>
     );
   };
 
   const bodyFields = () => (
-    <NexDiv width='100%' flex='1'>
-      <Stack spacing={1} direction='column' width='100%'>
+    <NexDiv width="100%" flex="1">
+      <Stack spacing={1} direction="column" width="100%">
         <Stack
-          flex='1'
+          flex="1"
           spacing={1}
-          direction='column'
-          width='100%'
-          alignItems='end'
+          direction="column"
+          width="100%"
+          alignItems="end"
         >
-          {features.map((f: NexFeatureNode) => renderFeature(f))}
+          {features && features.map((f: NexFeatureNode) => renderFeature(f))}
         </Stack>
       </Stack>
     </NexDiv>
@@ -494,21 +534,21 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   const tailFields = () => (
     <Stack
       spacing={2}
-      direction='row'
-      width='100%'
-      alignContent='end'
-      alignItems='center'
-      justifyContent='end'
+      direction="row"
+      width="100%"
+      alignContent="end"
+      alignItems="center"
+      justifyContent="end"
     >
-      <NexButton flex='1' bgColor='blue' onClick={handleApply}>
+      <NexButton flex="1" bgColor="blue" onClick={handleApply}>
         {mode === "add" ? "추가" : "적용"}
       </NexButton>
       {onCancel && (
-        <NexButton flex='1' bgColor='#777777' onClick={onCancel}>
+        <NexButton type="button" flex="1" bgColor="#777777" onClick={onCancel}>
           취소
         </NexButton>
       )}
-      <NexButton flex='1' bgColor='#999999' onClick={handleReset}>
+      <NexButton type="button" flex="1" bgColor="#999999" onClick={handleReset}>
         초기화
       </NexButton>
     </Stack>
@@ -517,15 +557,15 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   const iconSubItem = (key: string, label: string) => {
     return (
       <NexDiv
-        direction='row'
-        align='center'
-        justify='space-between'
+        direction="row"
+        align="center"
+        justify="space-between"
         onClick={() => toggleSubItem(key)}
-        cursor='pointer'
-        width='100%'
+        cursor="pointer"
+        width="100%"
       >
         <NexLabel fontSize={fontSize}>{key}</NexLabel>
-        <NexDiv align='end'>
+        <NexDiv align="end">
           {isOpen[key] !== false ? (
             <MdKeyboardArrowDown />
           ) : (
@@ -537,25 +577,25 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   };
 
   const renderFeature = (feature: any, parentPath: string[] = []) => {
-    const path = [...parentPath, feature.name];
-    const id = path.join(".");
+    const argPath = [...parentPath, feature.name];
+    const id = argPath.join(".");
     const label = feature.name;
     const placeholder =
       (feature as any).description || feature.dispName || undefined;
 
     if (feature.featureType === NexFeatureType.ATTRIBUTES) {
       return (
-        <NexDiv width='100%' direction='column'>
+        <NexDiv key={id} width="100%" direction="column">
           {iconSubItem(id, label)}
           <Stack
             spacing={0.5}
-            direction='column'
-            width='100%'
+            direction="column"
+            width="100%"
             paddingLeft={fontSize}
           >
             {isOpen[id] !== false &&
               feature.attributes.map((child: any) =>
-                renderFeature(child, path)
+                renderFeature(child, argPath)
               )}
           </Stack>
         </NexDiv>
@@ -564,7 +604,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
 
     if (feature.featureType === NexFeatureType.LITERALS) {
       const options = (feature.literals || []).map(toLiteralTuple);
-      const value = String(getAtPath(newNode, path) ?? "");
+      const value = String(getAtPath(editingNode, argPath) ?? "");
 
       return (
         <LabeledSelect
@@ -573,13 +613,13 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
           placeholder={placeholder}
           value={value}
           options={options}
-          onChange={(v) => handleLiteralChange(path, v)}
+          onChange={(v) => handleLiteralChange(argPath, v)}
         />
       );
     }
 
     if (feature.featureType === NexFeatureType.RECORDS) {
-      const rows = (getAtPath(newNode, path) as any[]) || [];
+      const rows = (getAtPath(editingNode, argPath) as any[]) || [];
       return (
         <RecordsEditor
           key={id}
@@ -587,14 +627,14 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
           label={label}
           placeholder={placeholder}
           rows={rows}
-          setRows={(r) => handleRecordsChange(path, r)}
+          setRows={(r) => handleRecordsChange(argPath, r)}
           recordFields={feature.recordFields}
         />
       );
     }
 
     // Primitive (STRING / UINT32)
-    const value = getAtPath(newNode, path) ?? "";
+    const value = getAtPath(editingNode, argPath) ?? "";
     const type = isNumber(feature.featureType)
       ? "number"
       : feature.name.toLowerCase().includes("passwd") ||
@@ -609,17 +649,17 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
         placeholder={placeholder}
         value={value}
         type={type}
-        onChange={(v) => handlePrimitiveChange(path, feature.featureType, v)}
+        onChange={(v) => handlePrimitiveChange(argPath, feature.featureType, v)}
       />
     );
   };
 
   return (
     <NexDiv
-      direction='column'
-      width='100%'
-      height='100%'
-      padding='1rem'
+      direction="column"
+      width="100%"
+      height="100%"
+      padding="1rem"
       bgColor={bgColor}
       color={color}
       fontSize={fontSize}
@@ -631,13 +671,13 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
         }}
         style={{ width: "100%", height: "100%" }}
       >
-        <Stack spacing={2} direction='column' width='100%' height='100%'>
-          <NexDiv width='100%'>{headFields()}</NexDiv>
-          <NexDiv flex='10' width='100%'>
+        <Stack spacing={2} direction="column" width="100%" height="100%">
+          <NexDiv width="100%">{headFields()}</NexDiv>
+          <NexDiv flex="10" width="100%">
             {bodyFields()}
           </NexDiv>
-          {newNode && <pre>{JSON.stringify(newNode, null, 2)}</pre>}
-          <NexDiv flex='1' width='100%'>
+          {editingNode && <pre>{JSON.stringify(editingNode, null, 2)}</pre>}
+          <NexDiv flex="1" width="100%">
             {tailFields()}
           </NexDiv>
         </Stack>
