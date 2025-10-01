@@ -1,0 +1,15 @@
+0,/common,common
+1,/common/menu,menu
+2,/chart,chart
+3,/chart/NexLineChart,NexLineChart
+4,/table,table
+5,/table/NexTable,NexTable
+6,/status,status
+7,/status/NexStatus,NexStatus
+8,/status/NexCount,NexCount
+9,/admin,admin
+10,/admin/NexNodeTree,NexNodeTree
+11,/admin/NexJsonEditor,NexJsonEditor
+12,/admin/NexNodeSelector,NexNodeSelector
+13,/sample,sample
+14,/sample/NexSampleList,NexSampleList

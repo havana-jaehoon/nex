@@ -5,6 +5,8 @@ import { observer } from "mobx-react-lite";
 import { NexDiv } from "component/base/NexBaseComponents";
 import NexPageViewer from "page/NexPageViewer";
 import NexStoreProvider from "provider/NexStoreProvider";
+import { useEffect, useState } from "react";
+import { set } from "mobx";
 //import nexTheme from "./theme/nexTheme";
 //import { testWebPages } from "./test/data/testWebPages";
 
@@ -17,7 +19,16 @@ interface NexAppProps {
 const NexApp: React.FC<NexAppProps> = observer((props) => {
   const { configStore } = props;
 
-  const section = configStore?.config.websections[0];
+  const [section, setSection] = useState<any>(null);
+  useEffect(() => {
+    // Fetch configuration when the component mounts
+    if (!configStore.isReady) {
+      setSection(null);
+      return;
+    }
+    setSection(configStore?.config.websections[0]);
+  }, [configStore, configStore.isReady]);
+  //const section = configStore?.config.websections[0];
 
   //console.log("NexApp section:", JSON.stringify(section, null, 2));
   return (
@@ -30,14 +41,18 @@ const NexApp: React.FC<NexAppProps> = observer((props) => {
         overflow="hidden"
         style={{ boxSizing: "border-box" }}
       >
-        <Router>
-          <NexPageViewer
-            key={section.name}
-            section={section}
-            isVisibleBorder={false}
-            isVisibleTitle={false}
-          />
-        </Router>
+        {!section || !configStore.isReady ? (
+          <div>Loading... {configStore.isReady ? "Ready" : "Not Ready"}</div>
+        ) : (
+          <Router>
+            <NexPageViewer
+              key={section.name}
+              section={section}
+              isVisibleBorder={false}
+              isVisibleTitle={false}
+            />
+          </Router>
+        )}
       </NexDiv>
     </NexStoreProvider>
   );

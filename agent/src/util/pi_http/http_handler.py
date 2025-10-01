@@ -14,6 +14,7 @@ class HandlerResult:
     body: Optional[BodyData] = None
     headers: Dict[str, str] = field(default_factory=dict)
     media_type: Optional[str] = None  #"application/json", "text/csv"
+    response: Any = None  # FastAPI Response object
 
 
 @dataclass

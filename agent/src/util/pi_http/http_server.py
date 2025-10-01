@@ -1,5 +1,6 @@
 import asyncio, uvicorn, threading
 from fastapi import FastAPI, APIRouter
+from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional, List, Tuple
 
 from util.pi_http.http_server_controller import HttpServerController
@@ -24,6 +25,16 @@ class HttpServer:
     @staticmethod
     def _create_app() -> FastAPI:
         app = FastAPI(title="Dynamic URL Server")
+        # Allow CORS for local frontend dev server
+        app.add_middleware(
+            CORSMiddleware,
+            allow_origins=[
+                "http://localhost:3000",
+            ],
+            allow_credentials=True,
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
         return app
 
     def _start_event_loop(self):

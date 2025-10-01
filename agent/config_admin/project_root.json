@@ -1,0 +1,2960 @@
+{
+  "format": [
+    {
+      "name": "web",
+      "dispName": "web 데이 터 포맷",
+      "description": "WEB UI 용 데이터 유형 폴더",
+      "type": "folder",
+      "children": [
+        {
+          "name": "menu",
+          "dispName": "메뉴",
+          "description": "메뉴 항목",
+          "type": "format",
+          "features": [
+            {
+              "name": "path",
+              "dispName": "Type",
+              "icon": null,
+              "color": null,
+              "type": "feature",
+              "isKey": false,
+              "featureType": "STRING"
+            },
+            {
+              "name": "item",
+              "dispName": "Path",
+              "icon": null,
+              "color": null,
+              "type": "feature",
+              "isKey": true,
+              "featureType": "JSON"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "admin",
+      "dispName": "admin",
+      "description": "admin 데이터 유형 폴더",
+      "type": "folder",
+      "children": [
+        {
+          "name": "node",
+          "dispName": "Admin Node",
+          "description": "Admin Node 데이터 포맷",
+          "type": "format",
+          "isTree": true,
+          "features": [
+            {
+              "name": "index",
+              "dispName": "Index",
+              "icon": null,
+              "color": null,
+              "type": "feature",
+              "isKey": true,
+              "featureType": "INDEX"
+            },
+            {
+              "name": "path",
+              "dispName": "경로",
+              "icon": null,
+              "color": null,
+              "type": "feature",
+              "isKey": false,
+              "featureType": "STRING"
+            },
+            {
+              "name": "data",
+              "dispName": "노드",
+              "description": "노드 정보",
+              "type": "feature",
+              "icon": null,
+              "color": null,
+              "featureType": "JSON"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cbm",
+      "dispName": "CBM 설정 데이터",
+      "description": "CBM 설정 데이터 엘리먼트 폴더",
+      "type": "folder",
+      "children": [
+        {
+          "name": "config",
+          "dispName": "설정 데이터",
+          "description": "설정 데이터 엘리먼트 폴더",
+          "type": "folder",
+          "children": [
+            {
+              "name": "Line",
+              "dispName": "호선",
+              "description": "호선 데이터 포맷",
+              "type": "format",
+              "features": [
+                {
+                  "name": "name",
+                  "dispName": "호선명",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "literals",
+                  "literals": [
+                    {
+                      "value": "경부선",
+                      "description": "경부선",
+                      "icon": "",
+                      "color": "#003da5"
+                    },
+                    {
+                      "value": "호남선",
+                      "description": "호남선",
+                      "icon": "",
+                      "color": "#d50032"
+                    },
+                    {
+                      "value": "전라선",
+                      "description": "전라선",
+                      "icon": "",
+                      "color": "#73c42d"
+                    },
+                    {
+                      "value": "동해선",
+                      "description": "동해선",
+                      "icon": "",
+                      "color": "#d96b80"
+                    },
+                    {
+                      "value": " 태백선",
+                      "description": "태백선",
+                      "icon": "",
+                      "color": "#7ba05b"
+                    },
+                    {
+                      "value": "미배치",
+                      "description": "미배치",
+                      "icon": "",
+                      "color": "#adb81d"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TrainPerLine",
+              "dispName": "노선별편성정보",
+              "description": "노선별편성정보 데이터 포맷",
+              "type": "format",
+              "features": [
+                {
+                  "name": "line",
+                  "dispName": "호선명",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "STRING"
+                },
+                {
+                  "name": "train",
+                  "dispName": "편성번호",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "STRING"
+                }
+              ]
+            },
+            {
+              "name": "CarPerTrain",
+              "dispName": "편성별차량정보",
+              "description": "편성별차량정보 데이터 포맷",
+              "type": "format",
+              "features": [
+                {
+                  "name": "line",
+                  "dispName": "호선명",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "STRING"
+                },
+                {
+                  "name": "train",
+                  "dispName": "편성번호",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "STRING"
+                },
+                {
+                  "name": "car",
+                  "dispName": "차량번호",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "STRING"
+                }
+              ]
+            },
+            {
+              "name": "DevicePerCar",
+              "dispName": "차량별장치정보",
+              "description": "차량별장치정보 데이터 포맷",
+              "type": "format",
+              "features": [
+                {
+                  "name": "line",
+                  "dispName": "호선명",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "STRING"
+                },
+                {
+                  "name": "train",
+                  "dispName": "편성번호",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "STRING"
+                },
+                {
+                  "name": "car",
+                  "dispName": "차량번호",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "STRING"
+                },
+                {
+                  "name": "device",
+                  "dispName": "장치번호",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "STRING"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "status",
+          "dispName": "상태 데이터",
+          "description": "상태 데이터 엘리먼트 폴더",
+          "type": "folder",
+          "children": [
+            {
+              "name": "AlertCount",
+              "dispName": "주의 경고 건수",
+              "type": "format",
+              "features": [
+                {
+                  "name": "label",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "STRING"
+                },
+                {
+                  "name": "alert",
+                  "dispName": "경고",
+                  "icon": null,
+                  "color": "#f0142f",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "warning",
+                  "dispName": "주의",
+                  "icon": null,
+                  "color": "#feb200",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT32"
+                }
+              ]
+            },
+            {
+              "name": "Counting",
+              "dispName": "건수",
+              "type": "format",
+              "features": [
+                {
+                  "name": "label",
+                  "dispName": "라벨",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "STRING"
+                },
+                {
+                  "name": "count",
+                  "dispName": "건수",
+                  "icon": null,
+                  "color": "#f0142f",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT32"
+                }
+              ]
+            },
+            {
+              "name": "TrainCountPerLine",
+              "dispName": "건수",
+              "type": "format",
+              "features": [
+                {
+                  "name": "line1",
+                  "dispName": "경부선",
+                  "icon": null,
+                  "color": "#003da5",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "line2",
+                  "dispName": "호남선",
+                  "icon": null,
+                  "color": "#d50032",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "line3",
+                  "dispName": "동해선",
+                  "icon": null,
+                  "color": "#d96b80",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "line4",
+                  "dispName": " 전라선",
+                  "icon": null,
+                  "color": "#73c42d",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "line5",
+                  "dispName": "태백선",
+                  "icon": null,
+                  "color": "#7ba05b",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "line6",
+                  "dispName": "미배치",
+                  "icon": null,
+                  "color": "#adb81d",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "event",
+          "dispName": "이벤트 데이터",
+          "description": "이벤트 데이터 엘리먼트 폴더",
+          "type": "folder",
+          "children": [
+            {
+              "name": "RTMaintenanceInfo",
+              "dispName": "실시간 유지보수 정보",
+              "type": "format",
+              "features": [
+                {
+                  "name": "date",
+                  "dispName": " 날짜",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "DATE"
+                },
+                {
+                  "name": "train",
+                  "dispName": "편성번호",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "STRING"
+                },
+                {
+                  "name": "car",
+                  "dispName": "차량",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "STRING"
+                },
+                {
+                  "name": "device",
+                  "dispName": "장치",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "STRING"
+                },
+                {
+                  "name": "recommendation",
+                  "dispName": "권장조치",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "STRING"
+                }
+              ]
+            },
+            {
+              "name": "SystemEventInfo",
+              "dispName": "시스템 이벤트 정보",
+              "type": "format",
+              "features": [
+                {
+                  "name": "date",
+                  "dispName": "날짜",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "DATE_SEC"
+                },
+                {
+                  "name": "system",
+                  "dispName": "시 스템",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "STRING"
+                },
+                {
+                  "name": "event",
+                  "dispName": "이벤트명",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "STRING"
+                },
+                {
+                  "name": "log",
+                  "dispName": "시스템로그",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "STRING"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "history",
+          "dispName": "이력 데이터",
+          "description": "이력 데이터 엘리먼트 폴더",
+          "type": "folder",
+          "children": [
+            {
+              "name": "LossHistoryPerLine",
+              "dispName": "호선별 손실 이력",
+              "type": "format",
+              "features": [
+                {
+                  "name": "date",
+                  "dispName": "날짜",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "DATE"
+                },
+                {
+                  "name": "line1",
+                  "dispName": "경부선",
+                  "icon": null,
+                  "color": "#0000FF",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "line2",
+                  "dispName": "호남선",
+                  "icon": null,
+                  "color": "#FF0000",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "line3",
+                  "dispName": "전라선",
+                  "icon": null,
+                  "color": "#FF00FF",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "line4",
+                  "dispName": "동해선",
+                  "icon": null,
+                  "color": "#00FF00",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "line5",
+                  "dispName": "태백선",
+                  "icon": null,
+                  "color": "#FFA500",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "line6",
+                  "dispName": "미배치",
+                  "icon": null,
+                  "color": "#6A5ACD",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                }
+              ]
+            },
+            {
+              "name": "LossHistoryPerDevice",
+              "dispName": "장치별 열화 이력",
+              "type": "format",
+              "features": [
+                {
+                  "name": "date",
+                  "dispName": "날짜",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "DATE"
+                },
+                {
+                  "name": "main-transformer",
+                  "dispName": "주변압기",
+                  "icon": null,
+                  "color": "#FF0000",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "main-air-compressor",
+                  "dispName": "주공기압축기",
+                  "icon": null,
+                  "color": "#00BFFF",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "aux-air-compressor",
+                  "dispName": "보조공기압축기",
+                  "icon": null,
+                  "color": "#6A5ACD",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "door",
+                  "dispName": "승강문",
+                  "icon": null,
+                  "color": "#FF00FF",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "hvac",
+                  "dispName": "HAVC",
+                  "icon": null,
+                  "color": "#00FF00",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "traction-motor",
+                  "dispName": "견인전동기",
+                  "icon": null,
+                  "color": "#FFA500",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "fire-detector",
+                  "dispName": "화제감지기",
+                  "icon": null,
+                  "color": "#FF1493",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "axle-bearing",
+                  "dispName": "차축베어링",
+                  "icon": null,
+                  "color": "#0000FF",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "broadcast-device",
+                  "dispName": "방송장치",
+                  "icon": null,
+                  "color": "#FF4500",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                }
+              ]
+            },
+            {
+              "name": "MaintenanceHistoryPerLine",
+              "dispName": "노선별 유지보수 이력",
+              "type": "format",
+              "features": [
+                {
+                  "name": "date",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "STRING"
+                },
+                {
+                  "name": "line1",
+                  "dispName": "경부선",
+                  "icon": null,
+                  "color": "#0000FF",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "line2",
+                  "dispName": "호남선",
+                  "icon": null,
+                  "color": "#FF0000",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "line3",
+                  "dispName": "전라선",
+                  "icon": null,
+                  "color": "#FF00FF",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "line4",
+                  "dispName": "동해선",
+                  "icon": null,
+                  "color": "#00FF00",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "line5",
+                  "dispName": "태백선",
+                  "icon": null,
+                  "color": "#FFA500",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                },
+                {
+                  "name": "line6",
+                  "dispName": "미배치",
+                  "icon": null,
+                  "color": "#6A5ACD",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "UINT16"
+                }
+              ]
+            },
+            {
+              "name": "DetailLossLevelHistory",
+              "dispName": "상세 열화등급 이력",
+              "type": "format",
+              "features": [
+                {
+                  "name": "date",
+                  "dispName": "날짜",
+                  "icon": null,
+                  "color": null,
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "DATE"
+                },
+                {
+                  "name": "line",
+                  "dispName": "노선",
+                  "icon": null,
+                  "color": "#FF0000",
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "literals",
+                  "literals": [
+                    {
+                      "value": "경부선",
+                      "description": "경부선",
+                      "icon": "",
+                      "color": "#003da5"
+                    },
+                    {
+                      "value": "호남선",
+                      "description": "호남선",
+                      "icon": "",
+                      "color": "#d50032"
+                    },
+                    {
+                      "value": "전라선",
+                      "description": "전라선",
+                      "icon": "",
+                      "color": "#73c42d"
+                    },
+                    {
+                      "value": "동해선",
+                      "description": "동해선",
+                      "icon": "",
+                      "color": "#d96b80"
+                    },
+                    {
+                      "value": "태백선",
+                      "description": "태백선",
+                      "icon": "",
+                      "color": "#7ba05b"
+                    },
+                    {
+                      "value": "미배치",
+                      "description": "미배치",
+                      "icon": "",
+                      "color": "#adb81d"
+                    }
+                  ]
+                },
+                {
+                  "name": "train",
+                  "dispName": "편성",
+                  "icon": null,
+                  "color": "#00BFFF",
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "STRING"
+                },
+                {
+                  "name": "car",
+                  "dispName": "차량",
+                  "icon": null,
+                  "color": "#6A5ACD",
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "STRING",
+                  "categorys": ["TC1", "M1", "M2", "TC2"]
+                },
+                {
+                  "name": "device",
+                  "dispName": "장치",
+                  "icon": null,
+                  "color": "#FF00FF",
+                  "type": "feature",
+                  "isKey": true,
+                  "featureType": "STRING",
+                  "categorys": [
+                    "승강문",
+                    "주변압기",
+                    "주공기압축기",
+                    "보조공기압축기",
+                    "HAVC",
+                    "화제감지기",
+                    "차축베어링",
+                    "방송장치"
+                  ]
+                },
+                {
+                  "name": "loss-level",
+                  "dispName": "등급",
+                  "icon": null,
+                  "color": "#00FF00",
+                  "type": "feature",
+                  "isKey": false,
+                  "featureType": "STRING",
+                  "categorys": ["정상", "주의", "경고"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "store": [
+    {
+      "name": "memory",
+      "dispName": "메모리",
+      "description": "메모리 저장 정책 폴더",
+      "type": "folder",
+      "children": [
+        {
+          "name": "static",
+          "type": "store",
+          "record": {
+            "storage": "memory",
+            "nature": "static",
+            "unit": "NONE",
+            "block": "NONE",
+            "expire": "-1",
+            "expireUnit": "NONE",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "status",
+          "type": "store",
+          "record": {
+            "storage": "memory",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "0",
+            "expireUnit": "NONE",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "1min",
+          "type": "store",
+          "record": {
+            "storage": "memory",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "1",
+            "expireUnit": "MIN",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "10min",
+          "type": "store",
+          "record": {
+            "storage": "memory",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "10",
+            "expireUnit": "MIN",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "1hour",
+          "type": "store",
+          "record": {
+            "storage": "memory",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "1",
+            "expireUnit": "HOUR",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        }
+      ]
+    },
+    {
+      "name": "disk",
+      "dispName": "공통",
+      "description": "공통 데이터 엘리먼트 폴더",
+      "type": "folder",
+      "children": [
+        {
+          "name": "static",
+          "type": "store",
+          "record": {
+            "storage": "disk",
+            "nature": "static",
+            "unit": "NONE",
+            "block": "NONE",
+            "expire": "-1",
+            "expireUnit": "NONE",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "status",
+          "type": "store",
+          "record": {
+            "storage": "disk",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "0",
+            "expireUnit": "NONE",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "1min",
+          "type": "store",
+          "record": {
+            "storage": "disk",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "1",
+            "expireUnit": "MIN",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "10min",
+          "type": "store",
+          "record": {
+            "storage": "disk",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "10",
+            "expireUnit": "MIN",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "1hour",
+          "type": "store",
+          "record": {
+            "storage": "disk",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "1",
+            "expireUnit": "HOUR",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "1day",
+          "type": "store",
+          "record": {
+            "storage": "disk",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "1",
+            "expireUnit": "DAY",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "7day",
+          "type": "store",
+          "record": {
+            "storage": "disk",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "7",
+            "expireUnit": "DAY",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "10day",
+          "type": "store",
+          "record": {
+            "storage": "disk",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "10",
+            "expireUnit": "DAY",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "1month",
+          "type": "store",
+          "record": {
+            "storage": "disk",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "1",
+            "expireUnit": "MONTH",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "1year",
+          "type": "store",
+          "record": {
+            "storage": "disk",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "1",
+            "expireUnit": "YEAR",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "5year",
+          "type": "store",
+          "record": {
+            "storage": "disk",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "5",
+            "expireUnit": "YEAR",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "10year",
+          "type": "store",
+          "record": {
+            "storage": "disk",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "10",
+            "expireUnit": "YEAR",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "infinite",
+          "type": "store",
+          "record": {
+            "storage": "disk",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "-1",
+            "expireUnit": "NONE",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        }
+      ]
+    },
+    {
+      "name": "hdfs",
+      "dispName": "공통",
+      "description": "공통 데이터 엘리먼트 폴더",
+      "type": "folder",
+      "children": [
+        {
+          "name": "static",
+          "type": "store",
+          "record": {
+            "storage": "hdfs",
+            "nature": "static",
+            "unit": "NONE",
+            "block": "NONE",
+            "expire": "-1",
+            "expireUnit": "NONE",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "status",
+          "type": "store",
+          "record": {
+            "storage": "hdfs",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "0",
+            "expireUnit": "NONE",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "1min",
+          "type": "store",
+          "record": {
+            "storage": "hdfs",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "1",
+            "expireUnit": "MIN",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "10min",
+          "type": "store",
+          "record": {
+            "storage": "hdfs",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "10",
+            "expireUnit": "MIN",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "1hour",
+          "type": "store",
+          "record": {
+            "storage": "hdfs",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "1",
+            "expireUnit": "HOUR",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "1day",
+          "type": "store",
+          "record": {
+            "storage": "hdfs",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "1",
+            "expireUnit": "DAY",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "7day",
+          "type": "store",
+          "record": {
+            "storage": "hdfs",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "7",
+            "expireUnit": "DAY",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "10day",
+          "type": "store",
+          "record": {
+            "storage": "hdfs",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "10",
+            "expireUnit": "DAY",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "1month",
+          "type": "store",
+          "record": {
+            "storage": "hdfs",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "1",
+            "expireUnit": "MONTH",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "1year",
+          "type": "store",
+          "record": {
+            "storage": "hdfs",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "1",
+            "expireUnit": "YEAR",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "5year",
+          "type": "store",
+          "record": {
+            "storage": "hdfs",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "5",
+            "expireUnit": "YEAR",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "10year",
+          "type": "store",
+          "record": {
+            "storage": "hdfs",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "10",
+            "expireUnit": "YEAR",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        },
+        {
+          "name": "infinite",
+          "type": "store",
+          "record": {
+            "storage": "hdfs",
+            "nature": "temporary",
+            "unit": "SEC",
+            "block": "MIN",
+            "expire": "-1",
+            "expireUnit": "NONE",
+            "allowDuplication": "false",
+            "allowKeepValue": "false"
+          }
+        }
+      ]
+    }
+  ],
+  "processor": [
+    {
+      "name": "common",
+      "dispName": "관리자용 데이터",
+      "description": "관리자용 데이터 엘리먼트 폴더",
+      "type": "folder",
+      "children": [
+        {
+          "name": "transparent",
+          "dispName": "",
+          "type": "processor",
+          "module": {
+            "version": "0",
+            "history": ""
+          }
+        }
+      ]
+    }
+  ],
+  "system": [
+    {
+      "name": "config",
+      "dispName": "설정서버",
+      "description": "설정 서버",
+      "type": "system",
+      "address": {
+        "ip": "192.168.0.1",
+        "port": "8080"
+      },
+      "hdfs": {
+        "ip": "192.168.0.20",
+        "port": "9000",
+        "path": "/nex/data"
+      },
+      "db": {
+        "ip": "192.168.0.30",
+        "port": "5432",
+        "user": "nex",
+        "password": "nex123",
+        "database": "nex"
+      }
+    },
+    {
+      "name": "webserver",
+      "dispName": "웹서버",
+      "description": "CBM 웹서버",
+      "type": "system",
+      "address": {
+        "ip": "192.168.0.2",
+        "port": "8080"
+      },
+      "hdfs": {
+        "ip": "192.168.0.20",
+        "port": "9000",
+        "path": "/nex/data"
+      },
+      "db": {
+        "ip": "192.168.0.30",
+        "port": "5432",
+        "user": "nex",
+        "password": "nex123",
+        "database": "nex"
+      }
+    },
+    {
+      "name": "collector",
+      "dispName": "수집서버",
+      "description": "CBM 수집서버",
+      "type": "system",
+      "address": {
+        "ip": "192.168.0.3",
+        "port": "8080"
+      },
+      "hdfs": {
+        "ip": "192.168.0.20",
+        "port": "9000",
+        "path": "/nex/data"
+      },
+      "db": {
+        "ip": "192.168.0.30",
+        "port": "5432",
+        "user": "nex",
+        "password": "nex123",
+        "database": "nex"
+      }
+    }
+  ],
+  "elements": [
+    {
+      "name": "common",
+      "dispName": "공통",
+      "description": "공통 데이터 엘리먼트 폴더",
+      "type": "folder",
+      "children": [
+        {
+          "name": "menu",
+          "dispName": "메뉴",
+          "description": "메뉴 테스트",
+          "type": "element",
+          "format": "/web/menu",
+          "store": "/memory/static",
+          "processor": "/common/transparent",
+          "processingInterval": "10",
+          "processingUnit": "SEC",
+          "sources": ""
+        }
+      ]
+    },
+    {
+      "name": "cbm",
+      "dispName": "CBM",
+      "description": "CBM 전용 데이터 엘리먼트 폴더",
+      "type": "folder",
+      "children": [
+        {
+          "name": "config",
+          "dispName": "CBM",
+          "description": "CBM 전용 데이터 엘리먼트 폴더",
+          "type": "folder",
+          "children": [
+            {
+              "name": "Line",
+              "dispName": "노선정보",
+              "description": "노선정보",
+              "type": "element",
+              "format": "/cbm/config/Line",
+              "store": "/memory/static",
+              "processor": "/common/transparent",
+              "processingInterval": "10",
+              "processingUnit": "SEC",
+              "sources": "/webserver/config/Line"
+            },
+            {
+              "name": "TrainPerLine",
+              "dispName": "노선별편성정보",
+              "description": "노선별 편성정보",
+              "type": "element",
+              "format": "/cbm/config/TrainPerLine",
+              "store": "/memory/static",
+              "processor": "/common/transparent",
+              "processingInterval": "10",
+              "processingUnit": "SEC",
+              "sources": "/webserver/config/TrainPerLine"
+            },
+            {
+              "name": "CarPerTrain",
+              "dispName": "편성별차량정보",
+              "description": "편성별차량정보",
+              "type": "element",
+              "format": "/cbm/config/CarPerTrain",
+              "store": "/memory/static",
+              "processor": "/common/transparent",
+              "processingInterval": "10",
+              "processingUnit": "SEC",
+              "sources": "/webserver/config/CarPerTrain"
+            },
+            {
+              "name": "DevicePerCar",
+              "dispName": "차량별장치정보",
+              "description": "차량별장치정보",
+              "type": "element",
+              "format": "/cbm/config/DevicePerCar",
+              "store": "/memory/static",
+              "processor": "/common/transparent",
+              "processingInterval": "10",
+              "processingUnit": "SEC",
+              "sources": "/webserver/config/DevicePerCar"
+            }
+          ]
+        },
+        {
+          "name": "status",
+          "dispName": "상태",
+          "description": "상태 데이터 엘리먼트 폴더",
+          "type": "folder",
+          "children": [
+            {
+              "name": "LossPerLine",
+              "dispName": "노선별 열화 현황",
+              "description": "노선별 열화 현상 데이터 엘리먼 트",
+              "type": "element",
+              "format": "/cbm/status/AlertCount",
+              "store": "/memory/static",
+              "processor": "/common/transparent",
+              "processingInterval": "10",
+              "processingUnit": "SEC",
+              "sources": ""
+            },
+            {
+              "name": "LossPerDevice",
+              "dispName": "장치별 열화 현상",
+              "description": "장치치별 열화 현상 데이터 엘리먼트",
+              "type": "element",
+              "format": "/cbm/status/AlertCount",
+              "store": "/memory/static",
+              "processor": "/common/transparent",
+              "processingInterval": "10",
+              "processingUnit": "SEC",
+              "sources": ""
+            },
+            {
+              "name": "TrainCountPerLine",
+              "dispName": "노선별 편성 수",
+              "description": "노선별 편성 수 데이터 엘리먼트",
+              "type": "element",
+              "format": "/cbm/status/TrainCountPerLine",
+              "store": "/memory/static",
+              "processor": "/common/transparent",
+              "processingInterval": "10",
+              "processingUnit": "SEC",
+              "sources": ""
+            }
+          ]
+        },
+        {
+          "name": "event",
+          "dispName": "이벤트",
+          "description": "이벤트 데이터 엘리먼트 폴더",
+          "type": "folder",
+          "children": [
+            {
+              "name": "RTMaintenanceInfo",
+              "dispName": "실시간 유지보수 정보",
+              "description": "실시간 유지보 수 정보 데이터 엘리먼트",
+              "type": "element",
+              "format": "/cbm/event/RTMaintenanceInfo",
+              "store": "/memory/1year",
+              "processor": "/common/transparent",
+              "processingInterval": "10",
+              "processingUnit": "SEC",
+              "sources": "/webserver/event/RTMaintenanceInfo"
+            },
+            {
+              "name": "SystemEventInfo",
+              "dispName": "시스템 이벤트 정보",
+              "description": "시스템 이벤트 정보 데이터 엘리먼트",
+              "type": "element",
+              "format": "/cbm/event/SystemEventInfo",
+              "store": "/memory/1year",
+              "processor": "/common/transparent",
+              "processingInterval": "10",
+              "processingUnit": "SEC",
+              "sources": "/webserver/event/SystemEventInfo"
+            }
+          ]
+        },
+        {
+          "name": "history",
+          "dispName": "이력",
+          "description": "이력 데이터 엘리먼트 폴더",
+          "type": "folder",
+          "children": [
+            {
+              "name": "LossHistoryPerLine",
+              "dispName": "노선별 열화 이력",
+              "description": "노선별 열화 이력 데이터 엘리먼트",
+              "type": "element",
+              "format": "/cbm/history/LossHistoryPerLine",
+              "store": "/memory/7day",
+              "processor": "/common/transparent",
+              "processingInterval": "10",
+              "processingUnit": "SEC",
+              "sources": "/webserver/history/LossHistoryPerLine"
+            },
+            {
+              "name": "LossHistoryPerDevice",
+              "dispName": "장치별 열화 이력",
+              "description": "장치치별 열화 이력 데이터 엘리먼트",
+              "type": "element",
+              "format": "/cbm/history/LossHistoryPerDevice",
+              "store": "/memory/7day",
+              "processor": "/common/transparent",
+              "processingInterval": "10",
+              "processingUnit": "SEC",
+              "sources": "/webserver/history/LossHistoryPerDevice"
+            },
+            {
+              "name": "MaintenanceHistoryPerLine",
+              "dispName": "노선별 유지보수 이력",
+              "description": "노선선별 유지보수 이력 데이터 엘리먼트",
+              "type": "element",
+              "format": "/cbm/history/MaintenanceHistoryPerLine",
+              "store": "/memory/1year",
+              "processor": "/common/transparent",
+              "processingInterval": "10",
+              "processingUnit": "SEC",
+              "sources": "/webserver/history/MaintenanceHistoryPerLine"
+            },
+            {
+              "name": "DetailLossLevelHistory",
+              "dispName": "상세 열화등급 이력",
+              "description": "상세 열화등급 이력 데이 터 엘리먼트",
+              "type": "element",
+              "format": "/cbm/history/DetailLossLevelHistory",
+              "store": "/memory/1year",
+              "processor": "/common/transparent",
+              "processingInterval": "10",
+              "processingUnit": "SEC",
+              "sources": "/webserver/history/DetailLossLevelHistory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "admin",
+      "dispName": "관리자용 데이터",
+      "description": "관리자용 데이터 엘리먼트 폴더",
+      "type": "folder",
+      "children": [
+        {
+          "name": "format",
+          "dispName": "데이터 포맷",
+          "description": "데이터 포맷",
+          "type": "element",
+          "format": "/admin/node",
+          "store": "/memory/static",
+          "processor": "/common/transparent",
+          "processingInterval": "10",
+          "processingUnit": "SEC",
+          "sources": "/config/admin/format"
+        },
+        {
+          "name": "store",
+          "dispName": "데이터 저장 정책",
+          "description": "데이터 저장 정책",
+          "type": "element",
+          "format": "/admin/node",
+          "store": "/memory/static",
+          "processor": "/common/transparent",
+          "processingInterval": "10",
+          "processingUnit": "SEC",
+          "sources": "/config/admin/store"
+        },
+        {
+          "name": "processor",
+          "dispName": "데이터 프로세서",
+          "description": " 데이터 프로세서",
+          "type": "element",
+          "format": "/admin/node",
+          "store": "/memory/static",
+          "processor": "/common/transparent",
+          "processingInterval": "10",
+          "processingUnit": "SEC",
+          "sources": "/config/admin/processor"
+        },
+        {
+          "name": "system",
+          "dispName": "시 스템",
+          "description": "시스템",
+          "type": "element",
+          "format": "/admin/node",
+          "store": "/memory/static",
+          "processor": "/common/transparent",
+          "processingInterval": "10",
+          "processingUnit": "SEC",
+          "sources": "/config/admin/system"
+        },
+        {
+          "name": "element",
+          "dispName": "데이터 엘리먼트",
+          "description": "데이터 엘리먼트",
+          "type": "element",
+          "format": "/admin/node",
+          "store": "/memory/static",
+          "processor": "/common/transparent",
+          "processingInterval": "10",
+          "processingUnit": "SEC",
+          "sources": "/config/admin/element"
+        },
+        {
+          "name": "source",
+          "dispName": "데이터 소스",
+          "description": "데이터 소스",
+          "type": "element",
+          "format": "/admin/node",
+          "store": "/memory/static",
+          "processor": "/common/transparent",
+          "processingInterval": "10",
+          "processingUnit": "SEC",
+          "sources": "/config/admin/source"
+        },
+        {
+          "name": "contents",
+          "dispName": "컨텐츠",
+          "description": "컨텐츠",
+          "type": "element",
+          "format": "/admin/node",
+          "store": "/memory/static",
+          "processor": "/common/transparent",
+          "processingInterval": "10",
+          "processingUnit": "SEC",
+          "sources": "/config/admin/contents"
+        },
+        {
+          "name": "applet",
+          "dispName": "애플릿",
+          "description": "애플릿",
+          "type": "element",
+          "format": "/admin/node",
+          "store": "/memory/static",
+          "processor": "/common/transparent",
+          "processingInterval": "10",
+          "processingUnit": "SEC",
+          "sources": "/config/admin/applet"
+        },
+        {
+          "name": "section",
+          "dispName": "웹섹션",
+          "description": "웹섹션",
+          "type": "element",
+          "format": "/admin/node",
+          "store": "/memory/static",
+          "processor": "/common/transparent",
+          "processingInterval": "10",
+          "processingUnit": "SEC",
+          "sources": "/config/admin/section"
+        },
+        {
+          "name": "user",
+          "dispName": "사용자",
+          "description": "사용자",
+          "type": "element",
+          "format": "/admin/node",
+          "store": "/memory/static",
+          "processor": "/common/transparent",
+          "processingInterval": "10",
+          "processingUnit": "SEC",
+          "sources": "/config/admin/user"
+        },
+        {
+          "name": "theme",
+          "dispName": "테마",
+          "description": "테마",
+          "type": "element",
+          "format": "/admin/node",
+          "store": "/memory/static",
+          "processor": "/common/transparent",
+          "processingInterval": "10",
+          "processingUnit": "SEC",
+          "sources": "/config/admin/theme"
+        }
+      ]
+    }
+  ],
+  "contents": [
+    {
+      "type": "folder",
+      "name": "common",
+      "dispName": "공통",
+      "description": "공통 폴더",
+      "children": [
+        {
+          "name": "menu",
+          "dispName": "Menu",
+          "type": "contents",
+          "element": "/common/menu",
+          "condition": [],
+          "selection": []
+        },
+        {
+          "name": "sample",
+          "dispName": "Sample",
+          "type": "contents",
+          "element": "/cbm/history/LossHistoryPerDevice",
+          "condition": [],
+          "selection": []
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "cbm",
+      "dispName": "CBM",
+      "description": "CBM 용 컨텐츠 폴더",
+      "children": [
+        {
+          "type": "folder",
+          "name": "config",
+          "dispName": "설정 데이터",
+          "description": "설정 데이터 컨텐츠 폴더",
+          "children": [
+            {
+              "name": "Line",
+              "type": "contents",
+              "element": "/cbm/config/Line",
+              "condition": [],
+              "selection": [
+                {
+                  "key": "line",
+                  "feature": "line"
+                }
+              ]
+            },
+            {
+              "name": "TrainPerLine",
+              "type": "contents",
+              "element": "/cbm/config/TrainPerLine",
+              "condition": [],
+              "selection": [
+                {
+                  "key": "train",
+                  "feature": "train"
+                }
+              ]
+            },
+            {
+              "name": "SelectedTrain",
+              "type": "contents",
+              "element": "/cbm/config/TrainPerLine",
+              "condition": [
+                {
+                  "key": "line",
+                  "feature": "line",
+                  "method": "match"
+                }
+              ],
+              "selection": [
+                {
+                  "key": "train",
+                  "feature": "train"
+                }
+              ]
+            },
+            {
+              "name": "CarPerTrain",
+              "type": "contents",
+              "element": "/cbm/config/CarPerTrain",
+              "condition": [],
+              "selection": [
+                {
+                  "key": "car",
+                  "feature": "car"
+                }
+              ]
+            },
+            {
+              "name": "SelectedCar",
+              "type": "contents",
+              "element": "/cbm/config/CarPerTrain",
+              "condition": [
+                {
+                  "key": "train",
+                  "feature": "train",
+                  "method": "match"
+                }
+              ],
+              "selection": [
+                {
+                  "key": "car",
+                  "feature": "car"
+                }
+              ]
+            },
+            {
+              "name": "Device",
+              "type": "contents",
+              "element": "/cbm/config/Device",
+              "condition": [],
+              "selection": [
+                {
+                  "key": "device",
+                  "feature": "device"
+                }
+              ]
+            },
+            {
+              "name": "SelectedDevice",
+              "type": "contents",
+              "element": "/cbm/config/Device",
+              "condition": [
+                {
+                  "key": "car",
+                  "feature": "car",
+                  "method": "match"
+                }
+              ],
+              "selection": []
+            }
+          ]
+        },
+        {
+          "type": "folder",
+          "name": "status",
+          "dispName": "상태 데이터",
+          "description": "상태 데이터 컨텐츠 폴더",
+          "children": [
+            {
+              "name": "LossPerLine",
+              "type": "contents",
+              "element": "/cbm/status/LossPerLine",
+              "condition": [],
+              "selection": []
+            },
+            {
+              "name": "LossPerDevice",
+              "type": "contents",
+              "element": "/cbm/status/LossPerDevice",
+              "condition": [],
+              "selection": []
+            },
+            {
+              "name": "TrainCountPerLine",
+              "type": "contents",
+              "element": "/cbm/status/TrainCountPerLine",
+              "condition": [],
+              "selection": []
+            }
+          ]
+        },
+        {
+          "type": "folder",
+          "name": "history",
+          "dispName": "이력 데이터",
+          "description": "이력 데이터 컨텐츠 폴더",
+          "children": [
+            {
+              "name": "LossHistoryPerLine",
+              "type": "contents",
+              "element": "/cbm/history/LossHistoryPerLine",
+              "condition": [],
+              "selection": []
+            },
+            {
+              "name": "LossHistoryPerDevice",
+              "type": "contents",
+              "element": "/cbm/history/LossHistoryPerDevice",
+              "condition": [],
+              "selection": []
+            },
+            {
+              "name": "MaintenancePerLineHistory",
+              "type": "contents",
+              "element": "/cbm/history/MaintenanceHistoryPerLine",
+              "condition": [],
+              "selection": []
+            },
+            {
+              "name": "DetailLossLevelHistory",
+              "type": "contents",
+              "element": "/cbm/history/DetailLossLevelHistory",
+              "condition": [],
+              "selection": []
+            },
+            {
+              "name": "SelectedDetailLossLevelHistory",
+              "type": "contents",
+              "element": "/cbm/history/DetailLossLevelHistory",
+              "condition": [],
+              "selection": []
+            }
+          ]
+        },
+        {
+          "type": "folder",
+          "name": "event",
+          "dispName": "이벤트 데이터",
+          "description": "이벤트 데이터 컨텐츠 폴더",
+          "children": [
+            {
+              "name": "RTMaintenanceInfo",
+              "type": "contents",
+              "element": "/cbm/event/RTMaintenanceInfo",
+              "condition": [],
+              "selection": []
+            },
+            {
+              "name": "SystemEventInfo",
+              "type": "contents",
+              "element": "/cbm/event/SystemEventInfo",
+              "condition": [],
+              "selection": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "admin",
+      "dispName": "Admin",
+      "description": "Admin 용 컨텐츠 폴더",
+      "children": [
+        {
+          "name": "format",
+          "type": "contents",
+          "element": "/admin/format",
+          "conditions": [],
+          "selections": [
+            {
+              "key": "format-path",
+              "feature": "path"
+            }
+          ]
+        },
+        {
+          "name": "SelectedFormat",
+          "type": "contents",
+          "element": "/admin/format",
+          "conditions": [
+            {
+              "key": "format-path",
+              "feature": "path",
+              "method": "pathmatch"
+            }
+          ],
+          "selections": []
+        },
+        {
+          "name": "store",
+          "dispName": "저장소",
+          "type": "contents",
+          "element": "/admin/store",
+          "conditions": [],
+          "selections": [
+            {
+              "key": "store-path",
+              "feature": "path"
+            }
+          ]
+        },
+        {
+          "name": "SelectedStore",
+          "dispName": "저장소",
+          "type": "contents",
+          "element": "/admin/store",
+          "conditions": [
+            {
+              "key": "store-path",
+              "feature": "path",
+              "method": "pathmatch"
+            }
+          ],
+          "selections": []
+        },
+        {
+          "name": "processor",
+          "dispName": "프로세서",
+          "type": "contents",
+          "element": "/admin/processor",
+          "conditions": [],
+          "selections": [
+            {
+              "key": "processor-path",
+              "feature": "path"
+            }
+          ]
+        },
+        {
+          "name": "SelectedProcessor",
+          "dispName": "프로세서",
+          "type": "contents",
+          "element": "/admin/processor",
+          "conditions": [
+            {
+              "key": "processor-path",
+              "feature": "path",
+              "method": "pathmatch"
+            }
+          ],
+          "selections": []
+        },
+        {
+          "name": "system",
+          "dispName": "시스템",
+          "type": "contents",
+          "element": "/admin/system",
+          "conditions": [],
+          "selections": [
+            {
+              "key": "system-path",
+              "feature": "path"
+            }
+          ]
+        },
+        {
+          "name": "SelectedSystem",
+          "dispName": " 시스템",
+          "type": "contents",
+          "element": "/admin/system",
+          "conditions": [
+            {
+              "key": "system-path",
+              "feature": "path",
+              "method": "pathmatch"
+            }
+          ],
+          "selections": []
+        },
+        {
+          "name": "element",
+          "dispName": "엘리먼트",
+          "type": "contents",
+          "element": "/admin/element",
+          "conditions": [
+            {
+              "key": "system-path",
+              "feature": "path",
+              "method": "pathmatch"
+            }
+          ],
+          "selections": [
+            {
+              "key": "element-path",
+              "feature": "path"
+            }
+          ]
+        },
+        {
+          "name": "SelectedElement",
+          "dispName": "엘리먼트",
+          "type": "contents",
+          "element": "/admin/element",
+          "conditions": [
+            {
+              "key": "system-path",
+              "feature": "path",
+              "method": "pathmatch"
+            },
+            {
+              "key": "element-path",
+              "feature": "path",
+              "method": "pathmatch"
+            }
+          ],
+          "selections": []
+        },
+        {
+          "name": "websection",
+          "dispName": "웹 섹션",
+          "type": "contents",
+          "element": "/admin/websection",
+          "conditions": [],
+          "selections": [
+            {
+              "key": "websection-path",
+              "feature": "path"
+            }
+          ]
+        },
+        {
+          "name": "SelectedWebsection",
+          "dispName": "웹 섹션",
+          "type": "contents",
+          "element": "/admin/websection",
+          "conditions": [
+            {
+              "key": "websection-path",
+              "feature": "path",
+              "method": "pathmatch"
+            }
+          ],
+          "selections": []
+        }
+      ]
+    }
+  ],
+  "applet": [
+    {
+      "name": "common",
+      "dispName": "공용 폴더",
+      "description": "공용 폴더",
+      "type": "folder",
+      "icon": "",
+      "color": "",
+      "children": [
+        {
+          "name": "menu",
+          "dispName": "Nex Menu",
+          "description": "Nex Menu Applet",
+          "type": "applet",
+          "icon": "menu",
+          "color": "#FF5733",
+          "applet": "/menu/NexMenu"
+        }
+      ]
+    },
+    {
+      "name": "chart",
+      "dispName": "Chart",
+      "description": "Chart Applet 폴더",
+      "type": "folder",
+      "icon": "",
+      "color": "",
+      "children": [
+        {
+          "name": "NexLineChart",
+          "dispName": "Nex Line Chart",
+          "description": "Nex Line Chart Applet",
+          "type": "applet",
+          "icon": "chart",
+          "color": "#33FF57",
+          "applet": "/chart/NexLineChart"
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "dispName": "Table",
+      "description": "Table Applet 폴더",
+      "type": "folder",
+      "icon": "",
+      "color": "",
+      "children": [
+        {
+          "name": "NexTable",
+          "dispName": "Nex Table",
+          "description": "Nex Table Applet",
+          "type": "applet",
+          "icon": "table",
+          "color": "#3357FF",
+          "applet": "/table/NexTable"
+        }
+      ]
+    },
+    {
+      "name": "status",
+      "dispName": "Status",
+      "description": "Status Applet 폴더",
+      "type": "folder",
+      "icon": "",
+      "color": "",
+      "children": [
+        {
+          "name": "NexStatus",
+          "dispName": "Nex Status",
+          "description": "Nex Status Applet",
+          "type": "applet",
+          "icon": "status",
+          "color": "#FF33A1",
+          "applet": "/status/NexStatus"
+        },
+        {
+          "name": "NexCount",
+          "dispName": "Nex Count",
+          "description": "Nex Count Applet",
+          "type": "applet",
+          "icon": "",
+          "color": "#A133FF",
+          "applet": "/status/NexCount"
+        }
+      ]
+    },
+    {
+      "name": "admin",
+      "dispName": "Admin",
+      "description": "Admin 용 Applet 폴더",
+      "type": "folder",
+      "icon": "",
+      "color": "",
+      "children": [
+        {
+          "name": "NexNodeTree",
+          "dispName": "Nex Tree",
+          "description": "Nex Tree Applet",
+          "type": "applet",
+          "icon": "tree",
+          "color": "#FF33A1",
+          "applet": "/admin/NexNodeTree"
+        },
+        {
+          "name": "NexJsonEditor",
+          "dispName": "Nex Json Editor",
+          "description": "Nex Json Editor Applet",
+          "type": "applet",
+          "icon": "tree",
+          "color": "#FF33A1",
+          "applet": "/admin/NexJsonEditor"
+        },
+        {
+          "name": "NexNodeSelector",
+          "dispName": "Nex Node Selector",
+          "description": "Nex Node Selector Applet",
+          "type": "applet",
+          "icon": "tree",
+          "color": "#FF33A1",
+          "applet": "/admin/NexNodeSelector"
+        }
+      ]
+    },
+    {
+      "name": "sample",
+      "dispName": "Sample",
+      "description": "Sample Applet 폴더, 다양한 샘플을 포함하는 폴더입니다.",
+      "type": "folder",
+      "icon": "",
+      "color": "",
+      "children": [
+        {
+          "name": "NexSampleList",
+          "dispName": "Nex Sample List",
+          "description": "Nex Sample List Applet",
+          "type": "applet",
+          "icon": "sample",
+          "color": "#33A1FF",
+          "applet": "/sample/NexSampleList"
+        }
+      ]
+    }
+  ],
+  "section": [
+    {
+      "name": "root",
+      "dispName": "root",
+      "description": "root",
+      "type": "section",
+      "isRoutes": true,
+      "children": [
+        {
+          "name": "dashboard",
+          "dispName": "Dashboard",
+          "description": "Dashboard",
+          "type": "section",
+          "route": "cbm/*",
+          "direction": "column",
+          "children": [
+            {
+              "name": "Head",
+              "dispName": "Head",
+              "description": "Head View",
+              "type": "section",
+              "size": "10",
+              "direction": "row",
+              "children": [
+                {
+                  "name": "HeadLeft",
+                  "type": "section",
+                  "size": "10",
+                  "applet": "",
+                  "contents": []
+                },
+                {
+                  "name": "HeadMain",
+                  "type": "section",
+                  "size": "80",
+                  "applet": "",
+                  "contents": []
+                },
+                {
+                  "name": "HeadRight",
+                  "type": "section",
+                  "size": "10",
+                  "applet": "",
+                  "contents": []
+                }
+              ]
+            },
+            {
+              "name": "Body",
+              "dispName": "Body",
+              "description": "Body View",
+              "type": "section",
+              "size": "90",
+              "direction": "row",
+              "children": [
+                {
+                  "name": "left-side",
+                  "dispName": "Left Side",
+                  "description": "Left Side View",
+                  "type": "section",
+                  "size": "5",
+                  "direction": "column",
+                  "children": [
+                    {
+                      "name": "menu",
+                      "dispName": "메뉴섹션",
+                      "type": "section",
+                      "size": "1",
+                      "padding": "8px",
+                      "applet": "/common/menu",
+                      "contents": ["/common/menu"]
+                    },
+                    {
+                      "name": "Sample",
+                      "dispName": "샘플",
+                      "type": "section",
+                      "size": "1",
+                      "padding": "8px",
+                      "applet": "/sample/NexSampleList",
+                      "contents": ["/common/sample"]
+                    }
+                  ]
+                },
+                {
+                  "name": "Main",
+                  "type": "section",
+                  "size": "24",
+                  "direction": "column",
+                  "route": "/*",
+                  "isRoutes": true,
+                  "children": [
+                    {
+                      "name": "dashboard",
+                      "type": "section",
+                      "size": "1",
+                      "direction": "column",
+                      "route": "dashboard",
+                      "children": [
+                        {
+                          "name": "MainUp",
+                          "type": "section",
+                          "size": "2",
+                          "direction": "row",
+                          "children": [
+                            {
+                              "name": "MainLeftUp",
+                              "type": "section",
+                              "size": "1",
+                              "direction": "column",
+                              "children": [
+                                {
+                                  "name": "loss",
+                                  "type": "section",
+                                  "size": "1",
+                                  "direction": "row",
+                                  "children": [
+                                    {
+                                      "name": "LossPerLine",
+                                      "dispName": "노선별 열화 현황",
+                                      "type": "section",
+                                      "size": "4",
+                                      "padding": "8px",
+                                      "applet": "/status/NexStatus",
+                                      "contents": ["/cbm/status/LossPerLine"]
+                                    },
+                                    {
+                                      "name": "LossHistoryPerLine",
+                                      "dispName": "노선별 열화 이력",
+                                      "type": "section",
+                                      "size": "8",
+                                      "padding": "8px",
+                                      "applet": "/chart/NexLineChart",
+                                      "contents": [
+                                        "/cbm/history/LossHistoryPerLine"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "maintenance",
+                                  "type": "section",
+                                  "size": "1",
+                                  "direction": "row",
+                                  "children": [
+                                    {
+                                      "name": "TrainCountPerLine",
+                                      "dispName": "노선별 평성 수",
+                                      "type": "section",
+                                      "size": "4",
+                                      "applet": "/status/NexCount",
+                                      "padding": "8px",
+                                      "contents": [
+                                        "/cbm/status/TrainCountPerLine"
+                                      ]
+                                    },
+                                    {
+                                      "name": "MaintenancePerLineHistory",
+                                      "dispName": "노선별 유지보수 이력",
+                                      "type": "section",
+                                      "size": "8",
+                                      "applet": "/chart/NexLineChart",
+                                      "padding": "8px",
+                                      "contents": [
+                                        "/cbm/history/MaintenancePerLineHistory"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "MainRightUp",
+                              "type": "section",
+                              "size": "1",
+                              "direction": "row",
+                              "children": [
+                                {
+                                  "name": "LossPerDevice",
+                                  "dispName": "장치별 열화 현황",
+                                  "type": "contents",
+                                  "size": "2",
+                                  "padding": "8px",
+                                  "applet": "/status/NexStatus",
+                                  "contents": ["/cbm/status/LossPerDevice"]
+                                },
+                                {
+                                  "name": "LossHistoryPerDevice",
+                                  "dispName": "장치별 열화 이력",
+                                  "type": "section",
+                                  "size": "4",
+                                  "padding": "8px",
+                                  "applet": "/chart/NexLineChart",
+                                  "contents": [
+                                    "/cbm/history/LossHistoryPerDevice"
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "MainDown",
+                          "type": "section",
+                          "size": "1",
+                          "direction": "row",
+                          "children": [
+                            {
+                              "name": "RTMaintenanceInfo",
+                              "dispName": "실시간 유지보수 정보",
+                              "type": "section",
+                              "size": "1",
+                              "applet": "/table/NexTable",
+                              "padding": "8px",
+                              "contents": ["/cbm/event/RTMaintenanceInfo"]
+                            },
+                            {
+                              "name": "SystemEventInfo",
+                              "dispName": "시스템 이벤트 정보",
+                              "type": "section",
+                              "size": "1",
+                              "applet": "/table/NexTable",
+                              "padding": "8px",
+                              "contents": ["/cbm/event/SystemEventInfo"]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "TrainInfoPerLine",
+                      "dispName": "노선별 편성 정보",
+                      "type": "section",
+                      "size": "1",
+                      "direction": "column",
+                      "route": "train-info/line",
+                      "applet": "/cbm/train-info-line",
+                      "padding": "8px",
+                      "contents": [
+                        "/cbm/config/Line",
+                        "/cbm/config/TrainPerLine",
+                        "/cbm/config/CarPerTrain",
+                        "/cbm/status/LossPerLine",
+                        "/cbm/history/DetailLossLevelHistory"
+                      ]
+                    },
+                    {
+                      "name": "train-info-line-chart",
+                      "type": "section",
+                      "size": "2",
+                      "padding": "8px",
+                      "applet": "/chart/NexLineChart",
+                      "contents": [
+                        "/cbm/history/SelectedDetailLossLevelHistory"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Admin",
+          "type": "section",
+          "size": "1",
+          "direction": "column",
+          "route": "admin",
+          "children": [
+            {
+              "name": "Top",
+              "type": "section",
+              "size": "5",
+              "direction": "row"
+            },
+            {
+              "name": "Mid",
+              "type": "section",
+              "size": "90",
+              "direction": "row",
+              "children": [
+                {
+                  "name": "MainLeftUp",
+                  "type": "section",
+                  "size": "1",
+                  "direction": "column",
+                  "children": [
+                    {
+                      "name": "project",
+                      "type": "section",
+                      "size": "1",
+                      "direction": "row",
+                      "children": [
+                        {
+                          "name": "formatConfig",
+                          "dispName": "포맷 설정",
+                          "type": "section",
+                          "size": "5",
+                          "direction": "column",
+                          "children": [
+                            {
+                              "name": "formatFinder",
+                              "dispName": "데이터 유형",
+                              "type": "section",
+                              "size": "3",
+                              "applet": "/admin/NexNodeTree",
+                              "padding": "8px",
+                              "contents": ["/admin/format"]
+                            },
+                            {
+                              "name": "formatEditor",
+                              "dispName": "데이터 유형 편집",
+                              "type": "section",
+                              "size": "7",
+                              "applet": "/admin/NexJsonEditor",
+                              "padding": "8px",
+                              "contents": ["/admin/SelectedFormat"]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "storeConfig",
+                          "dispName": "저장 정책",
+                          "type": "section",
+                          "size": "5",
+                          "direction": "column",
+                          "children": [
+                            {
+                              "name": "storeFinder",
+                              "dispName": "데이터 저장 정책",
+                              "type": "section",
+                              "size": "3",
+                              "applet": "/admin/NexNodeTree",
+                              "padding": "8px",
+                              "contents": ["/admin/store"]
+                            },
+                            {
+                              "name": "storeEditor",
+                              "dispName": "데이터 저장 정책 편집",
+                              "type": "section",
+                              "size": "7",
+                              "applet": "/admin/NexJsonEditor",
+                              "padding": "8px",
+                              "contents": ["/admin/SelectedStore"]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "processorConfig",
+                          "dispName": "프로세서 설정",
+                          "type": "section",
+                          "size": "5",
+                          "direction": "column",
+                          "children": [
+                            {
+                              "name": "processor",
+                              "dispName": "데이터 프로세서",
+                              "type": "section",
+                              "size": "3",
+                              "applet": "/admin/NexNodeTree",
+                              "padding": "8px",
+                              "contents": ["/admin/processor"]
+                            },
+                            {
+                              "name": "processorEditor",
+                              "dispName": "프로세서 편집",
+                              "type": "section",
+                              "size": "7",
+                              "applet": "/admin/NexJsonEditor",
+                              "padding": "8px",
+                              "contents": ["/admin/SelectedProcessor"]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "systemConfig",
+                          "dispName": "시스템 설정",
+                          "type": "section",
+                          "size": "5",
+                          "direction": "column",
+                          "children": [
+                            {
+                              "name": "system",
+                              "dispName": "시스템 설정",
+                              "type": "section",
+                              "size": "3",
+                              "applet": "/admin/NexNodeTree",
+                              "padding": "8px",
+                              "contents": ["/admin/system"]
+                            },
+                            {
+                              "name": "systemEditor",
+                              "dispName": "시스템 편집",
+                              "type": "section",
+                              "size": "7",
+                              "applet": "/admin/NexJsonEditor",
+                              "padding": "8px",
+                              "contents": ["/admin/SelectedSystem"]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "AdminSystemConfig",
+          "type": "section",
+          "size": "1",
+          "direction": "column",
+          "route": "admin/system",
+          "children": [
+            {
+              "name": "Head",
+              "type": "section",
+              "size": "6",
+              "direction": "column",
+              "children": [
+                {
+                  "name": "nodeSelector",
+                  "dispName": "",
+                  "description": "노드 선택기 웹 섹션",
+                  "type": "section",
+                  "size": "3",
+                  "applet": "/admin/NexNodeSelector",
+                  "padding": "0",
+                  "contents": ["/admin/system"]
+                }
+              ]
+            },
+            {
+              "name": "MainUp",
+              "type": "section",
+              "size": "94",
+              "direction": "row",
+              "children": [
+                {
+                  "name": "MainLeftUp",
+                  "type": "section",
+                  "size": "1",
+                  "direction": "column",
+                  "children": [
+                    {
+                      "name": "project",
+                      "type": "section",
+                      "size": "1",
+                      "direction": "row",
+                      "children": [
+                        {
+                          "name": "websectionConfig",
+                          "dispName": "웹 섹션 설정",
+                          "type": "section",
+                          "size": "5",
+                          "direction": "column",
+                          "children": [
+                            {
+                              "name": "websectionFinder",
+                              "dispName": "웹 섹션",
+                              "type": "section",
+                              "size": "3",
+                              "applet": "/admin/NexNodeTree",
+                              "padding": "8px",
+                              "contents": ["/admin/websection"]
+                            },
+                            {
+                              "name": "websectionEditor",
+                              "dispName": "웹 섹션 편집",
+                              "type": "section",
+                              "size": "7",
+                              "applet": "/admin/NexJsonEditor",
+                              "padding": "8px",
+                              "contents": ["/admin/SelectedWebSection"]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "theme": [
+    {
+      "name": "default",
+      "dispName": "Default Theme",
+      "description": "Default Theme",
+      "type": "theme",
+      "icon": "theme",
+      "color": "#33A1FF",
+      "theme": {
+        "default": {
+          "colors": ["#393c45", "#03dac6"],
+          "bgColors": ["#eeeeee", "#e8edf7"],
+          "bdColors": ["#cccccc", "#ccccee"],
+          "activeColors": ["#393c45", "#045bac"],
+          "activeBgColors": ["#e8edf7", "#ffffff"],
+          "hoverColors": ["#393c45", "#045bac"],
+          "hoverBgColors": ["#e8edf7", "#ffffff"],
+          "fontFamily": "Arial, sans-serif",
+          "gap": "1rem",
+          "padding": "0.2rem",
+          "fontSize": [
+            "0.5rem",
+            "0.6rem",
+            "0.7rem",
+            "0.8rem",
+            "0.9rem",
+            "1rem",
+            "1.25rem",
+            "1.5rem",
+            "1.75rem",
+            "2rem"
+          ]
+        },
+        "applet": {
+          "colors": ["#393c45", "#045bac"],
+          "bgColors": ["#e8edf7", "#ffffff"],
+          "bdColors": ["#cccccc", "#ccccee"],
+          "activeColors": ["#393c45", "#045bac"],
+          "activeBgColors": ["#e8edf7", "#ffffff"],
+          "hoverColors": ["#393c45", "#045bac"],
+          "hoverBgColors": ["#e8edf7", "#ffffff"],
+          "fontFamily": "Arial, sans-serif",
+          "borderRadius": "0.5rem",
+          "padding": "0rem",
+          "gap": "0rem",
+          "fontSize": [
+            "0.5rem",
+            "0.6rem",
+            "0.7rem",
+            "0.8rem",
+            "0.9rem",
+            "1rem",
+            "1.25rem",
+            "1.5rem",
+            "1.75rem",
+            "2rem"
+          ]
+        },
+        "button": {
+          "colors": ["#393c45", "#045bac"],
+          "bgColors": ["#e8edf7", "#ffffff"],
+          "bdColors": ["#cccccc", "#ccccee"],
+          "activeColors": ["#393c45", "#045bac"],
+          "activeBgColors": ["#e8edf7", "#ffffff"],
+          "hoverColors": ["#393c45", "#045bac"],
+          "hoverBgColors": ["#e8edf7", "#ffffff"],
+          "fontFamily": "Arial, sans-serif",
+          "fontSize": ["1.5rem", "1.25rem", "1rem", "0.875rem"],
+          "borderRadius": "4px"
+        },
+        "input": {
+          "colors": ["#393c45", "#045bac"],
+          "bgColors": ["#e8edf7", "#ffffff"],
+          "bdColors": ["#cccccc", "#ccccee"],
+          "activeColors": ["#393c45", "#045bac"],
+          "activeBgColors": ["#e8edf7", "#ffffff"],
+          "hoverColors": ["#393c45", "#045bac"],
+          "hoverBgColors": ["#e8edf7", "#ffffff"],
+          "fontFamily": "Arial, sans-serif",
+          "fontSize": ["1.25rem", "1rem", "0.875rem", "0.8rem"],
+          "borderRadius": "4px"
+        },
+        "menu": {
+          "colors": ["#393c45", "#045bac"],
+          "bgColors": ["#e8edf7", "#ffffff"],
+          "bdColors": ["#cccccc", "#ccccee"],
+          "activeColors": ["#045bac", "#045bac"],
+          "activeBgColors": ["#FFFFFF", "#ffffff"],
+          "hoverColors": ["#393c45", "#045bac"],
+          "hoverBgColors": ["#e8edf7", "#ffffff"],
+          "fontFamily": "Arial, sans-serif",
+          "fontSize": [
+            "0.5rem",
+            "0.6rem",
+            "0.7rem",
+            "0.8rem",
+            "0.9rem",
+            "1rem",
+            "1.25rem",
+            "1.5rem",
+            "1.75rem",
+            "2rem"
+          ],
+          "borderRadius": "1px",
+          "padding": "1px"
+        },
+        "table": {
+          "colors": ["#393c45", "#045bac"],
+          "bgColors": ["#e8edf7", "#ffffff"],
+          "bdColors": ["#cccccc", "#ccccee"],
+          "activeColors": ["#393c45", "#045bac"],
+          "activeBgColors": ["#e8edf7", "#ffffff"],
+          "hoverColors": ["#393c45", "#045bac"],
+          "hoverBgColors": ["#e8edf7", "#ffffff"],
+          "fontFamily": "Arial, sans-serif",
+          "fontSize": [
+            "0.5rem",
+            "0.6rem",
+            "0.7rem",
+            "0.8rem",
+            "0.9rem",
+            "1rem",
+            "1.25rem",
+            "1.5rem",
+            "1.75rem",
+            "2rem"
+          ]
+        },
+        "chart": {
+          "colors": ["#393c45", "#045bac"],
+          "bgColors": ["#e8edf7", "#ffffff"],
+          "bdColors": ["#cccccc", "#ccccee"],
+          "activeColors": ["#393c45", "#045bac"],
+          "activeBgColors": ["#e8edf7", "#ffffff"],
+          "hoverColors": ["#393c45", "#045bac"],
+          "hoverBgColors": ["#e8edf7", "#ffffff"],
+          "fontFamily": "Arial, sans-serif",
+          "fontSize": [
+            "0.5rem",
+            "0.6rem",
+            "0.7rem",
+            "0.8rem",
+            "0.9rem",
+            "1rem",
+            "1.25rem",
+            "1.5rem",
+            "1.75rem",
+            "2rem"
+          ]
+        }
+      }
+    }
+  ],
+  "user": [
+    {
+      "name": "default",
+      "dispName": "Default User Theme",
+      "description": "Default User Theme",
+      "type": "user",
+      "icon": "user",
+      "color": "#33A1FF",
+      "user": {
+        "id": "default",
+        "fontLevel": 6,
+        "theme": "default"
+      }
+    }
+  ]
+}

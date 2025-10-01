@@ -104,7 +104,9 @@ class DynamicController:
         try:
             handler_result = await handler(handler_args, kwargs)
             self._logger.log_info(f"HttpServer : route({full_path}) : rsp={handler_result.status}")
-            return _http_response(handler_result)
+            res = _http_response(handler_result)
+            #print(f"response: {res}")
+            return res
         except Exception as e:
             self._logger.log_error(f"HttpServer : route({full_path}) : fail : exception : {e}")
             return PlainTextResponse(status_code=500, content=f"exception : {e}")
