@@ -36,7 +36,7 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
   const [features, setFeatures] = useState<any[]>([]);
   useEffect(() => {
     const cts = contents?.[storeIndex];
-    if (!cts) {
+    if (!cts || !cts.store) {
       setFeatures([]);
       setData(null);
       return;
@@ -46,6 +46,7 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
       ? cts.indexes?.map((i: number) => cts.data[i]) || []
       : cts.data || [];
 
+    //console.log("NexJsonEditor: data=", JSON.stringify(cts, null, 2));
     setFeatures(cts.format.features || []);
     setData(tdata.length > 0 ? tdata[0] : null);
   }, [contents]);

@@ -26,6 +26,7 @@ const NexApp: React.FC<NexAppProps> = observer((props) => {
       setSection(null);
       return;
     }
+    console.log("NexApp configStore:", configStore);
     setSection(configStore?.config.websections[0]);
   }, [configStore, configStore.isReady]);
   //const section = configStore?.config.websections[0];

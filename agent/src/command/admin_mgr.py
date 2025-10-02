@@ -1,7 +1,7 @@
 import glob, json, re
 from typing import Dict, List, Tuple
 
-from admin.admin_config import ADMIN_CONFIG_DIR, load_config
+from admin.admin_config import ADMIN_CONFIG_DIR, load_all_config
 import const_def
 from system_info import SystemInfoMgr
 from element.element_mgr import ElementMgr
@@ -22,8 +22,7 @@ class AdminMgr(SingletonInstance):
         try:
             # execute processor
             #handler_result, output_list = await self._processor.process(exp, body, arg_list, kwargs)
-            print(f'AdminMgr::_add({handler_args, kwargs})')
-            print("#######")
+            #print(f'AdminMgr::_add({handler_args, kwargs})')
             return HandlerResult(status=200, body='success')
         except Exception as e:
             Logger().log_error(f'AdminMgr::_add({handler_args, kwargs}) : {e}')
@@ -34,7 +33,8 @@ class AdminMgr(SingletonInstance):
             # execute processor
             #handler_result, output_list = await self._processor.process(exp, body, arg_list, kwargs)
             #print(f'AdminMgr::_get({handler_args, kwargs})')
-            res = load_config(ADMIN_CONFIG_DIR)
+            #print(f"# Root-Path : {ADMIN_CONFIG_DIR}")
+            res = load_all_config(ADMIN_CONFIG_DIR)
             return HandlerResult(status=200, response=res, body=json.dumps(res, indent=2, ensure_ascii=False))
         except Exception as e:
             Logger().log_error(f'AdminMgr::_get({handler_args, kwargs}) : {e}')

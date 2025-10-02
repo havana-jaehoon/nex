@@ -1,0 +1,12 @@
+{
+  "name": "TrainPerLine",
+  "type": "contents",
+  "element": "/cbm/config/TrainPerLine",
+  "condition": [],
+  "selection": [
+    {
+      "key": "train",
+      "feature": "train"
+    }
+  ]
+}

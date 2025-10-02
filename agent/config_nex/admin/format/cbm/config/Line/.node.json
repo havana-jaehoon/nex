@@ -1,0 +1,55 @@
+{
+  "name": "Line",
+  "dispName": "호선",
+  "description": "호선 데이터 포맷",
+  "type": "format",
+  "features": [
+    {
+      "name": "name",
+      "dispName": "호선명",
+      "icon": null,
+      "color": null,
+      "type": "feature",
+      "isKey": true,
+      "featureType": "literals",
+      "literals": [
+        {
+          "value": "경부선",
+          "description": "경부선",
+          "icon": "",
+          "color": "#003da5"
+        },
+        {
+          "value": "호남선",
+          "description": "호남선",
+          "icon": "",
+          "color": "#d50032"
+        },
+        {
+          "value": "전라선",
+          "description": "전라선",
+          "icon": "",
+          "color": "#73c42d"
+        },
+        {
+          "value": "동해선",
+          "description": "동해선",
+          "icon": "",
+          "color": "#d96b80"
+        },
+        {
+          "value": " 태백선",
+          "description": "태백선",
+          "icon": "",
+          "color": "#7ba05b"
+        },
+        {
+          "value": "미배치",
+          "description": "미배치",
+          "icon": "",
+          "color": "#adb81d"
+        }
+      ]
+    }
+  ]
+}

@@ -102,8 +102,10 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
       const storeMap: Record<string, NexDataStore> = {};
       Object.entries(elements).forEach(([path, node]) => {
         //console.log("NexStoreProvider element:", path);
-        //  console.log("NexStoreProvider element:",JSON.stringify(node, null, 2)););
-        storeMap[path] = new NexDataStore("", "", path);
+        const store = new NexDataStore("", "", path);
+        //console.log("NexStoreProvider element:", JSON.stringify(node, null, 2));
+        console.log("NexStoreProvider path:", path);
+        storeMap[path] = store;
       });
       return storeMap;
     }, [elements]);

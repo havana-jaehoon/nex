@@ -1,0 +1,11 @@
+{
+  "name": "SystemEventInfo",
+  "dispName": "시스템 이벤트 정보",
+  "type": "section",
+  "size": "1",
+  "applet": "/table/NexTable",
+  "padding": "8px",
+  "contents": [
+    "/cbm/event/SystemEventInfo"
+  ]
+}

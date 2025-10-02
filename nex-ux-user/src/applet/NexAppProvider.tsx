@@ -1,15 +1,9 @@
 import { observer } from "mobx-react-lite";
 
 import { NexDiv } from "../component/base/NexBaseComponents";
-import React, { useContext, useMemo, useState } from "react";
-import {
-  NexStoreContext,
-  NexStoreContextValue,
-} from "provider/NexStoreProvider";
-import { data } from "react-router-dom";
+import React, { useMemo, useState } from "react";
+import { NexStoreContextValue } from "provider/NexStoreProvider";
 import NexDataStore from "./NexDataStore";
-import { features } from "process";
-import path from "path";
 
 export interface NexAppProviderProps {
   section: any;
@@ -23,7 +17,7 @@ export interface NexContents {
   selectedIndex: number;
   indexes: number[] | null;
   format: any;
-};
+}
 
 const NexAppProvider: React.FC<NexAppProviderProps> = observer(
   ({ section, context }) => {
@@ -50,13 +44,6 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     const padding = section.padding || "8px";
     const [modifiedCount, setModifiedCount] = useState<number>(0);
 
-    const contentsNodeList = contentsPaths?.map((path: any) => {
-      const contents = contentsMap[path];
-      //console.log("path:", path);
-      //console.log("contents:", JSON.stringify(contents, null, 2));
-      return contents;
-    });
-
     if (appletPath !== "" && !app) {
       console.log(
         `NexAppProvider => section=${JSON.stringify(section)}, appletPath=${appletPath}`
@@ -64,7 +51,24 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
       return <NexDiv width="100%" height="100%" padding={padding}></NexDiv>;
     }
 
-    const selectorDeps = JSON.stringify(selector.map);
+    const contentsNodeList = useMemo(() => {
+      return (
+        contentsPaths
+          ?.map((path: string) => {
+            const content = contentsMap[path];
+            // console.log("contents:", JSON.stringify(content, null, 2));
+            return content;
+          })
+          .filter((c: any) => c != null) || []
+      );
+    }, [contentsPaths, contentsMap]);
+
+    /*
+    const selectorDeps = useMemo(() => {
+      console.log("NexAppProvider selectorDeps:", JSON.stringify(selector.map));
+      return JSON.stringify(selector.map);
+    }, [selector.modifiedCount]);
+    */
 
     const contents: NexContents[] =
       useMemo(() => {
@@ -72,8 +76,16 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
           const store = storeMap[content.element];
           const conditions = content.conditions || [];
 
+          //console.log("NexAppProvider contents modified!", content.element);
+
           let indexes: number[] | null = null;
-          if (!store)
+          if (!store) {
+            console.log(
+              "NexAppProvider: content=",
+              JSON.stringify(content, null, 2),
+              storeMap
+            );
+
             return {
               info: content,
               store: store,
@@ -82,6 +94,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
               indexes: null,
               format: null,
             };
+          }
 
           if (conditions.length > 0) {
             const conds = conditions.map((condition: any) => ({
@@ -101,7 +114,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
             format: store.format,
           };
         });
-      }, [selectorDeps, modifiedCount]) || [];
+      }, [selector.modifiedCount, modifiedCount]) || [];
 
     const handleSelect = (contentsIndex: number, row: any) => {
       if (row && contents.length > contentsIndex) {

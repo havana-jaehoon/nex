@@ -34,13 +34,13 @@ const buildAdminConfig = (datas: any[]) => {
     const nodeName = parts.pop() || "";
     const parentPath = "/" + parts.join("/");
 
-    console.log(
-      `Processing item: index=${index}, path='${path}', nodeName='${nodeName}', parentPath='${parentPath}'`
-    );
+    //console.log(
+    //  `Processing item: index=${index}, path='${path}', nodeName='${nodeName}', parentPath='${parentPath}'`
+    //);
     const newNode = { ...node };
 
     const parentNode = pathMap[parentPath];
-    console.log("Parent Node:", JSON.stringify(parentNode, null, 2));
+    //console.log("Parent Node:", JSON.stringify(parentNode, null, 2));
     if (!parentNode.children) {
       parentNode.children = [];
     }
@@ -48,7 +48,7 @@ const buildAdminConfig = (datas: any[]) => {
     pathMap[path] = newNode;
   });
 
-  console.log("buildAdminConfig root:", JSON.stringify(root, null, 2));
+  //console.log("buildAdminConfig root:", JSON.stringify(root, null, 2));
   return root.children || [];
 };
 
@@ -111,7 +111,7 @@ class NexConfigStore {
 
     //this.fetchInternal();
 
-    this.fetch2();
+    this.fetch();
     //this.uploadConfig();
   }
 
@@ -173,6 +173,7 @@ class NexConfigStore {
         this.config.websections = buildAdminConfig(cfgMap["section"]);
         this.config.webThemes = buildAdminConfig(cfgMap["theme"]);
         this.config.webThemeUsers = buildAdminConfig(cfgMap["user"]);
+        this.isReady = true;
       });
     } catch (error) {
       console.error("Failed to fetch projects:", error);
@@ -220,9 +221,8 @@ class NexConfigStore {
         this.config.websections = toObs(cfgMap["section"]);
         this.config.webThemes = toObs(cfgMap["theme"]);
         this.config.webThemeUsers = toObs(cfgMap["user"]);
+        this.isReady = true;
       });
-
-      this.isReady = true;
     } catch (error) {
       console.error("Failed to fetch projects:", error);
     }

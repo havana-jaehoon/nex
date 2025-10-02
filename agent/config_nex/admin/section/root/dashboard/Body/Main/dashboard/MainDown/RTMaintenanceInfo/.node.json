@@ -1,0 +1,11 @@
+{
+  "name": "RTMaintenanceInfo",
+  "dispName": "실시간 유지보수 정보",
+  "type": "section",
+  "size": "1",
+  "applet": "/table/NexTable",
+  "padding": "8px",
+  "contents": [
+    "/cbm/event/RTMaintenanceInfo"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "NexCount",
+  "dispName": "Nex Count",
+  "description": "Nex Count Applet",
+  "type": "applet",
+  "icon": "",
+  "color": "#A133FF",
+  "applet": "/status/NexCount"
+}

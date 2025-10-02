@@ -1,0 +1,17 @@
+{
+  "name": "TrainInfoPerLine",
+  "dispName": "노선별 편성 정보",
+  "type": "section",
+  "size": "1",
+  "direction": "column",
+  "route": "train-info/line",
+  "applet": "/cbm/train-info-line",
+  "padding": "8px",
+  "contents": [
+    "/cbm/config/Line",
+    "/cbm/config/TrainPerLine",
+    "/cbm/config/CarPerTrain",
+    "/cbm/status/LossPerLine",
+    "/cbm/history/DetailLossLevelHistory"
+  ]
+}

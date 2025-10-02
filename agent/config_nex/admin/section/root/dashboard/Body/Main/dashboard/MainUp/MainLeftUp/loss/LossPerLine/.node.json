@@ -1,0 +1,11 @@
+{
+  "name": "LossPerLine",
+  "dispName": "노선별 열화 현황",
+  "type": "section",
+  "size": "4",
+  "padding": "8px",
+  "applet": "/status/NexStatus",
+  "contents": [
+    "/cbm/status/LossPerLine"
+  ]
+}

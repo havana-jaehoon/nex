@@ -1,10 +1,12 @@
 import { action, makeObservable, observable } from "mobx";
 
 export class NexSelector {
+  modifiedCount = 0;
   map: Record<string, any> = {};
   lastSelectedKey: string | null = null;
   constructor() {
     makeObservable(this, {
+      modifiedCount: observable,
       map: observable,
       get: action,
       set: action,
@@ -13,6 +15,9 @@ export class NexSelector {
     });
 
     this.get = this.get.bind(this);
+    this.set = this.set.bind(this);
+    this.remove = this.remove.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   get(key: string): any {
@@ -27,15 +32,18 @@ export class NexSelector {
       } else {
         this.map[key] = value;
       }
+      this.modifiedCount++;
       this.lastSelectedKey = key; // 마지막으로 선택된 키 업데이트
     }
   }
 
   remove(key: string): void {
     delete this.map[key];
+    this.modifiedCount++;
   }
   reset(): void {
     this.map = {};
+    this.modifiedCount = 0;
   }
 }
 

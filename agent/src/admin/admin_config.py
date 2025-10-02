@@ -11,7 +11,13 @@ import shutil
 ROOT_PROJECT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../config_admin'))
 FILE_NAME = '.node.json'
 
-ADMIN_CONFIG_DIR = os.path.join(ROOT_PROJECT, 'admin')
+PROJECT_DIR = os.getcwd()
+CONFIG_DIR_NAME = 'config_nex'
+#CONFIG_DIR_NAME = os.environ.get('CONFIG_DIR_NAME', 'config_admin')
+CONFIG_DIR = os.path.join(PROJECT_DIR, CONFIG_DIR_NAME)
+
+ADMIN_CONFIG_DIR = os.path.join(CONFIG_DIR, 'admin')
+
 NODE_FILE_NAME = '.node.json'
 INDEX_FILE_NAME = '.index'
 
@@ -77,56 +83,73 @@ def get_config(path, includeChildren=True):
         return {"node": None, "path": None, "status": "error", "message": "Failed to load configuration."}
     return {"node": node, "path": path, "status": "success", "message": "Configuration loaded successfully."}
 
+
+# path 는 상대경로 
+def load_admin_config(mod_name, path):
+    try: 
+        # read index file
+        mod_path = f"{ADMIN_CONFIG_DIR}/{mod_name}"
+        index_file_path = f"{mod_path}/{INDEX_FILE_NAME}"
+        if not os.path.exists(index_file_path):
+            print(f"Index file does not exist at {index_file_path}")
+            return False
+        with open(index_file_path, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f)
+            index_data = {rows[0]: {'path': rows[1], 'name': rows[2]} for rows in reader}
+        
+        #print(f"Loaded index data: {index_data}")
+        res_datas = []
+        for index, value in index_data.items():
+            node_path = f"{mod_path}/{value['path']}"
+            node_file_path = f"{node_path}/{NODE_FILE_NAME}"
+
+            if not os.path.exists(node_file_path):
+                print(f"Node file does not exist at {node_file_path}")
+                return None
+            
+            with open(node_file_path, 'r', encoding='utf-8') as f:
+                node_data = json.load(f)
+                #print(f"Loaded node data for {value['name']}: {node_data}")
+            
+            res_datas.append([index, value['path'], node_data])
+        
+        return res_datas
+    
+    except Exception as e:
+        print(f"Error loading {mod_name} module configuration: {e}")
+        return None
     
 
-def load_config(root_path):
+def load_all_admin_config():
     try:
-        if not os.path.exists(root_path):
-            print(f"Root path does not exist at {root_path}")
+        if not os.path.exists(ADMIN_CONFIG_DIR):
+            print(f"Root path does not exist at {ADMIN_CONFIG_DIR}")
             return False
-        
-        dirs = [f for f in os.listdir(root_path) if os.path.isdir(os.path.join(root_path, f))]
+
+        dirs = [f for f in os.listdir(ADMIN_CONFIG_DIR) if os.path.isdir(os.path.join(ADMIN_CONFIG_DIR, f))]
 
         result_datas = []
-        for dir_name in dirs:
+        for mod_name in dirs:
             # read index file
-            category_path = os.path.join(root_path, dir_name)
-            index_file_path = os.path.join(category_path, INDEX_FILE_NAME)
-            if not os.path.exists(index_file_path):
-                print(f"Index file does not exist at {index_file_path}")
-                return False
-            with open(index_file_path, 'r', encoding='utf-8') as f:
-                reader = csv.reader(f)
-                index_data = {rows[0]: {'path': rows[1], 'name': rows[2]} for rows in reader}
-            #print(f"Loaded index data: {index_data}")
-
-            # read node from path from index_data
-            sub_datas = []
-            for index, value in index_data.items():
-                node_path = os.path.join(category_path, value['path'])
-                node_file_path = os.path.join(node_path, NODE_FILE_NAME)
-                if not os.path.exists(node_file_path):
-                    print(f"Node file does not exist at {node_file_path}")
-                    return False
-                with open(node_file_path, 'r', encoding='utf-8') as f:
-                    node_data = json.load(f)
-                    #print(f"Loaded node data for {value['name']}: {node_data}")
-                sub_datas.append([index, value['path'], node_data])
-            result_datas.append({dir_name: sub_datas})
+            res = load_admin_config(mod_name, "")
+            result_datas.append({mod_name: res})
+ 
         return result_datas
             
     except Exception as e:
-        print(f"Error loading configuration: {e}")
+        print(f"Error loading all configuration: {e}")
         return False
 
 def make_node_config(root_path, path, nodes, indexing_file, index):
-    
+    print(f"make_node_config: root_path={root_path}, path={path}, index={index}")
     try:
         for node in nodes:
             node_name = node['name']
             print(f"Creating node: {node_name} at {path}")
             child_path = f'{path}/{node_name}'
-            child_fullpath = os.path.join(root_path, child_path)
+            print(f"# {child_path} -> {path}")
+            child_fullpath = f'{root_path}{child_path}'
+            print(f"# {root_path}-{child_path}-{child_fullpath}")
             nodeWithoutChildren = {k: v for k, v in node.items() if k != 'children'}
             if not os.path.exists(child_fullpath):
                 os.makedirs(child_fullpath, exist_ok=True)
@@ -146,6 +169,7 @@ def make_node_config(root_path, path, nodes, indexing_file, index):
 
 # 초기 설정 파일을 생성하는 함수
 def create_config(root_path, file_path):
+    print(f"Creating configuration in {root_path} using {file_path}")
     try:
         if not os.path.exists(file_path):
             print(f"project_root.json does not exist at {file_path}")
@@ -366,8 +390,7 @@ if __name__ == '__main__':
     #print("ROOT_PROJECT:", ROOT_PROJECT)
     #result = get_config("/", True)
 
-    create_config(os.path.join(ROOT_PROJECT, "admin"), os.path.join(ROOT_PROJECT, "project_root.json"))
-    cfg = load_config(os.path.join(ROOT_PROJECT, "admin"))
-
+    #create_config(os.path.join(ROOT_PROJECT, "admin"), os.path.join(ROOT_PROJECT, "project_root.json"))
+    #cfg = load_all_admin_config()
+    cfg = load_admin_config("applet", "")
     print("cfg:", json.dumps(cfg, ensure_ascii=False, indent=2))
-

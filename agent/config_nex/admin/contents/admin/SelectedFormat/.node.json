@@ -1,0 +1,13 @@
+{
+  "name": "SelectedFormat",
+  "type": "contents",
+  "element": "/admin/format",
+  "conditions": [
+    {
+      "key": "format-path",
+      "feature": "path",
+      "method": "pathmatch"
+    }
+  ],
+  "selections": []
+}

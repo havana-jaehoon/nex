@@ -1,0 +1,14 @@
+{
+  "name": "10min",
+  "type": "store",
+  "record": {
+    "storage": "hdfs",
+    "nature": "temporary",
+    "unit": "SEC",
+    "block": "MIN",
+    "expire": "10",
+    "expireUnit": "MIN",
+    "allowDuplication": "false",
+    "allowKeepValue": "false"
+  }
+}
