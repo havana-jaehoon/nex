@@ -1,7 +1,7 @@
 import { NexFolderNode, NexNodeType, NexStoreNode } from "type/NexNode";
 
 // 보관 정책 설정 데이터
-export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
+export const storeConfig: any[] = [
   {
     name: "memory",
     dispName: "메모리",
@@ -21,7 +21,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "status", // 마지막 상태 데이터
         type: NexNodeType.STORE,
@@ -35,7 +35,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "1min",
         type: NexNodeType.STORE,
@@ -50,7 +50,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "10min",
         type: NexNodeType.STORE,
@@ -64,7 +64,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "1hour",
         type: NexNodeType.STORE,
@@ -78,7 +78,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
     ],
   },
   {
@@ -100,7 +100,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "status", // 마지막 상태 데이터
         type: NexNodeType.STORE,
@@ -115,7 +115,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "1min",
         type: NexNodeType.STORE,
@@ -130,7 +130,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "10min",
         type: NexNodeType.STORE,
@@ -144,7 +144,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "1hour",
         type: NexNodeType.STORE,
@@ -158,7 +158,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "1day",
         type: NexNodeType.STORE,
@@ -173,7 +173,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "7day",
         type: NexNodeType.STORE,
@@ -187,7 +187,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "10day",
         type: NexNodeType.STORE,
@@ -201,7 +201,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "1month",
         type: NexNodeType.STORE,
@@ -215,7 +215,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "1year",
         type: NexNodeType.STORE,
@@ -229,7 +229,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "5year",
         type: NexNodeType.STORE,
@@ -243,7 +243,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "10year",
         type: NexNodeType.STORE,
@@ -257,7 +257,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "infinite",
         type: NexNodeType.STORE,
@@ -271,7 +271,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
     ],
   },
 
@@ -294,7 +294,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "status", // 마지막 상태 데이터
         type: NexNodeType.STORE,
@@ -308,7 +308,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "1min",
         type: NexNodeType.STORE,
@@ -322,7 +322,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "10min",
         type: NexNodeType.STORE,
@@ -336,7 +336,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "1hour",
         type: NexNodeType.STORE,
@@ -350,7 +350,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "1day",
         type: NexNodeType.STORE,
@@ -364,7 +364,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "7day",
         type: NexNodeType.STORE,
@@ -378,7 +378,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "10day",
         type: NexNodeType.STORE,
@@ -392,7 +392,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "1month",
         type: NexNodeType.STORE,
@@ -406,7 +406,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "1year",
         type: NexNodeType.STORE,
@@ -420,7 +420,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "5year",
         type: NexNodeType.STORE,
@@ -434,7 +434,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "10year",
         type: NexNodeType.STORE,
@@ -448,7 +448,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
       {
         name: "infinite",
         type: NexNodeType.STORE,
@@ -462,7 +462,7 @@ export const storeConfig: (NexFolderNode | NexStoreNode)[] = [
           allowDuplication: "false", // 중복 허용 여부
           allowKeepValue: "false", // 값 유지 여부
         },
-      } as NexStoreNode,
+      },
     ],
   },
 ];

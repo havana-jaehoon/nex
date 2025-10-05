@@ -21,6 +21,12 @@ ADMIN_CONFIG_DIR = os.path.join(CONFIG_DIR, 'admin')
 NODE_FILE_NAME = '.node.json'
 INDEX_FILE_NAME = '.index'
 
+ELEMENT_FILE_NAME = '.element.json'
+FORMAT_FILE_NAME = '.format.json'
+STORE_FILE_NAME = '.store.json'
+PROCESSOR_FILE_NAME = '.processor.json'
+
+
 def normalize_path(path):
     # Replace backslashes with forward slashes and normalize the path
     if path is None or path == '':
@@ -82,6 +88,59 @@ def get_config(path, includeChildren=True):
     if node == None:
         return {"node": None, "path": None, "status": "error", "message": "Failed to load configuration."}
     return {"node": node, "path": path, "status": "success", "message": "Configuration loaded successfully."}
+
+
+
+
+# path 는 상대경로 
+def get_data(path, data_type):
+    try: 
+        # read index file
+        #mod_path = f"{ADMIN_CONFIG_DIR}/{mod_name}"
+        index_file_path = f"{path}/{INDEX_FILE_NAME}"
+        if not os.path.exists(index_file_path):
+            print(f"Index file does not exist at {index_file_path}")
+            return False
+        with open(index_file_path, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f)
+            index_data = {rows[0]: {'path': rows[1], 'name': rows[2]} for rows in reader}
+        
+        format_file_path = f"{path}/{FORMAT_FILE_NAME}"
+
+        #print(f"Loaded index data: {index_data}")
+        res_datas = []
+
+        if(data_type == 'static') :
+            for index, value in index_data.items():
+                data_path = f"{path}/{value['path']}"
+                data_file_path = f"{path}/{NODE_FILE_NAME}"
+
+                if not os.path.exists(data_file_path):
+                    print(f"Node file does not exist at {data_file_path}")
+                    return None
+
+                with open(data_file_path, 'r', encoding='utf-8') as f:
+                    res_datas.append([index, value['path'], json.load(f)])
+                    #print(f"Loaded node data for {value['name']}: {node_data}")
+
+        elif(data_type == 'temporal') : # temporal data YYYY/MM/DD/HH/MM or YYYY/MM/DD/HH or YYYY/MM/DD  
+            for time, value in index_data.items(): 
+                data_path = f"{path}/{value['path']}"
+                data_file_path = f"{data_path}/{FORMAT_FILE_NAME}"
+
+                if not os.path.exists(data_file_path):
+                    print(f"Format file does not exist at {data_file_path}")
+                    return None
+
+                with open(data_file_path, 'r', encoding='utf-8') as f:
+                    res_datas.append([list(csv.reader(f))])
+
+        return res_datas
+    
+    except Exception as e:
+        print(f"Error loading data from path:{path}, error:{e}")
+        return None
+    
 
 
 # path 는 상대경로 

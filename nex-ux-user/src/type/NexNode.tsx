@@ -108,8 +108,53 @@ export interface NexFormatNode extends NexNode {
   features: NexFeatureNode[]; // Array of features associated with the format // feature or folder
 }
 
+export enum NexRecordStorage {
+  MEMORY = "memory",
+  DISK = "disk",
+  HDFS = "hdfs",
+}
+
+export enum NexRecordUnit {
+  NONE = "NONE",
+  SEC = "SEC",
+  MIN = "MIN",
+  HOUR = "HOUR",
+  DAY = "DAY",
+  MONTH = "MONTH",
+  YEAR = "YEAR",
+}
+
+export enum NexRecordBlock {
+  NONE = "NONE",
+  MIN = "MIN",
+  HOUR = "HOUR",
+  DAY = "DAY",
+  MONTH = "MONTH",
+  YEAR = "YEAR",
+}
+
+export enum NexRecordExpireUnit {
+  NONE = "NONE",
+  SEC = "SEC",
+  MIN = "MIN",
+  HOUR = "HOUR",
+  DAY = "DAY",
+  MONTH = "MONTH",
+  YEAR = "YEAR",
+}
+
 export interface NexStoreNode extends NexNode {
   // Additional properties specific to stores can be added here
+  record: {
+    storage: NexRecordStorage; // memory, disk, hdfs
+    nature: "static"; //  정적 데이터 : static,  시간단위데이터: temporary
+    unit: NexRecordUnit; // NONE, SEC, MIN, HOUR, DAY, MONTH, YEAR
+    block: NexRecordBlock; // NONE, SEC, MIN, HOUR, DAY, MONTH, YEAR
+    expire: "-1"; // (sec 단위)  0: 임시 저장, -1: 영구 저장,
+    expireUnit: NexRecordExpireUnit; // NONE, SEC, MIN, HOUR, DAY, MONTH, YEAR
+    allowDuplication: boolean; // 중복 허용 여부
+    allowKeepValue: boolean; // 값 유지 여부
+  };
 }
 
 export interface NexProcessorNode extends NexNode {
