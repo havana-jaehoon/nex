@@ -1,10 +1,10 @@
 import os
-import json
+import json, csv
 import pandas as pd
 
 from agent.src.system_info import SystemInfoMgr
 
-NODE_FILE_NAME = '.node.json'
+DATA_FILE_NAME = '.data'
 INDEX_FILE_NAME = '.index.csv'
 
 ELEMENT_FILE_NAME = '.element.json'
@@ -110,7 +110,53 @@ class DataFileIo:
 
     # 전체 데이터 가져오기
     def get(self, start_offset:str='0', end_offset:str='0'):
+        if self._record_info is not None:
+            # 1. get record info
+            records = []
+            if(self._dataType == 'static'):
+                if self._isTree:
+                    # tree structure
+                    for _, row in self._record_info.iterrows():
+                        index = row['index']
+                        path = row['path']
+                        data_file_path = f'{self._path}/{path}/{DATA_FILE_NAME}'
+                        data_row = self._load_json_file(data_file_path)
+                        if data_row is not None:
+                            records.append( [index, path, data_row] )
+                else:
+                    # flat structure
+                    for _, row in self._record_info.iterrows():
+                        index = row['index']
+                        data_file_path = f'{self._path}/{path}/{DATA_FILE_NAME}'
+                        data_rows = self._load_csv_file(data_file_path)
+                        if data_rows is not None:
+                            for data_row in data_rows:
+                                records.append([data_row])
 
+                                
+            elif(self._dataType == 'temporary'): # temporary
+                # self._recordBlock : NONE, HOUR, DAY, WEEK, MONTH, YEAR 에따라 디렉토리 구성 변경
+                if self._recordBlock == "NONE":
+                    # Error case
+                    print("Temporary data with 'NONE' block is not supported.")
+                    return None
+                
+                for _, row in self._record_info.iterrows():
+                    index = row['index']
+                    data_file_path = f'{self._path}/{index}.json'
+                    data_row = self._load_json_file(data_file_path)
+                    if data_row is not None:
+                        records.append( [index, data_row] )
+
+                if not os.path.exists(data_file_path):
+                    print(f"Format file does not exist at {data_file_path}")
+                    return None
+
+                with open(data_file_path, 'r', encoding='utf-8') as f:
+                    records.append([list(csv.reader(f))])
+                return []
+            
+            return records
         return []
     
     # 전체 데이터 쓰기 
@@ -126,3 +172,10 @@ class DataFileIo:
         return True
         
    
+if __name__ == '__main__':
+
+    dataio = DataFileIo("./config_nex", "/admin/format")
+    
+    data = dataio.get()
+
+    print("data:", json.dumps(data, ensure_ascii=False, indent=2))
