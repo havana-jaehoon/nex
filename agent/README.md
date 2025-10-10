@@ -37,3 +37,7 @@ pip freeze > requirements.txt
 # 2.2 실행
 
 python src/system_node.py
+
+# 2.3 test
+
+python .\src\command\config_reader.py

@@ -93,12 +93,39 @@ class ConfigReader:
     def getDatas(self, type:str):
         return self._configs[type]
 
-    def getElements(self):
+
+    def getSystem(self, system_name:str):
+        system_cfg = self._configs['system']
+        if not system_cfg:
+            return None
+        
+        for item in system_cfg:
+            if item[2].get('name') == system_name:
+                return item[2]
+        return None
+
+    def getElements(self, system_name:str)->list[dict]:
+
         element_list = []
-        elements = self._configs['element']
-        for item in elements:
+        system = self.getSystem(system_name)
+        if system is None:
+            return element_list
+
+        element_cfg = self._configs['element']
+        for item in element_cfg:
             if item[2].get('type') == 'element':
-                element_list.append({'path': item[1], 'node': item[2]})
+                path = item[1]  # path of the element
+                element = item[2] # node of the element
+
+                formatPath=element.get('format') # element format path
+                storePath=element.get('store') # element store path
+                processorPath=element.get('processor') # element processor path
+
+                format = self.getNode('format', formatPath) # element format node config(json object)
+                store = self.getNode('store', storePath) # element store node config(json object)
+                processor = self.getNode('processor', processorPath) # element processor node config(json object)
+
+                element_list.append({'path': path, 'system': system, 'element': element, 'format': format, 'store': store, 'processor': processor})
         return element_list
 
     # 특정 노드 데이터 가져오기
@@ -142,24 +169,23 @@ class ConfigReader:
 if __name__ == '__main__':
     cfg = ConfigReader("./config_nex/.element/admin")
 
-    systemNode = cfg.getNode('system', '/webserver')
-
-    elements = cfg.getElements()
+    # 시스템 이름이 'webserver' 인 element 목록 가져오기
+    element_list = cfg.getElements('webserver')
     count = 1
-    for element in elements:
-        print(f"{count} element: {json.dumps(element.get('path'), ensure_ascii=False, indent=2)}")
-        elementPath = element.get('path') # element path 
-        elementNode = element.get('node') # element node config(json object)
+    for item in element_list:
+        #print(f"{count} element: {json.dumps(item, ensure_ascii=False, indent=2)}")
+        path = item.get('path') # element path 
+        
+        system = item.get('system') # system node config(json object)
+        element = item.get('element') # element node config(json object)
+        format = item.get('format') # element format node config(json object)
+        store = item.get('store') # element store node config(json object)
+        processor = item.get('processor') # element processor node config(json object)
 
-        formatPath=elementNode.get('format') # element format path
-        storePath=elementNode.get('store') # element store path
-        processorPath=elementNode.get('processor') # element processor path
-
-        formatNode = cfg.getNode('format', formatPath) # element format node config(json object)
-        storeNode = cfg.getNode('store', storePath) # element store node config(json object)
-        processorNode = cfg.getNode('processor', processorPath) # element processor node config(json object)
-
-        dataio = DataFileIo("./config_nex/.element", elementPath, systemNode, elementNode, formatNode, storeNode, processorNode)
-        data = dataio.get()
-        #print("data:", json.dumps(data, ensure_ascii=False, indent=2))
+        dataio = DataFileIo("./config_nex/.element", path, system, element, format, store, processor)
+        #data = dataio.get()
+        #print(f"# {count} data:", json.dumps(data, ensure_ascii=False, indent=2))
+        dataio.upgrade()
         count += 1
+        if count > 15:
+            break

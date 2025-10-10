@@ -220,6 +220,8 @@ class DataFileIo:
         # 1. save data 
         # 1.1. write data file
 
+        print(f"DataFileIo({self._path})::put({len(datas)})")
+        print(f"{json.dumps(datas, ensure_ascii=False, indent=2)}")
         # 1.2. failed back if error
         
         
@@ -227,6 +229,15 @@ class DataFileIo:
         # update index file
         return True
         
+    def upgrade(self):
+        records = self.get()
+        if records is None:
+            return False
+        
+
+        self.put(records)
+
+        return True
    
 if __name__ == '__main__':
 
