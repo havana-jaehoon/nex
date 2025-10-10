@@ -1,0 +1,19 @@
+{
+  "name": "SelectedElement",
+  "dispName": "엘리먼트",
+  "type": "contents",
+  "element": "/admin/element",
+  "conditions": [
+    {
+      "key": "system-path",
+      "feature": "path",
+      "method": "pathmatch"
+    },
+    {
+      "key": "element-path",
+      "feature": "path",
+      "method": "pathmatch"
+    }
+  ],
+  "selections": []
+}

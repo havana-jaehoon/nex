@@ -1,0 +1,9 @@
+{
+  "name": "NexJsonEditor",
+  "dispName": "Nex Json Editor",
+  "description": "Nex Json Editor Applet",
+  "type": "applet",
+  "icon": "tree",
+  "color": "#FF33A1",
+  "applet": "/admin/NexJsonEditor"
+}

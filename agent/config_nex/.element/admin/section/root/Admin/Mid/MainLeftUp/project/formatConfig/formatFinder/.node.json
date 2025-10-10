@@ -1,0 +1,11 @@
+{
+  "name": "formatFinder",
+  "dispName": "데이터 유형",
+  "type": "section",
+  "size": "3",
+  "applet": "/admin/NexNodeTree",
+  "padding": "8px",
+  "contents": [
+    "/admin/format"
+  ]
+}

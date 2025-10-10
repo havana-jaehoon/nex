@@ -1,0 +1,70 @@
+{
+  "name": "LossHistoryPerLine",
+  "dispName": "호선별 손실 이력",
+  "type": "format",
+  "features": [
+    {
+      "name": "date",
+      "dispName": "날짜",
+      "icon": null,
+      "color": null,
+      "type": "feature",
+      "isKey": true,
+      "featureType": "DATE"
+    },
+    {
+      "name": "line1",
+      "dispName": "경부선",
+      "icon": null,
+      "color": "#0000FF",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "UINT16"
+    },
+    {
+      "name": "line2",
+      "dispName": "호남선",
+      "icon": null,
+      "color": "#FF0000",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "UINT16"
+    },
+    {
+      "name": "line3",
+      "dispName": "전라선",
+      "icon": null,
+      "color": "#FF00FF",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "UINT16"
+    },
+    {
+      "name": "line4",
+      "dispName": "동해선",
+      "icon": null,
+      "color": "#00FF00",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "UINT16"
+    },
+    {
+      "name": "line5",
+      "dispName": "태백선",
+      "icon": null,
+      "color": "#FFA500",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "UINT16"
+    },
+    {
+      "name": "line6",
+      "dispName": "미배치",
+      "icon": null,
+      "color": "#6A5ACD",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "UINT16"
+    }
+  ]
+}

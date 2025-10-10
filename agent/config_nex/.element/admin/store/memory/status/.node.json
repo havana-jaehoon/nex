@@ -1,0 +1,14 @@
+{
+  "name": "status",
+  "type": "store",
+  "record": {
+    "storage": "memory",
+    "nature": "temporary",
+    "unit": "SEC",
+    "block": "MIN",
+    "expire": "0",
+    "expireUnit": "NONE",
+    "allowDuplication": "false",
+    "allowKeepValue": "false"
+  }
+}

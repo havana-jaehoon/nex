@@ -1,0 +1,26 @@
+{
+  "name": "TrainPerLine",
+  "dispName": "노선별편성정보",
+  "description": "노선별편성정보 데이터 포맷",
+  "type": "format",
+  "features": [
+    {
+      "name": "line",
+      "dispName": "호선명",
+      "icon": null,
+      "color": null,
+      "type": "feature",
+      "isKey": true,
+      "featureType": "STRING"
+    },
+    {
+      "name": "train",
+      "dispName": "편성번호",
+      "icon": null,
+      "color": null,
+      "type": "feature",
+      "isKey": true,
+      "featureType": "STRING"
+    }
+  ]
+}

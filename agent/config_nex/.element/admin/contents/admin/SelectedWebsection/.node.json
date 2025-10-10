@@ -1,0 +1,14 @@
+{
+  "name": "SelectedWebsection",
+  "dispName": "웹 섹션",
+  "type": "contents",
+  "element": "/admin/websection",
+  "conditions": [
+    {
+      "key": "websection-path",
+      "feature": "path",
+      "method": "pathmatch"
+    }
+  ],
+  "selections": []
+}

@@ -1,0 +1,13 @@
+{
+  "name": "default",
+  "dispName": "Default User Theme",
+  "description": "Default User Theme",
+  "type": "user",
+  "icon": "user",
+  "color": "#33A1FF",
+  "user": {
+    "id": "default",
+    "fontLevel": 6,
+    "theme": "default"
+  }
+}

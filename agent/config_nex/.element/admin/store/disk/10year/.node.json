@@ -1,0 +1,14 @@
+{
+  "name": "10year",
+  "type": "store",
+  "record": {
+    "storage": "disk",
+    "nature": "temporary",
+    "unit": "SEC",
+    "block": "MIN",
+    "expire": "10",
+    "expireUnit": "YEAR",
+    "allowDuplication": "false",
+    "allowKeepValue": "false"
+  }
+}

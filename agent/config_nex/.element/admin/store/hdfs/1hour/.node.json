@@ -1,0 +1,14 @@
+{
+  "name": "1hour",
+  "type": "store",
+  "record": {
+    "storage": "hdfs",
+    "nature": "temporary",
+    "unit": "SEC",
+    "block": "MIN",
+    "expire": "1",
+    "expireUnit": "HOUR",
+    "allowDuplication": "false",
+    "allowKeepValue": "false"
+  }
+}

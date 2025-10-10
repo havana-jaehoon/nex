@@ -1,0 +1,26 @@
+{
+  "name": "menu",
+  "dispName": "메뉴",
+  "description": "메뉴 항목",
+  "type": "format",
+  "features": [
+    {
+      "name": "path",
+      "dispName": "Type",
+      "icon": null,
+      "color": null,
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "item",
+      "dispName": "Path",
+      "icon": null,
+      "color": null,
+      "type": "feature",
+      "isKey": true,
+      "featureType": "JSON"
+    }
+  ]
+}
