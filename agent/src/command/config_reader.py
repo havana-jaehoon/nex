@@ -182,10 +182,13 @@ if __name__ == '__main__':
         store = item.get('store') # element store node config(json object)
         processor = item.get('processor') # element processor node config(json object)
 
+        #print(f"# {path} element:", json.dumps(item, ensure_ascii=False, indent=2))
         dataio = DataFileIo("./config_nex/.element", path, system, element, format, store, processor)
         #data = dataio.get()
-        #print(f"# {count} data:", json.dumps(data, ensure_ascii=False, indent=2))
+        #dataio.put(dataset)
+        #print(f"# {path} data:", json.dumps(data, ensure_ascii=False, indent=2))
         dataio.upgrade()
         count += 1
-        if count > 15:
-            break
+        
+        #if count > 3:
+        #    break

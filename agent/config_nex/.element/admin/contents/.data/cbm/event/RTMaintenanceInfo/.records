@@ -1,0 +1,7 @@
+{
+  "name": "RTMaintenanceInfo",
+  "type": "contents",
+  "element": "/cbm/event/RTMaintenanceInfo",
+  "condition": [],
+  "selection": []
+}

@@ -1,0 +1,9 @@
+{
+  "name": "NexSampleList",
+  "dispName": "Nex Sample List",
+  "description": "Nex Sample List Applet",
+  "type": "applet",
+  "icon": "sample",
+  "color": "#33A1FF",
+  "applet": "/sample/NexSampleList"
+}

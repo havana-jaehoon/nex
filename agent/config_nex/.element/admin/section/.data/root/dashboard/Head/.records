@@ -1,0 +1,8 @@
+{
+  "name": "Head",
+  "dispName": "Head",
+  "description": "Head View",
+  "type": "section",
+  "size": "10",
+  "direction": "row"
+}

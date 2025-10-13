@@ -1,0 +1,11 @@
+{
+  "name": "menu",
+  "dispName": "메뉴섹션",
+  "type": "section",
+  "size": "1",
+  "padding": "8px",
+  "applet": "/common/menu",
+  "contents": [
+    "/common/menu"
+  ]
+}

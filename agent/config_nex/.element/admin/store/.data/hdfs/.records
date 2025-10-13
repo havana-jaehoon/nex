@@ -1,0 +1,6 @@
+{
+  "name": "hdfs",
+  "dispName": "공통",
+  "description": "공통 데이터 엘리먼트 폴더",
+  "type": "folder"
+}
