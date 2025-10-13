@@ -3,7 +3,7 @@
   "dispName": "데이터 엘리먼트",
   "description": "데이터 엘리먼트",
   "type": "element",
-  "format": "/admin/node",
+  "format": "/admin/element",
   "store": "/memory/static",
   "processor": "/common/transparent",
   "processingInterval": "10",

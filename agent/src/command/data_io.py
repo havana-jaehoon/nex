@@ -45,6 +45,9 @@ class DataFileIo:
 
         self._dataType = 'static' # static or temporary
         self._isTree = False # if True, tree structure
+        self.index_columns = []
+
+        self.columns = [] # data columns
 
         self._initConfig()
 
@@ -121,10 +124,6 @@ class DataFileIo:
     def update_config(self, type:str, cfg_data):
         return self._update_config(type, cfg_data)
         
-    def _reset_config(self):
-        for cfg_type in ELEMENT_CFG_LIST.values():
-            self._update_config(cfg_type, self._configs[cfg_type])
-
     def _initConfig(self):
         # 1. element 디렉토리가 없으면 새로 생성
         if not os.path.exists(f'{self._root_path}{self._path}'):
@@ -160,11 +159,23 @@ class DataFileIo:
 
             self._recordStorage = self._configs['store'].get("record", {}).get("storage", "DISK")
 
+        # 데이터 컬럼 로딩
+        format =  self._config['format']
+        if format is  None:
+            print(f"DataFileIo({self._path}) : format config is None!")
+        else:
+            features = format.get('features', [])
+            for feature in features:
+                column_name = feature.get('name')
+                if column_name is None:
+                    print(f"DataFileIo({self._path}) : format config feature name is None!")
+                else:
+                    self.columns.append(column_name)
+
         # 4. 데이터 index 파일 로딩(없으면 신규 생성)
-        self.index_columns = []
         if self._dataType == 'static' and self._isTree:
             self._blockSize = 1
-            self.index_columns = ['index', 'path']
+            self.index_columns = ['index', 'path'] 
         elif self._dataType == 'static' and not self._isTree:
             self._blockSize = DATA_BLOCK_SIZE
             self.index_columns = ['index', 'path']
@@ -246,6 +257,8 @@ class DataFileIo:
                 index = data[0]
                 path = data[1]
                 object = data[2] # json object for admin config
+
+                #element has  index, path, system, object
 
                 file_path = f'{path}/{DATA_FILE_NAME}'
                 file_full_path = f'{root_path}/{DATA_DIR_NAME}/{file_path}'
@@ -345,7 +358,6 @@ class DataFileIo:
         #print(f"DataFileIo({self._path})::set() - index_datas: {[self.index_columns]+index_datas}")
         file_path = f'{root_path}/{INDEX_FILE_NAME}'
         self._write_csv_file(file_path, [self.index_columns]+index_datas)
-        os.remove(f'{file_path}2')
 
         return True
         

@@ -36,7 +36,13 @@ pip freeze > requirements.txt
 
 # 2.2 실행
 
-python src/system_node.py
+# back-end
+
+python src/system_node.py --config-dir=config_nex
+
+# web
+
+http://127.0.0.1:9070/admin-api/get?system=*&element=/admin/element
 
 # 2.3 test
 

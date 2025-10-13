@@ -103,7 +103,10 @@ class ConfigReader:
             if item[2].get('name') == system_name:
                 return item[2]
         return None
-
+    
+    def getSystems(self)->list[dict]:
+        return self._configs['system']
+    
     def getElements(self, system_name:str)->list[dict]:
 
         element_list = []

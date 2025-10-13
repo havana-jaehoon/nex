@@ -1,7 +1,0 @@
-{
-  "name": "storeConfig",
-  "dispName": "저장 정책",
-  "type": "section",
-  "size": "5",
-  "direction": "column"
-}

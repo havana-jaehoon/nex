@@ -1,9 +1,0 @@
-{
-  "name": "NexStatus",
-  "dispName": "Nex Status",
-  "description": "Nex Status Applet",
-  "type": "applet",
-  "icon": "status",
-  "color": "#FF33A1",
-  "applet": "/status/NexStatus"
-}

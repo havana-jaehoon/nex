@@ -1,7 +1,0 @@
-{
-  "name": "LossPerDevice",
-  "type": "contents",
-  "element": "/cbm/status/LossPerDevice",
-  "condition": [],
-  "selection": []
-}

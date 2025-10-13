@@ -1,7 +1,0 @@
-{
-  "name": "MaintenancePerLineHistory",
-  "type": "contents",
-  "element": "/cbm/history/MaintenanceHistoryPerLine",
-  "condition": [],
-  "selection": []
-}

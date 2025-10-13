@@ -1,7 +1,0 @@
-{
-  "name": "dashboard",
-  "type": "section",
-  "size": "1",
-  "direction": "column",
-  "route": "dashboard"
-}

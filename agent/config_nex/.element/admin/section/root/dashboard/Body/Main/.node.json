@@ -1,8 +1,0 @@
-{
-  "name": "Main",
-  "type": "section",
-  "size": "24",
-  "direction": "column",
-  "route": "/*",
-  "isRoutes": true
-}
