@@ -47,8 +47,6 @@ class DataFileIo:
         self._isTree = False # if True, tree structure
         self.index_columns = []
 
-        self.columns = [] # data columns
-
         self._initConfig()
 
     def __str__(self):
@@ -159,18 +157,7 @@ class DataFileIo:
 
             self._recordStorage = self._configs['store'].get("record", {}).get("storage", "DISK")
 
-        # 데이터 컬럼 로딩
-        format =  self._config['format']
-        if format is  None:
-            print(f"DataFileIo({self._path}) : format config is None!")
-        else:
-            features = format.get('features', [])
-            for feature in features:
-                column_name = feature.get('name')
-                if column_name is None:
-                    print(f"DataFileIo({self._path}) : format config feature name is None!")
-                else:
-                    self.columns.append(column_name)
+
 
         # 4. 데이터 index 파일 로딩(없으면 신규 생성)
         if self._dataType == 'static' and self._isTree:
@@ -213,7 +200,11 @@ class DataFileIo:
                         print(f"Loading data from {data_file_path}")
                         data_row = self._read_json_file(data_file_path)
                         if data_row is not None:
-                            records.append( [index, dir_path, data_row] )
+
+                            if(data_row[0] != index or data_row[1] != dir_path):
+                                print(f"DataFileIo({self._path}) : record mismatch, index={index}/{data_row[0]}, path={dir_path}/{data_row[1]}")
+                                continue
+                            records.append( data_row )
                 else:
                     # flat structure
                     for _, row in self._record_info.iterrows():
@@ -241,6 +232,12 @@ class DataFileIo:
             return records
         return []
     
+    def put(self, data):
+        return None
+    
+    def update(self, data):
+        return None
+    
     # 전체 데이터 쓰기 
     def set(self, datas):
         # 1. save data 
@@ -263,7 +260,7 @@ class DataFileIo:
                 file_path = f'{path}/{DATA_FILE_NAME}'
                 file_full_path = f'{root_path}/{DATA_DIR_NAME}/{file_path}'
 
-                self._write_json_file(file_full_path, object)
+                self._write_json_file(file_full_path, [index, path, "", "", object])
                 #index_columns.append(['index', 'path'])
                 index_datas.append([index, file_path])
 

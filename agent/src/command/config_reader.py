@@ -1,4 +1,5 @@
 import json
+import sys
 import pandas as pd
 
 from command.data_io import DataFileIo
@@ -24,93 +25,207 @@ class ConfigReader:
         self._configs = {v: None for v in CONFIG_LIST.values()}
         self._configsTree = {v: None for v in CONFIG_LIST.values()}
 
+        self._configMap = {v: None for v in CONFIG_LIST.values()}
+        self._configTree = {v: None for v in CONFIG_LIST.values()}
 
-        self._load_config()
+        self._load_config(path)
 
     def __str__(self):
         return f'ConfigManager({self._path})'
-    
-    def _make_tree(self, data):
+
+    def _make_config_map(self, datas):
+        config_map = {}
+
+        for data in datas:
+            index = data[0]
+            path = data[1]
+            project_name = data[2]
+            system_name = data[3]
+            node = data[4]
+
+            print(f"# index={index}, path={path}, project={project_name}, system={system_name}")
+
+            if project_name is None or project_name == '':
+                project_name = '*'
+                #all_projects.append(data)
+
+            if system_name is None or system_name == '':
+                system_name = '*'
+                #all_systems.append(data)
+                
+            if project_name not in config_map:
+                config_map[project_name] = {}
+            if system_name not in config_map[project_name]:
+                config_map[project_name][system_name] = {}
+            config_map[project_name][system_name][path] = [index, path, project_name, system_name, node]
+        return config_map
+   
+    def _make_tree(self, config_map):
         nodes = {}
         tree = []
 
-        # Sort by path length to ensure parents are processed before children.
-        sorted_data = sorted(data, key=lambda x: len(x[1].split('/')))
+        project_map = {  }
 
-        for item in sorted_data:
-            path = item[1]
-            node_data = item[2]
+        projects = list(config_map.keys())
+        for project in projects:
+            systems = list(config_map[project].keys())
+            project_map[project] = {}
+            #system_map = { }
+            for system in systems:
+                project_map[project][system] = {}
+                system_map = project_map[project][system]
 
-            # Initialize children list for the current node
-            if 'children' not in node_data:
-                node_data['children'] = []
+                datas = [config_map[project][system][path] for path in config_map[project][system]]
+
+                #print(f"Processing item: {datas}")
+
+                # Sort by path length to ensure parents are processed before children.
+                sorted_data = sorted(datas, key=lambda x: len(x[1].split('/')))
+
+                for item in sorted_data:
+                    #print(f"Processing item: {item}")
+                    index = item[0]
+                    path = item[1]
+                    project_name = item[2]
+                    system_name = item[3]
+                    node_data = item[4]
+
+                    # Initialize children list for the current node
+                    if 'children' not in node_data:
+                        node_data['children'] = []
+                    
+                    nodes[path] = node_data
+
+                    # Find parent and add current node to parent's children
+                    parent_path = '/'.join(path.strip('/').split('/')[:-1])
+                    if parent_path:
+                        parent_path = '/' + parent_path
+                    
+                    parent_node = nodes.get(parent_path)
+
+                    if parent_node:
+                        if 'children' not in parent_node:
+                            parent_node['children'] = []
+                        parent_node['children'].append(node_data)
+                    else:
+                        # If no parent found, it's a root node
+                        tree.append(node_data)
+                
+                # Clean up empty children lists
+                def cleanup_children(node):
+                    if 'children' in node:
+                        if not node['children']:
+                            del node['children']
+                        else:
+                            for child in node['children']:
+                                cleanup_children(child)
+
+                for root_node in tree:
+                    cleanup_children(root_node)
             
-            nodes[path] = node_data
+                project_map[project][system] = tree
+                #return tree
 
-            # Find parent and add current node to parent's children
-            parent_path = '/'.join(path.strip('/').split('/')[:-1])
-            if parent_path:
-                parent_path = '/' + parent_path
-            
-            parent_node = nodes.get(parent_path)
+        return project_map
 
-            if parent_node:
-                if 'children' not in parent_node:
-                    parent_node['children'] = []
-                parent_node['children'].append(node_data)
-            else:
-                # If no parent found, it's a root node
-                tree.append(node_data)
+
+    def _make_elements(self, config_map):
+        elements = {}
+
+
+        elementMap = config_map['element']
         
-        # Clean up empty children lists
-        def cleanup_children(node):
-            if 'children' in node:
-                if not node['children']:
-                    del node['children']
-                else:
-                    for child in node['children']:
-                        cleanup_children(child)
+        systemMap = config_map['system']
+        formatMap = config_map['format']
+        storeMap = config_map['store']
+        processorMap = config_map['processor']
 
-        for root_node in tree:
-            cleanup_children(root_node)
-            
-        return tree
-    
+        projects = list(elementMap.keys())
+        for project in projects:
+            systems = list(elementMap[project].keys())
+            elements[project] = {}
+            #system_map = { }
+            for system in systems:
+                if(system == '*'):
+                    continue
 
-    def _load_config(self):
+                print(f"Making elements for project={project}, system={system}")
+                elements[project][system] = []
+
+                for path, item in elementMap[project][system].items():
+                    if(path != item[1]) :  # path of the element
+                        continue
+                    # index = item[0] # index of the element
+                    # path = item[1] # path of the element
+                    # project = item[2] # project of the element
+                    # system = item[3] # system of the element
+                    # node = item[4] # node of the element
+                    element = item[4] # node of the element
+
+                    if element.get('type') != 'element':
+                        continue
+
+                    formatPath=element.get('format') # element format path
+                    storePath=element.get('store') # element store path
+                    processorPath=element.get('processor') # element processor path
+
+                    formatNode = formatMap[project]['*'].get(formatPath) if formatPath else None
+                    storeNode = storeMap[project]['*'].get(storePath) if storePath else None
+                    processorNode = processorMap[project]['*'].get(processorPath) if processorPath else None
+                    systemNode = systemMap[project]['*'].get(f'/{system}') if system else None
+
+                    if systemNode is None:
+                        print(f"System node not found for project={project}, system={system}, path=/{system}")
+                        continue
+                    elements[project][system].append({'path':path, 'system':systemNode, 'format':formatNode, 'store':storeNode, 'processor':processorNode })
+
+        print(f"Made elements: {json.dumps(elements, ensure_ascii=False, indent=2)}")
+        return elements
+
+
+
+    def _load_config(self, path):
         for key, value in CONFIG_LIST.items():
-            cfg = DataFileIo(self._path, f'/{value}')
+            cfg = DataFileIo(path, f'/{value}')
             config_data = cfg.get()
-            self._configs[value] = config_data
-            self._configsTree[value] = self._make_tree(config_data)
+            #print(f"Loaded config for {value}: {json.dumps(config_data, ensure_ascii=False, indent=2)}")
+            #self._configs[value] = config_data
+
+            print(f"Loading config for {value}: {json.dumps(config_data, ensure_ascii=False, indent=2)}")
+            self._configMap[value] = self._make_config_map(config_data)
+            self._configTree[value] = self._make_tree(self._configMap[value])
+        
+        self._elements = self._make_elements(self._configMap)
+            #self._configsTree[value] = self._make_tree(self._configMap)
             #print(f"Loaded config for {value}: {json.dumps(self._configsTree[value], ensure_ascii=False, indent=2)}")
 
 
     # 전체 데이터 가져오기
-    def get(self, type:str):
-        return self._configsTree[type]
+    def get(self, type:str, project:str=None, system:str=None):
+        if project is None or project=="":
+            project_name = '*'
+        if system is None or system=="":
+            system_name = '*'
+
+        return self._configTree[type][project_name][system_name]
     
-    def getDatas(self, type:str):
-        return self._configs[type]
+    def getDatas(self, type:str, project:str=None, system:str=None):
+        if project is None or project=="":
+            project_name = '*'
+        if system is None or system=="":
+            system_name = '*'
+        return self._configs[type][project_name][system_name]
 
 
-    def getSystem(self, system_name:str):
-        system_cfg = self._configs['system']
-        if not system_cfg:
-            return None
+    def getSystem(self, project:str, system:str):
+        #system_cfg = self._configs['system']
+        return self._configMap['system'][project][system]
+    
         
-        for item in system_cfg:
-            if item[2].get('name') == system_name:
-                return item[2]
-        return None
-    
-    def getSystems(self)->list[dict]:
-        return self._configs['system']
-    
-    def getElements(self, system_name:str)->list[dict]:
+    def getElements(self, project:str, system:str)->list[dict]:
 
         element_list = []
-        system = self.getSystem(system_name)
+        system = self.getSystem(project, system)
         if system is None:
             return element_list
 
@@ -172,9 +287,11 @@ class ConfigReader:
 if __name__ == '__main__':
     cfg = ConfigReader("./config_nex/.element/admin")
 
+    
     # 시스템 이름이 'webserver' 인 element 목록 가져오기
-    element_list = cfg.getElements('webserver')
-    count = 1
+    element_list = cfg.getElements('project_name', 'webserver')
+    #count = 1
+    element_list = []
     for item in element_list:
         #print(f"{count} element: {json.dumps(item, ensure_ascii=False, indent=2)}")
         path = item.get('path') # element path 
@@ -190,8 +307,8 @@ if __name__ == '__main__':
         #data = dataio.get()
         #dataio.put(dataset)
         #print(f"# {path} data:", json.dumps(data, ensure_ascii=False, indent=2))
-        dataio.upgrade()
-        count += 1
+        #dataio.upgrade()
+        #count += 1
         
         #if count > 3:
         #    break

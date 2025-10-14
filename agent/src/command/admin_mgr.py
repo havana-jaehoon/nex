@@ -75,7 +75,7 @@ class AdminMgr(SingletonInstance):
         
     def get_query_handlers(self) -> List[Tuple[str, Server_Dynamic_Handler, dict]]:
         handler_list: List[Tuple[str, Server_Dynamic_Handler, dict]] = [
-            ("/admin-api/get", self._get, {"cmd_id": "/admin-api/get"}),
+            ("/admin-api/", self._get, {"cmd_id": "/admin-api/get"}),
             ("/admin-api/set", self._set, {"cmd_id": "/admin-api/set"}),
             ("/admin-api/add", self._add, {"cmd_id": "/admin-api/add"}),
             ("/admin-api/delete", self._delete, {"cmd_id": "/admin-api/delete"})

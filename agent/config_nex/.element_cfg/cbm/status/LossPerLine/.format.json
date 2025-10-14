@@ -1,0 +1,33 @@
+{
+  "name": "AlertCount",
+  "dispName": "주의 경고 건수",
+  "type": "format",
+  "features": [
+    {
+      "name": "label",
+      "icon": null,
+      "color": null,
+      "type": "feature",
+      "isKey": true,
+      "featureType": "STRING"
+    },
+    {
+      "name": "alert",
+      "dispName": "경고",
+      "icon": null,
+      "color": "#f0142f",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "UINT16"
+    },
+    {
+      "name": "warning",
+      "dispName": "주의",
+      "icon": null,
+      "color": "#feb200",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "UINT32"
+    }
+  ]
+}

@@ -24,9 +24,27 @@
       "featureType": "STRING"
     },
     {
-      "name": "data",
-      "dispName": "노드",
-      "description": "노드 정보",
+      "name": "project",
+      "dispName": "프로젝트",
+      "icon": null,
+      "color": null,
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "system",
+      "dispName": "시스템",
+      "icon": null,
+      "color": null,
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "object",
+      "dispName": "객체",
+      "description": "노드 객체",
       "type": "feature",
       "icon": null,
       "color": null,
