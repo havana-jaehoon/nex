@@ -1,13 +1,12 @@
-import glob, json
 import pandas as pd
 from configparser import ConfigParser
-from typing import Dict, List, Tuple, Optional, Any
+from typing import Dict, List, Optional, Any
 
-import const_def
 from system_info import SystemInfoMgr
 from store.storage_imp.oracle import OracleStorage
 from store.store_entity import StoreEntity
 from store.storage import Storage, StorageType
+from jsonConfig.node_json import NodeJson, NodeType
 from util.scheme_define import SchemaDefinition
 from util.singleton import SingletonInstance
 from util.log_util import Logger
@@ -31,16 +30,13 @@ class StoreMgr(SingletonInstance):
 
         # store entity
         self._stores: Dict[str, StoreEntity] = {}   # key: store_id
-        for store_file in glob.glob(f'{SystemInfoMgr().config_dir}/store/**/*.json', recursive=True):
-            with open(store_file, 'r', encoding='utf-8') as f:
-                json_data = json.load(f)
-                store_json_list = self._find_stores_with_top_parent_name(json_data)
-                for store_json in store_json_list:
-                    store_entity = StoreEntity(store_json[0], store_json[1])
-                    if not store_entity.set_storage(self._storage_dict):
-                        raise Exception(f'StoreMgr : fail to set storage : store({store_entity.get_id()}) is not valid')
-                    self._stores[store_entity.get_id()] = store_entity
-                    self._logger.log_info(f'Store is registered: {store_entity}')
+        config_info_list = NodeJson.get_type_config(f'{SystemInfoMgr().config_dir}', NodeType.STORE)
+        for config_info in config_info_list:
+            store_entity = StoreEntity(config_info[0], config_info[1])
+            if not store_entity.set_storage(self._storage_dict):
+                raise Exception(f'StoreMgr : fail to set storage : store({store_entity.get_id()}) is not valid')
+            self._stores[store_entity.get_id()] = store_entity
+            self._logger.log_info(f'Store is registered: {store_entity}')
 
     @staticmethod
     def _create_storage(storage_cfg: dict) -> Storage:
@@ -49,27 +45,27 @@ class StoreMgr(SingletonInstance):
         else:
             raise None
 
-    @staticmethod
-    def _find_stores_with_top_parent_name(json_data: dict) -> List[Tuple[List[str], dict]]:
-        final_result = []
-
-        def _traverse(node: dict, current_path: List[str]):
-            if isinstance(node, dict) and node.get('type', '').upper() == const_def.STORE_TYPE:
-                final_result.append((current_path, node))
-                return
-
-            if isinstance(node, dict) and node.get('type', '').upper() == const_def.FOLDER_TYPE:
-                folder_name = node.get('name')
-                if not folder_name:
-                    raise Exception(f'StoreMgr : _find_stores_with_top_parent_name : folder name is empty')
-                current_path.append(folder_name)
-                children = node.get('children', [])
-                if isinstance(children, list):
-                    for child in children:
-                        _traverse(child, current_path)
-
-        _traverse(json_data, [])
-        return final_result
+    # @staticmethod
+    # def _find_stores_with_top_parent_name(json_data: dict) -> List[Tuple[List[str], dict]]:
+    #     final_result = []
+    #
+    #     def _traverse(node: dict, current_path: List[str]):
+    #         if isinstance(node, dict) and node.get('type', '').upper() == const_def.STORE_TYPE:
+    #             final_result.append((current_path, node))
+    #             return
+    #
+    #         if isinstance(node, dict) and node.get('type', '').upper() == const_def.FOLDER_TYPE:
+    #             folder_name = node.get('name')
+    #             if not folder_name:
+    #                 raise Exception(f'StoreMgr : _find_stores_with_top_parent_name : folder name is empty')
+    #             current_path.append(folder_name)
+    #             children = node.get('children', [])
+    #             if isinstance(children, list):
+    #                 for child in children:
+    #                     _traverse(child, current_path)
+    #
+    #     _traverse(json_data, [])
+    #     return final_result
 
     def apply_scheme(self, store_id: str, schema: SchemaDefinition):
         store = self._stores.get(store_id, None)

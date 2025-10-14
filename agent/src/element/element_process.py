@@ -8,7 +8,7 @@ from util.pi_http.http_handler import HandlerResult, HandlerArgs
 
 class ElementProcess(ABC):
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         self._is_query_custom_handler = False
 
     async def query_custom_handler(self, handler_args: HandlerArgs, kwargs: dict) -> HandlerResult:
@@ -19,5 +19,5 @@ class ElementProcess(ABC):
         return self._is_query_custom_handler
 
     @abstractmethod
-    def process(self, sources: List[Tuple[str, pd.DataFrame]], *args, **kwargs) -> Optional[pd.DataFrame]:
+    def process(self, sources: List[Tuple[str, Optional[pd.DataFrame]]], *args, **kwargs) -> Optional[pd.DataFrame]:
         pass

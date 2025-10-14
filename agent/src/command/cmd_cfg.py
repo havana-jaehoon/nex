@@ -1,6 +1,6 @@
-from typing import List
+from typing import List, Optional
 
-import const_def
+from jsonConfig.node_json import NodeType
 from element.element_cfg import BaseElementConfig
 
 
@@ -10,13 +10,16 @@ class CmdConfig(BaseElementConfig):
         super().__init__(parent_list, json_data)
 
         json_type = json_data.get("type", '')
-        if json_type.upper() != const_def.COMMAND_TYPE.upper():
+        if json_type.upper() != NodeType.COMMAND.upper():
             raise Exception("CmdConfig : type is not COMMAND")
 
         self._processor: str = json_data.get("processor")
         if not self._processor: raise Exception("CmdConfig : processor is empty")
-        self._inputs: List[str] = json_data.get("inputs")
-        self._outputs: List[str] = json_data.get("outputs")
+        self._processorKwargs: dict = json_data.get("processorKwargs", {})
+        self._processingInterval: Optional[int] = json_data.get("processingInterval")
+        self._processingUnit: Optional[str] = json_data.get("processingUnit")
+        self._inputs: List[str] = json_data.get("inputs", [])
+        self._outputs: List[str] = json_data.get("outputs", [])
 
     def _gen_id(self, parent_list: List[str], json_data: dict) -> str:
         parent_path = f'/{"/".join(parent_list)}' if parent_list else ''
@@ -33,13 +36,28 @@ class CmdConfig(BaseElementConfig):
     def __str__(self):
         return (f'id={self._id}, '
                 f'name={self._name}, '
-                f'processor={self._processor}, '                
+                f'processor={self._processor}, '
+                f'processorKwargs={self._processorKwargs}, '
+                f'processingInterval={self._processingInterval}, '
+                f'processingUnit={self._processingUnit}, '
                 f'inputs={self._inputs}, '
                 f'outputs={self._outputs}')
 
     @property
     def processor(self) -> str:
         return self._processor
+
+    @property
+    def processorKwargs(self) -> dict:
+        return self._processorKwargs
+
+    @property
+    def processingInterval(self) -> Optional[int]:
+        return self._processingInterval
+
+    @property
+    def processingUnit(self) -> Optional[str]:
+        return self._processingUnit
 
     @property
     def inputs(self) -> List[str]:

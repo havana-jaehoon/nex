@@ -1,0 +1,14 @@
+{
+  "name": "provisioning",
+  "dispName": "config 관리(서버)",
+  "description": "config 관리(서버) 기능 엘리먼트",
+  "type": "command",
+  "processor": "/provisioning/prov_server",
+  "processorKwargs": {
+    "data_base_path": "/home/cbm/hdkim/ai_solution_cfg_server/config_data"
+  },
+  "processingInterval": null,
+  "processingUnit": null,
+  "inputs": ["/agent/profile", "/agent/access"],
+  "outputs": []
+}

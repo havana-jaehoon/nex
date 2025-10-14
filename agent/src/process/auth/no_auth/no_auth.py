@@ -18,8 +18,8 @@ class NoAuthRequest(BaseModel):
 
 class no_auth(CmdProcess):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(args, kwargs)
 
     @staticmethod
     def _proc(body: BodyData, auth_info: pd.DataFrame) -> Tuple[str, HandlerResult, Optional[AgentAccess]]:
@@ -47,7 +47,7 @@ class no_auth(CmdProcess):
 
     async def process(self,
                       handler_args: HandlerArgs,
-                      inputs: List[Tuple[str, pd.DataFrame]],
+                      inputs: List[Tuple[str, Optional[pd.DataFrame]]],
                       kwargs: dict) -> Tuple[HandlerResult, List[pd.DataFrame]]:
         handler_result = HandlerResult()
         df_list: List[pd.DataFrame] = []

@@ -37,5 +37,4 @@ class OracleStorage(Storage):
         return self._orm_proc.get_data(schema_name, filters, columns)
 
     async def get_data_async(self, schema_name: str, filters: Optional[Dict[str, Any]] = None, columns: Optional[List[str]] = None) -> pd.DataFrame:
-
         return await self._orm_proc.get_data_async(schema_name, filters, columns)

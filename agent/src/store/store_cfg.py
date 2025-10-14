@@ -1,6 +1,6 @@
 from typing import List
 
-import const_def
+from jsonConfig.node_json import NodeType
 
 
 class StoreConfig:
@@ -34,7 +34,7 @@ class StoreConfig:
             raise Exception("StoreConfig : json_data is None")
 
         json_type = json_data.get("type", '')
-        if json_type.upper() != const_def.STORE_TYPE.upper():
+        if json_type.upper() != NodeType.STORE.upper():
             raise Exception("StoreConfig : type is not STORE")
 
         self._name: str = json_data.get("name")

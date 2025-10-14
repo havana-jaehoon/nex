@@ -1,0 +1,27 @@
+{
+    "dispName": "NewSystem",
+    "description": "NewSystem",
+    "type": "system",
+    "system": {
+        "address": {
+            "ip": "",
+            "port": ""
+        },
+        "hdfs": {
+            "ip": "",
+            "port": "",
+            "path": ""
+        },
+        "db": {
+            "ip": "",
+            "port": "",
+            "id": "",
+            "passwd": "",
+            "name": ""
+        },
+        "disk": {
+            "path": ""
+        }
+    },
+    "children": []
+}

@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 from apscheduler.schedulers.base import BaseScheduler
 
 from const_def import TimeUnit
@@ -9,7 +9,7 @@ from format.format_mgr import FormatMgr
 from store.store_mgr import StoreMgr
 from element.element_process import ElementProcess
 from element.element_cfg import ElementConfig
-from api.api_proc import ApiReq
+from api.api_proc import HttpReqMgr
 from util.module_loader import ModuleLoader
 from util.pi_http.http_handler import HandlerResult, HandlerArgs, Server_Dynamic_Handler
 from util.log_util import Logger
@@ -34,7 +34,7 @@ class ElementEntity:
             raise Exception(f"ElementEntity({self._element_cfg.id}) : store is not valid : {e}")
 
         # create processor
-        self._processor = None
+        self._processor: Optional[ElementProcess] = None
         if self._element_cfg.processor:
             self._processor = ModuleLoader.loadModule(f'{SystemInfoMgr().src_dir}/process/{self._element_cfg.processor}',
                                                       '',
@@ -52,7 +52,7 @@ class ElementEntity:
             # get source
             arg_list = []
             if self._element_cfg.sources:
-                df_list = ApiReq().getReq(self._element_cfg.sources)
+                df_list = HttpReqMgr().getReqMany(self._element_cfg.sources)
                 arg_list = [(source, df) for source, df in zip(self._element_cfg.sources, df_list)]
 
             proc_df = self._processor.process(arg_list)

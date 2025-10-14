@@ -1,0 +1,12 @@
+{
+    "name": "DegradPerDevice",
+    "dispName": "장치별 열화 현상",
+    "description": "장치별 열화 현상 데이터 엘리먼트",
+    "type": "element",
+    "format": "/status/alertWarning",
+    "store": "/db/status",
+    "processor": "/test/test_proc1",
+    "processingInterval": 1,
+    "processingUnit": "MIN",
+    "sources": null
+}

@@ -1,7 +1,7 @@
 from abc import abstractmethod, ABC
 from typing import List, Optional
 
-import const_def
+from jsonConfig.node_json import NodeType
 
 
 class BaseElementConfig(ABC):
@@ -45,7 +45,7 @@ class ElementConfig(BaseElementConfig):
         super().__init__(parent_list, json_data)
 
         json_type = json_data.get("type", '')
-        if json_type.upper() != const_def.ELEMENT_TYPE.upper():
+        if json_type.upper() != NodeType.ELEMENT.upper():
             raise Exception("ElementConfig : type is not ELEMENT")
 
         self._format: str = json_data.get("format")
@@ -55,7 +55,7 @@ class ElementConfig(BaseElementConfig):
         self._processor: Optional[str] = json_data.get("processor")
         self._processingInterval: Optional[int] = json_data.get("processingInterval")
         self._processingUnit: Optional[str] = json_data.get("processingUnit")
-        self._sources: List[str] = json_data.get("sources")
+        self._sources: List[str] = json_data.get("sources", [])
 
     def _gen_id(self, parent_list: List[str], json_data: dict) -> str:
         parent_path = f'/{"/".join(parent_list)}' if parent_list else ''
