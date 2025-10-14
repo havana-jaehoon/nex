@@ -2,7 +2,7 @@
   24,
   "/admin/system",
   "",
-  "",
+  "webserver",
   {
     "name": "system",
     "dispName": "시 스템",

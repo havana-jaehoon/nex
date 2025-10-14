@@ -2,7 +2,7 @@
   16,
   "/cbm/history/LossHistoryPerLine",
   "",
-  "",
+  "webserver",
   {
     "name": "LossHistoryPerLine",
     "dispName": "노선별 열화 이력",

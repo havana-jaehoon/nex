@@ -2,7 +2,7 @@
   8,
   "/cbm/status",
   "",
-  "",
+  "webserver",
   {
     "name": "status",
     "dispName": "상태",

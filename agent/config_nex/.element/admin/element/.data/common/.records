@@ -2,7 +2,7 @@
   0,
   "/common",
   "",
-  "",
+  "webserver",
   {
     "name": "common",
     "dispName": "공통",

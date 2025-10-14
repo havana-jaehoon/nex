@@ -2,7 +2,7 @@
   2,
   "/cbm",
   "",
-  "",
+  "webserver",
   {
     "name": "cbm",
     "dispName": "CBM",

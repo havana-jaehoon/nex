@@ -2,7 +2,7 @@
   4,
   "/cbm/config/Line",
   "",
-  "",
+  "webserver",
   {
     "name": "Line",
     "dispName": "노선정보",

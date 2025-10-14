@@ -2,7 +2,7 @@
   1,
   "/common/menu",
   "",
-  "",
+  "webserver",
   {
     "name": "menu",
     "dispName": "메뉴",

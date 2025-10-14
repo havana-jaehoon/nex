@@ -2,7 +2,7 @@
   19,
   "/cbm/history/DetailLossLevelHistory",
   "",
-  "",
+  "webserver",
   {
     "name": "DetailLossLevelHistory",
     "dispName": "상세 열화등급 이력",

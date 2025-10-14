@@ -2,7 +2,7 @@
   15,
   "/cbm/history",
   "",
-  "",
+  "webserver",
   {
     "name": "history",
     "dispName": "이력",

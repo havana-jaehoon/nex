@@ -2,7 +2,7 @@
   10,
   "/cbm/status/LossPerDevice",
   "",
-  "",
+  "webserver",
   {
     "name": "LossPerDevice",
     "dispName": "장치별 열화 현상",

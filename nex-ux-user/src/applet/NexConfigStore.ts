@@ -29,7 +29,7 @@ const buildAdminConfig = (datas: any[]) => {
   const pathMap: Record<string, any> = { "/": root };
 
   datas.forEach((item) => {
-    const [index, path, node] = item;
+    const [index, path, project, system, node] = item;
     const parts = path.split("/").filter(Boolean);
     const nodeName = parts.pop() || "";
     const parentPath = "/" + parts.join("/");

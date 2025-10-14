@@ -134,8 +134,8 @@ class DataFileIo:
         
         # 3. config 에 따라 데이터 속성/로딩 방식 반영
         if self._configs[ELEMENT_CFG_LIST["ELEMENT"]] is None or self._configs[ELEMENT_CFG_LIST["FORMAT"]] is None or self._configs[ELEMENT_CFG_LIST["STORE"]] is None or self._configs[ELEMENT_CFG_LIST["PROCESSOR"]] is None:
-            # for admin config loading    
-            print(f"DataFileIo({self._path}) : admin config loading!")  
+            # for
+            print(f"DataFileIo({self._path}) : None attribute(format | store | processor)!")
             self._dataType = 'static'
             self._isTree = True
         else:    # general case
@@ -197,7 +197,7 @@ class DataFileIo:
                         dir_path = os.path.dirname(file_path)
 
                         data_file_path = f'{root_path}/{DATA_DIR_NAME}/{file_path}'
-                        print(f"Loading data from {data_file_path}")
+                        #print(f"Loading data from {data_file_path}")
                         data_row = self._read_json_file(data_file_path)
                         if data_row is not None:
 
@@ -262,7 +262,7 @@ class DataFileIo:
                 file_path = f'{path}/{DATA_FILE_NAME}'
                 file_full_path = f'{root_path}/{DATA_DIR_NAME}/{file_path}'
 
-                self._write_json_file(file_full_path, [index, path, "", "", object])
+                self._write_json_file(file_full_path, [index, path, project, system, object])
                 #index_columns.append(['index', 'path'])
                 index_datas.append([index, file_path])
 

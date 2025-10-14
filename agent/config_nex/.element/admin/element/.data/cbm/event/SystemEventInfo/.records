@@ -2,7 +2,7 @@
   14,
   "/cbm/event/SystemEventInfo",
   "",
-  "",
+  "webserver",
   {
     "name": "SystemEventInfo",
     "dispName": "시스템 이벤트 정보",

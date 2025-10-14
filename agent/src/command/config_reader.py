@@ -24,9 +24,9 @@ class ConfigReader:
 
         #self._configs = {v: None for v in CONFIG_LIST.values()}
         #self._configsTree = {v: None for v in CONFIG_LIST.values()}
-
+        self._configList = {v: [] for v in CONFIG_LIST.values()}
         self._configMap = {v: None for v in CONFIG_LIST.values()}
-        self._configTree = {v: None for v in CONFIG_LIST.values()}
+        self._configTreeMap = {v: None for v in CONFIG_LIST.values()}
 
         self._load_config(path)
 
@@ -35,7 +35,7 @@ class ConfigReader:
 
     def _make_config_map(self, datas):
         config_map = {}
-
+        config_list = []
         for data in datas:
             index = data[0]
             path = data[1]
@@ -43,22 +43,15 @@ class ConfigReader:
             system_name = data[3]
             node = data[4]
 
-            print(f"# index={index}, path={path}, project={project_name}, system={system_name}")
-
-            if project_name is None or project_name == '':
-                project_name = '*'
-                #all_projects.append(data)
-
-            if system_name is None or system_name == '':
-                system_name = '*'
-                #all_systems.append(data)
+            #print(f"# index={index}, path={path}, project={project_name}, system={system_name}")
                 
             if project_name not in config_map:
                 config_map[project_name] = {}
             if system_name not in config_map[project_name]:
-                config_map[project_name][system_name] = {}
-            config_map[project_name][system_name][path] = [index, path, project_name, system_name, node]
-        return config_map
+                config_map[project_name][system_name] = []
+            config_map[project_name][system_name].append([index, path, project_name, system_name, node])
+            config_list.append([index, path, project_name, system_name, node])
+        return config_map, config_list
    
     def _make_tree(self, config_map):
         nodes = {}
@@ -75,12 +68,12 @@ class ConfigReader:
                 project_map[project][system] = {}
                 system_map = project_map[project][system]
 
-                datas = [config_map[project][system][path] for path in config_map[project][system]]
+                configList = config_map[project][system]
 
-                print(f"Processing item: {datas}")
-
-                # Sort by path length to ensure parents are processed before children.
-                sorted_data = sorted(datas, key=lambda x: len(x[1].split('/')))
+                # datas는 [index, path, project_name, system_name, node_data] 형식의 리스트입니다.
+                # 경로(path)를 기준으로 정렬하여 부모 노드가 자식 노드보다 먼저 처리되도록 합니다.
+                # 먼저 경로의 깊이(세그먼트 수)로 정렬하고, 깊이가 같으면 경로 문자열로 정렬합니다.
+                sorted_data = sorted(configList, key=lambda x: (len(x[1].strip('/').split('/')), x[1]))
 
                 for item in sorted_data:
                     #print(f"Processing item: {item}")
@@ -90,7 +83,7 @@ class ConfigReader:
                     system_name = item[3]
                     node_data = item[4]
 
-                    print(f"Index: {index}, Path: {path}, Project: {project_name}, System: {system_name}, Node: {node_data}")
+                    #print(f"Index: {index}, Path: {path}, Project: {project_name}, System: {system_name}, Node: {node_data}")
                     # Initialize children list for the current node
                     if 'children' not in node_data:
                         node_data['children'] = []
@@ -147,22 +140,25 @@ class ConfigReader:
             elements[project] = {}
             #system_map = { }
             for system in systems:
-                if(system == '*'):
+                if(system == ''):
                     continue
 
-                print(f"Making elements for project={project}, system={system}")
+                #print(f"Making elements for project={project}, system={system}")
                 elements[project][system] = []
+                systemNode = self.getSystem(project, system)
+                if systemNode is None:
+                    print(f"System node not found for project={project}, system={system}, path=/{system}")
+                    continue
 
-                for path, item in elementMap[project][system].items():
-                    if(path != item[1]) :  # path of the element
-                        continue
-                    # index = item[0] # index of the element
-                    # path = item[1] # path of the element
-                    # project = item[2] # project of the element
-                    # system = item[3] # system of the element
-                    # node = item[4] # node of the element
+                elementList = elementMap.get(project, {}).get(system, [])
+                for item in elementList:
+
+                    index = item[0] # index of the element
+                    path = item[1] # path of the element
+                    #project = item[2] # project of the element
+                    #system = item[3] # system of the element
                     elementNode = item[4] # node of the element
-
+                    #print(f"  Element node: {json.dumps(elementNode, ensure_ascii=False, indent=2)}")
                     if elementNode.get('type') != 'element':
                         continue
 
@@ -170,21 +166,10 @@ class ConfigReader:
                     storePath=elementNode.get('store') # element store path
                     processorPath=elementNode.get('processor') # element processor path
 
-                    formatRow = formatMap[project]['*'].get(formatPath, None) 
-                    formatNode = formatRow[4] if formatRow else None
-
-                    storeRow = storeMap[project]['*'].get(storePath, None)
-                    storeNode = storeRow[4] if storeRow else None
-
-                    processorRow = processorMap[project]['*'].get(processorPath, None)
-                    processorNode = processorRow[4] if processorRow else None
-
-                    systemRow = systemMap[project]['*'].get(f'/{system}', None)
-                    systemNode = systemRow[4] if systemRow else None
-
-                    if systemNode is None:
-                        print(f"System node not found for project={project}, system={system}, path=/{system}")
-                        continue
+                    formatNode = self.getNode('format', project, system, formatPath)
+                    storeNode = self.getNode('store', project, system, storePath)
+                    processorNode = self.getNode('processor', project, system, processorPath)
+                    
                     elements[project][system].append({'path':path, 'system':systemNode, 'element':elementNode, 'format':formatNode, 'store':storeNode, 'processor':processorNode })
 
         #print(f"Made elements: {json.dumps(elements, ensure_ascii=False, indent=2)}")
@@ -200,96 +185,58 @@ class ConfigReader:
             #self._configs[value] = config_data
 
             #print(f"Loading config for {value}: {json.dumps(config_data, ensure_ascii=False, indent=2)}")
-            self._configMap[value] = self._make_config_map(config_data)
-            self._configTree[value] = self._make_tree(self._configMap[value])
+            self._configMap[value], self._configList[value] = self._make_config_map(config_data)
+            self._configTreeMap[value] = self._make_tree(self._configMap[value])
         
         self._elements = self._make_elements(self._configMap)
             #self._configsTree[value] = self._make_tree(self._configMap)
             #print(f"Loaded config for {value}: {json.dumps(self._configsTree[value], ensure_ascii=False, indent=2)}")
 
 
+    def get(self) :
+        
+        return self._configList
+
+
     # 전체 데이터 가져오기
-    def get(self, type:str, project:str=None, system:str=None):
-        if project is None or project=="":
-            project_name = '*'
-        if system is None or system=="":
-            system_name = '*'
+    def getTree(self, type:str, project_name:str, system_name:str):
+        return self._configTreeMap[type].get(project_name, {}).get(system_name, {})
 
-        return self._configTree[type][project_name][system_name]
-    
-    def getDatas(self, type:str, project:str=None, system:str=None):
-        if project is None or project=="":
-            project_name = '*'
-        if system is None or system=="":
-            system_name = '*'
-        return self._configs[type][project_name][system_name]
+    def getDatas(self, type:str, project_name:str, system_name:str):
+        return self._configMap[type].get(project_name, {}).get(system_name, [])
 
 
-    def getSystem(self, project:str, system:str):
-        #system_cfg = self._configs['system']
-        if project is None or project=="":
-            project = '*'
+    def getSystem(self, project_name:str, system_name:str):
+        systems = self._configMap['system'].get(project_name, {}).get(f'{system_name}', None)
 
-        systemRow = self._configMap['system'].get(project, {}).get(f'{system}', {}).get(f'/{system}', None)
-        if systemRow is None:
-            systemRow = self._configMap['system'].get(project, {}).get('*', {}).get(f'/{system}', None)
+        if systems is None:
+            systems = self._configMap['system'].get(project_name, {}).get('', [])
 
-        print(f"Getting system for project={project}, system={system}, sys={self._configMap['system'].get(project, {})}")
+        for item in systems :
+            if(item[1] == f'/{system_name}' or item[4].get('name') == system_name):
+                return item[4]
+        return None
+        
 
-
-        if systemRow is None:
-            return None
-        return systemRow[4]
-    
-
-    def getElements(self, project:str, system:str)->list[dict]:
-        project_name = project if project and project != "" else '*'
-        system_name = system if system and system != "" else '*'
-
+    def getElements(self, project_name:str, system_name:str)->list[dict]:
         return self._elements.get(project_name, {}).get(system_name, [])
         
     # 특정 노드 데이터 가져오기
-    def getNode(self, type:str, path:str):
-
-        config_data = self._configs[type]
-        if not config_data:
-            return None
-        
-        for item in config_data:
-            if item[1] == path:
-                return item[2]
+    def getNode(self, type:str, project_name:str, system_name:str, path:str):
+        datas = self._configMap[type].get(project_name, {}).get(system_name, [])
+     
+        for data in datas:
+            if data[1] == path:
+                return data[4]
         return None
 
-    # 특정 노드의 자식 노드들 가져오기
-    def getChildren(self, type:str, path:str):
-        config_data = self._configsTree[type]
-        if not config_data:
-            return None
-
-        path_list = path.strip('/').split('/')
-        print(f'path_list: {path_list.__len__()}, {path_list}')
-
-        if path_list.__len__() == 1 and path_list[0] == '':
-            return config_data
-        
-        for p in path_list:
-            found = False
-            for node in config_data:
-                if node.get('name') == p:
-                    config_data = node.get('children', [])
-                    found = True
-                    break
-            if not found:
-                return None
-        if found:
-            return config_data
-        return None
 
 
 if __name__ == '__main__':
     cfg = ConfigReader("./config_nex/.element/admin")
 
-    
+
+
     # 시스템 이름이 'webserver' 인 element 목록 가져오기
     element_list = cfg.getElements('', 'webserver')
     #count = 1

@@ -20,8 +20,13 @@ from util.pi_http.http_handler import HandlerResult, BodyData
 class AdminMgr(SingletonInstance):
     def _on_init_once(self):
         self._logger = Logger()
-        self.config = ConfigReader("./config_nex/.element/admin")
-        self.elements = self.config.getElements('webserver') 
+        self._configReader = ConfigReader("./config_nex/.element/admin")
+
+        #self._configList = {v: [] for v in CONFIG_LIST.values()}
+
+        #for key, value in configReader.getDatas().items():
+        #self._elements = self._config.getElements('', 'webserver')
+        #print(f"AdminMgr::_on_init_once() elements: {self._elements}{self._config}")
 
     async def _add(self, handler_args: HandlerArgs, kwargs: dict)-> HandlerResult:
         try:
@@ -40,14 +45,21 @@ class AdminMgr(SingletonInstance):
             print(f'AdminMgr::_get({handler_args, kwargs})')
             #print(f"# Root-Path : {ADMIN_CONFIG_DIR}")
             #res = load_all_config(ADMIN_CONFIG_DIR)
+            system = 'webserver'
+            project = ''
 
+            data = {v: [] for v in CONFIG_LIST.values()}
+            for key, value in CONFIG_LIST.items():
+                if(value == 'element'):
+                    data[value] = self._configReader.getElements(project, system)
+                else:
+                    data[value] = self._configReader.getDatas(value, project, '')
+                
+            
+            res = json.dumps(data, indent=2, ensure_ascii=False)
+            print(f"AdminMgr::_get( elements : {res}")
 
-            #cfg = ConfigReader("./config_nex/.element/admin")
-
-
-
-            res = {}
-            return HandlerResult(status=200, response=res, body=json.dumps(res, indent=2, ensure_ascii=False))
+            return HandlerResult(status=200, response=res, body=res)
         except Exception as e:
             Logger().log_error(f'AdminMgr::_get({handler_args, kwargs}) : {e}')
             return HandlerResult(status=500, body=f'exception : {e}')

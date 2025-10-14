@@ -2,7 +2,7 @@
   13,
   "/cbm/event/RTMaintenanceInfo",
   "",
-  "",
+  "webserver",
   {
     "name": "RTMaintenanceInfo",
     "dispName": "실시간 유지보수 정보",

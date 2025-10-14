@@ -2,7 +2,7 @@
   6,
   "/cbm/config/CarPerTrain",
   "",
-  "",
+  "webserver",
   {
     "name": "CarPerTrain",
     "dispName": "편성별차량정보",
