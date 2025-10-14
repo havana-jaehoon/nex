@@ -2,7 +2,7 @@
   31,
   "/admin/theme",
   "",
-  "webserver",
+  "",
   {
     "name": "theme",
     "dispName": "테마",

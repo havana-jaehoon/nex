@@ -2,7 +2,7 @@
   25,
   "/admin/element",
   "",
-  "webserver",
+  "",
   {
     "name": "element",
     "dispName": "데이터 엘리먼트",

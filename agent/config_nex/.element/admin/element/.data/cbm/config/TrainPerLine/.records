@@ -2,7 +2,7 @@
   5,
   "/cbm/config/TrainPerLine",
   "",
-  "webserver",
+  "",
   {
     "name": "TrainPerLine",
     "dispName": "노선별편성정보",

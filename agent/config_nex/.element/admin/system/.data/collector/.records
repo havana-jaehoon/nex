@@ -2,7 +2,7 @@
   2,
   "/collector",
   "",
-  "collector",
+  "",
   {
     "name": "collector",
     "dispName": "수집서버",

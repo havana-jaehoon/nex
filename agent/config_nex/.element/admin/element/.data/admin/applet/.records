@@ -2,7 +2,7 @@
   28,
   "/admin/applet",
   "",
-  "webserver",
+  "",
   {
     "name": "applet",
     "dispName": "애플릿",

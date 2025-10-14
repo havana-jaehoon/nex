@@ -2,7 +2,7 @@
   30,
   "/admin/user",
   "",
-  "webserver",
+  "",
   {
     "name": "user",
     "dispName": "사용자",

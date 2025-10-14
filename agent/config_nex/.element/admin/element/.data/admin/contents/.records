@@ -2,7 +2,7 @@
   27,
   "/admin/contents",
   "",
-  "webserver",
+  "",
   {
     "name": "contents",
     "dispName": "컨텐츠",

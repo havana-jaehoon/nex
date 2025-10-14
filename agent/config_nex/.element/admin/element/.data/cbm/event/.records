@@ -2,7 +2,7 @@
   12,
   "/cbm/event",
   "",
-  "webserver",
+  "",
   {
     "name": "event",
     "dispName": "이벤트",

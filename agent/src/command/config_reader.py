@@ -77,7 +77,7 @@ class ConfigReader:
 
                 datas = [config_map[project][system][path] for path in config_map[project][system]]
 
-                #print(f"Processing item: {datas}")
+                print(f"Processing item: {datas}")
 
                 # Sort by path length to ensure parents are processed before children.
                 sorted_data = sorted(datas, key=lambda x: len(x[1].split('/')))
@@ -90,6 +90,7 @@ class ConfigReader:
                     system_name = item[3]
                     node_data = item[4]
 
+                    print(f"Index: {index}, Path: {path}, Project: {project_name}, System: {system_name}, Node: {node_data}")
                     # Initialize children list for the current node
                     if 'children' not in node_data:
                         node_data['children'] = []
@@ -303,12 +304,12 @@ if __name__ == '__main__':
         store = item.get('store') # element store node config(json object)
         processor = item.get('processor') # element processor node config(json object)
 
-        print(f"# {path} element:", json.dumps(item, ensure_ascii=False, indent=2))
+        #print(f"# {path} element:", json.dumps(item, ensure_ascii=False, indent=2))
         dataio = DataFileIo("./config_nex/.element", path, system, element, format, store, processor)
-        #data = dataio.get()
+        data = dataio.get()
         #dataio.put(dataset)
-        #print(f"# {path} data:", json.dumps(data, ensure_ascii=False, indent=2))
-        #dataio.upgrade()
+        print(f"# {path} data:", json.dumps(data, ensure_ascii=False, indent=2))
+        dataio.upgrade()
         #count += 1
         
         #if count > 3:

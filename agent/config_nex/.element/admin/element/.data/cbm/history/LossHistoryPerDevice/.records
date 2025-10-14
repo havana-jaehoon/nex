@@ -2,7 +2,7 @@
   17,
   "/cbm/history/LossHistoryPerDevice",
   "",
-  "webserver",
+  "",
   {
     "name": "LossHistoryPerDevice",
     "dispName": "장치별 열화 이력",

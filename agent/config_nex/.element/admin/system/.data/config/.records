@@ -2,7 +2,7 @@
   0,
   "/config",
   "",
-  "config",
+  "",
   {
     "name": "config",
     "dispName": "설정서버",

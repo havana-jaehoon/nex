@@ -2,7 +2,7 @@
   18,
   "/cbm/history/MaintenanceHistoryPerLine",
   "",
-  "webserver",
+  "",
   {
     "name": "MaintenanceHistoryPerLine",
     "dispName": "노선별 유지보수 이력",

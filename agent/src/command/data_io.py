@@ -253,7 +253,9 @@ class DataFileIo:
             for data in datas:
                 index = data[0]
                 path = data[1]
-                object = data[2] # json object for admin config
+                project = data[2] # project name
+                system = data[3] # system name
+                object = data[4] # json object for admin config
 
                 #element has  index, path, system, object
 
