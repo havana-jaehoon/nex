@@ -1,0 +1,6 @@
+{
+  "name": "config",
+  "dispName": "설정",
+  "description": "설정 폴더",
+  "type": "folder"
+}

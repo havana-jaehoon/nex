@@ -3,7 +3,7 @@ from typing import Optional
 from pydantic import ValidationError
 
 from command.auth.auth_process import AuthProcess
-from api.api_proc import ApiReq
+from api.api_proc import HttpReqMgr
 from command.auth.msg_def import AgentInitResponse, AgentTokenResponse, AuthElement
 from system_info import SystemInfoMgr
 from util.module_loader import ModuleLoader
@@ -17,10 +17,10 @@ class AuthAgent:
     AUTH_DIR = '/cmd/auth/'
 
     @staticmethod
-    def _init_req(system_info: SystemInfoMgr, api_req: ApiReq) -> Optional[AgentInitResponse]:
+    def _init_req(system_info: SystemInfoMgr) -> Optional[AgentInitResponse]:
         source = f'{AuthAgent.CONFIG_PROJECT_NAME}:{AuthAgent.CONFIG_SYSTEM_NAME}:{AuthAgent.AUTH_DIR}{AuthElement.AUTH_INIT_ELEMENT}'
         body = {'agent_id': system_info.agent_id}
-        status, rsp_body_str = api_req.postReq(source, body)
+        status, rsp_body_str = HttpReqMgr().postReqOnce(source, body)
         if status == 200:
             try:
                 validated_response = AgentInitResponse.model_validate_json(rsp_body_str)
@@ -40,7 +40,7 @@ class AuthAgent:
             return None
 
     @staticmethod
-    def _token_req(system_info: SystemInfoMgr, api_req: ApiReq, agent_init_rsp: AgentInitResponse) -> Optional[AgentTokenResponse]:
+    def _token_req(system_info: SystemInfoMgr, agent_init_rsp: AgentInitResponse) -> Optional[AgentTokenResponse]:
         source = f'{AuthAgent.CONFIG_PROJECT_NAME}:{AuthAgent.CONFIG_SYSTEM_NAME}:{AuthAgent.AUTH_DIR}{AuthElement.AUTH_TOKEN_ELEMENT}'
         token_method = agent_init_rsp.token_method
         challenge = agent_init_rsp.challenge
@@ -53,7 +53,7 @@ class AuthAgent:
         auth_token = processor.gen_auth_token(system_info.agent_id, challenge, system_info.secret_key)
         body = {'agent_id': system_info.agent_id, 'auth_token': auth_token}
         Logger().log_info(f'token_req : auth_token : {auth_token}')
-        status, rsp_body_str = api_req.postReq(source, body)
+        status, rsp_body_str = HttpReqMgr().postReqOnce(source, body)
         if status == 200:
             try:
                 validated_response = AgentTokenResponse.model_validate_json(rsp_body_str)
@@ -73,13 +73,13 @@ class AuthAgent:
             return None
 
     @staticmethod
-    def auth_req(system_info: SystemInfoMgr, api_req: ApiReq):
+    def auth_req(system_info: SystemInfoMgr):
         # init_rsp: Optional[AgentInitResponse] = None
         # token_rsp: Optional[AgentTokenResponse] = None
         while True:
-            init_rsp = AuthAgent._init_req(system_info, api_req)
+            init_rsp = AuthAgent._init_req(system_info)
             if init_rsp:
-                token_rsp = AuthAgent._token_req(system_info, api_req, init_rsp)
+                token_rsp = AuthAgent._token_req(system_info,init_rsp)
                 if token_rsp:
                     break
             time.sleep(10)

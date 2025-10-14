@@ -1,13 +1,13 @@
 {
-  "name": "db",
-  "dispName": "db",
-  "description": "db 저장 정책 폴더",
+  "name": "disk",
+  "dispName": "디스크",
+  "description": "디스크 저장 정책 폴더",
   "type": "folder",
   "children": [
     {
-      "name": "admin_config",
+      "name": "status",
       "type": "store",
-      "storageName": "oracle1",
+      "storageName": "disk1",
       "record": {
         "type": "static",
         "unit": null,
@@ -15,9 +15,7 @@
         "expire": 0,
         "expireUnit": null,
         "allowDuplication": false,
-        "allowKeepValue": false,
-        "allowUpsert": true,
-        "chunkSize": 1000
+        "allowKeepValue": false
       }
     }
   ]

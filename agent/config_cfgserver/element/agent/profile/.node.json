@@ -1,0 +1,12 @@
+{
+    "name": "profile",
+    "dispName": "agent 프로파일",
+    "description": "agent 프로파일 데이터 엘리먼트",
+    "type": "element",
+    "format": "/agent/profile",
+    "store": "/db/adminConfig",
+    "processor": null,
+    "processingInterval": null,
+    "processingUnit": null,
+    "sources": []
+}

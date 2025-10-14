@@ -7,7 +7,7 @@ from element.element_mgr import ElementMgr
 from format.format_mgr import FormatMgr
 from store.store_mgr import StoreMgr
 from command.cmd_mgr import CmdMgr
-from api.api_proc import ApiReq
+from api.api_proc import HttpReqMgr
 from util.pi_http.http_server import HttpServer
 from util.log_util import Logger
 
@@ -41,9 +41,11 @@ if __name__ == '__main__':
 
         admin_mgr = AdminMgr()  # admin command manager
 
+        HttpReqMgr()
+
         # auth and provisioning (only for agent mode)
         if system_info.agent_id:
-            AuthAgent.auth_req(system_info, ApiReq())
+            AuthAgent.auth_req(system_info)
 
         # http setup
         http_server = HttpServer(system_info.ip, system_info.port)
@@ -60,6 +62,11 @@ if __name__ == '__main__':
             time.sleep(1)
     except (KeyboardInterrupt, SystemExit) as e:
         logger.log_info(f'==================== {system_name} stop : {e} ====================')
+        if cmd_mgr: cmd_mgr.stop()
+        if element_mgr: element_mgr.stop()
+        if http_server: http_server.stop(5)
+    except Exception as e:
+        logger.log_error(f'==================== {system_name} stop : {e} ====================')
         if cmd_mgr: cmd_mgr.stop()
         if element_mgr: element_mgr.stop()
         if http_server: http_server.stop(5)

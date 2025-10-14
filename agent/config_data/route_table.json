@@ -1,0 +1,21 @@
+{
+  "Admin": [
+    {
+      "system": "CfgServer",
+      "ip": "121.134.202.23",
+      "port": 9070
+    }
+  ],
+  "project1": [
+    {
+      "system": "system1",
+      "ip": "121.134.202.23",
+      "port": 9080
+    },
+    {
+      "system": "system2",
+      "ip": "121.134.202.23",
+      "port": 9090
+    }
+  ]
+}
