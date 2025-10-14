@@ -68,7 +68,7 @@ interface NexConfig {
 class NexConfigStore {
   url: string = ""; // URL 정보
   projectName: string = ""; // 프로젝트 이름
-  systemPath: string = "/webui"; // 시스템 경로
+  systemName: string = "webserver"; // "/webui"; // 시스템 경로
 
   isReady: boolean = false;
   config: NexConfig = {
@@ -94,10 +94,10 @@ class NexConfigStore {
   //webThemes: NexTheme[] = [defaultTheme]; // webthemes 정보
   //webThemeUsers: NexThemeUser[] = [defaultThemeUser]; // 사용자 정보
 
-  constructor(url: string, project: string, systemPath: string) {
-    this.url = URL; //url;
-    this.projectName = project; // 프로젝트 이름 설정
-    this.systemPath = systemPath || "/";
+  constructor(url: string, projectName: string, systemName: string) {
+    this.url = url; //url;
+    this.projectName = projectName; // 프로젝트 이름 설정
+    this.systemName = systemName;
 
     makeObservable(this, {
       url: observable,
@@ -134,21 +134,19 @@ class NexConfigStore {
       //console.log("this.loffset", this.store.loffset);
     } catch (error) {
       console.error(
-        `Failed to fetch from url: ${this.url}, project: ${this.projectName}, system: ${this.systemPath} : ${error})`
+        `Failed to fetch from url: ${this.url}, project: ${this.projectName}, system: ${this.systemName} : ${error})`
       );
     }
   }
 
   async fetch() {
     try {
-      const url = this.url + "/admin/get";
-      const path = "";
-      const data = "";
+      const url = this.url + "/admin-api/get";
 
       const response = await axios.get(url, {
         params: {
-          path: path,
-          data: data,
+          project: this.projectName,
+          system: this.systemName,
         },
       });
 
@@ -159,20 +157,36 @@ class NexConfigStore {
         return;
       }
       runInAction(() => {
+        //const cfgMap = response.data as Record<string, any[]>;
+        const cfgMap = response.data;
+        /*
         const cfgMap = Object.fromEntries(
           response.data.flatMap((obj: any) => Object.entries(obj))
         ) as Record<string, any[]>;
-
+        */
         this.config.formats = buildAdminConfig(cfgMap["format"]);
+
         this.config.stores = buildAdminConfig(cfgMap["store"]);
+
         this.config.processors = buildAdminConfig(cfgMap["processor"]);
+
         this.config.systems = buildAdminConfig(cfgMap["system"]);
-        this.config.elements = buildAdminConfig(cfgMap["elements"]);
+
+        this.config.elements = buildAdminConfig(cfgMap["element"]);
+
         this.config.contents = buildAdminConfig(cfgMap["contents"]);
+
         this.config.applets = buildAdminConfig(cfgMap["applet"]);
+
         this.config.websections = buildAdminConfig(cfgMap["section"]);
+        console.log(
+          "sections:",
+          JSON.stringify(this.config.websections, null, 2)
+        );
         this.config.webThemes = buildAdminConfig(cfgMap["theme"]);
+
         this.config.webThemeUsers = buildAdminConfig(cfgMap["user"]);
+
         this.isReady = true;
       });
     } catch (error) {
@@ -317,5 +331,5 @@ class NexConfigStore {
 //const nexConfig = new NexConfigStore("", "test", "/webui");
 //export default nexConfig;
 
-export const configStore = new NexConfigStore("", "", "");
+export const configStore = new NexConfigStore(URL, "", "webserver");
 export default NexConfigStore;

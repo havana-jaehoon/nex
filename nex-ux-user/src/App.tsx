@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import NexApp from "./NexApp";
 import { configStore } from "applet/NexConfigStore";
 

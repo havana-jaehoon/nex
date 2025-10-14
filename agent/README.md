@@ -32,7 +32,7 @@ pip freeze > requirements.txt
 
 # 2.1 실행 Path 환경 설정(windows)
 
-> $env:PYTHONPATH = ".\src"
+$env:PYTHONPATH = ".\src"
 
 # 2.2 실행
 

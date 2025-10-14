@@ -45,19 +45,21 @@ class AdminMgr(SingletonInstance):
             print(f'AdminMgr::_get({handler_args, kwargs})')
             #print(f"# Root-Path : {ADMIN_CONFIG_DIR}")
             #res = load_all_config(ADMIN_CONFIG_DIR)
-            system = 'webserver'
-            project = ''
+            method = handler_args.method
+
+            system = handler_args.query_params.get('system', '')
+            project = handler_args.query_params.get('project', '')
 
             data = {v: [] for v in CONFIG_LIST.values()}
             for key, value in CONFIG_LIST.items():
                 if(value == 'element'):
-                    data[value] = self._configReader.getElements(project, system)
+                    data[value] = self._configReader.getDatas(value, project, system)
                 else:
                     data[value] = self._configReader.getDatas(value, project, '')
                 
             
             res = json.dumps(data, indent=2, ensure_ascii=False)
-            print(f"AdminMgr::_get( elements : {res}")
+            #print(f"AdminMgr::_get( elements : {res}")
 
             return HandlerResult(status=200, response=res, body=res)
         except Exception as e:

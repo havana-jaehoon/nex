@@ -1,26 +1,2725 @@
-{
-  "field": [
-    { "key": "type", "type": "string" },
-    { "key": "project", "type": "string" },
-    { "key": "system", "type": "string" },
-    { "key": "path", "type": "string" },
-    { "key": "name", "type": "string" },
-    { "key": "dispName", "type": "string" },
-    { "key": "description", "type": "string" },
-    { "key": "icon", "type": "string" },
-    { "key": "color", "type": "string" },
-    { "key": "featureType", "type": "string" },
-    {
-      "key": "literals",
-      "type": "literals",
-      "records": [
-        { "key": "value", "type": "string" },
-        { "key": "description", "type": "string" },
-        { "key": "icon", "type": "string" },
-        { "key": "color", "type": "string" }
-      ]
-    }
-  ],
-  "child": "literals",
-  "property": false
-}
+[
+  {
+    "name": "root",
+    "dispName": "root",
+    "description": "root",
+    "type": "section",
+    "isRoutes": true,
+    "children": [
+      {
+        "name": "Admin",
+        "type": "section",
+        "size": "1",
+        "direction": "column",
+        "route": "admin",
+        "children": [
+          {
+            "name": "Mid",
+            "type": "section",
+            "size": "90",
+            "direction": "row",
+            "children": [
+              {
+                "name": "MainLeftUp",
+                "type": "section",
+                "size": "1",
+                "direction": "column",
+                "children": [
+                  {
+                    "name": "project",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "row",
+                    "children": [
+                      {
+                        "name": "formatConfig",
+                        "dispName": "포맷 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "formatEditor",
+                            "dispName": "데이터 유형 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedFormat"]
+                          },
+                          {
+                            "name": "formatFinder",
+                            "dispName": "데이터 유형",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/format"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "processorConfig",
+                        "dispName": "프로세서 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "processor",
+                            "dispName": "데이터 프로세서",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/processor"]
+                          },
+                          {
+                            "name": "processorEditor",
+                            "dispName": "프로세서 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedProcessor"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "storeConfig",
+                        "dispName": "저장 정책",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "storeEditor",
+                            "dispName": "데이터 저장 정책 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedStore"]
+                          },
+                          {
+                            "name": "storeFinder",
+                            "dispName": "데이터 저장 정책",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/store"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "systemConfig",
+                        "dispName": "시스템 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "system",
+                            "dispName": "시스템 설정",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/system"]
+                          },
+                          {
+                            "name": "systemEditor",
+                            "dispName": "시스템 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedSystem"]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Top",
+            "type": "section",
+            "size": "5",
+            "direction": "row"
+          }
+        ]
+      },
+      {
+        "name": "AdminSystemConfig",
+        "type": "section",
+        "size": "1",
+        "direction": "column",
+        "route": "admin/system",
+        "children": [
+          {
+            "name": "Head",
+            "type": "section",
+            "size": "6",
+            "direction": "column",
+            "children": [
+              {
+                "name": "nodeSelector",
+                "dispName": "",
+                "description": "노드 선택기 웹 섹션",
+                "type": "section",
+                "size": "3",
+                "applet": "/admin/NexNodeSelector",
+                "padding": "0",
+                "contents": ["/admin/system"]
+              }
+            ]
+          },
+          {
+            "name": "MainUp",
+            "type": "section",
+            "size": "94",
+            "direction": "row",
+            "children": [
+              {
+                "name": "MainLeftUp",
+                "type": "section",
+                "size": "1",
+                "direction": "column",
+                "children": [
+                  {
+                    "name": "project",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "row",
+                    "children": [
+                      {
+                        "name": "websectionConfig",
+                        "dispName": "웹 섹션 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "websectionEditor",
+                            "dispName": "웹 섹션 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedWebSection"]
+                          },
+                          {
+                            "name": "websectionFinder",
+                            "dispName": "웹 섹션",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/websection"]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "dashboard",
+        "dispName": "Dashboard",
+        "description": "Dashboard",
+        "type": "section",
+        "route": "cbm/*",
+        "direction": "column",
+        "children": [
+          {
+            "name": "Body",
+            "dispName": "Body",
+            "description": "Body View",
+            "type": "section",
+            "size": "90",
+            "direction": "row",
+            "children": [
+              {
+                "name": "Main",
+                "type": "section",
+                "size": "24",
+                "direction": "column",
+                "route": "/*",
+                "isRoutes": true,
+                "children": [
+                  {
+                    "name": "TrainInfoPerLine",
+                    "dispName": "노선별 편성 정보",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "column",
+                    "route": "train-info/line",
+                    "applet": "/cbm/train-info-line",
+                    "padding": "8px",
+                    "contents": [
+                      "/cbm/config/Line",
+                      "/cbm/config/TrainPerLine",
+                      "/cbm/config/CarPerTrain",
+                      "/cbm/status/LossPerLine",
+                      "/cbm/history/DetailLossLevelHistory"
+                    ]
+                  },
+                  {
+                    "name": "dashboard",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "column",
+                    "route": "dashboard",
+                    "children": [
+                      {
+                        "name": "MainDown",
+                        "type": "section",
+                        "size": "1",
+                        "direction": "row",
+                        "children": [
+                          {
+                            "name": "RTMaintenanceInfo",
+                            "dispName": "실시간 유지보수 정보",
+                            "type": "section",
+                            "size": "1",
+                            "applet": "/table/NexTable",
+                            "padding": "8px",
+                            "contents": ["/cbm/event/RTMaintenanceInfo"]
+                          },
+                          {
+                            "name": "SystemEventInfo",
+                            "dispName": "시스템 이벤트 정보",
+                            "type": "section",
+                            "size": "1",
+                            "applet": "/table/NexTable",
+                            "padding": "8px",
+                            "contents": ["/cbm/event/SystemEventInfo"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "MainUp",
+                        "type": "section",
+                        "size": "2",
+                        "direction": "row",
+                        "children": [
+                          {
+                            "name": "MainLeftUp",
+                            "type": "section",
+                            "size": "1",
+                            "direction": "column",
+                            "children": [
+                              {
+                                "name": "loss",
+                                "type": "section",
+                                "size": "1",
+                                "direction": "row",
+                                "children": [
+                                  {
+                                    "name": "LossHistoryPerLine",
+                                    "dispName": "노선별 열화 이력",
+                                    "type": "section",
+                                    "size": "8",
+                                    "padding": "8px",
+                                    "applet": "/chart/NexLineChart",
+                                    "contents": [
+                                      "/cbm/history/LossHistoryPerLine"
+                                    ]
+                                  },
+                                  {
+                                    "name": "LossPerLine",
+                                    "dispName": "노선별 열화 현황",
+                                    "type": "section",
+                                    "size": "4",
+                                    "padding": "8px",
+                                    "applet": "/status/NexStatus",
+                                    "contents": ["/cbm/status/LossPerLine"]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "maintenance",
+                                "type": "section",
+                                "size": "1",
+                                "direction": "row",
+                                "children": [
+                                  {
+                                    "name": "MaintenancePerLineHistory",
+                                    "dispName": "노선별 유지보수 이력",
+                                    "type": "section",
+                                    "size": "8",
+                                    "applet": "/chart/NexLineChart",
+                                    "padding": "8px",
+                                    "contents": [
+                                      "/cbm/history/MaintenancePerLineHistory"
+                                    ]
+                                  },
+                                  {
+                                    "name": "TrainCountPerLine",
+                                    "dispName": "노선별 평성 수",
+                                    "type": "section",
+                                    "size": "4",
+                                    "applet": "/status/NexCount",
+                                    "padding": "8px",
+                                    "contents": [
+                                      "/cbm/status/TrainCountPerLine"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "name": "MainRightUp",
+                            "type": "section",
+                            "size": "1",
+                            "direction": "row",
+                            "children": [
+                              {
+                                "name": "LossHistoryPerDevice",
+                                "dispName": "장치별 열화 이력",
+                                "type": "section",
+                                "size": "4",
+                                "padding": "8px",
+                                "applet": "/chart/NexLineChart",
+                                "contents": [
+                                  "/cbm/history/LossHistoryPerDevice"
+                                ]
+                              },
+                              {
+                                "name": "LossPerDevice",
+                                "dispName": "장치별 열화 현황",
+                                "type": "contents",
+                                "size": "2",
+                                "padding": "8px",
+                                "applet": "/status/NexStatus",
+                                "contents": ["/cbm/status/LossPerDevice"]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "train-info-line-chart",
+                    "type": "section",
+                    "size": "2",
+                    "padding": "8px",
+                    "applet": "/chart/NexLineChart",
+                    "contents": ["/cbm/history/SelectedDetailLossLevelHistory"]
+                  }
+                ]
+              },
+              {
+                "name": "left-side",
+                "dispName": "Left Side",
+                "description": "Left Side View",
+                "type": "section",
+                "size": "5",
+                "direction": "column",
+                "children": [
+                  {
+                    "name": "Sample",
+                    "dispName": "샘플",
+                    "type": "section",
+                    "size": "1",
+                    "padding": "8px",
+                    "applet": "/sample/NexSampleList",
+                    "contents": ["/common/sample"]
+                  },
+                  {
+                    "name": "menu",
+                    "dispName": "메뉴섹션",
+                    "type": "section",
+                    "size": "1",
+                    "padding": "8px",
+                    "applet": "/common/menu",
+                    "contents": ["/common/menu"]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Head",
+            "dispName": "Head",
+            "description": "Head View",
+            "type": "section",
+            "size": "10",
+            "direction": "row",
+            "children": [
+              {
+                "name": "HeadLeft",
+                "type": "section",
+                "size": "10",
+                "applet": "",
+                "contents": []
+              },
+              {
+                "name": "HeadMain",
+                "type": "section",
+                "size": "80",
+                "applet": "",
+                "contents": []
+              },
+              {
+                "name": "HeadRight",
+                "type": "section",
+                "size": "10",
+                "applet": "",
+                "contents": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "dashboard",
+        "dispName": "Dashboard",
+        "description": "Dashboard",
+        "type": "section",
+        "route": "cbm/*",
+        "direction": "column",
+        "children": [
+          {
+            "name": "Body",
+            "dispName": "Body",
+            "description": "Body View",
+            "type": "section",
+            "size": "90",
+            "direction": "row",
+            "children": [
+              {
+                "name": "Main",
+                "type": "section",
+                "size": "24",
+                "direction": "column",
+                "route": "/*",
+                "isRoutes": true,
+                "children": [
+                  {
+                    "name": "TrainInfoPerLine",
+                    "dispName": "노선별 편성 정보",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "column",
+                    "route": "train-info/line",
+                    "applet": "/cbm/train-info-line",
+                    "padding": "8px",
+                    "contents": [
+                      "/cbm/config/Line",
+                      "/cbm/config/TrainPerLine",
+                      "/cbm/config/CarPerTrain",
+                      "/cbm/status/LossPerLine",
+                      "/cbm/history/DetailLossLevelHistory"
+                    ]
+                  },
+                  {
+                    "name": "dashboard",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "column",
+                    "route": "dashboard",
+                    "children": [
+                      {
+                        "name": "MainDown",
+                        "type": "section",
+                        "size": "1",
+                        "direction": "row",
+                        "children": [
+                          {
+                            "name": "RTMaintenanceInfo",
+                            "dispName": "실시간 유지보수 정보",
+                            "type": "section",
+                            "size": "1",
+                            "applet": "/table/NexTable",
+                            "padding": "8px",
+                            "contents": ["/cbm/event/RTMaintenanceInfo"]
+                          },
+                          {
+                            "name": "SystemEventInfo",
+                            "dispName": "시스템 이벤트 정보",
+                            "type": "section",
+                            "size": "1",
+                            "applet": "/table/NexTable",
+                            "padding": "8px",
+                            "contents": ["/cbm/event/SystemEventInfo"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "MainUp",
+                        "type": "section",
+                        "size": "2",
+                        "direction": "row",
+                        "children": [
+                          {
+                            "name": "MainLeftUp",
+                            "type": "section",
+                            "size": "1",
+                            "direction": "column",
+                            "children": [
+                              {
+                                "name": "loss",
+                                "type": "section",
+                                "size": "1",
+                                "direction": "row",
+                                "children": [
+                                  {
+                                    "name": "LossHistoryPerLine",
+                                    "dispName": "노선별 열화 이력",
+                                    "type": "section",
+                                    "size": "8",
+                                    "padding": "8px",
+                                    "applet": "/chart/NexLineChart",
+                                    "contents": [
+                                      "/cbm/history/LossHistoryPerLine"
+                                    ]
+                                  },
+                                  {
+                                    "name": "LossPerLine",
+                                    "dispName": "노선별 열화 현황",
+                                    "type": "section",
+                                    "size": "4",
+                                    "padding": "8px",
+                                    "applet": "/status/NexStatus",
+                                    "contents": ["/cbm/status/LossPerLine"]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "maintenance",
+                                "type": "section",
+                                "size": "1",
+                                "direction": "row",
+                                "children": [
+                                  {
+                                    "name": "MaintenancePerLineHistory",
+                                    "dispName": "노선별 유지보수 이력",
+                                    "type": "section",
+                                    "size": "8",
+                                    "applet": "/chart/NexLineChart",
+                                    "padding": "8px",
+                                    "contents": [
+                                      "/cbm/history/MaintenancePerLineHistory"
+                                    ]
+                                  },
+                                  {
+                                    "name": "TrainCountPerLine",
+                                    "dispName": "노선별 평성 수",
+                                    "type": "section",
+                                    "size": "4",
+                                    "applet": "/status/NexCount",
+                                    "padding": "8px",
+                                    "contents": [
+                                      "/cbm/status/TrainCountPerLine"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "name": "MainRightUp",
+                            "type": "section",
+                            "size": "1",
+                            "direction": "row",
+                            "children": [
+                              {
+                                "name": "LossHistoryPerDevice",
+                                "dispName": "장치별 열화 이력",
+                                "type": "section",
+                                "size": "4",
+                                "padding": "8px",
+                                "applet": "/chart/NexLineChart",
+                                "contents": [
+                                  "/cbm/history/LossHistoryPerDevice"
+                                ]
+                              },
+                              {
+                                "name": "LossPerDevice",
+                                "dispName": "장치별 열화 현황",
+                                "type": "contents",
+                                "size": "2",
+                                "padding": "8px",
+                                "applet": "/status/NexStatus",
+                                "contents": ["/cbm/status/LossPerDevice"]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "train-info-line-chart",
+                    "type": "section",
+                    "size": "2",
+                    "padding": "8px",
+                    "applet": "/chart/NexLineChart",
+                    "contents": ["/cbm/history/SelectedDetailLossLevelHistory"]
+                  }
+                ]
+              },
+              {
+                "name": "left-side",
+                "dispName": "Left Side",
+                "description": "Left Side View",
+                "type": "section",
+                "size": "5",
+                "direction": "column",
+                "children": [
+                  {
+                    "name": "Sample",
+                    "dispName": "샘플",
+                    "type": "section",
+                    "size": "1",
+                    "padding": "8px",
+                    "applet": "/sample/NexSampleList",
+                    "contents": ["/common/sample"]
+                  },
+                  {
+                    "name": "menu",
+                    "dispName": "메뉴섹션",
+                    "type": "section",
+                    "size": "1",
+                    "padding": "8px",
+                    "applet": "/common/menu",
+                    "contents": ["/common/menu"]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Head",
+            "dispName": "Head",
+            "description": "Head View",
+            "type": "section",
+            "size": "10",
+            "direction": "row",
+            "children": [
+              {
+                "name": "HeadLeft",
+                "type": "section",
+                "size": "10",
+                "applet": "",
+                "contents": []
+              },
+              {
+                "name": "HeadMain",
+                "type": "section",
+                "size": "80",
+                "applet": "",
+                "contents": []
+              },
+              {
+                "name": "HeadRight",
+                "type": "section",
+                "size": "10",
+                "applet": "",
+                "contents": []
+              }
+            ]
+          },
+          {
+            "name": "Head",
+            "dispName": "Head",
+            "description": "Head View",
+            "type": "section",
+            "size": "10",
+            "direction": "row",
+            "children": [
+              {
+                "name": "HeadLeft",
+                "type": "section",
+                "size": "10",
+                "applet": "",
+                "contents": []
+              },
+              {
+                "name": "HeadMain",
+                "type": "section",
+                "size": "80",
+                "applet": "",
+                "contents": []
+              },
+              {
+                "name": "HeadRight",
+                "type": "section",
+                "size": "10",
+                "applet": "",
+                "contents": []
+              },
+              {
+                "name": "HeadLeft",
+                "type": "section",
+                "size": "10",
+                "applet": "",
+                "contents": []
+              },
+              {
+                "name": "HeadMain",
+                "type": "section",
+                "size": "80",
+                "applet": "",
+                "contents": []
+              },
+              {
+                "name": "HeadRight",
+                "type": "section",
+                "size": "10",
+                "applet": "",
+                "contents": []
+              }
+            ]
+          },
+          {
+            "name": "Body",
+            "dispName": "Body",
+            "description": "Body View",
+            "type": "section",
+            "size": "90",
+            "direction": "row",
+            "children": [
+              {
+                "name": "Main",
+                "type": "section",
+                "size": "24",
+                "direction": "column",
+                "route": "/*",
+                "isRoutes": true,
+                "children": [
+                  {
+                    "name": "TrainInfoPerLine",
+                    "dispName": "노선별 편성 정보",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "column",
+                    "route": "train-info/line",
+                    "applet": "/cbm/train-info-line",
+                    "padding": "8px",
+                    "contents": [
+                      "/cbm/config/Line",
+                      "/cbm/config/TrainPerLine",
+                      "/cbm/config/CarPerTrain",
+                      "/cbm/status/LossPerLine",
+                      "/cbm/history/DetailLossLevelHistory"
+                    ]
+                  },
+                  {
+                    "name": "dashboard",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "column",
+                    "route": "dashboard",
+                    "children": [
+                      {
+                        "name": "MainDown",
+                        "type": "section",
+                        "size": "1",
+                        "direction": "row",
+                        "children": [
+                          {
+                            "name": "RTMaintenanceInfo",
+                            "dispName": "실시간 유지보수 정보",
+                            "type": "section",
+                            "size": "1",
+                            "applet": "/table/NexTable",
+                            "padding": "8px",
+                            "contents": ["/cbm/event/RTMaintenanceInfo"]
+                          },
+                          {
+                            "name": "SystemEventInfo",
+                            "dispName": "시스템 이벤트 정보",
+                            "type": "section",
+                            "size": "1",
+                            "applet": "/table/NexTable",
+                            "padding": "8px",
+                            "contents": ["/cbm/event/SystemEventInfo"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "MainUp",
+                        "type": "section",
+                        "size": "2",
+                        "direction": "row",
+                        "children": [
+                          {
+                            "name": "MainLeftUp",
+                            "type": "section",
+                            "size": "1",
+                            "direction": "column",
+                            "children": [
+                              {
+                                "name": "loss",
+                                "type": "section",
+                                "size": "1",
+                                "direction": "row",
+                                "children": [
+                                  {
+                                    "name": "LossHistoryPerLine",
+                                    "dispName": "노선별 열화 이력",
+                                    "type": "section",
+                                    "size": "8",
+                                    "padding": "8px",
+                                    "applet": "/chart/NexLineChart",
+                                    "contents": [
+                                      "/cbm/history/LossHistoryPerLine"
+                                    ]
+                                  },
+                                  {
+                                    "name": "LossPerLine",
+                                    "dispName": "노선별 열화 현황",
+                                    "type": "section",
+                                    "size": "4",
+                                    "padding": "8px",
+                                    "applet": "/status/NexStatus",
+                                    "contents": ["/cbm/status/LossPerLine"]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "maintenance",
+                                "type": "section",
+                                "size": "1",
+                                "direction": "row",
+                                "children": [
+                                  {
+                                    "name": "MaintenancePerLineHistory",
+                                    "dispName": "노선별 유지보수 이력",
+                                    "type": "section",
+                                    "size": "8",
+                                    "applet": "/chart/NexLineChart",
+                                    "padding": "8px",
+                                    "contents": [
+                                      "/cbm/history/MaintenancePerLineHistory"
+                                    ]
+                                  },
+                                  {
+                                    "name": "TrainCountPerLine",
+                                    "dispName": "노선별 평성 수",
+                                    "type": "section",
+                                    "size": "4",
+                                    "applet": "/status/NexCount",
+                                    "padding": "8px",
+                                    "contents": [
+                                      "/cbm/status/TrainCountPerLine"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "name": "MainRightUp",
+                            "type": "section",
+                            "size": "1",
+                            "direction": "row",
+                            "children": [
+                              {
+                                "name": "LossHistoryPerDevice",
+                                "dispName": "장치별 열화 이력",
+                                "type": "section",
+                                "size": "4",
+                                "padding": "8px",
+                                "applet": "/chart/NexLineChart",
+                                "contents": [
+                                  "/cbm/history/LossHistoryPerDevice"
+                                ]
+                              },
+                              {
+                                "name": "LossPerDevice",
+                                "dispName": "장치별 열화 현황",
+                                "type": "contents",
+                                "size": "2",
+                                "padding": "8px",
+                                "applet": "/status/NexStatus",
+                                "contents": ["/cbm/status/LossPerDevice"]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "train-info-line-chart",
+                    "type": "section",
+                    "size": "2",
+                    "padding": "8px",
+                    "applet": "/chart/NexLineChart",
+                    "contents": ["/cbm/history/SelectedDetailLossLevelHistory"]
+                  }
+                ]
+              },
+              {
+                "name": "left-side",
+                "dispName": "Left Side",
+                "description": "Left Side View",
+                "type": "section",
+                "size": "5",
+                "direction": "column",
+                "children": [
+                  {
+                    "name": "Sample",
+                    "dispName": "샘플",
+                    "type": "section",
+                    "size": "1",
+                    "padding": "8px",
+                    "applet": "/sample/NexSampleList",
+                    "contents": ["/common/sample"]
+                  },
+                  {
+                    "name": "menu",
+                    "dispName": "메뉴섹션",
+                    "type": "section",
+                    "size": "1",
+                    "padding": "8px",
+                    "applet": "/common/menu",
+                    "contents": ["/common/menu"]
+                  }
+                ]
+              },
+              {
+                "name": "left-side",
+                "dispName": "Left Side",
+                "description": "Left Side View",
+                "type": "section",
+                "size": "5",
+                "direction": "column",
+                "children": [
+                  {
+                    "name": "Sample",
+                    "dispName": "샘플",
+                    "type": "section",
+                    "size": "1",
+                    "padding": "8px",
+                    "applet": "/sample/NexSampleList",
+                    "contents": ["/common/sample"]
+                  },
+                  {
+                    "name": "menu",
+                    "dispName": "메뉴섹션",
+                    "type": "section",
+                    "size": "1",
+                    "padding": "8px",
+                    "applet": "/common/menu",
+                    "contents": ["/common/menu"]
+                  },
+                  {
+                    "name": "menu",
+                    "dispName": "메뉴섹션",
+                    "type": "section",
+                    "size": "1",
+                    "padding": "8px",
+                    "applet": "/common/menu",
+                    "contents": ["/common/menu"]
+                  },
+                  {
+                    "name": "Sample",
+                    "dispName": "샘플",
+                    "type": "section",
+                    "size": "1",
+                    "padding": "8px",
+                    "applet": "/sample/NexSampleList",
+                    "contents": ["/common/sample"]
+                  }
+                ]
+              },
+              {
+                "name": "Main",
+                "type": "section",
+                "size": "24",
+                "direction": "column",
+                "route": "/*",
+                "isRoutes": true,
+                "children": [
+                  {
+                    "name": "TrainInfoPerLine",
+                    "dispName": "노선별 편성 정보",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "column",
+                    "route": "train-info/line",
+                    "applet": "/cbm/train-info-line",
+                    "padding": "8px",
+                    "contents": [
+                      "/cbm/config/Line",
+                      "/cbm/config/TrainPerLine",
+                      "/cbm/config/CarPerTrain",
+                      "/cbm/status/LossPerLine",
+                      "/cbm/history/DetailLossLevelHistory"
+                    ]
+                  },
+                  {
+                    "name": "dashboard",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "column",
+                    "route": "dashboard",
+                    "children": [
+                      {
+                        "name": "MainDown",
+                        "type": "section",
+                        "size": "1",
+                        "direction": "row",
+                        "children": [
+                          {
+                            "name": "RTMaintenanceInfo",
+                            "dispName": "실시간 유지보수 정보",
+                            "type": "section",
+                            "size": "1",
+                            "applet": "/table/NexTable",
+                            "padding": "8px",
+                            "contents": ["/cbm/event/RTMaintenanceInfo"]
+                          },
+                          {
+                            "name": "SystemEventInfo",
+                            "dispName": "시스템 이벤트 정보",
+                            "type": "section",
+                            "size": "1",
+                            "applet": "/table/NexTable",
+                            "padding": "8px",
+                            "contents": ["/cbm/event/SystemEventInfo"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "MainUp",
+                        "type": "section",
+                        "size": "2",
+                        "direction": "row",
+                        "children": [
+                          {
+                            "name": "MainLeftUp",
+                            "type": "section",
+                            "size": "1",
+                            "direction": "column",
+                            "children": [
+                              {
+                                "name": "loss",
+                                "type": "section",
+                                "size": "1",
+                                "direction": "row",
+                                "children": [
+                                  {
+                                    "name": "LossHistoryPerLine",
+                                    "dispName": "노선별 열화 이력",
+                                    "type": "section",
+                                    "size": "8",
+                                    "padding": "8px",
+                                    "applet": "/chart/NexLineChart",
+                                    "contents": [
+                                      "/cbm/history/LossHistoryPerLine"
+                                    ]
+                                  },
+                                  {
+                                    "name": "LossPerLine",
+                                    "dispName": "노선별 열화 현황",
+                                    "type": "section",
+                                    "size": "4",
+                                    "padding": "8px",
+                                    "applet": "/status/NexStatus",
+                                    "contents": ["/cbm/status/LossPerLine"]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "maintenance",
+                                "type": "section",
+                                "size": "1",
+                                "direction": "row",
+                                "children": [
+                                  {
+                                    "name": "MaintenancePerLineHistory",
+                                    "dispName": "노선별 유지보수 이력",
+                                    "type": "section",
+                                    "size": "8",
+                                    "applet": "/chart/NexLineChart",
+                                    "padding": "8px",
+                                    "contents": [
+                                      "/cbm/history/MaintenancePerLineHistory"
+                                    ]
+                                  },
+                                  {
+                                    "name": "TrainCountPerLine",
+                                    "dispName": "노선별 평성 수",
+                                    "type": "section",
+                                    "size": "4",
+                                    "applet": "/status/NexCount",
+                                    "padding": "8px",
+                                    "contents": [
+                                      "/cbm/status/TrainCountPerLine"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "name": "MainRightUp",
+                            "type": "section",
+                            "size": "1",
+                            "direction": "row",
+                            "children": [
+                              {
+                                "name": "LossHistoryPerDevice",
+                                "dispName": "장치별 열화 이력",
+                                "type": "section",
+                                "size": "4",
+                                "padding": "8px",
+                                "applet": "/chart/NexLineChart",
+                                "contents": [
+                                  "/cbm/history/LossHistoryPerDevice"
+                                ]
+                              },
+                              {
+                                "name": "LossPerDevice",
+                                "dispName": "장치별 열화 현황",
+                                "type": "contents",
+                                "size": "2",
+                                "padding": "8px",
+                                "applet": "/status/NexStatus",
+                                "contents": ["/cbm/status/LossPerDevice"]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "train-info-line-chart",
+                    "type": "section",
+                    "size": "2",
+                    "padding": "8px",
+                    "applet": "/chart/NexLineChart",
+                    "contents": ["/cbm/history/SelectedDetailLossLevelHistory"]
+                  },
+                  {
+                    "name": "dashboard",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "column",
+                    "route": "dashboard",
+                    "children": [
+                      {
+                        "name": "MainDown",
+                        "type": "section",
+                        "size": "1",
+                        "direction": "row",
+                        "children": [
+                          {
+                            "name": "RTMaintenanceInfo",
+                            "dispName": "실시간 유지보수 정보",
+                            "type": "section",
+                            "size": "1",
+                            "applet": "/table/NexTable",
+                            "padding": "8px",
+                            "contents": ["/cbm/event/RTMaintenanceInfo"]
+                          },
+                          {
+                            "name": "SystemEventInfo",
+                            "dispName": "시스템 이벤트 정보",
+                            "type": "section",
+                            "size": "1",
+                            "applet": "/table/NexTable",
+                            "padding": "8px",
+                            "contents": ["/cbm/event/SystemEventInfo"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "MainUp",
+                        "type": "section",
+                        "size": "2",
+                        "direction": "row",
+                        "children": [
+                          {
+                            "name": "MainLeftUp",
+                            "type": "section",
+                            "size": "1",
+                            "direction": "column",
+                            "children": [
+                              {
+                                "name": "loss",
+                                "type": "section",
+                                "size": "1",
+                                "direction": "row",
+                                "children": [
+                                  {
+                                    "name": "LossHistoryPerLine",
+                                    "dispName": "노선별 열화 이력",
+                                    "type": "section",
+                                    "size": "8",
+                                    "padding": "8px",
+                                    "applet": "/chart/NexLineChart",
+                                    "contents": [
+                                      "/cbm/history/LossHistoryPerLine"
+                                    ]
+                                  },
+                                  {
+                                    "name": "LossPerLine",
+                                    "dispName": "노선별 열화 현황",
+                                    "type": "section",
+                                    "size": "4",
+                                    "padding": "8px",
+                                    "applet": "/status/NexStatus",
+                                    "contents": ["/cbm/status/LossPerLine"]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "maintenance",
+                                "type": "section",
+                                "size": "1",
+                                "direction": "row",
+                                "children": [
+                                  {
+                                    "name": "MaintenancePerLineHistory",
+                                    "dispName": "노선별 유지보수 이력",
+                                    "type": "section",
+                                    "size": "8",
+                                    "applet": "/chart/NexLineChart",
+                                    "padding": "8px",
+                                    "contents": [
+                                      "/cbm/history/MaintenancePerLineHistory"
+                                    ]
+                                  },
+                                  {
+                                    "name": "TrainCountPerLine",
+                                    "dispName": "노선별 평성 수",
+                                    "type": "section",
+                                    "size": "4",
+                                    "applet": "/status/NexCount",
+                                    "padding": "8px",
+                                    "contents": [
+                                      "/cbm/status/TrainCountPerLine"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "name": "MainRightUp",
+                            "type": "section",
+                            "size": "1",
+                            "direction": "row",
+                            "children": [
+                              {
+                                "name": "LossHistoryPerDevice",
+                                "dispName": "장치별 열화 이력",
+                                "type": "section",
+                                "size": "4",
+                                "padding": "8px",
+                                "applet": "/chart/NexLineChart",
+                                "contents": [
+                                  "/cbm/history/LossHistoryPerDevice"
+                                ]
+                              },
+                              {
+                                "name": "LossPerDevice",
+                                "dispName": "장치별 열화 현황",
+                                "type": "contents",
+                                "size": "2",
+                                "padding": "8px",
+                                "applet": "/status/NexStatus",
+                                "contents": ["/cbm/status/LossPerDevice"]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "MainUp",
+                        "type": "section",
+                        "size": "2",
+                        "direction": "row",
+                        "children": [
+                          {
+                            "name": "MainLeftUp",
+                            "type": "section",
+                            "size": "1",
+                            "direction": "column",
+                            "children": [
+                              {
+                                "name": "loss",
+                                "type": "section",
+                                "size": "1",
+                                "direction": "row",
+                                "children": [
+                                  {
+                                    "name": "LossHistoryPerLine",
+                                    "dispName": "노선별 열화 이력",
+                                    "type": "section",
+                                    "size": "8",
+                                    "padding": "8px",
+                                    "applet": "/chart/NexLineChart",
+                                    "contents": [
+                                      "/cbm/history/LossHistoryPerLine"
+                                    ]
+                                  },
+                                  {
+                                    "name": "LossPerLine",
+                                    "dispName": "노선별 열화 현황",
+                                    "type": "section",
+                                    "size": "4",
+                                    "padding": "8px",
+                                    "applet": "/status/NexStatus",
+                                    "contents": ["/cbm/status/LossPerLine"]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "maintenance",
+                                "type": "section",
+                                "size": "1",
+                                "direction": "row",
+                                "children": [
+                                  {
+                                    "name": "MaintenancePerLineHistory",
+                                    "dispName": "노선별 유지보수 이력",
+                                    "type": "section",
+                                    "size": "8",
+                                    "applet": "/chart/NexLineChart",
+                                    "padding": "8px",
+                                    "contents": [
+                                      "/cbm/history/MaintenancePerLineHistory"
+                                    ]
+                                  },
+                                  {
+                                    "name": "TrainCountPerLine",
+                                    "dispName": "노선별 평성 수",
+                                    "type": "section",
+                                    "size": "4",
+                                    "applet": "/status/NexCount",
+                                    "padding": "8px",
+                                    "contents": [
+                                      "/cbm/status/TrainCountPerLine"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "name": "MainRightUp",
+                            "type": "section",
+                            "size": "1",
+                            "direction": "row",
+                            "children": [
+                              {
+                                "name": "LossHistoryPerDevice",
+                                "dispName": "장치별 열화 이력",
+                                "type": "section",
+                                "size": "4",
+                                "padding": "8px",
+                                "applet": "/chart/NexLineChart",
+                                "contents": [
+                                  "/cbm/history/LossHistoryPerDevice"
+                                ]
+                              },
+                              {
+                                "name": "LossPerDevice",
+                                "dispName": "장치별 열화 현황",
+                                "type": "contents",
+                                "size": "2",
+                                "padding": "8px",
+                                "applet": "/status/NexStatus",
+                                "contents": ["/cbm/status/LossPerDevice"]
+                              }
+                            ]
+                          },
+                          {
+                            "name": "MainLeftUp",
+                            "type": "section",
+                            "size": "1",
+                            "direction": "column",
+                            "children": [
+                              {
+                                "name": "loss",
+                                "type": "section",
+                                "size": "1",
+                                "direction": "row",
+                                "children": [
+                                  {
+                                    "name": "LossHistoryPerLine",
+                                    "dispName": "노선별 열화 이력",
+                                    "type": "section",
+                                    "size": "8",
+                                    "padding": "8px",
+                                    "applet": "/chart/NexLineChart",
+                                    "contents": [
+                                      "/cbm/history/LossHistoryPerLine"
+                                    ]
+                                  },
+                                  {
+                                    "name": "LossPerLine",
+                                    "dispName": "노선별 열화 현황",
+                                    "type": "section",
+                                    "size": "4",
+                                    "padding": "8px",
+                                    "applet": "/status/NexStatus",
+                                    "contents": ["/cbm/status/LossPerLine"]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "maintenance",
+                                "type": "section",
+                                "size": "1",
+                                "direction": "row",
+                                "children": [
+                                  {
+                                    "name": "MaintenancePerLineHistory",
+                                    "dispName": "노선별 유지보수 이력",
+                                    "type": "section",
+                                    "size": "8",
+                                    "applet": "/chart/NexLineChart",
+                                    "padding": "8px",
+                                    "contents": [
+                                      "/cbm/history/MaintenancePerLineHistory"
+                                    ]
+                                  },
+                                  {
+                                    "name": "TrainCountPerLine",
+                                    "dispName": "노선별 평성 수",
+                                    "type": "section",
+                                    "size": "4",
+                                    "applet": "/status/NexCount",
+                                    "padding": "8px",
+                                    "contents": [
+                                      "/cbm/status/TrainCountPerLine"
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "loss",
+                                "type": "section",
+                                "size": "1",
+                                "direction": "row",
+                                "children": [
+                                  {
+                                    "name": "LossHistoryPerLine",
+                                    "dispName": "노선별 열화 이력",
+                                    "type": "section",
+                                    "size": "8",
+                                    "padding": "8px",
+                                    "applet": "/chart/NexLineChart",
+                                    "contents": [
+                                      "/cbm/history/LossHistoryPerLine"
+                                    ]
+                                  },
+                                  {
+                                    "name": "LossPerLine",
+                                    "dispName": "노선별 열화 현황",
+                                    "type": "section",
+                                    "size": "4",
+                                    "padding": "8px",
+                                    "applet": "/status/NexStatus",
+                                    "contents": ["/cbm/status/LossPerLine"]
+                                  },
+                                  {
+                                    "name": "LossPerLine",
+                                    "dispName": "노선별 열화 현황",
+                                    "type": "section",
+                                    "size": "4",
+                                    "padding": "8px",
+                                    "applet": "/status/NexStatus",
+                                    "contents": ["/cbm/status/LossPerLine"]
+                                  },
+                                  {
+                                    "name": "LossHistoryPerLine",
+                                    "dispName": "노선별 열화 이력",
+                                    "type": "section",
+                                    "size": "8",
+                                    "padding": "8px",
+                                    "applet": "/chart/NexLineChart",
+                                    "contents": [
+                                      "/cbm/history/LossHistoryPerLine"
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "maintenance",
+                                "type": "section",
+                                "size": "1",
+                                "direction": "row",
+                                "children": [
+                                  {
+                                    "name": "MaintenancePerLineHistory",
+                                    "dispName": "노선별 유지보수 이력",
+                                    "type": "section",
+                                    "size": "8",
+                                    "applet": "/chart/NexLineChart",
+                                    "padding": "8px",
+                                    "contents": [
+                                      "/cbm/history/MaintenancePerLineHistory"
+                                    ]
+                                  },
+                                  {
+                                    "name": "TrainCountPerLine",
+                                    "dispName": "노선별 평성 수",
+                                    "type": "section",
+                                    "size": "4",
+                                    "applet": "/status/NexCount",
+                                    "padding": "8px",
+                                    "contents": [
+                                      "/cbm/status/TrainCountPerLine"
+                                    ]
+                                  },
+                                  {
+                                    "name": "TrainCountPerLine",
+                                    "dispName": "노선별 평성 수",
+                                    "type": "section",
+                                    "size": "4",
+                                    "applet": "/status/NexCount",
+                                    "padding": "8px",
+                                    "contents": [
+                                      "/cbm/status/TrainCountPerLine"
+                                    ]
+                                  },
+                                  {
+                                    "name": "MaintenancePerLineHistory",
+                                    "dispName": "노선별 유지보수 이력",
+                                    "type": "section",
+                                    "size": "8",
+                                    "applet": "/chart/NexLineChart",
+                                    "padding": "8px",
+                                    "contents": [
+                                      "/cbm/history/MaintenancePerLineHistory"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "name": "MainRightUp",
+                            "type": "section",
+                            "size": "1",
+                            "direction": "row",
+                            "children": [
+                              {
+                                "name": "LossHistoryPerDevice",
+                                "dispName": "장치별 열화 이력",
+                                "type": "section",
+                                "size": "4",
+                                "padding": "8px",
+                                "applet": "/chart/NexLineChart",
+                                "contents": [
+                                  "/cbm/history/LossHistoryPerDevice"
+                                ]
+                              },
+                              {
+                                "name": "LossPerDevice",
+                                "dispName": "장치별 열화 현황",
+                                "type": "contents",
+                                "size": "2",
+                                "padding": "8px",
+                                "applet": "/status/NexStatus",
+                                "contents": ["/cbm/status/LossPerDevice"]
+                              },
+                              {
+                                "name": "LossPerDevice",
+                                "dispName": "장치별 열화 현황",
+                                "type": "contents",
+                                "size": "2",
+                                "padding": "8px",
+                                "applet": "/status/NexStatus",
+                                "contents": ["/cbm/status/LossPerDevice"]
+                              },
+                              {
+                                "name": "LossHistoryPerDevice",
+                                "dispName": "장치별 열화 이력",
+                                "type": "section",
+                                "size": "4",
+                                "padding": "8px",
+                                "applet": "/chart/NexLineChart",
+                                "contents": [
+                                  "/cbm/history/LossHistoryPerDevice"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "MainDown",
+                        "type": "section",
+                        "size": "1",
+                        "direction": "row",
+                        "children": [
+                          {
+                            "name": "RTMaintenanceInfo",
+                            "dispName": "실시간 유지보수 정보",
+                            "type": "section",
+                            "size": "1",
+                            "applet": "/table/NexTable",
+                            "padding": "8px",
+                            "contents": ["/cbm/event/RTMaintenanceInfo"]
+                          },
+                          {
+                            "name": "SystemEventInfo",
+                            "dispName": "시스템 이벤트 정보",
+                            "type": "section",
+                            "size": "1",
+                            "applet": "/table/NexTable",
+                            "padding": "8px",
+                            "contents": ["/cbm/event/SystemEventInfo"]
+                          },
+                          {
+                            "name": "RTMaintenanceInfo",
+                            "dispName": "실시간 유지보수 정보",
+                            "type": "section",
+                            "size": "1",
+                            "applet": "/table/NexTable",
+                            "padding": "8px",
+                            "contents": ["/cbm/event/RTMaintenanceInfo"]
+                          },
+                          {
+                            "name": "SystemEventInfo",
+                            "dispName": "시스템 이벤트 정보",
+                            "type": "section",
+                            "size": "1",
+                            "applet": "/table/NexTable",
+                            "padding": "8px",
+                            "contents": ["/cbm/event/SystemEventInfo"]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "TrainInfoPerLine",
+                    "dispName": "노선별 편성 정보",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "column",
+                    "route": "train-info/line",
+                    "applet": "/cbm/train-info-line",
+                    "padding": "8px",
+                    "contents": [
+                      "/cbm/config/Line",
+                      "/cbm/config/TrainPerLine",
+                      "/cbm/config/CarPerTrain",
+                      "/cbm/status/LossPerLine",
+                      "/cbm/history/DetailLossLevelHistory"
+                    ]
+                  },
+                  {
+                    "name": "train-info-line-chart",
+                    "type": "section",
+                    "size": "2",
+                    "padding": "8px",
+                    "applet": "/chart/NexLineChart",
+                    "contents": ["/cbm/history/SelectedDetailLossLevelHistory"]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Admin",
+        "type": "section",
+        "size": "1",
+        "direction": "column",
+        "route": "admin",
+        "children": [
+          {
+            "name": "Mid",
+            "type": "section",
+            "size": "90",
+            "direction": "row",
+            "children": [
+              {
+                "name": "MainLeftUp",
+                "type": "section",
+                "size": "1",
+                "direction": "column",
+                "children": [
+                  {
+                    "name": "project",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "row",
+                    "children": [
+                      {
+                        "name": "formatConfig",
+                        "dispName": "포맷 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "formatEditor",
+                            "dispName": "데이터 유형 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedFormat"]
+                          },
+                          {
+                            "name": "formatFinder",
+                            "dispName": "데이터 유형",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/format"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "processorConfig",
+                        "dispName": "프로세서 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "processor",
+                            "dispName": "데이터 프로세서",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/processor"]
+                          },
+                          {
+                            "name": "processorEditor",
+                            "dispName": "프로세서 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedProcessor"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "storeConfig",
+                        "dispName": "저장 정책",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "storeEditor",
+                            "dispName": "데이터 저장 정책 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedStore"]
+                          },
+                          {
+                            "name": "storeFinder",
+                            "dispName": "데이터 저장 정책",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/store"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "systemConfig",
+                        "dispName": "시스템 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "system",
+                            "dispName": "시스템 설정",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/system"]
+                          },
+                          {
+                            "name": "systemEditor",
+                            "dispName": "시스템 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedSystem"]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Top",
+            "type": "section",
+            "size": "5",
+            "direction": "row"
+          },
+          {
+            "name": "Top",
+            "type": "section",
+            "size": "5",
+            "direction": "row"
+          },
+          {
+            "name": "Mid",
+            "type": "section",
+            "size": "90",
+            "direction": "row",
+            "children": [
+              {
+                "name": "MainLeftUp",
+                "type": "section",
+                "size": "1",
+                "direction": "column",
+                "children": [
+                  {
+                    "name": "project",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "row",
+                    "children": [
+                      {
+                        "name": "formatConfig",
+                        "dispName": "포맷 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "formatEditor",
+                            "dispName": "데이터 유형 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedFormat"]
+                          },
+                          {
+                            "name": "formatFinder",
+                            "dispName": "데이터 유형",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/format"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "processorConfig",
+                        "dispName": "프로세서 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "processor",
+                            "dispName": "데이터 프로세서",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/processor"]
+                          },
+                          {
+                            "name": "processorEditor",
+                            "dispName": "프로세서 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedProcessor"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "storeConfig",
+                        "dispName": "저장 정책",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "storeEditor",
+                            "dispName": "데이터 저장 정책 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedStore"]
+                          },
+                          {
+                            "name": "storeFinder",
+                            "dispName": "데이터 저장 정책",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/store"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "systemConfig",
+                        "dispName": "시스템 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "system",
+                            "dispName": "시스템 설정",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/system"]
+                          },
+                          {
+                            "name": "systemEditor",
+                            "dispName": "시스템 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedSystem"]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "MainLeftUp",
+                "type": "section",
+                "size": "1",
+                "direction": "column",
+                "children": [
+                  {
+                    "name": "project",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "row",
+                    "children": [
+                      {
+                        "name": "formatConfig",
+                        "dispName": "포맷 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "formatEditor",
+                            "dispName": "데이터 유형 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedFormat"]
+                          },
+                          {
+                            "name": "formatFinder",
+                            "dispName": "데이터 유형",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/format"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "processorConfig",
+                        "dispName": "프로세서 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "processor",
+                            "dispName": "데이터 프로세서",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/processor"]
+                          },
+                          {
+                            "name": "processorEditor",
+                            "dispName": "프로세서 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedProcessor"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "storeConfig",
+                        "dispName": "저장 정책",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "storeEditor",
+                            "dispName": "데이터 저장 정책 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedStore"]
+                          },
+                          {
+                            "name": "storeFinder",
+                            "dispName": "데이터 저장 정책",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/store"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "systemConfig",
+                        "dispName": "시스템 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "system",
+                            "dispName": "시스템 설정",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/system"]
+                          },
+                          {
+                            "name": "systemEditor",
+                            "dispName": "시스템 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedSystem"]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "project",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "row",
+                    "children": [
+                      {
+                        "name": "formatConfig",
+                        "dispName": "포맷 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "formatEditor",
+                            "dispName": "데이터 유형 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedFormat"]
+                          },
+                          {
+                            "name": "formatFinder",
+                            "dispName": "데이터 유형",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/format"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "processorConfig",
+                        "dispName": "프로세서 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "processor",
+                            "dispName": "데이터 프로세서",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/processor"]
+                          },
+                          {
+                            "name": "processorEditor",
+                            "dispName": "프로세서 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedProcessor"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "storeConfig",
+                        "dispName": "저장 정책",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "storeEditor",
+                            "dispName": "데이터 저장 정책 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedStore"]
+                          },
+                          {
+                            "name": "storeFinder",
+                            "dispName": "데이터 저장 정책",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/store"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "systemConfig",
+                        "dispName": "시스템 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "system",
+                            "dispName": "시스템 설정",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/system"]
+                          },
+                          {
+                            "name": "systemEditor",
+                            "dispName": "시스템 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedSystem"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "formatConfig",
+                        "dispName": "포맷 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "formatEditor",
+                            "dispName": "데이터 유형 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedFormat"]
+                          },
+                          {
+                            "name": "formatFinder",
+                            "dispName": "데이터 유형",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/format"]
+                          },
+                          {
+                            "name": "formatFinder",
+                            "dispName": "데이터 유형",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/format"]
+                          },
+                          {
+                            "name": "formatEditor",
+                            "dispName": "데이터 유형 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedFormat"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "storeConfig",
+                        "dispName": "저장 정책",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "storeEditor",
+                            "dispName": "데이터 저장 정책 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedStore"]
+                          },
+                          {
+                            "name": "storeFinder",
+                            "dispName": "데이터 저장 정책",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/store"]
+                          },
+                          {
+                            "name": "storeFinder",
+                            "dispName": "데이터 저장 정책",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/store"]
+                          },
+                          {
+                            "name": "storeEditor",
+                            "dispName": "데이터 저장 정책 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedStore"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "processorConfig",
+                        "dispName": "프로세서 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "processor",
+                            "dispName": "데이터 프로세서",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/processor"]
+                          },
+                          {
+                            "name": "processorEditor",
+                            "dispName": "프로세서 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedProcessor"]
+                          },
+                          {
+                            "name": "processor",
+                            "dispName": "데이터 프로세서",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/processor"]
+                          },
+                          {
+                            "name": "processorEditor",
+                            "dispName": "프로세서 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedProcessor"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "systemConfig",
+                        "dispName": "시스템 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "system",
+                            "dispName": "시스템 설정",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/system"]
+                          },
+                          {
+                            "name": "systemEditor",
+                            "dispName": "시스템 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedSystem"]
+                          },
+                          {
+                            "name": "system",
+                            "dispName": "시스템 설정",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/system"]
+                          },
+                          {
+                            "name": "systemEditor",
+                            "dispName": "시스템 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedSystem"]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "AdminSystemConfig",
+        "type": "section",
+        "size": "1",
+        "direction": "column",
+        "route": "admin/system",
+        "children": [
+          {
+            "name": "Head",
+            "type": "section",
+            "size": "6",
+            "direction": "column",
+            "children": [
+              {
+                "name": "nodeSelector",
+                "dispName": "",
+                "description": "노드 선택기 웹 섹션",
+                "type": "section",
+                "size": "3",
+                "applet": "/admin/NexNodeSelector",
+                "padding": "0",
+                "contents": ["/admin/system"]
+              }
+            ]
+          },
+          {
+            "name": "MainUp",
+            "type": "section",
+            "size": "94",
+            "direction": "row",
+            "children": [
+              {
+                "name": "MainLeftUp",
+                "type": "section",
+                "size": "1",
+                "direction": "column",
+                "children": [
+                  {
+                    "name": "project",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "row",
+                    "children": [
+                      {
+                        "name": "websectionConfig",
+                        "dispName": "웹 섹션 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "websectionEditor",
+                            "dispName": "웹 섹션 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedWebSection"]
+                          },
+                          {
+                            "name": "websectionFinder",
+                            "dispName": "웹 섹션",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/websection"]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Head",
+            "type": "section",
+            "size": "6",
+            "direction": "column",
+            "children": [
+              {
+                "name": "nodeSelector",
+                "dispName": "",
+                "description": "노드 선택기 웹 섹션",
+                "type": "section",
+                "size": "3",
+                "applet": "/admin/NexNodeSelector",
+                "padding": "0",
+                "contents": ["/admin/system"]
+              },
+              {
+                "name": "nodeSelector",
+                "dispName": "",
+                "description": "노드 선택기 웹 섹션",
+                "type": "section",
+                "size": "3",
+                "applet": "/admin/NexNodeSelector",
+                "padding": "0",
+                "contents": ["/admin/system"]
+              }
+            ]
+          },
+          {
+            "name": "MainUp",
+            "type": "section",
+            "size": "94",
+            "direction": "row",
+            "children": [
+              {
+                "name": "MainLeftUp",
+                "type": "section",
+                "size": "1",
+                "direction": "column",
+                "children": [
+                  {
+                    "name": "project",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "row",
+                    "children": [
+                      {
+                        "name": "websectionConfig",
+                        "dispName": "웹 섹션 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "websectionEditor",
+                            "dispName": "웹 섹션 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedWebSection"]
+                          },
+                          {
+                            "name": "websectionFinder",
+                            "dispName": "웹 섹션",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/websection"]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "MainLeftUp",
+                "type": "section",
+                "size": "1",
+                "direction": "column",
+                "children": [
+                  {
+                    "name": "project",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "row",
+                    "children": [
+                      {
+                        "name": "websectionConfig",
+                        "dispName": "웹 섹션 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "websectionEditor",
+                            "dispName": "웹 섹션 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedWebSection"]
+                          },
+                          {
+                            "name": "websectionFinder",
+                            "dispName": "웹 섹션",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/websection"]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "project",
+                    "type": "section",
+                    "size": "1",
+                    "direction": "row",
+                    "children": [
+                      {
+                        "name": "websectionConfig",
+                        "dispName": "웹 섹션 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "websectionEditor",
+                            "dispName": "웹 섹션 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedWebSection"]
+                          },
+                          {
+                            "name": "websectionFinder",
+                            "dispName": "웹 섹션",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/websection"]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "websectionConfig",
+                        "dispName": "웹 섹션 설정",
+                        "type": "section",
+                        "size": "5",
+                        "direction": "column",
+                        "children": [
+                          {
+                            "name": "websectionEditor",
+                            "dispName": "웹 섹션 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedWebSection"]
+                          },
+                          {
+                            "name": "websectionFinder",
+                            "dispName": "웹 섹션",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/websection"]
+                          },
+                          {
+                            "name": "websectionFinder",
+                            "dispName": "웹 섹션",
+                            "type": "section",
+                            "size": "3",
+                            "applet": "/admin/NexNodeTree",
+                            "padding": "8px",
+                            "contents": ["/admin/websection"]
+                          },
+                          {
+                            "name": "websectionEditor",
+                            "dispName": "웹 섹션 편집",
+                            "type": "section",
+                            "size": "7",
+                            "applet": "/admin/NexJsonEditor",
+                            "padding": "8px",
+                            "contents": ["/admin/SelectedWebSection"]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
