@@ -22,8 +22,8 @@ class ConfigReader:
     def __init__(self, path:str, ):
         self._path = path  # admin root path
 
-        self._configs = {v: None for v in CONFIG_LIST.values()}
-        self._configsTree = {v: None for v in CONFIG_LIST.values()}
+        #self._configs = {v: None for v in CONFIG_LIST.values()}
+        #self._configsTree = {v: None for v in CONFIG_LIST.values()}
 
         self._configMap = {v: None for v in CONFIG_LIST.values()}
         self._configTree = {v: None for v in CONFIG_LIST.values()}
@@ -160,26 +160,33 @@ class ConfigReader:
                     # project = item[2] # project of the element
                     # system = item[3] # system of the element
                     # node = item[4] # node of the element
-                    element = item[4] # node of the element
+                    elementNode = item[4] # node of the element
 
-                    if element.get('type') != 'element':
+                    if elementNode.get('type') != 'element':
                         continue
 
-                    formatPath=element.get('format') # element format path
-                    storePath=element.get('store') # element store path
-                    processorPath=element.get('processor') # element processor path
+                    formatPath=elementNode.get('format') # element format path
+                    storePath=elementNode.get('store') # element store path
+                    processorPath=elementNode.get('processor') # element processor path
 
-                    formatNode = formatMap[project]['*'].get(formatPath) if formatPath else None
-                    storeNode = storeMap[project]['*'].get(storePath) if storePath else None
-                    processorNode = processorMap[project]['*'].get(processorPath) if processorPath else None
-                    systemNode = systemMap[project]['*'].get(f'/{system}') if system else None
+                    formatRow = formatMap[project]['*'].get(formatPath, None) 
+                    formatNode = formatRow[4] if formatRow else None
+
+                    storeRow = storeMap[project]['*'].get(storePath, None)
+                    storeNode = storeRow[4] if storeRow else None
+
+                    processorRow = processorMap[project]['*'].get(processorPath, None)
+                    processorNode = processorRow[4] if processorRow else None
+
+                    systemRow = systemMap[project]['*'].get(f'/{system}', None)
+                    systemNode = systemRow[4] if systemRow else None
 
                     if systemNode is None:
                         print(f"System node not found for project={project}, system={system}, path=/{system}")
                         continue
-                    elements[project][system].append({'path':path, 'system':systemNode, 'format':formatNode, 'store':storeNode, 'processor':processorNode })
+                    elements[project][system].append({'path':path, 'system':systemNode, 'element':elementNode, 'format':formatNode, 'store':storeNode, 'processor':processorNode })
 
-        print(f"Made elements: {json.dumps(elements, ensure_ascii=False, indent=2)}")
+        #print(f"Made elements: {json.dumps(elements, ensure_ascii=False, indent=2)}")
         return elements
 
 
@@ -191,7 +198,7 @@ class ConfigReader:
             #print(f"Loaded config for {value}: {json.dumps(config_data, ensure_ascii=False, indent=2)}")
             #self._configs[value] = config_data
 
-            print(f"Loading config for {value}: {json.dumps(config_data, ensure_ascii=False, indent=2)}")
+            #print(f"Loading config for {value}: {json.dumps(config_data, ensure_ascii=False, indent=2)}")
             self._configMap[value] = self._make_config_map(config_data)
             self._configTree[value] = self._make_tree(self._configMap[value])
         
@@ -219,33 +226,27 @@ class ConfigReader:
 
     def getSystem(self, project:str, system:str):
         #system_cfg = self._configs['system']
-        return self._configMap['system'][project][system]
+        if project is None or project=="":
+            project = '*'
+
+        systemRow = self._configMap['system'].get(project, {}).get(f'{system}', {}).get(f'/{system}', None)
+        if systemRow is None:
+            systemRow = self._configMap['system'].get(project, {}).get('*', {}).get(f'/{system}', None)
+
+        print(f"Getting system for project={project}, system={system}, sys={self._configMap['system'].get(project, {})}")
+
+
+        if systemRow is None:
+            return None
+        return systemRow[4]
     
-        
+
     def getElements(self, project:str, system:str)->list[dict]:
+        project_name = project if project and project != "" else '*'
+        system_name = system if system and system != "" else '*'
 
-        element_list = []
-        system = self.getSystem(project, system)
-        if system is None:
-            return element_list
-
-        element_cfg = self._configs['element']
-        for item in element_cfg:
-            if item[2].get('type') == 'element':
-                path = item[1]  # path of the element
-                element = item[2] # node of the element
-
-                formatPath=element.get('format') # element format path
-                storePath=element.get('store') # element store path
-                processorPath=element.get('processor') # element processor path
-
-                format = self.getNode('format', formatPath) # element format node config(json object)
-                store = self.getNode('store', storePath) # element store node config(json object)
-                processor = self.getNode('processor', processorPath) # element processor node config(json object)
-
-                element_list.append({'path': path, 'system': system, 'element': element, 'format': format, 'store': store, 'processor': processor})
-        return element_list
-
+        return self._elements.get(project_name, {}).get(system_name, [])
+        
     # 특정 노드 데이터 가져오기
     def getNode(self, type:str, path:str):
 
@@ -289,9 +290,9 @@ if __name__ == '__main__':
 
     
     # 시스템 이름이 'webserver' 인 element 목록 가져오기
-    element_list = cfg.getElements('project_name', 'webserver')
+    element_list = cfg.getElements('', 'webserver')
     #count = 1
-    element_list = []
+    #print(f"Total elements: {element_list}")
     for item in element_list:
         #print(f"{count} element: {json.dumps(item, ensure_ascii=False, indent=2)}")
         path = item.get('path') # element path 
@@ -302,7 +303,7 @@ if __name__ == '__main__':
         store = item.get('store') # element store node config(json object)
         processor = item.get('processor') # element processor node config(json object)
 
-        #print(f"# {path} element:", json.dumps(item, ensure_ascii=False, indent=2))
+        print(f"# {path} element:", json.dumps(item, ensure_ascii=False, indent=2))
         dataio = DataFileIo("./config_nex/.element", path, system, element, format, store, processor)
         #data = dataio.get()
         #dataio.put(dataset)
