@@ -33,26 +33,26 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
       clamp(fontLevel - 1, 0, theme.table.fontSize?.length - 1)
     ] || "1rem";
 
-    // 1.3 contents 에서 store, data, format 정보 가져오기
-    //  Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
-    const storeIndex = 0; // only 1 store
-    const [datas, setDatas] = useState<any[]>([]);
-    const [features, setFeatures] = useState<any[]>([]);
-    useEffect(() => {
-      const cts = contents?.[storeIndex];
-      if (!cts) {
-        setFeatures([]);
-        setDatas([]);
-        return;
-      }
-  
-      const tdata = cts.indexes
-        ? cts.indexes?.map((i: number) => cts.data[i]) || []
-        : cts.data || [];
-  
-      setFeatures(cts.format.features || []);
-      setDatas(tdata);
-    }, [contents]);
+  // 1.3 contents 에서 store, data, format 정보 가져오기
+  //  Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
+  const storeIndex = 0; // only 1 store
+  const [datas, setDatas] = useState<any[]>([]);
+  const [features, setFeatures] = useState<any[]>([]);
+  useEffect(() => {
+    const cts = contents?.[storeIndex];
+    if (!cts) {
+      setFeatures([]);
+      setDatas([]);
+      return;
+    }
+
+    const tdata = cts.indexes
+      ? cts.indexes?.map((i: number) => cts.data[i]) || []
+      : cts.data || [];
+
+    setFeatures(cts.format.features || []);
+    setDatas(tdata);
+  }, [contents]);
 
   const menuData = useMemo(() => buildMenuTree(datas), [datas]);
 
@@ -64,15 +64,15 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
 
   return (
     <NexDiv
-      flex='1'
-      direction='column'
-      align='center'
-      justify='flex-start'
+      flex="1"
+      direction="column"
+      align="center"
+      justify="flex-start"
       color={color}
       bgColor={bgColor}
-      width='100%'
-      height='100%'
-      overflow='auto'
+      width="100%"
+      height="100%"
+      overflow="auto"
     >
       {menuData.map((node: any, index: number) => (
         <NexMenuItem

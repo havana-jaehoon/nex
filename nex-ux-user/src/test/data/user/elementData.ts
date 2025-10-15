@@ -2,6 +2,15 @@ import { NexNodeType } from "type/NexNode";
 
 export const elementData = [
   [
+    "/common",
+    {
+      name: "common",
+      dispName: "메뉴",
+      description: "메뉴 테스트",
+      type: NexNodeType.FOLDER,
+    },
+  ],
+  [
     "/common/menu",
     {
       name: "menu",
@@ -14,6 +23,15 @@ export const elementData = [
       processingInterval: "10", // 0: 초기 한번 수집
       processingUnit: "SEC", // MSEC, SEC, MIN, SEC, HOUR, DAY, MONTH, YEAR
       sources: "",
+    },
+  ],
+  [
+    "/admin",
+    {
+      name: "admin",
+      dispName: "관리자",
+      description: "관리자 용 데이터 엘리먼트 폴더",
+      type: NexNodeType.FOLDER,
     },
   ],
   [
@@ -181,7 +199,24 @@ export const elementData = [
       sources: "/config/admin/theme",
     },
   ],
-
+  [
+    "/cbm",
+    {
+      name: "cbm",
+      dispName: "CBM",
+      description: "CBM 용 데이터 엘리먼트 폴더",
+      type: NexNodeType.FOLDER,
+    },
+  ],
+  [
+    "/cbm/config",
+    {
+      name: "config",
+      dispName: "CBM 설정",
+      description: "CBM 설정 용 데이터 엘리먼트 설정 폴더",
+      type: NexNodeType.FOLDER,
+    },
+  ],
   [
     "/cbm/config/Line",
     {
@@ -243,6 +278,15 @@ export const elementData = [
     },
   ],
   [
+    "/cbm/status",
+    {
+      name: "status",
+      dispName: "CBM 상태",
+      description: "CBM 상태 용 데이터 엘리먼트 설정 폴더",
+      type: NexNodeType.FOLDER,
+    },
+  ],
+  [
     "/cbm/status/LossPerLine",
     {
       name: "LossPerLine",
@@ -289,7 +333,15 @@ export const elementData = [
       sources: "",
     },
   ],
-
+  [
+    "/cbm/event",
+    {
+      name: "event",
+      dispName: "CBM 이벤트",
+      description: "CBM 이벤트 용 데이터 엘리먼트 설정 폴더",
+      type: NexNodeType.FOLDER,
+    },
+  ],
   [
     "/cbm/event/RTMaintenanceInfo",
     {
@@ -320,7 +372,15 @@ export const elementData = [
       sources: "/webserver/event/SystemEventInfo",
     },
   ],
-
+  [
+    "/cbm/history",
+    {
+      name: "history",
+      dispName: "CBM 이력",
+      description: "CBM 이력 용 데이터 엘리먼트 설정 폴더",
+      type: NexNodeType.FOLDER,
+    },
+  ],
   [
     "/cbm/history/LossHistory",
     {

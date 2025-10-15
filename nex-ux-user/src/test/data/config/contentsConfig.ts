@@ -263,13 +263,13 @@ const elementCondition = {
   method: "pathmatch",
 };
 
-const websectionSelection = {
-  key: "websection-path",
+const sectionSelection = {
+  key: "section-path",
   feature: "path",
 };
 
-const websectionCondition = {
-  key: "websection-path",
+const sectionCondition = {
+  key: "section-path",
   feature: "path",
   method: "pathmatch",
 };
@@ -349,7 +349,7 @@ const elementContents = {
   dispName: "엘리먼트",
   type: NexNodeType.CONTENTS,
   element: "/admin/element",
-  conditions: [systemCondition],
+  conditions: [],
   selections: [elementSelection],
 };
 
@@ -358,25 +358,25 @@ const oneElementContents = {
   dispName: "엘리먼트",
   type: NexNodeType.CONTENTS,
   element: "/admin/element",
-  conditions: [systemCondition, elementCondition],
+  conditions: [elementCondition],
   selections: [],
 };
 
-const websectionContents = {
-  name: "websection",
+const sectionContents = {
+  name: "section",
   dispName: "웹 섹션",
   type: NexNodeType.CONTENTS,
-  element: "/admin/websection",
+  element: "/admin/section",
   conditions: [], //[projectCondition],
-  selections: [websectionSelection],
+  selections: [sectionSelection],
 };
 
-const oneWebsectionContents = {
-  name: "SelectedWebsection",
+const oneSectionContents = {
+  name: "SelectedSection",
   dispName: "웹 섹션",
   type: NexNodeType.CONTENTS,
-  element: "/admin/websection",
-  conditions: [websectionCondition], //[projectCondition, systemCondition, websectionCondition],
+  element: "/admin/section",
+  conditions: [sectionCondition], //[projectCondition, systemCondition, sectionCondition],
   selections: [],
 };
 
@@ -440,8 +440,8 @@ export const contentsConfig: any[] = [
       oneSystemContents,
       elementContents,
       oneElementContents,
-      websectionContents,
-      oneWebsectionContents,
+      sectionContents,
+      oneSectionContents,
     ],
   },
 ];

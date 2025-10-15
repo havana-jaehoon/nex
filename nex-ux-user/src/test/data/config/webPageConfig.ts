@@ -163,33 +163,33 @@ const elementSection: NexWebSectionNode = {
   children: [elementFinder, elementEditor],
 };
 
-const websectionFinder: NexWebSectionNode = {
-  name: "websectionFinder",
+const sectionFinder: NexWebSectionNode = {
+  name: "sectionFinder",
   dispName: "웹 섹션",
   type: NexNodeType.SECTION,
   size: "3",
   applet: "/admin/NexNodeTree",
   padding: padding,
-  contents: ["/admin/websection"],
+  contents: ["/admin/section"],
 };
 
-const websectionEditor: NexWebSectionNode = {
-  name: "websectionEditor",
+const sectionEditor: NexWebSectionNode = {
+  name: "sectionEditor",
   dispName: "웹 섹션 편집",
   type: NexNodeType.SECTION,
   size: "7",
   applet: "/admin/NexJsonEditor",
   padding: padding,
-  contents: ["/admin/SelectedWebSection"],
+  contents: ["/admin/SelectedSection"],
 };
 
-const websectionSection: NexWebSectionNode = {
-  name: "websectionConfig",
+const sectionSection: NexWebSectionNode = {
+  name: "sectionConfig",
   dispName: "웹 섹션 설정",
   type: NexNodeType.SECTION,
   size: "5",
   direction: "column",
-  children: [websectionFinder, websectionEditor],
+  children: [sectionFinder, sectionEditor],
 };
 
 const dashboardPage: NexWebSectionNode = {
@@ -475,6 +475,8 @@ const adminPage: NexWebSectionNode = {
                 storeSection,
                 processorSection,
                 systemSection,
+                elementSection,
+                sectionSection,
               ],
             },
           ],
@@ -516,7 +518,7 @@ const adminSystemPage: NexWebSectionNode = {
               size: "1",
               direction: "row",
 
-              children: [websectionSection],
+              children: [sectionSection],
             },
           ],
         },

@@ -157,8 +157,6 @@ class DataFileIo:
 
             self._recordStorage = self._configs['store'].get("record", {}).get("storage", "DISK")
 
-
-
         # 4. 데이터 index 파일 로딩(없으면 신규 생성)
         if self._dataType == 'static' and self._isTree:
             self._blockSize = 1

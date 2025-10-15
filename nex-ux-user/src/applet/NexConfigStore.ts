@@ -109,9 +109,9 @@ class NexConfigStore {
 
     this.getNode = this.getNode.bind(this);
 
-    //this.fetchInternal();
+    this.fetchInternal();
 
-    this.fetch();
+    //this.fetch();
     //this.uploadConfig();
   }
 
@@ -137,6 +137,7 @@ class NexConfigStore {
         `Failed to fetch from url: ${this.url}, project: ${this.projectName}, system: ${this.systemName} : ${error})`
       );
     }
+    this.isReady = true;
   }
 
   async fetch() {

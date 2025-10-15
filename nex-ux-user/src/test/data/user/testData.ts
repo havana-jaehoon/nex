@@ -499,7 +499,7 @@ const detailLossLevelHistoryData = [
 ];
 
 export const testDataList = [
-  { name: "Menu", data: menuData },
+  { name: "menu", data: menuData },
   { name: "LossPerLine", data: lossPerLineData },
   { name: "LossPerDevice", data: lossPerDeviceData },
   { name: "TrainCountPerLine", data: trainCountPerLineData },
