@@ -4,17 +4,19 @@
   "",
   "",
   {
-    "name": "1min",
-    "type": "store",
-    "record": {
-      "storage": "hdfs",
-      "nature": "temporary",
-      "unit": "SEC",
-      "block": "MIN",
-      "expire": "1",
-      "expireUnit": "MIN",
-      "allowDuplication": "false",
-      "allowKeepValue": "false"
+    "2": {
+      "name": "1min",
+      "type": "store",
+      "record": {
+        "storage": "hdfs",
+        "nature": "temporary",
+        "unit": "SEC",
+        "block": "MIN",
+        "expire": "1",
+        "expireUnit": "MIN",
+        "allowDuplication": "false",
+        "allowKeepValue": "false"
+      }
     }
   }
 ]

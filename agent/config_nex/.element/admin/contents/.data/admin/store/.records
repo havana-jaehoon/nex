@@ -4,16 +4,18 @@
   "",
   "",
   {
-    "name": "store",
-    "dispName": "저장소",
-    "type": "contents",
-    "element": "/admin/store",
-    "conditions": [],
-    "selections": [
-      {
-        "key": "store-path",
-        "feature": "path"
-      }
-    ]
+    "2": {
+      "name": "store",
+      "dispName": "저장소",
+      "type": "contents",
+      "element": "/admin/store",
+      "conditions": [],
+      "selections": [
+        {
+          "key": "store-path",
+          "feature": "path"
+        }
+      ]
+    }
   }
 ]

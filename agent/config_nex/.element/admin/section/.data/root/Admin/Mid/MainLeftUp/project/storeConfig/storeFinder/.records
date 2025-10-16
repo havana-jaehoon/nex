@@ -4,14 +4,16 @@
   "",
   "",
   {
-    "name": "storeFinder",
-    "dispName": "데이터 저장 정책",
-    "type": "section",
-    "size": "3",
-    "applet": "/admin/NexNodeTree",
-    "padding": "8px",
-    "contents": [
-      "/admin/store"
-    ]
+    "0": {
+      "name": "storeFinder",
+      "dispName": "데이터 저장 정책",
+      "type": "section",
+      "size": "3",
+      "applet": "/admin/NexNodeTree",
+      "padding": "8px",
+      "contents": [
+        "/admin/store"
+      ]
+    }
   }
 ]

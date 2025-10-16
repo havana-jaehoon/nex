@@ -41,16 +41,33 @@ class ConfigReader:
             path = data[1]
             project_name = data[2]
             system_name = data[3]
-            node = data[4]
 
-            #print(f"# index={index}, path={path}, project={project_name}, system={system_name}")
+            obj = data[4]
+
+
+            ###########
+            # 다른곳으로 이동 필요
+            keys = list(data[4].keys())
+            values = list(data[4].values())
+
+            node = {}
+            if len(keys) == 1 and keys[0].isdigit():
+                # 새로운 설정포맷이 적용된 데이터
+                node = values[0]
+                #print(f"# Warning: index key found in data[4], skipping data: {data}")
+            else :
+                # 기존 설정포맷이 적용된 데이터
+                node = data[4] 
+            ###########
                 
             if project_name not in config_map:
                 config_map[project_name] = {}
             if system_name not in config_map[project_name]:
                 config_map[project_name][system_name] = []
-            config_map[project_name][system_name].append([index, path, project_name, system_name, node])
-            config_list.append([index, path, project_name, system_name, node])
+
+            
+            config_map[project_name][system_name].append([index, path, project_name, system_name, obj])
+            config_list.append([index, path, project_name, system_name, obj])
         return config_map, config_list
    
     def _make_tree(self, config_map):
@@ -123,12 +140,26 @@ class ConfigReader:
         return project_map
 
 
+    def _getNodeFromObject(self, obj) : 
+        if obj is None:
+            return obj
+        keys = list(obj.keys())
+        values = list(obj.values())
+
+        node = {}
+        if len(keys) == 1 and keys[0].isdigit():
+            # 새로운 설정포맷이 적용된 데이터
+            node = values[0]
+            #print(f"# Warning: index key found in data[4], skipping data: {data}")
+        else :
+            # 기존 설정포맷이 적용된 데이터
+            node = obj 
+        return node
+
     def _make_elements(self, config_map):
         elements = {}
 
-
-        elementMap = config_map['element']
-        
+        elementMap = config_map['element']       
         systemMap = config_map['system']
         formatMap = config_map['format']
         storeMap = config_map['store']
@@ -139,6 +170,7 @@ class ConfigReader:
             systems = list(elementMap[project].keys())
             elements[project] = {}
             #system_map = { }
+            
             for system in systems:
                 if(system == ''):
                     continue
@@ -157,7 +189,7 @@ class ConfigReader:
                     path = item[1] # path of the element
                     #project = item[2] # project of the element
                     #system = item[3] # system of the element
-                    elementNode = item[4] # node of the element
+                    elementNode = self._getNodeFromObject(item[4]) # node of the element
                     #print(f"  Element node: {json.dumps(elementNode, ensure_ascii=False, indent=2)}")
                     if elementNode.get('type') != 'element':
                         continue
@@ -203,8 +235,8 @@ class ConfigReader:
         return self._configTreeMap[type].get(project_name, {}).get(system_name, {})
 
     def getDatas(self, type:str, project_name:str, system_name:str):
+        #print(f"ConfigReader::getDatas({type}, {project_name}, {self._configMap[type].get(project_name, {})})")
         return self._configMap[type].get(project_name, {}).get(system_name, [])
-
 
     def getSystem(self, project_name:str, system_name:str):
         systems = self._configMap['system'].get(project_name, {}).get(f'{system_name}', None)
@@ -214,7 +246,7 @@ class ConfigReader:
 
         for item in systems :
             if(item[1] == f'/{system_name}' or item[4].get('name') == system_name):
-                return item[4]
+                return self._getNodeFromObject(item[4])
         return None
         
 
@@ -227,7 +259,7 @@ class ConfigReader:
      
         for data in datas:
             if data[1] == path:
-                return data[4]
+                return self._getNodeFromObject(data[4])
         return None
 
 
@@ -236,6 +268,10 @@ if __name__ == '__main__':
     cfg = ConfigReader("./config_nex/.element/admin")
 
 
+    format = cfg.getDatas('format', '', '')
+    print(f"# Format: {json.dumps(format, ensure_ascii=False, indent=2)}")
+    
+    exit(0)
 
     # 시스템 이름이 'webserver' 인 element 목록 가져오기
     element_list = cfg.getElements('', 'webserver')
@@ -253,9 +289,10 @@ if __name__ == '__main__':
 
         #print(f"# {path} element:", json.dumps(item, ensure_ascii=False, indent=2))
         dataio = DataFileIo("./config_nex/.element", path, system, element, format, store, processor)
-        data = dataio.get()
+        #data = dataio.get()
         #dataio.put(dataset)
-        print(f"# {path} data:", json.dumps(data, ensure_ascii=False, indent=2))
+        
+        #print(f"# {element} data:", json.dumps(data, ensure_ascii=False, indent=2))
         dataio.upgrade()
         #count += 1
         

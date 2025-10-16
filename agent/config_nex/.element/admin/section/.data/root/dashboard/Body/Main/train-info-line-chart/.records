@@ -4,13 +4,15 @@
   "",
   "",
   {
-    "name": "train-info-line-chart",
-    "type": "section",
-    "size": "2",
-    "padding": "8px",
-    "applet": "/chart/NexLineChart",
-    "contents": [
-      "/cbm/history/SelectedDetailLossLevelHistory"
-    ]
+    "2": {
+      "name": "train-info-line-chart",
+      "type": "section",
+      "size": "2",
+      "padding": "8px",
+      "applet": "/chart/NexLineChart",
+      "contents": [
+        "/cbm/history/SelectedDetailLossLevelHistory"
+      ]
+    }
   }
 ]

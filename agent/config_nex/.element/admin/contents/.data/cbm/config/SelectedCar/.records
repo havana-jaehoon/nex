@@ -4,21 +4,23 @@
   "",
   "",
   {
-    "name": "SelectedCar",
-    "type": "contents",
-    "element": "/cbm/config/CarPerTrain",
-    "condition": [
-      {
-        "key": "train",
-        "feature": "train",
-        "method": "match"
-      }
-    ],
-    "selection": [
-      {
-        "key": "car",
-        "feature": "car"
-      }
-    ]
+    "4": {
+      "name": "SelectedCar",
+      "type": "contents",
+      "element": "/cbm/config/CarPerTrain",
+      "condition": [
+        {
+          "key": "train",
+          "feature": "train",
+          "method": "match"
+        }
+      ],
+      "selection": [
+        {
+          "key": "car",
+          "feature": "car"
+        }
+      ]
+    }
   }
 ]

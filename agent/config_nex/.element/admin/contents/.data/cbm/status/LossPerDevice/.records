@@ -4,10 +4,12 @@
   "",
   "",
   {
-    "name": "LossPerDevice",
-    "type": "contents",
-    "element": "/cbm/status/LossPerDevice",
-    "condition": [],
-    "selection": []
+    "1": {
+      "name": "LossPerDevice",
+      "type": "contents",
+      "element": "/cbm/status/LossPerDevice",
+      "condition": [],
+      "selection": []
+    }
   }
 ]

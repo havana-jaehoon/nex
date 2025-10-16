@@ -4,9 +4,11 @@
   "",
   "",
   {
-    "name": "project",
-    "type": "section",
-    "size": "1",
-    "direction": "row"
+    "0": {
+      "name": "project",
+      "type": "section",
+      "size": "1",
+      "direction": "row"
+    }
   }
 ]

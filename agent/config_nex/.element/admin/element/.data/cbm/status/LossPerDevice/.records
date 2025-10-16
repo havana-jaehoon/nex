@@ -4,15 +4,17 @@
   "",
   "webserver",
   {
-    "name": "LossPerDevice",
-    "dispName": "장치별 열화 현상",
-    "description": "장치치별 열화 현상 데이터 엘리먼트",
-    "type": "element",
-    "format": "/cbm/status/AlertCount",
-    "store": "/memory/static",
-    "processor": "/common/transparent",
-    "processingInterval": "10",
-    "processingUnit": "SEC",
-    "sources": ""
+    "1": {
+      "name": "LossPerDevice",
+      "dispName": "장치별 열화 현상",
+      "description": "장치치별 열화 현상 데이터 엘리먼트",
+      "type": "element",
+      "format": "/cbm/status/AlertCount",
+      "store": "/memory/static",
+      "processor": "/common/transparent",
+      "processingInterval": "10",
+      "processingUnit": "SEC",
+      "sources": ""
+    }
   }
 ]

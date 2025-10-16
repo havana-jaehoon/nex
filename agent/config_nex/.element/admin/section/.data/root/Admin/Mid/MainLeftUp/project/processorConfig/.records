@@ -4,10 +4,12 @@
   "",
   "",
   {
-    "name": "processorConfig",
-    "dispName": "프로세서 설정",
-    "type": "section",
-    "size": "5",
-    "direction": "column"
+    "2": {
+      "name": "processorConfig",
+      "dispName": "프로세서 설정",
+      "type": "section",
+      "size": "5",
+      "direction": "column"
+    }
   }
 ]

@@ -4,9 +4,11 @@
   "",
   "",
   {
-    "type": "folder",
-    "name": "event",
-    "dispName": "이벤트 데이터",
-    "description": "이벤트 데이터 컨텐츠 폴더"
+    "3": {
+      "type": "folder",
+      "name": "event",
+      "dispName": "이벤트 데이터",
+      "description": "이벤트 데이터 컨텐츠 폴더"
+    }
   }
 ]

@@ -4,9 +4,11 @@
   "",
   "",
   {
-    "name": "memory",
-    "dispName": "메모리",
-    "description": "메모리 저장 정책 폴더",
-    "type": "folder"
+    "0": {
+      "name": "memory",
+      "dispName": "메모리",
+      "description": "메모리 저장 정책 폴더",
+      "type": "folder"
+    }
   }
 ]

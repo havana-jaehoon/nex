@@ -1,6 +1,7 @@
 import os
 import json, csv
 import pandas as pd
+from collections import defaultdict
 
 
 
@@ -360,12 +361,35 @@ class DataFileIo:
         
     def upgrade(self):
         records = self.get()
-        if records is None:
+        if records is None or len(records) == 0:
             return False
         
+        node = records[0][4]
 
+        keys = list(node.keys())
+        values = list(node.values())
+        
+        if(len(keys) == 1 and keys[0].isdigit()):
+            # 새로운 설정포맷이 적용된 데이터
+            print(f"DataFileIo({self._path})::upgrade() - upgrade done already")
+            return False
+        
+        child_count_per_path = {}
+        for record in records:
+            path = record[1]
+            parent_path = os.path.dirname(path)
+            if parent_path not in child_count_per_path:
+                child_count_per_path[parent_path] = 0
+                #print("# New parent path:", parent_path)
+            else :               
+                child_count_per_path[parent_path] += 1
+
+            #new_record = record[:]  # Create a copy
+            record[4] = {str(child_count_per_path[parent_path]): record[4]}
+
+        
         self.set(records)
-
+        print(f"DataFileIo({self._path})::upgrade() - new upgrade done")
         return True
    
 if __name__ == '__main__':

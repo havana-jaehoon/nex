@@ -4,17 +4,19 @@
   "",
   "",
   {
-    "name": "10min",
-    "type": "store",
-    "record": {
-      "storage": "disk",
-      "nature": "temporary",
-      "unit": "SEC",
-      "block": "MIN",
-      "expire": "10",
-      "expireUnit": "MIN",
-      "allowDuplication": "false",
-      "allowKeepValue": "false"
+    "3": {
+      "name": "10min",
+      "type": "store",
+      "record": {
+        "storage": "disk",
+        "nature": "temporary",
+        "unit": "SEC",
+        "block": "MIN",
+        "expire": "10",
+        "expireUnit": "MIN",
+        "allowDuplication": "false",
+        "allowKeepValue": "false"
+      }
     }
   }
 ]

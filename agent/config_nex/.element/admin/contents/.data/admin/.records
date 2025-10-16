@@ -4,9 +4,11 @@
   "",
   "",
   {
-    "type": "folder",
-    "name": "admin",
-    "dispName": "Admin",
-    "description": "Admin 용 컨텐츠 폴더"
+    "2": {
+      "type": "folder",
+      "name": "admin",
+      "dispName": "Admin",
+      "description": "Admin 용 컨텐츠 폴더"
+    }
   }
 ]

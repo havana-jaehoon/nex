@@ -4,10 +4,12 @@
   "",
   "",
   {
-    "name": "TrainCountPerLine",
-    "type": "contents",
-    "element": "/cbm/status/TrainCountPerLine",
-    "condition": [],
-    "selection": []
+    "2": {
+      "name": "TrainCountPerLine",
+      "type": "contents",
+      "element": "/cbm/status/TrainCountPerLine",
+      "condition": [],
+      "selection": []
+    }
   }
 ]

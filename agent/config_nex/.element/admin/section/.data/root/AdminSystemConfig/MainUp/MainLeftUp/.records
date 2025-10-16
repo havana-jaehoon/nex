@@ -4,9 +4,11 @@
   "",
   "",
   {
-    "name": "MainLeftUp",
-    "type": "section",
-    "size": "1",
-    "direction": "column"
+    "0": {
+      "name": "MainLeftUp",
+      "type": "section",
+      "size": "1",
+      "direction": "column"
+    }
   }
 ]

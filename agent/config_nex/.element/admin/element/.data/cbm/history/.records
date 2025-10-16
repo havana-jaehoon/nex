@@ -4,9 +4,11 @@
   "",
   "webserver",
   {
-    "name": "history",
-    "dispName": "이력",
-    "description": "이력 데이터 엘리먼트 폴더",
-    "type": "folder"
+    "3": {
+      "name": "history",
+      "dispName": "이력",
+      "description": "이력 데이터 엘리먼트 폴더",
+      "type": "folder"
+    }
   }
 ]

@@ -4,9 +4,11 @@
   "",
   "",
   {
-    "name": "MainUp",
-    "type": "section",
-    "size": "2",
-    "direction": "row"
+    "0": {
+      "name": "MainUp",
+      "type": "section",
+      "size": "2",
+      "direction": "row"
+    }
   }
 ]

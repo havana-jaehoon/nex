@@ -4,10 +4,12 @@
   "",
   "",
   {
-    "name": "root",
-    "dispName": "root",
-    "description": "root",
-    "type": "section",
-    "isRoutes": true
+    "0": {
+      "name": "root",
+      "dispName": "root",
+      "description": "root",
+      "type": "section",
+      "isRoutes": true
+    }
   }
 ]

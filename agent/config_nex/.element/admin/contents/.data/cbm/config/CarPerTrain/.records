@@ -4,15 +4,17 @@
   "",
   "",
   {
-    "name": "CarPerTrain",
-    "type": "contents",
-    "element": "/cbm/config/CarPerTrain",
-    "condition": [],
-    "selection": [
-      {
-        "key": "car",
-        "feature": "car"
-      }
-    ]
+    "3": {
+      "name": "CarPerTrain",
+      "type": "contents",
+      "element": "/cbm/config/CarPerTrain",
+      "condition": [],
+      "selection": [
+        {
+          "key": "car",
+          "feature": "car"
+        }
+      ]
+    }
   }
 ]

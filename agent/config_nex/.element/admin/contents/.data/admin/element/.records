@@ -4,22 +4,24 @@
   "",
   "",
   {
-    "name": "element",
-    "dispName": "엘리먼트",
-    "type": "contents",
-    "element": "/admin/element",
-    "conditions": [
-      {
-        "key": "system-path",
-        "feature": "path",
-        "method": "pathmatch"
-      }
-    ],
-    "selections": [
-      {
-        "key": "element-path",
-        "feature": "path"
-      }
-    ]
+    "8": {
+      "name": "element",
+      "dispName": "엘리먼트",
+      "type": "contents",
+      "element": "/admin/element",
+      "conditions": [
+        {
+          "key": "system-path",
+          "feature": "path",
+          "method": "pathmatch"
+        }
+      ],
+      "selections": [
+        {
+          "key": "element-path",
+          "feature": "path"
+        }
+      ]
+    }
   }
 ]

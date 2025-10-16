@@ -4,15 +4,17 @@
   "",
   "webserver",
   {
-    "name": "TrainCountPerLine",
-    "dispName": "노선별 편성 수",
-    "description": "노선별 편성 수 데이터 엘리먼트",
-    "type": "element",
-    "format": "/cbm/status/TrainCountPerLine",
-    "store": "/memory/static",
-    "processor": "/common/transparent",
-    "processingInterval": "10",
-    "processingUnit": "SEC",
-    "sources": ""
+    "2": {
+      "name": "TrainCountPerLine",
+      "dispName": "노선별 편성 수",
+      "description": "노선별 편성 수 데이터 엘리먼트",
+      "type": "element",
+      "format": "/cbm/status/TrainCountPerLine",
+      "store": "/memory/static",
+      "processor": "/common/transparent",
+      "processingInterval": "10",
+      "processingUnit": "SEC",
+      "sources": ""
+    }
   }
 ]

@@ -4,10 +4,12 @@
   "",
   "",
   {
-    "name": "RTMaintenanceInfo",
-    "type": "contents",
-    "element": "/cbm/event/RTMaintenanceInfo",
-    "condition": [],
-    "selection": []
+    "0": {
+      "name": "RTMaintenanceInfo",
+      "type": "contents",
+      "element": "/cbm/event/RTMaintenanceInfo",
+      "condition": [],
+      "selection": []
+    }
   }
 ]

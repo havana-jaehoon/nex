@@ -4,15 +4,17 @@
   "",
   "webserver",
   {
-    "name": "TrainPerLine",
-    "dispName": "노선별편성정보",
-    "description": "노선별 편성정보",
-    "type": "element",
-    "format": "/cbm/config/TrainPerLine",
-    "store": "/memory/static",
-    "processor": "/common/transparent",
-    "processingInterval": "10",
-    "processingUnit": "SEC",
-    "sources": "/webserver/config/TrainPerLine"
+    "1": {
+      "name": "TrainPerLine",
+      "dispName": "노선별편성정보",
+      "description": "노선별 편성정보",
+      "type": "element",
+      "format": "/cbm/config/TrainPerLine",
+      "store": "/memory/static",
+      "processor": "/common/transparent",
+      "processingInterval": "10",
+      "processingUnit": "SEC",
+      "sources": "/webserver/config/TrainPerLine"
+    }
   }
 ]

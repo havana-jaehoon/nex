@@ -4,9 +4,11 @@
   "",
   "",
   {
-    "name": "loss",
-    "type": "section",
-    "size": "1",
-    "direction": "row"
+    "0": {
+      "name": "loss",
+      "type": "section",
+      "size": "1",
+      "direction": "row"
+    }
   }
 ]

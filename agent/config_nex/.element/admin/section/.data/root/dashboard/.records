@@ -4,11 +4,13 @@
   "",
   "",
   {
-    "name": "dashboard",
-    "dispName": "Dashboard",
-    "description": "Dashboard",
-    "type": "section",
-    "route": "cbm/*",
-    "direction": "column"
+    "0": {
+      "name": "dashboard",
+      "dispName": "Dashboard",
+      "description": "Dashboard",
+      "type": "section",
+      "route": "cbm/*",
+      "direction": "column"
+    }
   }
 ]

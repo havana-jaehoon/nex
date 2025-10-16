@@ -4,11 +4,13 @@
   "",
   "",
   {
-    "name": "sample",
-    "dispName": "Sample",
-    "type": "contents",
-    "element": "/cbm/history/LossHistoryPerDevice",
-    "condition": [],
-    "selection": []
+    "1": {
+      "name": "sample",
+      "dispName": "Sample",
+      "type": "contents",
+      "element": "/cbm/history/LossHistoryPerDevice",
+      "condition": [],
+      "selection": []
+    }
   }
 ]

@@ -4,14 +4,16 @@
   "",
   "",
   {
-    "name": "system",
-    "dispName": "시스템 설정",
-    "type": "section",
-    "size": "3",
-    "applet": "/admin/NexNodeTree",
-    "padding": "8px",
-    "contents": [
-      "/admin/system"
-    ]
+    "0": {
+      "name": "system",
+      "dispName": "시스템 설정",
+      "type": "section",
+      "size": "3",
+      "applet": "/admin/NexNodeTree",
+      "padding": "8px",
+      "contents": [
+        "/admin/system"
+      ]
+    }
   }
 ]

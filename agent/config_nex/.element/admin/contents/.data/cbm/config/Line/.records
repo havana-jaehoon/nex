@@ -4,15 +4,17 @@
   "",
   "",
   {
-    "name": "Line",
-    "type": "contents",
-    "element": "/cbm/config/Line",
-    "condition": [],
-    "selection": [
-      {
-        "key": "line",
-        "feature": "line"
-      }
-    ]
+    "0": {
+      "name": "Line",
+      "type": "contents",
+      "element": "/cbm/config/Line",
+      "condition": [],
+      "selection": [
+        {
+          "key": "line",
+          "feature": "line"
+        }
+      ]
+    }
   }
 ]

@@ -4,9 +4,11 @@
   "",
   "",
   {
-    "name": "maintenance",
-    "type": "section",
-    "size": "1",
-    "direction": "row"
+    "1": {
+      "name": "maintenance",
+      "type": "section",
+      "size": "1",
+      "direction": "row"
+    }
   }
 ]

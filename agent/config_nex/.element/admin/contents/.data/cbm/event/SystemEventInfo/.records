@@ -4,10 +4,12 @@
   "",
   "",
   {
-    "name": "SystemEventInfo",
-    "type": "contents",
-    "element": "/cbm/event/SystemEventInfo",
-    "condition": [],
-    "selection": []
+    "1": {
+      "name": "SystemEventInfo",
+      "type": "contents",
+      "element": "/cbm/event/SystemEventInfo",
+      "condition": [],
+      "selection": []
+    }
   }
 ]

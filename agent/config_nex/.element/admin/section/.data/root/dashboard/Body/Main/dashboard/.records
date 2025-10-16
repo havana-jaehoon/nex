@@ -4,10 +4,12 @@
   "",
   "",
   {
-    "name": "dashboard",
-    "type": "section",
-    "size": "1",
-    "direction": "column",
-    "route": "dashboard"
+    "0": {
+      "name": "dashboard",
+      "type": "section",
+      "size": "1",
+      "direction": "column",
+      "route": "dashboard"
+    }
   }
 ]

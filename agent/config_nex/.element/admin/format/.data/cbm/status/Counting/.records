@@ -4,28 +4,30 @@
   "",
   "",
   {
-    "name": "Counting",
-    "dispName": "건수",
-    "type": "format",
-    "features": [
-      {
-        "name": "label",
-        "dispName": "라벨",
-        "icon": null,
-        "color": null,
-        "type": "feature",
-        "isKey": true,
-        "featureType": "STRING"
-      },
-      {
-        "name": "count",
-        "dispName": "건수",
-        "icon": null,
-        "color": "#f0142f",
-        "type": "feature",
-        "isKey": false,
-        "featureType": "UINT32"
-      }
-    ]
+    "1": {
+      "name": "Counting",
+      "dispName": "건수",
+      "type": "format",
+      "features": [
+        {
+          "name": "label",
+          "dispName": "라벨",
+          "icon": null,
+          "color": null,
+          "type": "feature",
+          "isKey": true,
+          "featureType": "STRING"
+        },
+        {
+          "name": "count",
+          "dispName": "건수",
+          "icon": null,
+          "color": "#f0142f",
+          "type": "feature",
+          "isKey": false,
+          "featureType": "UINT32"
+        }
+      ]
+    }
   }
 ]

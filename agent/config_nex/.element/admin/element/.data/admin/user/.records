@@ -4,15 +4,17 @@
   "",
   "",
   {
-    "name": "user",
-    "dispName": "사용자",
-    "description": "사용자",
-    "type": "element",
-    "format": "/admin/node",
-    "store": "/memory/static",
-    "processor": "/common/transparent",
-    "processingInterval": "10",
-    "processingUnit": "SEC",
-    "sources": "/config/admin/user"
+    "9": {
+      "name": "user",
+      "dispName": "사용자",
+      "description": "사용자",
+      "type": "element",
+      "format": "/admin/node",
+      "store": "/memory/static",
+      "processor": "/common/transparent",
+      "processingInterval": "10",
+      "processingUnit": "SEC",
+      "sources": "/config/admin/user"
+    }
   }
 ]

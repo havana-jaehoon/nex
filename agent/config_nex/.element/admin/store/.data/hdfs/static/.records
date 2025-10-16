@@ -4,17 +4,19 @@
   "",
   "",
   {
-    "name": "static",
-    "type": "store",
-    "record": {
-      "storage": "hdfs",
-      "nature": "static",
-      "unit": "NONE",
-      "block": "NONE",
-      "expire": "-1",
-      "expireUnit": "NONE",
-      "allowDuplication": "false",
-      "allowKeepValue": "false"
+    "0": {
+      "name": "static",
+      "type": "store",
+      "record": {
+        "storage": "hdfs",
+        "nature": "static",
+        "unit": "NONE",
+        "block": "NONE",
+        "expire": "-1",
+        "expireUnit": "NONE",
+        "allowDuplication": "false",
+        "allowKeepValue": "false"
+      }
     }
   }
 ]

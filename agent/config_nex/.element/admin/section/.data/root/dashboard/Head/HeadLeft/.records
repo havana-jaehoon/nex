@@ -4,10 +4,12 @@
   "",
   "",
   {
-    "name": "HeadLeft",
-    "type": "section",
-    "size": "10",
-    "applet": "",
-    "contents": []
+    "0": {
+      "name": "HeadLeft",
+      "type": "section",
+      "size": "10",
+      "applet": "",
+      "contents": []
+    }
   }
 ]

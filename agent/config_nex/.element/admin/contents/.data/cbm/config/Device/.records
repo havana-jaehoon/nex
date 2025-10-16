@@ -4,15 +4,17 @@
   "",
   "",
   {
-    "name": "Device",
-    "type": "contents",
-    "element": "/cbm/config/Device",
-    "condition": [],
-    "selection": [
-      {
-        "key": "device",
-        "feature": "device"
-      }
-    ]
+    "5": {
+      "name": "Device",
+      "type": "contents",
+      "element": "/cbm/config/Device",
+      "condition": [],
+      "selection": [
+        {
+          "key": "device",
+          "feature": "device"
+        }
+      ]
+    }
   }
 ]

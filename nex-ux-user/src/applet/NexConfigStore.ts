@@ -29,7 +29,7 @@ const buildAdminConfig = (datas: any[]) => {
   const pathMap: Record<string, any> = { "/": root };
 
   datas.forEach((item) => {
-    const [index, path, project, system, node] = item;
+    const [index, path, project, system, object] = item;
     const parts = path.split("/").filter(Boolean);
     const nodeName = parts.pop() || "";
     const parentPath = "/" + parts.join("/");
@@ -37,17 +37,38 @@ const buildAdminConfig = (datas: any[]) => {
     //console.log(
     //  `Processing item: index=${index}, path='${path}', nodeName='${nodeName}', parentPath='${parentPath}'`
     //);
-    const newNode = { ...node };
+    const keys = Object.keys(object);
+    if (keys.length !== 1) {
+      // must have only one key
+      console.warn(
+        `[buildAdminConfig] Expected 1 key in object, but found keys:${JSON.stringify(object)}.`
+      );
+      // continue or return based on how you want to handle this error
+    }
+    const seq = Number(keys[0]);
+    const node = object[keys[0]];
+    const newNode = { ...node, _seq: seq };
 
     const parentNode = pathMap[parentPath];
     //console.log("Parent Node:", JSON.stringify(parentNode, null, 2));
     if (!parentNode.children) {
       parentNode.children = [];
     }
+    // seq 순서에 맞게 삽입
     parentNode.children.push(newNode);
+
     pathMap[path] = newNode;
   });
 
+  for (const parentPath in pathMap) {
+    const parentNode = pathMap[parentPath];
+    if (parentNode.children) {
+      // seq 순서로 정렬
+      parentNode.children.sort((a: any, b: any) => a._seq - b._seq);
+      // 임시 _seq 속성 제거
+      parentNode.children.forEach((child: any) => delete child._seq);
+    }
+  }
   //console.log("buildAdminConfig root:", JSON.stringify(root, null, 2));
   return root.children || [];
 };
@@ -109,9 +130,13 @@ class NexConfigStore {
 
     this.getNode = this.getNode.bind(this);
 
-    this.fetchInternal();
-
-    //this.fetch();
+    // 테스트 데이터로 초기화
+    const isLocalConfig = false;
+    if (isLocalConfig) {
+      this.fetchInternal();
+    } else {
+      this.fetch();
+    }
     //this.uploadConfig();
   }
 

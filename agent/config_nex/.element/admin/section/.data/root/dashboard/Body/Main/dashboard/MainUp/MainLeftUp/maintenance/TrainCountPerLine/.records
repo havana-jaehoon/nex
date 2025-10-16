@@ -4,14 +4,16 @@
   "",
   "",
   {
-    "name": "TrainCountPerLine",
-    "dispName": "노선별 평성 수",
-    "type": "section",
-    "size": "4",
-    "applet": "/status/NexCount",
-    "padding": "8px",
-    "contents": [
-      "/cbm/status/TrainCountPerLine"
-    ]
+    "0": {
+      "name": "TrainCountPerLine",
+      "dispName": "노선별 평성 수",
+      "type": "section",
+      "size": "4",
+      "applet": "/status/NexCount",
+      "padding": "8px",
+      "contents": [
+        "/cbm/status/TrainCountPerLine"
+      ]
+    }
   }
 ]

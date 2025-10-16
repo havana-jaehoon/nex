@@ -4,15 +4,17 @@
   "",
   "webserver",
   {
-    "name": "LossHistoryPerDevice",
-    "dispName": "장치별 열화 이력",
-    "description": "장치치별 열화 이력 데이터 엘리먼트",
-    "type": "element",
-    "format": "/cbm/history/LossHistoryPerDevice",
-    "store": "/memory/7day",
-    "processor": "/common/transparent",
-    "processingInterval": "10",
-    "processingUnit": "SEC",
-    "sources": "/webserver/history/LossHistoryPerDevice"
+    "1": {
+      "name": "LossHistoryPerDevice",
+      "dispName": "장치별 열화 이력",
+      "description": "장치치별 열화 이력 데이터 엘리먼트",
+      "type": "element",
+      "format": "/cbm/history/LossHistoryPerDevice",
+      "store": "/memory/7day",
+      "processor": "/common/transparent",
+      "processingInterval": "10",
+      "processingUnit": "SEC",
+      "sources": "/webserver/history/LossHistoryPerDevice"
+    }
   }
 ]

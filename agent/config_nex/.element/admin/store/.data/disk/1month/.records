@@ -4,17 +4,19 @@
   "",
   "",
   {
-    "name": "1month",
-    "type": "store",
-    "record": {
-      "storage": "disk",
-      "nature": "temporary",
-      "unit": "SEC",
-      "block": "MIN",
-      "expire": "1",
-      "expireUnit": "MONTH",
-      "allowDuplication": "false",
-      "allowKeepValue": "false"
+    "8": {
+      "name": "1month",
+      "type": "store",
+      "record": {
+        "storage": "disk",
+        "nature": "temporary",
+        "unit": "SEC",
+        "block": "MIN",
+        "expire": "1",
+        "expireUnit": "MONTH",
+        "allowDuplication": "false",
+        "allowKeepValue": "false"
+      }
     }
   }
 ]

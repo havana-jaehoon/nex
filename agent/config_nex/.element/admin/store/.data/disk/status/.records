@@ -4,17 +4,19 @@
   "",
   "",
   {
-    "name": "status",
-    "type": "store",
-    "record": {
-      "storage": "disk",
-      "nature": "temporary",
-      "unit": "SEC",
-      "block": "MIN",
-      "expire": "0",
-      "expireUnit": "NONE",
-      "allowDuplication": "false",
-      "allowKeepValue": "false"
+    "1": {
+      "name": "status",
+      "type": "store",
+      "record": {
+        "storage": "disk",
+        "nature": "temporary",
+        "unit": "SEC",
+        "block": "MIN",
+        "expire": "0",
+        "expireUnit": "NONE",
+        "allowDuplication": "false",
+        "allowKeepValue": "false"
+      }
     }
   }
 ]

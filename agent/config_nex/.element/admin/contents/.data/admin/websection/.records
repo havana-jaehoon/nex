@@ -4,16 +4,18 @@
   "",
   "",
   {
-    "name": "websection",
-    "dispName": "웹 섹션",
-    "type": "contents",
-    "element": "/admin/websection",
-    "conditions": [],
-    "selections": [
-      {
-        "key": "websection-path",
-        "feature": "path"
-      }
-    ]
+    "10": {
+      "name": "websection",
+      "dispName": "웹 섹션",
+      "type": "contents",
+      "element": "/admin/websection",
+      "conditions": [],
+      "selections": [
+        {
+          "key": "websection-path",
+          "feature": "path"
+        }
+      ]
+    }
   }
 ]

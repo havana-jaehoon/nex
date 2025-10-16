@@ -4,16 +4,18 @@
   "",
   "",
   {
-    "name": "SelectedDevice",
-    "type": "contents",
-    "element": "/cbm/config/Device",
-    "condition": [
-      {
-        "key": "car",
-        "feature": "car",
-        "method": "match"
-      }
-    ],
-    "selection": []
+    "6": {
+      "name": "SelectedDevice",
+      "type": "contents",
+      "element": "/cbm/config/Device",
+      "condition": [
+        {
+          "key": "car",
+          "feature": "car",
+          "method": "match"
+        }
+      ],
+      "selection": []
+    }
   }
 ]

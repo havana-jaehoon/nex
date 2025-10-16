@@ -4,17 +4,19 @@
   "",
   "",
   {
-    "name": "SelectedProcessor",
-    "dispName": "프로세서",
-    "type": "contents",
-    "element": "/admin/processor",
-    "conditions": [
-      {
-        "key": "processor-path",
-        "feature": "path",
-        "method": "pathmatch"
-      }
-    ],
-    "selections": []
+    "5": {
+      "name": "SelectedProcessor",
+      "dispName": "프로세서",
+      "type": "contents",
+      "element": "/admin/processor",
+      "conditions": [
+        {
+          "key": "processor-path",
+          "feature": "path",
+          "method": "pathmatch"
+        }
+      ],
+      "selections": []
+    }
   }
 ]

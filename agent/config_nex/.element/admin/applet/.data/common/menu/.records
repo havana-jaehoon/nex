@@ -4,12 +4,14 @@
   "",
   "",
   {
-    "name": "menu",
-    "dispName": "Nex Menu",
-    "description": "Nex Menu Applet",
-    "type": "applet",
-    "icon": "menu",
-    "color": "#FF5733",
-    "applet": "/menu/NexMenu"
+    "0": {
+      "name": "menu",
+      "dispName": "Nex Menu",
+      "description": "Nex Menu Applet",
+      "type": "applet",
+      "icon": "menu",
+      "color": "#FF5733",
+      "applet": "/menu/NexMenu"
+    }
   }
 ]

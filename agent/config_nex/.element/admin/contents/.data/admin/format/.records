@@ -4,15 +4,17 @@
   "",
   "",
   {
-    "name": "format",
-    "type": "contents",
-    "element": "/admin/format",
-    "conditions": [],
-    "selections": [
-      {
-        "key": "format-path",
-        "feature": "path"
-      }
-    ]
+    "0": {
+      "name": "format",
+      "type": "contents",
+      "element": "/admin/format",
+      "conditions": [],
+      "selections": [
+        {
+          "key": "format-path",
+          "feature": "path"
+        }
+      ]
+    }
   }
 ]

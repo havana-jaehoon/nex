@@ -4,9 +4,11 @@
   "",
   "",
   {
-    "name": "Top",
-    "type": "section",
-    "size": "5",
-    "direction": "row"
+    "0": {
+      "name": "Top",
+      "type": "section",
+      "size": "5",
+      "direction": "row"
+    }
   }
 ]

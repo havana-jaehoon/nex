@@ -4,10 +4,12 @@
   "",
   "",
   {
-    "name": "formatConfig",
-    "dispName": "포맷 설정",
-    "type": "section",
-    "size": "5",
-    "direction": "column"
+    "0": {
+      "name": "formatConfig",
+      "dispName": "포맷 설정",
+      "type": "section",
+      "size": "5",
+      "direction": "column"
+    }
   }
 ]
