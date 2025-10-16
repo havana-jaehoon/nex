@@ -1,0 +1,19 @@
+[
+  52,
+  "/root/AdminSystemConfig/MainUp/MainLeftUp/project/websectionConfig/websectionFinder",
+  "",
+  "",
+  {
+    "0": {
+      "name": "websectionFinder",
+      "dispName": "웹 섹션",
+      "type": "section",
+      "size": "3",
+      "applet": "/admin/NexNodeTree",
+      "padding": "8px",
+      "contents": [
+        "/admin/websection"
+      ]
+    }
+  }
+]

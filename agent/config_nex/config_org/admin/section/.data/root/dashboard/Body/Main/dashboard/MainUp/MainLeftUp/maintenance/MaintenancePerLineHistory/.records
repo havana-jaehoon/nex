@@ -1,0 +1,19 @@
+[
+  19,
+  "/root/dashboard/Body/Main/dashboard/MainUp/MainLeftUp/maintenance/MaintenancePerLineHistory",
+  "",
+  "",
+  {
+    "1": {
+      "name": "MaintenancePerLineHistory",
+      "dispName": "노선별 유지보수 이력",
+      "type": "section",
+      "size": "8",
+      "applet": "/chart/NexLineChart",
+      "padding": "8px",
+      "contents": [
+        "/cbm/history/MaintenancePerLineHistory"
+      ]
+    }
+  }
+]

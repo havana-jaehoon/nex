@@ -1,0 +1,22 @@
+[
+  28,
+  "/hdfs/10day",
+  "",
+  "",
+  {
+    "7": {
+      "name": "10day",
+      "type": "store",
+      "record": {
+        "storage": "hdfs",
+        "nature": "temporary",
+        "unit": "SEC",
+        "block": "MIN",
+        "expire": "10",
+        "expireUnit": "DAY",
+        "allowDuplication": "false",
+        "allowKeepValue": "false"
+      }
+    }
+  }
+]

@@ -1,0 +1,14 @@
+[
+  48,
+  "/root/AdminSystemConfig/MainUp",
+  "",
+  "",
+  {
+    "1": {
+      "name": "MainUp",
+      "type": "section",
+      "size": "94",
+      "direction": "row"
+    }
+  }
+]

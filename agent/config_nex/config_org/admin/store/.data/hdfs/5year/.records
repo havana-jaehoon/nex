@@ -1,0 +1,22 @@
+[
+  31,
+  "/hdfs/5year",
+  "",
+  "",
+  {
+    "10": {
+      "name": "5year",
+      "type": "store",
+      "record": {
+        "storage": "hdfs",
+        "nature": "temporary",
+        "unit": "SEC",
+        "block": "MIN",
+        "expire": "5",
+        "expireUnit": "YEAR",
+        "allowDuplication": "false",
+        "allowKeepValue": "false"
+      }
+    }
+  }
+]

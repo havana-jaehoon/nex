@@ -1,0 +1,15 @@
+[
+  42,
+  "/root/Admin/Mid/MainLeftUp/project/systemConfig",
+  "",
+  "",
+  {
+    "3": {
+      "name": "systemConfig",
+      "dispName": "시스템 설정",
+      "type": "section",
+      "size": "5",
+      "direction": "column"
+    }
+  }
+]

@@ -1,0 +1,15 @@
+[
+  13,
+  "/cbm/status/LossPerLine",
+  "",
+  "",
+  {
+    "0": {
+      "name": "LossPerLine",
+      "type": "contents",
+      "element": "/cbm/status/LossPerLine",
+      "condition": [],
+      "selection": []
+    }
+  }
+]

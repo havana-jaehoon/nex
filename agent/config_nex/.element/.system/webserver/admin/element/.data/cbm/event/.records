@@ -1,0 +1,14 @@
+[
+  12,
+  "/cbm/event",
+  "",
+  "webserver",
+  {
+    "2": {
+      "name": "event",
+      "dispName": "이벤트",
+      "description": "이벤트 데이터 엘리먼트 폴더",
+      "type": "folder"
+    }
+  }
+]

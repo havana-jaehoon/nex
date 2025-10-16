@@ -1,0 +1,14 @@
+[
+  3,
+  "/cbm",
+  "",
+  "",
+  {
+    "1": {
+      "type": "folder",
+      "name": "cbm",
+      "dispName": "CBM",
+      "description": "CBM 용 컨텐츠 폴더"
+    }
+  }
+]

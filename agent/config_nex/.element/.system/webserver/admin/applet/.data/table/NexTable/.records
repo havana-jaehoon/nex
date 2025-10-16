@@ -1,0 +1,17 @@
+[
+  5,
+  "/table/NexTable",
+  "",
+  "",
+  {
+    "0": {
+      "name": "NexTable",
+      "dispName": "Nex Table",
+      "description": "Nex Table Applet",
+      "type": "applet",
+      "icon": "table",
+      "color": "#3357FF",
+      "applet": "/table/NexTable"
+    }
+  }
+]

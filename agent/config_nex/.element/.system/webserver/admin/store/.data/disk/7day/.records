@@ -1,0 +1,22 @@
+[
+  13,
+  "/disk/7day",
+  "",
+  "",
+  {
+    "6": {
+      "name": "7day",
+      "type": "store",
+      "record": {
+        "storage": "disk",
+        "nature": "temporary",
+        "unit": "SEC",
+        "block": "MIN",
+        "expire": "7",
+        "expireUnit": "DAY",
+        "allowDuplication": "false",
+        "allowKeepValue": "false"
+      }
+    }
+  }
+]

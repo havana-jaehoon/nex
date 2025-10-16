@@ -30,8 +30,13 @@ ELEMENT_CFG_LIST = {
 # Data Input/Output 을 제공하는 클래스
 class DataFileIo:
     def __init__(self, root_path:str, element_path:str, system=None, element=None, format=None, store=None, processor=None):
-        self._root_path = root_path  # data elements root path(os absolute path)
-        self._path = element_path  # element path
+        # root_path : data elements root path(os absolute path)
+        self._elementPath = element_path  # element path
+
+        # 시스템 별로 element 데이터 폴더를 만들기 위한 경로
+        # system 이 None 이면 Config Reeader only 용으로 사용
+        self._systemPath = f'/.system/{system.get("name", "")}' if system is not None else ""
+        self._elementFullPath = f'{root_path}{self._systemPath}{self._elementPath}'
 
         self._configs = {v: None for v in ELEMENT_CFG_LIST.values()}
         self._prevConfigs = {v: None for v in ELEMENT_CFG_LIST.values()} # 이전 설정 저장용 from file
@@ -51,7 +56,7 @@ class DataFileIo:
         self._initConfig()
 
     def __str__(self):
-        return f'DataFileIo({self._path})'
+        return f'DataFileIo({self._elementFullPath})'
     
     def _write_json_file(self, file_path, data):
         try:
@@ -97,12 +102,12 @@ class DataFileIo:
     
     # 기존 설정되 정보와 현재 설정된 정보 비교 후 변경된 경우 파일에 기록
     def _update_config(self, type:str, new_config):
-        #print(f"DataFileIo({self._path}) : type={type}, cfg={new_config}")
+        #print(f"{self.__str__()} : type={type}, cfg={new_config}")
         if type not in ELEMENT_CFG_LIST.values():
-            print(f"DataFileIo({self._path}) : update_config error : invalid type {type}")
+            print(f"{{self.__str__()}} : update_config error : invalid type {type}")
             return False
 
-        file_path = f'{self._root_path}{self._path}/.{type}.json'
+        file_path = f'{self._elementFullPath}/.{type}.json'
 
         if new_config is None:
             # admin config loading case
@@ -114,7 +119,7 @@ class DataFileIo:
         else:
             prev_config = self._read_json_file(file_path)
             if new_config != prev_config:
-                print(f"DataFileIo({self._path}) : {type} config is changed({file_path})")
+                print(f"{self.__str__()} : {type} config is changed({file_path})")
                 self._write_json_file(file_path, new_config)
                 return True
         return False
@@ -125,9 +130,9 @@ class DataFileIo:
         
     def _initConfig(self):
         # 1. element 디렉토리가 없으면 새로 생성
-        if not os.path.exists(f'{self._root_path}{self._path}'):
-            print(f"DataFileIo({self._path}) : Create Element Directory!")  
-            os.makedirs(f'{self._root_path}{self._path}')
+        if not os.path.exists(self._elementFullPath):
+            print(f"{self.__str__()} : Create Element Directory!")
+            os.makedirs(self._elementFullPath)
 
         # 2 element config 디렉토리 체크(설정데이터 기존 / 신규 비교 or 신규 생성)
         for cfg_type in ELEMENT_CFG_LIST.values():
@@ -136,7 +141,7 @@ class DataFileIo:
         # 3. config 에 따라 데이터 속성/로딩 방식 반영
         if self._configs[ELEMENT_CFG_LIST["ELEMENT"]] is None or self._configs[ELEMENT_CFG_LIST["FORMAT"]] is None or self._configs[ELEMENT_CFG_LIST["STORE"]] is None or self._configs[ELEMENT_CFG_LIST["PROCESSOR"]] is None:
             # for
-            print(f"DataFileIo({self._path}) : None attribute(format | store | processor)!")
+            print(f"{self.__str__()} : None attribute(format | store | processor)!")
             self._dataType = 'static'
             self._isTree = True
         else:    # general case
@@ -145,11 +150,11 @@ class DataFileIo:
             #    self._data_type = 'static' # default
         
             if(self._dataType == 'static'):
-                print(f"DataFileIo({self._path}): static data")
+                print(f"{self.__str__()}: static data")
                 self._isTree = self._configs['format'].get("isTree", False) # if True, tree structure
             
             if(self._dataType == 'temporary'):
-                print(f"DataFileIo({self._path}): temporary data")
+                print(f"{self.__str__()}: temporary data")
 
                 self._recordUnit = self._configs['store'].get("record", {}).get("unit", "NONE")
                 self._recordBlock = self._configs['store'].get("record", {}).get("block", "NONE")
@@ -168,7 +173,7 @@ class DataFileIo:
         elif self._dataType == 'temporary':
             self.index_columns = ['time', 'path']
 
-        file_path = f'{self._root_path}{self._path}/{INDEX_FILE_NAME}'
+        file_path = f'{self._elementFullPath}/{INDEX_FILE_NAME}'
         self._record_info = self._read_csv_file(file_path)
         if self._record_info is None :
             self._write_csv_file(file_path, [self.index_columns])
@@ -176,13 +181,12 @@ class DataFileIo:
             # index file exists
             # check columns
             if not all(col in self._record_info.columns for col in self.index_columns):
-                print(f"DataFileIo({self._path}) : record info columns are not valid, recreate index file")
+                print(f"{self.__str__()} : record info columns are not valid, recreate index file")
                 self._write_csv_file(file_path, [self.index_columns])
 
 
     # 전체 데이터 가져오기
     def get(self, start_offset:str='0', end_offset:str='0'):
-        root_path = f'{self._root_path}{self._path}'
         if self._record_info is not None:
             # 1. get record info
             records = []
@@ -195,20 +199,20 @@ class DataFileIo:
 
                         dir_path = os.path.dirname(file_path)
 
-                        data_file_path = f'{root_path}/{DATA_DIR_NAME}/{file_path}'
+                        data_file_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{file_path}'
                         #print(f"Loading data from {data_file_path}")
                         data_row = self._read_json_file(data_file_path)
                         if data_row is not None:
 
                             if(data_row[0] != index or data_row[1] != dir_path):
-                                print(f"DataFileIo({self._path}) : record mismatch, index={index}/{data_row[0]}, path={dir_path}/{data_row[1]}")
+                                print(f"{self.__str__()} : record mismatch, index={index}/{data_row[0]}, path={dir_path}/{data_row[1]}")
                                 continue
                             records.append( data_row )
                 else:
                     # flat structure
                     for _, row in self._record_info.iterrows():
                         file_path = row['path']
-                        data_file_path = f'{self._root_path}{self._path}/{file_path}'
+                        data_file_path = f'{self._elementFullPath}/{file_path}'
                         data_rows = self._read_csv_file(data_file_path)
                         if data_rows is not None:
                             records.append( [list(data_rows)] )
@@ -223,7 +227,7 @@ class DataFileIo:
                 for _, row in self._record_info.iterrows():
                     time = row['time']
                     file_path = row['path']
-                    data_file_path = f'{self._root_path}{self._path}/{file_path}'
+                    data_file_path = f'{self._elementFullPath}/{file_path}'
                     data_rows = self._read_csv_file(data_file_path)
                     if data_rows is not None:
                         records.append( [list(data_rows)] )
@@ -242,10 +246,6 @@ class DataFileIo:
         # 1. save data 
         # 1.1. write data file
 
-        #{self._root_path}{self._path}
-
-        root_path = f'{self._root_path}{self._path}'
-
         index_datas = []
         if self._dataType == 'static' and self._isTree:
             # 1 record per file for admin config
@@ -259,7 +259,7 @@ class DataFileIo:
                 #element has  index, path, system, object
 
                 file_path = f'{path}/{DATA_FILE_NAME}'
-                file_full_path = f'{root_path}/{DATA_DIR_NAME}/{file_path}'
+                file_full_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{file_path}'
 
                 self._write_json_file(file_full_path, [index, path, project, system, object])
                 #index_columns.append(['index', 'path'])
@@ -273,13 +273,13 @@ class DataFileIo:
                     # new directory
                     dir_index = i // DATA_FILE_COUNT
                     dir_path = f'{dir_path}/{dir_index}'
-                    dir_full_path = f'{root_path}/{dir_path}'
+                    dir_full_path = f'{self._elementFullPath}/{dir_path}'
                     if not os.path.exists(dir_full_path):
                         print(f"Create data directory: {dir_full_path}")
                         os.makedirs(dir_full_path)
 
                 file_path = f'{dir_path}/{i}'
-                file_full_path = f'{root_path}/{file_path}'
+                file_full_path = f'{self._elementFullPath}/{file_path}'
                 self._write_json_file(file_full_path, block)
                 index_datas.append([i * DATA_BLOCK_SIZE, file_path])
 
@@ -328,8 +328,8 @@ class DataFileIo:
                 
                 # add data to data_file_map for batch write
                 file_path = f'{cur_dir}/{cur_file}'
-                file_full_path = f'{root_path}/{DATA_DIR_NAME}/{file_path}'
-                dir_full_path = f'{root_path}/{DATA_DIR_NAME}/{cur_dir}'
+                file_full_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{file_path}'
+                dir_full_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{cur_dir}'
                 if cur_file not in data_map:
                     # create new file entry            
                     self._write_csv_file(file_full_path, [self.index_columns]) # header
@@ -341,20 +341,20 @@ class DataFileIo:
 
             for cur_file, file_path in file_path_map.items():
                 rows = data_map[cur_file]
-                file_full_path = f'{root_path}/{DATA_DIR_NAME}/{file_path}'
+                file_full_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{file_path}'
 
                 self._write_csv_file(file_full_path, rows)
                 index_datas.append([cur_file, file_path])
                 
-        #print(f"DataFileIo({self._path})::put({len(datas)})")
+        #print(f"{self.__str__()}::put({len(datas)})")
         #print(f"{json.dumps(datas, ensure_ascii=False, indent=2)}")
         # 1.2. failed back if error
 
 
         # 3. update record info
         # update index file
-        #print(f"DataFileIo({self._path})::set() - index_datas: {[self.index_columns]+index_datas}")
-        file_path = f'{root_path}/{INDEX_FILE_NAME}'
+        #print(f"{self.__str__()}::set() - index_datas: {[self.index_columns]+index_datas}")
+        file_path = f'{self._elementFullPath}/{INDEX_FILE_NAME}'
         self._write_csv_file(file_path, [self.index_columns]+index_datas)
 
         return True
@@ -371,7 +371,7 @@ class DataFileIo:
         
         if(len(keys) == 1 and keys[0].isdigit()):
             # 새로운 설정포맷이 적용된 데이터
-            print(f"DataFileIo({self._path})::upgrade() - upgrade done already")
+            print(f"{self.__str__()}::upgrade() - upgrade done already")
             return False
         
         child_count_per_path = {}
@@ -389,7 +389,7 @@ class DataFileIo:
 
         
         self.set(records)
-        print(f"DataFileIo({self._path})::upgrade() - new upgrade done")
+        print(f"{self.__str__()}::upgrade() - new upgrade done")
         return True
    
 if __name__ == '__main__':

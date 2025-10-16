@@ -1,0 +1,14 @@
+[
+  0,
+  "/common",
+  "",
+  "",
+  {
+    "0": {
+      "type": "folder",
+      "name": "common",
+      "dispName": "공통",
+      "description": "공통 폴더"
+    }
+  }
+]

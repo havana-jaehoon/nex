@@ -1,0 +1,12 @@
+{
+  "name": "contents",
+  "dispName": "컨텐츠",
+  "description": "컨텐츠",
+  "type": "element",
+  "format": "/admin/node",
+  "store": "/memory/static",
+  "processor": "/common/transparent",
+  "processingInterval": "10",
+  "processingUnit": "SEC",
+  "sources": "/config/admin/contents"
+}

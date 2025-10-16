@@ -1,0 +1,22 @@
+[
+  4,
+  "/memory/10min",
+  "",
+  "",
+  {
+    "3": {
+      "name": "10min",
+      "type": "store",
+      "record": {
+        "storage": "memory",
+        "nature": "temporary",
+        "unit": "SEC",
+        "block": "MIN",
+        "expire": "10",
+        "expireUnit": "MIN",
+        "allowDuplication": "false",
+        "allowKeepValue": "false"
+      }
+    }
+  }
+]

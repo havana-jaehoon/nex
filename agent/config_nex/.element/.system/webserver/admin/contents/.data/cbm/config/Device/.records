@@ -1,0 +1,20 @@
+[
+  10,
+  "/cbm/config/Device",
+  "",
+  "",
+  {
+    "5": {
+      "name": "Device",
+      "type": "contents",
+      "element": "/cbm/config/Device",
+      "condition": [],
+      "selection": [
+        {
+          "key": "device",
+          "feature": "device"
+        }
+      ]
+    }
+  }
+]

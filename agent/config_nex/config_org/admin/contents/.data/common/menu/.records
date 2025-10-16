@@ -1,0 +1,16 @@
+[
+  1,
+  "/common/menu",
+  "",
+  "",
+  {
+    "0": {
+      "name": "menu",
+      "dispName": "Menu",
+      "type": "contents",
+      "element": "/common/menu",
+      "condition": [],
+      "selection": []
+    }
+  }
+]

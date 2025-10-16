@@ -1,0 +1,16 @@
+[
+  7,
+  "/root/dashboard/Body/left-side",
+  "",
+  "",
+  {
+    "0": {
+      "name": "left-side",
+      "dispName": "Left Side",
+      "description": "Left Side View",
+      "type": "section",
+      "size": "5",
+      "direction": "column"
+    }
+  }
+]

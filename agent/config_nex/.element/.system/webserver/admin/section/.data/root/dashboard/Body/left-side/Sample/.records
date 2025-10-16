@@ -1,0 +1,19 @@
+[
+  9,
+  "/root/dashboard/Body/left-side/Sample",
+  "",
+  "",
+  {
+    "1": {
+      "name": "Sample",
+      "dispName": "샘플",
+      "type": "section",
+      "size": "1",
+      "padding": "8px",
+      "applet": "/sample/NexSampleList",
+      "contents": [
+        "/common/sample"
+      ]
+    }
+  }
+]

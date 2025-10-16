@@ -1,0 +1,15 @@
+[
+  5,
+  "/root/dashboard/Head/HeadRight",
+  "",
+  "",
+  {
+    "2": {
+      "name": "HeadRight",
+      "type": "section",
+      "size": "10",
+      "applet": "",
+      "contents": []
+    }
+  }
+]

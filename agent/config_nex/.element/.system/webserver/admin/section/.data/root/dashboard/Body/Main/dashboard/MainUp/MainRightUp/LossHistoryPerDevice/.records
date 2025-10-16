@@ -1,0 +1,19 @@
+[
+  22,
+  "/root/dashboard/Body/Main/dashboard/MainUp/MainRightUp/LossHistoryPerDevice",
+  "",
+  "",
+  {
+    "1": {
+      "name": "LossHistoryPerDevice",
+      "dispName": "장치별 열화 이력",
+      "type": "section",
+      "size": "4",
+      "padding": "8px",
+      "applet": "/chart/NexLineChart",
+      "contents": [
+        "/cbm/history/LossHistoryPerDevice"
+      ]
+    }
+  }
+]

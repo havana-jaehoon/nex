@@ -1,0 +1,14 @@
+[
+  8,
+  "/cbm/status",
+  "",
+  "webserver",
+  {
+    "1": {
+      "name": "status",
+      "dispName": "상태",
+      "description": "상태 데이터 엘리먼트 폴더",
+      "type": "folder"
+    }
+  }
+]

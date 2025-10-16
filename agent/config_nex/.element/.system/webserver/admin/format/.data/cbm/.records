@@ -1,0 +1,14 @@
+[
+  4,
+  "/cbm",
+  "",
+  "",
+  {
+    "2": {
+      "name": "cbm",
+      "dispName": "CBM 설정 데이터",
+      "description": "CBM 설정 데이터 엘리먼트 폴더",
+      "type": "folder"
+    }
+  }
+]

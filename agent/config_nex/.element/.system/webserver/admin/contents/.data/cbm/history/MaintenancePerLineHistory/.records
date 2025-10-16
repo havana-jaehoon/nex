@@ -1,0 +1,15 @@
+[
+  19,
+  "/cbm/history/MaintenancePerLineHistory",
+  "",
+  "",
+  {
+    "2": {
+      "name": "MaintenancePerLineHistory",
+      "type": "contents",
+      "element": "/cbm/history/MaintenanceHistoryPerLine",
+      "condition": [],
+      "selection": []
+    }
+  }
+]

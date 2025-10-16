@@ -1,0 +1,14 @@
+[
+  13,
+  "/root/dashboard/Body/Main/dashboard/MainUp/MainLeftUp",
+  "",
+  "",
+  {
+    "0": {
+      "name": "MainLeftUp",
+      "type": "section",
+      "size": "1",
+      "direction": "column"
+    }
+  }
+]

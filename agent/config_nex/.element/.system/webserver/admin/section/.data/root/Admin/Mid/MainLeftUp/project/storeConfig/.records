@@ -1,0 +1,15 @@
+[
+  36,
+  "/root/Admin/Mid/MainLeftUp/project/storeConfig",
+  "",
+  "",
+  {
+    "1": {
+      "name": "storeConfig",
+      "dispName": "저장 정책",
+      "type": "section",
+      "size": "5",
+      "direction": "column"
+    }
+  }
+]

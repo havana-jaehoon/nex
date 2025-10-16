@@ -1,0 +1,17 @@
+[
+  12,
+  "/admin/NexNodeSelector",
+  "",
+  "",
+  {
+    "2": {
+      "name": "NexNodeSelector",
+      "dispName": "Nex Node Selector",
+      "description": "Nex Node Selector Applet",
+      "type": "applet",
+      "icon": "tree",
+      "color": "#FF33A1",
+      "applet": "/admin/NexNodeSelector"
+    }
+  }
+]

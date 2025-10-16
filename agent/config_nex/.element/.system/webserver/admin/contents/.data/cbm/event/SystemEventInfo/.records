@@ -1,0 +1,15 @@
+[
+  24,
+  "/cbm/event/SystemEventInfo",
+  "",
+  "",
+  {
+    "1": {
+      "name": "SystemEventInfo",
+      "type": "contents",
+      "element": "/cbm/event/SystemEventInfo",
+      "condition": [],
+      "selection": []
+    }
+  }
+]

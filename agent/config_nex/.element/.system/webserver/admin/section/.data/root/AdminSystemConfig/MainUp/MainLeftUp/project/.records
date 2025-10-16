@@ -1,0 +1,14 @@
+[
+  50,
+  "/root/AdminSystemConfig/MainUp/MainLeftUp/project",
+  "",
+  "",
+  {
+    "0": {
+      "name": "project",
+      "type": "section",
+      "size": "1",
+      "direction": "row"
+    }
+  }
+]

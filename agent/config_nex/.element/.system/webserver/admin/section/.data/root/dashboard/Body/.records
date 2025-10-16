@@ -1,0 +1,16 @@
+[
+  6,
+  "/root/dashboard/Body",
+  "",
+  "",
+  {
+    "1": {
+      "name": "Body",
+      "dispName": "Body",
+      "description": "Body View",
+      "type": "section",
+      "size": "90",
+      "direction": "row"
+    }
+  }
+]

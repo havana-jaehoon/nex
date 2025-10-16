@@ -1,0 +1,14 @@
+[
+  31,
+  "/root/Admin/Mid/MainLeftUp",
+  "",
+  "",
+  {
+    "0": {
+      "name": "MainLeftUp",
+      "type": "section",
+      "size": "1",
+      "direction": "column"
+    }
+  }
+]

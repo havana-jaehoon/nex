@@ -1,0 +1,18 @@
+[
+  27,
+  "/root/dashboard/Body/Main/train-info-line-chart",
+  "",
+  "",
+  {
+    "2": {
+      "name": "train-info-line-chart",
+      "type": "section",
+      "size": "2",
+      "padding": "8px",
+      "applet": "/chart/NexLineChart",
+      "contents": [
+        "/cbm/history/SelectedDetailLossLevelHistory"
+      ]
+    }
+  }
+]

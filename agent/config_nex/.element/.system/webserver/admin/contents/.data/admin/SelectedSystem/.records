@@ -1,0 +1,22 @@
+[
+  33,
+  "/admin/SelectedSystem",
+  "",
+  "",
+  {
+    "7": {
+      "name": "SelectedSystem",
+      "dispName": " 시스템",
+      "type": "contents",
+      "element": "/admin/system",
+      "conditions": [
+        {
+          "key": "system-path",
+          "feature": "path",
+          "method": "pathmatch"
+        }
+      ],
+      "selections": []
+    }
+  }
+]

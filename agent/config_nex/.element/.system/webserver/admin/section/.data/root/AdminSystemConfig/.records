@@ -1,0 +1,15 @@
+[
+  45,
+  "/root/AdminSystemConfig",
+  "",
+  "",
+  {
+    "2": {
+      "name": "AdminSystemConfig",
+      "type": "section",
+      "size": "1",
+      "direction": "column",
+      "route": "admin/system"
+    }
+  }
+]

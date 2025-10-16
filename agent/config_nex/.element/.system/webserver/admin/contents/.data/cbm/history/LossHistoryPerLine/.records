@@ -1,0 +1,15 @@
+[
+  17,
+  "/cbm/history/LossHistoryPerLine",
+  "",
+  "",
+  {
+    "0": {
+      "name": "LossHistoryPerLine",
+      "type": "contents",
+      "element": "/cbm/history/LossHistoryPerLine",
+      "condition": [],
+      "selection": []
+    }
+  }
+]

@@ -1,0 +1,15 @@
+[
+  23,
+  "/cbm/event/RTMaintenanceInfo",
+  "",
+  "",
+  {
+    "0": {
+      "name": "RTMaintenanceInfo",
+      "type": "contents",
+      "element": "/cbm/event/RTMaintenanceInfo",
+      "condition": [],
+      "selection": []
+    }
+  }
+]

@@ -1,0 +1,14 @@
+[
+  30,
+  "/root/Admin/Mid",
+  "",
+  "",
+  {
+    "1": {
+      "name": "Mid",
+      "type": "section",
+      "size": "90",
+      "direction": "row"
+    }
+  }
+]

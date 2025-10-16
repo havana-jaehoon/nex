@@ -1,0 +1,14 @@
+[
+  46,
+  "/root/AdminSystemConfig/Head",
+  "",
+  "",
+  {
+    "0": {
+      "name": "Head",
+      "type": "section",
+      "size": "6",
+      "direction": "column"
+    }
+  }
+]

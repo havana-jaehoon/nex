@@ -1,0 +1,21 @@
+[
+  11,
+  "/cbm/config/SelectedDevice",
+  "",
+  "",
+  {
+    "6": {
+      "name": "SelectedDevice",
+      "type": "contents",
+      "element": "/cbm/config/Device",
+      "condition": [
+        {
+          "key": "car",
+          "feature": "car",
+          "method": "match"
+        }
+      ],
+      "selection": []
+    }
+  }
+]

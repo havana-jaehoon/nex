@@ -17,6 +17,8 @@ CONFIG_LIST = {
     'SECTION':'section'
 }
 
+
+
 # Configuration을 읽기 위한 클래스
 class ConfigReader:
     def __init__(self, path:str, ):
@@ -198,10 +200,12 @@ class ConfigReader:
                     storePath=elementNode.get('store') # element store path
                     processorPath=elementNode.get('processor') # element processor path
 
-                    formatNode = self.getNode('format', project, system, formatPath)
-                    storeNode = self.getNode('store', project, system, storePath)
-                    processorNode = self.getNode('processor', project, system, processorPath)
+                    formatNode = self.getNode('format', project, '', formatPath)
+                    storeNode = self.getNode('store', project, '', storePath)
+                    processorNode = self.getNode('processor', project, '', processorPath)
                     
+                    #print(f"  Element: path={path}, format={formatNode}, store={storeNode}, processor={processorNode}")
+
                     elements[project][system].append({'path':path, 'system':systemNode, 'element':elementNode, 'format':formatNode, 'store':storeNode, 'processor':processorNode })
 
         #print(f"Made elements: {json.dumps(elements, ensure_ascii=False, indent=2)}")
@@ -248,7 +252,15 @@ class ConfigReader:
             if(item[1] == f'/{system_name}' or item[4].get('name') == system_name):
                 return self._getNodeFromObject(item[4])
         return None
-        
+
+
+    def getSystems(self, project_name:str)->list[dict]:
+        systemList = list(self._configMap['system'].get(project_name, {}).values())
+        systemNodes = []
+        for system in systemList[0] if len(systemList) > 0 else []:
+            #print(f"System: {json.dumps(system, ensure_ascii=False, indent=2)}")
+            systemNodes.append(self._getNodeFromObject(system[4]))
+        return systemNodes
 
     def getElements(self, project_name:str, system_name:str)->list[dict]:
         return self._elements.get(project_name, {}).get(system_name, [])
@@ -256,7 +268,7 @@ class ConfigReader:
     # 특정 노드 데이터 가져오기
     def getNode(self, type:str, project_name:str, system_name:str, path:str):
         datas = self._configMap[type].get(project_name, {}).get(system_name, [])
-     
+
         for data in datas:
             if data[1] == path:
                 return self._getNodeFromObject(data[4])
@@ -267,34 +279,44 @@ class ConfigReader:
 if __name__ == '__main__':
     cfg = ConfigReader("./config_nex/.element/admin")
 
+    project_name = '' # default project
 
-    format = cfg.getDatas('format', '', '')
-    print(f"# Format: {json.dumps(format, ensure_ascii=False, indent=2)}")
+    systems = cfg.getSystems(project_name)
+    #print(f"# systems: {json.dumps(systems, ensure_ascii=False, indent=2)}")
+    #print(f"# Format: {json.dumps(format, ensure_ascii=False, indent=2)}")
     
-    exit(0)
 
-    # 시스템 이름이 'webserver' 인 element 목록 가져오기
-    element_list = cfg.getElements('', 'webserver')
-    #count = 1
-    #print(f"Total elements: {element_list}")
-    for item in element_list:
-        #print(f"{count} element: {json.dumps(item, ensure_ascii=False, indent=2)}")
-        path = item.get('path') # element path 
-        
-        system = item.get('system') # system node config(json object)
-        element = item.get('element') # element node config(json object)
-        format = item.get('format') # element format node config(json object)
-        store = item.get('store') # element store node config(json object)
-        processor = item.get('processor') # element processor node config(json object)
+    for system in systems:
+        # 시스템 이름이 'webserver' 인 element 목록 가져오기
+        system_name = system.get('name', None)
+        if system_name is None:
+            print(f"# Warning: system name is None, skipping system: {json.dumps(system, ensure_ascii=False, indent=2)}")
+            continue
+        element_list = cfg.getElements(project_name, system_name)
+        #count = 1
+        #print(f"Total elements: {element_list}")
+        if(element_list is None or len(element_list) == 0):
+            print(f"# Warning: No elements found for system '{system_name}'")
+            continue
 
-        #print(f"# {path} element:", json.dumps(item, ensure_ascii=False, indent=2))
-        dataio = DataFileIo("./config_nex/.element", path, system, element, format, store, processor)
-        #data = dataio.get()
-        #dataio.put(dataset)
-        
-        #print(f"# {element} data:", json.dumps(data, ensure_ascii=False, indent=2))
-        dataio.upgrade()
-        #count += 1
-        
-        #if count > 3:
-        #    break
+        for item in element_list:
+            #print(f"{count} element: {json.dumps(item, ensure_ascii=False, indent=2)}")
+            path = item.get('path') # element path 
+            
+            system = item.get('system') # system node config(json object)
+            element = item.get('element') # element node config(json object)
+            format = item.get('format') # element format node config(json object)
+            store = item.get('store') # element store node config(json object)
+            processor = item.get('processor') # element processor node config(json object)
+            
+            print(f"# {path} item:", json.dumps(format, ensure_ascii=False, indent=2))
+            dataio = DataFileIo("./config_nex/.element", path, system, element, format, store, processor)
+            #data = dataio.get()
+            #dataio.put(dataset)
+            
+            #print(f"# {element} data:", json.dumps(data, ensure_ascii=False, indent=2))
+            dataio.upgrade()
+            #count += 1
+            
+            #if count > 3:
+            #    break

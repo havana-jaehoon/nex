@@ -1,0 +1,20 @@
+[
+  8,
+  "/cbm/config/CarPerTrain",
+  "",
+  "",
+  {
+    "3": {
+      "name": "CarPerTrain",
+      "type": "contents",
+      "element": "/cbm/config/CarPerTrain",
+      "condition": [],
+      "selection": [
+        {
+          "key": "car",
+          "feature": "car"
+        }
+      ]
+    }
+  }
+]

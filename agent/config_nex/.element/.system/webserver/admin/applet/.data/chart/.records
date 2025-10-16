@@ -1,0 +1,16 @@
+[
+  2,
+  "/chart",
+  "",
+  "",
+  {
+    "1": {
+      "name": "chart",
+      "dispName": "Chart",
+      "description": "Chart Applet 폴더",
+      "type": "folder",
+      "icon": "",
+      "color": ""
+    }
+  }
+]

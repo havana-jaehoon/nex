@@ -1,0 +1,22 @@
+[
+  17,
+  "/disk/5year",
+  "",
+  "",
+  {
+    "10": {
+      "name": "5year",
+      "type": "store",
+      "record": {
+        "storage": "disk",
+        "nature": "temporary",
+        "unit": "SEC",
+        "block": "MIN",
+        "expire": "5",
+        "expireUnit": "YEAR",
+        "allowDuplication": "false",
+        "allowKeepValue": "false"
+      }
+    }
+  }
+]

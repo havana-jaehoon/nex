@@ -1,0 +1,15 @@
+[
+  28,
+  "/root/Admin",
+  "",
+  "",
+  {
+    "1": {
+      "name": "Admin",
+      "type": "section",
+      "size": "1",
+      "direction": "column",
+      "route": "admin"
+    }
+  }
+]

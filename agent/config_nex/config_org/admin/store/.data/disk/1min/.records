@@ -1,0 +1,22 @@
+[
+  9,
+  "/disk/1min",
+  "",
+  "",
+  {
+    "2": {
+      "name": "1min",
+      "type": "store",
+      "record": {
+        "storage": "disk",
+        "nature": "temporary",
+        "unit": "SEC",
+        "block": "MIN",
+        "expire": "1",
+        "expireUnit": "MIN",
+        "allowDuplication": "false",
+        "allowKeepValue": "false"
+      }
+    }
+  }
+]

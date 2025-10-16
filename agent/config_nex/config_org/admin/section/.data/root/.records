@@ -1,0 +1,15 @@
+[
+  0,
+  "/root",
+  "",
+  "",
+  {
+    "0": {
+      "name": "root",
+      "dispName": "root",
+      "description": "root",
+      "type": "section",
+      "isRoutes": true
+    }
+  }
+]

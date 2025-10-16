@@ -1,0 +1,21 @@
+[
+  32,
+  "/admin/system",
+  "",
+  "",
+  {
+    "6": {
+      "name": "system",
+      "dispName": "시스템",
+      "type": "contents",
+      "element": "/admin/system",
+      "conditions": [],
+      "selections": [
+        {
+          "key": "system-path",
+          "feature": "path"
+        }
+      ]
+    }
+  }
+]

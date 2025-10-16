@@ -1,0 +1,15 @@
+[
+  21,
+  "/cbm/history/SelectedDetailLossLevelHistory",
+  "",
+  "",
+  {
+    "4": {
+      "name": "SelectedDetailLossLevelHistory",
+      "type": "contents",
+      "element": "/cbm/history/DetailLossLevelHistory",
+      "condition": [],
+      "selection": []
+    }
+  }
+]

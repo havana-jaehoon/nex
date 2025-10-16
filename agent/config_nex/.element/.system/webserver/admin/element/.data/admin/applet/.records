@@ -1,0 +1,20 @@
+[
+  28,
+  "/admin/applet",
+  "",
+  "webserver",
+  {
+    "7": {
+      "name": "applet",
+      "dispName": "애플릿",
+      "description": "애플릿",
+      "type": "element",
+      "format": "/admin/node",
+      "store": "/memory/static",
+      "processor": "/common/transparent",
+      "processingInterval": "10",
+      "processingUnit": "SEC",
+      "sources": "/config/admin/applet"
+    }
+  }
+]
