@@ -1,0 +1,16 @@
+index,path
+0,/common/.records
+1,/common/menu/.records
+2,/chart/.records
+3,/chart/NexLineChart/.records
+4,/table/.records
+5,/table/NexTable/.records
+6,/status/.records
+7,/status/NexStatus/.records
+8,/status/NexCount/.records
+9,/admin/.records
+10,/admin/NexNodeTree/.records
+11,/admin/NexJsonEditor/.records
+12,/admin/NexNodeSelector/.records
+13,/sample/.records
+14,/sample/NexSampleList/.records

@@ -38,7 +38,9 @@ class ConfigReader:
     def _make_config_map(self, datas):
         config_map = {}
         config_list = []
+        #print(f"# datas: {datas}")
         for data in datas:
+            #print(f"Data item: {json.dumps(data, ensure_ascii=False, indent=2)}")
             index = data[0]
             path = data[1]
             project_name = data[2]
@@ -136,7 +138,8 @@ class ConfigReader:
                 for root_node in tree:
                     cleanup_children(root_node)
             
-                project_map[project][system] = tree
+                 
+                project_map[project][system] = dict(tree)
                 #return tree
 
         return project_map
@@ -167,6 +170,8 @@ class ConfigReader:
         storeMap = config_map['store']
         processorMap = config_map['processor']
 
+        #print(f"Making elements from elementMap: {json.dumps(elementMap, ensure_ascii=False, indent=2)}")
+
         projects = list(elementMap.keys())
         for project in projects:
             systems = list(elementMap[project].keys())
@@ -174,10 +179,13 @@ class ConfigReader:
             #system_map = { }
             
             for system in systems:
+                #print(f"# 0 Making elements for project={project}, system={system}")
+
                 if(system == ''):
                     continue
 
-                #print(f"Making elements for project={project}, system={system}")
+                
+                #print(f"# 1 Making elements for project={project}, system={system}")
                 elements[project][system] = []
                 systemNode = self.getSystem(project, system)
                 if systemNode is None:
@@ -185,8 +193,9 @@ class ConfigReader:
                     continue
 
                 elementList = elementMap.get(project, {}).get(system, [])
+                #print(f"# 3 Making elements for project={project}, system={system}, total elements={elementList}")
                 for item in elementList:
-
+                    #print(f"# 3 Making element for project={project}, system={system}, path={item[1]}")
                     index = item[0] # index of the element
                     path = item[1] # path of the element
                     #project = item[2] # project of the element
@@ -219,8 +228,8 @@ class ConfigReader:
             config_data = cfg.get()
             #print(f"Loaded config for {value}: {json.dumps(config_data, ensure_ascii=False, indent=2)}")
             #self._configs[value] = config_data
-
-            #print(f"Loading config for {value}: {json.dumps(config_data, ensure_ascii=False, indent=2)}")
+            #if(value == 'element' or value == 'user'):
+            #    print(f"Loading path:{path}, {value}: {json.dumps(config_data, ensure_ascii=False, indent=2)}")
             self._configMap[value], self._configList[value] = self._make_config_map(config_data)
             self._configTreeMap[value] = self._make_tree(self._configMap[value])
         
@@ -299,6 +308,8 @@ if __name__ == '__main__':
             print(f"# Warning: No elements found for system '{system_name}'")
             continue
 
+        #print(f"# system: {system_name}, total elements: {len(element_list)}")
+
         for item in element_list:
             #print(f"{count} element: {json.dumps(item, ensure_ascii=False, indent=2)}")
             path = item.get('path') # element path 
@@ -309,13 +320,16 @@ if __name__ == '__main__':
             store = item.get('store') # element store node config(json object)
             processor = item.get('processor') # element processor node config(json object)
             
-            print(f"# {path} item:", json.dumps(format, ensure_ascii=False, indent=2))
+            #print(f"# {path} item:", json.dumps(format, ensure_ascii=False, indent=2))
             dataio = DataFileIo("./config_nex/.element", path, system, element, format, store, processor)
-            #data = dataio.get()
+            data = dataio.get(0, 0)
             #dataio.put(dataset)
             
-            #print(f"# {element} data:", json.dumps(data, ensure_ascii=False, indent=2))
-            dataio.upgrade()
+            print(f"# element data path: {path} data-len: {len(data)}")
+
+            #if data is not None or len(data) > 1 :
+            #    break
+            #dataio.upgrade2()
             #count += 1
             
             #if count > 3:

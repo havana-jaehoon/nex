@@ -1,4 +1,2 @@
 index,path
-0,/config/.records
-1,/webserver/.records
-2,/collector/.records
+0,/.records

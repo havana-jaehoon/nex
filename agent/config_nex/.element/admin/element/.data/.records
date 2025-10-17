@@ -1,0 +1,600 @@
+[
+  [
+    0,
+    "/common",
+    "",
+    "webserver",
+    {
+      "0": {
+        "name": "common",
+        "dispName": "공통",
+        "description": "공통 데이터 엘리먼트 폴더",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    1,
+    "/common/menu",
+    "",
+    "webserver",
+    {
+      "0": {
+        "name": "menu",
+        "dispName": "메뉴",
+        "description": "메뉴 테스트",
+        "type": "element",
+        "format": "/web/menu",
+        "store": "/memory/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": ""
+      }
+    }
+  ],
+  [
+    2,
+    "/cbm",
+    "",
+    "webserver",
+    {
+      "1": {
+        "name": "cbm",
+        "dispName": "CBM",
+        "description": "CBM 전용 데이터 엘리먼트 폴더",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    3,
+    "/cbm/config",
+    "",
+    "webserver",
+    {
+      "0": {
+        "name": "config",
+        "dispName": "CBM",
+        "description": "CBM 전용 데이터 엘리먼트 폴더",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    4,
+    "/cbm/config/Line",
+    "",
+    "webserver",
+    {
+      "0": {
+        "name": "Line",
+        "dispName": "노선정보",
+        "description": "노선정보",
+        "type": "element",
+        "format": "/cbm/config/Line",
+        "store": "/memory/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/webserver/config/Line"
+      }
+    }
+  ],
+  [
+    5,
+    "/cbm/config/TrainPerLine",
+    "",
+    "webserver",
+    {
+      "1": {
+        "name": "TrainPerLine",
+        "dispName": "노선별편성정보",
+        "description": "노선별 편성정보",
+        "type": "element",
+        "format": "/cbm/config/TrainPerLine",
+        "store": "/memory/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/webserver/config/TrainPerLine"
+      }
+    }
+  ],
+  [
+    6,
+    "/cbm/config/CarPerTrain",
+    "",
+    "webserver",
+    {
+      "2": {
+        "name": "CarPerTrain",
+        "dispName": "편성별차량정보",
+        "description": "편성별차량정보",
+        "type": "element",
+        "format": "/cbm/config/CarPerTrain",
+        "store": "/memory/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/webserver/config/CarPerTrain"
+      }
+    }
+  ],
+  [
+    7,
+    "/cbm/config/DevicePerCar",
+    "",
+    "webserver",
+    {
+      "3": {
+        "name": "DevicePerCar",
+        "dispName": "차량별장치정보",
+        "description": "차량별장치정보",
+        "type": "element",
+        "format": "/cbm/config/DevicePerCar",
+        "store": "/memory/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/webserver/config/DevicePerCar"
+      }
+    }
+  ],
+  [
+    8,
+    "/cbm/status",
+    "",
+    "webserver",
+    {
+      "1": {
+        "name": "status",
+        "dispName": "상태",
+        "description": "상태 데이터 엘리먼트 폴더",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    9,
+    "/cbm/status/LossPerLine",
+    "",
+    "webserver",
+    {
+      "0": {
+        "name": "LossPerLine",
+        "dispName": "노선별 열화 현황",
+        "description": "노선별 열화 현상 데이터 엘리먼 트",
+        "type": "element",
+        "format": "/cbm/status/AlertCount",
+        "store": "/memory/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": ""
+      }
+    }
+  ],
+  [
+    10,
+    "/cbm/status/LossPerDevice",
+    "",
+    "webserver",
+    {
+      "1": {
+        "name": "LossPerDevice",
+        "dispName": "장치별 열화 현상",
+        "description": "장치치별 열화 현상 데이터 엘리먼트",
+        "type": "element",
+        "format": "/cbm/status/AlertCount",
+        "store": "/memory/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": ""
+      }
+    }
+  ],
+  [
+    11,
+    "/cbm/status/TrainCountPerLine",
+    "",
+    "webserver",
+    {
+      "2": {
+        "name": "TrainCountPerLine",
+        "dispName": "노선별 편성 수",
+        "description": "노선별 편성 수 데이터 엘리먼트",
+        "type": "element",
+        "format": "/cbm/status/TrainCountPerLine",
+        "store": "/memory/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": ""
+      }
+    }
+  ],
+  [
+    12,
+    "/cbm/event",
+    "",
+    "webserver",
+    {
+      "2": {
+        "name": "event",
+        "dispName": "이벤트",
+        "description": "이벤트 데이터 엘리먼트 폴더",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    13,
+    "/cbm/event/RTMaintenanceInfo",
+    "",
+    "webserver",
+    {
+      "0": {
+        "name": "RTMaintenanceInfo",
+        "dispName": "실시간 유지보수 정보",
+        "description": "실시간 유지보 수 정보 데이터 엘리먼트",
+        "type": "element",
+        "format": "/cbm/event/RTMaintenanceInfo",
+        "store": "/memory/1year",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/webserver/event/RTMaintenanceInfo"
+      }
+    }
+  ],
+  [
+    14,
+    "/cbm/event/SystemEventInfo",
+    "",
+    "webserver",
+    {
+      "1": {
+        "name": "SystemEventInfo",
+        "dispName": "시스템 이벤트 정보",
+        "description": "시스템 이벤트 정보 데이터 엘리먼트",
+        "type": "element",
+        "format": "/cbm/event/SystemEventInfo",
+        "store": "/memory/1year",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/webserver/event/SystemEventInfo"
+      }
+    }
+  ],
+  [
+    15,
+    "/cbm/history",
+    "",
+    "webserver",
+    {
+      "3": {
+        "name": "history",
+        "dispName": "이력",
+        "description": "이력 데이터 엘리먼트 폴더",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    16,
+    "/cbm/history/LossHistoryPerLine",
+    "",
+    "webserver",
+    {
+      "0": {
+        "name": "LossHistoryPerLine",
+        "dispName": "노선별 열화 이력",
+        "description": "노선별 열화 이력 데이터 엘리먼트",
+        "type": "element",
+        "format": "/cbm/history/LossHistoryPerLine",
+        "store": "/memory/7day",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/webserver/history/LossHistoryPerLine"
+      }
+    }
+  ],
+  [
+    17,
+    "/cbm/history/LossHistoryPerDevice",
+    "",
+    "webserver",
+    {
+      "1": {
+        "name": "LossHistoryPerDevice",
+        "dispName": "장치별 열화 이력",
+        "description": "장치치별 열화 이력 데이터 엘리먼트",
+        "type": "element",
+        "format": "/cbm/history/LossHistoryPerDevice",
+        "store": "/memory/7day",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/webserver/history/LossHistoryPerDevice"
+      }
+    }
+  ],
+  [
+    18,
+    "/cbm/history/MaintenanceHistoryPerLine",
+    "",
+    "webserver",
+    {
+      "2": {
+        "name": "MaintenanceHistoryPerLine",
+        "dispName": "노선별 유지보수 이력",
+        "description": "노선선별 유지보수 이력 데이터 엘리먼트",
+        "type": "element",
+        "format": "/cbm/history/MaintenanceHistoryPerLine",
+        "store": "/memory/1year",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/webserver/history/MaintenanceHistoryPerLine"
+      }
+    }
+  ],
+  [
+    19,
+    "/cbm/history/DetailLossLevelHistory",
+    "",
+    "webserver",
+    {
+      "3": {
+        "name": "DetailLossLevelHistory",
+        "dispName": "상세 열화등급 이력",
+        "description": "상세 열화등급 이력 데이 터 엘리먼트",
+        "type": "element",
+        "format": "/cbm/history/DetailLossLevelHistory",
+        "store": "/memory/1year",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/webserver/history/DetailLossLevelHistory"
+      }
+    }
+  ],
+  [
+    20,
+    "/admin",
+    "",
+    "webserver",
+    {
+      "2": {
+        "name": "admin",
+        "dispName": "관리자용 데이터",
+        "description": "관리자용 데이터 엘리먼트 폴더",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    21,
+    "/admin/format",
+    "",
+    "webserver",
+    {
+      "0": {
+        "name": "format",
+        "dispName": "데이터 포맷",
+        "description": "데이터 포맷",
+        "type": "element",
+        "format": "/admin/node",
+        "store": "/memory/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/config/admin/format"
+      }
+    }
+  ],
+  [
+    22,
+    "/admin/store",
+    "",
+    "webserver",
+    {
+      "1": {
+        "name": "store",
+        "dispName": "데이터 저장 정책",
+        "description": "데이터 저장 정책",
+        "type": "element",
+        "format": "/admin/node",
+        "store": "/memory/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/config/admin/store"
+      }
+    }
+  ],
+  [
+    23,
+    "/admin/processor",
+    "",
+    "webserver",
+    {
+      "2": {
+        "name": "processor",
+        "dispName": "데이터 프로세서",
+        "description": " 데이터 프로세서",
+        "type": "element",
+        "format": "/admin/node",
+        "store": "/memory/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/config/admin/processor"
+      }
+    }
+  ],
+  [
+    24,
+    "/admin/system",
+    "",
+    "webserver",
+    {
+      "3": {
+        "name": "system",
+        "dispName": "시 스템",
+        "description": "시스템",
+        "type": "element",
+        "format": "/admin/node",
+        "store": "/memory/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/config/admin/system"
+      }
+    }
+  ],
+  [
+    25,
+    "/admin/element",
+    "",
+    "webserver",
+    {
+      "4": {
+        "name": "element",
+        "dispName": "데이터 엘리먼트",
+        "description": "데이터 엘리먼트",
+        "type": "element",
+        "format": "/admin/element",
+        "store": "/memory/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/config/admin/element"
+      }
+    }
+  ],
+  [
+    26,
+    "/admin/source",
+    "",
+    "webserver",
+    {
+      "5": {
+        "name": "source",
+        "dispName": "데이터 소스",
+        "description": "데이터 소스",
+        "type": "element",
+        "format": "/admin/node",
+        "store": "/memory/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/config/admin/source"
+      }
+    }
+  ],
+  [
+    27,
+    "/admin/contents",
+    "",
+    "webserver",
+    {
+      "6": {
+        "name": "contents",
+        "dispName": "컨텐츠",
+        "description": "컨텐츠",
+        "type": "element",
+        "format": "/admin/node",
+        "store": "/memory/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/config/admin/contents"
+      }
+    }
+  ],
+  [
+    28,
+    "/admin/applet",
+    "",
+    "webserver",
+    {
+      "7": {
+        "name": "applet",
+        "dispName": "애플릿",
+        "description": "애플릿",
+        "type": "element",
+        "format": "/admin/node",
+        "store": "/memory/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/config/admin/applet"
+      }
+    }
+  ],
+  [
+    29,
+    "/admin/section",
+    "",
+    "webserver",
+    {
+      "8": {
+        "name": "section",
+        "dispName": "웹섹션",
+        "description": "웹섹션",
+        "type": "element",
+        "format": "/admin/node",
+        "store": "/memory/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/config/admin/section"
+      }
+    }
+  ],
+  [
+    30,
+    "/admin/user",
+    "",
+    "webserver",
+    {
+      "9": {
+        "name": "user",
+        "dispName": "사용자",
+        "description": "사용자",
+        "type": "element",
+        "format": "/admin/node",
+        "store": "/memory/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/config/admin/user"
+      }
+    }
+  ],
+  [
+    31,
+    "/admin/theme",
+    "",
+    "webserver",
+    {
+      "10": {
+        "name": "theme",
+        "dispName": "테마",
+        "description": "테마",
+        "type": "element",
+        "format": "/admin/node",
+        "store": "/memory/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/config/admin/theme"
+      }
+    }
+  ]
+]

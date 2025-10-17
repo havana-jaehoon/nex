@@ -48,12 +48,14 @@ class DataFileIo:
         self._configs[ELEMENT_CFG_LIST['PROCESSOR']] = processor
 
         self._record_info = None
+        self._records = []
 
         self._dataType = 'static' # static or temporary
         self._isTree = False # if True, tree structure
         self.index_columns = []
 
         self._initConfig()
+        self._loadData()
 
     def __str__(self):
         return f'DataFileIo({self._elementFullPath})'
@@ -184,6 +186,8 @@ class DataFileIo:
                 print(f"{self.__str__()} : record info columns are not valid, recreate index file")
                 self._write_csv_file(file_path, [self.index_columns])
 
+    def _loadData(self):
+        self._records = self.get(0, 0) # load all data
 
     # 전체 데이터 가져오기
     def get(self, start_offset:str='0', end_offset:str='0'):
@@ -202,13 +206,8 @@ class DataFileIo:
                         data_file_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{file_path}'
                         #print(f"Loading data from {data_file_path}")
                         data_row = self._read_json_file(data_file_path)
-                        if data_row is not None:
-
-                            if(data_row[0] != index or data_row[1] != dir_path):
-                                print(f"{self.__str__()} : record mismatch, index={index}/{data_row[0]}, path={dir_path}/{data_row[1]}")
-                                continue
-                            records.append( data_row )
-                else:
+                        records = list(data_row)
+                        
                     # flat structure
                     for _, row in self._record_info.iterrows():
                         file_path = row['path']
@@ -247,6 +246,7 @@ class DataFileIo:
         # 1.1. write data file
 
         index_datas = []
+        new_records = []
         if self._dataType == 'static' and self._isTree:
             # 1 record per file for admin config
             for data in datas:
@@ -262,9 +262,14 @@ class DataFileIo:
                 file_full_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{file_path}'
 
                 self._write_json_file(file_full_path, [index, path, project, system, object])
+                new_records.append([index, path, project, system, object])
                 #index_columns.append(['index', 'path'])
                 index_datas.append([index, file_path])
 
+            file_full_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{DATA_FILE_NAME}'
+            self._write_json_file(file_full_path, new_records)
+            index_datas = [['0', f'/{DATA_FILE_NAME}']]
+            print(f"{self.__str__()}::set() - total {len(new_records)} records are saved to {file_full_path}")
         elif self._dataType == 'static':
             dir_path = f'{DATA_DIR_NAME}'
             for i in range(0, len(datas), DATA_BLOCK_SIZE):
@@ -358,7 +363,11 @@ class DataFileIo:
         self._write_csv_file(file_path, [self.index_columns]+index_datas)
 
         return True
-        
+    
+    def upgrade2(self):
+        records = self.get()
+        self.set(records)
+
     def upgrade(self):
         records = self.get()
         if records is None or len(records) == 0:
