@@ -101,35 +101,7 @@ class DataFileIo:
         except Exception as e:
             print(f"Error loading CSV file {file_path}: {e}")
         return None
-    
-    # 기존 설정되 정보와 현재 설정된 정보 비교 후 변경된 경우 파일에 기록
-    def _update_config(self, type:str, new_config):
-        #print(f"{self.__str__()} : type={type}, cfg={new_config}")
-        if type not in ELEMENT_CFG_LIST.values():
-            print(f"{{self.__str__()}} : update_config error : invalid type {type}")
-            return False
 
-        file_path = f'{self._elementFullPath}/.{type}.json'
-
-        if new_config is None:
-            # admin config loading case
-            prev_config = self._read_json_file(file_path)
-            if prev_config is None:
-                return False
-            self._configs[type] = prev_config
-            return True
-        else:
-            prev_config = self._read_json_file(file_path)
-            if new_config != prev_config:
-                print(f"{self.__str__()} : {type} config is changed({file_path})")
-                self._write_json_file(file_path, new_config)
-                return True
-        return False
-
-    # 외부 호출용 함수
-    def update_config(self, type:str, cfg_data):
-        return self._update_config(type, cfg_data)
-        
     def _initConfig(self):
         # 1. element 디렉토리가 없으면 새로 생성
         if not os.path.exists(self._elementFullPath):
@@ -189,6 +161,36 @@ class DataFileIo:
     def _loadData(self):
         self._records = self.get(0, 0) # load all data
 
+
+    # 기존 설정되 정보와 현재 설정된 정보 비교 후 변경된 경우 파일에 기록
+    def _update_config(self, type:str, new_config):
+        #print(f"{self.__str__()} : type={type}, cfg={new_config}")
+        if type not in ELEMENT_CFG_LIST.values():
+            print(f"{{self.__str__()}} : update_config error : invalid type {type}")
+            return False
+
+        file_path = f'{self._elementFullPath}/.{type}.json'
+
+        if new_config is None:
+            # admin config loading case
+            prev_config = self._read_json_file(file_path)
+            if prev_config is None:
+                return False
+            self._configs[type] = prev_config
+            return True
+        else:
+            prev_config = self._read_json_file(file_path)
+            if new_config != prev_config:
+                print(f"{self.__str__()} : {type} config is changed({file_path})")
+                self._write_json_file(file_path, new_config)
+                return True
+        return False
+
+    # 외부 호출용 함수
+    def updateConfig(self, type:str, cfg_data):
+        return self._update_config(type, cfg_data)
+        
+
     # 전체 데이터 가져오기
     def get(self, start_offset:str='0', end_offset:str='0'):
         if self._record_info is not None:
@@ -234,7 +236,9 @@ class DataFileIo:
             return records
         return []
     
-    def put(self, data):
+    def put(self, data): 
+        self._records.append(data)
+        
         return None
     
     def update(self, data):

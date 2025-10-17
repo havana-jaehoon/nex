@@ -139,7 +139,7 @@ class ConfigReader:
                     cleanup_children(root_node)
             
                  
-                project_map[project][system] = dict(tree)
+                project_map[project][system] = tree
                 #return tree
 
         return project_map
@@ -286,8 +286,8 @@ class ConfigReader:
 
 
 if __name__ == '__main__':
-    cfg = ConfigReader("./config_nex/.element/admin")
-
+    #cfg = ConfigReader("./config_nex/.element/admin")
+    cfg = ConfigReader("./config_nex/.element/.system/webserver/admin")
     project_name = '' # default project
 
     systems = cfg.getSystems(project_name)

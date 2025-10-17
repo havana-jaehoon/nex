@@ -167,7 +167,7 @@ class NexConfigStore {
 
   async fetch() {
     try {
-      const url = this.url + "/admin-api/get";
+      const url = this.url + "/admin-api";
 
       const response = await axios.get(url, {
         params: {
