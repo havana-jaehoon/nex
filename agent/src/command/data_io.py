@@ -2,6 +2,7 @@ import os
 import json, csv
 import pandas as pd
 from collections import defaultdict
+from datetime import datetime
 
 
 
@@ -26,6 +27,99 @@ ELEMENT_CFG_LIST = {
     'SYSTEM':'system',
     'ELEMENT':'element',
 }
+
+# Supported formats, from longest to shortest
+timeFormats = [
+    "%Y-%m-%d-%H:%M:%S",  # 가장 많이 사용되는 형식
+    "%Y-%m-%d-%H:%M:%S.%f", # 마이크로초 포함 형식 (예: 2023-10-05-14:30:15.123456)
+    "%Y-%m-%d-%H:%M",
+    "%Y-%m-%d-%H",
+    "%Y-%m-%d",
+    "%Y-%m",
+    "%Y"
+    ]
+
+dirFormats = {
+    'YEAR' : "%Y",
+    'MONTH' : "%Y%m",
+    'DAY' : "%Y/%m/%d",
+    'HOUR' : "%Y/%m/%d/%H",
+    'MIN' : "%Y/%m/%d/%H/%M",
+}
+
+fileFormats = {
+    'YEAR' : "%Y%m",
+    'MONTH' : "%Y%m%d",
+    'DAY' : "%Y%m%d%H",
+    'HOUR' : "%Y%m%d%H%M",
+    'MIN' : "%Y%m%d%H%M%S",
+}
+
+def convTimeToPath(time_str, format= "DAY"):
+    
+    dt_obj = None
+    for fmt in timeFormats:
+        try:
+            print(f"Parsed time '{time_str}' using format '{fmt}'")
+            dt_obj = datetime.strptime(time_str, fmt)
+
+            print(f"Parsed time '{time_str}' using format '{fmt}' -> {dt_obj}")
+            break  # Found a matching format
+        except ValueError:
+            continue # Try the next format
+
+    if dt_obj is None:
+        print(f"Error processing time '{time_str}': does not match any supported format.")
+        return None, None
+
+    try:
+        # dt_obj is now a datetime object, possibly with default values for missing parts.
+        # We can now format it as needed.
+        dir_path = dt_obj.strftime(dirFormats[format])
+        file_name = dt_obj.strftime(fileFormats[format])
+
+        return dir_path, file_name
+
+    except Exception as e:
+        print(f"Error formatting time '{time_str}': {e}")
+        return None, None
+
+
+def convIndexToPath(index: int):
+    """
+    인덱스를 기반으로 계층적 디렉토리 경로와 파일 이름을 계산합니다.
+    - 각 데이터 파일은 DATA_BLOCK_SIZE(100)개의 레코드를 저장합니다.
+    - 각 디렉토리는 DATA_FILE_COUNT(10)개의 데이터 파일 또는 하위 디렉토리를 포함합니다.
+    """
+    if not isinstance(index, int) or index < 0:
+        return None, None
+
+    # 레코드 인덱스를 기반으로 파일 인덱스를 계산합니다.
+    # 예: 인덱스 0-99 -> file_index 0; 인덱스 100-199 -> file_index 1
+    file_index = index // DATA_BLOCK_SIZE
+    file_name = f".record_{file_index}"
+
+    # 파일 인덱스를 기반으로 디렉토리 경로를 계산합니다.
+    # 각 디렉토리 레벨은 10개의 항목(파일 또는 하위 디렉토리)을 포함합니다.
+    if file_index < DATA_FILE_COUNT:
+        # 첫 10개 파일(file_index 0-9)은 루트에 위치합니다.
+        dir_path = ''
+    else:
+        path_parts = []
+        temp_index = file_index
+        while temp_index > 0:
+            part = temp_index % DATA_FILE_COUNT
+            path_parts.append(str(part))
+            temp_index //= DATA_FILE_COUNT
+        
+        # 마지막 부분은 파일 이름이므로 경로에서 제외합니다.
+        # 경로는 가장 높은 레벨부터 구성됩니다.
+        dir_path = "/".join(reversed(path_parts[:-1]))
+
+    return dir_path, file_name
+
+
+
 
 # Data Input/Output 을 제공하는 클래스
 class DataFileIo:
@@ -53,6 +147,8 @@ class DataFileIo:
         self._dataType = 'static' # static or temporary
         self._isTree = False # if True, tree structure
         self.index_columns = []
+        self.data_columns = []
+
 
         self._initConfig()
         self._loadData()
@@ -119,7 +215,7 @@ class DataFileIo:
             self._dataType = 'static'
             self._isTree = True
         else:    # general case
-            self._dataType = self._configs['format'].get("dataType", "static") # static or temporary
+            self._dataType = self._configs['store'].get('record', {}).get("nature", "static") # static or temporary
             #if not self._data_type in ['static', 'temporary']:
             #    self._data_type = 'static' # default
         
@@ -137,26 +233,31 @@ class DataFileIo:
 
             self._recordStorage = self._configs['store'].get("record", {}).get("storage", "DISK")
 
-        # 4. 데이터 index 파일 로딩(없으면 신규 생성)
-        if self._dataType == 'static' and self._isTree:
-            self._blockSize = 1
-            self.index_columns = ['index', 'path'] 
-        elif self._dataType == 'static' and not self._isTree:
-            self._blockSize = DATA_BLOCK_SIZE
-            self.index_columns = ['index', 'path']
-        elif self._dataType == 'temporary':
-            self.index_columns = ['time', 'path']
+        # 데이터 컬럼 정보 설정
+        features = self._configs['format'].get('features', [])
+        for feature in features:
+            featureName = feature['name']
+            self.data_columns.append(featureName)
 
+        self.index_columns = ['index', 'path']
+
+        # 4. record info (index) 파일 로딩                
         file_path = f'{self._elementFullPath}/{INDEX_FILE_NAME}'
         self._record_info = self._read_csv_file(file_path)
-        if self._record_info is None :
+
+        if self._record_info is None:
+            # index file does not exist, create a new one with headers
+            print(f"{self.__str__()} : record info file not found. Creating new one.")
             self._write_csv_file(file_path, [self.index_columns])
-        else: 
-            # index file exists
-            # check columns
-            if not all(col in self._record_info.columns for col in self.index_columns):
-                print(f"{self.__str__()} : record info columns are not valid, recreate index file")
+            self._record_info = self._read_csv_file(file_path)
+        else:
+            # index file exists, check if columns are valid
+            if list(self._record_info.columns) != self.index_columns:
+                print(f"{self.__str__()} : record info columns are not valid. old:{list(self._record_info.columns)}, new:{self.index_columns}. Recreating file.")
                 self._write_csv_file(file_path, [self.index_columns])
+                self._record_info = self._read_csv_file(file_path)
+            else:
+                print(f"{self.__str__()} : record info loaded successfully.")
 
     def _loadData(self):
         self._records = self.get(0, 0) # load all data
@@ -197,46 +298,41 @@ class DataFileIo:
             # 1. get record info
             records = []
             if(self._dataType == 'static'): # static & tree
-                if self._isTree:
-                    # tree structure
-                    for _, row in self._record_info.iterrows():
-                        index = row['index']
-                        file_path = row['path']
+                # start_offset, end_offset : index format (int)
+                sIndex = int(start_offset)
+                eIndex = int(end_offset)
+                # index 범위에 따른 데이터 로딩
 
-                        dir_path = os.path.dirname(file_path)
-
-                        data_file_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{file_path}'
-                        #print(f"Loading data from {data_file_path}")
-                        data_row = self._read_json_file(data_file_path)
-                        records = list(data_row)
-                        
-                    # flat structure
-                    for _, row in self._record_info.iterrows():
-                        file_path = row['path']
-                        data_file_path = f'{self._elementFullPath}/{file_path}'
-                        data_rows = self._read_csv_file(data_file_path)
-                        if data_rows is not None:
-                            records.append( [list(data_rows)] )
-                                                            
             elif(self._dataType == 'temporary'): # temporary
-                # self._recordBlock : NONE, HOUR, DAY, WEEK, MONTH, YEAR 에따라 디렉토리 구성 변경
-                if self._recordBlock == "NONE":
-                    # Error case
-                    print("Temporary data with 'NONE' block is not supported.")
-                    return None
+                # start_offset, end_offset : time string format: YYYY/MM/DD/HH/MM 
+                sTime = start_offset
+                eTime = end_offset\
+                # time 범위에 따른 데이터 로딩
+
+            # 모든 데이터 로딩    
+            for _, row in self._record_info.iterrows():
+                index = row['index']
+                file_path = row['path']
+
+                dir_path = os.path.dirname(file_path)
+
+                data_file_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{file_path}'
+                #print(f"Loading data from {data_file_path}")
+                data_row = self._read_json_file(data_file_path)
+                records = list(data_row)
                 
-                for _, row in self._record_info.iterrows():
-                    time = row['time']
-                    file_path = row['path']
-                    data_file_path = f'{self._elementFullPath}/{file_path}'
-                    data_rows = self._read_csv_file(data_file_path)
-                    if data_rows is not None:
-                        records.append( [list(data_rows)] )
-        
+            # flat structure
+            for _, row in self._record_info.iterrows():
+                file_path = row['path']
+                data_file_path = f'{self._elementFullPath}/{file_path}'
+                data_rows = self._read_csv_file(data_file_path)
+                if data_rows is not None:
+                    records.append( [list(data_rows)] )
+                                                            
             return records
         return []
     
-    def put(self, data): 
+    def add(self, data): 
         self._records.append(data)
         
         return None
@@ -244,123 +340,72 @@ class DataFileIo:
     def update(self, data):
         return None
     
+    def delete(self, data):
+        return None
+    
     # 전체 데이터 쓰기 
     def set(self, datas):
         # 1. save data 
         # 1.1. write data file
 
+        print(f"{self.__str__()}::set() - total {len(datas)} records to save")  
         index_datas = []
         new_records = []
         if self._dataType == 'static' and self._isTree:
             # 1 record per file for admin config
-            for data in datas:
-                index = data[0]
-                path = data[1]
-                project = data[2] # project name
-                system = data[3] # system name
-                object = data[4] # json object for admin config
+            data_map[DATA_FILE_NAME] = { 'index': 0, 'path': f'/{DATA_FILE_NAME}', 'data': datas }
+            print(f"{self.__str__()}::set-config - total {len(datas)} records are saved to {file_full_path}")
 
-                #element has  index, path, system, object
-
-                file_path = f'{path}/{DATA_FILE_NAME}'
-                file_full_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{file_path}'
-
-                self._write_json_file(file_full_path, [index, path, project, system, object])
-                new_records.append([index, path, project, system, object])
-                #index_columns.append(['index', 'path'])
-                index_datas.append([index, file_path])
-
-            file_full_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{DATA_FILE_NAME}'
-            self._write_json_file(file_full_path, new_records)
-            index_datas = [['0', f'/{DATA_FILE_NAME}']]
-            print(f"{self.__str__()}::set() - total {len(new_records)} records are saved to {file_full_path}")
         elif self._dataType == 'static':
-            dir_path = f'{DATA_DIR_NAME}'
+            print(f"{self.__str__()}::set() - static data saving")
+
+            data_map = {}
             for i in range(0, len(datas), DATA_BLOCK_SIZE):
                 block = datas[i:i + DATA_BLOCK_SIZE]
-                if i > 0 and (i % DATA_FILE_COUNT) == 0:
-                    # new directory
-                    dir_index = i // DATA_FILE_COUNT
-                    dir_path = f'{dir_path}/{dir_index}'
-                    dir_full_path = f'{self._elementFullPath}/{dir_path}'
-                    if not os.path.exists(dir_full_path):
-                        print(f"Create data directory: {dir_full_path}")
-                        os.makedirs(dir_full_path)
+                index = i * DATA_BLOCK_SIZE
+                dir_path, file_name = convIndexToPath(index)
 
-                file_path = f'{dir_path}/{i}'
-                file_full_path = f'{self._elementFullPath}/{file_path}'
-                self._write_json_file(file_full_path, block)
-                index_datas.append([i * DATA_BLOCK_SIZE, file_path])
+                file_path = f'{dir_path}/{file_name}'
+                data_map[file_name] = { 'index': i, 'path': file_path, 'data': block }
+                
+            
+            print(f"{self.__str__()}::set-data - total {len(new_records)} records are saved to {file_full_path}")
 
         elif self._dataType == 'temporary':
             # YYYY-MM-DD-HH:MM:SS.XXX or YYYY-MM-DD-HH:MM:SS or YYYY-MM-DD-HH:MM or 
             # YYYY-MM-DD-HH or YYYY-MM-DD or YYYY-MM or YYYY
+            print(f"{self.__str__()}::set() - temporary data saving")
+
             data_map = {}
             file_path_map = {}
             for row in datas:
                 time = row[0] # time string format: YYYY/MM/DD/HH/MM
 
-                if self._recordBlock == "YEAR":
-                    if time.__len__() < 7:
-                        print(f"Temporary data time format error: {time}")
-                        continue
-                    cur_dir = f'{time[0:4]}'
-                    cur_file = f'{time[0:7]}'
-                elif self._recordBlock == "MONTH":
-                    if time.__len__() < 10:
-                        print(f"Temporary data time format error: {time}")
-                        continue
-                    cur_dir = f'{time[0:4]}/{time[5:7]}'
-                    cur_file = f'{time[0:10]}'
-                elif self._recordBlock == "DAY":
-                    if time.__len__() < 13:
-                        print(f"Temporary data time format error: {time}")
-                        continue
-                    cur_dir = f'{time[0:4]}/{time[5:7]}/{time[8:10]}'
-                    cur_file = f'{time[0:13]}'
-                elif self._recordBlock == "HOUR":
-                    if time.__len__() < 16:
-                        print(f"Temporary data time format error: {time}")
-                        continue
-                    cur_dir = f'{time[0:4]}/{time[5:7]}/{time[8:10]}/{time[11:13]}'
-                    cur_file = f'{time[0:13]}{time[14:16]}'
-                elif self._recordBlock == "MINUTE":
-                    if time.__len__() < 19:
-                        print(f"Temporary data time format error: {time}")
-                        continue
-                    cur_dir = f'{time[0:4]}/{time[5:7]}/{time[8:10]}/{time[11:13]}/{time[14:16]}'
-                    cur_file = f'{time[0:13]}{time[14:16]}{time[17:19]}'
-                else:
-                    # Error case
-                    print(f"Temporary data with invalid block '{self._recordBlock}' is not supported.")
-                    return False
-                
-                # add data to data_file_map for batch write
-                file_path = f'{cur_dir}/{cur_file}'
-                file_full_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{file_path}'
-                dir_full_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{cur_dir}'
-                if cur_file not in data_map:
-                    # create new file entry            
-                    self._write_csv_file(file_full_path, [self.index_columns]) # header
-                    
-                    data_map[cur_file] = []
-                    file_path_map[cur_file] = file_path
+                dir_path, file_name = convTimeToPath(time, self._recordBlock)                  
+                file_path = f'{dir_path}/{file_name}'
 
-                data_map[cur_file].append(row)
+                #file_full_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{file_path}'
+                #dir_full_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{cur_dir}'
+                if file_name not in data_map:
+                    data_map[file_name] = { 'index': time, 'path': file_path, 'data': [] }
 
-            for cur_file, file_path in file_path_map.items():
-                rows = data_map[cur_file]
-                file_full_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{file_path}'
+                data_map[file_name]['data'].append(row)
 
-                self._write_csv_file(file_full_path, rows)
-                index_datas.append([cur_file, file_path])
-                
+        # batch write data files & build index data
+        for file_name, data_info in data_map.items():
+            file_full_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{data_info["path"]}'
+
+            self._write_json_file(file_full_path, data_info.get('data', []))
+            index_datas.append([data_info["index"], data_info["path"]])
+
+            print(f"{self.__str__()}::set() - write: {file_name} -> {file_full_path}")
+ 
         #print(f"{self.__str__()}::put({len(datas)})")
         #print(f"{json.dumps(datas, ensure_ascii=False, indent=2)}")
         # 1.2. failed back if error
 
 
-        # 3. update record info
+        # 3. update record info (write index file)
         # update index file
         #print(f"{self.__str__()}::set() - index_datas: {[self.index_columns]+index_datas}")
         file_path = f'{self._elementFullPath}/{INDEX_FILE_NAME}'

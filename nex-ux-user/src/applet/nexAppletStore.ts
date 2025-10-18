@@ -1,8 +1,6 @@
 import { action, makeObservable, observable, runInAction } from "mobx";
 import axios from "axios";
 
-//const urlMenu = "http://127.0.0.1:5000/api/admin/config";
-
 export interface NexFeature {
   name: string;
   dispName?: string;

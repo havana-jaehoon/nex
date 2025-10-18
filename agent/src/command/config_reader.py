@@ -322,10 +322,31 @@ if __name__ == '__main__':
             
             #print(f"# {path} item:", json.dumps(format, ensure_ascii=False, indent=2))
             dataio = DataFileIo("./config_nex/.element", path, system, element, format, store, processor)
+            
             data = dataio.get(0, 0)
             #dataio.put(dataset)
             
-            print(f"# element data path: {path} data-len: {len(data)}")
+
+
+
+            if(path == '/cbm/history/LossHistoryPerLine'):
+                print(f'format: {format}')
+                print(f'store: {store}')
+                print(f'processor: {processor}')
+                print(f"# element data path: {path} data-len: {len(data)}")
+
+                new_data  = [
+                    ["2025-05-01", 1, 2, 3, 4, 5, 6],
+                    ["2025-05-02", 2, 3, 4, 5, 6, 7],
+                    ["2025-05-03", 3, 4, 5, 6, 7, 8],
+                    ["2025-05-04", 4, 5, 6, 7, 8, 9],
+                    ["2025-05-05", 5, 6, 7, 8, 9, 0],
+                    ["2025-05-06", 6, 7, 8, 9, 0, 1],
+                    ["2025-05-07", 7, 8, 9, 10, 1, 2],
+                ]
+                dataio.set(new_data)
+                print(f"# set new data to element data path: {path} data: {new_data}")
+            #print(f"# element data path: {path} data-len: {len(data)}")
 
             #if data is not None or len(data) > 1 :
             #    break

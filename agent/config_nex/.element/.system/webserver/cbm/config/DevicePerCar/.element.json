@@ -1,104 +1,12 @@
 {
-  "path": "/cbm/config/DevicePerCar",
-  "system": {
-    "name": "webserver",
-    "dispName": "웹서버",
-    "description": "CBM 웹서버",
-    "type": "system",
-    "address": {
-      "ip": "192.168.0.2",
-      "port": "8080"
-    },
-    "hdfs": {
-      "ip": "192.168.0.20",
-      "port": "9000",
-      "path": "/nex/data"
-    },
-    "db": {
-      "ip": "192.168.0.30",
-      "port": "5432",
-      "user": "nex",
-      "password": "nex123",
-      "database": "nex"
-    }
-  },
-  "element": {
-    "name": "DevicePerCar",
-    "dispName": "차량별장치정보",
-    "description": "차량별장치정보",
-    "type": "element",
-    "format": "/cbm/config/DevicePerCar",
-    "store": "/memory/static",
-    "processor": "/common/transparent",
-    "processingInterval": "10",
-    "processingUnit": "SEC",
-    "sources": "/webserver/config/DevicePerCar"
-  },
-  "format": {
-    "name": "DevicePerCar",
-    "dispName": "차량별장치정보",
-    "description": "차량별장치정보 데이터 포맷",
-    "type": "format",
-    "features": [
-      {
-        "name": "line",
-        "dispName": "호선명",
-        "icon": null,
-        "color": null,
-        "type": "feature",
-        "isKey": true,
-        "featureType": "STRING"
-      },
-      {
-        "name": "train",
-        "dispName": "편성번호",
-        "icon": null,
-        "color": null,
-        "type": "feature",
-        "isKey": true,
-        "featureType": "STRING"
-      },
-      {
-        "name": "car",
-        "dispName": "차량번호",
-        "icon": null,
-        "color": null,
-        "type": "feature",
-        "isKey": true,
-        "featureType": "STRING"
-      },
-      {
-        "name": "device",
-        "dispName": "장치번호",
-        "icon": null,
-        "color": null,
-        "type": "feature",
-        "isKey": true,
-        "featureType": "STRING"
-      }
-    ]
-  },
-  "store": {
-    "name": "static",
-    "type": "store",
-    "record": {
-      "storage": "memory",
-      "nature": "static",
-      "unit": "NONE",
-      "block": "NONE",
-      "expire": "-1",
-      "expireUnit": "NONE",
-      "allowDuplication": "false",
-      "allowKeepValue": "false"
-    }
-  },
-  "processor": {
-    "name": "transparent",
-    "dispName": "",
-    "type": "processor",
-    "module": {
-      "version": "0",
-      "history": ""
-    }
-  }
+  "name": "DevicePerCar",
+  "dispName": "차량별장치정보",
+  "description": "차량별장치정보",
+  "type": "element",
+  "format": "/cbm/config/DevicePerCar",
+  "store": "/disk/static",
+  "processor": "/common/transparent",
+  "processingInterval": "10",
+  "processingUnit": "SEC",
+  "sources": "/webserver/config/DevicePerCar"
 }

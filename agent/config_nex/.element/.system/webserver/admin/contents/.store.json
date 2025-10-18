@@ -2,7 +2,7 @@
   "name": "static",
   "type": "store",
   "record": {
-    "storage": "memory",
+    "storage": "disk",
     "nature": "static",
     "unit": "NONE",
     "block": "NONE",

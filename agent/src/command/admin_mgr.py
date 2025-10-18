@@ -145,6 +145,33 @@ class AdminMgr(SingletonInstance):
             return HandlerResult(status=500, body=f'exception : {e}')
 
 
+    async def _uploadData(self, handler_args: HandlerArgs, kwargs: dict)-> HandlerResult:
+        try:
+            # execute processor
+            #handler_result, output_list = await self._processor.process(exp, body, arg_list, kwargs)
+            print(f'AdminMgr::_uploadData({handler_args}, {kwargs})')
+            #print(f"# Root-Path : {ADMIN_CONFIG_DIR}")
+            #res = load_all_config(ADMIN_CONFIG_DIR)
+            method = handler_args.method
+            if method != 'POST':
+                return HandlerResult(status=405, body='Method Not Allowed, use POST')
+            path = handler_args.body.get('path', '')
+            system = handler_args.body.get('system', '')
+            project = handler_args.body.get('project', '')
+            data = handler_args.body.get('data', None)
+            
+            dataio = self._dataioMap.get(project, {}).get(system, {}).get(path, None)
+            print(f"AdminMgr::_uploadData() - path:{path}, project:{project}, system:{system}, dataio : {dataio}")
+            if(dataio is None):
+                return HandlerResult(status=404, body=f'Not found dataio for project:{project}, system:{system}, path:{path}')
+            
+            await dataio.set(data)
+
+            return HandlerResult(status=200, response=res, body=res)
+        except Exception as e:
+            Logger().log_error(f'AdminMgr::_uploadData({handler_args}, {kwargs}) : {e}')
+            return HandlerResult(status=500, body=f'exception : {e}')
+
     async def _set(self, handler_args: HandlerArgs, kwargs: dict)-> HandlerResult:
         try:
             # execute processor
@@ -170,6 +197,7 @@ class AdminMgr(SingletonInstance):
         handler_list: List[Tuple[str, Server_Dynamic_Handler, dict]] = [
             ("/admin-api", self._getAdmin, {"cmd_id": "/admin-api"}),
             ("/data-api", self._getData, {"cmd_id": "/admin-api"}),
+            ("/data-api/upload", self._uploadData, {"cmd_id": "/upload-api"}),
         ]
         return handler_list
 

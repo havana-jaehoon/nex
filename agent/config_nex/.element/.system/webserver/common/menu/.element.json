@@ -1,86 +1,12 @@
 {
-  "path": "/common/menu",
-  "system": {
-    "name": "webserver",
-    "dispName": "웹서버",
-    "description": "CBM 웹서버",
-    "type": "system",
-    "address": {
-      "ip": "192.168.0.2",
-      "port": "8080"
-    },
-    "hdfs": {
-      "ip": "192.168.0.20",
-      "port": "9000",
-      "path": "/nex/data"
-    },
-    "db": {
-      "ip": "192.168.0.30",
-      "port": "5432",
-      "user": "nex",
-      "password": "nex123",
-      "database": "nex"
-    }
-  },
-  "element": {
-    "name": "menu",
-    "dispName": "메뉴",
-    "description": "메뉴 테스트",
-    "type": "element",
-    "format": "/web/menu",
-    "store": "/memory/static",
-    "processor": "/common/transparent",
-    "processingInterval": "10",
-    "processingUnit": "SEC",
-    "sources": ""
-  },
-  "format": {
-    "name": "menu",
-    "dispName": "메뉴",
-    "description": "메뉴 항목",
-    "type": "format",
-    "features": [
-      {
-        "name": "path",
-        "dispName": "Type",
-        "icon": null,
-        "color": null,
-        "type": "feature",
-        "isKey": false,
-        "featureType": "STRING"
-      },
-      {
-        "name": "item",
-        "dispName": "Path",
-        "icon": null,
-        "color": null,
-        "type": "feature",
-        "isKey": true,
-        "featureType": "JSON"
-      }
-    ]
-  },
-  "store": {
-    "name": "static",
-    "type": "store",
-    "record": {
-      "storage": "memory",
-      "nature": "static",
-      "unit": "NONE",
-      "block": "NONE",
-      "expire": "-1",
-      "expireUnit": "NONE",
-      "allowDuplication": "false",
-      "allowKeepValue": "false"
-    }
-  },
-  "processor": {
-    "name": "transparent",
-    "dispName": "",
-    "type": "processor",
-    "module": {
-      "version": "0",
-      "history": ""
-    }
-  }
+  "name": "menu",
+  "dispName": "메뉴",
+  "description": "메뉴 테스트",
+  "type": "element",
+  "format": "/web/menu",
+  "store": "/disk/static",
+  "processor": "/common/transparent",
+  "processingInterval": "10",
+  "processingUnit": "SEC",
+  "sources": ""
 }

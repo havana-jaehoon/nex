@@ -658,19 +658,19 @@
   ],
   [
     36,
-    "/admin/websection",
+    "/admin/section",
     "",
     "",
     {
       "10": {
-        "name": "websection",
+        "name": "section",
         "dispName": "웹 섹션",
         "type": "contents",
-        "element": "/admin/websection",
+        "element": "/admin/section",
         "conditions": [],
         "selections": [
           {
-            "key": "websection-path",
+            "key": "section-path",
             "feature": "path"
           }
         ]
@@ -679,18 +679,18 @@
   ],
   [
     37,
-    "/admin/SelectedWebsection",
+    "/admin/SelectedSsection",
     "",
     "",
     {
       "11": {
-        "name": "SelectedWebsection",
+        "name": "SelectedSection",
         "dispName": "웹 섹션",
         "type": "contents",
-        "element": "/admin/websection",
+        "element": "/admin/section",
         "conditions": [
           {
-            "key": "websection-path",
+            "key": "section-path",
             "feature": "path",
             "method": "pathmatch"
           }

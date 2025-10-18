@@ -20,7 +20,7 @@ import { contentsConfig } from "test/data/config/contentsConfig";
 import { systemConfig } from "test/data/config/systemConfig";
 import axios from "axios";
 
-const URL = "http://localhost:9070";
+const URL_CONFIG = "http://localhost:9070/admin-api";
 
 const buildAdminConfig = (datas: any[]) => {
   //console.log("buildAdminConfig datas:", JSON.stringify(datas, null, 2));
@@ -167,7 +167,7 @@ class NexConfigStore {
 
   async fetch() {
     try {
-      const url = this.url + "/admin-api";
+      const url = this.url;
 
       const response = await axios.get(url, {
         params: {
@@ -205,62 +205,11 @@ class NexConfigStore {
         this.config.applets = buildAdminConfig(cfgMap["applet"]);
 
         this.config.websections = buildAdminConfig(cfgMap["section"]);
-        console.log(
-          "sections:",
-          JSON.stringify(this.config.websections, null, 2)
-        );
+
         this.config.webThemes = buildAdminConfig(cfgMap["theme"]);
 
         this.config.webThemeUsers = buildAdminConfig(cfgMap["user"]);
 
-        this.isReady = true;
-      });
-    } catch (error) {
-      console.error("Failed to fetch projects:", error);
-    }
-  }
-
-  async fetch2() {
-    try {
-      const url = this.url + "/admin/get";
-      const path = "";
-      const data = "";
-
-      const response = await axios.get(url, {
-        params: {
-          path: path,
-          data: data,
-        },
-      });
-
-      //const datas = JSON.parse(JSON.stringify(response.data, null, 2));
-
-      if (response.status < 200 || response.status >= 300) {
-        console.error("Failed to fetch uploadConfig:", response);
-        return;
-      }
-      runInAction(() => {
-        const raw = response.data;
-        const cfgMap: Record<string, any[]> = Array.isArray(raw)
-          ? (Object.fromEntries(
-              raw.flatMap((obj: any) => Object.entries(obj))
-            ) as Record<string, any[]>)
-          : (raw as Record<string, any[]>);
-
-        // observable.array로 교체, deep 옵션
-        const toObs = (rows?: any[]) =>
-          observable.array(buildAdminConfig(rows ?? []), { deep: true });
-
-        this.config.formats = toObs(cfgMap["format"]);
-        this.config.stores = toObs(cfgMap["store"]);
-        this.config.processors = toObs(cfgMap["processor"]);
-        this.config.systems = toObs(cfgMap["system"]);
-        this.config.elements = toObs(cfgMap["element"] ?? cfgMap["elements"]); // 키 방어
-        this.config.contents = toObs(cfgMap["content"] ?? cfgMap["contents"]);
-        this.config.applets = toObs(cfgMap["applet"]);
-        this.config.websections = toObs(cfgMap["section"]);
-        this.config.webThemes = toObs(cfgMap["theme"]);
-        this.config.webThemeUsers = toObs(cfgMap["user"]);
         this.isReady = true;
       });
     } catch (error) {
@@ -357,5 +306,5 @@ class NexConfigStore {
 //const nexConfig = new NexConfigStore("", "test", "/webui");
 //export default nexConfig;
 
-export const configStore = new NexConfigStore(URL, "", "webserver");
+export const configStore = new NexConfigStore(URL_CONFIG, "", "webserver");
 export default NexConfigStore;

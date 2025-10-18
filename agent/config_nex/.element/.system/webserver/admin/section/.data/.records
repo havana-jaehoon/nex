@@ -784,26 +784,6 @@
     }
   ],
   [
-    47,
-    "/root/AdminSystemConfig/Head/nodeSelector",
-    "",
-    "",
-    {
-      "0": {
-        "name": "nodeSelector",
-        "dispName": "",
-        "description": "노드 선택기 웹 섹션",
-        "type": "section",
-        "size": "3",
-        "applet": "/admin/NexNodeSelector",
-        "padding": "0",
-        "contents": [
-          "/admin/system"
-        ]
-      }
-    }
-  ],
-  [
     48,
     "/root/AdminSystemConfig/MainUp",
     "",
@@ -847,12 +827,12 @@
   ],
   [
     51,
-    "/root/AdminSystemConfig/MainUp/MainLeftUp/project/websectionConfig",
+    "/root/AdminSystemConfig/MainUp/MainLeftUp/project/sectionConfig",
     "",
     "",
     {
       "0": {
-        "name": "websectionConfig",
+        "name": "sectionConfig",
         "dispName": "웹 섹션 설정",
         "type": "section",
         "size": "5",
@@ -862,38 +842,57 @@
   ],
   [
     52,
-    "/root/AdminSystemConfig/MainUp/MainLeftUp/project/websectionConfig/websectionFinder",
+    "/root/AdminSystemConfig/MainUp/MainLeftUp/project/sectionConfig/sectionFinder",
     "",
     "",
     {
       "0": {
-        "name": "websectionFinder",
+        "name": "sectionFinder",
         "dispName": "웹 섹션",
         "type": "section",
         "size": "3",
         "applet": "/admin/NexNodeTree",
         "padding": "8px",
         "contents": [
-          "/admin/websection"
+          "/admin/section"
         ]
       }
     }
   ],
   [
     53,
-    "/root/AdminSystemConfig/MainUp/MainLeftUp/project/websectionConfig/websectionEditor",
+    "/root/AdminSystemConfig/MainUp/MainLeftUp/project/sectionConfig/sectionEditor",
     "",
     "",
     {
       "1": {
-        "name": "websectionEditor",
+        "name": "sectionEditor",
         "dispName": "웹 섹션 편집",
         "type": "section",
         "size": "7",
         "applet": "/admin/NexJsonEditor",
         "padding": "8px",
         "contents": [
-          "/admin/SelectedWebSection"
+          "/admin/SelectedSection"
+        ]
+      }
+    }
+  ],
+  [
+    54,
+    "/root/AdminSystemConfig/MainUp/MainLeftUp/project/Sample",
+    "",
+    "",
+    {
+      "1": {
+        "name": "Sample",
+        "dispName": "샘플",
+        "type": "section",
+        "size": "5",
+        "padding": "8px",
+        "applet": "/sample/NexSampleList",
+        "contents": [
+          "/common/sample"
         ]
       }
     }

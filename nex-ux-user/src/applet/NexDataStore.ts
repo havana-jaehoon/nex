@@ -4,6 +4,9 @@ import { getTestFormat } from "test/data/config/formatConfig";
 import { getTestData } from "test/data/user/testData";
 import { NexCondition, NexFeatureType } from "type/NexNode";
 import { makeSampleJsonAndCsv, parseCsv2Json } from "type/nexNodeConv";
+import axios from "axios";
+
+const URL_DATA = "http://127.0.0.1:9070/data-api";
 
 export interface NexData {
   csv: any[]; // conditions 가 반영된 CSV data
@@ -286,6 +289,8 @@ export class NexDataStore {
       remove: action,
       update: action,
 
+      upload: action,
+
       getData: action,
       getValuesByCondition: action,
       getCountByCondition: action,
@@ -300,6 +305,8 @@ export class NexDataStore {
     this.add = this.add.bind(this);
     this.remove = this.remove.bind(this);
     this.update = this.update.bind(this);
+
+    this.upload = this.upload.bind(this);
 
     this.getData = this.getData.bind(this);
     this.getCountByCondition = this.getCountByCondition.bind(this);
@@ -505,6 +512,29 @@ export class NexDataStore {
     this.odata.splice(rowIndex, 1, row);
 
     this.curRowIndex = rowIndex;
+    return true;
+  }
+
+  async upload() {
+    // 서버로 데이터 업로드
+    try {
+      const url = URL_DATA + "/upload";
+
+      const response = await axios.post(url, {
+        path: this.elementPath,
+        project: "",
+        system: "webserver",
+        data: JSON.stringify(this.odata),
+      });
+
+      console.log("response", JSON.stringify(response, null, 2));
+      if (response.status < 200 || response.status >= 300) {
+        console.error("Failed to Upload Data:", response);
+        return;
+      }
+    } catch (error) {
+      console.error("Failed to Upload Data:", error);
+    }
     return true;
   }
 
