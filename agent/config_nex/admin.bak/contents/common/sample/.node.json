@@ -1,8 +1,0 @@
-{
-  "name": "sample",
-  "dispName": "Sample",
-  "type": "contents",
-  "element": "/cbm/history/LossHistoryPerDevice",
-  "condition": [],
-  "selection": []
-}

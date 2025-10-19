@@ -1,8 +1,0 @@
-{
-  "name": "menu",
-  "dispName": "Menu",
-  "type": "contents",
-  "element": "/common/menu",
-  "condition": [],
-  "selection": []
-}

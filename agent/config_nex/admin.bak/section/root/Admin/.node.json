@@ -1,7 +1,0 @@
-{
-  "name": "Admin",
-  "type": "section",
-  "size": "1",
-  "direction": "column",
-  "route": "admin"
-}

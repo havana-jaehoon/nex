@@ -149,7 +149,7 @@ class AdminMgr(SingletonInstance):
         try:
             # execute processor
             #handler_result, output_list = await self._processor.process(exp, body, arg_list, kwargs)
-            print(f'AdminMgr::_uploadData({handler_args}, {kwargs})')
+            #print(f'AdminMgr::_uploadData({handler_args}, {kwargs})')
             #print(f"# Root-Path : {ADMIN_CONFIG_DIR}")
             #res = load_all_config(ADMIN_CONFIG_DIR)
             method = handler_args.method
@@ -161,11 +161,11 @@ class AdminMgr(SingletonInstance):
             data = handler_args.body.get('data', None)
             
             dataio = self._dataioMap.get(project, {}).get(system, {}).get(path, None)
-            print(f"AdminMgr::_uploadData() - path:{path}, project:{project}, system:{system}, dataio : {dataio}")
+            print(f"AdminMgr::_uploadData() - path:{path}, project:{project}, system:{system}, dataio : {dataio}, data : {json.dumps(data, indent=2, ensure_ascii=False)}...")
             if(dataio is None):
                 return HandlerResult(status=404, body=f'Not found dataio for project:{project}, system:{system}, path:{path}')
             
-            await dataio.set(data)
+            res = await dataio.set(data)
 
             return HandlerResult(status=200, response=res, body=res)
         except Exception as e:

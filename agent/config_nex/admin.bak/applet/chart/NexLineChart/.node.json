@@ -1,9 +1,0 @@
-{
-  "name": "NexLineChart",
-  "dispName": "Nex Line Chart",
-  "description": "Nex Line Chart Applet",
-  "type": "applet",
-  "icon": "chart",
-  "color": "#33FF57",
-  "applet": "/chart/NexLineChart"
-}

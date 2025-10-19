@@ -317,6 +317,9 @@ export class NexDataStore {
       this.element?.processingInterval,
       this.element?.processingUnit
     );
+
+    this.upload();
+
     if (this.element) this.startFetchInterval(interval);
   }
 
@@ -524,7 +527,7 @@ export class NexDataStore {
         path: this.elementPath,
         project: "",
         system: "webserver",
-        data: JSON.stringify(this.odata),
+        data: this.odata,
       });
 
       console.log("response", JSON.stringify(response, null, 2));

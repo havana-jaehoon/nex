@@ -323,29 +323,51 @@ if __name__ == '__main__':
             #print(f"# {path} item:", json.dumps(format, ensure_ascii=False, indent=2))
             dataio = DataFileIo("./config_nex/.element", path, system, element, format, store, processor)
             
-            data = dataio.get(0, 0)
+            #data = dataio.get(0, 0)
             #dataio.put(dataset)
             
+            
 
+            if(path == '/cbm/event/SystemEventInfo'):
 
-
-            if(path == '/cbm/history/LossHistoryPerLine'):
-                print(f'format: {format}')
-                print(f'store: {store}')
-                print(f'processor: {processor}')
-                print(f"# element data path: {path} data-len: {len(data)}")
-
-                new_data  = [
-                    ["2025-05-01", 1, 2, 3, 4, 5, 6],
-                    ["2025-05-02", 2, 3, 4, 5, 6, 7],
-                    ["2025-05-03", 3, 4, 5, 6, 7, 8],
-                    ["2025-05-04", 4, 5, 6, 7, 8, 9],
-                    ["2025-05-05", 5, 6, 7, 8, 9, 0],
-                    ["2025-05-06", 6, 7, 8, 9, 0, 1],
-                    ["2025-05-07", 7, 8, 9, 10, 1, 2],
+                new_data = [
+                    [
+                        "2025-05-01 10:00:00",
+                        "Collector",
+                        "시스템 시작",
+                        "시스템이 정상적으로 시작되었습니다.",
+                    ],
+                    [
+                        "2025-05-01 10:05:00",
+                        "Collector",
+                        "데이터 수집 시작",
+                        "데이터 수집이 시작되었습니다.",
+                    ],
+                    [
+                        "2025-05-01 10:10:00",
+                        "Collector",
+                        "장치 점검 완료",
+                        "모든 장치의 점검이 완료되었습니다.",
+                    ],
+                    [
+                        "2025-05-01 10:15:00",
+                        "Collector",
+                        "경고 발생",
+                        "주변압기에서 경고가 발생하였습니다.",
+                    ],
+                    [
+                        "2025-05-01 10:20:00",
+                        "Collector",
+                        "정상 작동 확인",
+                        "모든 시스템이 정상적으로 작동하고 있습니다.",
+                    ],
                 ]
+
                 dataio.set(new_data)
-                print(f"# set new data to element data path: {path} data: {new_data}")
+                print(f"# set new data to element data path: {path} data: {json.dumps(new_data, ensure_ascii=False, indent=2)}")
+
+                data = dataio.get(0, 0)
+                print(f"After set, element data path: {path} data: {json.dumps(data, ensure_ascii=False, indent=2)}")
             #print(f"# element data path: {path} data-len: {len(data)}")
 
             #if data is not None or len(data) > 1 :

@@ -1,8 +1,0 @@
-{
-  "name": "dashboard",
-  "dispName": "Dashboard",
-  "description": "Dashboard",
-  "type": "section",
-  "route": "cbm/*",
-  "direction": "column"
-}

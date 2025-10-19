@@ -30,10 +30,10 @@ ELEMENT_CFG_LIST = {
 
 # Supported formats, from longest to shortest
 timeFormats = [
-    "%Y-%m-%d-%H:%M:%S",  # 가장 많이 사용되는 형식
-    "%Y-%m-%d-%H:%M:%S.%f", # 마이크로초 포함 형식 (예: 2023-10-05-14:30:15.123456)
-    "%Y-%m-%d-%H:%M",
-    "%Y-%m-%d-%H",
+    "%Y-%m-%d %H:%M:%S",  # 가장 많이 사용되는 형식
+    "%Y-%m-%d %H:%M:%S.%f", # 마이크로초 포함 형식 (예: 2023-10-05-14:30:15.123456)
+    "%Y-%m-%d %H:%M",
+    "%Y-%m-%d %H",
     "%Y-%m-%d",
     "%Y-%m",
     "%Y"
@@ -60,10 +60,10 @@ def convTimeToPath(time_str, format= "DAY"):
     dt_obj = None
     for fmt in timeFormats:
         try:
-            print(f"Parsed time '{time_str}' using format '{fmt}'")
+            #print(f"Parsed time '{time_str}' using format '{fmt}'")
             dt_obj = datetime.strptime(time_str, fmt)
 
-            print(f"Parsed time '{time_str}' using format '{fmt}' -> {dt_obj}")
+            #print(f"Parsed time '{time_str}' using format '{fmt}' -> {dt_obj}")
             break  # Found a matching format
         except ValueError:
             continue # Try the next format
@@ -190,14 +190,14 @@ class DataFileIo:
             print(f"Error loading JSON file {file_path}: {e}")
         return None
 
-    def _read_csv_file(self, file_path):
+    def _read_csv_file(self, file_path)-> list:
         try:
             if os.path.exists(file_path):
-                return pd.read_csv(file_path)
+                return pd.read_csv(file_path).values.tolist()
         except Exception as e:
             print(f"Error loading CSV file {file_path}: {e}")
         return None
-
+    
     def _initConfig(self):
         # 1. element 디렉토리가 없으면 새로 생성
         if not os.path.exists(self._elementFullPath):
@@ -250,15 +250,8 @@ class DataFileIo:
             print(f"{self.__str__()} : record info file not found. Creating new one.")
             self._write_csv_file(file_path, [self.index_columns])
             self._record_info = self._read_csv_file(file_path)
-        else:
-            # index file exists, check if columns are valid
-            if list(self._record_info.columns) != self.index_columns:
-                print(f"{self.__str__()} : record info columns are not valid. old:{list(self._record_info.columns)}, new:{self.index_columns}. Recreating file.")
-                self._write_csv_file(file_path, [self.index_columns])
-                self._record_info = self._read_csv_file(file_path)
-            else:
-                print(f"{self.__str__()} : record info loaded successfully.")
-
+        
+        
     def _loadData(self):
         self._records = self.get(0, 0) # load all data
 
@@ -310,24 +303,12 @@ class DataFileIo:
                 # time 범위에 따른 데이터 로딩
 
             # 모든 데이터 로딩    
-            for _, row in self._record_info.iterrows():
-                index = row['index']
-                file_path = row['path']
-
-                dir_path = os.path.dirname(file_path)
-
-                data_file_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{file_path}'
-                #print(f"Loading data from {data_file_path}")
-                data_row = self._read_json_file(data_file_path)
-                records = list(data_row)
-                
-            # flat structure
-            for _, row in self._record_info.iterrows():
-                file_path = row['path']
-                data_file_path = f'{self._elementFullPath}/{file_path}'
-                data_rows = self._read_csv_file(data_file_path)
+            for index, file_path in self._record_info:
+                #print(f"# Load data file: index={index}, path={file_path}")
+                file_full_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{file_path}'
+                data_rows = self._read_json_file(file_full_path)
                 if data_rows is not None:
-                    records.append( [list(data_rows)] )
+                    records.extend(data_rows)
                                                             
             return records
         return []
@@ -348,7 +329,7 @@ class DataFileIo:
         # 1. save data 
         # 1.1. write data file
 
-        print(f"{self.__str__()}::set() - total {len(datas)} records to save")  
+        print(f"{self.__str__()}::set() - total {datas} records to save")  
         index_datas = []
         new_records = []
         if self._dataType == 'static' and self._isTree:
@@ -410,6 +391,11 @@ class DataFileIo:
         #print(f"{self.__str__()}::set() - index_datas: {[self.index_columns]+index_datas}")
         file_path = f'{self._elementFullPath}/{INDEX_FILE_NAME}'
         self._write_csv_file(file_path, [self.index_columns]+index_datas)
+        self._record_info = [self.index_columns]+index_datas
+
+        self._record_info = self._read_csv_file(file_path)
+
+        print(f"{self.__str__()}::set() - record_info: {json.dumps(self._record_info, ensure_ascii=False, indent=2)}")
 
         return True
     

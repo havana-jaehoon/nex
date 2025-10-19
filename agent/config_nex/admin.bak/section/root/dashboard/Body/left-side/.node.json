@@ -1,8 +1,0 @@
-{
-  "name": "left-side",
-  "dispName": "Left Side",
-  "description": "Left Side View",
-  "type": "section",
-  "size": "5",
-  "direction": "column"
-}
