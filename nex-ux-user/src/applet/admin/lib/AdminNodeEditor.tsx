@@ -397,7 +397,10 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   useEffect(() => {
     const index = data[0];
     const nodePath = data[1];
-    const node: any = data[2];
+    const projectName = data[2];
+    const systemName = data[3];
+    const node: any = Object.values(data[4])[0];
+    // Object.keys(data[4])[0] => order of Node Objects
 
     const tformat = node ? adminNodeDefs[node.type as NexNodeType] : null;
     const tfeatures = tformat?.features || [];

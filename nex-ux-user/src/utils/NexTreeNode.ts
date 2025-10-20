@@ -16,7 +16,9 @@ function normalizePath(p?: string): string {
 }
 
 /** path 배열 -> 트리/맵 빌드 */
-export function buildNexTree(datas: Array<[number, string, any]>): NexNodeTree {
+export function buildNexTree(
+  datas: Array<[number, string, string, string, any]>
+): NexNodeTree {
   const virtualRoot: NexTreeNodeObject = {
     path: "",
     data: null,
@@ -26,7 +28,7 @@ export function buildNexTree(datas: Array<[number, string, any]>): NexNodeTree {
   const indexMap: Record<number, any> = {};
 
   for (const row of datas) {
-    const [idx, rawPath, data] = row;
+    const [idx, rawPath, projectName, systemName, data] = row;
     const path = normalizePath(rawPath);
     const segments = path.split("/").filter(Boolean);
 
@@ -58,5 +60,9 @@ export function buildNexTree(datas: Array<[number, string, any]>): NexNodeTree {
 
   const getNode = (index: number) => indexMap[index] || null;
 
+  console.error(
+    "buildNexTree: built tree with : ",
+    JSON.stringify(roots, null, 2)
+  );
   return { data: roots, getNode: getNode };
 }

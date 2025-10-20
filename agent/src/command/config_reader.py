@@ -290,7 +290,11 @@ if __name__ == '__main__':
     cfg = ConfigReader("./config_nex/.element/.system/webserver/admin")
     project_name = '' # default project
 
-    systems = cfg.getSystems(project_name)
+    cfgDatas = cfg.getDatas('format', '', '')
+    print(f"# ConfigReader: {json.dumps(cfgDatas, ensure_ascii=False, indent=2)}")
+
+    systems = []
+    #systems = cfg.getSystems(project_name)
     #print(f"# systems: {json.dumps(systems, ensure_ascii=False, indent=2)}")
     #print(f"# Format: {json.dumps(format, ensure_ascii=False, indent=2)}")
     
@@ -320,7 +324,7 @@ if __name__ == '__main__':
             store = item.get('store') # element store node config(json object)
             processor = item.get('processor') # element processor node config(json object)
             
-            #print(f"# {path} item:", json.dumps(format, ensure_ascii=False, indent=2))
+            print(f"# {path} element:", json.dumps(element, ensure_ascii=False, indent=2))
             dataio = DataFileIo("./config_nex/.element", path, system, element, format, store, processor)
             
             #data = dataio.get(0, 0)
@@ -328,8 +332,7 @@ if __name__ == '__main__':
             
             
 
-            if(path == '/cbm/event/SystemEventInfo'):
-
+            if(False and path == '/cbm/event/SystemEventInfo' ):
                 new_data = [
                     [
                         "2025-05-01 10:00:00",

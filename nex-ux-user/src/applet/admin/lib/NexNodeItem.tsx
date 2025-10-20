@@ -58,7 +58,7 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
     if (node && node.data) {
       setPath(node.data[1]);
       setIndex(node.data[0]);
-      setJsonData(node.data[2]);
+      setJsonData(Object.values(node.data[4])[0]);
     }
   }, [node]);
 

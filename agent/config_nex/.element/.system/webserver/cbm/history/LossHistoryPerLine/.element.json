@@ -1,61 +1,12 @@
 {
-  "path": "/cbm/history/LossHistoryPerLine",
-  "system": {
-    "name": "webserver",
-    "dispName": "웹서버",
-    "description": "CBM 웹서버",
-    "type": "system",
-    "address": {
-      "ip": "192.168.0.2",
-      "port": "8080"
-    },
-    "hdfs": {
-      "ip": "192.168.0.20",
-      "port": "9000",
-      "path": "/nex/data"
-    },
-    "db": {
-      "ip": "192.168.0.30",
-      "port": "5432",
-      "user": "nex",
-      "password": "nex123",
-      "database": "nex"
-    }
-  },
-  "element": {
-    "name": "LossHistoryPerLine",
-    "dispName": "노선별 열화 이력",
-    "description": "노선별 열화 이력 데이터 엘리먼트",
-    "type": "element",
-    "format": "/cbm/history/LossHistoryPerLine",
-    "store": "/disk/7day",
-    "processor": "/common/transparent",
-    "processingInterval": "10",
-    "processingUnit": "SEC",
-    "sources": "/webserver/history/LossHistoryPerLine"
-  },
-  "format": null,
-  "store": {
-    "name": "7day",
-    "type": "store",
-    "record": {
-      "storage": "disk",
-      "nature": "temporary",
-      "unit": "SEC",
-      "block": "MIN",
-      "expire": "7",
-      "expireUnit": "DAY",
-      "allowDuplication": "false",
-      "allowKeepValue": "false"
-    }
-  },
-  "processor": {
-    "name": "transparent",
-    "dispName": "",
-    "type": "processor",
-    "module": {
-      "version": "0",
-      "history": ""
-    }
-  }
+  "name": "LossHistoryPerLine",
+  "dispName": "노선별 열화 이력",
+  "description": "노선별 열화 이력 데이터 엘리먼트",
+  "type": "element",
+  "format": "/cbm/history/LossHistoryPerLine",
+  "store": "/disk/7day",
+  "processor": "/common/transparent",
+  "processingInterval": "10",
+  "processingUnit": "SEC",
+  "sources": "/webserver/history/LossHistoryPerLine"
 }

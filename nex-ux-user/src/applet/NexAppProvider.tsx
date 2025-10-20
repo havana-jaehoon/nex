@@ -70,51 +70,57 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     }, [selector.modifiedCount]);
     */
 
-    const contents: NexContents[] =
-      useMemo(() => {
-        return contentsNodeList?.map((content: any) => {
-          const store = storeMap[content.element];
-          const conditions = content.conditions || [];
+    const contents: NexContents[] = useMemo(() => {
+      return contentsNodeList?.map((content: any) => {
+        const store = storeMap[content.element];
+        const conditions = content.conditions || [];
 
-          //console.log("NexAppProvider contents modified!", content.element);
+        //console.log("NexAppProvider contents modified!", content.element);
 
-          let indexes: number[] | null = null;
-          if (!store) {
-            console.log(
-              "NexAppProvider: content=",
-              JSON.stringify(content, null, 2),
-              storeMap
-            );
-
-            return {
-              info: content,
-              store: store,
-              data: [],
-              selectedIndex: -1,
-              indexes: null,
-              format: null,
-            };
-          }
-
-          if (conditions.length > 0) {
-            const conds = conditions.map((condition: any) => ({
-              feature: condition.feature,
-              value: selector.get(condition.key),
-              method: condition.method || "match",
-            }));
-            indexes = store.getIndexesByCondition(conds) || null;
-          }
+        let indexes: number[] | null = null;
+        if (!store) {
+          console.log(
+            "NexAppProvider: content=",
+            JSON.stringify(content, null, 2),
+            storeMap
+          );
 
           return {
             info: content,
             store: store,
-            data: store.odata,
-            selectedIndex: store.curRowIndex,
-            indexes: indexes, // indexes is null then all data
-            format: store.format,
+            data: [],
+            selectedIndex: -1,
+            indexes: null,
+            format: null,
           };
-        });
-      }, [selector.modifiedCount, modifiedCount]) || [];
+        }
+
+        if (conditions.length > 0) {
+          const conds = conditions.map((condition: any) => ({
+            feature: condition.feature,
+            value: selector.get(condition.key),
+            method: condition.method || "match",
+          }));
+          indexes = store.getIndexesByCondition(conds) || null;
+        }
+
+        return {
+          info: content,
+          store: store,
+          data: store.odata,
+          selectedIndex: store.curRowIndex,
+          indexes: indexes, // indexes is null then all data
+          format: store.format,
+        };
+      });
+    }, [
+      contentsNodeList,
+      selector,
+      storeMap,
+      selector.modifiedCount,
+      modifiedCount,
+      ...Object.values(storeMap).map((store) => store.odata),
+    ]);
 
     const handleSelect = (contentsIndex: number, row: any) => {
       if (row && contents.length > contentsIndex) {

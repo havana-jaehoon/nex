@@ -1,61 +1,12 @@
 {
-  "path": "/cbm/status/LossPerLine",
-  "system": {
-    "name": "webserver",
-    "dispName": "웹서버",
-    "description": "CBM 웹서버",
-    "type": "system",
-    "address": {
-      "ip": "192.168.0.2",
-      "port": "8080"
-    },
-    "hdfs": {
-      "ip": "192.168.0.20",
-      "port": "9000",
-      "path": "/nex/data"
-    },
-    "db": {
-      "ip": "192.168.0.30",
-      "port": "5432",
-      "user": "nex",
-      "password": "nex123",
-      "database": "nex"
-    }
-  },
-  "element": {
-    "name": "LossPerLine",
-    "dispName": "노선별 열화 현황",
-    "description": "노선별 열화 현상 데이터 엘리먼 트",
-    "type": "element",
-    "format": "/cbm/status/AlertCount",
-    "store": "/disk/static",
-    "processor": "/common/transparent",
-    "processingInterval": "10",
-    "processingUnit": "SEC",
-    "sources": ""
-  },
-  "format": null,
-  "store": {
-    "name": "static",
-    "type": "store",
-    "record": {
-      "storage": "disk",
-      "nature": "static",
-      "unit": "NONE",
-      "block": "NONE",
-      "expire": "-1",
-      "expireUnit": "NONE",
-      "allowDuplication": "false",
-      "allowKeepValue": "false"
-    }
-  },
-  "processor": {
-    "name": "transparent",
-    "dispName": "",
-    "type": "processor",
-    "module": {
-      "version": "0",
-      "history": ""
-    }
-  }
+  "name": "LossPerLine",
+  "dispName": "노선별 열화 현황",
+  "description": "노선별 열화 현상 데이터 엘리먼 트",
+  "type": "element",
+  "format": "/cbm/status/AlertCount",
+  "store": "/disk/static",
+  "processor": "/common/transparent",
+  "processingInterval": "10",
+  "processingUnit": "SEC",
+  "sources": ""
 }

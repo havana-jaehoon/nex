@@ -36,11 +36,13 @@ const NexSampleListApp: React.FC<NexAppProps> = observer((props) => {
 
   const [store, setStore] = useState<any>(null);
 
+  const storeCount = contents?.length || 0;
   useEffect(() => {
     const cts = contents?.[storeIndex];
     if (!cts) {
       setFeatures([]);
       setDatas([]);
+      setStore(null);
       return;
     }
 
@@ -51,7 +53,7 @@ const NexSampleListApp: React.FC<NexAppProps> = observer((props) => {
     setFeatures(cts.format.features || []);
     setDatas(tdata);
     setStore(cts.store);
-  }, [contents]);
+  }, [contents, ...(contents?.map((cts) => cts.store.odata) || [])]);
 
   // 2. data store 에서 출력할 데이터를 Applet 에서 사용할 수 있는 형태로 변환.
   // 외부 Component 사용시 자료구조가 store 에서 사용되는 구조와 다른 경우 변환.
@@ -63,9 +65,9 @@ const NexSampleListApp: React.FC<NexAppProps> = observer((props) => {
     }
   };
 
-  const handleUpload = () => {
+  const handleFetch = () => {
     if (store) {
-      store.upload();
+      store.fetch();
     }
   };
 
@@ -75,14 +77,14 @@ const NexSampleListApp: React.FC<NexAppProps> = observer((props) => {
 
       {/* 4. Applet Contents 출력  */}
       <NexDiv
-        direction='column'
-        width='100%'
-        height='100%'
+        direction="column"
+        width="100%"
+        height="100%"
         fontSize={contentsFontSize}
       >
-        <Button onClick={handleUpload}>Upload Data</Button>
+        <Button onClick={handleFetch}>Fetch Data</Button>
         {/* 5.1. Contents Header 출력(Features)  */}
-        <Stack direction='row' spacing={2} mb={2}>
+        <Stack direction="row" spacing={2} mb={2}>
           {features.map((feature: any, index: number) => (
             <Box key={index}>{feature.name}</Box>
           ))}
@@ -91,7 +93,7 @@ const NexSampleListApp: React.FC<NexAppProps> = observer((props) => {
         <Stack spacing={2} mb={2}>
           {/* 5.2. Contents Data 출력 */}
           {datas.map((row: any[], index: number) => (
-            <Stack key={index} direction='row' spacing={2}>
+            <Stack key={index} direction="row" spacing={2}>
               {row.map((value: any, idx: number) => (
                 <span key={`${index}-${idx}`} style={{ marginLeft: 5 }}>
                   {value}

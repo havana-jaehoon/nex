@@ -329,30 +329,48 @@ class DataFileIo:
         # 1. save data 
         # 1.1. write data file
 
-        print(f"{self.__str__()}::set() - total {datas} records to save")  
+        if datas is None or len(datas) == 0:
+            print(f"{self.__str__()}::set() - no data to save")
+            return False
+        
+        #print(f"{self.__str__()}::set() - total {datas} records to save")  
         index_datas = []
         new_records = []
+        print(f"### 0")
         if self._dataType == 'static' and self._isTree:
+            print(f"### 0-1")
+            # admin 설정 데이터는 업로드 하지 않음(임시)
             # 1 record per file for admin config
-            data_map[DATA_FILE_NAME] = { 'index': 0, 'path': f'/{DATA_FILE_NAME}', 'data': datas }
-            print(f"{self.__str__()}::set-config - total {len(datas)} records are saved to {file_full_path}")
-
+            #data_map = {}
+            #data_map[DATA_FILE_NAME] = { 'index': 0, 'path': f'/{DATA_FILE_NAME}', 'data': datas }
+            print(f"{self.__str__()}::set-config - total {len(datas)} records ")
+            return False
+        
         elif self._dataType == 'static':
+            print(f"### 0-2")
             print(f"{self.__str__()}::set() - static data saving")
 
             data_map = {}
             for i in range(0, len(datas), DATA_BLOCK_SIZE):
+                print(f"### 0-2-1 : i={i}")
                 block = datas[i:i + DATA_BLOCK_SIZE]
                 index = i * DATA_BLOCK_SIZE
                 dir_path, file_name = convIndexToPath(index)
 
-                file_path = f'{dir_path}/{file_name}'
-                data_map[file_name] = { 'index': i, 'path': file_path, 'data': block }
+
                 
-            
-            print(f"{self.__str__()}::set-data - total {len(new_records)} records are saved to {file_full_path}")
+                print(f"### 0-2-2 : i={i}")
+
+                file_path = f'{dir_path}/{file_name}'
+                print(f"### 0-2-3 : i={i}")
+                data_map[file_name] = { 'index': i, 'path': file_path, 'data': block }
+                print(f"### 0-2-4 : i={i}")
+                print(f"{self.__str__()}::set() - block: index={i}, path={file_path}, records={block}")
+
+            print(f"{self.__str__()}::set-data - total {len(data_map.keys())} blocks ")
 
         elif self._dataType == 'temporary':
+            print(f"### 0-3")
             # YYYY-MM-DD-HH:MM:SS.XXX or YYYY-MM-DD-HH:MM:SS or YYYY-MM-DD-HH:MM or 
             # YYYY-MM-DD-HH or YYYY-MM-DD or YYYY-MM or YYYY
             print(f"{self.__str__()}::set() - temporary data saving")
@@ -373,6 +391,7 @@ class DataFileIo:
                 data_map[file_name]['data'].append(row)
 
         # batch write data files & build index data
+        print(f"### 1")
         for file_name, data_info in data_map.items():
             file_full_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{data_info["path"]}'
 
@@ -385,7 +404,7 @@ class DataFileIo:
         #print(f"{json.dumps(datas, ensure_ascii=False, indent=2)}")
         # 1.2. failed back if error
 
-
+        print(f"### 2")
         # 3. update record info (write index file)
         # update index file
         #print(f"{self.__str__()}::set() - index_datas: {[self.index_columns]+index_datas}")
@@ -395,7 +414,7 @@ class DataFileIo:
 
         self._record_info = self._read_csv_file(file_path)
 
-        print(f"{self.__str__()}::set() - record_info: {json.dumps(self._record_info, ensure_ascii=False, indent=2)}")
+        #print(f"{self.__str__()}::set() - record_info: {json.dumps(self._record_info, ensure_ascii=False, indent=2)}")
 
         return True
     

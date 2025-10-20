@@ -211,6 +211,7 @@ export class NexDataStore {
     url: string,
     path: string,
     elementPath: string,
+    element?: any,
     format?: any,
     data?: any[]
   ) {
@@ -223,9 +224,9 @@ export class NexDataStore {
       this.elementPath = elementPath;
 
       this.name = this.element?.name || "";
-      this.element = getTestElement(elementPath);
-      this.odata = getTestData(this.element?.name);
-      this.format = getTestFormat(this.element?.format);
+      this.element = element || {}; //getTestElement(elementPath);
+      this.odata = []; //getTestData(this.element?.name);
+      this.format = format || {}; //getTestFormat(this.element?.format);
 
       //console.log(
       //  `NexDataStore: element=${elementPath} format=${this.element?.format}`
@@ -318,15 +319,36 @@ export class NexDataStore {
       this.element?.processingUnit
     );
 
-    this.upload();
-
-    if (this.element) this.startFetchInterval(interval);
+    //this.upload();
+    this.fetch();
+    //if (this.element) this.startFetchInterval(interval);
   }
 
   async fetch() {
     // this.element.process
     try {
+      const url = URL_DATA;
+      //const url = this.url;
+      const response = await axios.get(url, {
+        params: {
+          path: this.elementPath,
+          project: "", //this.projectName,
+          system: "webserver", // this.systemName,
+        },
+      });
+
+      //const datas = JSON.parse(JSON.stringify(response.data, null, 2));
+
+      if (response.status < 200 || response.status >= 300) {
+        console.error("Failed to fetch Data:", response);
+        return;
+      }
       runInAction(() => {
+        //console.log(
+        //  "NexDataStore: fetch data:",
+        //  JSON.stringify(response.data, null, 2)
+        //);
+        this.odata = response.data || [];
         this.loffset = this.odata.length;
       });
       //console.log("this.loffset", this.store.loffset);
@@ -520,6 +542,7 @@ export class NexDataStore {
 
   async upload() {
     // 서버로 데이터 업로드
+    return false;
     try {
       const url = URL_DATA + "/upload";
 

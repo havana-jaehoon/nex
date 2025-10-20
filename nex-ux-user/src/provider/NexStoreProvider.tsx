@@ -59,28 +59,57 @@ function collectNode(
   return result;
 }
 
+function findNodeByPath(nodes: any[], path: string): any | null {
+  console.error("findNodeByPath:", JSON.stringify(nodes, null, 2), path);
+  for (const node of nodes) {
+    if (node.path === path) {
+      return node;
+    }
+    const childResult = findNodeByPath(node.children || [], path);
+    if (childResult) {
+      return childResult;
+    }
+  }
+  return null;
+}
+
 const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
   ({ children, configStore }) => {
     const userid = "default";
-    /*
-    const project = useMemo(
-      () => collectNode(configStore.projects, "project"),
-      [configStore.config.projects]
+
+    const formatCfgs = useMemo(
+      () => collectNode(configStore.config.formats, "format"),
+      [configStore.config.formats]
     );
-*/
-    const elements = useMemo(
+
+    const storeCfgs = useMemo(
+      () => collectNode(configStore.config.stores, "store"),
+      [configStore.config.stores]
+    );
+
+    const processorCfgs = useMemo(
+      () => collectNode(configStore.config.processors, "processor"),
+      [configStore.config.processors]
+    );
+
+    const systemCfgs = useMemo(
+      () => collectNode(configStore.config.systems, "system"),
+      [configStore.config.systems]
+    );
+
+    const elementCfgs = useMemo(
       () => collectNode(configStore.config.elements, "element"),
       [configStore.config.elements]
     );
 
-    const applets = useMemo(
-      () => collectNode(configStore.config.applets, "applet"),
-      [configStore.config.applets]
-    );
-
-    const contentsMap = useMemo(
+    const contentsCfgs = useMemo(
       () => collectNode(configStore.config.contents, "contents"),
       [configStore.config.contents]
+    );
+
+    const appletCfgs = useMemo(
+      () => collectNode(configStore.config.applets, "applet"),
+      [configStore.config.applets]
     );
 
     const themeUser: NexThemeUser = useMemo(() => {
@@ -100,19 +129,21 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
 
     const storeMap = useMemo(() => {
       const storeMap: Record<string, NexDataStore> = {};
-      Object.entries(elements).forEach(([path, node]) => {
+      Object.entries(elementCfgs).forEach(([path, element]) => {
         //console.log("NexStoreProvider element:", path);
-        const store = new NexDataStore("", "", path);
+        const format = formatCfgs[element.format] || null;
+
+        const store = new NexDataStore("", "", path, element, format);
         //console.log("NexStoreProvider element:", JSON.stringify(node, null, 2));
-        console.log("NexStoreProvider path:", path);
+        //console.log("NexStoreProvider path:", path);
         storeMap[path] = store;
       });
       return storeMap;
-    }, [elements]);
+    }, [elementCfgs, formatCfgs]);
 
     const appMap = useMemo(() => {
       const appMap: Record<string, React.FC<any>> = {};
-      Object.entries(applets).forEach(([path, node]) => {
+      Object.entries(appletCfgs).forEach(([path, node]) => {
         if (node.applet) {
           //console.log("NexStoreProvider applet:", path, node.applet);
           const AppletComponent = nexApplets(node.applet); // Assuming node.applet is a React component
@@ -121,7 +152,7 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
         }
       });
       return appMap;
-    }, [applets]);
+    }, [appletCfgs]);
 
     const selector = useMemo(() => new NexSelector(), []);
 
@@ -129,11 +160,11 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
     const contextValue: NexStoreContextValue = {
       storeMap: storeMap,
       appMap: appMap,
-      contentsMap: contentsMap,
+      contentsMap: contentsCfgs,
       theme: theme,
       user: themeUser,
-      elementNodeMap: elements,
-      appNodeMap: applets,
+      elementNodeMap: elementCfgs,
+      appNodeMap: appletCfgs,
       selector,
     };
 

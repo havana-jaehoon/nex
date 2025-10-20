@@ -1,3 +1,4 @@
+import inspect
 import glob, json, re
 from typing import Dict, List, Tuple
 
@@ -59,13 +60,14 @@ class AdminMgr(SingletonInstance):
             self._configMap[projectName][systemName] = configData
 
             #data io for elements
-            elementList = self._cfgReader.getElements(projectName, systemName)
-            for element in elementList:
-                path = element['path'] # element path 
-                system = element['system']
-                format = element['format']
-                store = element['store']
-                processor = element['processor']
+            elementInfoList = self._cfgReader.getElements(projectName, systemName)
+            for elementInfo in elementInfoList:
+                path = elementInfo['path'] # element path 
+                system = elementInfo['system']
+                element = elementInfo['element']
+                format = elementInfo['format']
+                store = elementInfo['store']
+                processor = elementInfo['processor']
 
                 dataio = DataFileIo(self._rootPath, path, system, element, format, store, processor)
 
@@ -155,19 +157,43 @@ class AdminMgr(SingletonInstance):
             method = handler_args.method
             if method != 'POST':
                 return HandlerResult(status=405, body='Method Not Allowed, use POST')
-            path = handler_args.body.get('path', '')
-            system = handler_args.body.get('system', '')
-            project = handler_args.body.get('project', '')
-            data = handler_args.body.get('data', None)
             
+            body = handler_args.body
+            if isinstance(body, str):
+                try:
+                    body = json.loads(body)
+                except Exception:
+                    return HandlerResult(status=400, body='Invalid JSON body')
+
+            if not isinstance(body, dict):
+                return HandlerResult(status=400, body='Body must be JSON object')
+
+            path = body.get('path', '')
+            system = body.get('system', '')
+            project = body.get('project', '')
+            data = body.get('data', None)
+
             dataio = self._dataioMap.get(project, {}).get(system, {}).get(path, None)
-            print(f"AdminMgr::_uploadData() - path:{path}, project:{project}, system:{system}, dataio : {dataio}, data : {json.dumps(data, indent=2, ensure_ascii=False)}...")
+            #print(f"AdminMgr::_uploadData() - path:{path}, project:{project}, system:{system}, dataio : {dataio}, data : {json.dumps(data, indent=2, ensure_ascii=False)}...")
             if(dataio is None):
                 return HandlerResult(status=404, body=f'Not found dataio for project:{project}, system:{system}, path:{path}')
             
-            res = await dataio.set(data)
+            print(f"# uploadData path:{path}, project:{project}, system:{system}, data-len:{len(data)}")
 
-            return HandlerResult(status=200, response=res, body=res)
+            result = dataio.set(data)
+            if inspect.isawaitable(result):
+                res = await result
+            else:
+                res = result
+
+
+            print(f"# uploadData path:{path}, project:{project}, system:{system}, res:{res}")
+            if(res is False):
+                return HandlerResult(status=200, response='Success', body='No Data to save data')
+
+            # 성공 응답
+            return HandlerResult(status=200, response='Success', body='Success')
+        
         except Exception as e:
             Logger().log_error(f'AdminMgr::_uploadData({handler_args}, {kwargs}) : {e}')
             return HandlerResult(status=500, body=f'exception : {e}')

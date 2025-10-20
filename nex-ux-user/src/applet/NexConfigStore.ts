@@ -183,13 +183,8 @@ class NexConfigStore {
         return;
       }
       runInAction(() => {
-        //const cfgMap = response.data as Record<string, any[]>;
         const cfgMap = response.data;
-        /*
-        const cfgMap = Object.fromEntries(
-          response.data.flatMap((obj: any) => Object.entries(obj))
-        ) as Record<string, any[]>;
-        */
+
         this.config.formats = buildAdminConfig(cfgMap["format"]);
 
         this.config.stores = buildAdminConfig(cfgMap["store"]);
