@@ -338,7 +338,6 @@ class DataFileIo:
         new_records = []
         print(f"### 0")
         if self._dataType == 'static' and self._isTree:
-            print(f"### 0-1")
             # admin 설정 데이터는 업로드 하지 않음(임시)
             # 1 record per file for admin config
             #data_map = {}
@@ -352,22 +351,15 @@ class DataFileIo:
 
             data_map = {}
             for i in range(0, len(datas), DATA_BLOCK_SIZE):
-                print(f"### 0-2-1 : i={i}")
                 block = datas[i:i + DATA_BLOCK_SIZE]
                 index = i * DATA_BLOCK_SIZE
                 dir_path, file_name = convIndexToPath(index)
 
-
-                
-                print(f"### 0-2-2 : i={i}")
-
                 file_path = f'{dir_path}/{file_name}'
-                print(f"### 0-2-3 : i={i}")
                 data_map[file_name] = { 'index': i, 'path': file_path, 'data': block }
-                print(f"### 0-2-4 : i={i}")
-                print(f"{self.__str__()}::set() - block: index={i}, path={file_path}, records={block}")
+                #print(f"{self.__str__()}::set() - block: index={i}, path={file_path}, records={block}")
 
-            print(f"{self.__str__()}::set-data - total {len(data_map.keys())} blocks ")
+            #print(f"{self.__str__()}::set-data - total {len(data_map.keys())} blocks ")
 
         elif self._dataType == 'temporary':
             print(f"### 0-3")

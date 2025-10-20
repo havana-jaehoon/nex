@@ -3,6 +3,7 @@ import sys
 import pandas as pd
 
 from command.data_io import DataFileIo
+import copy
 
 CONFIG_LIST = {
     'FORMAT':'format',
@@ -35,7 +36,7 @@ class ConfigReader:
     def __str__(self):
         return f'ConfigManager({self._path})'
 
-    def _make_config_map(self, datas):
+    def _make_config_map(self, type, datas):
         config_map = {}
         config_list = []
         #print(f"# datas: {datas}")
@@ -71,12 +72,17 @@ class ConfigReader:
 
             
             config_map[project_name][system_name].append([index, path, project_name, system_name, obj])
+            #if type == 'format':
+            #    print(f"# Added to {config_map[project_name][system_name]}")
             config_list.append([index, path, project_name, system_name, obj])
         return config_map, config_list
    
     def _make_tree(self, config_map):
         nodes = {}
         tree = []
+
+        config_map = copy.deepcopy(config_map)
+
 
         project_map = {  }
 
@@ -90,6 +96,7 @@ class ConfigReader:
                 system_map = project_map[project][system]
 
                 configList = config_map[project][system]
+
 
                 # datas는 [index, path, project_name, system_name, node_data] 형식의 리스트입니다.
                 # 경로(path)를 기준으로 정렬하여 부모 노드가 자식 노드보다 먼저 처리되도록 합니다.
@@ -230,7 +237,12 @@ class ConfigReader:
             #self._configs[value] = config_data
             #if(value == 'element' or value == 'user'):
             #    print(f"Loading path:{path}, {value}: {json.dumps(config_data, ensure_ascii=False, indent=2)}")
-            self._configMap[value], self._configList[value] = self._make_config_map(config_data)
+            self._configMap[value], self._configList[value] = self._make_config_map(value, config_data)
+            if(value == 'format'):
+                text = json.dumps(self._configMap[value][''][''], ensure_ascii=False, indent=2)
+
+                print(f"ConfigReader::load({('\n'.join(text.splitlines()[:100]))})")
+                #print(f"# Loaded format config_map: {json.dumps(self._configMap[value], ensure_ascii=False, indent=2)}")
             self._configTreeMap[value] = self._make_tree(self._configMap[value])
         
         self._elements = self._make_elements(self._configMap)
@@ -249,6 +261,9 @@ class ConfigReader:
 
     def getDatas(self, type:str, project_name:str, system_name:str):
         #print(f"ConfigReader::getDatas({type}, {project_name}, {self._configMap[type].get(project_name, {})})")
+        #datas = self._configMap[type].get(project_name, {}).get(system_name, [])
+        #text = json.dumps(datas, ensure_ascii=False, indent=2)
+        #print(f"ConfigReader::getDatas({('\n'.join(text.splitlines()[:100]))})")
         return self._configMap[type].get(project_name, {}).get(system_name, [])
 
     def getSystem(self, project_name:str, system_name:str):
@@ -291,10 +306,13 @@ if __name__ == '__main__':
     project_name = '' # default project
 
     cfgDatas = cfg.getDatas('format', '', '')
-    print(f"# ConfigReader: {json.dumps(cfgDatas, ensure_ascii=False, indent=2)}")
 
-    systems = []
-    #systems = cfg.getSystems(project_name)
+
+    #text = json.dumps(cfgDatas, ensure_ascii=False, indent=2)
+    #print(f"# ConfigReader (first 100 lines):\n{'\n'.join(text.splitlines()[:100])}")
+
+    #systems = []
+    systems = cfg.getSystems(project_name)
     #print(f"# systems: {json.dumps(systems, ensure_ascii=False, indent=2)}")
     #print(f"# Format: {json.dumps(format, ensure_ascii=False, indent=2)}")
     
