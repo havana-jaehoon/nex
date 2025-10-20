@@ -233,16 +233,9 @@ class ConfigReader:
         for key, value in CONFIG_LIST.items():
             cfg = DataFileIo(path, f'/{value}')
             config_data = cfg.get()
-            #print(f"Loaded config for {value}: {json.dumps(config_data, ensure_ascii=False, indent=2)}")
-            #self._configs[value] = config_data
-            #if(value == 'element' or value == 'user'):
-            #    print(f"Loading path:{path}, {value}: {json.dumps(config_data, ensure_ascii=False, indent=2)}")
+            
             self._configMap[value], self._configList[value] = self._make_config_map(value, config_data)
-            if(value == 'format'):
-                text = json.dumps(self._configMap[value][''][''], ensure_ascii=False, indent=2)
-
-                print(f"ConfigReader::load({('\n'.join(text.splitlines()[:100]))})")
-                #print(f"# Loaded format config_map: {json.dumps(self._configMap[value], ensure_ascii=False, indent=2)}")
+            
             self._configTreeMap[value] = self._make_tree(self._configMap[value])
         
         self._elements = self._make_elements(self._configMap)
@@ -305,7 +298,7 @@ if __name__ == '__main__':
     cfg = ConfigReader("./config_nex/.element/.system/webserver/admin")
     project_name = '' # default project
 
-    cfgDatas = cfg.getDatas('format', '', '')
+    #cfgDatas = cfg.getDatas('format', '', '')
 
 
     #text = json.dumps(cfgDatas, ensure_ascii=False, indent=2)
@@ -335,14 +328,16 @@ if __name__ == '__main__':
         for item in element_list:
             #print(f"{count} element: {json.dumps(item, ensure_ascii=False, indent=2)}")
             path = item.get('path') # element path 
-            
+
             system = item.get('system') # system node config(json object)
             element = item.get('element') # element node config(json object)
             format = item.get('format') # element format node config(json object)
             store = item.get('store') # element store node config(json object)
             processor = item.get('processor') # element processor node config(json object)
-            
-            print(f"# {path} element:", json.dumps(element, ensure_ascii=False, indent=2))
+            if(path == '/admin/element') :
+                print(f"# path: {path}, format: {format}")
+
+            #print(f"# {path} element:", json.dumps(element, ensure_ascii=False, indent=2))
             dataio = DataFileIo("./config_nex/.element", path, system, element, format, store, processor)
             
             #data = dataio.get(0, 0)

@@ -122,7 +122,7 @@ def convIndexToPath(index: int):
 
 
 # Data Input/Output 을 제공하는 클래스
-class DataFileIo:
+class DBDataIo:
     def __init__(self, root_path:str, element_path:str, system=None, element=None, format=None, store=None, processor=None):
         # root_path : data elements root path(os absolute path)
         self._elementPath = element_path  # element path
@@ -219,6 +219,10 @@ class DataFileIo:
             #if not self._data_type in ['static', 'temporary']:
             #    self._data_type = 'static' # default
         
+            # store 에 DBConnection Path 설정
+            # DBconnection(DataSource 의 세부 속성이 DB?) node 
+
+
             if(self._dataType == 'static'):
                 print(f"{self.__str__()}: static data")
                 self._isTree = self._configs['format'].get("isTree", False) # if True, tree structure
@@ -287,32 +291,33 @@ class DataFileIo:
 
     # 전체 데이터 가져오기
     def get(self, start_offset:str='0', end_offset:str='0'):
-        if self._record_info is not None:
-            # 1. get record info
-            records = []
-            if(self._dataType == 'static'): # static & tree
-                # start_offset, end_offset : index format (int)
-                sIndex = int(start_offset)
-                eIndex = int(end_offset)
-                # index 범위에 따른 데이터 로딩
+        # 0. DB Connection 확인
+        if not self._dbConnection:
+            print(f"{self.__str__()} : DB connection is not established")
+            # reconnect logic can be added here
+            self._connect_db()
+            if not self._dbConnection:
+                print(f"{self.__str__()} : DB connection failed")
+                return []
 
-            elif(self._dataType == 'temporary'): # temporary
-                # start_offset, end_offset : time string format: YYYY/MM/DD/HH/MM 
-                sTime = start_offset
-                eTime = end_offset\
-                # time 범위에 따른 데이터 로딩
+        # 1. Select 테이블 쿼리
+        tableName = self._configs['element']['name']
+        columns = [feature['name'] for feature in self._configs['format'].get('features', [])]
+        column_str = ', '.join(columns) if columns else '*'
+        
 
-            # 모든 데이터 로딩    
-            for index, file_path in self._record_info:
-                #print(f"# Load data file: index={index}, path={file_path}")
-                file_full_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{file_path}'
-                data_rows = self._read_json_file(file_full_path)
-                if data_rows is not None:
-                    records.extend(data_rows)
-                                                            
-            return records
-        return []
-    
+        query = f"SELECT {column_str} FROM {tableName} WHERE 1=1"
+        # 2. 조건에 따른 쿼리 추가
+        #if start_offset != '0':
+            #query += f" AND id >= {start_offset}"
+        #if end_offset != '0':
+            #query += f" AND id <= {end_offset}"
+        print(f"{self.__str__()} : Executing query: {query}")
+        self._dbCursor.execute(query)
+        rows = self._dbCursor.fetchall()
+        print(f"{self.__str__()} : Fetched rows: {rows}")
+        return rows
+
     def add(self, data): 
         self._records.append(data)
         
