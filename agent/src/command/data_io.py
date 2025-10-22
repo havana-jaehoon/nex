@@ -141,7 +141,20 @@ class DataFileIo:
         self._configs[ELEMENT_CFG_LIST['STORE']] = store
         self._configs[ELEMENT_CFG_LIST['PROCESSOR']] = processor
 
+        # Checking : 마지막으로 발행된 인덱스 관리용
+        self.lastIndex = 0 # 신규 발행 인덱스 -> add() 시 1 증가
+
+        # Checking : WEB UI 상에서 Selected Data List 관리용
+        self.selectedIndexes = []
+
+
+
+        # Checking : _record_info 내에 record 별 변경 유무 별도 관리 => 향후 성능 개선용
+        # 변경된 부분만 갱신 등 사용
         self._record_info = None
+
+        # Checking : 매번 파일을 읽지 않고 마지막 읽어드린 데이터를 보관
+        # _record_info 의 변경유무 정보와 함께 데이터 캐시로 활용 가능
         self._records = []
 
         self._dataType = 'static' # static or temporary
@@ -149,6 +162,9 @@ class DataFileIo:
         self.index_columns = []
         self.data_columns = []
 
+        # Checking : unique key 로 사용되는 컬럼들을 관리하여 중복 체크 등에 활용
+        # .format.json 의 features 내에 isKey 속성으로 지정된 컬럼들
+        self.keyColumnIndexes = [] # unique key columns(column index)
 
         self._initConfig()
         self._loadData()
@@ -311,12 +327,72 @@ class DataFileIo:
                     records.extend(data_rows)
                                                             
             return records
+            # Checking : 마지막으로 읽어들인 데이터의 인덱스와 데이터를 함께 반환하는 기능 추가 필요
+            # result : { 'selectedIndexes': self.selectedIndexes, 'records': records }
         return []
+        # result : { 'selectedIndexes': [], 'records': [] }
+
     
     def add(self, data): 
-        self._records.append(data)
+        # 1. 데이터의 유효성 체크
+        if data is None or len(data) == 0:
+
+            print(f"{self.__str__()}::add() - no data to add")
+            return False
         
-        return None
+        # 1.1 데이터의 컬럼 수 체크
+        if len(data) != len(self.data_columns):
+            print(f"{self.__str__()}::add() - invalid data columns: expected {len(self.data_columns)}, got {len(data)}")
+            return False
+        
+        # 자동 발행 인덱스인 경우 인덱스 설정후 추가
+        if self._dataType == 'static' and self._isTree: # admin 설정 데이터 자동 인덱스 발행
+            # static & tree
+            new_data = data.copy()
+            #new_data.insert(0, self.lastIndex)  # 인덱스를 데이터의 맨 앞에 추가
+            self._records.append(new_data)
+            self.lastIndex += 1
+            return True
+        
+        # 사용자가 키를 지정하는 경우 인덱스 중복 체크 필요
+        # ex) index 가 time string 인 경우 등
+        if self._dataType == 'static':
+            if len(self.keyColumnIndexes) == 0:
+                print(f"{self.__str__()}::add() - no key columns defined, skipping duplicate check")
+                self._records.append(new_data)
+            else :
+                # keyColumnIndexes 에 따른 중복 체크
+                for record in self._records:
+                    is_match = True
+                    for key_index in self.keyColumnIndexes:
+                        if record[key_index] != data[key_index]:
+                            is_match = False
+                            break
+                    if is_match:
+                        print(f"{self.__str__()}::add() - duplicate record found based on key columns, skipping add")
+                        return False
+                self._records.append(data)
+            return True
+
+        # static 과 코드가 동일 ?
+        if self._dataType == 'temporary':
+            if len(self.keyColumnIndexes) == 0:
+                print(f"{self.__str__()}::add() - no key columns defined, skipping duplicate check")
+                self._records.append(new_data)
+            else :
+                # keyColumnIndexes 에 따른 중복 체크
+                for record in self._records:
+                    is_match = True
+                    for key_index in self.keyColumnIndexes:
+                        if record[key_index] != data[key_index]:
+                            is_match = False
+                            break
+                    if is_match:
+                        print(f"{self.__str__()}::add() - duplicate record found based on key columns, skipping add")
+                        return False
+                self._records.append(data)    
+            return True
+        return False
     
     def update(self, data):
         return None
