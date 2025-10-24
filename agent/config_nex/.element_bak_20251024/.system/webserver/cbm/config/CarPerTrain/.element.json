@@ -1,0 +1,12 @@
+{
+  "name": "CarPerTrain",
+  "dispName": "편성별차량정보",
+  "description": "편성별차량정보",
+  "type": "element",
+  "format": "/cbm/config/CarPerTrain",
+  "store": "/disk/static",
+  "processor": "/common/transparent",
+  "processingInterval": "10",
+  "processingUnit": "SEC",
+  "sources": "/webserver/config/CarPerTrain"
+}

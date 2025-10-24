@@ -144,7 +144,8 @@ class DataFileIo:
         # Checking : 마지막으로 발행된 인덱스 관리용
         self.lastIndex = 0 # 신규 발행 인덱스 -> add() 시 1 증가
 
-        # Checking : WEB UI 상에서 Selected Data List 관리용
+        # Checking : WEB UI 상에서 Selected Data List 관리용 
+        # => Web UI 에서 직접 관리하는 방향이 적합할 지 검토 필요
         self.selectedIndexes = []
 
 

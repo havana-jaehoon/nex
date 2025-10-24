@@ -58,21 +58,20 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     const cts = contents[storeIndex];
 
     const indexes = cts.indexes;
-    let csvData = [];
+    let contentsData = [];
     if (!indexes)
       // indexes 가 없으면 전체 데이터
-      csvData = cts.data;
+      contentsData = cts.data;
     else {
-      csvData = indexes.map((index: number) => cts.data[index]);
+      contentsData = indexes.map((index: number) => cts.data[index]);
     }
 
-    const tree = buildNexTree(csvData);
+    const tree = buildNexTree(contentsData);
     setNexTree(tree);
     setStore(cts.store);
     setFormat(cts.format);
     setSelectedIndex(cts.selectedIndex);
   }, [contents]);
-
 
   const handleSelect = (index: number) => {
     const row = nexTree?.getNode(index) || null;
@@ -92,6 +91,9 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     const newNode = getAdminNodeFromType(type);
 
     const index = -1;
+    const project = curData[2];
+    const system = curData[3];
+
     let parentNodePath = "";
     if (!curData) {
       parentNodePath = "/";
@@ -103,7 +105,10 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     }
     console.log("# parentNodePath=", parentNodePath);
 
-    setEditingNode([index, parentNodePath, newNode]);
+    console.log("addNode: newNode=", JSON.stringify(newNode, null, 2));
+    const newData = [index, parentNodePath, project, system, { "0": newNode }];
+    setEditingNode(newData);
+    //setEditingNode(curData);
 
     setIsAdding(true);
     setIsEditing(true);
@@ -139,12 +144,14 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
 
     console.log("# parentNodePath=", parentNodePath);
 
+    /*
     setEditingNode([
       curData[0],
       curData[1].substring(0, curData[1].lastIndexOf("/")) + "/",
       curData[2],
     ]);
-
+    */
+    setEditingNode(curData);
     setIsEditing(true);
   };
 

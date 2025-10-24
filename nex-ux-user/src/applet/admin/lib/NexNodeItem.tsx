@@ -17,10 +17,11 @@ import {
   MdOutlineDeleteForever,
 } from "react-icons/md";
 import { NexTheme, NexThemeUser } from "type/NexTheme";
-import { NexNode } from "type/NexNode";
+import { NexNode, NexNodeType } from "type/NexNode";
 import { Button, IconButton, Stack } from "@mui/material";
 import { clamp } from "utils/util";
 import { set } from "mobx";
+import NexNodeTreeApp from "../NexNodeTreeApp";
 
 interface NexNodeItemProps {
   theme?: NexTheme; // Optional theme prop, can be used for styling
@@ -44,8 +45,9 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
 }) => {
   const [isChildOpend, setChildOpened] = useState<boolean>(false);
   const [isSelected, setSelected] = useState<boolean>(false);
-  const isFolder = node.children ? true : false;
-  const isChildren = node.children && node.children.length > 0;
+  const [isChildren, setIsChildren] = useState<boolean>(false);
+  //const isFolder = node.children ? true : false;
+  //const isChildren = node.children && node.children.length > 0;
 
   //const nodeWithoutChildren = { ...node, children: undefined };
   const caption = JSON.stringify(node, null, 2);
@@ -53,12 +55,24 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
   const [path, setPath] = useState("");
   const [index, setIndex] = useState(-1);
   const [jsonData, setJsonData] = useState<any>(null);
+  const [nodeType, setNodeType] = useState<string | null>(null);
 
   useEffect(() => {
     if (node && node.data) {
       setPath(node.data[1]);
       setIndex(node.data[0]);
-      setJsonData(Object.values(node.data[4])[0]);
+      const objData: any = Object.values(node.data[4])[0];
+      setJsonData(objData);
+
+      const type = objData["type"] || null;
+
+      setNodeType(type);
+      setIsChildren(
+        type === NexNodeType.FOLDER ||
+          (type === NexNodeType.SECTION &&
+            node.children &&
+            node.children.length > 0)
+      );
     }
   }, [node]);
 
@@ -80,6 +94,11 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
 
   const fontLevel = (user?.fontLevel || 5) - depts; // Default font level if not provided
 
+  const parentFontSize =
+    theme?.applet?.fontSize[
+      clamp(fontLevel - 1, 0, theme.applet?.fontSize?.length - 1)
+    ] || "1rem";
+
   const fontSize =
     theme?.applet?.fontSize[
       clamp(fontLevel, 0, theme.applet?.fontSize?.length - 1)
@@ -88,7 +107,7 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
   const borderFontSize = `calc(${fontSize} * 1.5)`;
 
   // 들여쓰기 크기
-  const tabFontSize = `calc(${borderFontSize} * ${depts})`;
+  const tabFontSize = `calc(${parentFontSize} * 1.5 * ${depts})`;
   //console.log("theme:", theme)
   //const tabSize = theme && theme.menu.tabSize ? theme.menu.tabSize : "1.5rem";
 
@@ -96,12 +115,10 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
     //console.log("handleClick: path=", curPath);
 
     onSelect(i);
-    if (isFolder) setChildOpened(!isChildOpend);
+    if (isChildren) setChildOpened(!isChildOpend);
   };
 
   const handleChildSelect = (i: number) => {
-    //if (e) e.stopPropagation();
-    //console.log("handleChildClick: node=", childPath);
     onSelect(i);
   };
 
@@ -134,22 +151,24 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
         )}
 
         <span style={{ width: tabFontSize }} />
-        <NexDiv
-          justify="center"
-          align="center"
-          width={borderFontSize}
-          height="100%"
-          color={selectedColor}
-          cursor="pointer"
-        >
-          {isFolder ? (
-            isChildOpend ? (
+        {isChildren ? (
+          <NexDiv
+            justify="center"
+            align="center"
+            width={borderFontSize}
+            height="100%"
+            color={selectedColor}
+            cursor="pointer"
+          >
+            {isChildOpend ? (
               <MdKeyboardArrowDown />
             ) : (
               <MdChevronRight size={fontSize} />
-            )
-          ) : null}
-        </NexDiv>
+            )}
+          </NexDiv>
+        ) : (
+          <span style={{ width: fontSize }} />
+        )}
         <NexLabel width="96%" height="100%">
           {jsonData && (jsonData?.dispName || jsonData?.name || "No Name")}
         </NexLabel>

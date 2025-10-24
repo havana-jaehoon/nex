@@ -1394,5 +1394,13 @@ export function getAdminNodeFromType(type: string): any {
     console.warn(`getAdminNodeFromType: Unknown type=${type}`);
     return null;
   }
-  return getAdminNodeFromFeatures(format.features, type as NexNodeType);
+  const newNode = getAdminNodeFromFeatures(
+    format.features,
+    type as NexNodeType
+  );
+  console.log(
+    "getAdminNodeFromType: newNode=",
+    JSON.stringify(newNode, null, 2)
+  );
+  return newNode;
 }

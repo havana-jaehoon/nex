@@ -473,22 +473,22 @@
   ],
   [
     28,
-    "/root/admin",
+    "/root/Admin",
     "",
     "",
     {
       "1": {
-        "name": "admin",
+        "name": "Admin",
         "type": "section",
         "size": "1",
         "direction": "column",
-        "route": "admin/*"
+        "route": "admin"
       }
     }
   ],
   [
-    30,
-    "/root/admin/Top",
+    29,
+    "/root/Admin/Top",
     "",
     "",
     {
@@ -501,8 +501,8 @@
     }
   ],
   [
-    31,
-    "/root/admin/Mid",
+    30,
+    "/root/Admin/Mid",
     "",
     "",
     {
@@ -510,35 +510,61 @@
         "name": "Mid",
         "type": "section",
         "size": "90",
-        "direction": "row",
-        "route": "/*",
-        "isRoutes": true
+        "direction": "row"
+      }
+    }
+  ],
+  [
+    31,
+    "/root/Admin/Mid/MainLeftUp",
+    "",
+    "",
+    {
+      "0": {
+        "name": "MainLeftUp",
+        "type": "section",
+        "size": "1",
+        "direction": "column"
       }
     }
   ],
   [
     32,
-    "/root/admin/Mid/common",
+    "/root/Admin/Mid/MainLeftUp/project",
     "",
     "",
     {
       "0": {
-        "name": "common",
+        "name": "project",
         "type": "section",
         "size": "1",
-        "direction": "row",
-        "route": "common"
+        "direction": "row"
+      }
+    }
+  ],
+  [
+    33,
+    "/root/Admin/Mid/MainLeftUp/project/formatConfig",
+    "",
+    "",
+    {
+      "0": {
+        "name": "formatConfig",
+        "dispName": "포맷 설정",
+        "type": "section",
+        "size": "5",
+        "direction": "column"
       }
     }
   ],
   [
     34,
-    "/root/admin/Mid/common/format",
+    "/root/Admin/Mid/MainLeftUp/project/formatConfig/formatFinder",
     "",
     "",
     {
       "0": {
-        "name": "format",
+        "name": "formatFinder",
         "dispName": "데이터 유형",
         "type": "section",
         "size": "3",
@@ -552,12 +578,46 @@
   ],
   [
     35,
-    "/root/admin/Mid/common/store",
+    "/root/Admin/Mid/MainLeftUp/project/formatConfig/formatEditor",
     "",
     "",
     {
       "1": {
-        "name": "store",
+        "name": "formatEditor",
+        "dispName": "데이터 유형 편집",
+        "type": "section",
+        "size": "7",
+        "applet": "/admin/NexJsonEditor",
+        "padding": "8px",
+        "contents": [
+          "/admin/SelectedFormat"
+        ]
+      }
+    }
+  ],
+  [
+    36,
+    "/root/Admin/Mid/MainLeftUp/project/storeConfig",
+    "",
+    "",
+    {
+      "1": {
+        "name": "storeConfig",
+        "dispName": "저장 정책",
+        "type": "section",
+        "size": "5",
+        "direction": "column"
+      }
+    }
+  ],
+  [
+    37,
+    "/root/Admin/Mid/MainLeftUp/project/storeConfig/storeFinder",
+    "",
+    "",
+    {
+      "0": {
+        "name": "storeFinder",
         "dispName": "데이터 저장 정책",
         "type": "section",
         "size": "3",
@@ -570,12 +630,46 @@
     }
   ],
   [
-    36,
-    "/root/admin/Mid/common/processor",
+    38,
+    "/root/Admin/Mid/MainLeftUp/project/storeConfig/storeEditor",
+    "",
+    "",
+    {
+      "1": {
+        "name": "storeEditor",
+        "dispName": "데이터 저장 정책 편집",
+        "type": "section",
+        "size": "7",
+        "applet": "/admin/NexJsonEditor",
+        "padding": "8px",
+        "contents": [
+          "/admin/SelectedStore"
+        ]
+      }
+    }
+  ],
+  [
+    39,
+    "/root/Admin/Mid/MainLeftUp/project/processorConfig",
     "",
     "",
     {
       "2": {
+        "name": "processorConfig",
+        "dispName": "프로세서 설정",
+        "type": "section",
+        "size": "5",
+        "direction": "column"
+      }
+    }
+  ],
+  [
+    40,
+    "/root/Admin/Mid/MainLeftUp/project/processorConfig/processor",
+    "",
+    "",
+    {
+      "0": {
         "name": "processor",
         "dispName": "데이터 프로세서",
         "type": "section",
@@ -584,6 +678,240 @@
         "padding": "8px",
         "contents": [
           "/admin/processor"
+        ]
+      }
+    }
+  ],
+  [
+    41,
+    "/root/Admin/Mid/MainLeftUp/project/processorConfig/processorEditor",
+    "",
+    "",
+    {
+      "1": {
+        "name": "processorEditor",
+        "dispName": "프로세서 편집",
+        "type": "section",
+        "size": "7",
+        "applet": "/admin/NexJsonEditor",
+        "padding": "8px",
+        "contents": [
+          "/admin/SelectedProcessor"
+        ]
+      }
+    }
+  ],
+  [
+    42,
+    "/root/Admin/Mid/MainLeftUp/project/systemConfig",
+    "",
+    "",
+    {
+      "3": {
+        "name": "systemConfig",
+        "dispName": "시스템 설정",
+        "type": "section",
+        "size": "5",
+        "direction": "column"
+      }
+    }
+  ],
+  [
+    43,
+    "/root/Admin/Mid/MainLeftUp/project/systemConfig/system",
+    "",
+    "",
+    {
+      "0": {
+        "name": "system",
+        "dispName": "시스템 설정",
+        "type": "section",
+        "size": "3",
+        "applet": "/admin/NexNodeTree",
+        "padding": "8px",
+        "contents": [
+          "/admin/system"
+        ]
+      }
+    }
+  ],
+  [
+    44,
+    "/root/Admin/Mid/MainLeftUp/project/systemConfig/systemEditor",
+    "",
+    "",
+    {
+      "1": {
+        "name": "systemEditor",
+        "dispName": "시스템 편집",
+        "type": "section",
+        "size": "7",
+        "applet": "/admin/NexJsonEditor",
+        "padding": "8px",
+        "contents": [
+          "/admin/SelectedSystem"
+        ]
+      }
+    }
+  ],
+  [
+    45,
+    "/root/AdminSystemConfig",
+    "",
+    "",
+    {
+      "2": {
+        "name": "AdminSystemConfig",
+        "type": "section",
+        "size": "1",
+        "direction": "column",
+        "route": "admin/system"
+      }
+    }
+  ],
+  [
+    46,
+    "/root/AdminSystemConfig/Head",
+    "",
+    "",
+    {
+      "0": {
+        "name": "Head",
+        "type": "section",
+        "size": "6",
+        "direction": "column"
+      }
+    }
+  ],
+  [
+    48,
+    "/root/AdminSystemConfig/MainUp",
+    "",
+    "",
+    {
+      "1": {
+        "name": "MainUp",
+        "type": "section",
+        "size": "94",
+        "direction": "row"
+      }
+    }
+  ],
+  [
+    49,
+    "/root/AdminSystemConfig/MainUp/MainLeftUp",
+    "",
+    "",
+    {
+      "0": {
+        "name": "MainLeftUp",
+        "type": "section",
+        "size": "1",
+        "direction": "column"
+      }
+    }
+  ],
+  [
+    50,
+    "/root/AdminSystemConfig/MainUp/MainLeftUp/project",
+    "",
+    "",
+    {
+      "0": {
+        "name": "project",
+        "type": "section",
+        "size": "1",
+        "direction": "row"
+      }
+    }
+  ],
+  [
+    51,
+    "/root/AdminSystemConfig/MainUp/MainLeftUp/project/sectionConfig",
+    "",
+    "",
+    {
+      "0": {
+        "name": "sectionConfig",
+        "dispName": "웹 섹션 설정",
+        "type": "section",
+        "size": "5",
+        "direction": "column"
+      }
+    }
+  ],
+  [
+    52,
+    "/root/AdminSystemConfig/MainUp/MainLeftUp/project/sectionConfig/sectionFinder",
+    "",
+    "",
+    {
+      "0": {
+        "name": "sectionFinder",
+        "dispName": "웹 섹션",
+        "type": "section",
+        "size": "3",
+        "applet": "/admin/NexNodeTree",
+        "padding": "8px",
+        "contents": [
+          "/admin/section"
+        ]
+      }
+    }
+  ],
+  [
+    53,
+    "/root/AdminSystemConfig/MainUp/MainLeftUp/project/sectionConfig/sectionEditor",
+    "",
+    "",
+    {
+      "1": {
+        "name": "sectionEditor",
+        "dispName": "웹 섹션 편집",
+        "type": "section",
+        "size": "7",
+        "applet": "/admin/NexJsonEditor",
+        "padding": "8px",
+        "contents": [
+          "/admin/SelectedSection"
+        ]
+      }
+    }
+  ],
+  [
+    54,
+    "/root/AdminSystemConfig/MainUp/MainLeftUp/project/Sample",
+    "",
+    "",
+    {
+      "1": {
+        "name": "Sample",
+        "dispName": "샘플",
+        "type": "section",
+        "size": "5",
+        "padding": "8px",
+        "applet": "/sample/NexSampleList",
+        "contents": [
+          "/common/sample"
+        ]
+      }
+    }
+  ],
+  [
+    55,
+    "/root/dashboard/Body/left-side/Sample2",
+    "",
+    "",
+    {
+      "1": {
+        "name": "Sample2",
+        "dispName": "샘플",
+        "type": "section",
+        "size": "1",
+        "padding": "8px",
+        "applet": "/sample/NexSampleList",
+        "contents": [
+          "/cbm/event/RTMaintenanceInfo"
         ]
       }
     }
