@@ -488,12 +488,12 @@
   ],
   [
     30,
-    "/root/admin/Top",
+    "/root/admin/head",
     "",
     "",
     {
       "0": {
-        "name": "Top",
+        "name": "head",
         "type": "section",
         "size": "5",
         "direction": "row"

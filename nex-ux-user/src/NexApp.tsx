@@ -19,15 +19,15 @@ interface NexAppProps {
 const NexApp: React.FC<NexAppProps> = observer((props) => {
   const { configStore } = props;
 
-  const [section, setSection] = useState<any>(null);
+  const [rootSection, setRootSection] = useState<any>(null);
   useEffect(() => {
     // Fetch configuration when the component mounts
     if (!configStore.isReady) {
-      setSection(null);
+      setRootSection(null);
       return;
     }
     console.log("NexApp configStore:", configStore);
-    setSection(configStore?.config.websections[0]);
+    setRootSection(configStore?.config.websections[0]);
   }, [configStore, configStore.isReady]);
   //const section = configStore?.config.websections[0];
 
@@ -35,20 +35,20 @@ const NexApp: React.FC<NexAppProps> = observer((props) => {
   return (
     <NexStoreProvider configStore={configStore}>
       <NexDiv
-        align="center"
-        justify="center"
-        width="100vw"
-        height="100vh"
-        overflow="hidden"
+        align='center'
+        justify='center'
+        width='100vw'
+        height='100vh'
+        overflow='hidden'
         style={{ boxSizing: "border-box" }}
       >
-        {!section || !configStore.isReady ? (
+        {!rootSection || !configStore.isReady ? (
           <div>Loading... {configStore.isReady ? "Ready" : "Not Ready"}</div>
         ) : (
           <Router>
             <NexPageViewer
-              key={section.name}
-              section={section}
+              key={rootSection.name}
+              section={rootSection}
               isVisibleBorder={false}
               isVisibleTitle={false}
             />

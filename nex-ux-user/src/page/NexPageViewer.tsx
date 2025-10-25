@@ -6,6 +6,14 @@ import { NexStoreContext } from "provider/NexStoreProvider";
 import NexAppProvider from "applet/NexAppProvider";
 import { defaultThemeStyle } from "type/NexTheme";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, A11y, Autoplay } from "swiper/modules";
+
+// 스와이퍼 CSS
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 interface NexPageViewerProps {
   section: any;
   isVisibleTitle?: boolean; // Optional prop to control visibility of section title
@@ -35,11 +43,19 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
   const sectionInfo = JSON.stringify(sectionNoChildren, null, 2);
 
   const contentsView = isContents && (
-    <NexDiv width="100%" height="100%" direction="column">
+    <NexDiv width='100%' height='100%' direction='column'>
       <NexAppProvider section={section} context={context} />
     </NexDiv>
   );
 
+  const sliderSettings = {
+    className: "",
+    dots: true,
+    infinite: true,
+    centerMode: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
   const pageView = isRoutes && (
     <Routes>
       {section.children && Array.isArray(section.children)
@@ -65,6 +81,23 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
     </Routes>
   );
 
+  const pageView2 = isRoutes && (
+    <Swiper style={{ width: "90%", height: "90%" }}>
+      {section.children && Array.isArray(section.children) ? (
+        <SwiperSlide>
+          {(section.children as any[]).map((child, index) => (
+            <NexPageViewer
+              key={index}
+              section={child}
+              isVisibleBorder={isVisibleBorder}
+              isVisibleTitle={isVisibleTitle}
+            />
+          ))}
+        </SwiperSlide>
+      ) : null}
+    </Swiper>
+  );
+
   const childView =
     !isContents &&
     !isRoutes &&
@@ -82,12 +115,12 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
   return (
     <NexDiv
       direction={"column"}
-      align="center"
-      justify="center"
-      width="100%"
-      height="100%"
+      align='center'
+      justify='center'
+      width='100%'
+      height='100%'
       flex={section.size || "1"}
-      overflow="auto"
+      overflow='auto'
       color={color}
       bgColor={bgColor}
       title={sectionInfo}
@@ -95,12 +128,12 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
     >
       {/* Section Name Label */}
       {isVisibleTitle ? (
-        <NexDiv width="100%" height="1em">
+        <NexDiv width='100%' height='1em'>
           <NexLabel
-            width="100%"
-            height="100%"
-            align="center"
-            justify="center"
+            width='100%'
+            height='100%'
+            align='center'
+            justify='center'
             style={{ cursor: "pointer", fontSize: "0.8em" }}
           >
             {section.name || "Unnamed Section"}
@@ -109,11 +142,11 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
       ) : null}
       <NexDiv
         direction={section.direction || "row"}
-        width="100%"
-        height="100%"
-        align="center"
-        justify="center"
-        overflow="visible"
+        width='100%'
+        height='100%'
+        align='center'
+        justify='center'
+        overflow='visible'
       >
         {contentsView}
         {pageView}
