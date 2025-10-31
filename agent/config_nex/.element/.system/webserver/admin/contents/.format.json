@@ -10,7 +10,6 @@
       "dispName": "Index",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": true,
       "featureType": "INDEX"
     },
@@ -19,7 +18,6 @@
       "dispName": "경로",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": false,
       "featureType": "STRING"
     },
@@ -28,7 +26,6 @@
       "dispName": "프로젝트",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": false,
       "featureType": "STRING"
     },
@@ -37,7 +34,6 @@
       "dispName": "시스템",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": false,
       "featureType": "STRING"
     },
@@ -45,7 +41,6 @@
       "name": "object",
       "dispName": "객체",
       "description": "노드 객체",
-      "type": "feature",
       "icon": null,
       "color": null,
       "featureType": "JSON"

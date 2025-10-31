@@ -8,7 +8,6 @@
       "dispName": "날짜",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": false,
       "featureType": "DATE_SEC"
     },
@@ -17,7 +16,6 @@
       "dispName": "시 스템",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": false,
       "featureType": "STRING"
     },
@@ -26,7 +24,6 @@
       "dispName": "이벤트명",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": false,
       "featureType": "STRING"
     },
@@ -35,7 +32,6 @@
       "dispName": "시스템로그",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": false,
       "featureType": "STRING"
     }

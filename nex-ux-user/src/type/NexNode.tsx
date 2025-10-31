@@ -1,26 +1,17 @@
-import { NexTheme, NexThemeStyle, NexThemeUser } from "./NexTheme";
+import { NexTheme, NexThemeUser } from "./NexTheme";
 
 export enum NexNodeType {
   FOLDER = "folder",
-
   FORMAT = "format",
-  FEATURE = "feature",
-
   PROCESSOR = "processor",
-
   STORE = "store",
-
   SYSTEM = "system",
   ELEMENT = "element",
   CONTENTS = "contents",
-
   APPLET = "applet",
-
   //WEBPAGE = "webpage",
   SECTION = "section",
-
   THEME = "theme", // THEME attribute : color, bgColor, ...
-
   USER = "user",
 }
 
@@ -50,6 +41,7 @@ export enum NexFeatureType {
   EMAIL = "EMAIL",
   PHONE = "PHONE",
   ADDRESS = "ADDRESS",
+  PASSWORD = "PASSWORD",
   URL = "URL",
   LITERALS = "LITERALS", // 문자열 목록 중에서 선택
   RECORDS = "RECORDS", // 레코드 목록 중에서 선택
@@ -102,6 +94,14 @@ export interface NexFeatureNode extends NexNode {
   children?: NexNode[]; // Array of child objects (could be systems, formats,
 }
 
+export interface NexAttribute {
+  name: string;
+  dispName: string;
+  description: string;
+  icon: string | null;
+  color: string | null;
+}
+
 export interface NexFormatNode extends NexNode {
   isTree?: boolean; // Whether this element is a tree structure
   //volatility: "static" | "mutable" | "immutable"; // Volatility of the element
@@ -139,6 +139,18 @@ export enum NexRecordExpireUnit {
   MIN = "MIN",
   HOUR = "HOUR",
   DAY = "DAY",
+  MONTH = "MONTH",
+  YEAR = "YEAR",
+}
+
+export enum NexProcessingUnit {
+  NONE = "NONE",
+  MSEC = "MSEC",
+  SEC = "SEC",
+  MIN = "MIN",
+  HOUR = "HOUR",
+  DAY = "DAY",
+  WEEK = "WEEK",
   MONTH = "MONTH",
   YEAR = "YEAR",
 }
@@ -257,16 +269,6 @@ export const initNodes = {
     volatility: "immutable",
     features: [],
   } as NexFormatNode,
-  [NexNodeType.FEATURE]: {
-    name: "",
-    dispName: "",
-    description: "",
-    type: NexNodeType.FEATURE,
-    isKey: false,
-    featureType: NexFeatureType.STRING,
-    icon: "",
-    color: "",
-  } as NexFeatureNode,
   [NexNodeType.ELEMENT]: {
     name: "",
     dispName: "",

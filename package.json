@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@mantine/core": "^8.3.5",
+    "@mantine/hooks": "^8.3.5",
+    "@rjsf/core": "6.0.0-beta.21",
+    "@rjsf/mantine": "6.0.0-beta.21",
+    "@rjsf/semantic-ui": "5",
+    "@rjsf/utils": "6.0.0-beta.21",
+    "@rjsf/validator-ajv8": "6.0.0-beta.21",
+    "semantic-ui-css": "^2.5.0",
+    "semantic-ui-react": "^2.1.5"
+  }
+}

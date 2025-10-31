@@ -62,11 +62,7 @@ const EMU150TrainAccordion: React.FC<NexAppProps> = observer((props) => {
         <Stack spacing={0.5} direction="column" width="100%">
           {lossPerLineStore &&
             lossPerLineStore.odata.map((item: any, index: number) => (
-              <Accordion
-                key={index}
-                sx={{ width: "100%" }}
-                slotProps={{ heading: { component: "h4" } }}
-              >
+              <Accordion key={index} sx={{ width: "100%" }}>
                 <Button
                   sx={{ width: "100%" }}
                   onClick={() => selectLine(item[0])}

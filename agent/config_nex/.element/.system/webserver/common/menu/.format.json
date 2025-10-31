@@ -9,7 +9,6 @@
       "dispName": "Type",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": false,
       "featureType": "STRING"
     },
@@ -18,7 +17,6 @@
       "dispName": "Path",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": true,
       "featureType": "JSON"
     }

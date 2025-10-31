@@ -16,7 +16,6 @@ const webFormatData = [
     },
   ],
   [
-    
     "/web/menu",
     {
       name: "menu",
@@ -35,7 +34,6 @@ const webFormatData = [
       description: "메뉴 경로",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: NexFeatureType.STRING,
     },
@@ -46,7 +44,6 @@ const webFormatData = [
       name: "item",
       dispName: "메뉴 아이템",
       description: "메뉴 아이템",
-      type: NexNodeType.FEATURE,
       icon: null,
       color: null,
       featureType: NexFeatureType.JSON,
@@ -84,7 +81,6 @@ const adminFormatData = [
       dispName: "경로",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: NexFeatureType.STRING,
     },
@@ -95,7 +91,6 @@ const adminFormatData = [
       name: "data",
       dispName: "노드 데이터",
       description: "노드 데이터",
-      type: NexNodeType.FEATURE,
       icon: null,
       color: null,
       featureType: NexFeatureType.JSON,
@@ -144,43 +139,43 @@ const cbmFormatData = [
       dispName: "호선명",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: true,
-      featureType: "literals", // 호선명은 문자열로 처리
+      featureType: NexFeatureType.LITERALS, // 호선명은 문자열로 처리
       literals: [
         {
-          value: "경부선",
-          description: "경부선",
+          name: "경부선",
+          dispName: "경부선",
           icon: "",
           color: "#003da5",
         }, // blue
         {
-          value: "호남선",
-          description: "호남선",
+          name: "호남선",
+          dispName: "호남선",
           icon: "",
           color: "#d50032",
         }, // red
         {
-          value: "전라선",
-          description: "전라선",
+          name: "전라선",
+          dispName: "전라선",
           icon: "",
           color: "#73c42d",
         }, // green
         {
-          value: "동해선",
-          description: "동해선",
+          name: "동해선",
+          dispName: "동해선",
           icon: "",
           color: "#d96b80",
         }, // pink
         {
-          value: "태백선",
+          name: "태백선",
+          dispName: "태백선",
           description: "태백선",
           icon: "",
           color: "#7ba05b",
         }, // orange
         {
-          value: "미배치",
-          description: "미배치",
+          name: "미배치",
+          dispName: "미배치",
           icon: "",
           color: "#adb81d",
         }, // yellow
@@ -205,7 +200,6 @@ const cbmFormatData = [
       dispName: "호선명",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: true,
       featureType: NexFeatureType.STRING, // 호선명은 문자열로 처리
     },
@@ -217,7 +211,6 @@ const cbmFormatData = [
       dispName: "편성번호",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: true,
       featureType: NexFeatureType.STRING, // 호선명은 문자열로 처리
     },
@@ -241,7 +234,6 @@ const cbmFormatData = [
       dispName: "호선명",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: true,
       featureType: NexFeatureType.STRING, // 호선명은 문자열로 처리
     },
@@ -254,7 +246,6 @@ const cbmFormatData = [
       dispName: "편성번호",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: true,
       featureType: NexFeatureType.STRING, // 호선명은 문자열로 처리
     },
@@ -266,7 +257,6 @@ const cbmFormatData = [
       dispName: "차량번호",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: true,
       featureType: NexFeatureType.STRING, // 차량번호는 문자열로 처리
     },
@@ -289,7 +279,6 @@ const cbmFormatData = [
       dispName: "호선명",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: true,
       featureType: NexFeatureType.STRING, // 호선명은 문자열로 처리
     },
@@ -301,7 +290,6 @@ const cbmFormatData = [
       dispName: "편성번호",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: true,
       featureType: NexFeatureType.STRING, // 호선명은 문자열로 처리
     },
@@ -313,7 +301,6 @@ const cbmFormatData = [
       dispName: "차량번호",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: true,
       featureType: NexFeatureType.STRING, // 차량번호는 문자열로 처리
     },
@@ -325,7 +312,6 @@ const cbmFormatData = [
       dispName: "장치번호",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: true,
       featureType: NexFeatureType.STRING, // 장치번호는 문자열로 처리
     },
@@ -357,7 +343,6 @@ const cbmFormatData = [
       name: "label",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: true,
       featureType: NexFeatureType.STRING,
     },
@@ -369,7 +354,6 @@ const cbmFormatData = [
       dispName: "경고",
       icon: null,
       color: "#f0142f",
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -381,7 +365,6 @@ const cbmFormatData = [
       dispName: "주의",
       icon: null,
       color: "#feb200", // 찐 노랑색 #
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT32",
     },
@@ -403,7 +386,6 @@ const cbmFormatData = [
       dispName: "라벨",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: true,
       featureType: NexFeatureType.STRING,
     },
@@ -415,7 +397,6 @@ const cbmFormatData = [
       dispName: "건수",
       icon: null,
       color: "#f0142f",
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT32",
     },
@@ -437,7 +418,6 @@ const cbmFormatData = [
       dispName: "경부선",
       icon: null,
       color: "#003da5", //blue
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -450,7 +430,6 @@ const cbmFormatData = [
       dispName: "호남선",
       icon: null,
       color: "#d50032",
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -462,7 +441,6 @@ const cbmFormatData = [
       dispName: "동해선",
       icon: null,
       color: "#d96b80",
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -474,7 +452,6 @@ const cbmFormatData = [
       dispName: "전라선",
       icon: null,
       color: "#73c42d",
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -486,7 +463,6 @@ const cbmFormatData = [
       dispName: "태백선",
       icon: null,
       color: "#7ba05b",
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -498,7 +474,6 @@ const cbmFormatData = [
       dispName: "미배치",
       icon: null,
       color: "#adb81d",
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -531,7 +506,6 @@ const cbmFormatData = [
       dispName: "날짜",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "DATE",
     },
@@ -543,7 +517,6 @@ const cbmFormatData = [
       dispName: "편성번호",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: NexFeatureType.STRING,
     },
@@ -555,7 +528,6 @@ const cbmFormatData = [
       dispName: "차량",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: NexFeatureType.STRING,
     },
@@ -567,7 +539,6 @@ const cbmFormatData = [
       dispName: "장치",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: NexFeatureType.STRING,
     },
@@ -579,7 +550,6 @@ const cbmFormatData = [
       dispName: "권장조치",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: NexFeatureType.STRING,
     },
@@ -601,7 +571,6 @@ const cbmFormatData = [
       dispName: "날짜",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "DATE_SEC",
     },
@@ -613,7 +582,6 @@ const cbmFormatData = [
       dispName: "시스템",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: NexFeatureType.STRING,
     },
@@ -625,7 +593,6 @@ const cbmFormatData = [
       dispName: "이벤트명",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: NexFeatureType.STRING,
     },
@@ -637,7 +604,6 @@ const cbmFormatData = [
       dispName: "시스템로그",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: NexFeatureType.STRING,
     },
@@ -670,7 +636,6 @@ const cbmFormatData = [
       dispName: "날짜",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: true,
       featureType: "DATE",
     },
@@ -682,7 +647,6 @@ const cbmFormatData = [
       dispName: "경부선",
       icon: null,
       color: "#0000FF",
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -694,7 +658,6 @@ const cbmFormatData = [
       dispName: "호남선",
       icon: null,
       color: "#FF0000", //red
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -706,7 +669,6 @@ const cbmFormatData = [
       dispName: "전라선",
       icon: null,
       color: "#FF00FF", //pink
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -718,7 +680,6 @@ const cbmFormatData = [
       dispName: "동해선",
       icon: null,
       color: "#00FF00",
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -730,7 +691,6 @@ const cbmFormatData = [
       dispName: "태백선",
       icon: null,
       color: "#FFA500", //orange
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -742,7 +702,6 @@ const cbmFormatData = [
       dispName: "미배치",
       icon: null,
       color: "#6A5ACD", //보라색
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -764,7 +723,6 @@ const cbmFormatData = [
       dispName: "날짜",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: true,
       featureType: "DATE",
     },
@@ -776,7 +734,6 @@ const cbmFormatData = [
       dispName: "주변압기",
       icon: null,
       color: "#FF0000",
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -788,7 +745,6 @@ const cbmFormatData = [
       dispName: "주공기압축기",
       icon: null,
       color: "#00BFFF", //skyblue
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -800,7 +756,6 @@ const cbmFormatData = [
       dispName: "보조공기압축기",
       icon: null,
       color: "#6A5ACD", //보라색 orange
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -812,7 +767,6 @@ const cbmFormatData = [
       dispName: "승강문",
       icon: null,
       color: "#FF00FF",
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -824,7 +778,6 @@ const cbmFormatData = [
       dispName: "HAVC",
       icon: null,
       color: "#00FF00",
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -836,7 +789,6 @@ const cbmFormatData = [
       dispName: "견인전동기",
       icon: null,
       color: "#FFA500",
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -848,7 +800,6 @@ const cbmFormatData = [
       dispName: "화제감지기",
       icon: null,
       color: "#FF1493", //deep pink
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -860,7 +811,6 @@ const cbmFormatData = [
       dispName: "차축베어링",
       icon: null,
       color: "#0000FF", //blue
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -872,7 +822,6 @@ const cbmFormatData = [
       dispName: "방송장치",
       icon: null,
       color: "#FF4500", //orange red
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -893,7 +842,6 @@ const cbmFormatData = [
       name: "date",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: true,
       featureType: NexFeatureType.STRING,
     },
@@ -905,7 +853,6 @@ const cbmFormatData = [
       dispName: "경부선",
       icon: null,
       color: "#0000FF",
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -917,7 +864,6 @@ const cbmFormatData = [
       dispName: "호남선",
       icon: null,
       color: "#FF0000", //red
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -929,7 +875,6 @@ const cbmFormatData = [
       dispName: "전라선",
       icon: null,
       color: "#FF00FF", //pink
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -941,7 +886,6 @@ const cbmFormatData = [
       dispName: "동해선",
       icon: null,
       color: "#00FF00",
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -953,7 +897,6 @@ const cbmFormatData = [
       dispName: "태백선",
       icon: null,
       color: "#FFA500", //orange
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -965,7 +908,6 @@ const cbmFormatData = [
       dispName: "미배치",
       icon: null,
       color: "#6A5ACD", //보라색
-      type: NexNodeType.FEATURE,
       isKey: false,
       featureType: "UINT16",
     },
@@ -987,7 +929,6 @@ const cbmFormatData = [
       dispName: "날짜",
       icon: null,
       color: null,
-      type: NexNodeType.FEATURE,
       isKey: true,
       featureType: "DATE",
     },
@@ -999,43 +940,42 @@ const cbmFormatData = [
       dispName: "노선",
       icon: null,
       color: "#FF0000",
-      type: NexNodeType.FEATURE,
       isKey: true,
       featureType: "literals",
       literals: [
         {
-          value: "경부선",
-          description: "경부선",
+          name: "경부선",
+          dispName: "경부선",
           icon: "",
           color: "#003da5",
         }, // blue
         {
-          value: "호남선",
-          description: "호남선",
+          name: "호남선",
+          dispName: "호남선",
           icon: "",
           color: "#d50032",
         }, // red
         {
-          value: "전라선",
-          description: "전라선",
+          name: "전라선",
+          dispName: "전라선",
           icon: "",
           color: "#73c42d",
         }, // green
         {
-          value: "동해선",
+          name: "동해선",
           description: "동해선",
           icon: "",
           color: "#d96b80",
         }, // pink
         {
-          value: "태백선",
-          description: "태백선",
+          name: "태백선",
+          dispName: "태백선",
           icon: "",
           color: "#7ba05b",
         }, // orange
         {
-          value: "미배치",
-          description: "미배치",
+          name: "미배치",
+          dispName: "미배치",
           icon: "",
           color: "#adb81d",
         }, // yellow
@@ -1049,7 +989,6 @@ const cbmFormatData = [
       dispName: "편성",
       icon: null,
       color: "#00BFFF", //skyblue
-      type: NexNodeType.FEATURE,
       isKey: true,
       featureType: NexFeatureType.STRING,
     },
@@ -1061,10 +1000,14 @@ const cbmFormatData = [
       dispName: "차량",
       icon: null,
       color: "#6A5ACD", //보라색 orange
-      type: NexNodeType.FEATURE,
       isKey: true,
-      featureType: NexFeatureType.STRING,
-      categorys: ["TC1", "M1", "M2", "TC2"],
+      featureType: NexFeatureType.LITERALS,
+      literals: [
+        { name: "TC1", dispName: "TC1", icon: "", color: "#FF6347" }, // tomato
+        { name: "M1", dispName: "M1", icon: "", color: "#40E0D0" }, // turquoise
+        { name: "M2", dispName: "M2", icon: "", color: "#8A2BE2" }, // blueviolet
+        { name: "TC2", dispName: "TC2", icon: "", color: "#FFD700" }, // gold
+      ],
     },
   ],
   [
@@ -1074,18 +1017,37 @@ const cbmFormatData = [
       dispName: "장치",
       icon: null,
       color: "#FF00FF",
-      type: NexNodeType.FEATURE,
       isKey: true,
-      featureType: NexFeatureType.STRING,
-      categorys: [
-        "승강문",
-        "주변압기",
-        "주공기압축기",
-        "보조공기압축기",
-        "HAVC",
-        "화제감지기",
-        "차축베어링",
-        "방송장치",
+      featureType: NexFeatureType.LITERALS,
+      literals: [
+        { name: "승강문", dispName: "승강문", icon: "", color: "#FF69B4" }, // hotpink
+        { name: "주변압기", dispName: "주변압기", icon: "", color: "#FF4500" }, // orangered
+        {
+          name: "주공기압축기",
+          dispName: "주공기압축기",
+          icon: "",
+          color: "#1E90FF",
+        }, // dodgerblue
+        {
+          name: "보조공기압축기",
+          dispName: "보조공기압축기",
+          icon: "",
+          color: "#9370DB",
+        }, // mediumpurple
+        { name: "HAVC", dispName: "HAVC", icon: "", color: "#32CD32" }, // limegreen
+        {
+          name: "화제감지기",
+          dispName: "화제감지기",
+          icon: "",
+          color: "#FF1493",
+        }, // deep pink
+        {
+          name: "차축베어링",
+          dispName: "차축베어링",
+          icon: "",
+          color: "#0000FF",
+        }, // blue
+        { name: "방송장치", dispName: "방송장치", icon: "", color: "#FF8C00" }, // darkorange
       ],
     },
   ],
@@ -1096,10 +1058,13 @@ const cbmFormatData = [
       dispName: "등급",
       icon: null,
       color: "#00FF00",
-      type: NexNodeType.FEATURE,
       isKey: false,
-      featureType: NexFeatureType.STRING,
-      categorys: ["정상", "주의", "경고"],
+      featureType: NexFeatureType.LITERALS,
+      literals: [
+        { name: "정상", dispName: "정상", icon: "", color: "#00FF00" },
+        { name: "주의", dispName: "주의", icon: "", color: "#FFFF00" },
+        { name: "경고", dispName: "경고", icon: "", color: "#FF0000" },
+      ],
     },
   ],
 ];

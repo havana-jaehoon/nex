@@ -23,7 +23,7 @@ import axios from "axios";
 const URL_CONFIG = "http://localhost:9070/admin-api";
 
 const buildAdminConfig = (datas: any[]) => {
-  console.log("buildAdminConfig datas:", JSON.stringify(datas, null, 2));
+  //console.log("buildAdminConfig datas:", JSON.stringify(datas, null, 2));
 
   const root: any = {};
   const pathMap: Record<string, any> = { "/": root };
@@ -34,12 +34,12 @@ const buildAdminConfig = (datas: any[]) => {
     const nodeName = parts.pop() || "";
     const parentPath = "/" + parts.join("/");
 
-    console.log(`Processing item: item = ${JSON.stringify(item, null, 2)}`);
+    //console.log(`Processing item: item = ${JSON.stringify(item, null, 2)}`);
     const keys = Object.keys(object);
     if (keys.length !== 1) {
       // must have only one key
       console.warn(
-        `[buildAdminConfig] Expected 1 key in object, but found keys:${JSON.stringify(object)}.`
+        `[buildAdminConfig] Expected 1 key in object, but found keys:${JSON.stringify(object, null, 2)}.`
       );
       // continue or return based on how you want to handle this error
     }
@@ -48,7 +48,7 @@ const buildAdminConfig = (datas: any[]) => {
     const newNode = { ...node, _seq: seq };
 
     const parentNode = pathMap[parentPath];
-    //console.log("Parent Node:", JSON.stringify(parentNode, null, 2));
+    //console.log(`Parent Node(${path}): ${JSON.stringify(parentNode, null, 2)}`);
     if (!parentNode.children) {
       parentNode.children = [];
     }
@@ -202,7 +202,7 @@ class NexConfigStore {
         this.config.webThemes = buildAdminConfig(cfgMap["theme"]);
 
         this.config.webThemeUsers = buildAdminConfig(cfgMap["user"]);
-        
+
         this.isReady = true;
       });
     } catch (error) {

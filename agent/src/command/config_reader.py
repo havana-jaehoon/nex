@@ -39,6 +39,8 @@ class ConfigReader:
     def _make_config_map(self, type, datas):
         config_map = {}
         config_list = []
+        #if(type == 'system'):
+        #    print(f"# Making config map for type: {type} with datas: {json.dumps(datas, ensure_ascii=False, indent=2)}")
         #print(f"# datas: {datas}")
         for data in datas:
             #print(f"Data item: {json.dumps(data, ensure_ascii=False, indent=2)}")
@@ -272,11 +274,10 @@ class ConfigReader:
 
 
     def getSystems(self, project_name:str)->list[dict]:
-        systemList = list(self._configMap['system'].get(project_name, {}).values())
-        systemNodes = []
-        for system in systemList[0] if len(systemList) > 0 else []:
-            #print(f"System: {json.dumps(system, ensure_ascii=False, indent=2)}")
-            systemNodes.append(self._getNodeFromObject(system[4]))
+        system_values = self._configMap['system'].get(project_name, {}).values()
+        systemNodes = [self._getNodeFromObject(entries[0][4]) for entries in system_values if entries]
+        #print(f"Systems: {json.dumps(systemNodes, ensure_ascii=False, indent=2)}")
+
         return systemNodes
 
     def getElements(self, project_name:str, system_name:str)->list[dict]:
@@ -306,7 +307,7 @@ if __name__ == '__main__':
 
     #systems = []
     systems = cfg.getSystems(project_name)
-    #print(f"# systems: {json.dumps(systems, ensure_ascii=False, indent=2)}")
+    print(f"# Systems: {json.dumps(systems, ensure_ascii=False, indent=2)}")
     #print(f"# Format: {json.dumps(format, ensure_ascii=False, indent=2)}")
     
 
@@ -325,6 +326,7 @@ if __name__ == '__main__':
 
         #print(f"# system: {system_name}, total elements: {len(element_list)}")
 
+
         for item in element_list:
             #print(f"{count} element: {json.dumps(item, ensure_ascii=False, indent=2)}")
             path = item.get('path') # element path 
@@ -335,10 +337,10 @@ if __name__ == '__main__':
             store = item.get('store') # element store node config(json object)
             processor = item.get('processor') # element processor node config(json object)
             if(path == '/admin/element') :
-                print(f"# path: {path}, format: {format}")
+                print(f"# projet:{project_name}, system: {system_name}, path: {path}, format: {format}")
 
             #print(f"# {path} element:", json.dumps(element, ensure_ascii=False, indent=2))
-            dataio = DataFileIo("./config_nex/.element", path, system, element, format, store, processor)
+            #dataio = DataFileIo("./config_nex/.element", path, system, element, format, store, processor)
             
             #data = dataio.get(0, 0)
             #dataio.put(dataset)

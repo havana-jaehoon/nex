@@ -9,43 +9,42 @@
       "dispName": "호선명",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": true,
-      "featureType": "literals",
+      "featureType": "LITERALS",
       "literals": [
         {
-          "value": "경부선",
-          "description": "경부선",
+          "name": "경부선",
+          "dispName": "경부선",
           "icon": "",
           "color": "#003da5"
         },
         {
-          "value": "호남선",
-          "description": "호남선",
+          "name": "호남선",
+          "dispName": "호남선",
           "icon": "",
           "color": "#d50032"
         },
         {
-          "value": "전라선",
-          "description": "전라선",
+          "name": "전라선",
+          "dispName": "전라선",
           "icon": "",
           "color": "#73c42d"
         },
         {
-          "value": "동해선",
-          "description": "동해선",
+          "name": "동해선",
+          "dispName": "동해선",
           "icon": "",
           "color": "#d96b80"
         },
         {
-          "value": " 태백선",
-          "description": "태백선",
+          "name": "태백선",
+          "dispName": "태백선",
           "icon": "",
           "color": "#7ba05b"
         },
         {
-          "value": "미배치",
-          "description": "미배치",
+          "name": "미배치",
+          "dispName": "미배치",
           "icon": "",
           "color": "#adb81d"
         }

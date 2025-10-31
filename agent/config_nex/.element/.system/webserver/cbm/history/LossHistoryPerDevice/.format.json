@@ -8,7 +8,6 @@
       "dispName": "날짜",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": true,
       "featureType": "DATE"
     },
@@ -17,7 +16,6 @@
       "dispName": "주변압기",
       "icon": null,
       "color": "#FF0000",
-      "type": "feature",
       "isKey": false,
       "featureType": "UINT16"
     },
@@ -26,7 +24,6 @@
       "dispName": "주공기압축기",
       "icon": null,
       "color": "#00BFFF",
-      "type": "feature",
       "isKey": false,
       "featureType": "UINT16"
     },
@@ -35,7 +32,6 @@
       "dispName": "보조공기압축기",
       "icon": null,
       "color": "#6A5ACD",
-      "type": "feature",
       "isKey": false,
       "featureType": "UINT16"
     },
@@ -44,7 +40,6 @@
       "dispName": "승강문",
       "icon": null,
       "color": "#FF00FF",
-      "type": "feature",
       "isKey": false,
       "featureType": "UINT16"
     },
@@ -53,7 +48,6 @@
       "dispName": "HAVC",
       "icon": null,
       "color": "#00FF00",
-      "type": "feature",
       "isKey": false,
       "featureType": "UINT16"
     },
@@ -62,7 +56,6 @@
       "dispName": "견인전동기",
       "icon": null,
       "color": "#FFA500",
-      "type": "feature",
       "isKey": false,
       "featureType": "UINT16"
     },
@@ -71,7 +64,6 @@
       "dispName": "화제감지기",
       "icon": null,
       "color": "#FF1493",
-      "type": "feature",
       "isKey": false,
       "featureType": "UINT16"
     },
@@ -80,7 +72,6 @@
       "dispName": "차축베어링",
       "icon": null,
       "color": "#0000FF",
-      "type": "feature",
       "isKey": false,
       "featureType": "UINT16"
     },
@@ -89,7 +80,6 @@
       "dispName": "방송장치",
       "icon": null,
       "color": "#FF4500",
-      "type": "feature",
       "isKey": false,
       "featureType": "UINT16"
     }

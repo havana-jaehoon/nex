@@ -1,11 +1,81 @@
 [
   [
-    "item",
+    "folder",
     "/",
-    "daashboard",
+    "Admin",
+    "어드민 데이터 설정",
+    "",
+    "admin",
+    null,
+    null
+  ],
+  [
+    "item",
+    "/Admin",
+    "format",
+    "데이터 포맷",
+    "",
+    "/admin/format",
+    null,
+    "/admin/format"
+  ],
+  [
+    "item",
+    "/Admin",
+    "store",
+    "데이터 보관 정책",
+    "",
+    "/admin/store",
+    null,
+    "/admin/store"
+  ],
+  [
+    "item",
+    "/Admin",
+    "processor",
+    "데이터 프로세서",
+    "",
+    "/admin/processor",
+    null,
+    "/admin/processor"
+  ],
+  [
+    "item",
+    "/Admin",
+    "system",
+    "시스템",
+    "",
+    "/admin/system",
+    null,
+    "/admin/system"
+  ],
+  [
+    "item",
+    "/Admin",
+    "element",
+    "데이터 엘리먼트",
+    "",
+    "/admin/element",
+    null,
+    "/admin/element"
+  ],
+  [
+    "folder",
+    "/",
+    "cbm",
+    "CBM",
+    "CBM",
+    "/cbm/cbm",
+    null,
+    null
+  ],
+  [
+    "item",
+    "/cbm",
+    "dashboard",
     "대시보드",
     "대시보드",
-    "daashboard",
+    "/cbm/dashboard",
     null,
     "/cbm/dashboard"
   ],
@@ -97,15 +167,5 @@
     "cbm-configuration",
     null,
     "/cbm/configuration"
-  ],
-  [
-    "item",
-    "/",
-    "Admin",
-    "Admin",
-    "",
-    "admin",
-    null,
-    "/admin"
   ]
 ]

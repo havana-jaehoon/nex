@@ -3,7 +3,7 @@
     0,
     "/config",
     "",
-    "",
+    "config",
     {
       "0": {
         "name": "config",
@@ -33,7 +33,7 @@
     1,
     "/webserver",
     "",
-    "",
+    "webserver",
     {
       "1": {
         "name": "webserver",
@@ -63,7 +63,7 @@
     2,
     "/collector",
     "",
-    "",
+    "collector",
     {
       "2": {
         "name": "collector",

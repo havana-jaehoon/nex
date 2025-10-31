@@ -8,7 +8,6 @@
       "dispName": "날짜",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": true,
       "featureType": "DATE"
     },
@@ -17,43 +16,42 @@
       "dispName": "노선",
       "icon": null,
       "color": "#FF0000",
-      "type": "feature",
       "isKey": true,
-      "featureType": "literals",
+      "featureType": "LITERALS",
       "literals": [
         {
-          "value": "경부선",
-          "description": "경부선",
+          "name": "경부선",
+          "dispName": "경부선",
           "icon": "",
           "color": "#003da5"
         },
         {
-          "value": "호남선",
-          "description": "호남선",
+          "name": "호남선",
+          "dispName": "호남선",
           "icon": "",
           "color": "#d50032"
         },
         {
-          "value": "전라선",
-          "description": "전라선",
+          "name": "전라선",
+          "dispName": "전라선",
           "icon": "",
           "color": "#73c42d"
         },
         {
-          "value": "동해선",
-          "description": "동해선",
+          "name": "동해선",
+          "dispName": "동해선",
           "icon": "",
           "color": "#d96b80"
         },
         {
-          "value": "태백선",
-          "description": "태백선",
+          "name": "태백선",
+          "dispName": "태백선",
           "icon": "",
           "color": "#7ba05b"
         },
         {
-          "value": "미배치",
-          "description": "미배치",
+          "name": "미배치",
+          "dispName": "미배치",
           "icon": "",
           "color": "#adb81d"
         }
@@ -64,7 +62,6 @@
       "dispName": "편성",
       "icon": null,
       "color": "#00BFFF",
-      "type": "feature",
       "isKey": true,
       "featureType": "STRING"
     },
@@ -73,14 +70,33 @@
       "dispName": "차량",
       "icon": null,
       "color": "#6A5ACD",
-      "type": "feature",
       "isKey": true,
-      "featureType": "STRING",
-      "categorys": [
-        "TC1",
-        "M1",
-        "M2",
-        "TC2"
+      "featureType": "LITERALS",
+      "literals": [
+        {
+          "name": "M1",
+          "dispName": "M1",
+          "icon": "",
+          "color": "#003da5"
+        },
+        {
+          "name": "M2",
+          "dispName": "M2",
+          "icon": "",
+          "color": "#d50032"
+        },
+        {
+          "name": "TC1",
+          "dispName": "TC1",
+          "icon": "",
+          "color": "#73c42d"
+        },
+        {
+          "name": "TC2",
+          "dispName": "TC2",
+          "icon": "",
+          "color": "#d96b80"
+        }
       ]
     },
     {
@@ -88,18 +104,57 @@
       "dispName": "장치",
       "icon": null,
       "color": "#FF00FF",
-      "type": "feature",
       "isKey": true,
-      "featureType": "STRING",
-      "categorys": [
-        "승강문",
-        "주변압기",
-        "주공기압축기",
-        "보조공기압축기",
-        "HAVC",
-        "화제감지기",
-        "차축베어링",
-        "방송장치"
+      "featureType": "LITERALS",
+      "literals": [
+        {
+          "name": "승강문",
+          "dispName": "승강문",
+          "icon": "",
+          "color": "#FF1493"
+        },
+        {
+          "name": "주변압기",
+          "dispName": "주변압기",
+          "icon": "",
+          "color": "#0000FF"
+        },
+        {
+          "name": "주공기압축기",
+          "dispName": "주공기압축기",
+          "icon": "",
+          "color": "#00BFFF"
+        },
+        {
+          "name": "보조공기압축기",
+          "dispName": "보조공기압축기",
+          "icon": "",
+          "color": "#6A5ACD"
+        },
+        {
+          "name": "HAVC",
+          "dispName": "HAVC",
+          "icon": "",
+          "color": "#00FF00"
+        },
+        {
+          "name": "화제감지기",
+          "dispName": "화제감지기",
+          "icon": "",
+          "color": "#FF4500"
+        },
+        {
+          "name": "차축베어링",
+          "dispName": "차축베어링",
+          "icon": "",
+          "color": "#1E90FF"
+        },
+        {
+          "name": "방송장치",
+          "dispName": "방송장치",
+          "icon": "",
+          "color": "#FF6347"
+        }
       ]
     },
     {
@@ -107,13 +162,27 @@
       "dispName": "등급",
       "icon": null,
       "color": "#00FF00",
-      "type": "feature",
       "isKey": false,
-      "featureType": "STRING",
-      "categorys": [
-        "정상",
-        "주의",
-        "경고"
+      "featureType": "LITERALS",
+      "literals": [
+        {
+          "name": "정상",
+          "dispName": "정상",
+          "icon": "",
+          "color": "#33A1FF"
+        },
+        {
+          "name": "주의",
+          "dispName": "주의",
+          "icon": "",
+          "color": "#FFB300"
+        },
+        {
+          "name": "경고",
+          "dispName": "경고",
+          "icon": "",
+          "color": "#FF3333"
+        }
       ]
     }
   ]

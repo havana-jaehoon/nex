@@ -7,7 +7,6 @@
       "name": "date",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": true,
       "featureType": "STRING"
     },
@@ -16,7 +15,6 @@
       "dispName": "경부선",
       "icon": null,
       "color": "#0000FF",
-      "type": "feature",
       "isKey": false,
       "featureType": "UINT16"
     },
@@ -25,7 +23,6 @@
       "dispName": "호남선",
       "icon": null,
       "color": "#FF0000",
-      "type": "feature",
       "isKey": false,
       "featureType": "UINT16"
     },
@@ -34,7 +31,6 @@
       "dispName": "전라선",
       "icon": null,
       "color": "#FF00FF",
-      "type": "feature",
       "isKey": false,
       "featureType": "UINT16"
     },
@@ -43,7 +39,6 @@
       "dispName": "동해선",
       "icon": null,
       "color": "#00FF00",
-      "type": "feature",
       "isKey": false,
       "featureType": "UINT16"
     },
@@ -52,7 +47,6 @@
       "dispName": "태백선",
       "icon": null,
       "color": "#FFA500",
-      "type": "feature",
       "isKey": false,
       "featureType": "UINT16"
     },
@@ -61,7 +55,6 @@
       "dispName": "미배치",
       "icon": null,
       "color": "#6A5ACD",
-      "type": "feature",
       "isKey": false,
       "featureType": "UINT16"
     }

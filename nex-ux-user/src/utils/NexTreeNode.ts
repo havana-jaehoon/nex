@@ -60,9 +60,5 @@ export function buildNexTree(
 
   const getNode = (index: number) => indexMap[index] || null;
 
-  console.error(
-    "buildNexTree: built tree with : ",
-    JSON.stringify(roots, null, 2)
-  );
   return { data: roots, getNode: getNode };
 }

@@ -9,7 +9,6 @@
       "dispName": "호선명",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": true,
       "featureType": "STRING"
     },
@@ -18,7 +17,6 @@
       "dispName": "편성번호",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": true,
       "featureType": "STRING"
     },
@@ -27,7 +25,6 @@
       "dispName": "차량번호",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": true,
       "featureType": "STRING"
     }

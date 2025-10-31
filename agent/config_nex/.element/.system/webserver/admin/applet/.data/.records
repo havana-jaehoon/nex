@@ -247,5 +247,22 @@
         "applet": "/sample/NexSampleList"
       }
     }
+  ],
+  [
+    15,
+    "/admin/NexNodeEditor",
+    "",
+    "",
+    {
+      "1": {
+        "name": "NexNodeEditor",
+        "dispName": "Nex Node Editor",
+        "description": "Nex Node Editor Applet",
+        "type": "applet",
+        "icon": "tree",
+        "color": "#FF33A1",
+        "applet": "/admin/NexNodeEditor"
+      }
+    }
   ]
 ]

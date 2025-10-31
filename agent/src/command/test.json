@@ -1,1 +1,98 @@
-[[\"2025-05-01\",1,2,3,4,5,6,7,8,9],[\"2025-05-02\",2,3,4,5,6,7,8,9,0],[\"2025-05-03\",3,4,5,6,7,8,9,0,1],[\"2025-05-04\",4,5,6,7,8,9,0,1,2],[\"2025-05-05\",5,6,7,8,9,0,1,2,3],[\"2025-05-06\",6,7,8,9,0,1,2,3,4],[\"2025-05-07\",7,8,9,0,1,2,3,4,5]]
+[
+  [
+    [
+      0,
+      "/config",
+      "",
+      "config",
+      {
+        "0": {
+          "name": "config",
+          "dispName": "설정서버",
+          "description": "설정 서버",
+          "type": "system",
+          "address": {
+            "ip": "192.168.0.1",
+            "port": "8080"
+          },
+          "hdfs": {
+            "ip": "192.168.0.20",
+            "port": "9000",
+            "path": "/nex/data"
+          },
+          "db": {
+            "ip": "192.168.0.30",
+            "port": "5432",
+            "user": "nex",
+            "password": "nex123",
+            "database": "nex"
+          }
+        }
+      }
+    ]
+  ],
+  [
+    [
+      1,
+      "/webserver",
+      "",
+      "webserver",
+      {
+        "1": {
+          "name": "webserver",
+          "dispName": "웹서버",
+          "description": "CBM 웹서버",
+          "type": "system",
+          "address": {
+            "ip": "192.168.0.2",
+            "port": "8080"
+          },
+          "hdfs": {
+            "ip": "192.168.0.20",
+            "port": "9000",
+            "path": "/nex/data"
+          },
+          "db": {
+            "ip": "192.168.0.30",
+            "port": "5432",
+            "user": "nex",
+            "password": "nex123",
+            "database": "nex"
+          }
+        }
+      }
+    ]
+  ],
+  [
+    [
+      2,
+      "/collector",
+      "",
+      "collector",
+      {
+        "2": {
+          "name": "collector",
+          "dispName": "수집서버",
+          "description": "CBM 수집서버",
+          "type": "system",
+          "address": {
+            "ip": "192.168.0.3",
+            "port": "8080"
+          },
+          "hdfs": {
+            "ip": "192.168.0.20",
+            "port": "9000",
+            "path": "/nex/data"
+          },
+          "db": {
+            "ip": "192.168.0.30",
+            "port": "5432",
+            "user": "nex",
+            "password": "nex123",
+            "database": "nex"
+          }
+        }
+      }
+    ]
+  ]
+]

@@ -69,9 +69,7 @@ export const nexAddNodeIcon = (type: NexNodeType, size: string) => {
     case NexNodeType.FORMAT:
       icon = <MdLibraryAdd style={{ fontSize: size }} />;
       break;
-    case NexNodeType.FEATURE:
-      icon = <MdFormatListBulletedAdd style={{ fontSize: size }} />;
-      break;
+
 
     case NexNodeType.PROCESSOR:
       icon = <MdAddLink style={{ fontSize: size }} />;
@@ -119,9 +117,7 @@ export const nexNodeIcon = (type: NexNodeType, size: string) => {
     case NexNodeType.FORMAT:
       icon = <MdLocalLibrary style={{ fontSize: size }} />;
       break;
-    case NexNodeType.FEATURE:
-      icon = <MdFormatListBulleted style={{ fontSize: size }} />;
-      break;
+
     case NexNodeType.PROCESSOR:
       icon = <MdDatasetLinked style={{ fontSize: size }} />;
       break;

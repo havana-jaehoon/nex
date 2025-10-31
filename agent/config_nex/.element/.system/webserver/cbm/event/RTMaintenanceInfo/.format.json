@@ -8,7 +8,6 @@
       "dispName": " 날짜",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": false,
       "featureType": "DATE"
     },
@@ -17,7 +16,6 @@
       "dispName": "편성번호",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": false,
       "featureType": "STRING"
     },
@@ -26,7 +24,6 @@
       "dispName": "차량",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": false,
       "featureType": "STRING"
     },
@@ -35,7 +32,6 @@
       "dispName": "장치",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": false,
       "featureType": "STRING"
     },
@@ -44,7 +40,6 @@
       "dispName": "권장조치",
       "icon": null,
       "color": null,
-      "type": "feature",
       "isKey": false,
       "featureType": "STRING"
     }

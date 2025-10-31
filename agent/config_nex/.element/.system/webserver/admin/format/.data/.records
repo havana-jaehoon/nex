@@ -30,7 +30,6 @@
             "dispName": "Type",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": false,
             "featureType": "STRING"
           },
@@ -39,7 +38,6 @@
             "dispName": "Path",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": true,
             "featureType": "JSON"
           }
@@ -79,7 +77,6 @@
             "dispName": "Index",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": true,
             "featureType": "INDEX"
           },
@@ -88,7 +85,6 @@
             "dispName": "경로",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": false,
             "featureType": "STRING"
           },
@@ -97,7 +93,6 @@
             "dispName": "프로젝트",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": false,
             "featureType": "STRING"
           },
@@ -106,7 +101,6 @@
             "dispName": "시스템",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": false,
             "featureType": "STRING"
           },
@@ -114,7 +108,6 @@
             "name": "object",
             "dispName": "객체",
             "description": "노드 객체",
-            "type": "feature",
             "icon": null,
             "color": null,
             "featureType": "JSON"
@@ -168,43 +161,42 @@
             "dispName": "호선명",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": true,
-            "featureType": "literals",
+            "featureType": "LITERALS",
             "literals": [
               {
-                "value": "경부선",
-                "description": "경부선",
+                "name": "경부선",
+                "dispName": "경부선",
                 "icon": "",
                 "color": "#003da5"
               },
               {
-                "value": "호남선",
-                "description": "호남선",
+                "name": "호남선",
+                "dispName": "호남선",
                 "icon": "",
                 "color": "#d50032"
               },
               {
-                "value": "전라선",
-                "description": "전라선",
+                "name": "전라선",
+                "dispName": "전라선",
                 "icon": "",
                 "color": "#73c42d"
               },
               {
-                "value": "동해선",
-                "description": "동해선",
+                "name": "동해선",
+                "dispName": "동해선",
                 "icon": "",
                 "color": "#d96b80"
               },
               {
-                "value": " 태백선",
-                "description": "태백선",
+                "name": "태백선",
+                "dispName": "태백선",
                 "icon": "",
                 "color": "#7ba05b"
               },
               {
-                "value": "미배치",
-                "description": "미배치",
+                "name": "미배치",
+                "dispName": "미배치",
                 "icon": "",
                 "color": "#adb81d"
               }
@@ -231,7 +223,6 @@
             "dispName": "호선명",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": true,
             "featureType": "STRING"
           },
@@ -240,7 +231,6 @@
             "dispName": "편성번호",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": true,
             "featureType": "STRING"
           }
@@ -265,7 +255,6 @@
             "dispName": "호선명",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": true,
             "featureType": "STRING"
           },
@@ -274,7 +263,6 @@
             "dispName": "편성번호",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": true,
             "featureType": "STRING"
           },
@@ -283,7 +271,6 @@
             "dispName": "차량번호",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": true,
             "featureType": "STRING"
           }
@@ -308,7 +295,6 @@
             "dispName": "호선명",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": true,
             "featureType": "STRING"
           },
@@ -317,7 +303,6 @@
             "dispName": "편성번호",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": true,
             "featureType": "STRING"
           },
@@ -326,7 +311,6 @@
             "dispName": "차량번호",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": true,
             "featureType": "STRING"
           },
@@ -335,7 +319,6 @@
             "dispName": "장치번호",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": true,
             "featureType": "STRING"
           }
@@ -372,7 +355,6 @@
             "name": "label",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": true,
             "featureType": "STRING"
           },
@@ -381,7 +363,6 @@
             "dispName": "경고",
             "icon": null,
             "color": "#f0142f",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -390,7 +371,6 @@
             "dispName": "주의",
             "icon": null,
             "color": "#feb200",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT32"
           }
@@ -414,7 +394,6 @@
             "dispName": "라벨",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": true,
             "featureType": "STRING"
           },
@@ -423,7 +402,6 @@
             "dispName": "건수",
             "icon": null,
             "color": "#f0142f",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT32"
           }
@@ -447,7 +425,6 @@
             "dispName": "경부선",
             "icon": null,
             "color": "#003da5",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -456,7 +433,6 @@
             "dispName": "호남선",
             "icon": null,
             "color": "#d50032",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -465,7 +441,6 @@
             "dispName": "동해선",
             "icon": null,
             "color": "#d96b80",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -474,7 +449,6 @@
             "dispName": " 전라선",
             "icon": null,
             "color": "#73c42d",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -483,7 +457,6 @@
             "dispName": "태백선",
             "icon": null,
             "color": "#7ba05b",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -492,7 +465,6 @@
             "dispName": "미배치",
             "icon": null,
             "color": "#adb81d",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           }
@@ -530,7 +502,6 @@
             "dispName": " 날짜",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": false,
             "featureType": "DATE"
           },
@@ -539,7 +510,6 @@
             "dispName": "편성번호",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": false,
             "featureType": "STRING"
           },
@@ -548,7 +518,6 @@
             "dispName": "차량",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": false,
             "featureType": "STRING"
           },
@@ -557,7 +526,6 @@
             "dispName": "장치",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": false,
             "featureType": "STRING"
           },
@@ -566,7 +534,6 @@
             "dispName": "권장조치",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": false,
             "featureType": "STRING"
           }
@@ -590,7 +557,6 @@
             "dispName": "날짜",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": false,
             "featureType": "DATE_SEC"
           },
@@ -599,7 +565,6 @@
             "dispName": "시 스템",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": false,
             "featureType": "STRING"
           },
@@ -608,7 +573,6 @@
             "dispName": "이벤트명",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": false,
             "featureType": "STRING"
           },
@@ -617,7 +581,6 @@
             "dispName": "시스템로그",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": false,
             "featureType": "STRING"
           }
@@ -655,7 +618,6 @@
             "dispName": "날짜",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": true,
             "featureType": "DATE"
           },
@@ -664,7 +626,6 @@
             "dispName": "경부선",
             "icon": null,
             "color": "#0000FF",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -673,7 +634,6 @@
             "dispName": "호남선",
             "icon": null,
             "color": "#FF0000",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -682,7 +642,6 @@
             "dispName": "전라선",
             "icon": null,
             "color": "#FF00FF",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -691,7 +650,6 @@
             "dispName": "동해선",
             "icon": null,
             "color": "#00FF00",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -700,7 +658,6 @@
             "dispName": "태백선",
             "icon": null,
             "color": "#FFA500",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -709,7 +666,6 @@
             "dispName": "미배치",
             "icon": null,
             "color": "#6A5ACD",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           }
@@ -733,7 +689,6 @@
             "dispName": "날짜",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": true,
             "featureType": "DATE"
           },
@@ -742,7 +697,6 @@
             "dispName": "주변압기",
             "icon": null,
             "color": "#FF0000",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -751,7 +705,6 @@
             "dispName": "주공기압축기",
             "icon": null,
             "color": "#00BFFF",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -760,7 +713,6 @@
             "dispName": "보조공기압축기",
             "icon": null,
             "color": "#6A5ACD",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -769,7 +721,6 @@
             "dispName": "승강문",
             "icon": null,
             "color": "#FF00FF",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -778,7 +729,6 @@
             "dispName": "HAVC",
             "icon": null,
             "color": "#00FF00",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -787,7 +737,6 @@
             "dispName": "견인전동기",
             "icon": null,
             "color": "#FFA500",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -796,7 +745,6 @@
             "dispName": "화제감지기",
             "icon": null,
             "color": "#FF1493",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -805,7 +753,6 @@
             "dispName": "차축베어링",
             "icon": null,
             "color": "#0000FF",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -814,7 +761,6 @@
             "dispName": "방송장치",
             "icon": null,
             "color": "#FF4500",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           }
@@ -837,7 +783,6 @@
             "name": "date",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": true,
             "featureType": "STRING"
           },
@@ -846,7 +791,6 @@
             "dispName": "경부선",
             "icon": null,
             "color": "#0000FF",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -855,7 +799,6 @@
             "dispName": "호남선",
             "icon": null,
             "color": "#FF0000",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -864,7 +807,6 @@
             "dispName": "전라선",
             "icon": null,
             "color": "#FF00FF",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -873,7 +815,6 @@
             "dispName": "동해선",
             "icon": null,
             "color": "#00FF00",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -882,7 +823,6 @@
             "dispName": "태백선",
             "icon": null,
             "color": "#FFA500",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           },
@@ -891,7 +831,6 @@
             "dispName": "미배치",
             "icon": null,
             "color": "#6A5ACD",
-            "type": "feature",
             "isKey": false,
             "featureType": "UINT16"
           }
@@ -915,7 +854,6 @@
             "dispName": "날짜",
             "icon": null,
             "color": null,
-            "type": "feature",
             "isKey": true,
             "featureType": "DATE"
           },
@@ -924,43 +862,42 @@
             "dispName": "노선",
             "icon": null,
             "color": "#FF0000",
-            "type": "feature",
             "isKey": true,
-            "featureType": "literals",
+            "featureType": "LITERALS",
             "literals": [
               {
-                "value": "경부선",
-                "description": "경부선",
+                "name": "경부선",
+                "dispName": "경부선",
                 "icon": "",
                 "color": "#003da5"
               },
               {
-                "value": "호남선",
-                "description": "호남선",
+                "name": "호남선",
+                "dispName": "호남선",
                 "icon": "",
                 "color": "#d50032"
               },
               {
-                "value": "전라선",
-                "description": "전라선",
+                "name": "전라선",
+                "dispName": "전라선",
                 "icon": "",
                 "color": "#73c42d"
               },
               {
-                "value": "동해선",
-                "description": "동해선",
+                "name": "동해선",
+                "dispName": "동해선",
                 "icon": "",
                 "color": "#d96b80"
               },
               {
-                "value": "태백선",
-                "description": "태백선",
+                "name": "태백선",
+                "dispName": "태백선",
                 "icon": "",
                 "color": "#7ba05b"
               },
               {
-                "value": "미배치",
-                "description": "미배치",
+                "name": "미배치",
+                "dispName": "미배치",
                 "icon": "",
                 "color": "#adb81d"
               }
@@ -971,7 +908,6 @@
             "dispName": "편성",
             "icon": null,
             "color": "#00BFFF",
-            "type": "feature",
             "isKey": true,
             "featureType": "STRING"
           },
@@ -980,14 +916,33 @@
             "dispName": "차량",
             "icon": null,
             "color": "#6A5ACD",
-            "type": "feature",
             "isKey": true,
-            "featureType": "STRING",
-            "categorys": [
-              "TC1",
-              "M1",
-              "M2",
-              "TC2"
+            "featureType": "LITERALS",
+            "literals": [
+              {
+                "name": "M1",
+                "dispName": "M1",
+                "icon": "",
+                "color": "#003da5"
+              },
+              {
+                "name": "M2",
+                "dispName": "M2",
+                "icon": "",
+                "color": "#d50032"
+              },
+              {
+                "name": "TC1",
+                "dispName": "TC1",
+                "icon": "",
+                "color": "#73c42d"
+              },
+              {
+                "name": "TC2",
+                "dispName": "TC2",
+                "icon": "",
+                "color": "#d96b80"
+              }
             ]
           },
           {
@@ -995,18 +950,57 @@
             "dispName": "장치",
             "icon": null,
             "color": "#FF00FF",
-            "type": "feature",
             "isKey": true,
-            "featureType": "STRING",
-            "categorys": [
-              "승강문",
-              "주변압기",
-              "주공기압축기",
-              "보조공기압축기",
-              "HAVC",
-              "화제감지기",
-              "차축베어링",
-              "방송장치"
+            "featureType": "LITERALS",
+            "literals": [
+              {
+                "name": "승강문",
+                "dispName": "승강문",
+                "icon": "",
+                "color": "#FF1493"
+              },
+              {
+                "name": "주변압기",
+                "dispName": "주변압기",
+                "icon": "",
+                "color": "#0000FF"
+              },
+              {
+                "name": "주공기압축기",
+                "dispName": "주공기압축기",
+                "icon": "",
+                "color": "#00BFFF"
+              },
+              {
+                "name": "보조공기압축기",
+                "dispName": "보조공기압축기",
+                "icon": "",
+                "color": "#6A5ACD"
+              },
+              {
+                "name": "HAVC",
+                "dispName": "HAVC",
+                "icon": "",
+                "color": "#00FF00"
+              },
+              {
+                "name": "화제감지기",
+                "dispName": "화제감지기",
+                "icon": "",
+                "color": "#FF4500"
+              },
+              {
+                "name": "차축베어링",
+                "dispName": "차축베어링",
+                "icon": "",
+                "color": "#1E90FF"
+              },
+              {
+                "name": "방송장치",
+                "dispName": "방송장치",
+                "icon": "",
+                "color": "#FF6347"
+              }
             ]
           },
           {
@@ -1014,13 +1008,27 @@
             "dispName": "등급",
             "icon": null,
             "color": "#00FF00",
-            "type": "feature",
             "isKey": false,
-            "featureType": "STRING",
-            "categorys": [
-              "정상",
-              "주의",
-              "경고"
+            "featureType": "LITERALS",
+            "literals": [
+              {
+                "name": "정상",
+                "dispName": "정상",
+                "icon": "",
+                "color": "#33A1FF"
+              },
+              {
+                "name": "주의",
+                "dispName": "주의",
+                "icon": "",
+                "color": "#FFB300"
+              },
+              {
+                "name": "경고",
+                "dispName": "경고",
+                "icon": "",
+                "color": "#FF3333"
+              }
             ]
           }
         ]

@@ -7,32 +7,49 @@ import {
   NexLabel,
 } from "component/base/NexBaseComponents";
 import { NexFeatureNode, NexFeatureType, NexNodeType } from "type/NexNode";
-import { Divider, Stack } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  FormControl,
+  Grid,
+  IconButton,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { adminNodeDefs, getAdminNodeFromFeatures } from "./adminDataFormat";
 import {
+  MdArrowDownward,
+  MdArrowDropDown,
+  MdArrowDropUp,
   MdCancel,
+  MdDelete,
   MdKeyboardArrowDown,
   MdKeyboardArrowRight,
+  MdRemove,
 } from "react-icons/md";
 import { defaultThemeStyle, NexThemeStyle } from "type/NexTheme";
 import { clamp } from "utils/util";
 
 export interface LiteralItem {
-  value: string | number | boolean;
-  dispName?: string;
+  name: string;
+  dispName: string;
+  icon: string | null;
+  color: string | null;
 }
 
 // ===== Helpers =====
-function toLiteralTuple(
-  item: LiteralItem | string | number | boolean
-): [string, string] {
-  if (typeof item === "object" && item !== null && "value" in item) {
-    const value = String((item as LiteralItem).value);
-    const dispName = (item as LiteralItem).dispName ?? value;
-    return [value, dispName];
+function toLiteralTuple(item: LiteralItem): [string, string] {
+  if (typeof item !== "object") {
+    console.warn(
+      `# LabeledSelect: toLiteralTuple: invalid item : ${JSON.stringify(item, null, 2)}`
+    );
   }
-  const value = String(item);
-  return [value, value];
+  const name = String((item as LiteralItem).name);
+  const dispName = (item as LiteralItem).dispName ?? name;
+  return [name, dispName];
 }
 
 function setDeep(obj: any, path: string[], value: any) {
@@ -93,34 +110,23 @@ const LabeledInput: React.FC<InputProps> = ({
   onChange,
   type = "text",
 }) => (
-  <Stack
-    direction="row"
-    spacing={1}
-    alignItems="center"
-    width="100%"
-    title={placeholder}
-  >
-    <NexLabel width="8rem">{label}</NexLabel>
-    {onChange ? (
-      <NexInput
-        width="100%"
-        placeholder={placeholder || label}
-        value={value as any}
-        type={type}
-        onChange={(e) => onChange(e.target.value)}
-      />
-    ) : (
-      <NexLabel width="100%">{value}</NexLabel>
-    )}
-  </Stack>
+  <TextField
+    variant="standard"
+    label={label}
+    placeholder={placeholder || label}
+    value={value as any}
+    type={type}
+    onChange={(e) => (onChange ? onChange(e.target.value) : null)}
+    style={{ width: "100%" }}
+  />
 );
 
 interface SelectProps {
   label: string;
   placeholder?: string;
-  value: string | number;
+  value: string;
   onChange: (v: string) => void;
-  options: [string, string][]; // [value, label]
+  literals: LiteralItem[]; // [value, label]
 }
 
 const LabeledSelect: React.FC<SelectProps> = ({
@@ -128,68 +134,41 @@ const LabeledSelect: React.FC<SelectProps> = ({
   placeholder,
   value,
   onChange,
-  options,
+  literals,
 }) => {
   const fontSize = "1rem";
 
-  const tValue =
-    value === null || value === undefined || value === ""
-      ? options[0][0]
-      : value;
-
-  const existsInOptions = options.some(
-    ([name, dispName]) => name === String(tValue)
-  );
-
-  if (!existsInOptions) {
+  if (literals.length === 0) {
     console.warn(
-      `# LabeledSelect: no valid options : label=${label}, value=${value}, opts=${JSON.stringify(options, null, 2)}`
+      `# LabeledSelect: no valid literals : label=${label}, value=${value}, opts=${JSON.stringify(literals, null, 2)}`
     );
     return null;
   }
 
+  const isValid = literals.some((litObj) => litObj.name === value);
+
+  if (!isValid) {
+    console.warn(
+      `# LabeledSelect: invalid value : label=${label}, value=${value}, opts=${JSON.stringify(literals, null, 2)}`
+    );
+    onChange(literals[0].name);
+  }
+
   return (
-    <NexDiv
-      direction="row"
-      align="flex-start"
-      justify="flex-start"
-      width="100%"
-      fontSize={fontSize}
-      title={placeholder}
-    >
-      <Stack
-        spacing={1}
-        direction="row"
-        width="100%"
-        alignItems="center"
-        alignContent="end"
-        justifyContent="center"
+    <FormControl title={placeholder} variant="standard" sx={{ width: "100%" }}>
+      <Select
+        value={value}
+        onChange={(v: any) => onChange(v)}
+        label={label}
+        style={{ width: "100%" }}
       >
-        <NexLabel width="8rem">{label}</NexLabel>
-        <NexDiv width="100%">
-          {options.length === 1 ? (
-            <NexLabel>{tValue}</NexLabel>
-          ) : (
-            <select
-              value={String(tValue)}
-              style={{ width: "100%", height: "100%" }}
-              onChange={(e) => onChange(e.target.value)}
-            >
-              <option value="" disabled>
-                {placeholder || "옵션을 선택하세요"}
-              </option>
-              {Array.isArray(options)
-                ? options.map(([name, dispName]) => (
-                    <option key={name} value={name}>
-                      {dispName}
-                    </option>
-                  ))
-                : null}
-            </select>
-          )}
-        </NexDiv>
-      </Stack>
-    </NexDiv>
+        {literals.map((litObj, index) => (
+          <MenuItem key={index} value={litObj.name}>
+            {litObj.dispName}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 };
 
@@ -218,7 +197,7 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
         if ((f as any).featureType === NexFeatureType.ATTRIBUTES) {
           base[f.name] = getAdminNodeFromFeatures((f as any).attributes);
         } else if ((f as any).featureType === NexFeatureType.RECORDS) {
-          base[f.name] = [];
+          base[f.name] = "";
         } else if ((f as any).featureType === NexFeatureType.LITERALS) {
           base[f.name] = "";
         } else {
@@ -229,6 +208,11 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
     } else {
       setRows([...(rows || []), ""]);
     }
+    console.log("# RecordsEditor: addRow", {
+      id,
+      label,
+      rows: JSON.stringify(rows),
+    });
   };
 
   const removeRow = (idx: number) => {
@@ -237,106 +221,139 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
     setRows(next);
   };
 
+  const upRow = (idx: number) => {
+    if (idx <= 0) return;
+    const next = [...rows];
+    [next[idx - 1], next[idx]] = [next[idx], next[idx - 1]];
+    setRows(next);
+  };
+
+  const downRow = (idx: number) => {
+    if (idx >= rows.length - 1) return;
+    const next = [...rows];
+    [next[idx], next[idx + 1]] = [next[idx + 1], next[idx]];
+    setRows(next);
+  };
+
+  // 향후 Theme 등에 적용 고려
+  // 좁은 화면 세로 1열 편집 시
+  const gridNarrowSpacing = 1;
+  const gridNarrowColumns = 1;
+
+  // 중간 화면 세포 편집 시 (팝업 등)
+  const gridMidSpacing = 2;
+  const gridMidColumns = 6;
+
+  // 큰화면 가로 편집 시
+  const gridWideSpacing = 3;
+  const gridWideColumns = 12;
+
   return (
-    <Stack spacing={1} width="100%" direction="row">
-      <NexDiv width="8rem">{label} </NexDiv>
-      {!recordFields || recordFields.length === 0 ? (
-        <Stack width="100%" direction="column" spacing={0.2}>
-          {rows.map((val: any, i: number) => (
-            <NexDiv key={`${id}.${i}`} width="100%">
-              <NexInput
-                width="100%"
-                placeholder={placeholder || label}
-                value={val}
-                onChange={(e) => {
-                  const next = [...rows];
-                  next[i] = e.target.value;
-                  setRows(next);
+    <NexDiv width="100%" direction="column">
+      <Typography variant="subtitle2" sx={{ fontWeight: "bold", md: 1 }}>
+        {label}
+      </Typography>
+      {recordFields && (
+        <Stack spacing={1} width="100%" direction="column" sx={{ p: 1 }}>
+          {rows.map((row: any, rIdx: number) => (
+            <NexDiv align="center" width="100%" direction="row">
+              <Box
+                key={rIdx}
+                sx={{
+                  flex: 10,
+                  borderRadius: 2,
+                  border: "1px solid gray",
+                  padding: 1,
+                  "&:hover": {
+                    bgcolor: "#e8f4ff",
+                    border: "2px solid #58a4ff",
+                    boxShadow: "0 0 5px rgba(0,0,0,0.3)",
+                  },
                 }}
-              />
-
-              <MdCancel type="button" onClick={() => removeRow(i)} />
-            </NexDiv>
-          ))}
-          <NexButton type="button" onClick={addRow}>
-            + 추가
-          </NexButton>
-        </Stack>
-      ) : (
-        <NexDiv width="100%">
-          <table>
-            <thead>
-              <tr>
-                {recordFields.map((f) => (
-                  <th key={`${id}.head.${f.name}`}>{f.dispName || f.name}</th>
-                ))}
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row: any, rIdx: number) => (
-                <tr key={`${id}.row.${rIdx}`}>
-                  {recordFields.map((f) => {
-                    const cellId = `${id}.${rIdx}.${f.name}`;
-                    const ph = (f as any).description || undefined;
-
-                    if ((f as any).featureType === NexFeatureType.LITERALS) {
-                      const opts = ((f as any).literals || []).map(
-                        toLiteralTuple
-                      );
-                      return (
-                        <td key={cellId}>
+              >
+                <Grid
+                  container
+                  rowSpacing={0.5}
+                  columnSpacing={gridMidSpacing}
+                  columns={gridMidColumns}
+                  alignItems="flex-end"
+                >
+                  {recordFields.map((f, i) => {
+                    const size = (f as any).uxSize || 6;
+                    return (
+                      <Grid item key={i} xs={size}>
+                        {f.featureType === NexFeatureType.LITERALS ? (
                           <LabeledSelect
-                            key={id}
-                            label={f.name}
-                            placeholder={f.description || f.dispName || f.name}
-                            value={row[f.name]}
-                            options={opts}
-                            onChange={(v) => {
-                              const next = rows.map((x, i) =>
-                                i === rIdx ? { ...x, [f.name]: v } : x
-                              );
+                            label={f.dispName || f.name}
+                            value={row[f.name] ?? ""}
+                            literals={f.literals || []}
+                            onChange={(value) => {
+                              const next = [...rows];
+                              next[rIdx] = {
+                                ...next[rIdx],
+                                [f.name]: value,
+                              };
                               setRows(next);
                             }}
                           />
-                        </td>
-                      );
-                    }
-
-                    //const isNumber = (f as any).featureType === "UINT32";
-                    return (
-                      <td key={cellId}>
-                        <NexInput
-                          placeholder={ph}
-                          type={isNumber(f.featureType) ? "number" : "text"}
-                          value={row[f.name] ?? ""}
-                          onChange={(e) => {
-                            const value = asFeatureValue(
-                              e.target.value,
-                              (f as NexFeatureNode).featureType
-                            );
-                            const next = rows.map((x, i) =>
-                              i === rIdx ? { ...x, [f.name]: value } : x
-                            );
-                            setRows(next);
-                          }}
-                        />
-                      </td>
+                        ) : (
+                          <TextField
+                            label={f.dispName || f.name}
+                            variant="standard"
+                            value={row[f.name] ?? ""}
+                            style={{ width: "100%" }}
+                            onChange={(e) => {
+                              const next = [...rows];
+                              next[rIdx] = {
+                                ...next[rIdx],
+                                [f.name]: e.target.value,
+                              };
+                              setRows(next);
+                            }}
+                          />
+                        )}
+                      </Grid>
                     );
                   })}
-                  <td>
-                    <NexButton onClick={() => removeRow(rIdx)}>삭제</NexButton>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <NexDiv>
-            <NexButton onClick={addRow}>+ </NexButton>
-          </NexDiv>
-        </NexDiv>
+                </Grid>
+              </Box>
+              <Grid
+                container
+                flex={2}
+                spacing={0}
+                columns={3}
+                justifyContent="flex-center"
+              >
+                <Grid item xs={"auto"}>
+                  <IconButton onClick={() => upRow(rIdx)} size="small">
+                    <MdArrowDropUp fontSize="medium" />
+                  </IconButton>
+                </Grid>
+                <Grid item xs={"auto"}>
+                  <IconButton onClick={() => downRow(rIdx)} size="small">
+                    <MdArrowDropDown fontSize="medium" />
+                  </IconButton>
+                </Grid>
+                <Grid item xs={"auto"}>
+                  <IconButton onClick={() => removeRow(rIdx)} size="small">
+                    <MdRemove fontSize="medium" />
+                  </IconButton>
+                </Grid>
+              </Grid>
+            </NexDiv>
+          ))}
+          <NexButton
+            onClick={(e: any) => {
+              e.preventDefault();
+              e.stopPropagation?.();
+              addRow();
+            }}
+          >
+            +
+          </NexButton>
+        </Stack>
       )}
-    </Stack>
+    </NexDiv>
   );
 };
 
@@ -369,18 +386,6 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
     // submitText = "저장",
   } = props;
 
-  //const [data, setData] = useState<any>(node ? { ...base, ...node } : base);
-
-  //const index = data[0];
-  //const nodePath = data[1];
-  //const parentPath = `${nodePath.substring(0, nodePath.lastIndexOf("/"))}`;
-  //const node: any = data[2];
-
-  //const format = node ? adminNodeDefs[node.type as NexNodeType] : null;
-  //const features = format?.features || [];
-  //const tNode = getAdminNodeFromFeatures(features);
-  //const label = format?.dispName || node.type;
-
   const [index, setIndex] = useState<any>(null);
   const [node, setNode] = useState<any>(null);
   const [path, setPath] = useState<string>("");
@@ -396,6 +401,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
 
   useEffect(() => {
     const index = data[0];
+    console.log("# AdminNodeEditor: index type =", typeof index);
     const nodePath = data[1];
     const projectName = data[2];
     const systemName = data[3];
@@ -416,6 +422,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
 
     // set editing state
     setEditingNode(next);
+    console.log("# AdminNodeEditor: format=", JSON.stringify(tformat, null, 2));
     setFormat(tformat);
     setFeatures(tfeatures);
     setEdidtingPath(nodePath);
@@ -493,6 +500,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   };
 
   const headFields = () => {
+    //console.log("# format: ", JSON.stringify(format, null, 2));
     return (
       <NexDiv width="100%" direction="column">
         <NexLabel fontSize={fontSize} style={{ fontWeight: "bold" }}>
@@ -500,38 +508,51 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
         </NexLabel>
         {/* 간격 조정 */}
         <span style={{ height: fontSize }} />
-        <Stack spacing={1} direction="column" width="100%" alignItems="center">
-          <LabeledInput
-            label={"index"}
-            placeholder={"Index(key) of Node"}
-            value={index}
+        <Stack spacing={2} direction="row" width="100%" alignItems="center">
+          <TextField
+            size="small"
+            disabled
+            variant="standard"
+            label={"인덱스"}
+            value={String(index)}
+            style={{ flex: 2, minWidth: 0 }}
           />
-          <LabeledInput
-            label={"Path"}
-            placeholder={"Path of Node"}
-            value={editingPath}
+
+          <TextField
+            disabled
+            size="small"
+            variant="standard"
+            label={"경로"}
+            value={path}
+            style={{ flex: 8, minWidth: 0 }}
           />
         </Stack>
         {/* 간격 조정 */}
-        <NexDiv height="0.5rem" width="100%" borderBottom="1px solid gray" />
+        <span style={{ height: fontSize }} />
+
+        {/*<NexDiv height="0.5rem" width="100%" borderBottom="1px solid gray" /> */}
       </NexDiv>
     );
   };
 
   const bodyFields = () => (
-    <NexDiv width="100%" flex="1">
-      <Stack spacing={1} direction="column" width="100%">
-        <Stack
-          flex="1"
-          spacing={1}
-          direction="column"
-          width="100%"
-          alignItems="end"
-        >
-          {features && features.map((f: NexFeatureNode) => renderFeature(f))}
-        </Stack>
-      </Stack>
-    </NexDiv>
+    <Grid container spacing={2} width="100%">
+      {features &&
+        features.map((f: any) => {
+          const size = (f as any).uxSize || 12;
+          /* console.log(
+            "# bodyFields: feature =",
+            f.name,
+            " size=",
+            JSON.stringify(f, null, 2)
+          );*/
+          return (
+            <Grid item key={f.name} xs={"auto"} sm={"auto"} md={size}>
+              {renderFeature(f)}
+            </Grid>
+          );
+        })}
+    </Grid>
   );
 
   const tailFields = () => (
@@ -606,33 +627,37 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
     }
 
     if (feature.featureType === NexFeatureType.LITERALS) {
-      const options = (feature.literals || []).map(toLiteralTuple);
       const value = String(getAtPath(editingNode, argPath) ?? "");
-
       return (
         <LabeledSelect
           key={id}
           label={label}
           placeholder={placeholder}
           value={value}
-          options={options}
+          literals={feature.literals || []}
           onChange={(v) => handleLiteralChange(argPath, v)}
         />
       );
     }
 
     if (feature.featureType === NexFeatureType.RECORDS) {
+      console.log("# renderFeature: RECORDS", argPath, id);
       const rows = (getAtPath(editingNode, argPath) as any[]) || [];
+      console.log(
+        `# renderFeature: RECORDS at ${argPath} = ${JSON.stringify(feature, null, 2)}`
+      );
       return (
-        <RecordsEditor
-          key={id}
-          id={id}
-          label={label}
-          placeholder={placeholder}
-          rows={rows}
-          setRows={(r) => handleRecordsChange(argPath, r)}
-          recordFields={feature.recordFields}
-        />
+        <NexDiv key={id} width="100%">
+          <RecordsEditor
+            key={id}
+            id={id}
+            label={label}
+            placeholder={placeholder}
+            rows={rows}
+            setRows={(r) => handleRecordsChange(argPath, r)}
+            recordFields={feature.records}
+          />
+        </NexDiv>
       );
     }
 
@@ -646,13 +671,17 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
         : "text";
 
     return (
-      <LabeledInput
+      <TextField
         key={id}
+        variant="standard"
         label={label}
-        placeholder={placeholder}
-        value={value}
+        placeholder={placeholder || label}
+        value={value as any}
         type={type}
-        onChange={(v) => handlePrimitiveChange(argPath, feature.featureType, v)}
+        onChange={(e) =>
+          handlePrimitiveChange(argPath, feature.featureType, e.target.value)
+        }
+        style={{ flex: "1", width: "100%" }}
       />
     );
   };
@@ -674,12 +703,24 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
         }}
         style={{ width: "100%", height: "100%" }}
       >
-        <Stack spacing={2} direction="column" width="100%" height="100%">
+        <Stack
+          spacing={2}
+          direction="column"
+          width="100%"
+          height="100%"
+          style={{ minHeight: 0 }}
+        >
           <NexDiv width="100%">{headFields()}</NexDiv>
-          <NexDiv flex="10" width="100%">
+          <NexDiv
+            flex="10"
+            width="100%"
+            style={{ minHeight: 0, overflow: "auto" }}
+          >
             {bodyFields()}
           </NexDiv>
-          {editingNode && <pre>{JSON.stringify(editingNode, null, 2)}</pre>}
+          {false && editingNode && (
+            <pre>{JSON.stringify(editingNode, null, 2)}</pre>
+          )}
           <NexDiv flex="1" width="100%">
             {tailFields()}
           </NexDiv>

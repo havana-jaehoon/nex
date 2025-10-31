@@ -575,6 +575,10 @@
           {
             "key": "system-path",
             "feature": "path"
+          },
+          {
+            "key": "system",
+            "feature": "system"
           }
         ]
       }
@@ -613,11 +617,32 @@
         "dispName": "엘리먼트",
         "type": "contents",
         "element": "/admin/element",
+        "conditions": [],
+        "selections": [
+          {
+            "key": "element-path",
+            "feature": "path"
+          }
+        ]
+      }
+    }
+  ],
+  [
+    35,
+    "/admin/systemElement",
+    "",
+    "",
+    {
+      "8": {
+        "name": "systemElement",
+        "dispName": "시스템 엘리먼트",
+        "type": "contents",
+        "element": "/admin/element",
         "conditions": [
           {
-            "key": "system-path",
-            "feature": "path",
-            "method": "pathmatch"
+            "key": "system",
+            "feature": "system",
+            "method": "match"
           }
         ],
         "selections": [
@@ -630,7 +655,7 @@
     }
   ],
   [
-    35,
+    36,
     "/admin/SelectedElement",
     "",
     "",
@@ -642,9 +667,9 @@
         "element": "/admin/element",
         "conditions": [
           {
-            "key": "system-path",
-            "feature": "path",
-            "method": "pathmatch"
+            "key": "system",
+            "feature": "system",
+            "method": "match"
           },
           {
             "key": "element-path",
@@ -657,7 +682,7 @@
     }
   ],
   [
-    36,
+    37,
     "/admin/section",
     "",
     "",
@@ -678,7 +703,7 @@
     }
   ],
   [
-    37,
+    38,
     "/admin/SelectedSsection",
     "",
     "",

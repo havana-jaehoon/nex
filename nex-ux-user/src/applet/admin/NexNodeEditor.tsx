@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { NexDiv, NexLabel } from "component/base/NexBaseComponents";
-import { nexNodeIcon } from "icon/NexIcon";
-import JsonEditor from "./lib/JsonEditor";
+import { NexDiv } from "component/base/NexBaseComponents";
 import NexApplet, { NexAppProps } from "applet/NexApplet";
 import { observer } from "mobx-react-lite";
-import { Stack } from "@mui/material";
 import { clamp } from "utils/util";
 import { defaultThemeStyle } from "type/NexTheme";
+import AdminNodeEditor2 from "./lib/AdminNodeEditor2";
+import NexNodeForm from "type/NexNodeSchema";
 import AdminNodeEditor from "./lib/AdminNodeEditor";
-import { NexFeatureType, NexNodeType } from "type/NexNode";
-import { MdKeyboardArrowDown, MdKeyboardArrowRight } from "react-icons/md";
 
-
-
-const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
+const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
   const { contents, theme, user, onUpdate } = props;
 
   const [isMouseEnter, setMouseEnter] = useState(false);
@@ -78,6 +73,7 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
           bgColor={bgColor}
           onMouseEnter={() => setMouseEnter(true)}
           onMouseLeave={() => setMouseEnter(false)}
+          overflow="auto"
         >
           <AdminNodeEditor data={data} mode="edit" onApply={handleApply} />
         </NexDiv>
@@ -86,4 +82,4 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
   );
 });
 
-export default NexJsonEditor;
+export default NexNodeEditor;
