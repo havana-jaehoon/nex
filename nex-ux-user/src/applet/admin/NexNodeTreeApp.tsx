@@ -77,22 +77,24 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     const row = nexTree?.getNode(index) || null;
 
     setCurData(row);
+
+    /*
     console.log(
       `NexNodeTreeApp: onSelect index=${index}, row=`,
       JSON.stringify(row, null, 2)
     );
-
+    */
     if (onSelect) {
       onSelect(0, row); // Assuming single store for now
     }
   };
 
   const addNode = (type: NexNodeType) => {
-    const newNode = getAdminNodeFromType(type);
+    const newNodeObject = getAdminNodeFromType(type);
 
     const index = -1;
-    const project = curData[2];
-    const system = curData[3];
+    const project = curData?.[2] || "";
+    const system = curData?.[3] || "";
 
     let parentNodePath = "";
     if (!curData) {
@@ -105,10 +107,18 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     }
     console.log("# parentNodePath=", parentNodePath);
 
-    console.log("addNode: newNode=", JSON.stringify(newNode, null, 2));
-    const newData = [index, parentNodePath, project, system, { "0": newNode }];
+    const newData = [
+      index,
+      parentNodePath,
+      project,
+      system,
+      { "0": newNodeObject },
+    ];
+
+    console.log("addNode: curData=", JSON.stringify(curData, null, 2));
+    console.log("addNode: newData=", JSON.stringify(newData, null, 2));
+
     setEditingNode(newData);
-    //setEditingNode(curData);
 
     setIsAdding(true);
     setIsEditing(true);
@@ -215,15 +225,15 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   return (
     <NexApplet {...props} error={errorMsg()}>
       <NexDiv
-        flex="1"
-        direction="column"
-        align="center"
-        justify="flex-start"
+        flex='1'
+        direction='column'
+        align='center'
+        justify='flex-start'
         color={color}
         bgColor={bgColor}
-        width="100%"
-        height="100%"
-        overflow="auto"
+        width='100%'
+        height='100%'
+        overflow='auto'
         fontSize={fontSize}
         onClick={(e) => {
           // 컨테이너 자신을 직접 클릭한 경우(빈 영역)만 선택 해제
@@ -233,22 +243,22 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
         }}
       >
         {/* Add & Delete & Edit */}
-        <Stack spacing={0.5} direction="row" justifyContent="end" width="100%">
+        <Stack spacing={0.5} direction='row' justifyContent='end' width='100%'>
           <IconButton
-            title="폴더 추가"
-            color="primary"
+            title='폴더 추가'
+            color='primary'
             onClick={handleAddFolder}
           >
             <MdCreateNewFolder />
           </IconButton>
-          <IconButton title="Add" color="primary" onClick={handleAddEntity}>
+          <IconButton title='Add' color='primary' onClick={handleAddEntity}>
             <MdNewLabel />
           </IconButton>
-          <IconButton title="Edit" color="primary" onClick={handleEdit}>
+          <IconButton title='Edit' color='primary' onClick={handleEdit}>
             <MdEdit />
           </IconButton>
         </Stack>
-        <Stack spacing={0.5} direction="column" width="100%">
+        <Stack spacing={0.5} direction='column' width='100%'>
           {nexTree &&
             nexTree.data &&
             nexTree.data.map(

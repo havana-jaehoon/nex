@@ -460,7 +460,7 @@ const NexModalNodeEditer: React.FC<NexModalNodeEditerProps> = (props) => {
           borderRadius: "4px",
           padding: "0.5rem",
           display: "flex",
-          width: "24rem",
+          width: "48rem",
         },
       }}
     >

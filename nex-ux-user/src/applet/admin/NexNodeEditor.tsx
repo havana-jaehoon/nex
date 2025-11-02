@@ -4,8 +4,6 @@ import NexApplet, { NexAppProps } from "applet/NexApplet";
 import { observer } from "mobx-react-lite";
 import { clamp } from "utils/util";
 import { defaultThemeStyle } from "type/NexTheme";
-import AdminNodeEditor2 from "./lib/AdminNodeEditor2";
-import NexNodeForm from "type/NexNodeSchema";
 import AdminNodeEditor from "./lib/AdminNodeEditor";
 
 const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
@@ -65,17 +63,17 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
     <NexApplet {...props} error={errorMsg()}>
       {data ? (
         <NexDiv
-          direction="column"
-          align="center"
-          width="100%"
-          height="100%"
+          direction='column'
+          align='center'
+          width='100%'
+          height='100%'
           color={color}
           bgColor={bgColor}
           onMouseEnter={() => setMouseEnter(true)}
           onMouseLeave={() => setMouseEnter(false)}
-          overflow="auto"
+          overflow='auto'
         >
-          <AdminNodeEditor data={data} mode="edit" onApply={handleApply} />
+          <AdminNodeEditor data={data} mode='edit' onApply={handleApply} />
         </NexDiv>
       ) : null}
     </NexApplet>

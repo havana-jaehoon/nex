@@ -48,7 +48,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
       console.log(
         `NexAppProvider => section=${JSON.stringify(section)}, appletPath=${appletPath}`
       );
-      return <NexDiv width="100%" height="100%" padding={padding}></NexDiv>;
+      return <NexDiv width='100%' height='100%' padding={padding}></NexDiv>;
     }
 
     const contentsNodeList = useMemo(() => {
@@ -138,9 +138,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
             // find data
             //contents[contentsIndex].csv.find((r: any) => {});
             if (featureIndex >= 0 && row[featureIndex] !== undefined) {
-              console.log(
-                `NexAppProvider: handleSelect - Setting selector ${selection.key} = ${row[featureIndex]}`
-              );
+              //console.log(`NexAppProvider: handleSelect - Setting selector ${selection.key} = ${row[featureIndex]}`);
               selector.set(selection.key, row[featureIndex]);
             }
           });
@@ -195,7 +193,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     );
     //const conditions = applet?.contents.
     return (
-      <NexDiv width="100%" height="100%" padding={padding}>
+      <NexDiv width='100%' height='100%' padding={padding}>
         {app &&
           React.createElement(app, {
             name: name,

@@ -4,13 +4,6 @@ import React, { useEffect, useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowRight } from "react-icons/md";
 import { defaultThemeStyle, NexTheme, NexThemeStyle } from "type/NexTheme";
 
-const colorSelection = "#0F6CED";
-const colorTitle = "#EEEEEE";
-const bgColorInput = "#151515";
-
-const bgColorSection = "#222222";
-const colorSection = "#EEEEEE";
-const borderColorSection = "#555555";
 const fontSize = "1rem";
 
 interface InputProps {
@@ -86,10 +79,10 @@ const JsonEditor: React.FC<JsonEditorProps> = ({
   const iconSubItem = (key: string) => {
     return (
       <NexDiv
-        direction="row"
-        align="center"
+        direction='row'
+        align='center'
         onClick={() => toggleSubItem(key)}
-        cursor="pointer"
+        cursor='pointer'
       >
         {isOpen[key] !== false ? (
           <MdKeyboardArrowDown />
@@ -110,9 +103,9 @@ const JsonEditor: React.FC<JsonEditorProps> = ({
 
   return (
     <NexDiv
-      direction="row"
-      align="flex-start"
-      width="100%"
+      direction='row'
+      align='flex-start'
+      width='100%'
       fontSize={fontSize}
       title={caption}
     >
@@ -124,19 +117,19 @@ const JsonEditor: React.FC<JsonEditorProps> = ({
 
       <Stack
         spacing={1}
-        direction="column"
-        width="100%"
-        alignContent="center"
-        justifyContent="center"
+        direction='column'
+        width='100%'
+        alignContent='center'
+        justifyContent='center'
       >
         {Object.entries(localData).map(([key, value]) => (
           <React.Fragment key={key}>
             {!isObject(value) ? (
               <Stack
                 spacing={1}
-                direction="row"
-                width="100%"
-                alignItems="center" // 변경: end -> flex-end
+                direction='row'
+                width='100%'
+                alignItems='center' // 변경: end -> flex-end
                 height={`calc(${fontSize} * 1.5)`}
               >
                 <NexLabel>{key}</NexLabel>
@@ -145,10 +138,10 @@ const JsonEditor: React.FC<JsonEditorProps> = ({
                   value={value}
                   onChange={(e) => changeValue(key, e.target.value)}
                   onKeyDown={setValue}
-                  width="100%"
-                  height="100%"
-                  borderBottom="1px solid #555"
-                  borderRadius="0.2rem"
+                  width='100%'
+                  height='100%'
+                  borderBottom='1px solid #555'
+                  borderRadius='0.2rem'
                   color={colorInput}
                   bgColor={bgColorInput}
                   fontSize={fontSize}
@@ -157,7 +150,7 @@ const JsonEditor: React.FC<JsonEditorProps> = ({
                 />
               </Stack>
             ) : (
-              <NexDiv direction="column" align="flex-start">
+              <NexDiv direction='column' align='flex-start'>
                 {iconSubItem(key)}
 
                 {isOpen[key] !== false &&

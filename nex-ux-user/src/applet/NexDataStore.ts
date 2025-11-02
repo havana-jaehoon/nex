@@ -388,9 +388,7 @@ export class NexDataStore {
       return;
     }
     this.curRowIndex = Number(row[this.keyIndex]);
-    console.log(
-      `# select row=${JSON.stringify(row)}, index=${this.curRowIndex}`
-    );
+    //console.log(`# select row=${JSON.stringify(row)}, index=${this.curRowIndex}`);
   }
 
   add(curRow: any, newRow: any): boolean {

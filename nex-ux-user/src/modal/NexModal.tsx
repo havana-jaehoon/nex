@@ -60,7 +60,8 @@ const NexModal = ({
     onClose?.();
   };
 
-  useOutSideClick(modalRef, handleClose);
+  // Select 등 내부 컴포넌트 클릭시 모달이 닫히는 현상 방지
+  //useOutSideClick(modalRef, handleClose);
   useEffect(() => {
     const $body = document.querySelector("body");
     if ($body) {
@@ -140,7 +141,7 @@ const Contents = styled.div`
   }
   img {
     margin-top: 60px;
-    width: 300px;
+    width: 500px;
   }
 `;
 const Button = styled.button`

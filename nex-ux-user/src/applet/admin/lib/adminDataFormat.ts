@@ -12,38 +12,38 @@ export const commonFeatures: any[] = [
     name: "name",
     dispName: "이름",
     featureType: NexFeatureType.STRING,
-    uxSize: 6,
+    uxSize: 3,
   },
   {
     name: "dispName",
     dispName: "출력이름",
     featureType: NexFeatureType.STRING,
-    uxSize: 6,
+    uxSize: 3,
   },
   {
     name: "description",
     dispName: "설명",
     featureType: NexFeatureType.STRING,
-    uxSize: 12,
+    uxSize: 6,
   },
   {
     name: "type",
     dispName: "타입",
     featureType: NexFeatureType.LITERALS, // 기록 유형은 문자열로 처리
-    uxSize: 7,
+    uxSize: 4,
     literals: [],
   },
   {
     name: "icon",
     dispName: "아이콘",
     featureType: NexFeatureType.STRING,
-    uxSize: 6,
+    uxSize: 4,
   },
   {
     name: "color",
     dispName: "컬러",
     featureType: NexFeatureType.STRING,
-    uxSize: 6,
+    uxSize: 4,
   },
 ];
 
@@ -57,7 +57,7 @@ const folderTypeFeatureObject = {
       dispName: "폴더",
     },
   ],
-  uxSize: 7,
+  uxSize: 4,
 };
 
 const featureObjects = {
@@ -309,7 +309,6 @@ export const formatNodeDef: any = {
       name: "features",
       dispName: "데이터 속성 목록",
       featureType: NexFeatureType.RECORDS,
-      uxSize: 12,
       records: [
         {
           name: "name",
@@ -350,15 +349,15 @@ export const formatNodeDef: any = {
         },
         {
           name: "isKey",
-          dispName: "키 여부",
+          dispName: "키",
           featureType: NexFeatureType.BOOLEAN,
-          uxSize: 3,
+          uxSize: 1,
         },
         {
           name: "uxSize",
           dispName: "UX 크기",
           featureType: NexFeatureType.UINT8,
-          uxSize: 3,
+          uxSize: 2,
         },
       ],
     },

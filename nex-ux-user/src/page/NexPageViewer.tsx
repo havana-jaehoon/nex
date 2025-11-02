@@ -6,14 +6,6 @@ import { NexStoreContext } from "provider/NexStoreProvider";
 import NexAppProvider from "applet/NexAppProvider";
 import { defaultThemeStyle } from "type/NexTheme";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, A11y, Autoplay } from "swiper/modules";
-
-// 스와이퍼 CSS
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-
 interface NexPageViewerProps {
   section: any;
   isVisibleTitle?: boolean; // Optional prop to control visibility of section title
@@ -79,23 +71,6 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
           ))
         : null}
     </Routes>
-  );
-
-  const pageView2 = isRoutes && (
-    <Swiper style={{ width: "90%", height: "90%" }}>
-      {section.children && Array.isArray(section.children) ? (
-        <SwiperSlide>
-          {(section.children as any[]).map((child, index) => (
-            <NexPageViewer
-              key={index}
-              section={child}
-              isVisibleBorder={isVisibleBorder}
-              isVisibleTitle={isVisibleTitle}
-            />
-          ))}
-        </SwiperSlide>
-      ) : null}
-    </Swiper>
   );
 
   const childView =
