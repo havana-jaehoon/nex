@@ -294,6 +294,37 @@ class ConfigReader:
 
 
 
+newSystem = [
+    0,
+    "/webclient",
+    "",
+    "webclient",
+    {
+      "0": {
+        "name": "webclient",
+        "dispName": "웹클라이언트",
+        "description": "웹클라이언트",
+        "type": "system",
+        "address": {
+          "ip": "",
+          "port": ""
+        },
+        "hdfs": {
+          "ip": "",
+          "port": "",
+          "path": ""
+        },
+        "db": {
+          "ip": "",
+          "port": "",
+          "user": "",
+          "password": "",
+          "database": ""
+        }
+      }
+    }
+  ]
+
 if __name__ == '__main__':
     #cfg = ConfigReader("./config_nex/.element/admin")
     cfg = ConfigReader("./config_nex/.element/.system/webserver/admin")
@@ -307,7 +338,7 @@ if __name__ == '__main__':
 
     #systems = []
     systems = cfg.getSystems(project_name)
-    print(f"# Systems: {json.dumps(systems, ensure_ascii=False, indent=2)}")
+    #print(f"# Systems: {json.dumps(systems, ensure_ascii=False, indent=2)}")
     #print(f"# Format: {json.dumps(format, ensure_ascii=False, indent=2)}")
     
 
@@ -336,12 +367,19 @@ if __name__ == '__main__':
             format = item.get('format') # element format node config(json object)
             store = item.get('store') # element store node config(json object)
             processor = item.get('processor') # element processor node config(json object)
-            if(path == '/admin/element') :
-                print(f"# projet:{project_name}, system: {system_name}, path: {path}, format: {format}")
+            #if(path == '/admin/element') :
+            #    print(f"# projet:{project_name}, system: {system_name}, path: {path}, format: {format}")
 
-            #print(f"# {path} element:", json.dumps(element, ensure_ascii=False, indent=2))
+            print(f"# {path} element!")
             #dataio = DataFileIo("./config_nex/.element", path, system, element, format, store, processor)
             
+            if path == "/admin/system" and system_name == "webserver":
+                dataio = DataFileIo("./config_nex/.element", path, system, element, format, store, processor)
+                datas = dataio.get()
+                #print(f"# 1. System data: {json.dumps(datas, ensure_ascii=False, indent=2)}")
+                dataio.update(newSystem)
+                datas = dataio.get()
+                #print(f"# 2. System data: {json.dumps(datas, ensure_ascii=False, indent=2)}")
             #data = dataio.get(0, 0)
             #dataio.put(dataset)
             

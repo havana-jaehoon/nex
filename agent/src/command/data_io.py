@@ -153,6 +153,7 @@ class DataFileIo:
         # Checking : _record_info 내에 record 별 변경 유무 별도 관리 => 향후 성능 개선용
         # 변경된 부분만 갱신 등 사용
         self._record_info = None
+        self._isAdminConfig = False
 
         # Checking : 매번 파일을 읽지 않고 마지막 읽어드린 데이터를 보관
         # _record_info 의 변경유무 정보와 함께 데이터 캐시로 활용 가능
@@ -231,6 +232,7 @@ class DataFileIo:
             print(f"{self.__str__()} : None attribute(format | store | processor)!")
             self._dataType = 'static'
             self._isTree = True
+            self._isAdminConfig = True
         else:    # general case
             self._dataType = self._configs['store'].get('record', {}).get("nature", "static") # static or temporary
             #if not self._data_type in ['static', 'temporary']:
@@ -239,6 +241,8 @@ class DataFileIo:
             if(self._dataType == 'static'):
                 print(f"{self.__str__()}: static data")
                 self._isTree = self._configs['format'].get("isTree", False) # if True, tree structure
+                if self._isTree:
+                    self._isAdminConfig = True
             
             if(self._dataType == 'temporary'):
                 print(f"{self.__str__()}: temporary data")
@@ -272,6 +276,12 @@ class DataFileIo:
     def _loadData(self):
         self._records = self.get(0, 0) # load all data
 
+        if self._isAdminConfig: 
+            for record in self._records:
+                index = record[0]
+                if isinstance(index, int) and index > self.lastIndex:
+                    self.lastIndex = index
+
 
     # 기존 설정되 정보와 현재 설정된 정보 비교 후 변경된 경우 파일에 기록
     def _update_config(self, type:str, new_config):
@@ -302,6 +312,108 @@ class DataFileIo:
         return self._update_config(type, cfg_data)
         
 
+
+    # 특정 데이터 찾기
+    def _findNodeFromPath(self, path):
+        if path is None or len(self._records) == 0 or path == "" or path == "/":
+            return None
+        
+        if self._isAdminConfig:
+            for record in self._records:
+                if record[1] == path: # path 기준 비교
+                    return record
+        return None
+
+    def _findNodeFromIndex(self, index):
+        if index is None or len(self._records) == 0:
+            return None
+
+        if self._isAdminConfig:
+            for record in self._records:
+                if record[0] == index: # index 기준 비교
+                    return record
+        return None
+
+    # for Admin Configuration Data Tree 구조에서 특정 경로의 자식 노드들 찾기
+    def _findChildren(self, path, includeChildren=False):
+        if path is None or len(path) == 0 or len(self._records) == 0:
+            return []
+
+        children = []
+        record_path = ""
+        isParent = False
+
+        for record in self._records:
+            record_path = record[1]
+            parentPath = os.path.dirname(record_path)
+
+            if record_path == path:
+                isParent = True
+                if includeChildren:
+                    children.append(record)
+            elif includeChildren:
+                if path == record_path or record_path.startswith(f'{path}/'):
+                    children.append(record)
+            elif parentPath == path:
+                children.append(record)
+
+        if not isParent and os.path.dirname(path) != "/":
+            print(f"{self.__str__()}::findChildren() - no parent path: {path}")
+            return None
+        return children
+
+    def _getOrderIndex(self, row):
+        node = row[4]
+        if isinstance(node, dict) and len(node) == 1:
+            key = next(iter(node.keys()))
+            try:
+                index = int(key)
+            except (TypeError, ValueError):
+                index = key
+            return index
+        return None
+
+    def _setOrderIndex(self, row, newIndex):
+        node = row[4]
+        if isinstance(node, dict) and len(node) == 1:
+            key = next(iter(node.keys()))
+            try:
+                index = int(key)
+                node[str(newIndex)] = node.pop(key)
+                return True
+            except (TypeError, ValueError):
+                return False
+        return False
+    
+    def _increaseOrderIndex(self, row):
+        node = row[4]
+        if isinstance(node, dict) and len(node) == 1:
+            key = next(iter(node.keys()))
+            try:
+                index = int(key)
+                new_index = index + 1
+                node[str(new_index)] = node.pop(key)
+                return True
+            except (TypeError, ValueError):
+                return False
+        return False
+
+    def _decreaseOrderIndex(self, row):
+        node = row[4]
+        if isinstance(node, dict) and len(node) == 1:
+            key = next(iter(node.keys()))
+            try:
+                index = int(key)
+                new_index = index - 1
+                if new_index < 0:
+                    return False
+                node[str(new_index)] = node.pop(key)
+                return True
+            except (TypeError, ValueError):
+                return False
+        return False
+
+
     # 전체 데이터 가져오기
     def get(self, start_offset:str='0', end_offset:str='0'):
         if self._record_info is not None:
@@ -316,7 +428,7 @@ class DataFileIo:
             elif(self._dataType == 'temporary'): # temporary
                 # start_offset, end_offset : time string format: YYYY/MM/DD/HH/MM 
                 sTime = start_offset
-                eTime = end_offset\
+                eTime = end_offset
                 # time 범위에 따른 데이터 로딩
 
             # 모든 데이터 로딩    
@@ -333,50 +445,106 @@ class DataFileIo:
         return []
         # result : { 'selectedIndexes': [], 'records': [] }
 
-    
-    def add(self, data): 
+    def add(self, newData): 
         # 1. 데이터의 유효성 체크
-        if data is None or len(data) == 0:
+        if newData is None or len(newData) == 0:
 
             print(f"{self.__str__()}::add() - no data to add")
             return False
         
         # 1.1 데이터의 컬럼 수 체크
-        if len(data) != len(self.data_columns):
-            print(f"{self.__str__()}::add() - invalid data columns: expected {len(self.data_columns)}, got {len(data)}")
+        if len(newData) != len(self.data_columns):
+            print(f"{self.__str__()}::add() - invalid data columns: expected {len(self.data_columns)}, got {len(newData)}")
             return False
         
+        copyData = newData.copy()
+
         # 자동 발행 인덱스인 경우 인덱스 설정후 추가
-        if self._dataType == 'static' and self._isTree: # admin 설정 데이터 자동 인덱스 발행
+        # admin 설정 데이터인 경우
+        if self._isAdminConfig: # admin 설정 데이터 자동 인덱스 발행
+
             # static & tree
-            new_data = data.copy()
-            #new_data.insert(0, self.lastIndex)  # 인덱스를 데이터의 맨 앞에 추가
-            self._records.append(new_data)
+            # 기존 선택된 데이터의 인덱스에 추가
+            path = newData[1]
+
+            node = self._findNodeFromPath(path)
+            if node is not None:
+                print(f"{self.__str__()}::add() - node already exists for path: {path}")
+                return False, f"node already exists for path: {path}"
+
+            parentPath = os.path.dirname(path)
+            children = self._findChildren(parentPath)
+
+            if children is None:
+                print(f"{self.__str__()}::add() - no children for parent path: {parentPath}")
+                return False, "no parent"
+            
+            # newData[4] 는 { "index_number": node_object } 형태이며, key 가 인덱스
+            newIndex = self._getOrderIndex(newData)
+
+            # children 의 Index 를 새로 발행된 인덱스와 비교하여 삽입 하도록 인데스 재조정 
+            if len(children) == 0:
+                self._setOrderIndex(copyData, 0)
+            elif len(children) == 0 or len(children) < newIndex: # 마지막에 추가
+                self._setOrderIndex(copyData, len(children))
+            else:
+                for child in children:
+                    childIndex = self._getOrderIndex(child)
+                    if newIndex <= childIndex:
+                        self._increaseOrderIndex(child)
+
+
+            # 발행된 인덱스로 저장할 파일 및 경로 결정 
             self.lastIndex += 1
+            copyData[0] = self.lastIndex # 신규 인덱스 발행
+            
+            self._records.append(copyData)
+            
+            #print(f"{self.__str__()}::add(){json.dumps(self._records, ensure_ascii=False, indent=2)}")
+            # Admin 설정데이터의 경우 path 로 연관되어 있어 전체 데이터를 다시 쓰는 것으로 처리
+            self.set(self._records)        
             return True
         
-        # 사용자가 키를 지정하는 경우 인덱스 중복 체크 필요
-        # ex) index 가 time string 인 경우 등
-        if self._dataType == 'static':
-            if len(self.keyColumnIndexes) == 0:
-                print(f"{self.__str__()}::add() - no key columns defined, skipping duplicate check")
-                self._records.append(new_data)
-            else :
-                # keyColumnIndexes 에 따른 중복 체크
-                for record in self._records:
-                    is_match = True
-                    for key_index in self.keyColumnIndexes:
-                        if record[key_index] != data[key_index]:
-                            is_match = False
-                            break
-                    if is_match:
-                        print(f"{self.__str__()}::add() - duplicate record found based on key columns, skipping add")
-                        return False
-                self._records.append(data)
+        elif self._dataType == 'static':
+            # static & non-tree & non-temporary data
+            self.lastIndex += 1
+            copyData[0] = self.lastIndex # 신규 인덱스 발행
+            self._records.append(copyData)
+
+            # 현재 전체 데이터 다시 쓰는 것을 이후 변경된 파일만 갱신하도록 변경 필요함.
+            self.set(self._records)
             return True
 
-        # static 과 코드가 동일 ?
         if self._dataType == 'temporary':
+            time = copyData[0] # time string format: YYYY/MM/DD/HH/MM
+
+            # 현재 전체 데이터 다시 쓰는 것을 이후 변경된 파일만 갱신하도록 변경 필요함.
+            self._records.append(copyData)
+            self.set(self._records)
+            return True
+
+            ## 변경된 부분만 갱신하도록 하는 코드 예
+            dir_path, file_name = convTimeToPath(time, self._recordBlock)                  
+            file_path = f'{dir_path}/{file_name}'
+
+            file_full_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{file_path}'
+
+
+
+            records = self._read_json_file(file_full_path)
+            if records is None:
+                records = []
+
+            # 중복 체크
+            for record in records:
+                # 실제는 중복 허용 여부에 따라 처리해야 함
+                if record[0] == copyData[0]: # time 기준 비교
+                    print(f"{self.__str__()}::add() - duplicate record found in file {file_full_path}, skipping add")
+                    return False
+
+            
+            self._write_json_file(file_full_path, records)
+
             if len(self.keyColumnIndexes) == 0:
                 print(f"{self.__str__()}::add() - no key columns defined, skipping duplicate check")
                 self._records.append(new_data)
@@ -395,10 +563,114 @@ class DataFileIo:
             return True
         return False
     
-    def update(self, data):
+    def update(self, newData):
+        if self._isAdminConfig: # admin 설정 데이터 
+            # static & tree
+            # 기존 선택된 데이터의 인덱스에 추가
+            oldData = self._findNodeFromIndex(newData[0])
+            if oldData is None:
+                print(f"{self.__str__()}::update() - no existing data found for update: {newData}")
+                return False, "no existing data"
+            
+            oldPath = oldData[1]
+            newPath = newData[1]
+
+            oldProject = oldData[2]
+            newProject = newData[2]
+
+            oldSystem = oldData[3]
+            newSystem = newData[3]
+
+            oldOrderIndex = self._getOrderIndex(oldData)
+            newOrderIndex = self._getOrderIndex(newData)
+
+
+            # 하위 Path 노드를 찾아서 모두 이동 처리
+            # True 면 자식 노드 포함 (자신을 포함해 Path 변경)
+            if oldPath != newPath or oldProject != newProject or oldSystem != newSystem:
+                children = self._findChildren(oldPath, True)
+                for child in children:
+                    # child path 변경 (앞 부분만 변경)
+                    #print(f"{self.__str__()}::update() - update child node: {child}")
+                    childPath = child[1]
+                    relativePath = os.path.relpath(childPath, oldPath)
+                    if relativePath == "." or relativePath == "":
+                        newChildPath = newPath
+                    else:
+                        newChildPath = os.path.join(newPath, relativePath)
+                    # 경로 정규화 및 구분자 통일
+                    newChildPath = os.path.normpath(newChildPath).replace("\\", "/")
+
+                    #print(f"{self.__str__()}::update()-move path: {childPath} -> {newChildPath}")
+                    child[1] = newChildPath
+                    child[2] = newProject
+                    child[3] = newSystem
+
+            
+            # object node 의 인덱스 재조정 필요
+            if oldOrderIndex != newOrderIndex:
+                parentPath = os.path.dirname(newPath)
+                children = self._findChildren(parentPath)
+                if children is None or len(children) == 0 :
+                    print(f"{self.__str__()}::update() - no children for parent path: {parentPath}")
+                    return False, "no parent"
+
+                if newOrderIndex < 0 or len(children) <= newOrderIndex:
+                    print(f"{self.__str__()}::update() - invalid new order index: {newOrderIndex}/{len(children)}")
+                    return False, "invalid new order index"
+
+                for child in children:
+                    childIndex = self._getOrderIndex(child)
+                    # 기존 인덱스 위치 조정
+                    
+                    if newOrderIndex < oldOrderIndex and childIndex < oldOrderIndex and childIndex >= newOrderIndex:
+                            self._increaseOrderIndex(child)
+
+                    elif newOrderIndex > oldOrderIndex and childIndex <= newOrderIndex and childIndex > oldOrderIndex:
+                            self._decreaseOrderIndex(child)
+
+            # 변경된 데이터로 갱신
+            oldData[4] = newData[4]
+            self.set(self._records)
+            return True, "Success"
+
         return None
     
     def delete(self, data):
+        if self._isAdminConfig: # admin 설정 데이터 
+            # static & tree
+            # 기존 선택된 데이터의 인덱스에 추가
+            oldData = self._findNodeFromIndex(data[0])
+            if oldData is None:
+                print(f"{self.__str__()}::delete() - no existing data found for delete: {data}")
+                return False, f"no existing data by index : {data[0]}"
+            
+            oldData1 = self._findNodeFromPath(data[1])
+            if oldData1 is None:
+                print(f"{self.__str__()}::delete() - no existing data found for delete by path: {data[1]}")
+                return False, f"no existing data by path: {data[1]}"
+            
+            oldPath = oldData[1]
+
+            # 동일 부모 패스내의 다른 노드들의 인덱스 재조정
+            parentPath = os.path.dirname(oldPath)
+            children = self._findChildren(parentPath)
+            if children is not None:
+                oldOrderIndex = self._getOrderIndex(oldData)
+                for child in children:
+                    childIndex = self._getOrderIndex(child)
+                    if childIndex > oldOrderIndex:
+                        self._decreaseOrderIndex(child) 
+
+            # 하위 Path 노드를 찾아서 모두 삭제 처리
+            # True 면 자식 노드 포함 (자신을 포함해 Path 변경)
+            children = self._findChildren(oldPath, True)
+            for child in children:
+                print(f"{self.__str__()}::delete() - delete child node: {child}")
+                self._records.remove(child)
+
+            self.set(self._records)
+            return True, "Success"
         return None
     
     # 전체 데이터 쓰기 
@@ -413,15 +685,8 @@ class DataFileIo:
         #print(f"{self.__str__()}::set() - total {datas} records to save")  
         index_datas = []
         new_records = []
-        if self._dataType == 'static' and self._isTree:
-            # admin 설정 데이터는 업로드 하지 않음(임시)
-            # 1 record per file for admin config
-            #data_map = {}
-            #data_map[DATA_FILE_NAME] = { 'index': 0, 'path': f'/{DATA_FILE_NAME}', 'data': datas }
-            print(f"{self.__str__()}::set-config - total {len(datas)} records ")
-            return False
-        
-        elif self._dataType == 'static':
+       
+        if self._dataType == 'static':
             print(f"{self.__str__()}::set() - static data saving")
 
             data_map = {}
@@ -429,7 +694,6 @@ class DataFileIo:
                 block = datas[i:i + DATA_BLOCK_SIZE]
                 index = i * DATA_BLOCK_SIZE
                 dir_path, file_name = convIndexToPath(index)
-
                 file_path = f'{dir_path}/{file_name}'
                 data_map[file_name] = { 'index': i, 'path': file_path, 'data': block }
                 #print(f"{self.__str__()}::set() - block: index={i}, path={file_path}, records={block}")
@@ -482,42 +746,6 @@ class DataFileIo:
 
         return True
     
-    def upgrade2(self):
-        records = self.get()
-        self.set(records)
-
-    def upgrade(self):
-        records = self.get()
-        if records is None or len(records) == 0:
-            return False
-        
-        node = records[0][4]
-
-        keys = list(node.keys())
-        values = list(node.values())
-        
-        if(len(keys) == 1 and keys[0].isdigit()):
-            # 새로운 설정포맷이 적용된 데이터
-            print(f"{self.__str__()}::upgrade() - upgrade done already")
-            return False
-        
-        child_count_per_path = {}
-        for record in records:
-            path = record[1]
-            parent_path = os.path.dirname(path)
-            if parent_path not in child_count_per_path:
-                child_count_per_path[parent_path] = 0
-                #print("# New parent path:", parent_path)
-            else :               
-                child_count_per_path[parent_path] += 1
-
-            #new_record = record[:]  # Create a copy
-            record[4] = {str(child_count_per_path[parent_path]): record[4]}
-
-        
-        self.set(records)
-        print(f"{self.__str__()}::upgrade() - new upgrade done")
-        return True
    
 if __name__ == '__main__':
 
