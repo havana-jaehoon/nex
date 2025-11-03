@@ -147,6 +147,64 @@ class AdminMgr(SingletonInstance):
             return HandlerResult(status=500, body=f'exception : {e}')
 
 
+
+    async def _cmdData(self, handler_args: HandlerArgs, kwargs: dict)-> HandlerResult:
+        try:
+            # execute processor
+            #handler_result, output_list = await self._processor.process(exp, body, arg_list, kwargs)
+            #print(f"# Root-Path : {ADMIN_CONFIG_DIR}")
+            #res = load_all_config(ADMIN_CONFIG_DIR)
+            method = handler_args.method
+            system = handler_args.query_params.get('system', '')
+            project = handler_args.query_params.get('project', '')
+            path = handler_args.query_params.get('path', '')
+            dataio = self._dataioMap.get(project, {}).get(system, {}).get(path, None)
+
+            if dataio is None:
+                return HandlerResult(status=404, body=f'Not found dataio for project:{project}, system:{system}, path:{path}')
+
+            if method == 'GET': # get command -> get
+                # Handle GET request
+                print(f'AdminMgr::_cmdData-GET:({handler_args, kwargs})')
+
+                soffset = int(handler_args.query_params.get('soffset', '0'))
+                eoffset = int(handler_args.query_params.get('eoffset', '0'))
+              
+                data = dataio.get(soffset, eoffset)
+        
+                res = json.dumps(data, indent=2, ensure_ascii=False)
+                #print(f"AdminMgr::_get( elements : {res}")
+
+                return HandlerResult(status=200, response=res, body=res)
+            
+            elif method == 'POST': # post command -> add
+                # Handle POST request
+                print(f'AdminMgr::_cmdData-POST:({handler_args, kwargs})')
+
+
+                return HandlerResult(status=200, body='POST command received')
+
+            elif method == 'PUT': # put command -> update
+                # Handle PUT request
+                print(f'AdminMgr::_cmdData-PUT:({handler_args, kwargs})')
+                return HandlerResult(status=200, body='PUT command received')
+
+
+            elif method == 'DELETE': # delete command -> remove
+                # Handle DELETE request
+                print(f'AdminMgr::_cmdData-DELETE:({handler_args, kwargs})')
+
+                return HandlerResult(status=200, body='DELETE command received')
+
+
+
+
+        except Exception as e:
+            Logger().log_error(f'AdminMgr::_cmdData({handler_args, kwargs}) : {e}')
+            return HandlerResult(status=500, body=f'exception : {e}')
+
+
+
     async def _uploadData(self, handler_args: HandlerArgs, kwargs: dict)-> HandlerResult:
         try:
             # execute processor
@@ -222,7 +280,7 @@ class AdminMgr(SingletonInstance):
     def get_query_handlers(self) -> List[Tuple[str, Server_Dynamic_Handler, dict]]:
         handler_list: List[Tuple[str, Server_Dynamic_Handler, dict]] = [
             ("/admin-api", self._getAdmin, {"cmd_id": "/admin-api"}),
-            ("/data-api", self._getData, {"cmd_id": "/admin-api"}),
+            ("/data-api", self._cmdData, {"cmd_id": "/data-api"}),
             ("/data-api/upload", self._uploadData, {"cmd_id": "/upload-api"}),
         ]
         return handler_list

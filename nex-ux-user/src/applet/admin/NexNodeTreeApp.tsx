@@ -95,16 +95,26 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     const index = -1;
     const project = curData?.[2] || "";
     const system = curData?.[3] || "";
+    let orderIndex = -1; // 마지막에 추가
 
     let parentNodePath = "";
     if (!curData) {
       parentNodePath = "/";
+      orderIndex = -1; // 루트에 추가하는 경우 마지막에 추가
     } else if (curData[2].type === NexNodeType.FOLDER) {
       parentNodePath = curData[1] + "/";
+      orderIndex = -1; // 폴더 내 마지막 항목으로 추가
     } else {
       parentNodePath =
         curData[1].substring(0, curData[1].lastIndexOf("/")) + "/";
+      const keys = Object.keys(curData[4]);
+      if (keys.length > 0) orderIndex = parseInt(keys[0]);
+      else {
+        console.warn("addNode: curData has no child nodes");
+        return;
+      }
     }
+
     console.log("# parentNodePath=", parentNodePath);
 
     const newData = [
@@ -112,7 +122,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       parentNodePath,
       project,
       system,
-      { "0": newNodeObject },
+      { [orderIndex.toString()]: newNodeObject },
     ];
 
     console.log("addNode: curData=", JSON.stringify(curData, null, 2));

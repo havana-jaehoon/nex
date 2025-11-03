@@ -31,6 +31,20 @@ import {
 } from "react-icons/md";
 import { defaultThemeStyle, NexThemeStyle } from "type/NexTheme";
 import { clamp } from "utils/util";
+import { set } from "mobx";
+
+// 향후 Theme 등에 적용 고려
+// 좁은 화면 세로 1열 편집 시
+const gridNarrowSpacing = 1;
+const gridNarrowColumns = 2;
+
+// 중간 화면 세포 편집 시 (팝업 등)
+const gridMidSpacing = 3;
+const gridMidColumns = 6;
+
+// 큰화면 가로 편집 시
+const gridWideSpacing = 4;
+const gridWideColumns = 12;
 
 export interface LiteralItem {
   name: string;
@@ -94,31 +108,6 @@ function asFeatureValue(value: string, featureType: NexFeatureType) {
 }
 
 // ===== UI atoms =====
-interface InputProps {
-  label: string;
-  placeholder?: string;
-  value: string | number;
-  onChange?: (v: string) => void;
-  type?: "text" | "number" | "password";
-}
-
-const LabeledInput: React.FC<InputProps> = ({
-  label,
-  placeholder,
-  value,
-  onChange,
-  type = "text",
-}) => (
-  <TextField
-    variant='standard'
-    label={label}
-    placeholder={placeholder || label}
-    value={value as any}
-    type={type}
-    onChange={(e) => (onChange ? onChange(e.target.value) : null)}
-    style={{ width: "100%" }}
-  />
-);
 
 interface SelectProps {
   label: string;
@@ -236,19 +225,6 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
     [next[idx], next[idx + 1]] = [next[idx + 1], next[idx]];
     setRows(next);
   };
-
-  // 향후 Theme 등에 적용 고려
-  // 좁은 화면 세로 1열 편집 시
-  const gridNarrowSpacing = 1;
-  const gridNarrowColumns = 2;
-
-  // 중간 화면 세포 편집 시 (팝업 등)
-  const gridMidSpacing = 3;
-  const gridMidColumns = 6;
-
-  // 큰화면 가로 편집 시
-  const gridWideSpacing = 4;
-  const gridWideColumns = 12;
 
   return (
     <NexDiv width='100%' direction='column'>
@@ -420,46 +396,55 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   } = props;
 
   const [index, setIndex] = useState<any>(null);
-  const [node, setNode] = useState<any>(null);
   const [path, setPath] = useState<string>("");
+  const [project, setProject] = useState<string>("");
+  const [system, setSystem] = useState<string>("");
+  const [orderIndex, setOrderIndex] = useState<number>(-1);
+
+  const [node, setNode] = useState<any>(null);
 
   const [format, setFormat] = useState<any>(null);
   const [features, setFeatures] = useState<any>(null);
   const [editingNode, setEditingNode] = useState<any>(null);
   const [parentPath, setParentPath] = useState<string>("");
+  const [editingPath, setEditingPath] = useState<string>("");
 
-  const [editingPath, setEdidtingPath] = useState<string>("");
-  //const [newNode, setNode] = useState<any>(node);
   const [isOpen, setIsOpen] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
-    const index = data[0];
     //console.log("# AdminNodeEditor: index type =", typeof index);
     const nodePath = data[1];
-    const projectName = data[2];
-    const systemName = data[3];
-    const node: any = Object.values(data[4])[0];
+
+    // original node setting
+    setIndex(data[0]);
+    setPath(nodePath);
+    setProject(data[2]);
+    setSystem(data[3]);
+
+    const nodeObject: any = Object.values(data[4])[0];
     // Object.keys(data[4])[0] => order of Node Objects
 
-    const tformat = node ? adminNodeDefs[node.type as NexNodeType] : null;
+    const tformat = nodeObject
+      ? adminNodeDefs[nodeObject.type as NexNodeType]
+      : null;
     const tfeatures = tformat?.features || [];
 
     // Merge the node with the template format
     const tNode = getAdminNodeFromFeatures(tfeatures);
-    const next = { ...tNode, ...node };
+    const next = { ...tNode, ...nodeObject };
 
-    // original node setting
-    setIndex(index);
+    setOrderIndex(
+      Object.keys(data[4])[0] ? parseInt(Object.keys(data[4])[0]) : -1
+    );
+
     setNode(next);
-    setPath(nodePath);
 
     // set editing state
     setEditingNode(next);
     //console.log("# AdminNodeEditor: format=", JSON.stringify(tformat, null, 2));
     setFormat(tformat);
     setFeatures(tfeatures);
-    setEdidtingPath(nodePath);
-
+    setEditingPath(nodePath);
     setParentPath(`${nodePath.substring(0, nodePath.lastIndexOf("/"))}`);
   }, [data]);
 
@@ -473,7 +458,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   const handleReset = () => {
     // 입력된 node 데이터와 format 에 의해 만들어진 데이터를 병합
     setEditingNode(node);
-    setEdidtingPath(path);
+    setEditingPath(path);
     console.log("# handleReset: ", JSON.stringify(editingNode));
   };
 
@@ -503,7 +488,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
     if (argPath.join(".") === "name") {
       newNodePath = `${parentPath}/${raw}`;
     }
-    setEdidtingPath(newNodePath);
+    setEditingPath(newNodePath);
     onChange?.([index, newNodePath, next]);
   };
 
@@ -541,29 +526,73 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
         </NexLabel>
         {/* 간격 조정 */}
         <span style={{ height: fontSize }} />
-        <Stack spacing={2} direction='row' width='100%' alignItems='center'>
-          <TextField
-            size='small'
-            disabled
-            variant='standard'
-            label={"인덱스"}
-            value={String(index)}
-            style={{ flex: 2, minWidth: 0 }}
-          />
+        <NexDiv width='100%'>
+          <Grid
+            container
+            spacing={0.5}
+            columnSpacing={gridMidSpacing}
+            columns={12}
+            width='100%'
+            alignItems='flex-end'
+          >
+            <Grid item xs={"auto"} sm={"auto"} md={1}>
+              <TextField
+                size='small'
+                disabled
+                variant='standard'
+                label={"인덱스"}
+                value={String(index)}
+                style={{ width: "100%" }}
+              />
+            </Grid>
 
-          <TextField
-            disabled
-            size='small'
-            variant='standard'
-            label={"경로"}
-            value={editingPath}
-            style={{ flex: 8, minWidth: 0 }}
-          />
-        </Stack>
+            <Grid item xs={"auto"} sm={"auto"} md={7}>
+              <TextField
+                disabled
+                size='small'
+                variant='standard'
+                label={"경로"}
+                value={editingPath}
+                style={{ width: "100%" }}
+              />
+            </Grid>
+            <Grid item xs={"auto"} sm={"auto"} md={4} />
+
+            <Grid item xs={"auto"} sm={"auto"} md={4}>
+              <TextField
+                size='small'
+                variant='standard'
+                label={"프로젝트"}
+                type='text'
+                value={project}
+                style={{ width: "100%" }}
+              />
+            </Grid>
+            <Grid item xs={"auto"} sm={"auto"} md={4}>
+              <TextField
+                size='small'
+                variant='standard'
+                label={"시스템"}
+                type='text'
+                value={system}
+                style={{ width: "100%" }}
+              />
+            </Grid>
+            <Grid item xs={"auto"} sm={"auto"} md={0} />
+            <Grid item xs={"auto"} sm={"auto"} md={1}>
+              <TextField
+                size='medium'
+                variant='outlined'
+                label={"순서"}
+                type='number'
+                value={orderIndex}
+                style={{ width: "100%" }}
+              />
+            </Grid>
+          </Grid>
+        </NexDiv>
         {/* 간격 조정 */}
         <span style={{ height: fontSize }} />
-
-        {/*<NexDiv height="0.5rem" width="100%" borderBottom="1px solid gray" /> */}
       </NexDiv>
     );
   };
@@ -745,7 +774,9 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
           height='100%'
           style={{ minHeight: 0 }}
         >
-          <NexDiv width='100%'>{headFields()}</NexDiv>
+          <NexDiv flex='3' width='100%'>
+            {headFields()}
+          </NexDiv>
           <NexDiv
             flex='10'
             width='100%'
