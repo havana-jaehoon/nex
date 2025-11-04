@@ -193,7 +193,7 @@ export class NexDataStore {
   //features: any[] = []; // feature list
 
   // 데이터를 빠르게 찾기 위한 key & 데이터 관리
-  curKeys: any[] = [];
+  selectedKeys: any[] = [];
   keyIndexs: number[] = []; // key indexes
 
   idata: any[] = []; // input data
@@ -263,7 +263,7 @@ export class NexDataStore {
       element: observable,
       format: observable,
       idata: observable,
-      curKeys: observable,
+      selectedKeys: observable,
       odata: observable,
       ioffset: observable,
       foffset: observable,
@@ -363,12 +363,14 @@ export class NexDataStore {
 
   async select(row: any): Promise<boolean> {
     if (!row) {
-      this.curKeys = [];
+      this.selectedKeys = [];
       return false;
     }
-    this.curKeys = row.flatMap((v: any, i: number) =>
+    this.selectedKeys = row.flatMap((v: any, i: number) =>
       this.keyIndexs.includes(i) ? [v] : []
     );
+
+    return false;
 
     try {
       const response = await axios.put(this.url, row, {
@@ -394,7 +396,6 @@ export class NexDataStore {
       );
       return false;
     }
-
   }
 
   async add(newRow: any): Promise<boolean> {
@@ -426,14 +427,23 @@ export class NexDataStore {
   }
 
   async remove(row: any): Promise<boolean> {
-    console.log("NexDataStore: remove", JSON.stringify(row, null, 2));
+    if (!row) {
+      console.warn("NexDataStore: remove - invalid row");
+      return false;
+    }
+    const keys = row.flatMap((v: any, i: number) =>
+      this.keyIndexs.includes(i) ? [v] : []
+    );
+    console.log(
+      `NexDataStore::remove() data: ${JSON.stringify(row, null, 2)}, keys: ${JSON.stringify(keys, null, 2)}`
+    );
     try {
-      const keys = row.flatMap((v: any, i: number) =>
-        this.keyIndexs.includes(i) ? [v] : []
-      );
-
       const response = await axios.delete(this.url, {
-        params: { ...this.queryParams, cmd: "remove", keys: keys },
+        params: {
+          ...this.queryParams,
+          cmd: "remove",
+          keys: JSON.stringify(keys, null, 2),
+        },
       });
       if (response.status < 200 || response.status >= 300) {
         console.error("Failed to remove Data response:", response);
@@ -445,7 +455,7 @@ export class NexDataStore {
           JSON.stringify(response.data, null, 2)
         );
       });
-      this.curKeys = [];
+      this.selectedKeys = [];
       return true;
     } catch (error) {
       console.error(
@@ -456,6 +466,7 @@ export class NexDataStore {
   }
 
   async update(row: any): Promise<boolean> {
+    console.error("NexDataStore: update", JSON.stringify(row, null, 2));
     try {
       const response = await axios.put(this.url, row, {
         params: { ...this.queryParams, cmd: "update" },

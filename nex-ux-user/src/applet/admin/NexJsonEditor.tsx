@@ -11,8 +11,6 @@ import AdminNodeEditor from "./lib/AdminNodeEditor";
 import { NexFeatureType, NexNodeType } from "type/NexNode";
 import { MdKeyboardArrowDown, MdKeyboardArrowRight } from "react-icons/md";
 
-
-
 const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
   const { contents, theme, user, onUpdate } = props;
 
@@ -59,7 +57,10 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
   const bgColor = style?.bgColors[0] || "#e8edf7";
 
   const handleApply = (newData: any) => {
-    //console.log("onApply : ", JSON.stringify(newData, null, 2));
+    console.log(
+      "JsonEditor::handleApply() : ",
+      JSON.stringify(newData, null, 2)
+    );
     const bres = onUpdate?.(0, newData);
     if (!bres) {
       window.alert("Data update failed");
@@ -70,16 +71,16 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
     <NexApplet {...props} error={errorMsg()}>
       {data ? (
         <NexDiv
-          direction="column"
-          align="center"
-          width="100%"
-          height="100%"
+          direction='column'
+          align='center'
+          width='100%'
+          height='100%'
           color={color}
           bgColor={bgColor}
           onMouseEnter={() => setMouseEnter(true)}
           onMouseLeave={() => setMouseEnter(false)}
         >
-          <AdminNodeEditor data={data} mode="edit" onApply={handleApply} />
+          <AdminNodeEditor data={data} mode='edit' onApply={handleApply} />
         </NexDiv>
       ) : null}
     </NexApplet>

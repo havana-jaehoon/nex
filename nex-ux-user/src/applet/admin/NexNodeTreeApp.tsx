@@ -23,7 +23,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isAdding, setIsAdding] = useState<boolean>(false);
   const [selectedPath, setSelectedPath] = useState<string>("");
-  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+  const [selectedKeys, setSelectedKeys] = useState<number[]>([]);
 
   const color = theme?.applet?.colors[0];
   const bgColor = theme?.applet?.bgColors[0];
@@ -70,7 +70,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     setNexTree(tree);
     setStore(cts.store);
     setFormat(cts.format);
-    setSelectedIndex(cts.selectedIndex);
+    setSelectedKeys(cts.selectedKeys);
   }, [contents]);
 
   const handleSelect = (index: number) => {
@@ -227,7 +227,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       return;
     }
     // 삭제한 노드가 선택된 노드인 경우 선택 해제
-    if (index === selectedIndex) {
+    if (index === selectedKeys[0]) {
       handleSelect(-1);
     }
   };
@@ -282,7 +282,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
                     user={user}
                     onSelect={handleSelect}
                     onRemove={handleRemove}
-                    selectedIndex={selectedIndex}
+                    selectedIndex={selectedKeys[0]}
                   />
                 )
             )}

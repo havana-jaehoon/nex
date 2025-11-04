@@ -572,6 +572,11 @@ class DataFileIo:
                 print(f"{self.__str__()}::update() - no existing data found for update: {newData}")
                 return False, "no existing data"
             
+
+            if(oldData == newData):
+                print(f"{self.__str__()}::update() - no changes detected for data: {newData}")
+                return False, "no changes"
+
             oldPath = oldData[1]
             newPath = newData[1]
 
@@ -636,20 +641,16 @@ class DataFileIo:
 
         return None
     
-    def delete(self, data):
+    def delete(self, keys):
         if self._isAdminConfig: # admin 설정 데이터 
             # static & tree
             # 기존 선택된 데이터의 인덱스에 추가
-            oldData = self._findNodeFromIndex(data[0])
+            index = keys[0]
+            oldData = self._findNodeFromIndex(index)
             if oldData is None:
-                print(f"{self.__str__()}::delete() - no existing data found for delete: {data}")
-                return False, f"no existing data by index : {data[0]}"
-            
-            oldData1 = self._findNodeFromPath(data[1])
-            if oldData1 is None:
-                print(f"{self.__str__()}::delete() - no existing data found for delete by path: {data[1]}")
-                return False, f"no existing data by path: {data[1]}"
-            
+                print(f"{self.__str__()}::delete() - no existing data found for delete: {keys}")
+                return False, f"no existing data by index : {index}"
+
             oldPath = oldData[1]
 
             # 동일 부모 패스내의 다른 노드들의 인덱스 재조정

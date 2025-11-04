@@ -156,51 +156,77 @@ class AdminMgr(SingletonInstance):
             #res = load_all_config(ADMIN_CONFIG_DIR)
             method = handler_args.method
 
+            system = handler_args.query_params.get('system', '')
+            project = handler_args.query_params.get('project', '')
+            path = handler_args.query_params.get('path', '')
+            cmd = handler_args.query_params.get('cmd', '')
 
-
-            print(f'AdminMgr::_cmdData: method:{method}, args: {handler_args}')
+            dataio = self._dataioMap.get(project, {}).get(system, {}).get(path, None)
             if dataio is None:
                 return HandlerResult(status=404, body=f'Not found dataio for project:{project}, system:{system}, path:{path}')
 
+            print(f'AdminMgr::_cmdData: method:{method}, args: {handler_args}')
+
             if method == 'GET': # get command -> get
                 # Handle GET request
-                print(f'AdminMgr::_cmdData-GET:({handler_args, kwargs})')
-                system = handler_args.query_params.get('system', '')
-                project = handler_args.query_params.get('project', '')
-                path = handler_args.query_params.get('path', '')
-                dataio = self._dataioMap.get(project, {}).get(system, {}).get(path, None)
-                
+                #print(f'AdminMgr::_cmdData-GET:({handler_args, kwargs})')
                 soffset = int(handler_args.query_params.get('soffset', '0'))
                 eoffset = int(handler_args.query_params.get('eoffset', '0'))
-              
-                data = dataio.get(soffset, eoffset)
-        
-                res = json.dumps(data, indent=2, ensure_ascii=False)
-                #print(f"AdminMgr::_get( elements : {res}")
 
-                return HandlerResult(status=200, response=res, body=res)
-            
+                return HandlerResult(status=200, body=json.dumps(dataio.get(soffset, eoffset), indent=2, ensure_ascii=False))
+
             elif method == 'POST': # post command -> add
                 # Handle POST request
                 print(f'AdminMgr::_cmdData-POST:({handler_args, kwargs})')
 
+                data = handler_args.body
+                bres, msg = dataio.add(data)
+                if bres is False:
+                    return HandlerResult(status=400, body=f'Failed to add data: {msg}')
 
-                return HandlerResult(status=200, body='POST command received')
+                return HandlerResult(status=200, body=json.dumps(dataio.get(), indent=2, ensure_ascii=False))
 
             elif method == 'PUT': # put command -> update
                 # Handle PUT request
-                print(f'AdminMgr::_cmdData-PUT:({handler_args, kwargs})')
-                return HandlerResult(status=200, body='PUT command received')
+                keys = []
+                try:
+                    keys = json.loads(handler_args.query_params.get('keys', '[]'))
+                except json.JSONDecodeError:
+                    return HandlerResult(status=400, body=f"Invalid JSON in 'keys' parameter: {keys}")
 
+                if cmd == 'select':
+                    print(f'AdminMgr::_cmdData-SELECT:({handler_args, kwargs})')
+
+                    return HandlerResult(status=200, body=f"Not implemented select command yet")
+                elif cmd == "update":
+                    data = handler_args.body         
+                    bres, msg = dataio.update(data)
+                    print(f'AdminMgr::_cmdData-PUT: update result: {bres}, msg:{msg}')
+                    if bres is False:
+                        return HandlerResult(status=400, response=f'Failed to update data: {msg}', body=f'Failed to update data: {msg}')
+                    
+                    return HandlerResult(status=200, body=json.dumps(dataio.get(), indent=2, ensure_ascii=False))
+                else:
+                    return HandlerResult(status=400, body=f'Unknown cmd for PUT method command: {cmd}')
 
             elif method == 'DELETE': # delete command -> remove
                 # Handle DELETE request
                 print(f'AdminMgr::_cmdData-DELETE:({handler_args, kwargs})')
 
-                return HandlerResult(status=200, body='DELETE command received')
+                keys = []
+                try:
+                    keys = json.loads(handler_args.query_params.get('keys', '[]'))
+                except json.JSONDecodeError:
+                    return HandlerResult(status=400, body=f"Invalid JSON in 'keys' parameter: {keys}")
 
+                bres, msg = dataio.delete(keys)
+                if bres is False:
+                    return HandlerResult(status=400, body=f'Failed to delete data: {msg}')
 
+                return HandlerResult(status=200, body=json.dumps(dataio.get(), indent=2, ensure_ascii=False))
 
+            else:
+                return HandlerResult(status=405, body='Method Not Allowed, use GET, POST, PUT, DELETE')
 
         except Exception as e:
             Logger().log_error(f'AdminMgr::_cmdData({handler_args, kwargs}) : {e}')

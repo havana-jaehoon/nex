@@ -14,7 +14,7 @@ export interface NexContents {
   info: any;
   store: any;
   data: any[];
-  selectedIndex: number;
+  selectedKeys: number[];
   indexes: number[] | null;
   format: any;
 }
@@ -48,7 +48,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
       console.log(
         `NexAppProvider => section=${JSON.stringify(section)}, appletPath=${appletPath}`
       );
-      return <NexDiv width="100%" height="100%" padding={padding}></NexDiv>;
+      return <NexDiv width='100%' height='100%' padding={padding}></NexDiv>;
     }
 
     const contentsNodeList = useMemo(() => {
@@ -108,7 +108,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
           info: content,
           store: store,
           data: store.odata,
-          selectedIndex: store.curRowIndex,
+          selectedKeys: store.selectedKeys,
           indexes: indexes, // indexes is null then all data
           format: store.format,
         };
@@ -193,7 +193,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     );
     //const conditions = applet?.contents.
     return (
-      <NexDiv width="100%" height="100%" padding={padding}>
+      <NexDiv width='100%' height='100%' padding={padding}>
         {app &&
           React.createElement(app, {
             name: name,
