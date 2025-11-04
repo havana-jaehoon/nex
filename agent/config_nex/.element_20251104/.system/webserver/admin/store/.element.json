@@ -1,0 +1,12 @@
+{
+  "name": "store",
+  "dispName": "데이터 저장 정책",
+  "description": "데이터 저장 정책",
+  "type": "element",
+  "format": "/admin/node",
+  "store": "/disk/static",
+  "processor": "/common/transparent",
+  "processingInterval": "10",
+  "processingUnit": "SEC",
+  "sources": "/config/admin/store"
+}

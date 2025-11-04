@@ -178,7 +178,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const handleApply = (mode: "add" | "edit", node: any) => {
     if (mode === "add") {
       console.log("NexNodeTreeApp: handleApply - add", node);
-      if (onAdd && onAdd(storeIndex, curData, node)) {
+      if (onAdd && onAdd(storeIndex, node)) {
         // 추가가 성공한 경우
         setIsAdding(false);
         setIsEditing(false);

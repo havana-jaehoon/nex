@@ -1,0 +1,726 @@
+[
+  [
+    0,
+    "/memory",
+    "",
+    "",
+    {
+      "0": {
+        "name": "memory",
+        "dispName": "메모리",
+        "description": "메모리 저장 정책 폴더",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    1,
+    "/memory/static",
+    "",
+    "",
+    {
+      "0": {
+        "name": "static",
+        "type": "store",
+        "record": {
+          "storage": "memory",
+          "nature": "static",
+          "unit": "NONE",
+          "block": "NONE",
+          "expire": "-1",
+          "expireUnit": "NONE",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    2,
+    "/memory/status",
+    "",
+    "",
+    {
+      "1": {
+        "name": "status",
+        "type": "store",
+        "record": {
+          "storage": "memory",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "0",
+          "expireUnit": "NONE",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    3,
+    "/memory/1min",
+    "",
+    "",
+    {
+      "2": {
+        "name": "1min",
+        "type": "store",
+        "record": {
+          "storage": "memory",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "1",
+          "expireUnit": "MIN",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    4,
+    "/memory/10min",
+    "",
+    "",
+    {
+      "3": {
+        "name": "10min",
+        "type": "store",
+        "record": {
+          "storage": "memory",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "10",
+          "expireUnit": "MIN",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    5,
+    "/memory/1hour",
+    "",
+    "",
+    {
+      "4": {
+        "name": "1hour",
+        "type": "store",
+        "record": {
+          "storage": "memory",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "1",
+          "expireUnit": "HOUR",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    6,
+    "/disk",
+    "",
+    "",
+    {
+      "1": {
+        "name": "disk",
+        "dispName": "공통",
+        "description": "공통 데이터 엘리먼트 폴더",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    7,
+    "/disk/static",
+    "",
+    "",
+    {
+      "0": {
+        "name": "static",
+        "type": "store",
+        "record": {
+          "storage": "disk",
+          "nature": "static",
+          "unit": "NONE",
+          "block": "NONE",
+          "expire": "-1",
+          "expireUnit": "NONE",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    8,
+    "/disk/status",
+    "",
+    "",
+    {
+      "1": {
+        "name": "status",
+        "type": "store",
+        "record": {
+          "storage": "disk",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "0",
+          "expireUnit": "NONE",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    9,
+    "/disk/1min",
+    "",
+    "",
+    {
+      "2": {
+        "name": "1min",
+        "type": "store",
+        "record": {
+          "storage": "disk",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "1",
+          "expireUnit": "MIN",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    10,
+    "/disk/10min",
+    "",
+    "",
+    {
+      "3": {
+        "name": "10min",
+        "type": "store",
+        "record": {
+          "storage": "disk",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "10",
+          "expireUnit": "MIN",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    11,
+    "/disk/1hour",
+    "",
+    "",
+    {
+      "4": {
+        "name": "1hour",
+        "type": "store",
+        "record": {
+          "storage": "disk",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "1",
+          "expireUnit": "HOUR",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    12,
+    "/disk/1day",
+    "",
+    "",
+    {
+      "5": {
+        "name": "1day",
+        "type": "store",
+        "record": {
+          "storage": "disk",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "1",
+          "expireUnit": "DAY",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    13,
+    "/disk/7day",
+    "",
+    "",
+    {
+      "6": {
+        "name": "7day",
+        "type": "store",
+        "record": {
+          "storage": "disk",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "7",
+          "expireUnit": "DAY",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    14,
+    "/disk/10day",
+    "",
+    "",
+    {
+      "7": {
+        "name": "10day",
+        "type": "store",
+        "record": {
+          "storage": "disk",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "10",
+          "expireUnit": "DAY",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    15,
+    "/disk/1month",
+    "",
+    "",
+    {
+      "8": {
+        "name": "1month",
+        "type": "store",
+        "record": {
+          "storage": "disk",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "1",
+          "expireUnit": "MONTH",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    16,
+    "/disk/1year",
+    "",
+    "",
+    {
+      "9": {
+        "name": "1year",
+        "type": "store",
+        "record": {
+          "storage": "disk",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "1",
+          "expireUnit": "YEAR",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    17,
+    "/disk/5year",
+    "",
+    "",
+    {
+      "10": {
+        "name": "5year",
+        "type": "store",
+        "record": {
+          "storage": "disk",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "5",
+          "expireUnit": "YEAR",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    18,
+    "/disk/10year",
+    "",
+    "",
+    {
+      "11": {
+        "name": "10year",
+        "type": "store",
+        "record": {
+          "storage": "disk",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "10",
+          "expireUnit": "YEAR",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    19,
+    "/disk/infinite",
+    "",
+    "",
+    {
+      "12": {
+        "name": "infinite",
+        "type": "store",
+        "record": {
+          "storage": "disk",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "-1",
+          "expireUnit": "NONE",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    20,
+    "/hdfs",
+    "",
+    "",
+    {
+      "2": {
+        "name": "hdfs",
+        "dispName": "공통",
+        "description": "공통 데이터 엘리먼트 폴더",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    21,
+    "/hdfs/static",
+    "",
+    "",
+    {
+      "0": {
+        "name": "static",
+        "type": "store",
+        "record": {
+          "storage": "hdfs",
+          "nature": "static",
+          "unit": "NONE",
+          "block": "NONE",
+          "expire": "-1",
+          "expireUnit": "NONE",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    22,
+    "/hdfs/status",
+    "",
+    "",
+    {
+      "1": {
+        "name": "status",
+        "type": "store",
+        "record": {
+          "storage": "hdfs",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "0",
+          "expireUnit": "NONE",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    23,
+    "/hdfs/1min",
+    "",
+    "",
+    {
+      "2": {
+        "name": "1min",
+        "type": "store",
+        "record": {
+          "storage": "hdfs",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "1",
+          "expireUnit": "MIN",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    24,
+    "/hdfs/10min",
+    "",
+    "",
+    {
+      "3": {
+        "name": "10min",
+        "type": "store",
+        "record": {
+          "storage": "hdfs",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "10",
+          "expireUnit": "MIN",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    25,
+    "/hdfs/1hour",
+    "",
+    "",
+    {
+      "4": {
+        "name": "1hour",
+        "type": "store",
+        "record": {
+          "storage": "hdfs",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "1",
+          "expireUnit": "HOUR",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    26,
+    "/hdfs/1day",
+    "",
+    "",
+    {
+      "5": {
+        "name": "1day",
+        "type": "store",
+        "record": {
+          "storage": "hdfs",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "1",
+          "expireUnit": "DAY",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    27,
+    "/hdfs/7day",
+    "",
+    "",
+    {
+      "6": {
+        "name": "7day",
+        "type": "store",
+        "record": {
+          "storage": "hdfs",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "7",
+          "expireUnit": "DAY",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    28,
+    "/hdfs/10day",
+    "",
+    "",
+    {
+      "7": {
+        "name": "10day",
+        "type": "store",
+        "record": {
+          "storage": "hdfs",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "10",
+          "expireUnit": "DAY",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    29,
+    "/hdfs/1month",
+    "",
+    "",
+    {
+      "8": {
+        "name": "1month",
+        "type": "store",
+        "record": {
+          "storage": "hdfs",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "1",
+          "expireUnit": "MONTH",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    30,
+    "/hdfs/1year",
+    "",
+    "",
+    {
+      "9": {
+        "name": "1year",
+        "type": "store",
+        "record": {
+          "storage": "hdfs",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "1",
+          "expireUnit": "YEAR",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    31,
+    "/hdfs/5year",
+    "",
+    "",
+    {
+      "10": {
+        "name": "5year",
+        "type": "store",
+        "record": {
+          "storage": "hdfs",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "5",
+          "expireUnit": "YEAR",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    32,
+    "/hdfs/10year",
+    "",
+    "",
+    {
+      "11": {
+        "name": "10year",
+        "type": "store",
+        "record": {
+          "storage": "hdfs",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "10",
+          "expireUnit": "YEAR",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    33,
+    "/hdfs/infinite",
+    "",
+    "",
+    {
+      "12": {
+        "name": "infinite",
+        "type": "store",
+        "record": {
+          "storage": "hdfs",
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "-1",
+          "expireUnit": "NONE",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ]
+]

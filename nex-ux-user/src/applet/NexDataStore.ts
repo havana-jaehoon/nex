@@ -173,6 +173,7 @@ export class NexDataStore {
   url: string = ""; // 데이터 소스 URL
   //path: string = "/"; // 데이터 소스 경로
   elementPath: string = ""; // element 경로
+  queryParams: any = {};
 
   element: any = null; // element 정보
   format: any = null; // format 정보
@@ -192,10 +193,8 @@ export class NexDataStore {
   //features: any[] = []; // feature list
 
   // 데이터를 빠르게 찾기 위한 key & 데이터 관리
-  curRowIndex: number = -1;
-  keyIndex: number = 0; // key indexes
-  lastKeyIndex: number = 0; // last key index(max)
-  keyMap: Record<number, number> = {};
+  curKeys: any[] = [];
+  keyIndexs: number[] = []; // key indexes
 
   idata: any[] = []; // input data
   odata: any[] = []; // 출력 데이터(conditions 에 맞는)
@@ -215,7 +214,7 @@ export class NexDataStore {
     format?: any,
     data?: any[]
   ) {
-    this.url = url;
+    //this.url = url;
     if (elementPath === "") {
       this.format = format || {};
       this.element = {};
@@ -242,33 +241,21 @@ export class NexDataStore {
       }
     }
 
+    this.url = URL_DATA; // url;
+    this.queryParams = {
+      project: "", //this.projectName,
+      system: "webserver", // this.systemName,
+      path: this.elementPath,
+    };
     this.name = this.element?.dispName || this.format?.dispName || "";
 
     this.ioffset = 0;
     this.foffset = 0;
 
     const features = this.format?.features || [];
-    this.keyIndex = features.findIndex(
-      (feature: any) => feature.featureType === NexFeatureType.INDEX
+    this.keyIndexs = features.flatMap((f: any, i: number) =>
+      f.isKey ? [i] : []
     );
-
-    // keyMap: 각 row의 keyindexes 조합을 문자열로 만들어 row를 빠르게 찾기 위한 맵
-
-    // 모든 row를 keyMap에 등록
-    if (this.keyIndex !== -1) {
-      this.odata.forEach((row: any, index: number) => {
-        const key = Number(row[this.keyIndex]);
-        if (this.keyMap[key]) {
-          console.warn(
-            `NexDataStore: Duplicate key found for row at index ${index}: ${key}`
-          );
-          // 중복된 키가 있으면 기존 값을 덮어쓰지 않음
-        } else {
-          this.lastKeyIndex = Math.max(this.lastKeyIndex, key);
-          this.keyMap[key] = index; // odata 의 row index 저장
-        }
-      });
-    }
 
     makeObservable(this, {
       name: observable,
@@ -276,7 +263,7 @@ export class NexDataStore {
       element: observable,
       format: observable,
       idata: observable,
-      curRowIndex: observable,
+      curKeys: observable,
       odata: observable,
       ioffset: observable,
       foffset: observable,
@@ -289,8 +276,6 @@ export class NexDataStore {
       add: action,
       remove: action,
       update: action,
-
-      upload: action,
 
       getData: action,
       getValuesByCondition: action,
@@ -306,8 +291,6 @@ export class NexDataStore {
     this.add = this.add.bind(this);
     this.remove = this.remove.bind(this);
     this.update = this.update.bind(this);
-
-    this.upload = this.upload.bind(this);
 
     this.getData = this.getData.bind(this);
     this.getCountByCondition = this.getCountByCondition.bind(this);
@@ -327,14 +310,10 @@ export class NexDataStore {
   async fetch() {
     // this.element.process
     try {
-      const url = URL_DATA;
+      //const url = URL_DATA;
       //const url = this.url;
-      const response = await axios.get(url, {
-        params: {
-          path: this.elementPath,
-          project: "", //this.projectName,
-          system: "webserver", // this.systemName,
-        },
+      const response = await axios.get(this.url, {
+        params: { ...this.queryParams, cmd: "get" },
       });
 
       //const datas = JSON.parse(JSON.stringify(response.data, null, 2));
@@ -382,184 +361,122 @@ export class NexDataStore {
     }
   }
 
-  select(row: any): void {
+  async select(row: any): Promise<boolean> {
     if (!row) {
-      this.curRowIndex = -1;
-      return;
-    }
-    this.curRowIndex = Number(row[this.keyIndex]);
-    //console.log(`# select row=${JSON.stringify(row)}, index=${this.curRowIndex}`);
-  }
-
-  add(curRow: any, newRow: any): boolean {
-    // curRow 는 현재 선택된 위치를 나타냄
-    // 기존에 데이터가 있는지 확인하고 있으면 에러 출력
-
-    // 현재 추가할 위치가 없으면 마지막에 추가
-    const newKeyIndex = this.lastKeyIndex++;
-
-    const updatedRow = [...newRow];
-    updatedRow[this.keyIndex] = newKeyIndex;
-
-    const curKeyIndex = curRow ? Number(curRow[this.keyIndex]) : -1;
-    if (curKeyIndex === -1) {
-      // 맨 마지막에 추가
-      this.keyMap[newKeyIndex] = this.odata.length;
-      this.odata = [...this.odata, updatedRow];
-      this.curRowIndex = this.odata.length - 1;
-
-      return true;
-    }
-    // curRow 의 위치 다음에 newRow를 삽입
-    const insertIndex = this.keyMap[curKeyIndex] + 1;
-
-    // 배열에 삽입
-    this.odata.splice(insertIndex, 0, updatedRow);
-
-    // 삽입 지점부터 끝까지의 keyMap만 갱신 (tail만 업데이트)
-    for (let i = insertIndex; i < this.odata.length; i++) {
-      const k = Number(this.odata[i][this.keyIndex]);
-      this.keyMap[k] = i;
-    }
-    this.curRowIndex = insertIndex;
-    return true;
-  }
-
-  remove(row: any): boolean {
-    const curKeyIndex = row ? Number(row[this.keyIndex]) : -1;
-    if (curKeyIndex === -1) {
-      console.warn("NexDataStore: remove() row not found or invalid");
+      this.curKeys = [];
       return false;
     }
-    const removeIndex = this.keyMap[curKeyIndex];
-    if (removeIndex === undefined) {
-      console.warn("NexDataStore: remove() key not found in keyMap");
-      return false;
-    }
-    if (this.format.isTree) {
-      // tree 인경우 하위 노드들도 삭제
-      const pathIndex = this.format.features.findIndex(
-        (f: any) => f.name === "path"
-      );
-      if (pathIndex !== -1) {
-        const delPath = this.odata[removeIndex][pathIndex];
-        const delPathPrefix = delPath + "/";
-
-        // 하위 노드들도 삭제
-        this.odata = this.odata.filter((row) => {
-          const rowPath = row[pathIndex];
-          return !rowPath.startsWith(delPathPrefix);
-        });
-      }
-    }
-    this.odata.splice(removeIndex, 1);
-    delete this.keyMap[curKeyIndex];
-
-    // shift keyMap indices for the tail
-    for (let i = removeIndex; i < this.odata.length; i++) {
-      const k = Number(this.odata[i][this.keyIndex]);
-      this.keyMap[k] = i;
-    }
-    this.curRowIndex = this.odata.length > removeIndex ? removeIndex : -1;
-    return true;
-  }
-
-  update(row: any): boolean {
-    // 단일 row를 업데이트: curRow를 지우고 그 자리에 newRow를 삽입
-    if (!row) {
-      console.warn("NexDataStore: update() row is empty");
-      return false;
-    }
-    // this.odata 에서 row의 keyIndex 가 동일한 값을 찾아서 교체
-    const rowKey = Number(row[this.keyIndex]);
-    const rowIndex = this.odata.findIndex(
-      (r) => Number(r[this.keyIndex]) === rowKey
+    this.curKeys = row.flatMap((v: any, i: number) =>
+      this.keyIndexs.includes(i) ? [v] : []
     );
 
-    if (rowIndex === -1) {
-      console.warn("NexDataStore: update() invalid index(key) value");
+    try {
+      const response = await axios.put(this.url, row, {
+        params: { ...this.queryParams, cmd: "select" },
+      });
+
+      //const datas = JSON.parse(JSON.stringify(response.data, null, 2));
+
+      if (response.status < 200 || response.status >= 300) {
+        console.error("Failed to select Data response:", response);
+        return false;
+      }
+      runInAction(() => {
+        console.log(
+          "NexDataStore::select() response data:",
+          JSON.stringify(response.data, null, 2)
+        );
+      });
+      return true;
+    } catch (error) {
+      console.error(
+        `Failed to select from path: ${this.element.sources[0]}, (error, : ${error})`
+      );
       return false;
     }
 
-    // Prefer splice for observable arrays so MobX emits a proper change
-
-    if (this.format.isTree) {
-      // tree 인경우 feature 중 path 가 변경되었으면 하위 노드들도 경로를 변경
-
-      const oldRow = this.odata[rowIndex];
-
-      // path feature의 인덱스를 찾음
-      const pathIndex = this.format.features.findIndex(
-        (f: any) => f.name === "path"
-      );
-
-      if (pathIndex !== -1) {
-        const oldPath = oldRow[pathIndex];
-        const newPath = row[pathIndex];
-
-        if (oldPath !== newPath) {
-          // newPath 와 동일한 경로가 있는지 확인하고 있으면 false 반환
-          const duplicate = this.odata.find((r, i) => {
-            if (i === rowIndex) return false; // 현재 행은 제외
-            return r[pathIndex] === newPath;
-          });
-          if (duplicate) {
-            console.warn(
-              `NexDataStore: update() - Duplicate path "${newPath}" found. Update aborted.`
-            );
-            return false; // 중복 경로가 있으면 업데이트 중단
-          }
-
-          console.log(
-            "NexDataStore: update() isTree - update child paths if needed"
-          );
-          const oldPathPrefix = oldPath + "/";
-          const newPathPrefix = newPath + "/";
-
-          this.odata.forEach((r, i) => {
-            if (i === rowIndex) return; // Skip the row we just updated
-            const currentPath = r[pathIndex];
-            if (currentPath.startsWith(oldPathPrefix)) {
-              const updatedPath =
-                newPathPrefix + currentPath.substring(oldPathPrefix.length);
-              r[pathIndex] = updatedPath;
-
-              console.log({
-                message: `NexDataStore: update() - Updated child path from "${currentPath}" to "${updatedPath}"`,
-              });
-            }
-          });
-        }
-      }
-    }
-    this.odata.splice(rowIndex, 1, row);
-
-    this.curRowIndex = rowIndex;
-    return true;
   }
 
-  async upload() {
-    // 서버로 데이터 업로드
-    return false;
+  async add(newRow: any): Promise<boolean> {
+    console.log("NexDataStore: add", JSON.stringify(newRow, null, 2));
     try {
-      const url = URL_DATA + "/upload";
-
-      const response = await axios.post(url, {
-        path: this.elementPath,
-        project: "",
-        system: "webserver",
-        data: this.odata,
+      const response = await axios.post(this.url, newRow, {
+        params: { ...this.queryParams, cmd: "add" },
       });
 
-      console.log("response", JSON.stringify(response, null, 2));
+      //const datas = JSON.parse(JSON.stringify(response.data, null, 2));
+
       if (response.status < 200 || response.status >= 300) {
-        console.error("Failed to Upload Data:", response);
-        return;
+        console.error("Failed to add Data response:", response);
+        return false;
       }
+      runInAction(() => {
+        console.log(
+          "NexDataStore::add() response data:",
+          JSON.stringify(response.data, null, 2)
+        );
+      });
+      return true;
     } catch (error) {
-      console.error("Failed to Upload Data:", error);
+      console.error(
+        `Failed to fetch from path: ${this.element.sources[0]}, (error, : ${error})`
+      );
+      return false;
     }
-    return true;
+  }
+
+  async remove(row: any): Promise<boolean> {
+    console.log("NexDataStore: remove", JSON.stringify(row, null, 2));
+    try {
+      const keys = row.flatMap((v: any, i: number) =>
+        this.keyIndexs.includes(i) ? [v] : []
+      );
+
+      const response = await axios.delete(this.url, {
+        params: { ...this.queryParams, cmd: "remove", keys: keys },
+      });
+      if (response.status < 200 || response.status >= 300) {
+        console.error("Failed to remove Data response:", response);
+        return false;
+      }
+      runInAction(() => {
+        console.log(
+          "NexDataStore::remove() response data:",
+          JSON.stringify(response.data, null, 2)
+        );
+      });
+      this.curKeys = [];
+      return true;
+    } catch (error) {
+      console.error(
+        `Failed to fetch from path: ${this.element.sources[0]}, (error, : ${error})`
+      );
+      return false;
+    }
+  }
+
+  async update(row: any): Promise<boolean> {
+    try {
+      const response = await axios.put(this.url, row, {
+        params: { ...this.queryParams, cmd: "update" },
+      });
+      if (response.status < 200 || response.status >= 300) {
+        console.error("Failed to update Data response:", response);
+        return false;
+      }
+      runInAction(() => {
+        console.log(
+          "NexDataStore::update() response data:",
+          JSON.stringify(response.data, null, 2)
+        );
+      });
+      return true;
+    } catch (error) {
+      console.error(
+        `Failed to update from path: ${this.element.sources[0]}, (error, : ${error})`
+      );
+      return false;
+    }
   }
 
   getData(): NexData {

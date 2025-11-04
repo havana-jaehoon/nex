@@ -48,7 +48,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
       console.log(
         `NexAppProvider => section=${JSON.stringify(section)}, appletPath=${appletPath}`
       );
-      return <NexDiv width='100%' height='100%' padding={padding}></NexDiv>;
+      return <NexDiv width="100%" height="100%" padding={padding}></NexDiv>;
     }
 
     const contentsNodeList = useMemo(() => {
@@ -146,13 +146,13 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
       }
     };
 
-    const handleUpdate = (contentsIndex: number, newRow: any) => {
+    const handleUpdate = async (contentsIndex: number, newRow: any) => {
       console.log(
         `NexAppProvider: handleUpdate contentsIndex=${contentsIndex}, newRow=${JSON.stringify(newRow, null, 2)}`
       );
       if (newRow && contents.length > contentsIndex) {
         const store = contents[contentsIndex].store;
-        const bres = store.update(newRow);
+        const bres = await store.update(newRow);
         if (bres) setModifiedCount(modifiedCount + 1);
         return bres;
       } else {
@@ -161,10 +161,10 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
       return false;
     };
 
-    const handleAdd = (contentsIndex: number, curRow: any, newRow: any) => {
+    const handleAdd = async (contentsIndex: number, newRow: any) => {
       if (newRow && contents.length > contentsIndex) {
         const store: NexDataStore = contents[contentsIndex].store;
-        const bres = store.add(curRow, newRow);
+        const bres = await store.add(newRow);
         if (bres) {
           setModifiedCount(modifiedCount + 1);
           console.log("NexAppProvider: handleAdd - Added row successfully");
@@ -177,10 +177,10 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
       return false;
     };
 
-    const handleRemove = (contentsIndex: number, row: any) => {
+    const handleRemove = async (contentsIndex: number, row: any) => {
       if (row && contents.length > contentsIndex) {
         const store: NexDataStore = contents[contentsIndex].store;
-        const bres = store.remove(row);
+        const bres = await store.remove(row);
         if (bres) setModifiedCount(modifiedCount + 1);
         return bres;
       }
@@ -193,7 +193,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     );
     //const conditions = applet?.contents.
     return (
-      <NexDiv width='100%' height='100%' padding={padding}>
+      <NexDiv width="100%" height="100%" padding={padding}>
         {app &&
           React.createElement(app, {
             name: name,

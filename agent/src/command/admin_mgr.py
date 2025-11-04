@@ -155,18 +155,21 @@ class AdminMgr(SingletonInstance):
             #print(f"# Root-Path : {ADMIN_CONFIG_DIR}")
             #res = load_all_config(ADMIN_CONFIG_DIR)
             method = handler_args.method
-            system = handler_args.query_params.get('system', '')
-            project = handler_args.query_params.get('project', '')
-            path = handler_args.query_params.get('path', '')
-            dataio = self._dataioMap.get(project, {}).get(system, {}).get(path, None)
 
+
+
+            print(f'AdminMgr::_cmdData: method:{method}, args: {handler_args}')
             if dataio is None:
                 return HandlerResult(status=404, body=f'Not found dataio for project:{project}, system:{system}, path:{path}')
 
             if method == 'GET': # get command -> get
                 # Handle GET request
                 print(f'AdminMgr::_cmdData-GET:({handler_args, kwargs})')
-
+                system = handler_args.query_params.get('system', '')
+                project = handler_args.query_params.get('project', '')
+                path = handler_args.query_params.get('path', '')
+                dataio = self._dataioMap.get(project, {}).get(system, {}).get(path, None)
+                
                 soffset = int(handler_args.query_params.get('soffset', '0'))
                 eoffset = int(handler_args.query_params.get('eoffset', '0'))
               
