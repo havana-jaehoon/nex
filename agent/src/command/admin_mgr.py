@@ -6,7 +6,6 @@ from typing import Dict, List, Tuple
 import const_def
 from system_info import SystemInfoMgr
 from element.element_mgr import ElementMgr
-from command.cmd_entity import CmdEntity
 from command.config_reader import ConfigReader, CONFIG_LIST
 from command.data_io import DataFileIo
 

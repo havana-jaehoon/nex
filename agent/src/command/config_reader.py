@@ -1,5 +1,7 @@
 import json
 import sys
+from typing import List
+
 import pandas as pd
 
 from command.data_io import DataFileIo
@@ -278,14 +280,14 @@ class ConfigReader:
         return None
 
 
-    def getSystems(self, project_name:str)->list[dict]:
+    def getSystems(self, project_name:str)->List[dict]:
         system_values = self._configMap['system'].get(project_name, {}).values()
         systemNodes = [self._getNodeFromObject(entries[0][4]) for entries in system_values if entries]
         #print(f"Systems: {json.dumps(systemNodes, ensure_ascii=False, indent=2)}")
 
         return systemNodes
 
-    def getElements(self, project_name:str, system_name:str)->list[dict]:
+    def getElements(self, project_name:str, system_name:str)->List[dict]:
         return self._elements.get(project_name, {}).get(system_name, [])
         
     # 특정 노드 데이터 가져오기
