@@ -4,6 +4,7 @@ import { NexDiv } from "../component/base/NexBaseComponents";
 import React, { useMemo, useState } from "react";
 import { NexStoreContextValue } from "provider/NexStoreProvider";
 import NexDataStore from "./NexDataStore";
+import { getThemeStyle } from "type/NexTheme";
 
 export interface NexAppProviderProps {
   section: any;
@@ -32,23 +33,30 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
       selector,
     } = context;
 
+    const name = section?.dispName || "";
+    const icon = section?.icon || "";
+
+    const padding = section.padding || "0";
+    const defaultStyle = getThemeStyle(theme, "default");
+    const appletStyle = getThemeStyle(theme, "applet");
+    const border = appletStyle.border || "none";
+    const borderRadius = appletStyle.borderRadius || "0";
+    const boxShadow = appletStyle.boxShadow || "none";
+    const appletBgColor = appletStyle.bgColors[0] || "#ffffff";
+
     //const dataStores = elementPaths?.map((path) => stores[path]);
     const appletPath = section?.applet || "";
     const app = appletPath ? appMap[appletPath] : null;
 
     const contentsPaths = section?.contents || [];
 
-    const name = section?.dispName || "";
-    const icon = section?.icon || "";
-
-    const padding = section.padding || "0";
     const [modifiedCount, setModifiedCount] = useState<number>(0);
 
     if (appletPath !== "" && !app) {
       console.log(
         `NexAppProvider => section=${JSON.stringify(section)}, appletPath=${appletPath}`
       );
-      return <NexDiv width="100%" height="100%" padding={padding}></NexDiv>;
+      return <NexDiv width='100%' height='100%' padding={padding}></NexDiv>;
     }
 
     const contentsNodeList = useMemo(() => {
@@ -193,7 +201,15 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     );
     //const conditions = applet?.contents.
     return (
-      <NexDiv width="100%" height="100%" padding={padding}>
+      <NexDiv
+        width='100%'
+        height='100%'
+        padding={padding}
+        border={border}
+        borderRadius={borderRadius}
+        style={{ boxSizing: "border-box", boxShadow: boxShadow }}
+        bgColor={appletBgColor}
+      >
         {app &&
           React.createElement(app, {
             name: name,

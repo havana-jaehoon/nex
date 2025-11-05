@@ -596,89 +596,6 @@ const systemNodeDef: NexFormatNode = {
         },
       ],
     },
-    {
-      name: "hdfs",
-      dispName: "HDFS",
-      icon: null,
-      color: null,
-      featureType: NexFeatureType.ATTRIBUTES,
-      attributes: [
-        {
-          name: "ip",
-          dispName: "HDFS IP 주소",
-          icon: null,
-          color: null,
-          featureType: NexFeatureType.ADDRESS, // HDFS IP 주소는 문자열로 처리
-          uxSize: 6,
-        },
-        {
-          name: "port",
-          dispName: "HDFS 포트 번호",
-          icon: null,
-          color: null,
-          featureType: "UINT32",
-          uxSize: 6,
-        },
-        {
-          name: "path",
-          dispName: "HDFS 경로",
-          icon: null,
-          color: null,
-          isKey: false,
-          featureType: NexFeatureType.STRING, // HDFS 경로는 문자열로 처리
-          uxSize: 12,
-        },
-      ],
-    },
-    {
-      name: "db",
-      dispName: "DB",
-      icon: null,
-      color: null,
-      featureType: NexFeatureType.ATTRIBUTES,
-      attributes: [
-        {
-          name: "ip",
-          dispName: "DB IP 주소",
-          icon: null,
-          color: null,
-          featureType: NexFeatureType.ADDRESS, // DB IP 주소는 문자열로 처리
-          uxSize: 6,
-        },
-        {
-          name: "port",
-          dispName: "DB 포트 번호",
-          icon: null,
-          color: null,
-          featureType: "UINT32",
-          uxSize: 6,
-        },
-        {
-          name: "id",
-          dispName: "DB 사용자 ID",
-          icon: null,
-          color: null,
-          featureType: NexFeatureType.STRING, // DB 사용자 ID는 문자열로 처리
-          uxSize: 6,
-        },
-        {
-          name: "passwd",
-          dispName: "DB 비밀번호",
-          icon: null,
-          color: null,
-          featureType: NexFeatureType.PASSWORD, // DB 비밀번호는 문자열로 처리
-          uxSize: 6,
-        },
-        {
-          name: "name",
-          dispName: "DB 이름",
-          icon: null,
-          color: null,
-          featureType: NexFeatureType.STRING, // DB 이름은 문자열로 처리
-          uxSize: 6,
-        },
-      ],
-    },
   ],
 };
 
@@ -693,13 +610,22 @@ const elementNodeDef: any = {
     featureObjects[NexNodeType.ELEMENT],
     ...commonFeatures.slice(4),
     {
+      name: "storage",
+      dispName: "저장소 경로",
+      icon: null,
+      color: null,
+      isKey: false,
+      featureType: NexFeatureType.STRING, // 데이터 포맷 경로는 문자열로 처리
+      uxSize: 6,
+    },
+    {
       name: "format",
       dispName: "데이터 포맷 경로",
       icon: null,
       color: null,
       isKey: false,
       featureType: NexFeatureType.STRING, // 데이터 포맷 경로는 문자열로 처리
-      uxSize: 12,
+      uxSize: 6,
     },
     {
       name: "store",
@@ -708,7 +634,7 @@ const elementNodeDef: any = {
       color: null,
       isKey: false,
       featureType: NexFeatureType.STRING, // 보관 정책 경로는 문자열로 처리
-      uxSize: 12,
+      uxSize: 6,
     },
     {
       name: "processor",
@@ -717,7 +643,7 @@ const elementNodeDef: any = {
       color: null,
       isKey: false,
       featureType: NexFeatureType.STRING, // 데이터 수집 및 처리 모듈 경로는 문자열로 처리
-      uxSize: 12,
+      uxSize: 6,
     },
     {
       name: "processingInterval", // 데이터 수집 주기

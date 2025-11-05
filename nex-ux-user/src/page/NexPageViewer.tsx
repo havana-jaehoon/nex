@@ -28,9 +28,13 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
   const appletStyle = getThemeStyle(theme, "applet");
   const gap = appletStyle.gap || "0";
   const border = appletStyle.border || "none";
+  const borderRadius = appletStyle.borderRadius || "0";
   const boxShadow = appletStyle.boxShadow || "none";
   const appletBgColor = appletStyle.bgColors[0] || "#ffffff";
-  console.log("NexPageViewer gap:", JSON.stringify(theme, null, 2));
+
+  console.log(
+    `NexPageViewer gap: ${gap}, border: ${border}, borderRadius: ${borderRadius}, boxShadow: ${boxShadow}`
+  );
   const color = style.colors[0];
   const bgColor = style.bgColors[0];
 
@@ -42,13 +46,11 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
 
   const contentsView = isContents && (
     <NexDiv
-      width="100%"
-      height="100%"
-      direction="column"
+      width='100%'
+      height='100%'
+      direction='column'
       padding={gap}
-      border={border}
-      style={{ boxShadow: boxShadow }}
-      bgColor={appletBgColor}
+      style={{ boxSizing: "border-box" }}
     >
       <NexAppProvider section={section} context={context} />
     </NexDiv>
@@ -104,12 +106,11 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
   return (
     <NexDiv
       direction={"column"}
-      align="center"
-      justify="center"
-      width="100%"
-      height="100%"
+      align='center'
+      justify='center'
+      width='100%'
+      height='100%'
       flex={section.size || "1"}
-      overflow="auto"
       color={color}
       bgColor={bgColor}
       title={sectionInfo}
@@ -117,12 +118,12 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
     >
       {/* Section Name Label */}
       {isVisibleTitle ? (
-        <NexDiv width="100%" height="1em">
+        <NexDiv width='100%' height='1em'>
           <NexLabel
-            width="100%"
-            height="100%"
-            align="center"
-            justify="center"
+            width='100%'
+            height='100%'
+            align='center'
+            justify='center'
             style={{ cursor: "pointer", fontSize: "0.8em" }}
           >
             {section.name || "Unnamed Section"}
@@ -131,11 +132,11 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
       ) : null}
       <NexDiv
         direction={section.direction || "row"}
-        width="100%"
-        height="100%"
-        align="center"
-        justify="center"
-        overflow="visible"
+        width='100%'
+        height='100%'
+        align='center'
+        justify='center'
+        overflow='visible'
       >
         {contentsView}
         {pageView}

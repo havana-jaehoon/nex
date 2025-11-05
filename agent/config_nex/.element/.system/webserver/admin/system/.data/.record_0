@@ -5,7 +5,7 @@
     "",
     "webclient",
     {
-      "0": {
+      "1": {
         "name": "webclient",
         "dispName": "웹클라이언트",
         "description": "웹클라이언트",
@@ -13,18 +13,6 @@
         "address": {
           "ip": "",
           "port": ""
-        },
-        "hdfs": {
-          "ip": "",
-          "port": "",
-          "path": ""
-        },
-        "db": {
-          "ip": "",
-          "port": "",
-          "user": "",
-          "password": "",
-          "database": ""
         }
       }
     }
@@ -35,7 +23,7 @@
     "",
     "config",
     {
-      "1": {
+      "2": {
         "name": "config",
         "dispName": "설정서버",
         "description": "설정 서버",
@@ -43,18 +31,6 @@
         "address": {
           "ip": "192.168.0.1",
           "port": "8080"
-        },
-        "hdfs": {
-          "ip": "192.168.0.20",
-          "port": "9000",
-          "path": "/nex/data"
-        },
-        "db": {
-          "ip": "192.168.0.30",
-          "port": "5432",
-          "user": "nex",
-          "password": "nex123",
-          "database": "nex"
         }
       }
     }
@@ -65,7 +41,7 @@
     "",
     "webserver",
     {
-      "2": {
+      "3": {
         "name": "webserver",
         "dispName": "웹서버",
         "description": "CBM 웹서버",
@@ -73,18 +49,6 @@
         "address": {
           "ip": "192.168.0.2",
           "port": "8080"
-        },
-        "hdfs": {
-          "ip": "192.168.0.20",
-          "port": "9000",
-          "path": "/nex/data"
-        },
-        "db": {
-          "ip": "192.168.0.30",
-          "port": "5432",
-          "user": "nex",
-          "password": "nex123",
-          "database": "nex"
         }
       }
     }
@@ -95,7 +59,7 @@
     "",
     "collector",
     {
-      "3": {
+      "4": {
         "name": "collector",
         "dispName": "수집서버",
         "description": "CBM 수집서버",
@@ -103,138 +67,6 @@
         "address": {
           "ip": "192.168.0.3",
           "port": "8080"
-        },
-        "hdfs": {
-          "ip": "192.168.0.20",
-          "port": "9000",
-          "path": "/nex/data"
-        },
-        "db": {
-          "ip": "192.168.0.30",
-          "port": "5432",
-          "user": "nex",
-          "password": "nex123",
-          "database": "nex"
-        }
-      }
-    }
-  ],
-  [
-    4,
-    "/webclient/aaa",
-    "",
-    "webclient",
-    {
-      "0": {
-        "name": "aaa",
-        "dispName": "웹클라이언트",
-        "description": "웹클라이언트",
-        "type": "system",
-        "address": {
-          "ip": "",
-          "port": ""
-        },
-        "hdfs": {
-          "ip": "",
-          "port": "",
-          "path": ""
-        },
-        "db": {
-          "ip": "",
-          "port": "",
-          "user": "",
-          "password": "",
-          "database": ""
-        }
-      }
-    }
-  ],
-  [
-    5,
-    "/webclient/bbb",
-    "",
-    "webclient",
-    {
-      "2": {
-        "name": "bbb",
-        "dispName": "웹클라이언트",
-        "description": "웹클라이언트",
-        "type": "system",
-        "address": {
-          "ip": "",
-          "port": ""
-        },
-        "hdfs": {
-          "ip": "",
-          "port": "",
-          "path": ""
-        },
-        "db": {
-          "ip": "",
-          "port": "",
-          "user": "",
-          "password": "",
-          "database": ""
-        }
-      }
-    }
-  ],
-  [
-    6,
-    "/webclient/ccc",
-    "",
-    "webclient",
-    {
-      "1": {
-        "name": "ccc",
-        "dispName": "웹클라이언트",
-        "description": "웹클라이언트",
-        "type": "system",
-        "address": {
-          "ip": "",
-          "port": ""
-        },
-        "hdfs": {
-          "ip": "",
-          "port": "",
-          "path": ""
-        },
-        "db": {
-          "ip": "",
-          "port": "",
-          "user": "",
-          "password": "",
-          "database": ""
-        }
-      }
-    }
-  ],
-  [
-    7,
-    "/webclient/aaa/1",
-    "",
-    "webclient",
-    {
-      "0": {
-        "name": "1",
-        "dispName": "웹클라이언트",
-        "description": "웹클라이언트",
-        "type": "system",
-        "address": {
-          "ip": "",
-          "port": ""
-        },
-        "hdfs": {
-          "ip": "",
-          "port": "",
-          "path": ""
-        },
-        "db": {
-          "ip": "",
-          "port": "",
-          "user": "",
-          "password": "",
-          "database": ""
         }
       }
     }

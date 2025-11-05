@@ -63,8 +63,8 @@
               "#045bac"
             ],
             "bgColors": [
-              "#e8edf7",
-              "#ffffff"
+              "#ffffff",
+              "#e8edf7"
             ],
             "bdColors": [
               "#cccccc",
@@ -87,11 +87,11 @@
               "#ffffff"
             ],
             "fontFamily": "Arial, sans-serif",
-            "borderRadius": "4px",
-            "boxShadow": "0 2px 4px rgba(0, 0, 0, 0.1)",
-            "border": "1px solid #ccc",
+            "borderRadius": "8px",
+            "boxShadow": "0 4px 8px rgba(0, 0, 0, 0.3)",
+            "border": "1px solid blue",
             "padding": "8px",
-            "gap": "4px",
+            "gap": "8px",
             "fontSize": [
               "0.8rem",
               "0.9rem",

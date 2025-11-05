@@ -37,10 +37,11 @@ const NexApp: React.FC<NexAppProps> = observer((props) => {
       <NexDiv
         align='center'
         justify='center'
-        width='100vw'
-        height='100vh'
+        width='100%'
+        height='100%'
         overflow='hidden'
-        style={{ boxSizing: "border-box" }}
+        padding='10px'
+        style={{ position: "fixed", inset: 0, boxSizing: "border-box" }}
       >
         {!rootSection || !configStore.isReady ? (
           <div>Loading... {configStore.isReady ? "Ready" : "Not Ready"}</div>
