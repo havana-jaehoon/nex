@@ -12,8 +12,9 @@
         "type": "theme",
         "icon": "theme",
         "color": "#33A1FF",
-        "theme": {
-          "default": {
+        "theme": [
+          {
+            "name": "default",
             "colors": [
               "#393c45",
               "#03dac6"
@@ -58,7 +59,8 @@
               "2rem"
             ]
           },
-          "applet": {
+          {
+            "name": "applet",
             "colors": [
               "#393c45",
               "#045bac"
@@ -104,7 +106,8 @@
               "2rem"
             ]
           },
-          "button": {
+          {
+            "name": "button",
             "colors": [
               "#393c45",
               "#045bac"
@@ -142,7 +145,8 @@
             ],
             "borderRadius": "4px"
           },
-          "input": {
+          { 
+            "name": "input",
             "colors": [
               "#393c45",
               "#045bac"
@@ -180,7 +184,8 @@
             ],
             "borderRadius": "4px"
           },
-          "menu": {
+           {
+            "name" : "menu",
             "colors": [
               "#393c45",
               "#045bac"
@@ -225,7 +230,8 @@
             "borderRadius": "1px",
             "padding": "1px"
           },
-          "table": {
+          {
+            "name": "table",
             "colors": [
               "#393c45",
               "#045bac"
@@ -268,7 +274,8 @@
               "2rem"
             ]
           },
-          "chart": {
+          { 
+            "name": "chart",
             "colors": [
               "#393c45",
               "#045bac"
@@ -311,7 +318,7 @@
               "2rem"
             ]
           }
-        }
+        ]
       }
     }
   ]

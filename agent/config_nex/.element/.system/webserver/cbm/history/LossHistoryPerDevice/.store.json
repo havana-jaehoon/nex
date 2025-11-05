@@ -1,13 +1,12 @@
 {
-  "name": "7day",
+  "name": "infinite",
   "type": "store",
   "record": {
-    "storage": "disk",
     "nature": "temporary",
     "unit": "SEC",
     "block": "MIN",
-    "expire": "7",
-    "expireUnit": "DAY",
+    "expire": "-1",
+    "expireUnit": "NONE",
     "allowDuplication": "false",
     "allowKeepValue": "false"
   }

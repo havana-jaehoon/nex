@@ -1,0 +1,92 @@
+[
+  [
+    0,
+    "/disk",
+    "",
+    "",
+    {
+      "0": {
+        "name": "disk",
+        "dispName": "로컬디스크",
+        "description": "설정 서버",
+        "icon": "",
+        "color": "",
+        "type": "storage",
+        "storageType": "disk",
+        "db": {
+          "dbType": "mysql",
+          "ip": "",
+          "port": 3306,
+          "user": "",
+          "password": "",
+          "name": ""
+        },
+        "hdfs": {
+          "ip": "",
+          "port": 9000,
+          "path": ""
+        }
+      }
+    }
+  ],
+  [
+    1,
+    "/db",
+    "",
+    "",
+    {
+      "1": {
+        "name": "db",
+        "dispName": "웹서버",
+        "description": "CBM 웹서버",
+        "icon": "",
+        "color": "",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    2,
+    "/db/ext",
+    "",
+    "",
+    {
+      "0": {
+        "name": "ext",
+        "dispName": "외부 데이터베이스",
+        "description": "외부 데이터베이스",
+        "icon": "",
+        "color": "",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    3,
+    "/db/ext/cbm_db",
+    "",
+    "",
+    {
+      "0": {
+        "name": "cbm_db",
+        "dispName": "CBM DB",
+        "description": "CBM DB",
+        "type": "storage",
+        "storageType": "db",
+        "db": {
+          "dbType": "mysql",
+          "ip": "121.161.164.109",
+          "port": 3306,
+          "user": "emu",
+          "password": "!core0908",
+          "name": "emu_web"
+        },
+        "hdfs": {
+          "ip": "",
+          "port": 9000,
+          "path": ""
+        }
+      }
+    }
+  ]
+]

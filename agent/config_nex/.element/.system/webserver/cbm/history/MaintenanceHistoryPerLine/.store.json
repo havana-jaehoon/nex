@@ -1,13 +1,12 @@
 {
-  "name": "1year",
+  "name": "infinite",
   "type": "store",
   "record": {
-    "storage": "disk",
     "nature": "temporary",
     "unit": "SEC",
     "block": "MIN",
-    "expire": "1",
-    "expireUnit": "YEAR",
+    "expire": "-1",
+    "expireUnit": "NONE",
     "allowDuplication": "false",
     "allowKeepValue": "false"
   }

@@ -6,6 +6,7 @@ from command.data_io import DataFileIo
 import copy
 
 CONFIG_LIST = {
+    'STORAGE':'storage',
     'FORMAT':'format',
     'STORE':'store',
     'PROCESSOR':'processor',
@@ -13,9 +14,9 @@ CONFIG_LIST = {
     'ELEMENT':'element',
     'CONTENTS':'contents',
     'APPLET':'applet',
+    'SECTION':'section',
     'THEME':'theme',
     'USER':'user',
-    'SECTION':'section'
 }
 
 
@@ -214,17 +215,20 @@ class ConfigReader:
                     if elementNode.get('type') != 'element':
                         continue
 
+                    storagePath=elementNode.get('storage') # element storage path
                     formatPath=elementNode.get('format') # element format path
                     storePath=elementNode.get('store') # element store path
                     processorPath=elementNode.get('processor') # element processor path
 
+                    storageNode = self.getNode('storage', project, '', storagePath)
                     formatNode = self.getNode('format', project, '', formatPath)
                     storeNode = self.getNode('store', project, '', storePath)
                     processorNode = self.getNode('processor', project, '', processorPath)
-                    
+                    if( storageNode is None):
+                        print(f"# Made element for project={project}, system={system}, path={path}, storage={storagePath}:{storageNode}" )    
                     #print(f"  Element: path={path}, format={formatNode}, store={storeNode}, processor={processorNode}")
 
-                    elements[project][system].append({'path':path, 'system':systemNode, 'element':elementNode, 'format':formatNode, 'store':storeNode, 'processor':processorNode })
+                    elements[project][system].append({'path':path, 'storage':storageNode, 'system':systemNode, 'element':elementNode, 'format':formatNode, 'store':storeNode, 'processor':processorNode })
 
         #print(f"Made elements: {json.dumps(elements, ensure_ascii=False, indent=2)}")
         return elements
@@ -233,6 +237,7 @@ class ConfigReader:
 
     def _load_config(self, path):
         for key, value in CONFIG_LIST.items():
+            print(f"# Loading config for {value} from path: {path}")
             cfg = DataFileIo(path, f'/{value}')
             config_data = cfg.get()
             
@@ -364,6 +369,8 @@ if __name__ == '__main__':
 
             system = item.get('system') # system node config(json object)
             element = item.get('element') # element node config(json object)
+
+            storage = item.get('storage') # element storage node config(json object)
             format = item.get('format') # element format node config(json object)
             store = item.get('store') # element store node config(json object)
             processor = item.get('processor') # element processor node config(json object)
@@ -373,12 +380,12 @@ if __name__ == '__main__':
             print(f"# {path} element!")
             #dataio = DataFileIo("./config_nex/.element", path, system, element, format, store, processor)
             
-            if path == "/admin/system" and system_name == "webserver":
-                dataio = DataFileIo("./config_nex/.element", path, system, element, format, store, processor)
-                datas = dataio.get()
-                #print(f"# 1. System data: {json.dumps(datas, ensure_ascii=False, indent=2)}")
-                dataio.update(newSystem)
-                datas = dataio.get()
+            #if path == "/admin/system" and system_name == "webserver":
+            dataio = DataFileIo("./config_nex/.element", path, storage, system, element, format, store, processor)
+            #datas = dataio.get()
+                #print(f"# data: {json.dumps(datas, ensure_ascii=False, indent=2)}")
+                #dataio.update(newSystem)
+                #datas = dataio.get()
                 #print(f"# 2. System data: {json.dumps(datas, ensure_ascii=False, indent=2)}")
             #data = dataio.get(0, 0)
             #dataio.put(dataset)

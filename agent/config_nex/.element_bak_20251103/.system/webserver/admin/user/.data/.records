@@ -13,8 +13,10 @@
         "icon": "user",
         "color": "#33A1FF",
         "user": {
-          "id": "default",
-          "fontLevel": 6,
+          "id": "admin",
+          "password": "admin",
+          "level": "admin",
+          "themeLevel": 6,
           "theme": "default"
         }
       }

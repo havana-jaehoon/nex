@@ -21,6 +21,7 @@ DATA_BLOCK_SIZE = 100
 DATA_FILE_COUNT = 10
 
 ELEMENT_CFG_LIST = {
+    'STORAGE':'storage',
     'FORMAT':'format',
     'STORE':'store',
     'PROCESSOR':'processor',
@@ -123,7 +124,7 @@ def convIndexToPath(index: int):
 
 # Data Input/Output 을 제공하는 클래스
 class DataFileIo:
-    def __init__(self, root_path:str, element_path:str, system=None, element=None, format=None, store=None, processor=None):
+    def __init__(self, root_path:str, element_path:str, storage=None, system=None, element=None, format=None, store=None, processor=None):
         # root_path : data elements root path(os absolute path)
         self._elementPath = element_path  # element path
 
@@ -137,6 +138,7 @@ class DataFileIo:
 
         self._configs[ELEMENT_CFG_LIST['SYSTEM']] = system
         self._configs[ELEMENT_CFG_LIST['ELEMENT']] = element
+        self._configs[ELEMENT_CFG_LIST['STORAGE']] = storage
         self._configs[ELEMENT_CFG_LIST['FORMAT']] = format
         self._configs[ELEMENT_CFG_LIST['STORE']] = store
         self._configs[ELEMENT_CFG_LIST['PROCESSOR']] = processor
@@ -147,8 +149,6 @@ class DataFileIo:
         # Checking : WEB UI 상에서 Selected Data List 관리용 
         # => Web UI 에서 직접 관리하는 방향이 적합할 지 검토 필요
         self.selectedIndexes = []
-
-
 
         # Checking : _record_info 내에 record 별 변경 유무 별도 관리 => 향후 성능 개선용
         # 변경된 부분만 갱신 등 사용
@@ -235,8 +235,6 @@ class DataFileIo:
             self._isAdminConfig = True
         else:    # general case
             self._dataType = self._configs['store'].get('record', {}).get("nature", "static") # static or temporary
-            #if not self._data_type in ['static', 'temporary']:
-            #    self._data_type = 'static' # default
         
             if(self._dataType == 'static'):
                 print(f"{self.__str__()}: static data")
@@ -254,13 +252,13 @@ class DataFileIo:
 
             self._recordStorage = self._configs['store'].get("record", {}).get("storage", "DISK")
 
-        # 데이터 컬럼 정보 설정
-        features = self._configs['format'].get('features', [])
-        for feature in features:
-            featureName = feature['name']
-            self.data_columns.append(featureName)
+            # 데이터 컬럼 정보 설정
+            features = self._configs['format'].get('features', [])
+            for feature in features:
+                featureName = feature['name']
+                self.data_columns.append(featureName)
 
-        self.index_columns = ['index', 'path']
+            self.index_columns = ['index', 'path']
 
         # 4. record info (index) 파일 로딩                
         file_path = f'{self._elementFullPath}/{INDEX_FILE_NAME}'
