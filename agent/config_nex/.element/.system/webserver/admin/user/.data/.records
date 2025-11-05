@@ -6,17 +6,17 @@
     "",
     {
       "0": {
-        "name": "default",
-        "dispName": "Default User Theme",
-        "description": "Default User Theme",
-        "type": "user",
-        "icon": "user",
+        "name": "admin",
+        "dispName": "어드민",
+        "description": "어드민",
+        "type": "admin",
+        "icon": "/admin/admin_user",
         "color": "#33A1FF",
         "user": {
           "id": "admin",
           "password": "admin",
           "level": "admin",
-          "themeLevel": 6,
+          "themeLevel": 3,
           "theme": "default"
         }
       }

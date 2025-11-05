@@ -41,14 +41,14 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     const name = section?.dispName || "";
     const icon = section?.icon || "";
 
-    const padding = section.padding || "8px";
+    const padding = section.padding || "0";
     const [modifiedCount, setModifiedCount] = useState<number>(0);
 
     if (appletPath !== "" && !app) {
       console.log(
         `NexAppProvider => section=${JSON.stringify(section)}, appletPath=${appletPath}`
       );
-      return <NexDiv width='100%' height='100%' padding={padding}></NexDiv>;
+      return <NexDiv width="100%" height="100%" padding={padding}></NexDiv>;
     }
 
     const contentsNodeList = useMemo(() => {
@@ -193,7 +193,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     );
     //const conditions = applet?.contents.
     return (
-      <NexDiv width='100%' height='100%' padding={padding}>
+      <NexDiv width="100%" height="100%" padding={padding}>
         {app &&
           React.createElement(app, {
             name: name,

@@ -25,7 +25,12 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
   //console.log("NexPageViewer section:", JSON.stringify(section, null, 2));
 
   const style = getThemeStyle(theme, "default");
-
+  const appletStyle = getThemeStyle(theme, "applet");
+  const gap = appletStyle.gap || "0";
+  const border = appletStyle.border || "none";
+  const boxShadow = appletStyle.boxShadow || "none";
+  const appletBgColor = appletStyle.bgColors[0] || "#ffffff";
+  console.log("NexPageViewer gap:", JSON.stringify(theme, null, 2));
   const color = style.colors[0];
   const bgColor = style.bgColors[0];
 
@@ -36,7 +41,15 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
   const sectionInfo = JSON.stringify(sectionNoChildren, null, 2);
 
   const contentsView = isContents && (
-    <NexDiv width="100%" height="100%" direction="column">
+    <NexDiv
+      width="100%"
+      height="100%"
+      direction="column"
+      padding={gap}
+      border={border}
+      style={{ boxShadow: boxShadow }}
+      bgColor={appletBgColor}
+    >
       <NexAppProvider section={section} context={context} />
     </NexDiv>
   );

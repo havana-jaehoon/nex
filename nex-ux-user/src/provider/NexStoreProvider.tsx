@@ -75,7 +75,7 @@ function findNodeByPath(nodes: any[], path: string): any | null {
 
 const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
   ({ children, configStore }) => {
-    const userid = "default";
+    const userName = "admin";
 
     const formatCfgs = useMemo(
       () => collectNode(configStore.config.formats, "format"),
@@ -114,7 +114,7 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
 
     const themeUser: NexThemeUser = useMemo(() => {
       const userNode = configStore.config.webThemeUsers.find(
-        (user: any) => user.user === userid
+        (user: any) => user.name === userName
       );
 
       return userNode?.user || defaultThemeUser;
@@ -124,6 +124,7 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
       const themeNode = configStore.config.webThemes.find(
         (t: any) => t.name === themeUser.theme
       );
+
       return themeNode?.theme || defaultTheme;
     }, [configStore.config.webThemes, themeUser]);
 

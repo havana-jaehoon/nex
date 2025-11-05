@@ -8,7 +8,7 @@
       "0": {
         "name": "default",
         "dispName": "Default Theme",
-        "description": "Default Theme",
+        "description": "Default Theme1",
         "type": "theme",
         "icon": "theme",
         "color": "#33A1FF",
@@ -87,9 +87,11 @@
               "#ffffff"
             ],
             "fontFamily": "Arial, sans-serif",
-            "borderRadius": "0.5rem",
-            "padding": "0rem",
-            "gap": "0rem",
+            "borderRadius": "4px",
+            "boxShadow": "0 2px 4px rgba(0, 0, 0, 0.1)",
+            "border": "1px solid #ccc",
+            "padding": "8px",
+            "gap": "4px",
             "fontSize": [
               "0.8rem",
               "0.9rem",

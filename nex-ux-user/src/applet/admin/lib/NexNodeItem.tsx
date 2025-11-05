@@ -83,30 +83,22 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
     setSelected(selectedIndex >= 0 && selectedIndex === index);
   }, [selectedIndex]);
 
-  console.log("NexNodeItem: theme=", JSON.stringify(theme, null, 2));
-  const color = depts !== 0 ? "inherit" : menuStyle.colors[0];
+  //console.log("NexNodeItem: theme=", JSON.stringify(theme, null, 2));
 
-  const bgColor = depts !== 0 ? "inherit" : menuStyle.bgColors[0];
+  const selectedColor = appletStyle.activeColors[0];
+  const selectedBgColor = appletStyle.activeBgColors[0];
 
-  const selectedColor = menuStyle.activeColors[0];
-  const selectedBgColor = menuStyle.activeBgColors[0];
+  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
 
-  const fontLevel = (user?.fontLevel || 5) - depts; // Default font level if not provided
-
-  const parentFontSize =
+  const fontSize =
     appletStyle.fontSize[
       clamp(fontLevel - 1, 0, appletStyle.fontSize?.length - 1)
     ];
 
-  const fontSize =
-    appletStyle.fontSize[clamp(fontLevel, 0, appletStyle.fontSize?.length - 1)];
-
   const borderFontSize = `calc(${fontSize} * 1.5)`;
 
   // 들여쓰기 크기
-  const tabFontSize = `calc(${parentFontSize} * 1.5 * ${depts})`;
-  //console.log("theme:", theme)
-  //const tabSize = theme && theme.menu.tabSize ? theme.menu.tabSize : "1.5rem";
+  const tabSize = `calc(${fontSize} * ${depts})`;
 
   const handleSelect = (i: number) => {
     //console.log("handleClick: path=", curPath);
@@ -147,7 +139,7 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
           <NexDiv width="0.5rem" height="100%" bgColor="inherit" />
         )}
 
-        <span style={{ width: tabFontSize }} />
+        <span style={{ width: tabSize }} />
         {isChildren ? (
           <NexDiv
             justify="center"

@@ -14,6 +14,7 @@ export interface NexThemeStyle {
 
   boxShadow?: string;
   borderRadius?: string;
+  border?: string; // 테두리 스타일
   gap?: string; // 영역간 간격 내부적으로  padding 으로 조절함
   padding?: string; // 영역 내에서 의 패딩 값
   margin?: string;
@@ -31,10 +32,7 @@ export const getThemeStyle = (
   theme: NexTheme | null | undefined,
   themeName: string
 ): NexThemeStyle => {
-  const style: NexThemeStyle = theme?.map((t) => t.name).includes(themeName)
-    ? (theme?.find((t) => t.name === "default") as NexThemeStyle)
-    : defaultThemeStyle;
-  return style;
+  return theme?.find((t) => t.name === themeName) ?? defaultThemeStyle;
 };
 
 export type NexTheme = NexThemeStyle[];
@@ -61,7 +59,7 @@ export const defaultThemeStyle: NexThemeStyle = {
   hoverColors: ["#393c45", "#045bac"],
   hoverBgColors: ["#e8edf7", "#ffffff"], // 호버 배경색, 여러 색상을 지원하기 위해 배열로 변경
   fontFamily: "Arial, sans-serif",
-  gap: "1rem",
+  gap: "2rem",
   padding: "0.2rem",
   fontSize: [
     "0.5rem",
