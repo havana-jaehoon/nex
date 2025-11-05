@@ -15,6 +15,7 @@ import { observer } from "mobx-react-lite";
 import { NexFeature } from "../nexAppletStore";
 import { NexDiv, NexLabel } from "../../component/base/NexBaseComponents";
 import { clamp } from "../../utils/util";
+import { getThemeStyle } from "type/NexTheme";
 
 const CustomLegend = ({
   payload,
@@ -50,9 +51,10 @@ const NexLineChartApp: React.FC<NexAppProps> = observer((props) => {
   // 1.2 Apllet 에서 사용할 contents 의 폰트 사이즈를 theme 로 부터 가져오기
   const fontLevel = user?.fontLevel || 5; // Default font level if not provided
 
+  const chartStyle = getThemeStyle(theme, "chart");
   const contentsFontSize =
-    theme?.chart?.fontSize[
-      clamp(fontLevel - 1, 0, theme?.chart.fontSize?.length - 1)
+    chartStyle.fontSize[
+      clamp(fontLevel - 1, 0, chartStyle.fontSize?.length - 1)
     ] || "1rem";
 
   // 1.3 contents 에서 store, data, format 정보 가져오기
@@ -126,9 +128,7 @@ const NexLineChartApp: React.FC<NexAppProps> = observer((props) => {
                 <CustomLegend
                   {...props}
                   fontSize={
-                    theme?.chart?.fontSize[0]
-                      ? theme?.chart?.fontSize[0]
-                      : "1rem"
+                    chartStyle.fontSize[0] ? chartStyle.fontSize[0] : "1rem"
                   }
                 />
               )}

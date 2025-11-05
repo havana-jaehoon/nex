@@ -8,7 +8,7 @@ import { NexDiv, NexLabel } from "../../component/base/NexBaseComponents";
 import MultiProgress from "./lib/MultiProgress";
 
 import { clamp } from "../../utils/util";
-import { contrastColor } from "type/NexTheme";
+import { contrastColor, getThemeStyle } from "type/NexTheme";
 
 const NexStatusApp: React.FC<NexAppProps> = observer((props) => {
   const { contents, user, theme } = props;
@@ -24,9 +24,11 @@ const NexStatusApp: React.FC<NexAppProps> = observer((props) => {
   // 1.2 Apllet 에서 사용할 contents 의 폰트 사이즈를 theme 로 부터 가져오기
   const fontLevel = user?.fontLevel || 5; // Default font level if not provided
 
+  const style = getThemeStyle(theme, "table");
+
   const contentsFontSize =
-    theme?.table?.fontSize[
-      clamp(fontLevel - 1, 0, theme.table.fontSize?.length - 1)
+    style.fontSize[
+      clamp(fontLevel - 1, 0, style.fontSize?.length - 1)
     ] || "1rem";
 
   // 1.3 contents 에서 store, data, format 정보 가져오기

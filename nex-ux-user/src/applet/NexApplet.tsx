@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { Alert, AlertTitle } from "@mui/material";
 import { NexDiv, NexLabel } from "../component/base/NexBaseComponents";
 
-import { defaultThemeStyle, NexTheme } from "type/NexTheme";
+import { defaultThemeStyle, getThemeStyle, NexTheme } from "type/NexTheme";
 import { clamp } from "utils/util";
 import NexSelector from "store/NexSelector";
 import { NexThemeUser } from "../type/NexTheme";
@@ -55,7 +55,7 @@ const NexApplet: React.FC<NexAppProps> = observer(
 
     const fontLevel = user?.fontLevel || 5; // Default font level if not provided
 
-    const style = theme?.applet || defaultThemeStyle;
+    const style = getThemeStyle(theme, "applet");
     const fontSize =
       style?.fontSize[clamp(fontLevel, 0, style?.fontSize?.length - 1)] ||
       "1rem";

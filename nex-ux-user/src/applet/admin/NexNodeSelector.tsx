@@ -7,6 +7,7 @@ import NexNodeItem from "./lib/NexNodeItem";
 
 import { MdAdd, MdDelete, MdEdit } from "react-icons/md";
 import { clamp } from "utils/util";
+import { getThemeStyle } from "type/NexTheme";
 
 const NexNodeSelctor: React.FC<NexAppProps> = observer((props) => {
   const { contents, theme, user, onSelect } = props;
@@ -22,9 +23,6 @@ const NexNodeSelctor: React.FC<NexAppProps> = observer((props) => {
     });
   };
 
-  const color = theme?.applet?.colors[0];
-  const bgColor = theme?.applet?.bgColors[0];
-
   // 1. Apllet 의 기본 적인 코드
   // 1.1 NexApplet 의 데이터 유형 체크
   const errorMsg = () => {
@@ -34,10 +32,15 @@ const NexNodeSelctor: React.FC<NexAppProps> = observer((props) => {
     return null;
   };
 
+  // 1.2 Theme 속성
+  const appletStyle = getThemeStyle(theme, "applet");
+
+  const color = appletStyle.colors[0];
+  const bgColor = appletStyle.bgColors[0];
   const fontLevel = user?.fontLevel || 5; // Default font level if not provided
   const fontSize =
-    theme?.applet?.fontSize[
-      clamp(fontLevel, 0, theme.applet?.fontSize?.length - 1)
+    appletStyle.fontSize[
+      clamp(fontLevel, 0, appletStyle.fontSize?.length - 1)
     ] || "1rem";
 
   const features =

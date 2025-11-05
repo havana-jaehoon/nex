@@ -6,6 +6,7 @@ import NexMenuItem from "./lib/NexMenuItem";
 import { useNavigate } from "react-router-dom";
 import { buildMenuTree } from "./lib/NexMenuNode";
 import { clamp } from "utils/util";
+import { getThemeStyle } from "type/NexTheme";
 
 // CSV-Style menu data : type(item | folder), path, name, dispName, description, icon, color, route )
 
@@ -13,8 +14,11 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
   const { contents, user, theme } = props;
 
   const [selectedPath, setSelectedPath] = useState<string>("");
-  const color = theme?.menu?.colors[0];
-  const bgColor = theme?.menu?.bgColors[0];
+
+  const style = getThemeStyle(theme, "menu");
+
+  const color = style.colors[0];
+  const bgColor = style.bgColors[0];
 
   // 1. Apllet 의 기본 적인 코드
   // 1.1 NexApplet 의 데이터 유형 체크
@@ -29,9 +33,8 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
   const fontLevel = user?.fontLevel || 5; // Default font level if not provided
 
   const contentsFontSize =
-    theme?.table?.fontSize[
-      clamp(fontLevel - 1, 0, theme.table.fontSize?.length - 1)
-    ] || "1rem";
+    style.fontSize[clamp(fontLevel - 1, 0, style.fontSize?.length - 1)] ||
+    "1rem";
 
   // 1.3 contents 에서 store, data, format 정보 가져오기
   //  Freatures 에서 feature 별 Icon, color 정보 등을 가져오기

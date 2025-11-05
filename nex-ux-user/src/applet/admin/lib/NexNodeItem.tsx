@@ -16,7 +16,7 @@ import {
   MdOutlineArrowLeft,
   MdOutlineDeleteForever,
 } from "react-icons/md";
-import { NexTheme, NexThemeUser } from "type/NexTheme";
+import { getThemeStyle, NexTheme, NexThemeUser } from "type/NexTheme";
 import { NexNode, NexNodeType } from "type/NexNode";
 import { Button, IconButton, Stack } from "@mui/material";
 import { clamp } from "utils/util";
@@ -57,6 +57,9 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
   const [jsonData, setJsonData] = useState<any>(null);
   const [nodeType, setNodeType] = useState<string | null>(null);
 
+  const appletStyle = getThemeStyle(theme, "applet");
+  const menuStyle = getThemeStyle(theme, "menu");
+
   useEffect(() => {
     if (node && node.data) {
       setPath(node.data[1]);
@@ -80,29 +83,23 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
     setSelected(selectedIndex >= 0 && selectedIndex === index);
   }, [selectedIndex]);
 
-  const color =
-    depts !== 0
-      ? "inherit"
-      : theme?.menu?.colors[0] || theme?.default.colors[0] || "inherit";
-  const bgColor =
-    depts !== 0
-      ? "inherit"
-      : theme?.menu?.bgColors[0] || theme?.default.bgColors[0] || "#FFFFFF";
+  console.log("NexNodeItem: theme=", JSON.stringify(theme, null, 2));
+  const color = depts !== 0 ? "inherit" : menuStyle.colors[0];
 
-  const selectedColor = theme?.menu?.activeColors[0] || "blue";
-  const selectedBgColor = theme?.menu?.activeBgColors[0] || "#444444";
+  const bgColor = depts !== 0 ? "inherit" : menuStyle.bgColors[0];
+
+  const selectedColor = menuStyle.activeColors[0];
+  const selectedBgColor = menuStyle.activeBgColors[0];
 
   const fontLevel = (user?.fontLevel || 5) - depts; // Default font level if not provided
 
   const parentFontSize =
-    theme?.applet?.fontSize[
-      clamp(fontLevel - 1, 0, theme.applet?.fontSize?.length - 1)
-    ] || "1rem";
+    appletStyle.fontSize[
+      clamp(fontLevel - 1, 0, appletStyle.fontSize?.length - 1)
+    ];
 
   const fontSize =
-    theme?.applet?.fontSize[
-      clamp(fontLevel, 0, theme.applet?.fontSize?.length - 1)
-    ] || "1rem";
+    appletStyle.fontSize[clamp(fontLevel, 0, appletStyle.fontSize?.length - 1)];
 
   const borderFontSize = `calc(${fontSize} * 1.5)`;
 

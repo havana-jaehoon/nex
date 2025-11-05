@@ -5,7 +5,7 @@ import {
   MdKeyboardArrowRight,
   MdOutlineArrowLeft,
 } from "react-icons/md";
-import { defaultThemeStyle, NexTheme } from "type/NexTheme";
+import { defaultThemeStyle, getThemeStyle, NexTheme } from "type/NexTheme";
 import { NexMenuNode } from "./NexMenuNode";
 
 interface NexMenuItemProps {
@@ -49,11 +49,10 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
     }
   }, [isSelectedRoot]);
 
-  const defaultStyle = theme?.default || defaultThemeStyle;
-  const menuStyle = theme?.menu || defaultThemeStyle;
 
-  const color = depts !== 0 ? "inherit" : defaultStyle.colors[0];
-  const bgColor = depts !== 0 ? "inherit" : menuStyle.bgColors[0];
+
+  const defaultStyle = getThemeStyle(theme, "default");
+  const menuStyle = getThemeStyle(theme, "menu");
 
   const selectedColor = menuStyle.activeColors[0];
   const selectedBgColor = depts !== 0 ? "inherit" : menuStyle.activeBgColors[0];
@@ -61,10 +60,7 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
   const fontSizeIndex = Math.max(0, defaultStyle.fontSize.length - 3 - depts);
   const fontSize = defaultStyle.fontSize[fontSizeIndex];
 
-  //console.log("theme:", theme)
-
-  //const tabSize = theme && theme.menu.tabSize ? theme.menu.tabSize : "1.5rem";
-
+  
   const handleClick = () => {
     if (isRoute) {
       onSelect(path);

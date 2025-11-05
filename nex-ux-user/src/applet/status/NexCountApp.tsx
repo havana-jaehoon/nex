@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import Stack from "@mui/material/Stack";
 import { observer } from "mobx-react-lite";
 
@@ -6,7 +6,7 @@ import NexApplet, { NexAppProps } from "../NexApplet";
 import { NexDiv, NexLabel } from "../../component/base/NexBaseComponents";
 
 import { clamp } from "../../utils/util";
-import { contrastColor } from "type/NexTheme";
+import { contrastColor, getThemeStyle } from "type/NexTheme";
 
 const NexCountApp: React.FC<NexAppProps> = observer((props) => {
   const { contents, user, theme } = props;
@@ -22,10 +22,10 @@ const NexCountApp: React.FC<NexAppProps> = observer((props) => {
   // 1.2 Apllet 에서 사용할 contents 의 폰트 사이즈를 theme 로 부터 가져오기
   const fontLevel = user?.fontLevel || 5; // Default font level if not provided
 
+  const style = getThemeStyle(theme, "table");
   const contentsFontSize =
-    theme?.table?.fontSize[
-      clamp(fontLevel - 1, 0, theme.table.fontSize?.length - 1)
-    ] || "1rem";
+    style.fontSize[clamp(fontLevel - 1, 0, style.fontSize?.length - 1)] ||
+    "1rem";
 
   // 1.3 contents 에서 store, data, format 정보 가져오기
   //  Freatures 에서 feature 별 Icon, color 정보 등을 가져오기

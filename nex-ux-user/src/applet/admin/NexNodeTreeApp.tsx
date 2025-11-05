@@ -13,6 +13,7 @@ import { getAdminNodeFromType } from "./lib/adminDataFormat";
 import { NexNodeType } from "type/NexNode";
 import { set } from "mobx";
 import { data, Route } from "react-router-dom";
+import { getThemeStyle } from "type/NexTheme";
 
 const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const { name, contents, theme, user, onSelect, onUpdate, onAdd, onRemove } =
@@ -25,8 +26,9 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const [selectedPath, setSelectedPath] = useState<string>("");
   const [selectedKeys, setSelectedKeys] = useState<number[]>([]);
 
-  const color = theme?.applet?.colors[0];
-  const bgColor = theme?.applet?.bgColors[0];
+  const style = getThemeStyle(theme, "applet");
+  const color = style.colors[0];
+  const bgColor = style.bgColors[0];
 
   // 1. Apllet 의 기본 적인 코드
   // 1.1 NexApplet 의 데이터 유형 체크
@@ -41,9 +43,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
 
   const fontLevel = user?.fontLevel || 5; // Default font level if not provided
   const fontSize =
-    theme?.applet?.fontSize[
-      clamp(fontLevel, 0, theme.applet?.fontSize?.length - 1)
-    ] || "1rem";
+    style.fontSize[clamp(fontLevel, 0, style.fontSize?.length - 1)] || "1rem";
 
   //const treeData = contents?.[0]?.json || [];
 
@@ -235,15 +235,15 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   return (
     <NexApplet {...props} error={errorMsg()}>
       <NexDiv
-        flex='1'
-        direction='column'
-        align='center'
-        justify='flex-start'
+        flex="1"
+        direction="column"
+        align="center"
+        justify="flex-start"
         color={color}
         bgColor={bgColor}
-        width='100%'
-        height='100%'
-        overflow='auto'
+        width="100%"
+        height="100%"
+        overflow="auto"
         fontSize={fontSize}
         onClick={(e) => {
           // 컨테이너 자신을 직접 클릭한 경우(빈 영역)만 선택 해제
@@ -253,22 +253,22 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
         }}
       >
         {/* Add & Delete & Edit */}
-        <Stack spacing={0.5} direction='row' justifyContent='end' width='100%'>
+        <Stack spacing={0.5} direction="row" justifyContent="end" width="100%">
           <IconButton
-            title='폴더 추가'
-            color='primary'
+            title="폴더 추가"
+            color="primary"
             onClick={handleAddFolder}
           >
             <MdCreateNewFolder />
           </IconButton>
-          <IconButton title='Add' color='primary' onClick={handleAddEntity}>
+          <IconButton title="Add" color="primary" onClick={handleAddEntity}>
             <MdNewLabel />
           </IconButton>
-          <IconButton title='Edit' color='primary' onClick={handleEdit}>
+          <IconButton title="Edit" color="primary" onClick={handleEdit}>
             <MdEdit />
           </IconButton>
         </Stack>
-        <Stack spacing={0.5} direction='column' width='100%'>
+        <Stack spacing={0.5} direction="column" width="100%">
           {nexTree &&
             nexTree.data &&
             nexTree.data.map(

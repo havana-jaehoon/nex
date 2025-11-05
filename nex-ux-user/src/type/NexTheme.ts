@@ -1,4 +1,5 @@
 export interface NexThemeStyle {
+  name: string;
   colors: string[]; // 여러 색상을 지원하기 위해 배열로 변경
   bgColors: string[]; // 배경색, 여러 색상을 지원하기 위해 배열로 변경
   activeColors: string[]; // 활성화 색상, 여러 색상을 지원하기 위해 배열로 변경
@@ -26,15 +27,17 @@ export interface NexThemeStyle {
   focusBoxShadow?: string;
 }
 
-export interface NexTheme {
-  default: NexThemeStyle;
-  applet?: NexThemeStyle; // Optional applet style, can be used for specific applet themes
-  button?: NexThemeStyle;
-  input?: NexThemeStyle;
-  menu?: NexThemeStyle;
-  table?: NexThemeStyle;
-  chart?: NexThemeStyle;
-}
+export const getThemeStyle = (
+  theme: NexTheme | null | undefined,
+  themeName: string
+): NexThemeStyle => {
+  const style: NexThemeStyle = theme?.map((t) => t.name).includes(themeName)
+    ? (theme?.find((t) => t.name === "default") as NexThemeStyle)
+    : defaultThemeStyle;
+  return style;
+};
+
+export type NexTheme = NexThemeStyle[];
 
 export interface NexThemeUser {
   id: string; // User ID associated with the theme
@@ -49,6 +52,7 @@ export const defaultThemeUser: NexThemeUser = {
 };
 
 export const defaultThemeStyle: NexThemeStyle = {
+  name: "default",
   colors: ["#393c45", "#03dac6"],
   bgColors: ["#eeeeee", "#e8edf7"],
   bdColors: ["#cccccc", "#ccccee"], // 테두리 색상, 여러 색상을 지원하기 위해 배열로 변경
@@ -73,9 +77,10 @@ export const defaultThemeStyle: NexThemeStyle = {
   ], // 0~N levels of font size
 };
 
-export const defaultTheme: NexTheme = {
-  default: defaultThemeStyle,
-  applet: {
+export const defaultTheme: NexTheme = [
+  defaultThemeStyle,
+  {
+    name: "applet",
     colors: ["#393c45", "#045bac"],
     bgColors: ["#e8edf7", "#ffffff"],
     bdColors: ["#cccccc", "#ccccee"], // 테두리 색상, 여러 색상을 지원하기 위해 배열로 변경
@@ -101,7 +106,8 @@ export const defaultTheme: NexTheme = {
       "2rem",
     ], // 0~N levels of font size
   },
-  button: {
+  {
+    name: "button",
     colors: ["#393c45", "#045bac"],
     bgColors: ["#e8edf7", "#ffffff"],
     bdColors: ["#cccccc", "#ccccee"], // 테두리 색상, 여러 색상을 지원하기 위해 배열로 변경
@@ -114,91 +120,7 @@ export const defaultTheme: NexTheme = {
     fontSize: ["1.5rem", "1.25rem", "1rem", "0.875rem"], // 0~N levels of font size
     borderRadius: "4px",
   },
-  input: {
-    colors: ["#393c45", "#045bac"],
-    bgColors: ["#e8edf7", "#ffffff"],
-    bdColors: ["#cccccc", "#ccccee"], // 테두리 색상, 여러 색상을 지원하기 위해 배열로 변경
-    activeColors: ["#393c45", "#045bac"],
-    activeBgColors: ["#e8edf7", "#ffffff"], // 활성화 배경색, 여러 색상을 지원하기 위해 배열로 변경
-    hoverColors: ["#393c45", "#045bac"],
-    hoverBgColors: ["#e8edf7", "#ffffff"], // 호버 배경색, 여러 색상을 지원하기 위해 배열로 변경
-
-    fontFamily: "Arial, sans-serif",
-    fontSize: ["1.25rem", "1rem", "0.875rem", "0.8rem"], // 0~N levels of font size
-    borderRadius: "4px",
-  },
-  menu: {
-    colors: ["#393c45", "#045bac"],
-    bgColors: ["#e8edf7", "#ffffff"],
-    bdColors: ["#cccccc", "#ccccee"], // 테두리 색상, 여러 색상을 지원하기 위해 배열로 변경
-    activeColors: ["#045bac", "#045bac"],
-    activeBgColors: ["#FFFFFF", "#ffffff"], // 활성화 배경색, 여러 색상을 지원하기 위해 배열로 변경
-    hoverColors: ["#393c45", "#045bac"],
-    hoverBgColors: ["#e8edf7", "#ffffff"], // 호버 배경색, 여러 색상을 지원하기 위해 배열로 변경
-
-    fontFamily: "Arial, sans-serif",
-    fontSize: [
-      "0.5rem",
-      "0.6rem",
-      "0.7rem",
-      "0.8rem",
-      "0.9rem",
-      "1rem",
-      "1.25rem",
-      "1.5rem",
-      "1.75rem",
-      "2rem",
-    ], // 0~N levels of font size
-    borderRadius: "1px",
-    padding: "1px",
-  },
-  table: {
-    colors: ["#393c45", "#045bac"],
-    bgColors: ["#e8edf7", "#ffffff"],
-    bdColors: ["#cccccc", "#ccccee"], // 테두리 색상, 여러 색상을 지원하기 위해 배열로 변경
-    activeColors: ["#393c45", "#045bac"],
-    activeBgColors: ["#e8edf7", "#ffffff"], // 활성화 배경색, 여러 색상을 지원하기 위해 배열로 변경
-    hoverColors: ["#393c45", "#045bac"],
-    hoverBgColors: ["#e8edf7", "#ffffff"], // 호버 배경색, 여러 색상을 지원하기 위해 배열로 변경
-
-    fontFamily: "Arial, sans-serif",
-    fontSize: [
-      "0.5rem",
-      "0.6rem",
-      "0.7rem",
-      "0.8rem",
-      "0.9rem",
-      "1rem",
-      "1.25rem",
-      "1.5rem",
-      "1.75rem",
-      "2rem",
-    ], // 0~N levels of font size
-  },
-  chart: {
-    colors: ["#393c45", "#045bac"],
-    bgColors: ["#e8edf7", "#ffffff"],
-    bdColors: ["#cccccc", "#ccccee"], // 테두리 색상, 여러 색상을 지원하기 위해 배열로 변경
-    activeColors: ["#393c45", "#045bac"],
-    activeBgColors: ["#e8edf7", "#ffffff"], // 활성화 배경색, 여러 색상을 지원하기 위해 배열로 변경
-    hoverColors: ["#393c45", "#045bac"],
-    hoverBgColors: ["#e8edf7", "#ffffff"], // 호버 배경색, 여러 색상을 지원하기 위해 배열로 변경
-
-    fontFamily: "Arial, sans-serif",
-    fontSize: [
-      "0.5rem",
-      "0.6rem",
-      "0.7rem",
-      "0.8rem",
-      "0.9rem",
-      "1rem",
-      "1.25rem",
-      "1.5rem",
-      "1.75rem",
-      "2rem",
-    ], // 0~N levels of font size
-  },
-};
+];
 
 //대비 컬러 계산 함수
 export const contrastColor = (hex: string | null): string => {

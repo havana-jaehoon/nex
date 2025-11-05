@@ -3,7 +3,7 @@ import { NexDiv } from "component/base/NexBaseComponents";
 import NexApplet, { NexAppProps } from "applet/NexApplet";
 import { observer } from "mobx-react-lite";
 import { clamp } from "utils/util";
-import { defaultThemeStyle } from "type/NexTheme";
+import { defaultThemeStyle, getThemeStyle } from "type/NexTheme";
 import AdminNodeEditor from "./lib/AdminNodeEditor";
 
 const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
@@ -21,6 +21,17 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
       return "NexNodeEditor must be one store element.";
     return null;
   };
+
+  const defaultStyle = getThemeStyle(theme, "default");
+
+  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
+  const fontSize =
+    defaultStyle?.fontSize[
+      clamp(fontLevel - 1, 0, defaultStyle?.fontSize?.length - 1)
+    ] || "1rem";
+
+  const color = defaultStyle?.colors[0] || "#393c45";
+  const bgColor = defaultStyle?.bgColors[0] || "#e8edf7";
 
   const storeIndex = 0; // only 1 store
   const [data, setData] = useState<any>(null);
@@ -42,15 +53,6 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
     setData(tdata.length > 0 ? tdata[0] : null);
   }, [contents]);
 
-  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
-  const style = theme?.default || defaultThemeStyle;
-  const fontSize =
-    style?.fontSize[clamp(fontLevel - 1, 0, style?.fontSize?.length - 1)] ||
-    "1rem";
-
-  const color = style?.colors[0] || "#393c45";
-  const bgColor = style?.bgColors[0] || "#e8edf7";
-
   const handleApply = (newData: any) => {
     //console.log("onApply : ", JSON.stringify(newData, null, 2));
     const bres = onUpdate?.(0, newData);
@@ -63,17 +65,17 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
     <NexApplet {...props} error={errorMsg()}>
       {data ? (
         <NexDiv
-          direction='column'
-          align='center'
-          width='100%'
-          height='100%'
+          direction="column"
+          align="center"
+          width="100%"
+          height="100%"
           color={color}
           bgColor={bgColor}
           onMouseEnter={() => setMouseEnter(true)}
           onMouseLeave={() => setMouseEnter(false)}
-          overflow='auto'
+          overflow="auto"
         >
-          <AdminNodeEditor data={data} mode='edit' onApply={handleApply} />
+          <AdminNodeEditor data={data} mode="edit" onApply={handleApply} />
         </NexDiv>
       ) : null}
     </NexApplet>

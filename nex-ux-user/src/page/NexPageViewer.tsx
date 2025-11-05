@@ -4,7 +4,7 @@ import { NexDiv, NexLabel } from "../component/base/NexBaseComponents";
 import { Route, Routes } from "react-router-dom";
 import { NexStoreContext } from "provider/NexStoreProvider";
 import NexAppProvider from "applet/NexAppProvider";
-import { defaultThemeStyle } from "type/NexTheme";
+import { defaultThemeStyle, getThemeStyle, NexThemeStyle } from "type/NexTheme";
 
 interface NexPageViewerProps {
   section: any;
@@ -24,7 +24,8 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
   const isContents = section && section.contents;
   //console.log("NexPageViewer section:", JSON.stringify(section, null, 2));
 
-  const style = theme?.default || defaultThemeStyle;
+  const style = getThemeStyle(theme, "default");
+
   const color = style.colors[0];
   const bgColor = style.bgColors[0];
 
@@ -35,7 +36,7 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
   const sectionInfo = JSON.stringify(sectionNoChildren, null, 2);
 
   const contentsView = isContents && (
-    <NexDiv width='100%' height='100%' direction='column'>
+    <NexDiv width="100%" height="100%" direction="column">
       <NexAppProvider section={section} context={context} />
     </NexDiv>
   );
@@ -90,12 +91,12 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
   return (
     <NexDiv
       direction={"column"}
-      align='center'
-      justify='center'
-      width='100%'
-      height='100%'
+      align="center"
+      justify="center"
+      width="100%"
+      height="100%"
       flex={section.size || "1"}
-      overflow='auto'
+      overflow="auto"
       color={color}
       bgColor={bgColor}
       title={sectionInfo}
@@ -103,12 +104,12 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
     >
       {/* Section Name Label */}
       {isVisibleTitle ? (
-        <NexDiv width='100%' height='1em'>
+        <NexDiv width="100%" height="1em">
           <NexLabel
-            width='100%'
-            height='100%'
-            align='center'
-            justify='center'
+            width="100%"
+            height="100%"
+            align="center"
+            justify="center"
             style={{ cursor: "pointer", fontSize: "0.8em" }}
           >
             {section.name || "Unnamed Section"}
@@ -117,11 +118,11 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
       ) : null}
       <NexDiv
         direction={section.direction || "row"}
-        width='100%'
-        height='100%'
-        align='center'
-        justify='center'
-        overflow='visible'
+        width="100%"
+        height="100%"
+        align="center"
+        justify="center"
+        overflow="visible"
       >
         {contentsView}
         {pageView}

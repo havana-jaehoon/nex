@@ -45,11 +45,8 @@
             ],
             "fontFamily": "Arial, sans-serif",
             "gap": "1rem",
-            "padding": "0.2rem",
+            "padding": "1rem",
             "fontSize": [
-              "0.5rem",
-              "0.6rem",
-              "0.7rem",
               "0.8rem",
               "0.9rem",
               "1rem",
@@ -94,9 +91,6 @@
             "padding": "0rem",
             "gap": "0rem",
             "fontSize": [
-              "0.5rem",
-              "0.6rem",
-              "0.7rem",
               "0.8rem",
               "0.9rem",
               "1rem",
@@ -145,7 +139,7 @@
             ],
             "borderRadius": "4px"
           },
-          { 
+          {
             "name": "input",
             "colors": [
               "#393c45",
@@ -184,8 +178,8 @@
             ],
             "borderRadius": "4px"
           },
-           {
-            "name" : "menu",
+          {
+            "name": "menu",
             "colors": [
               "#393c45",
               "#045bac"
@@ -216,9 +210,6 @@
             ],
             "fontFamily": "Arial, sans-serif",
             "fontSize": [
-              "0.5rem",
-              "0.6rem",
-              "0.7rem",
               "0.8rem",
               "0.9rem",
               "1rem",
@@ -262,9 +253,6 @@
             ],
             "fontFamily": "Arial, sans-serif",
             "fontSize": [
-              "0.5rem",
-              "0.6rem",
-              "0.7rem",
               "0.8rem",
               "0.9rem",
               "1rem",
@@ -274,7 +262,7 @@
               "2rem"
             ]
           },
-          { 
+          {
             "name": "chart",
             "colors": [
               "#393c45",
@@ -306,9 +294,6 @@
             ],
             "fontFamily": "Arial, sans-serif",
             "fontSize": [
-              "0.5rem",
-              "0.6rem",
-              "0.7rem",
               "0.8rem",
               "0.9rem",
               "1rem",

@@ -64,12 +64,13 @@ class AdminMgr(SingletonInstance):
             for elementInfo in elementInfoList:
                 path = elementInfo['path'] # element path 
                 system = elementInfo['system']
-                element = elementInfo['element']
+                storage = elementInfo['storage']
                 format = elementInfo['format']
                 store = elementInfo['store']
                 processor = elementInfo['processor']
+                element = elementInfo['element']
 
-                dataio = DataFileIo(self._rootPath, path, system, element, format, store, processor)
+                dataio = DataFileIo(self._rootPath, path, storage, system, element, format, store, processor)
 
                 self._dataioMap[projectName][systemName][path] = dataio
 

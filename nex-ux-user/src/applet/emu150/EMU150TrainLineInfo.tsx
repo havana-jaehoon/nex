@@ -8,6 +8,7 @@ import { clamp } from "../../utils/util";
 import NexDataStore from "../NexDataStore";
 import NexLineChartApp from "../chart/NexLineChartApp";
 import EMU150TrainAccordion from "./lib/EMU150TrainAccordion";
+import { getThemeStyle } from "type/NexTheme";
 
 const EMU150TrainLineInfoApp: React.FC<NexAppProps> = observer((props) => {
   const { contents, theme, applet, user } = props;
@@ -21,58 +22,7 @@ const EMU150TrainLineInfoApp: React.FC<NexAppProps> = observer((props) => {
     return null;
   };
 
-  // 1.2 Apllet 에서 사용할 contents 의 폰트 사이즈를 theme 로 부터 가져오기
-  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
-
-  const contentsFontSize =
-    theme?.table?.fontSize[
-      clamp(fontLevel - 1, 0, theme.table.fontSize?.length - 1)
-    ] || "1rem";
-
-  // 1.3 Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
-  // 향후 구현 필요
-
-  // 1.4 data store 에서 출력할 데이터를 Applet 에서 사용할 수 있는 형태로 변환.
-
-  const lineStore = contents[0].store;
-
-  const lossPerLineStore = contents[1].store;
-
-  const carPerTrainStore = contents[2].store;
-  const trainPerLineStore = contents[3].store;
-
-  const detailLossLevelHistoryStore = contents[4].store;
-
-  const [lossCountHistoryStore, setLossCountHistoryStore] =
-    useState<NexDataStore | null>(null);
-  const handleSelect = (obj: any) => {
-    console.log("Selected:", obj);
-    const condition: any[] = [];
-
-    if (obj && obj.line) {
-      condition.push({ feature: "line", value: obj.line, method: "match" });
-    }
-    if (obj && obj.train) {
-      condition.push({ feature: "train", value: obj.train, method: "match" });
-    }
-    if (obj && obj.car) {
-      condition.push({ feature: "car", value: obj.car, method: "match" });
-    }
-
-    console.log("Selected:", detailLossLevelHistoryStore);
-    // 선택된 Line 에 대한 데이터를 가져오기
-
-    const store2 = detailLossLevelHistoryStore?.getCountByCondition(
-      condition,
-      "loss-level",
-      ["정상", "경고", "주의"],
-      ["date"]
-    );
-    if (store2) setLossCountHistoryStore(store2);
-
-    //console.log("lossLevelListStore:", JSON.stringify(store1, null, 2));
-    //console.log("lossCountHistoryStore:", JSON.stringify(store2, null, 2));
-  };
+  const tableStyle = getThemeStyle(theme, "table");
 
   return (
     <NexApplet {...props} error={errorMsg()}>

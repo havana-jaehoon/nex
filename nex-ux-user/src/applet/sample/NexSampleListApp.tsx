@@ -6,6 +6,7 @@ import { observer } from "mobx-react-lite";
 import { NexDiv } from "../../component/base/NexBaseComponents";
 import { clamp } from "../../utils/util";
 import { Box, Button, Stack } from "@mui/material";
+import { getThemeStyle } from "type/NexTheme";
 
 //import { fieldPaths } from "test/data/testProjects";
 
@@ -23,10 +24,10 @@ const NexSampleListApp: React.FC<NexAppProps> = observer((props) => {
   // 1.2 Apllet 에서 사용할 contents 의 폰트 사이즈를 theme 로 부터 가져오기
   const fontLevel = user?.fontLevel || 5; // Default font level if not provided
 
+  const style = getThemeStyle(theme, "table");
   const contentsFontSize =
-    theme?.default?.fontSize[
-      clamp(fontLevel - 1, 0, theme?.default?.fontSize?.length - 1)
-    ] || "1rem";
+    style.fontSize[clamp(fontLevel - 1, 0, style.fontSize?.length - 1)] ||
+    "1rem";
 
   // 1.3 contents 에서 store, data, format 정보 가져오기
   //  Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
