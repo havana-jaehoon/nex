@@ -1,4 +1,3 @@
-import re
 import pandas as pd
 from typing import Optional, List, Tuple
 from abc import ABC, abstractmethod

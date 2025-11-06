@@ -1,0 +1,149 @@
+import threading, json
+from typing import List, Tuple
+
+from config import url_def
+from config.element_cfg import ElementCfgs
+from config.system_cfg import SystemCfg
+from config.config_base_mgr import ConfigBaseMgr
+from auth.auth_server import AuthServer
+from system_info import SystemInfoMgr
+from command.data_io import ELEMENT_CFG_LIST
+from command.config_reader import ConfigReader
+from util.pi_http.http_handler import Server_Dynamic_Handler, HandlerArgs, HandlerResult
+
+
+class ConfigServerMgr(ConfigBaseMgr):
+
+    def _on_init_once(self, cfg_name: str, **kwargs):
+        super()._on_init_once(cfg_name=cfg_name, **kwargs)
+
+        admin_cfg_name = kwargs.get('admin_cfg_name', '')
+        if cfg_name == admin_cfg_name:
+            raise Exception('cfg_name and admin_cfg_name must be different')
+
+        self._auth:AuthServer = AuthServer(SystemInfoMgr().config_dir, 'token_jwt')
+
+        self._systemDataDir = f"{SystemInfoMgr().base_dir}/{admin_cfg_name}/.element/.system/webserver/admin"
+        self._systemDataMapLock = threading.Lock()
+        self._systemDataMap = {}
+        self._cfgReader = ConfigReader(self._systemDataDir)
+
+    def _loadSystemConfig(self):
+        try:
+            self._logger.log_info(f'ConfigServerMgr : loadSystemConfig : start')
+
+            # check update ????
+
+            if self._systemCfg.load():
+                self._logger.log_info(f'ConfigServerMgr : loadSystemConfig : load success')
+            else:
+                systems = self._cfgReader.getSystems('')
+                if not self._systemCfg.init(systems):
+                    raise Exception('system-cfg loadAll fail')
+                self._logger.log_info(f'ConfigServerMgr : loadSystemConfig : init success')
+        except Exception as e:
+            self._logger.log_error(f'ConfigServerMgr : loadSystemConfig : fail to {e}')
+            raise Exception(f'ConfigServerMgr : loadSystemConfig fail to {e}')
+
+    def _loadSystemData(self):
+        try:
+            self._logger.log_info(f'ConfigServerMgr : loadSystemData : start')
+            system_dataMap = {}
+            systems = self._cfgReader.getSystems('')
+            for system in systems:
+                system_name = system.get('name')
+                if not system_name: continue
+                if system_name == self._auth.systemName: continue
+
+                # load config of system
+                system_data = { v: [] for v in ELEMENT_CFG_LIST.values() }
+                for key, value in ELEMENT_CFG_LIST.items():
+                    if value == ELEMENT_CFG_LIST['ELEMENT']:
+                        system_data[value] = self._cfgReader.getDatas(value, '', system_name)
+                    elif value == ELEMENT_CFG_LIST['SYSTEM']:
+                        system_data[value] = systems
+                        # temp_data = self._cfgReader.getDatas(value, '', '')
+                        # system_data[value] = [
+                        #     v
+                        #     for item in temp_data
+                        #     if isinstance(item, list) and len(item) > 4 and isinstance(item[-1], dict)
+                        #     for v in item[-1].values()
+                        # ]
+                    else:
+                        system_data[value] = self._cfgReader.getDatas(value, '', '')
+                system_dataMap[system_name] = system_data
+        except Exception as e:
+            import traceback
+            tb_str = traceback.format_exc()
+            self._logger.log_error(f'ConfigServerMgr : loadSystemData : fail to {tb_str}')
+            raise Exception(f'ConfigServerMgr : loadSystemData fail to {tb_str}')
+        else:
+            with self._systemDataMapLock:
+                self._systemDataMap = system_dataMap
+                self._logger.log_info(f'ConfigServerMgr : loadSystemData : load success')
+
+    def _loadOwnConfig(self):
+        try:
+            self._logger.log_info(f'ConfigServerMgr : loadOwnConfig : start')
+
+            # check update ????
+
+            if self._elementCfgs.load():
+                self._logger.log_info(f'ConfigServerMgr : loadOwnConfig : load success')
+            else:
+                with open(self._auth.getInternalElementConfigFile(), 'r') as f:
+                    auth_internal_element_config_data = json.load(f)
+                if not self._elementCfgs.init(auth_internal_element_config_data, self._systemCfg.getSystemConfig(self._auth.systemName), True):
+                    raise Exception('element-cfg loadAll fail')
+                self._logger.log_info(f'ConfigServerMgr : loadOwnConfig : init success')
+        except Exception as e:
+            self._logger.log_error(f'ConfigServerMgr : loadOwnConfig : fail to {e}')
+            raise Exception(f'ConfigServerMgr : loadOwnConfig fail to {e}')
+
+    def _getSystemData(self, system_name: str) -> dict:
+        with self._systemDataMapLock:
+            return self._systemDataMap.get(system_name, {})
+
+    async def _get(self, handler_args: HandlerArgs, kwargs: dict) -> HandlerResult:
+        try:
+            project = handler_args.query_params.get('project', '')
+            system = handler_args.query_params.get('system', '')
+            if not await self._auth.isAccess(project, system, handler_args.client_ip):
+                self._logger.log_error(f'ConfigServerMgr : {project}, {system} : get : not found access')
+                return HandlerResult(status=403, body=f'invalid access')
+            system_data = self._getSystemData(system)
+            if system_data:
+                self._logger.log_info(f'ConfigServerMgr : {project}, {system} : get : success')
+                return HandlerResult(status=200, body=system_data)
+            else:
+                self._logger.log_error(f'ConfigServerMgr : {project}, {system} : get : not found config')
+                return HandlerResult(status=404, body=f'Not found config for project:{project}, system:{system}')
+        except Exception as e:
+            self._logger.log_error(f'ConfigServerMgr : get({handler_args, kwargs}) : {e}')
+            return HandlerResult(status=500, body=f'exception : {e}')
+
+    def start(self):
+        self._logger.log_info(f'ConfigServerMgr : start')
+        # start auth
+        if self._auth.load():
+            self._logger.log_info(f'ConfigServerMgr : auth-server load success')
+        else:
+            if self._auth.init():
+                self._logger.log_info(f'ConfigServerMgr : auth-server init success')
+            else:
+                raise Exception('auth-server init fail')
+
+        self._systemCfg = SystemCfg(SystemInfoMgr().base_dir, self._cfgName)
+        self._elementCfgs = ElementCfgs(self._auth.systemName, SystemInfoMgr().base_dir, self._cfgName)
+
+        # start config
+        self._loadSystemConfig()
+        self._loadSystemData()
+        self._loadOwnConfig()
+
+    def getQueryHandlers(self) -> List[Tuple[str, Server_Dynamic_Handler, dict]]:
+        handler_list: List[Tuple[str, Server_Dynamic_Handler, dict]] = [
+            (url_def.AGENT_CONFIG_QUERY_SUB_URL,    self._get,      {}),
+        ]
+        handler_list.extend(self._auth.getQueryHandlers())
+        return handler_list

@@ -52,6 +52,8 @@ async def _encode_reqHandler_args(request: Request) -> HandlerArgs:
     body_data = await _get_body_from_request(request)
     return HandlerArgs(request.method,
                        request.path_params['full_path'],
+                       request.client.host,
+                       request.client.port,
                        dict(request.query_params),
                        dict(request.headers),
                        request.cookies,

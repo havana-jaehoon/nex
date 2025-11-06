@@ -1,5 +1,5 @@
-import json, configparser, os
-from typing import Tuple, Optional, Dict
+import configparser, os
+
 
 from util.singleton import SingletonInstance
 
@@ -11,89 +11,61 @@ class SystemInfoMgr(SingletonInstance):
         log_subdir = 'logs'
         src_subdir = 'src'
 
-        self._base_dir = f'{os.path.dirname(os.path.abspath(__file__))}/..'
-        self._config_dir = f'{self._base_dir}/{config_subdir}'
-        self._log_dir = f'{self._base_dir}/{log_subdir}'
-        self._src_dir = f'{self._base_dir}/{src_subdir}'
+        self._baseDir = f'{os.path.dirname(os.path.abspath(__file__))}/..'
+        self._configDir = f'{self._baseDir}/{config_subdir}'
+        self._logDir = f'{self._baseDir}/{log_subdir}'
+        self._srcDir = f'{self._baseDir}/{src_subdir}'
         config = configparser.ConfigParser()
-        config.read(f'{self._config_dir}/config.ini')
-        self._own_project_name = config['project'].get('name', None)
-        self._own_system_name = config['system'].get('name', None)
-        self._agent_id = config['system'].get('agent_id', None)
-        self._secret_key = config['system'].get('secret_key', None)
-        self._ip = config['system']['ip']
-        self._port = int(config['system']['port'])
-        self._log_retention_day = int(config['log']['retention_day'])
+        config.read(f'{self._configDir}/config.ini')
 
-        self._routes: Dict[str, Tuple[str, int]] = {} # key: project_system, value: tuple(ip, port)
-        with open(f'{self._config_dir}/route_table.json', 'r', encoding='utf-8') as f:
-            route_info: dict = json.load(f)
-            for project_name, system_list in route_info.items():
-                for system_info in system_list:
-                    system_name = system_info.get('system', None)
-                    ip = system_info.get('ip', None)
-                    port = system_info.get('port', None)
-                    if system_name is None or ip is None or port is None:
-                        pass
-                    self._routes[f'{project_name}_{system_name}'] = (ip, port)
+        self._project = config['project'].get('name', '')
+        self._type = config['system'].get('type', '')
+        self._agentId = config['system'].get('agent_id', '')
+        self._secretKey = config['system'].get('secret_key', '')
+        self._serverIp = config['server'].get('ip', '')
+        self._serverPort = int(config['server'].get('port', '0'))
+        self._logRetentionDay = int(config['log'].get('retention_day', '30'))
+
+    def isServer(self) -> bool:
+        return self._type == 'server'
 
     @property
-    def own_project_name(self) -> str:
-        return self._own_project_name
-
-    @own_project_name.setter
-    def own_project_name(self, value: str):
-        self._own_project_name = value
+    def project(self) -> str:
+        return self._project
 
     @property
-    def own_system_name(self) -> str:
-        return self._own_system_name
-
-    @own_system_name.setter
-    def own_system_name(self, value: str):
-        self._own_system_name = value
+    def agentId(self) -> str:
+        return self._agentId
 
     @property
-    def agent_id(self) -> str:
-        return self._agent_id
+    def secretKey(self) -> str:
+        return self._secretKey
 
     @property
-    def secret_key(self) -> str:
-        return self._secret_key
+    def serverIp(self) -> str:
+        return self._serverIp
 
     @property
-    def ip(self) -> str:
-        return self._ip
+    def serverPort(self) -> int:
+        return self._serverPort
 
     @property
-    def port(self) -> int:
-        return self._port
-
-    @property
-    def log_retention_day(self) -> int:
-        return self._log_retention_day
+    def logRetentionDay(self) -> int:
+        return self._logRetentionDay
 
     @property
     def base_dir(self) -> str:
-        return self._base_dir
+        return self._baseDir
 
     @property
     def src_dir(self) -> str:
-        return self._src_dir
+        return self._srcDir
 
     @property
     def log_dir(self) -> str:
-        return self._log_dir
+        return self._logDir
 
     @property
     def config_dir(self) -> str:
-        return self._config_dir
+        return self._configDir
 
-    def get_route_info(self, project: str, system: str) -> Optional[Tuple[str, int]]:
-        return self._routes.get(f'{project}_{system}', None)
-
-
-
-if __name__ == '__main__':
-    mgr = SystemInfoMgr()
-    print(mgr.get_route_info('project1', 'system2'))

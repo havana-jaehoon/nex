@@ -21,6 +21,8 @@ class HandlerResult:
 class HandlerArgs:
     method: str
     full_path: str
+    client_ip: str
+    client_port: int
     query_params: Dict[str, str] = field(default_factory=dict)
     headers: Dict[str, str] = field(default_factory=dict)
     cookies: Dict[str, str] = field(default_factory=dict)

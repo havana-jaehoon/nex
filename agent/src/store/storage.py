@@ -25,17 +25,21 @@ class Storage(ABC):
         pass
 
     @abstractmethod
-    def apply_schema(self, schema: SchemaDefinition) -> bool:
+    def name(self) -> str:
         pass
 
     @abstractmethod
-    def set_data(self, schema_name: str, data: pd.DataFrame, chunk_size: int, enable_upsert: bool):
+    def applySchema(self, schema: SchemaDefinition) -> bool:
         pass
 
     @abstractmethod
-    def get_data(self, schema_name: str, filters: Optional[Dict[str, Any]] = None, columns: Optional[List[str]] = None) -> pd.DataFrame:
+    def setData(self, schema_name: str, data: pd.DataFrame, chunk_size: int, enable_upsert: bool):
         pass
 
     @abstractmethod
-    async def get_data_async(self, schema_name: str, filters: Optional[Dict[str, Any]] = None, columns: Optional[List[str]] = None) -> pd.DataFrame:
+    def getData(self, schema_name: str, filters: Optional[Dict[str, Any]] = None, columns: Optional[List[str]] = None) -> pd.DataFrame:
+        pass
+
+    @abstractmethod
+    async def getDataAsync(self, schema_name: str, filters: Optional[Dict[str, Any]] = None, columns: Optional[List[str]] = None) -> pd.DataFrame:
         pass

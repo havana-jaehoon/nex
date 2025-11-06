@@ -1,0 +1,274 @@
+{
+  "format": [
+    [
+      0,
+      "/agent",
+      "",
+      "",
+      {
+        "0": {
+          "name": "agent",
+          "dispName": "agent 관리",
+          "description": "agent 관리 폴더",
+          "type": "folder"
+        }
+      }
+    ],
+    [
+      1,
+      "/agent/access",
+      "",
+      "",
+      {
+        "0": {
+          "name": "access",
+          "dispName": "접근 정보",
+          "type": "format",
+          "features": [
+            {
+              "name": "project",
+              "dispName": "프로젝트명",
+              "type": "feature",
+              "isKey": true,
+              "featureType": "STRING"
+            },
+            {
+              "name": "system",
+              "dispName": "시스템명",
+              "type": "feature",
+              "isKey": true,
+              "featureType": "STRING"
+            },
+            {
+              "name": "ip",
+              "dispName": "ip주소",
+              "type": "feature",
+              "isKey": false,
+              "featureType": "STRING"
+            },
+            {
+              "name": "updated_at",
+              "dispName": "접속시간",
+              "type": "feature",
+              "isKey": false,
+              "featureType": "TIMESTAMP"
+            }
+          ]
+        }
+      }
+    ],
+    [
+      2,
+      "/agent/profile",
+      "",
+      "",
+      {
+        "0": {
+          "name": "profile",
+          "dispName": "agent 프로파일",
+          "type": "format",
+          "features": [
+            {
+              "name": "agent_id",
+              "dispName": "에이전트 ID",
+              "type": "feature",
+              "isKey": true,
+              "featureType": "STRING"
+            },
+            {
+              "name": "project",
+              "dispName": "프로젝트명",
+              "type": "feature",
+              "isKey": false,
+              "featureType": "STRING"
+            },
+            {
+              "name": "system",
+              "dispName": "시스템명",
+              "type": "feature",
+              "isKey": false,
+              "featureType": "STRING"
+            },
+            {
+              "name": "secret_key",
+              "dispName": "에이전트 비밀키",
+              "type": "feature",
+              "isKey": false,
+              "featureType": "STRING"
+            },
+            {
+              "name": "created_at",
+              "dispName": "생성시간",
+              "type": "feature",
+              "isKey": false,
+              "featureType": "TIMESTAMP",
+              "default": "now",
+              "parameter": []
+            }
+          ]
+        }
+      }
+    ]
+  ],
+  "store": [
+    [
+      0,
+      "/db",
+      "",
+      "",
+      {
+        "0": {
+          "name": "db",
+          "dispName": "db",
+          "description": "db 저장 정책 폴더",
+          "type": "folder"
+        }
+      }
+    ],
+    [
+      1,
+      "/db/adminConfig",
+      "",
+      "",
+      {
+        "0": {
+          "name": "adminConfig",
+          "type": "store",
+          "record": {
+            "storage": "oracle1",
+            "nature": "static",
+            "unit": null,
+            "block": null,
+            "expire": 0,
+            "expireUnit": null,
+            "allowDuplication": false,
+            "allowKeepValue": false,
+            "allowUpsert": true,
+            "chunkSize": 1000
+          }
+        }
+      }
+    ]
+  ],
+  "element": [
+    [
+      0,
+      "/agent",
+      "",
+      "config",
+      {
+        "0": {
+            "name": "agent",
+            "dispName": "agent",
+            "description": "agent 폴더",
+            "type": "folder"
+        }
+      }
+    ],
+    [
+      1,
+      "/agent/access",
+      "",
+      "config",
+      {
+        "0": {
+            "name": "access",
+            "dispName": "agent 접속 정보",
+            "description": "agent 접속 정보 데이터 엘리먼트",
+            "type": "element",
+            "format": "/agent/access",
+            "store": "/db/adminConfig",
+            "storage": "/db/ext/cbm_db",
+            "processor": null,
+            "processingInterval": null,
+            "processingUnit": null,
+            "sources": []
+        }
+      }
+    ],
+    [
+      2,
+      "/agent/profile",
+      "",
+      "config",
+      {
+        "0": {
+            "name": "profile",
+            "dispName": "agent 프로파일",
+            "description": "agent 프로파일 데이터 엘리먼트",
+            "type": "element",
+            "format": "/agent/profile",
+            "store": "/db/adminConfig",
+            "storage": "/db/ext/cbm_db",
+            "processor": null,
+            "processingInterval": null,
+            "processingUnit": null,
+            "sources": []
+        }
+      }
+    ]
+  ],
+  "storage": [
+    [
+      1,
+      "/db",
+      "",
+      "",
+      {
+        "1": {
+          "name": "db",
+          "dispName": "db",
+          "description": "db",
+          "icon": "",
+          "color": "",
+          "type": "folder"
+        }
+      }
+    ],
+    [
+      2,
+      "/db/ext",
+      "",
+      "",
+      {
+        "0": {
+          "name": "ext",
+          "dispName": "외부 데이터베이스",
+          "description": "외부 데이터베이스",
+          "icon": "",
+          "color": "",
+          "type": "folder"
+        }
+      }
+    ],
+    [
+      3,
+      "/db/ext/cbm_db",
+      "",
+      "",
+      {
+        "0": {
+          "name": "cbm_db",
+          "dispName": "CBM DB",
+          "description": "CBM DB",
+          "type": "storage",
+          "storageType": "db",
+          "db": {
+            "dbType": "oracle",
+            "ip": "121.161.164.106",
+            "port": 1521,
+            "user": "cbm",
+            "password": "core0908",
+            "name": "ORCLCDB",
+            "param": {"pool_size": 10, "max_overflow": 20, "pool_timeout": 30, "pool_recycle": 1800, "pool_pre_ping": true, "echo": false }
+          },
+          "hdfs": {
+            "ip": "",
+            "port": 9000,
+            "path": ""
+          }
+        }
+      }
+    ]
+  ]
+}

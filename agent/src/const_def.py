@@ -6,5 +6,3 @@ class TimeUnit(StrEnum):
     HOUR = 'HOUR'
     MINUTE = 'MIN'
     SECOND = 'SEC'
-
-

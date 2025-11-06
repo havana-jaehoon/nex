@@ -61,5 +61,7 @@ class OrmOracle:
             """
 
         # 6. executemany
+        # for col in df.select_dtypes(include=['object', 'string']):
+        #     df[col] = df[col].replace('', ' ', regex=False)
         params = df.to_dict(orient="records")
         session.execute(text(merge_sql), params)
