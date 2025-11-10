@@ -26,7 +26,7 @@ class AgentAccess:
 
 class AuthServer(AuthBase):
 
-    SYSTEM_NAME = 'webserver'
+    SYSTEM_NAME = 'config'
     INTERNAL_ELEMENT_CONFIG_FILE_NAME = 'auth_server_element_config.json'
     PROFILE_ELEMENT_ID = '/agent/profile'
     ACCESS_ELEMENT_ID = '/agent/access'

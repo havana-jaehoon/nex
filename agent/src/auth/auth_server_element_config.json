@@ -158,10 +158,10 @@
       "config",
       {
         "0": {
-            "name": "agent",
-            "dispName": "agent",
-            "description": "agent 폴더",
-            "type": "folder"
+          "name": "agent",
+          "dispName": "agent",
+          "description": "agent 폴더",
+          "type": "folder"
         }
       }
     ],
@@ -172,17 +172,17 @@
       "config",
       {
         "0": {
-            "name": "access",
-            "dispName": "agent 접속 정보",
-            "description": "agent 접속 정보 데이터 엘리먼트",
-            "type": "element",
-            "format": "/agent/access",
-            "store": "/db/adminConfig",
-            "storage": "/db/ext/cbm_db",
-            "processor": null,
-            "processingInterval": null,
-            "processingUnit": null,
-            "sources": []
+          "name": "access",
+          "dispName": "agent 접속 정보",
+          "description": "agent 접속 정보 데이터 엘리먼트",
+          "type": "element",
+          "format": "/agent/access",
+          "store": "/db/adminConfig",
+          "storage": "/db/ext/cbm_db",
+          "processor": null,
+          "processingInterval": null,
+          "processingUnit": null,
+          "sources": []
         }
       }
     ],
@@ -193,17 +193,17 @@
       "config",
       {
         "0": {
-            "name": "profile",
-            "dispName": "agent 프로파일",
-            "description": "agent 프로파일 데이터 엘리먼트",
-            "type": "element",
-            "format": "/agent/profile",
-            "store": "/db/adminConfig",
-            "storage": "/db/ext/cbm_db",
-            "processor": null,
-            "processingInterval": null,
-            "processingUnit": null,
-            "sources": []
+          "name": "profile",
+          "dispName": "agent 프로파일",
+          "description": "agent 프로파일 데이터 엘리먼트",
+          "type": "element",
+          "format": "/agent/profile",
+          "store": "/db/adminConfig",
+          "storage": "/db/ext/cbm_db",
+          "processor": null,
+          "processingInterval": null,
+          "processingUnit": null,
+          "sources": []
         }
       }
     ]
@@ -260,7 +260,14 @@
             "user": "cbm",
             "password": "core0908",
             "name": "ORCLCDB",
-            "param": {"pool_size": 10, "max_overflow": 20, "pool_timeout": 30, "pool_recycle": 1800, "pool_pre_ping": true, "echo": false }
+            "param": {
+              "pool_size": 10,
+              "max_overflow": 20,
+              "pool_timeout": 30,
+              "pool_recycle": 1800,
+              "pool_pre_ping": true,
+              "echo": false
+            }
           },
           "hdfs": {
             "ip": "",

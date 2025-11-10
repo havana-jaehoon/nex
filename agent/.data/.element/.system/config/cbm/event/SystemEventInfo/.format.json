@@ -1,0 +1,39 @@
+{
+  "name": "SystemEventInfo",
+  "dispName": "시스템 이벤트 정보",
+  "type": "format",
+  "features": [
+    {
+      "name": "date",
+      "dispName": "날짜",
+      "icon": null,
+      "color": null,
+      "isKey": false,
+      "featureType": "DATE_SEC"
+    },
+    {
+      "name": "system",
+      "dispName": "시 스템",
+      "icon": null,
+      "color": null,
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "event",
+      "dispName": "이벤트명",
+      "icon": null,
+      "color": null,
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "log",
+      "dispName": "시스템로그",
+      "icon": null,
+      "color": null,
+      "isKey": false,
+      "featureType": "STRING"
+    }
+  ]
+}

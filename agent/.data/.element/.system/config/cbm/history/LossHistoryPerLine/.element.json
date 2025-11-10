@@ -1,0 +1,12 @@
+{
+  "name": "LossHistoryPerLine",
+  "dispName": "노선별 열화 이력",
+  "description": "노선별 열화 이력 데이터 엘리먼트",
+  "type": "element",
+  "format": "/cbm/history/LossHistoryPerLine",
+  "store": "/disk/7day",
+  "processor": "/common/transparent",
+  "processingInterval": "10",
+  "processingUnit": "SEC",
+  "sources": "/webserver/history/LossHistoryPerLine"
+}

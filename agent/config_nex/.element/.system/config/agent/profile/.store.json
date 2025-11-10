@@ -1,0 +1,16 @@
+{
+    "name": "adminConfig",
+    "type": "store",
+    "record": {
+        "storage": "oracle1",
+        "nature": "static",
+        "unit": null,
+        "block": null,
+        "expire": 0,
+        "expireUnit": null,
+        "allowDuplication": false,
+        "allowKeepValue": false,
+        "allowUpsert": true,
+        "chunkSize": 1000
+    }
+}

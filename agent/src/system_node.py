@@ -61,7 +61,7 @@ if __name__ == '__main__':
         http_server = HttpServer(local_ip, local_port)
         http_server.add_dynamic_rules(element_mgr.getQueryHandlers())
         # http_server.add_dynamic_rules(cmd_mgr.get_query_handlers())
-        # http_server.add_dynamic_rules(admin_mgr.get_query_handlers())
+        http_server.add_dynamic_rules(admin_mgr.get_query_handlers())
         if system_info.isServer():
             http_server.add_dynamic_rules(config_mgr.getQueryHandlers())
 

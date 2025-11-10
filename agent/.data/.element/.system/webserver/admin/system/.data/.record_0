@@ -29,8 +29,8 @@
         "description": "설정 서버",
         "type": "system",
         "address": {
-          "ip": "192.168.0.1",
-          "port": "8080"
+          "ip": "127.0.0.1",
+          "port": "9070"
         }
       }
     }

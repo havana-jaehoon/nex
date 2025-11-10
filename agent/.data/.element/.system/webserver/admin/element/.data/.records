@@ -3,7 +3,7 @@
     0,
     "/common",
     "",
-    "webserver",
+    "config",
     {
       "0": {
         "name": "common",
@@ -17,7 +17,7 @@
     1,
     "/common/menu",
     "",
-    "webserver",
+    "config",
     {
       "0": {
         "name": "menu",
@@ -37,7 +37,7 @@
     2,
     "/cbm",
     "",
-    "webserver",
+    "config",
     {
       "1": {
         "name": "cbm",
@@ -51,7 +51,7 @@
     3,
     "/cbm/config",
     "",
-    "webserver",
+    "config",
     {
       "0": {
         "name": "config",
@@ -65,7 +65,7 @@
     4,
     "/cbm/config/Line",
     "",
-    "webserver",
+    "config",
     {
       "0": {
         "name": "Line",
@@ -85,7 +85,7 @@
     5,
     "/cbm/config/TrainPerLine",
     "",
-    "webserver",
+    "config",
     {
       "1": {
         "name": "TrainPerLine",
@@ -105,7 +105,7 @@
     6,
     "/cbm/config/CarPerTrain",
     "",
-    "webserver",
+    "config",
     {
       "2": {
         "name": "CarPerTrain",
@@ -125,7 +125,7 @@
     7,
     "/cbm/config/DevicePerCar",
     "",
-    "webserver",
+    "config",
     {
       "3": {
         "name": "DevicePerCar",
@@ -145,7 +145,7 @@
     8,
     "/cbm/status",
     "",
-    "webserver",
+    "config",
     {
       "1": {
         "name": "status",
@@ -159,7 +159,7 @@
     9,
     "/cbm/status/LossPerLine",
     "",
-    "webserver",
+    "config",
     {
       "0": {
         "name": "LossPerLine",
@@ -179,7 +179,7 @@
     10,
     "/cbm/status/LossPerDevice",
     "",
-    "webserver",
+    "config",
     {
       "1": {
         "name": "LossPerDevice",
@@ -199,7 +199,7 @@
     11,
     "/cbm/status/TrainCountPerLine",
     "",
-    "webserver",
+    "config",
     {
       "2": {
         "name": "TrainCountPerLine",
@@ -219,7 +219,7 @@
     12,
     "/cbm/event",
     "",
-    "webserver",
+    "config",
     {
       "2": {
         "name": "event",
@@ -233,7 +233,7 @@
     13,
     "/cbm/event/RTMaintenanceInfo",
     "",
-    "webserver",
+    "config",
     {
       "0": {
         "name": "RTMaintenanceInfo",
@@ -253,7 +253,7 @@
     14,
     "/cbm/event/SystemEventInfo",
     "",
-    "webserver",
+    "config",
     {
       "1": {
         "name": "SystemEventInfo",
@@ -273,7 +273,7 @@
     15,
     "/cbm/history",
     "",
-    "webserver",
+    "config",
     {
       "3": {
         "name": "history",
@@ -287,7 +287,7 @@
     16,
     "/cbm/history/LossHistoryPerLine",
     "",
-    "webserver",
+    "config",
     {
       "0": {
         "name": "LossHistoryPerLine",
@@ -307,7 +307,7 @@
     17,
     "/cbm/history/LossHistoryPerDevice",
     "",
-    "webserver",
+    "config",
     {
       "1": {
         "name": "LossHistoryPerDevice",
@@ -327,7 +327,7 @@
     18,
     "/cbm/history/MaintenanceHistoryPerLine",
     "",
-    "webserver",
+    "config",
     {
       "2": {
         "name": "MaintenanceHistoryPerLine",
@@ -347,7 +347,7 @@
     19,
     "/cbm/history/DetailLossLevelHistory",
     "",
-    "webserver",
+    "config",
     {
       "3": {
         "name": "DetailLossLevelHistory",
@@ -367,7 +367,7 @@
     20,
     "/admin",
     "",
-    "webserver",
+    "config",
     {
       "2": {
         "name": "admin",
@@ -381,7 +381,7 @@
     21,
     "/admin/format",
     "",
-    "webserver",
+    "config",
     {
       "0": {
         "name": "format",
@@ -401,7 +401,7 @@
     22,
     "/admin/store",
     "",
-    "webserver",
+    "config",
     {
       "1": {
         "name": "store",
@@ -421,7 +421,7 @@
     23,
     "/admin/processor",
     "",
-    "webserver",
+    "config",
     {
       "2": {
         "name": "processor",
@@ -441,7 +441,7 @@
     24,
     "/admin/system",
     "",
-    "webserver",
+    "config",
     {
       "3": {
         "name": "system",
@@ -461,7 +461,7 @@
     25,
     "/admin/element",
     "",
-    "webserver",
+    "config",
     {
       "4": {
         "name": "element",
@@ -481,7 +481,7 @@
     26,
     "/admin/source",
     "",
-    "webserver",
+    "config",
     {
       "5": {
         "name": "source",
@@ -501,7 +501,7 @@
     27,
     "/admin/contents",
     "",
-    "webserver",
+    "config",
     {
       "6": {
         "name": "contents",
@@ -521,7 +521,7 @@
     28,
     "/admin/applet",
     "",
-    "webserver",
+    "config",
     {
       "7": {
         "name": "applet",
@@ -541,7 +541,7 @@
     29,
     "/admin/section",
     "",
-    "webserver",
+    "config",
     {
       "8": {
         "name": "section",
@@ -581,7 +581,7 @@
     31,
     "/admin/theme",
     "",
-    "webserver",
+    "config",
     {
       "10": {
         "name": "theme",
@@ -597,5 +597,4 @@
       }
     }
   ]
-  
 ]

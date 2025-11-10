@@ -20,7 +20,7 @@ from util.pi_http.http_handler import HandlerResult, BodyData
 class AdminMgr(SingletonInstance):
     def _on_init_once(self):
         self._logger = Logger()
-        self._rootPath = "./config_nex/.element"
+        self._rootPath = "./.data/.element"
         self._adminPath = f"{self._rootPath}/.system/webserver/admin"
 
         #self._configList = {v: [] for v in CONFIG_LIST.values()}

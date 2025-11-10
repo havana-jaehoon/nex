@@ -94,7 +94,7 @@ class ConfigServerMgr(ConfigBaseMgr):
                 self._logger.log_info(f'ConfigServerMgr : loadOwnConfig : load success')
             else:
                 if self._auth.systemName == 'config':
-                    with open(self._auth.getInternalElementConfigFile(), 'r') as f:
+                    with open(self._auth.getInternalElementConfigFile(), 'r', encoding='utf-8') as f:
                         auth_internal_element_config_data = json.load(f)
                     if not self._elementCfgs.init(auth_internal_element_config_data, self._systemCfg.getSystemConfig(self._auth.systemName), True):
                         raise Exception('element-cfg loadAll fail')

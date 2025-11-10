@@ -1,0 +1,10 @@
+{
+  "name": "config",
+  "dispName": "설정서버",
+  "description": "설정 서버",
+  "type": "system",
+  "address": {
+    "ip": "127.0.0.1",
+    "port": "9070"
+  }
+}
