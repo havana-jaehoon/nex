@@ -52,8 +52,10 @@ class ConfigServerMgr(ConfigBaseMgr):
             systems = self._cfgReader.getSystems('')
             for system in systems:
                 system_name = system.get('name')
-                if not system_name: continue
-                if system_name == self._auth.systemName: continue
+                if not system_name:
+                    continue
+                if system_name == 'config':
+                    continue
 
                 # load config of system
                 system_data = { v: [] for v in ELEMENT_CFG_LIST.values() }
@@ -91,10 +93,15 @@ class ConfigServerMgr(ConfigBaseMgr):
             if self._elementCfgs.load():
                 self._logger.log_info(f'ConfigServerMgr : loadOwnConfig : load success')
             else:
-                with open(self._auth.getInternalElementConfigFile(), 'r') as f:
-                    auth_internal_element_config_data = json.load(f)
-                if not self._elementCfgs.init(auth_internal_element_config_data, self._systemCfg.getSystemConfig(self._auth.systemName), True):
-                    raise Exception('element-cfg loadAll fail')
+                if self._auth.systemName == 'config':
+                    with open(self._auth.getInternalElementConfigFile(), 'r') as f:
+                        auth_internal_element_config_data = json.load(f)
+                    if not self._elementCfgs.init(auth_internal_element_config_data, self._systemCfg.getSystemConfig(self._auth.systemName), True):
+                        raise Exception('element-cfg loadAll fail')
+                else:
+                    system_data = self._getSystemData(self._auth.systemName)
+                    if not self._elementCfgs.init(system_data, self._systemCfg.getSystemConfig(self._auth.systemName), True):
+                        raise Exception('element-cfg loadAll fail')
                 self._logger.log_info(f'ConfigServerMgr : loadOwnConfig : init success')
         except Exception as e:
             self._logger.log_error(f'ConfigServerMgr : loadOwnConfig : fail to {e}')

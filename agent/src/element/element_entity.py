@@ -35,7 +35,8 @@ class ElementEntity:
             self._storage.applySchema(self._scheme)
             Logger().log_info(f'ElementEntity({self._config.id}) : {self._scheme.name} is created to {self._storage.name()}')
         except Exception as e:
-            raise Exception(f"ElementEntity({self._config.id}) : store is not valid : {e}")
+            self._storage = None
+            Logger().log_error(f"ElementEntity({self._config.id}) : store is not valid : {e}")
 
         # create processor
         self._processor: Optional[ElementProcess] = None
@@ -107,14 +108,16 @@ class ElementEntity:
             scheduler.add_job(self._interval_proc, 'interval', **trigger_args)
 
     async def getData(self, filters: Optional[Dict[str, Any]] = None) -> pd.DataFrame:
-        storage_name = self._config.getConfig('store').get('record').get('storage')
-        return await self._storage.getDataAsync(self._scheme.name, filters)
+        if self._storage:
+            return await self._storage.getDataAsync(self._scheme.name, filters)
+        else:
+            return pd.DataFrame()
 
     def setData(self, data: pd.DataFrame):
-        storage_name = self._config.getConfig('store').get('record').get('storage')
-        chunk_size = self._config.getConfig('store').get('record').get('chunkSize')
-        allowed_upsert = self._config.getConfig('store').get('record').get('allowUpsert')
-        self._storage.setData(self._scheme.name, data, chunk_size, allowed_upsert)
+        if self._storage:
+            chunk_size = self._config.getConfig('store').get('record').get('chunkSize')
+            allowed_upsert = self._config.getConfig('store').get('record').get('allowUpsert')
+            self._storage.setData(self._scheme.name, data, chunk_size, allowed_upsert)
 
     def getQueryHandler(self) -> Tuple[Server_Dynamic_Handler, dict]:
         kwargs = {}
