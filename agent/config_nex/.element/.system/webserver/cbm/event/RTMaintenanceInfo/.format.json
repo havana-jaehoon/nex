@@ -1,47 +1,47 @@
 {
-  "name": "RTMaintenanceInfo",
-  "dispName": "실시간 유지보수 정보",
-  "type": "format",
-  "features": [
-    {
-      "name": "date",
-      "dispName": " 날짜",
-      "icon": null,
-      "color": null,
-      "isKey": false,
-      "featureType": "DATE"
-    },
-    {
-      "name": "train",
-      "dispName": "편성번호",
-      "icon": null,
-      "color": null,
-      "isKey": false,
-      "featureType": "STRING"
-    },
-    {
-      "name": "car",
-      "dispName": "차량",
-      "icon": null,
-      "color": null,
-      "isKey": false,
-      "featureType": "STRING"
-    },
-    {
-      "name": "device",
-      "dispName": "장치",
-      "icon": null,
-      "color": null,
-      "isKey": false,
-      "featureType": "STRING"
-    },
-    {
-      "name": "recommendation",
-      "dispName": "권장조치",
-      "icon": null,
-      "color": null,
-      "isKey": false,
-      "featureType": "STRING"
-    }
-  ]
+    "name": "RTMaintenanceInfo",
+    "dispName": "실시간 유지보수 정보",
+    "type": "format",
+    "features": [
+        {
+            "name": "date",
+            "dispName": " 날짜",
+            "icon": null,
+            "color": null,
+            "isKey": false,
+            "featureType": "DATE"
+        },
+        {
+            "name": "train",
+            "dispName": "편성번호",
+            "icon": null,
+            "color": null,
+            "isKey": false,
+            "featureType": "STRING"
+        },
+        {
+            "name": "car",
+            "dispName": "차량",
+            "icon": null,
+            "color": null,
+            "isKey": false,
+            "featureType": "STRING"
+        },
+        {
+            "name": "device",
+            "dispName": "장치",
+            "icon": null,
+            "color": null,
+            "isKey": false,
+            "featureType": "STRING"
+        },
+        {
+            "name": "recommendation",
+            "dispName": "권장조치",
+            "icon": null,
+            "color": null,
+            "isKey": false,
+            "featureType": "STRING"
+        }
+    ]
 }

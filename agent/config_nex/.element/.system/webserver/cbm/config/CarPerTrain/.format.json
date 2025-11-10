@@ -1,32 +1,32 @@
 {
-  "name": "CarPerTrain",
-  "dispName": "편성별차량정보",
-  "description": "편성별차량정보 데이터 포맷",
-  "type": "format",
-  "features": [
-    {
-      "name": "line",
-      "dispName": "호선명",
-      "icon": null,
-      "color": null,
-      "isKey": true,
-      "featureType": "STRING"
-    },
-    {
-      "name": "train",
-      "dispName": "편성번호",
-      "icon": null,
-      "color": null,
-      "isKey": true,
-      "featureType": "STRING"
-    },
-    {
-      "name": "car",
-      "dispName": "차량번호",
-      "icon": null,
-      "color": null,
-      "isKey": true,
-      "featureType": "STRING"
-    }
-  ]
+    "name": "CarPerTrain",
+    "dispName": "편성별차량정보",
+    "description": "편성별차량정보 데이터 포맷",
+    "type": "format",
+    "features": [
+        {
+            "name": "line",
+            "dispName": "호선명",
+            "icon": null,
+            "color": null,
+            "isKey": true,
+            "featureType": "STRING"
+        },
+        {
+            "name": "train",
+            "dispName": "편성번호",
+            "icon": null,
+            "color": null,
+            "isKey": true,
+            "featureType": "STRING"
+        },
+        {
+            "name": "car",
+            "dispName": "차량번호",
+            "icon": null,
+            "color": null,
+            "isKey": true,
+            "featureType": "STRING"
+        }
+    ]
 }

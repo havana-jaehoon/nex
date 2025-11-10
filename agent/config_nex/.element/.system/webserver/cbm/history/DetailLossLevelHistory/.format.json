@@ -1,189 +1,189 @@
 {
-  "name": "DetailLossLevelHistory",
-  "dispName": "상세 열화등급 이력",
-  "type": "format",
-  "features": [
-    {
-      "name": "date",
-      "dispName": "날짜",
-      "icon": null,
-      "color": null,
-      "isKey": true,
-      "featureType": "DATE"
-    },
-    {
-      "name": "line",
-      "dispName": "노선",
-      "icon": null,
-      "color": "#FF0000",
-      "isKey": true,
-      "featureType": "LITERALS",
-      "literals": [
+    "name": "DetailLossLevelHistory",
+    "dispName": "상세 열화등급 이력",
+    "type": "format",
+    "features": [
         {
-          "name": "경부선",
-          "dispName": "경부선",
-          "icon": "",
-          "color": "#003da5"
+            "name": "date",
+            "dispName": "날짜",
+            "icon": null,
+            "color": null,
+            "isKey": true,
+            "featureType": "DATE"
         },
         {
-          "name": "호남선",
-          "dispName": "호남선",
-          "icon": "",
-          "color": "#d50032"
+            "name": "line",
+            "dispName": "노선",
+            "icon": null,
+            "color": "#FF0000",
+            "isKey": true,
+            "featureType": "LITERALS",
+            "literals": [
+                {
+                    "name": "경부선",
+                    "dispName": "경부선",
+                    "icon": "",
+                    "color": "#003da5"
+                },
+                {
+                    "name": "호남선",
+                    "dispName": "호남선",
+                    "icon": "",
+                    "color": "#d50032"
+                },
+                {
+                    "name": "전라선",
+                    "dispName": "전라선",
+                    "icon": "",
+                    "color": "#73c42d"
+                },
+                {
+                    "name": "동해선",
+                    "dispName": "동해선",
+                    "icon": "",
+                    "color": "#d96b80"
+                },
+                {
+                    "name": "태백선",
+                    "dispName": "태백선",
+                    "icon": "",
+                    "color": "#7ba05b"
+                },
+                {
+                    "name": "미배치",
+                    "dispName": "미배치",
+                    "icon": "",
+                    "color": "#adb81d"
+                }
+            ]
         },
         {
-          "name": "전라선",
-          "dispName": "전라선",
-          "icon": "",
-          "color": "#73c42d"
+            "name": "train",
+            "dispName": "편성",
+            "icon": null,
+            "color": "#00BFFF",
+            "isKey": true,
+            "featureType": "STRING"
         },
         {
-          "name": "동해선",
-          "dispName": "동해선",
-          "icon": "",
-          "color": "#d96b80"
+            "name": "car",
+            "dispName": "차량",
+            "icon": null,
+            "color": "#6A5ACD",
+            "isKey": true,
+            "featureType": "LITERALS",
+            "literals": [
+                {
+                    "name": "M1",
+                    "dispName": "M1",
+                    "icon": "",
+                    "color": "#003da5"
+                },
+                {
+                    "name": "M2",
+                    "dispName": "M2",
+                    "icon": "",
+                    "color": "#d50032"
+                },
+                {
+                    "name": "TC1",
+                    "dispName": "TC1",
+                    "icon": "",
+                    "color": "#73c42d"
+                },
+                {
+                    "name": "TC2",
+                    "dispName": "TC2",
+                    "icon": "",
+                    "color": "#d96b80"
+                }
+            ]
         },
         {
-          "name": "태백선",
-          "dispName": "태백선",
-          "icon": "",
-          "color": "#7ba05b"
+            "name": "device",
+            "dispName": "장치",
+            "icon": null,
+            "color": "#FF00FF",
+            "isKey": true,
+            "featureType": "LITERALS",
+            "literals": [
+                {
+                    "name": "승강문",
+                    "dispName": "승강문",
+                    "icon": "",
+                    "color": "#FF1493"
+                },
+                {
+                    "name": "주변압기",
+                    "dispName": "주변압기",
+                    "icon": "",
+                    "color": "#0000FF"
+                },
+                {
+                    "name": "주공기압축기",
+                    "dispName": "주공기압축기",
+                    "icon": "",
+                    "color": "#00BFFF"
+                },
+                {
+                    "name": "보조공기압축기",
+                    "dispName": "보조공기압축기",
+                    "icon": "",
+                    "color": "#6A5ACD"
+                },
+                {
+                    "name": "HAVC",
+                    "dispName": "HAVC",
+                    "icon": "",
+                    "color": "#00FF00"
+                },
+                {
+                    "name": "화제감지기",
+                    "dispName": "화제감지기",
+                    "icon": "",
+                    "color": "#FF4500"
+                },
+                {
+                    "name": "차축베어링",
+                    "dispName": "차축베어링",
+                    "icon": "",
+                    "color": "#1E90FF"
+                },
+                {
+                    "name": "방송장치",
+                    "dispName": "방송장치",
+                    "icon": "",
+                    "color": "#FF6347"
+                }
+            ]
         },
         {
-          "name": "미배치",
-          "dispName": "미배치",
-          "icon": "",
-          "color": "#adb81d"
+            "name": "loss-level",
+            "dispName": "등급",
+            "icon": null,
+            "color": "#00FF00",
+            "isKey": false,
+            "featureType": "LITERALS",
+            "literals": [
+                {
+                    "name": "정상",
+                    "dispName": "정상",
+                    "icon": "",
+                    "color": "#33A1FF"
+                },
+                {
+                    "name": "주의",
+                    "dispName": "주의",
+                    "icon": "",
+                    "color": "#FFB300"
+                },
+                {
+                    "name": "경고",
+                    "dispName": "경고",
+                    "icon": "",
+                    "color": "#FF3333"
+                }
+            ]
         }
-      ]
-    },
-    {
-      "name": "train",
-      "dispName": "편성",
-      "icon": null,
-      "color": "#00BFFF",
-      "isKey": true,
-      "featureType": "STRING"
-    },
-    {
-      "name": "car",
-      "dispName": "차량",
-      "icon": null,
-      "color": "#6A5ACD",
-      "isKey": true,
-      "featureType": "LITERALS",
-      "literals": [
-        {
-          "name": "M1",
-          "dispName": "M1",
-          "icon": "",
-          "color": "#003da5"
-        },
-        {
-          "name": "M2",
-          "dispName": "M2",
-          "icon": "",
-          "color": "#d50032"
-        },
-        {
-          "name": "TC1",
-          "dispName": "TC1",
-          "icon": "",
-          "color": "#73c42d"
-        },
-        {
-          "name": "TC2",
-          "dispName": "TC2",
-          "icon": "",
-          "color": "#d96b80"
-        }
-      ]
-    },
-    {
-      "name": "device",
-      "dispName": "장치",
-      "icon": null,
-      "color": "#FF00FF",
-      "isKey": true,
-      "featureType": "LITERALS",
-      "literals": [
-        {
-          "name": "승강문",
-          "dispName": "승강문",
-          "icon": "",
-          "color": "#FF1493"
-        },
-        {
-          "name": "주변압기",
-          "dispName": "주변압기",
-          "icon": "",
-          "color": "#0000FF"
-        },
-        {
-          "name": "주공기압축기",
-          "dispName": "주공기압축기",
-          "icon": "",
-          "color": "#00BFFF"
-        },
-        {
-          "name": "보조공기압축기",
-          "dispName": "보조공기압축기",
-          "icon": "",
-          "color": "#6A5ACD"
-        },
-        {
-          "name": "HAVC",
-          "dispName": "HAVC",
-          "icon": "",
-          "color": "#00FF00"
-        },
-        {
-          "name": "화제감지기",
-          "dispName": "화제감지기",
-          "icon": "",
-          "color": "#FF4500"
-        },
-        {
-          "name": "차축베어링",
-          "dispName": "차축베어링",
-          "icon": "",
-          "color": "#1E90FF"
-        },
-        {
-          "name": "방송장치",
-          "dispName": "방송장치",
-          "icon": "",
-          "color": "#FF6347"
-        }
-      ]
-    },
-    {
-      "name": "loss-level",
-      "dispName": "등급",
-      "icon": null,
-      "color": "#00FF00",
-      "isKey": false,
-      "featureType": "LITERALS",
-      "literals": [
-        {
-          "name": "정상",
-          "dispName": "정상",
-          "icon": "",
-          "color": "#33A1FF"
-        },
-        {
-          "name": "주의",
-          "dispName": "주의",
-          "icon": "",
-          "color": "#FFB300"
-        },
-        {
-          "name": "경고",
-          "dispName": "경고",
-          "icon": "",
-          "color": "#FF3333"
-        }
-      ]
-    }
-  ]
+    ]
 }

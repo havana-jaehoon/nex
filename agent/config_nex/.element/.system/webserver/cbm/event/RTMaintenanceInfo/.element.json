@@ -1,13 +1,12 @@
 {
-  "name": "RTMaintenanceInfo",
-  "dispName": "실시간 유지보수 정보",
-  "description": "실시간 유지보 수 정보 데이터 엘리먼트",
-  "type": "element",
-  "format": "/cbm/event/RTMaintenanceInfo",
-  "store": "/temporary/minuite/infinite",
-  "storage": "/disk",
-  "processor": "/common/transparent",
-  "processingInterval": "10",
-  "processingUnit": "SEC",
-  "sources": "/webserver/event/RTMaintenanceInfo"
+    "name": "RTMaintenanceInfo",
+    "dispName": "실시간 유지보수 정보",
+    "description": "실시간 유지보 수 정보 데이터 엘리먼트",
+    "type": "element",
+    "format": "/cbm/event/RTMaintenanceInfo",
+    "store": "/disk/1year",
+    "processor": "/common/transparent",
+    "processingInterval": "10",
+    "processingUnit": "SEC",
+    "sources": "/webserver/event/RTMaintenanceInfo"
 }

@@ -1,13 +1,12 @@
 {
-  "name": "menu",
-  "dispName": "메뉴",
-  "description": "메뉴 테스트",
-  "type": "element",
-  "format": "/web/menu",
-  "store": "/static",
-  "storage": "/disk",
-  "processor": "/common/transparent",
-  "processingInterval": "10",
-  "processingUnit": "SEC",
-  "sources": ""
+    "name": "menu",
+    "dispName": "메뉴",
+    "description": "메뉴 테스트",
+    "type": "element",
+    "format": "/web/menu",
+    "store": "/disk/static",
+    "processor": "/common/transparent",
+    "processingInterval": "10",
+    "processingUnit": "SEC",
+    "sources": ""
 }

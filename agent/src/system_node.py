@@ -18,10 +18,13 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--config-dir', type=str, default=None, help='Configuration directory path')
+    parser.add_argument('--data-dir', type=str, default=None, help='Data directory path')
     args = parser.parse_args()
 
     # load system-info
     config_name = args.config_dir if args.config_dir else 'config'
+    data_name = args.data_dir if args.data_dir else 'data'
+
     system_info = SystemInfoMgr(config_dir=config_name)
 
     # init logger
@@ -42,7 +45,7 @@ if __name__ == '__main__':
         HttpReqMgr()
 
         if system_info.isServer():
-            config_mgr = ConfigServerMgr(cfg_name=config_name, admin_cfg_name='config_hdkim2')
+            config_mgr = ConfigServerMgr(cfg_name=config_name, admin_cfg_name=data_name)
         else:
             config_mgr = ConfigAgentMgr(cfg_name=config_name)
         config_mgr.start()

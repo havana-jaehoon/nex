@@ -1,13 +1,12 @@
 {
-  "name": "processor",
-  "dispName": "데이터 프로세서",
-  "description": " 데이터 프로세서",
-  "type": "element",
-  "format": "/admin/node",
-  "store": "/static",
-  "storage": "/disk",
-  "processor": "/common/transparent",
-  "processingInterval": "10",
-  "processingUnit": "SEC",
-  "sources": "/config/admin/processor"
+    "name": "processor",
+    "dispName": "데이터 프로세서",
+    "description": " 데이터 프로세서",
+    "type": "element",
+    "format": "/admin/node",
+    "store": "/disk/static",
+    "processor": "/common/transparent",
+    "processingInterval": "10",
+    "processingUnit": "SEC",
+    "sources": "/config/admin/processor"
 }
