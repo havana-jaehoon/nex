@@ -6,7 +6,7 @@ import { NexCondition, NexFeatureType } from "type/NexNode";
 import { makeSampleJsonAndCsv, parseCsv2Json } from "type/nexNodeConv";
 import axios from "axios";
 
-const URL_DATA = "http://127.0.0.1:9070/data-api";
+const URL_DATA = "http://127.0.0.1:9080/data-api";
 
 export interface NexData {
   csv: any[]; // conditions 가 반영된 CSV data

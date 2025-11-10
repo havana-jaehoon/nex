@@ -1,0 +1,12 @@
+{
+    "name": "LossPerLine",
+    "dispName": "노선별 열화 현황",
+    "description": "노선별 열화 현상 데이터 엘리먼 트",
+    "type": "element",
+    "format": "/cbm/status/AlertCount",
+    "store": "/disk/static",
+    "processor": "/common/transparent",
+    "processingInterval": "10",
+    "processingUnit": "SEC",
+    "sources": ""
+}

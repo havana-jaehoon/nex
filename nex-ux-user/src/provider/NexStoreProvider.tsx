@@ -125,6 +125,10 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
         (t: any) => t.name === themeUser.theme
       );
 
+      console.log(
+        "NexStoreProvider themeNode:",
+        JSON.stringify(configStore.config.webThemes)
+      );
       return themeNode?.theme || defaultTheme;
     }, [configStore.config.webThemes, themeUser]);
 

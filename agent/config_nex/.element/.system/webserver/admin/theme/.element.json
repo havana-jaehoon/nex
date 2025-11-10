@@ -1,0 +1,12 @@
+{
+    "name": "theme",
+    "dispName": "테마",
+    "description": "테마",
+    "type": "element",
+    "format": "/admin/node",
+    "store": "/disk/static",
+    "processor": "/common/transparent",
+    "processingInterval": "10",
+    "processingUnit": "SEC",
+    "sources": "/config/admin/theme"
+}

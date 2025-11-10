@@ -32,6 +32,9 @@ export const getThemeStyle = (
   theme: NexTheme | null | undefined,
   themeName: string
 ): NexThemeStyle => {
+  console.log(
+    `getThemeStyle: themeName=${themeName}, theme=${JSON.stringify(theme)}`
+  );
   return theme?.find((t) => t.name === themeName) ?? defaultThemeStyle;
 };
 

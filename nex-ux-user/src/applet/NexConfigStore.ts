@@ -20,7 +20,7 @@ import { contentsConfig } from "test/data/config/contentsConfig";
 import { systemConfig } from "test/data/config/systemConfig";
 import axios from "axios";
 
-const URL_CONFIG = "http://localhost:9070/admin-api";
+const URL_CONFIG = "http://localhost:9080/admin-api";
 
 const buildAdminConfig = (datas: any[]) => {
   //console.log("buildAdminConfig datas:", JSON.stringify(datas, null, 2));

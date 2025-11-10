@@ -1,0 +1,55 @@
+{
+    "name": "TrainCountPerLine",
+    "dispName": "건수",
+    "type": "format",
+    "features": [
+        {
+            "name": "line1",
+            "dispName": "경부선",
+            "icon": null,
+            "color": "#003da5",
+            "isKey": false,
+            "featureType": "UINT16"
+        },
+        {
+            "name": "line2",
+            "dispName": "호남선",
+            "icon": null,
+            "color": "#d50032",
+            "isKey": false,
+            "featureType": "UINT16"
+        },
+        {
+            "name": "line3",
+            "dispName": "동해선",
+            "icon": null,
+            "color": "#d96b80",
+            "isKey": false,
+            "featureType": "UINT16"
+        },
+        {
+            "name": "line4",
+            "dispName": " 전라선",
+            "icon": null,
+            "color": "#73c42d",
+            "isKey": false,
+            "featureType": "UINT16"
+        },
+        {
+            "name": "line5",
+            "dispName": "태백선",
+            "icon": null,
+            "color": "#7ba05b",
+            "isKey": false,
+            "featureType": "UINT16"
+        },
+        {
+            "name": "line6",
+            "dispName": "미배치",
+            "icon": null,
+            "color": "#adb81d",
+            "isKey": false,
+            "featureType": "UINT16"
+        }
+    ]
+}
