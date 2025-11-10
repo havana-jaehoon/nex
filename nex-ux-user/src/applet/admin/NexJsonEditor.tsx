@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { NexDiv, NexLabel } from "component/base/NexBaseComponents";
-import { nexNodeIcon } from "icon/NexIcon";
-import JsonEditor from "./lib/JsonEditor";
+import { NexDiv } from "component/base/NexBaseComponents";
 import NexApplet, { NexAppProps } from "applet/NexApplet";
 import { observer } from "mobx-react-lite";
-import { Stack } from "@mui/material";
 import { clamp } from "utils/util";
-import { defaultThemeStyle, getThemeStyle } from "type/NexTheme";
+import { getThemeStyle } from "type/NexTheme";
 import AdminNodeEditor from "./lib/AdminNodeEditor";
-import { NexFeatureType, NexNodeType } from "type/NexNode";
-import { MdKeyboardArrowDown, MdKeyboardArrowRight } from "react-icons/md";
 
 const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
   const { contents, theme, user, onUpdate } = props;

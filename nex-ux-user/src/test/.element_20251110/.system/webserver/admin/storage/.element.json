@@ -1,0 +1,12 @@
+{
+  "name": "storage",
+  "dispName": "데이터저장소",
+  "description": "데이터 저장소",
+  "type": "element",
+  "format": "/admin/node",
+  "store": "/disk/static",
+  "processor": "/common/transparent",
+  "processingInterval": "10",
+  "processingUnit": "SEC",
+  "sources": "/config/admin/storage"
+}

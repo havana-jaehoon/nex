@@ -216,12 +216,130 @@
     }
   ],
   [
+    80,
+    "/root/Home/Body/Main/Admin/Menu",
+    "",
+    "",
+    {
+      "0": {
+        "name": "Menu",
+        "dispName": "Menu",
+        "description": "Menu Section",
+        "type": "section",
+        "size": "1",
+        "direction": "row",
+        "route": "menu"
+      }
+    }
+  ],
+  [
+    81,
+    "/root/Home/Body/Main/Admin/Menu/MenuFinder",
+    "",
+    "",
+    {
+      "0": {
+        "name": "MenuFinder",
+        "dispName": "메뉴",
+        "description": "메뉴",
+        "type": "section",
+        "size": "3",
+        "direction": "row",
+        "applet": "/admin/NexNodeTree",
+        "padding": "8px",
+        "contents": [
+          "/admin/menu"
+        ]
+      }
+    }
+  ],
+  [
+    82,
+    "/root/Home/Body/Main/Admin/Menu/MenuEditor",
+    "",
+    "",
+    {
+      "1": {
+        "name": "MenuEditor",
+        "dispName": "데이터 보관소 편집",
+        "description": "데이터 보관소 편집",
+        "type": "section",
+        "size": "6",
+        "direction": "row",
+        "applet": "/admin/NexNodeEditor",
+        "padding": "8px",
+        "contents": [
+          "/admin/SelectedMenu"
+        ]
+      }
+    }
+  ],
+  [
+    90,
+    "/root/Home/Body/Main/Admin/Storage",
+    "",
+    "",
+    {
+      "1": {
+        "name": "Storage",
+        "dispName": "Storage",
+        "description": "Storage Section",
+        "type": "section",
+        "size": "1",
+        "direction": "row",
+        "route": "storage"
+      }
+    }
+  ],
+  [
+    91,
+    "/root/Home/Body/Main/Admin/Storage/StorageFinder",
+    "",
+    "",
+    {
+      "0": {
+        "name": "StorageFinder",
+        "dispName": "데이터 보관소",
+        "description": "데이터 보관소",
+        "type": "section",
+        "size": "3",
+        "direction": "row",
+        "applet": "/admin/NexNodeTree",
+        "padding": "8px",
+        "contents": [
+          "/admin/storage"
+        ]
+      }
+    }
+  ],
+  [
+    92,
+    "/root/Home/Body/Main/Admin/Storage/StorageEditor",
+    "",
+    "",
+    {
+      "1": {
+        "name": "StorageEditor",
+        "dispName": "데이터 보관소 편집",
+        "description": "데이터 보관소 편집",
+        "type": "section",
+        "size": "6",
+        "direction": "row",
+        "applet": "/admin/NexNodeEditor",
+        "padding": "8px",
+        "contents": [
+          "/admin/SelectedStorage"
+        ]
+      }
+    }
+  ],
+  [
     100,
     "/root/Home/Body/Main/Admin/Format",
     "",
     "",
     {
-      "0": {
+      "2": {
         "name": "Format",
         "dispName": "Format",
         "description": "Format Section",
@@ -240,8 +358,8 @@
     {
       "0": {
         "name": "FormatFinder",
-        "dispName": "FormatFinder",
-        "description": "FormatFinder Section",
+        "dispName": "데이터 포맷",
+        "description": "데이터 포맷",
         "type": "section",
         "size": "3",
         "direction": "row",
@@ -261,8 +379,8 @@
     {
       "1": {
         "name": "FormatEditor",
-        "dispName": "FormatEditor",
-        "description": "FormatEditor Section",
+        "dispName": "데이터 포맷 편집",
+        "description": "데이터 포맷 편집",
         "type": "section",
         "size": "6",
         "direction": "row",
@@ -280,7 +398,7 @@
     "",
     "",
     {
-      "1": {
+      "3": {
         "name": "Store",
         "dispName": "Store",
         "description": "Store Section",
@@ -298,7 +416,7 @@
     "",
     {
       "0": {
-        "name": "StoreFinder",
+        "name": "데이터 보관정책",
         "dispName": "StoreFinder",
         "description": "StoreFinder Section",
         "type": "section",
@@ -320,8 +438,8 @@
     {
       "1": {
         "name": "StoreEditor",
-        "dispName": "데이터 보관 정책 편집",
-        "description": "데이터 보관 정책 편집",
+        "dispName": "데이터 보관정책 편집",
+        "description": "데이터 보관정책 편집",
         "type": "section",
         "size": "6",
         "direction": "row",
@@ -339,7 +457,7 @@
     "",
     "",
     {
-      "2": {
+      "4": {
         "name": "Processor",
         "dispName": "Processor",
         "description": "Processor Section",
@@ -398,7 +516,7 @@
     "",
     "",
     {
-      "3": {
+      "5": {
         "name": "System",
         "dispName": "System",
         "description": "System Section",
@@ -418,7 +536,7 @@
       "0": {
         "name": "SystemFinder",
         "dispName": "시스템",
-        "description": "시스템 검색",
+        "description": "시스템",
         "type": "section",
         "size": "3",
         "direction": "row",
@@ -457,7 +575,7 @@
     "",
     "",
     {
-      "4": {
+      "6": {
         "name": "Element",
         "dispName": "Element",
         "description": "Element Section",
@@ -477,7 +595,7 @@
       "0": {
         "name": "SystemFinder",
         "dispName": "시스템",
-        "description": "시스템 검색",
+        "description": "시스템",
         "type": "section",
         "size": "1.5",
         "direction": "row",
@@ -498,7 +616,7 @@
       "1": {
         "name": "ElementFinder",
         "dispName": "엘리먼트",
-        "description": "엘리먼트 검색",
+        "description": "엘리먼트",
         "type": "section",
         "size": "1.5",
         "direction": "row",
@@ -537,10 +655,10 @@
     "",
     "",
     {
-      "5": {
+      "7": {
         "name": "Contents",
         "dispName": "웹컨텐츠",
-        "description": "웹컨텐츠 섹션",
+        "description": "웹컨텐츠",
         "type": "section",
         "size": "1",
         "direction": "row",
@@ -557,7 +675,7 @@
       "0": {
         "name": "ContentsFinder",
         "dispName": "웹컨텐츠",
-        "description": "웹컨텐츠 검색",
+        "description": "웹컨텐츠",
         "type": "section",
         "size": "2",
         "direction": "row",
@@ -596,7 +714,7 @@
     "",
     "",
     {
-      "6": {
+      "8": {
         "name": "Section",
         "dispName": "웹섹션",
         "description": "웹섹션",
@@ -680,6 +798,124 @@
         "direction": "column",
         "applet": "",
         "contents": []
+      }
+    }
+  ],
+  [
+    170,
+    "/root/Home/Body/Main/Admin/Theme",
+    "",
+    "",
+    {
+      "9": {
+        "name": "Theme",
+        "dispName": "웹테마",
+        "description": "웹테마",
+        "type": "section",
+        "size": "1",
+        "direction": "row",
+        "route": "theme"
+      }
+    }
+  ],
+  [
+    171,
+    "/root/Home/Body/Main/Admin/Theme/ThemeFinder",
+    "",
+    "",
+    {
+      "0": {
+        "name": "ThemeFinder",
+        "dispName": "웹테마",
+        "description": "웹테마",
+        "type": "section",
+        "size": "2",
+        "direction": "row",
+        "applet": "/admin/NexNodeTree",
+        "padding": "8px",
+        "contents": [
+          "/admin/theme"
+        ]
+      }
+    }
+  ],
+  [
+    172,
+    "/root/Home/Body/Main/Admin/Theme/ThemeEditor",
+    "",
+    "",
+    {
+      "1": {
+        "name": "ThemeEditor",
+        "dispName": "웹테마",
+        "description": "웹테마 편집",
+        "type": "section",
+        "size": "8",
+        "direction": "row",
+        "applet": "/admin/NexNodeEditor",
+        "padding": "8px",
+        "contents": [
+          "/admin/SelectedTheme"
+        ]
+      }
+    }
+  ],
+  [
+    180,
+    "/root/Home/Body/Main/Admin/User",
+    "",
+    "",
+    {
+      "10": {
+        "name": "User",
+        "dispName": "사용자",
+        "description": "사용자",
+        "type": "section",
+        "size": "1",
+        "direction": "row",
+        "route": "user"
+      }
+    }
+  ],
+  [
+    181,
+    "/root/Home/Body/Main/Admin/User/UserFinder",
+    "",
+    "",
+    {
+      "0": {
+        "name": "UserFinder",
+        "dispName": "사용자",
+        "description": "사용자",
+        "type": "section",
+        "size": "2",
+        "direction": "row",
+        "applet": "/admin/NexNodeTree",
+        "padding": "8px",
+        "contents": [
+          "/admin/user"
+        ]
+      }
+    }
+  ],
+  [
+    182,
+    "/root/Home/Body/Main/Admin/User/UserEditor",
+    "",
+    "",
+    {
+      "1": {
+        "name": "UserEditor",
+        "dispName": "사용자 편집",
+        "description": "사용자 편집",
+        "type": "section",
+        "size": "8",
+        "direction": "row",
+        "applet": "/admin/NexNodeEditor",
+        "padding": "8px",
+        "contents": [
+          "/admin/SelectedUser"
+        ]
       }
     }
   ],

@@ -27,6 +27,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const [selectedKeys, setSelectedKeys] = useState<number[]>([]);
 
   const style = getThemeStyle(theme, "applet");
+  const activeColor = style.activeColors[0];
   const color = style.colors[0];
   const bgColor = style.bgColors[0];
 
@@ -256,15 +257,19 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
         <Stack spacing={0.5} direction="row" justifyContent="end" width="100%">
           <IconButton
             title="폴더 추가"
-            color="primary"
             onClick={handleAddFolder}
+            sx={{ color: color }}
           >
             <MdCreateNewFolder />
           </IconButton>
-          <IconButton title="Add" color="primary" onClick={handleAddEntity}>
+          <IconButton
+            title="Add"
+            sx={{ color: color }}
+            onClick={handleAddEntity}
+          >
             <MdNewLabel />
           </IconButton>
-          <IconButton title="Edit" color="primary" onClick={handleEdit}>
+          <IconButton title="Edit" sx={{ color: color }} onClick={handleEdit}>
             <MdEdit />
           </IconButton>
         </Stack>

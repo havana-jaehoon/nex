@@ -15,7 +15,8 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
 
   const [selectedPath, setSelectedPath] = useState<string>("");
 
-  const style = getThemeStyle(theme, "menu");
+  //const style = getThemeStyle(theme, "menu");
+  const style = getThemeStyle(theme, "applet");
 
   const color = style.colors[0];
   const bgColor = style.bgColors[0];
