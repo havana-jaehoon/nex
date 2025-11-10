@@ -39,7 +39,7 @@ $env:PYTHONPATH = ".\src"
 
 # back-end
 
-python src/system_node.py --config-dir=config_nex
+python src/system_node.py --config-dir=config_nex --data-dir=.data
 
 # web
 

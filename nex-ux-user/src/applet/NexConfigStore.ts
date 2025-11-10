@@ -72,6 +72,8 @@ const buildAdminConfig = (datas: any[]) => {
 };
 
 interface NexConfig {
+  menu: NexNode[]; // 메뉴 정보
+  storage: NexNode[]; // 스토리지 정보
   formats: NexNode[]; // 포맷 정보
   stores: NexNode[]; // 스토어 정보
   processors: NexNode[]; // 프로세서 정보
@@ -91,6 +93,8 @@ class NexConfigStore {
 
   isReady: boolean = false;
   config: NexConfig = {
+    menu: [],
+    storage: [],
     formats: [],
     stores: [],
     processors: [],
@@ -142,6 +146,8 @@ class NexConfigStore {
     // this.element.process
     try {
       runInAction(() => {
+        this.config.menu = []; // 메뉴 정보
+        this.config.storage = []; // 스토리지 정보
         this.config.formats = formatConfig;
         this.config.stores = storeConfig;
         this.config.processors = processorConfig;
@@ -182,7 +188,9 @@ class NexConfigStore {
       }
       runInAction(() => {
         const cfgMap = response.data;
-        //console.error("Fetched config data: ", JSON.stringify(cfgMap, null, 2));
+
+        this.config.menu = buildAdminConfig(cfgMap["menu"]);
+        this.config.storage = buildAdminConfig(cfgMap["storage"]);
         this.config.formats = buildAdminConfig(cfgMap["format"]);
 
         this.config.stores = buildAdminConfig(cfgMap["store"]);

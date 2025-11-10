@@ -135,10 +135,10 @@ class DataFileIo:
 
         self._configs = {v: None for v in ELEMENT_CFG_LIST.values()}
         self._prevConfigs = {v: None for v in ELEMENT_CFG_LIST.values()} # 이전 설정 저장용 from file
-
+        
+        self._configs[ELEMENT_CFG_LIST['STORAGE']] = storage
         self._configs[ELEMENT_CFG_LIST['SYSTEM']] = system
         self._configs[ELEMENT_CFG_LIST['ELEMENT']] = element
-        self._configs[ELEMENT_CFG_LIST['STORAGE']] = storage
         self._configs[ELEMENT_CFG_LIST['FORMAT']] = format
         self._configs[ELEMENT_CFG_LIST['STORE']] = store
         self._configs[ELEMENT_CFG_LIST['PROCESSOR']] = processor

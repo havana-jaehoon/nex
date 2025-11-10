@@ -227,9 +227,9 @@ export class NexDataStore {
       this.odata = []; //getTestData(this.element?.name);
       this.format = format || {}; //getTestFormat(this.element?.format);
 
-      //console.log(
-      //  `NexDataStore: element=${elementPath} format=${this.element?.format}`
-      //);
+      console.log(
+        `NexDataStore: element=${elementPath} format=${JSON.stringify(this.format, null, 2)}`
+      );
 
       if (!this.format || !this.element) {
         console.error(
@@ -589,6 +589,9 @@ export class NexDataStore {
     }
 
     // format 그룹 즉 tree 구조일 경우를 고려 필요함.
+    console.log(
+      `getIndexesByCondition: conditions=${JSON.stringify(conditions, null, 2)}, format=${JSON.stringify(this.elementPath, null, 2)}`
+    );
     const features =
       this.format.features || this.format.children[0].features || [];
     const conds = conditions.map((condition) => ({

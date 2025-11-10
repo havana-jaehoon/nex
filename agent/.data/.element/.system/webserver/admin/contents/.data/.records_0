@@ -433,40 +433,46 @@
     }
   ],
   [
-    26,
-    "/admin/format",
+    31,
+    "/admin/menu",
     "",
     "",
     {
       "0": {
-        "name": "format",
+        "name": "menu",
+        "dispName": "메뉴 설정",
         "type": "contents",
-        "element": "/admin/format",
+        "element": "/admin/menu",
         "conditions": [],
         "selections": [
           {
-            "key": "format-path",
-            "feature": "path"
+            "key": "menu-index",
+            "feature": "index"
+          },
+          {
+            "key": "menu-object",
+            "feature": "object"
           }
         ]
       }
     }
   ],
   [
-    27,
-    "/admin/SelectedFormat",
+    32,
+    "/admin/selectedMenu",
     "",
     "",
     {
       "1": {
-        "name": "SelectedFormat",
+        "name": "menu",
+        "dispName": "메뉴 설정",
         "type": "contents",
-        "element": "/admin/format",
+        "element": "/admin/menu",
         "conditions": [
           {
-            "key": "format-path",
-            "feature": "path",
-            "method": "pathmatch"
+            "key": "menu-index",
+            "feature": "index",
+            "method": "match"
           }
         ],
         "selections": []
@@ -474,12 +480,94 @@
     }
   ],
   [
-    28,
-    "/admin/store",
+    33,
+    "/admin/storage",
     "",
     "",
     {
       "2": {
+        "name": "storage",
+        "type": "contents",
+        "element": "/admin/storage",
+        "conditions": [],
+        "selections": [
+          {
+            "key": "storage-index",
+            "feature": "index"
+          }
+        ]
+      }
+    }
+  ],
+  [
+    34,
+    "/admin/SelectedStorage",
+    "",
+    "",
+    {
+      "3": {
+        "name": "SelectedStorage",
+        "type": "contents",
+        "element": "/admin/storage",
+        "conditions": [
+          {
+            "key": "storage-index",
+            "feature": "index",
+            "method": "match"
+          }
+        ],
+        "selections": []
+      }
+    }
+  ],
+  [
+    35,
+    "/admin/format",
+    "",
+    "",
+    {
+      "4": {
+        "name": "format",
+        "type": "contents",
+        "element": "/admin/format",
+        "conditions": [],
+        "selections": [
+          {
+            "key": "format-index",
+            "feature": "index"
+          }
+        ]
+      }
+    }
+  ],
+  [
+    36,
+    "/admin/SelectedFormat",
+    "",
+    "",
+    {
+      "5": {
+        "name": "SelectedFormat",
+        "type": "contents",
+        "element": "/admin/format",
+        "conditions": [
+          {
+            "key": "format-index",
+            "feature": "index",
+            "method": "match"
+          }
+        ],
+        "selections": []
+      }
+    }
+  ],
+  [
+    37,
+    "/admin/store",
+    "",
+    "",
+    {
+      "6": {
         "name": "store",
         "dispName": "저장소",
         "type": "contents",
@@ -487,29 +575,29 @@
         "conditions": [],
         "selections": [
           {
-            "key": "store-path",
-            "feature": "path"
+            "key": "store-index",
+            "feature": "index"
           }
         ]
       }
     }
   ],
   [
-    29,
+    38,
     "/admin/SelectedStore",
     "",
     "",
     {
-      "3": {
+      "7": {
         "name": "SelectedStore",
         "dispName": "저장소",
         "type": "contents",
         "element": "/admin/store",
         "conditions": [
           {
-            "key": "store-path",
-            "feature": "path",
-            "method": "pathmatch"
+            "key": "store-index",
+            "feature": "index",
+            "method": "match"
           }
         ],
         "selections": []
@@ -517,12 +605,12 @@
     }
   ],
   [
-    30,
+    39,
     "/admin/processor",
     "",
     "",
     {
-      "4": {
+      "8": {
         "name": "processor",
         "dispName": "프로세서",
         "type": "contents",
@@ -530,29 +618,29 @@
         "conditions": [],
         "selections": [
           {
-            "key": "processor-path",
-            "feature": "path"
+            "key": "processor-index",
+            "feature": "index"
           }
         ]
       }
     }
   ],
   [
-    31,
+    40,
     "/admin/SelectedProcessor",
     "",
     "",
     {
-      "5": {
+      "9": {
         "name": "SelectedProcessor",
         "dispName": "프로세서",
         "type": "contents",
         "element": "/admin/processor",
         "conditions": [
           {
-            "key": "processor-path",
-            "feature": "path",
-            "method": "pathmatch"
+            "key": "processor-index",
+            "feature": "index",
+            "method": "match"
           }
         ],
         "selections": []
@@ -560,12 +648,12 @@
     }
   ],
   [
-    32,
+    41,
     "/admin/system",
     "",
     "",
     {
-      "6": {
+      "10": {
         "name": "system",
         "dispName": "시스템",
         "type": "contents",
@@ -573,8 +661,8 @@
         "conditions": [],
         "selections": [
           {
-            "key": "system-path",
-            "feature": "path"
+            "key": "system-index",
+            "feature": "index"
           },
           {
             "key": "system",
@@ -585,21 +673,21 @@
     }
   ],
   [
-    33,
+    42,
     "/admin/SelectedSystem",
     "",
     "",
     {
-      "7": {
+      "11": {
         "name": "SelectedSystem",
         "dispName": " 시스템",
         "type": "contents",
         "element": "/admin/system",
         "conditions": [
           {
-            "key": "system-path",
-            "feature": "path",
-            "method": "pathmatch"
+            "key": "system-index",
+            "feature": "index",
+            "method": "match"
           }
         ],
         "selections": []
@@ -607,12 +695,12 @@
     }
   ],
   [
-    34,
+    43,
     "/admin/element",
     "",
     "",
     {
-      "8": {
+      "12": {
         "name": "element",
         "dispName": "엘리먼트",
         "type": "contents",
@@ -620,20 +708,20 @@
         "conditions": [],
         "selections": [
           {
-            "key": "element-path",
-            "feature": "path"
+            "key": "element-index",
+            "feature": "index"
           }
         ]
       }
     }
   ],
   [
-    35,
+    44,
     "/admin/systemElement",
     "",
     "",
     {
-      "8": {
+      "13": {
         "name": "systemElement",
         "dispName": "시스템 엘리먼트",
         "type": "contents",
@@ -647,20 +735,20 @@
         ],
         "selections": [
           {
-            "key": "element-path",
-            "feature": "path"
+            "key": "element-index",
+            "feature": "index"
           }
         ]
       }
     }
   ],
   [
-    36,
+    45,
     "/admin/SelectedElement",
     "",
     "",
     {
-      "9": {
+      "14": {
         "name": "SelectedElement",
         "dispName": "엘리먼트",
         "type": "contents",
@@ -672,9 +760,9 @@
             "method": "match"
           },
           {
-            "key": "element-path",
-            "feature": "path",
-            "method": "pathmatch"
+            "key": "element-index",
+            "feature": "index",
+            "method": "match"
           }
         ],
         "selections": []
@@ -682,12 +770,12 @@
     }
   ],
   [
-    37,
+    46,
     "/admin/contents",
     "",
     "",
     {
-      "10": {
+      "15": {
         "name": "contents",
         "dispName": "웹 컨텐츠",
         "type": "contents",
@@ -703,12 +791,12 @@
     }
   ],
   [
-    38,
+    47,
     "/admin/SelectedContents",
     "",
     "",
     {
-      "11": {
+      "16": {
         "name": "SelectedContents",
         "dispName": "웹 컨텐츠",
         "type": "contents",
@@ -725,22 +813,61 @@
     }
   ],
   [
-    39,
+    48,
+    "/admin/applet",
+    "",
+    "",
+    {
+      "17": {
+        "name": "applet",
+        "dispName": "애플릿",
+        "type": "contents",
+        "element": "/admin/applet",
+        "conditions": [],
+        "selections": [
+          {
+            "key": "applet-index",
+            "feature": "index"
+          }
+        ]
+      }
+    }
+  ],
+  [
+    49,
+    "/admin/SelectedApplet",
+    "",
+    "",
+    {
+      "18": {
+        "name": "SelectedApplet",
+        "dispName": "애플릿",
+        "type": "contents",
+        "element": "/admin/applet",
+        "conditions": [
+          {
+            "key": "applet-index",
+            "feature": "index",
+            "method": "match"
+          }
+        ],
+        "selections": []
+      }
+    }
+  ],
+  [
+    50,
     "/admin/section",
     "",
     "",
     {
-      "10": {
+      "19": {
         "name": "section",
-        "dispName": "웹 섹션",
+        "dispName": "섹션",
         "type": "contents",
         "element": "/admin/section",
         "conditions": [],
         "selections": [
-          {
-            "key": "section-path",
-            "feature": "path"
-          },
           {
             "key": "section-index",
             "feature": "index"
@@ -750,19 +877,105 @@
     }
   ],
   [
-    40,
+    51,
     "/admin/SelectedSection",
     "",
     "",
     {
-      "11": {
+      "20": {
         "name": "SelectedSection",
-        "dispName": "웹 섹션",
+        "dispName": "선택된 섹션",
         "type": "contents",
         "element": "/admin/section",
         "conditions": [
           {
             "key": "section-index",
+            "feature": "index",
+            "method": "match"
+          }
+        ],
+        "selections": []
+      }
+    }
+  ],
+  [
+    52,
+    "/admin/user",
+    "",
+    "",
+    {
+      "21": {
+        "name": "user",
+        "dispName": "사용자",
+        "type": "contents",
+        "element": "/admin/user",
+        "conditions": [],
+        "selections": [
+          {
+            "key": "user-index",
+            "feature": "index"
+          }
+        ]
+      }
+    }
+  ],
+  [
+    53,
+    "/admin/SelectedUser",
+    "",
+    "",
+    {
+      "22": {
+        "name": "SelectedUser",
+        "dispName": "선택된 사용자",
+        "type": "contents",
+        "element": "/admin/user",
+        "conditions": [
+          {
+            "key": "user-index",
+            "feature": "index",
+            "method": "match"
+          }
+        ],
+        "selections": []
+      }
+    }
+  ],
+  [
+    54,
+    "/admin/theme",
+    "",
+    "",
+    {
+      "23": {
+        "name": "theme",
+        "dispName": "테마",
+        "type": "contents",
+        "element": "/admin/theme",
+        "conditions": [],
+        "selections": [
+          {
+            "key": "theme-index",
+            "feature": "index"
+          }
+        ]
+      }
+    }
+  ],
+  [
+    53,
+    "/admin/SelectedTheme",
+    "",
+    "",
+    {
+      "24": {
+        "name": "SelectedTheme",
+        "dispName": "선택된 테마",
+        "type": "contents",
+        "element": "/admin/theme",
+        "conditions": [
+          {
+            "key": "theme-index",
             "feature": "index",
             "method": "match"
           }

@@ -32,9 +32,6 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
   const boxShadow = appletStyle.boxShadow || "none";
   const appletBgColor = appletStyle.bgColors[0] || "#ffffff";
 
-  console.log(
-    `NexPageViewer gap: ${gap}, border: ${border}, borderRadius: ${borderRadius}, boxShadow: ${boxShadow}`
-  );
   const color = style.colors[0];
   const bgColor = style.bgColors[0];
 

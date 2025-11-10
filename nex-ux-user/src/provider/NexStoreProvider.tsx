@@ -124,19 +124,16 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
       const themeNode = configStore.config.webThemes.find(
         (t: any) => t.name === themeUser.theme
       );
-
-      console.log(
-        "NexStoreProvider themeNode:",
-        JSON.stringify(configStore.config.webThemes)
-      );
       return themeNode?.theme || defaultTheme;
     }, [configStore.config.webThemes, themeUser]);
 
     const storeMap = useMemo(() => {
       const storeMap: Record<string, NexDataStore> = {};
       Object.entries(elementCfgs).forEach(([path, element]) => {
-        //console.log("NexStoreProvider element:", path);
         const format = formatCfgs[element.format] || null;
+        console.log(
+          `NexStoreProvider element: ${path}, formatPath=${element.format}, format=${JSON.stringify(formatCfgs, null, 2)}`
+        );
 
         const store = new NexDataStore("", "", path, element, format);
         //console.log("NexStoreProvider element:", JSON.stringify(node, null, 2));

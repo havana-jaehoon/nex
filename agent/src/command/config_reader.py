@@ -8,6 +8,7 @@ from command.data_io import DataFileIo
 import copy
 
 CONFIG_LIST = {
+    'MENU':'menu',
     'STORAGE':'storage',
     'FORMAT':'format',
     'STORE':'store',

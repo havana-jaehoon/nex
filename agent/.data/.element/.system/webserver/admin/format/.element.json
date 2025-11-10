@@ -8,5 +8,5 @@
   "processor": "/common/transparent",
   "processingInterval": "10",
   "processingUnit": "SEC",
-  "sources": "/config/admin/format"
+  "sources": "/admin/format"
 }

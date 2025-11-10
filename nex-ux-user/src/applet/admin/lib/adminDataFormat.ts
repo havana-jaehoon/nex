@@ -60,7 +60,24 @@ const folderTypeFeatureObject = {
 
 const featureObjects = {
   [NexNodeType.FOLDER]: folderTypeFeatureObject,
-
+  [NexNodeType.MENU]: {
+    ...folderTypeFeatureObject,
+    literals: [
+      {
+        name: NexNodeType.MENU,
+        dispName: "메뉴",
+      },
+    ],
+  },
+  [NexNodeType.STORAGE]: {
+    ...folderTypeFeatureObject,
+    literals: [
+      {
+        name: NexNodeType.STORAGE,
+        dispName: "스토리지",
+      },
+    ],
+  },
   [NexNodeType.FORMAT]: {
     ...folderTypeFeatureObject,
     literals: [
@@ -149,15 +166,6 @@ const featureObjects = {
       {
         name: NexNodeType.USER,
         dispName: "사용자",
-      },
-    ],
-  },
-  [NexNodeType.STORAGE]: {
-    ...folderTypeFeatureObject,
-    literals: [
-      {
-        name: NexNodeType.STORAGE,
-        dispName: "스토리지",
       },
     ],
   },
@@ -302,6 +310,149 @@ const featureTypeLiterals = [
     dispName: "속성 목록",
   },
 ];
+
+const menuNodeDef: NexFormatNode = {
+  name: "storage",
+  dispName: "저장소",
+  description: "저장소 정보",
+  type: NexNodeType.MENU,
+  features: [
+    ...commonFeatures.slice(0, 3),
+    featureObjects[NexNodeType.MENU],
+    ...commonFeatures.slice(4),
+
+    {
+      name: "route",
+      dispName: "라우트",
+      description: "메뉴 라우트 정보",
+      icon: null,
+      color: null,
+      featureType: NexFeatureType.STRING, // DB IP 주소는 문자열로 처리
+      uxSize: 3,
+    },
+  ],
+};
+
+const storageNodeDef: NexFormatNode = {
+  name: "storage",
+  dispName: "저장소",
+  description: "저장소 정보",
+  type: NexNodeType.FORMAT,
+  features: [
+    ...commonFeatures.slice(0, 3),
+    featureObjects[NexNodeType.USER],
+    ...commonFeatures.slice(4),
+
+    {
+      name: "storageType",
+      dispName: "저장소 유형",
+      icon: null,
+      color: null,
+      featureType: NexFeatureType.LITERALS, // DB IP 주소는 문자열로 처리
+      literals: [
+        { name: "disk", dispName: "로컬 디스크", icon: "", color: "" },
+        { name: "db", dispName: "데이터베이스", icon: "", color: "" },
+        { name: "hdfs", dispName: "HDFS", icon: "", color: "" },
+      ],
+      uxSize: 3,
+    },
+    {
+      name: "db",
+      dispName: "데이터베이스",
+      icon: null,
+      color: null,
+      featureType: NexFeatureType.ATTRIBUTES,
+      attributes: [
+        {
+          name: "dbType",
+          dispName: "데이터베이스유형",
+          icon: null,
+          color: null,
+          featureType: NexFeatureType.LITERALS, // DB IP 주소는 문자열로 처리
+          literals: [
+            { name: "mysql", dispName: "MySQL", icon: "", color: "" },
+            { name: "oracle", dispName: "Oracle", icon: "", color: "" },
+          ],
+          uxSize: 3,
+        },
+        {
+          name: "ip",
+          dispName: "DB IP 주소",
+          icon: null,
+          color: null,
+          featureType: NexFeatureType.ADDRESS, // DB IP 주소는 문자열로 처리
+          uxSize: 3,
+        },
+        {
+          name: "port",
+          dispName: "DB 포트 번호",
+          icon: null,
+          color: null,
+          featureType: "UINT32",
+          uxSize: 2,
+        },
+        {
+          name: "user",
+          dispName: "DB 사용자",
+          icon: null,
+          color: null,
+          featureType: NexFeatureType.STRING, // DB 사용자 문자열로 처리
+          uxSize: 3,
+        },
+        {
+          name: "password",
+          dispName: "DB 비밀번호",
+          icon: null,
+          color: null,
+          featureType: NexFeatureType.PASSWORD, // DB 비밀번호는 문자열로 처리
+          uxSize: 3,
+        },
+        {
+          name: "name",
+          dispName: "데이터베이스 이름",
+          icon: null,
+          color: null,
+          featureType: NexFeatureType.STRING, // DB 이름은 문자열로 처리
+          uxSize: 3,
+        },
+      ],
+    },
+    {
+      name: "hdfs",
+      dispName: "HDFS",
+      icon: null,
+      color: null,
+      featureType: NexFeatureType.ATTRIBUTES,
+      attributes: [
+        {
+          name: "ip",
+          dispName: "HDFS IP 주소",
+          icon: null,
+          color: null,
+          featureType: NexFeatureType.ADDRESS, // HDFS IP 주소는 문자열로 처리
+          uxSize: 3,
+        },
+        {
+          name: "port",
+          dispName: "HDFS 포트 번호",
+          icon: null,
+          color: null,
+          featureType: "UINT32",
+          uxSize: 2,
+        },
+        {
+          name: "path",
+          dispName: "HDFS 경로",
+          icon: null,
+          color: null,
+          isKey: false,
+          featureType: NexFeatureType.STRING, // HDFS 경로는 문자열로 처리
+          uxSize: 6,
+        },
+      ],
+    },
+  ],
+};
 
 const formatNodeDef: any = {
   name: "format",
@@ -1018,129 +1169,10 @@ const userNodeDef: NexFormatNode = {
   ],
 };
 
-const storageNodeDef: NexFormatNode = {
-  name: "storage",
-  dispName: "저장소",
-  description: "저장소 정보",
-  type: NexNodeType.FORMAT,
-  features: [
-    ...commonFeatures.slice(0, 3),
-    featureObjects[NexNodeType.USER],
-    ...commonFeatures.slice(4),
-
-    {
-      name: "storageType",
-      dispName: "저장소 유형",
-      icon: null,
-      color: null,
-      featureType: NexFeatureType.LITERALS, // DB IP 주소는 문자열로 처리
-      literals: [
-        { name: "disk", dispName: "로컬 디스크", icon: "", color: "" },
-        { name: "db", dispName: "데이터베이스", icon: "", color: "" },
-        { name: "hdfs", dispName: "HDFS", icon: "", color: "" },
-      ],
-      uxSize: 3,
-    },
-    {
-      name: "db",
-      dispName: "데이터베이스",
-      icon: null,
-      color: null,
-      featureType: NexFeatureType.ATTRIBUTES,
-      attributes: [
-        {
-          name: "dbType",
-          dispName: "데이터베이스유형",
-          icon: null,
-          color: null,
-          featureType: NexFeatureType.LITERALS, // DB IP 주소는 문자열로 처리
-          literals: [
-            { name: "mysql", dispName: "MySQL", icon: "", color: "" },
-            { name: "oracle", dispName: "Oracle", icon: "", color: "" },
-          ],
-          uxSize: 3,
-        },
-        {
-          name: "ip",
-          dispName: "DB IP 주소",
-          icon: null,
-          color: null,
-          featureType: NexFeatureType.ADDRESS, // DB IP 주소는 문자열로 처리
-          uxSize: 3,
-        },
-        {
-          name: "port",
-          dispName: "DB 포트 번호",
-          icon: null,
-          color: null,
-          featureType: "UINT32",
-          uxSize: 2,
-        },
-        {
-          name: "user",
-          dispName: "DB 사용자",
-          icon: null,
-          color: null,
-          featureType: NexFeatureType.STRING, // DB 사용자 문자열로 처리
-          uxSize: 3,
-        },
-        {
-          name: "password",
-          dispName: "DB 비밀번호",
-          icon: null,
-          color: null,
-          featureType: NexFeatureType.PASSWORD, // DB 비밀번호는 문자열로 처리
-          uxSize: 3,
-        },
-        {
-          name: "name",
-          dispName: "데이터베이스 이름",
-          icon: null,
-          color: null,
-          featureType: NexFeatureType.STRING, // DB 이름은 문자열로 처리
-          uxSize: 3,
-        },
-      ],
-    },
-    {
-      name: "hdfs",
-      dispName: "HDFS",
-      icon: null,
-      color: null,
-      featureType: NexFeatureType.ATTRIBUTES,
-      attributes: [
-        {
-          name: "ip",
-          dispName: "HDFS IP 주소",
-          icon: null,
-          color: null,
-          featureType: NexFeatureType.ADDRESS, // HDFS IP 주소는 문자열로 처리
-          uxSize: 3,
-        },
-        {
-          name: "port",
-          dispName: "HDFS 포트 번호",
-          icon: null,
-          color: null,
-          featureType: "UINT32",
-          uxSize: 2,
-        },
-        {
-          name: "path",
-          dispName: "HDFS 경로",
-          icon: null,
-          color: null,
-          isKey: false,
-          featureType: NexFeatureType.STRING, // HDFS 경로는 문자열로 처리
-          uxSize: 6,
-        },
-      ],
-    },
-  ],
-};
-
 export const adminNodeDefs = {
   [NexNodeType.FOLDER]: folderNodeDef,
+  [NexNodeType.MENU]: menuNodeDef,
+  [NexNodeType.STORAGE]: storageNodeDef,
   [NexNodeType.FORMAT]: formatNodeDef,
   [NexNodeType.STORE]: storeNodeDef,
   [NexNodeType.PROCESSOR]: processorNodeDef,
@@ -1151,7 +1183,6 @@ export const adminNodeDefs = {
   [NexNodeType.APPLET]: appletNodeDef,
   [NexNodeType.THEME]: themeNodeDef,
   [NexNodeType.USER]: userNodeDef,
-  [NexNodeType.STORAGE]: storageNodeDef,
 };
 
 export function getAdminNodeFromFeatures(

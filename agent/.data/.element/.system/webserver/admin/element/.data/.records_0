@@ -379,11 +379,31 @@
   ],
   [
     21,
-    "/admin/storage",
+    "/admin/menu",
     "",
     "webserver",
     {
       "0": {
+        "name": "menu",
+        "dispName": "메뉴",
+        "description": "메뉴",
+        "type": "element",
+        "format": "/admin/node",
+        "store": "/disk/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/admin/menu"
+      }
+    }
+  ],
+  [
+    22,
+    "/admin/storage",
+    "",
+    "webserver",
+    {
+      "1": {
         "name": "storage",
         "dispName": "데이터저장소",
         "description": "데이터 저장소",
@@ -393,17 +413,17 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/config/admin/storage"
+        "sources": "/admin/storage"
       }
     }
   ],
   [
-    22,
+    23,
     "/admin/format",
     "",
     "webserver",
     {
-      "0": {
+      "2": {
         "name": "format",
         "dispName": "데이터 포맷",
         "description": "데이터 포맷",
@@ -413,17 +433,17 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/config/admin/format"
+        "sources": "/admin/format"
       }
     }
   ],
   [
-    23,
+    24,
     "/admin/store",
     "",
     "webserver",
     {
-      "1": {
+      "3": {
         "name": "store",
         "dispName": "데이터 저장 정책",
         "description": "데이터 저장 정책",
@@ -433,17 +453,17 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/config/admin/store"
+        "sources": "/admin/store"
       }
     }
   ],
   [
-    24,
+    25,
     "/admin/processor",
     "",
     "webserver",
     {
-      "2": {
+      "4": {
         "name": "processor",
         "dispName": "데이터 프로세서",
         "description": " 데이터 프로세서",
@@ -453,17 +473,17 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/config/admin/processor"
+        "sources": "/admin/processor"
       }
     }
   ],
   [
-    25,
+    26,
     "/admin/system",
     "",
     "webserver",
     {
-      "3": {
+      "5": {
         "name": "system",
         "dispName": "시 스템",
         "description": "시스템",
@@ -473,17 +493,17 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/config/admin/system"
+        "sources": "/admin/system"
       }
     }
   ],
   [
-    26,
+    27,
     "/admin/element",
     "",
     "webserver",
     {
-      "4": {
+      "6": {
         "name": "element",
         "dispName": "데이터 엘리먼트",
         "description": "데이터 엘리먼트",
@@ -493,17 +513,17 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/config/admin/element"
+        "sources": "/admin/element"
       }
     }
   ],
   [
-    27,
+    28,
     "/admin/source",
     "",
     "webserver",
     {
-      "5": {
+      "7": {
         "name": "source",
         "dispName": "데이터 소스",
         "description": "데이터 소스",
@@ -513,17 +533,17 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/config/admin/source"
+        "sources": "/admin/source"
       }
     }
   ],
   [
-    28,
+    29,
     "/admin/contents",
     "",
     "webserver",
     {
-      "6": {
+      "8": {
         "name": "contents",
         "dispName": "컨텐츠",
         "description": "컨텐츠",
@@ -533,17 +553,17 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/config/admin/contents"
+        "sources": "/admin/contents"
       }
     }
   ],
   [
-    29,
+    30,
     "/admin/applet",
     "",
     "webserver",
     {
-      "7": {
+      "9": {
         "name": "applet",
         "dispName": "애플릿",
         "description": "애플릿",
@@ -553,17 +573,17 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/config/admin/applet"
+        "sources": "/admin/applet"
       }
     }
   ],
   [
-    30,
+    31,
     "/admin/section",
     "",
     "webserver",
     {
-      "8": {
+      "10": {
         "name": "section",
         "dispName": "웹섹션",
         "description": "웹섹션",
@@ -573,17 +593,17 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/config/admin/section"
+        "sources": "/admin/section"
       }
     }
   ],
   [
-    31,
+    32,
     "/admin/user",
     "",
     "",
     {
-      "9": {
+      "11": {
         "name": "user",
         "dispName": "사용자",
         "description": "사용자",
@@ -593,17 +613,17 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/config/admin/user"
+        "sources": "/admin/user"
       }
     }
   ],
   [
-    32,
+    33,
     "/admin/theme",
     "",
     "webserver",
     {
-      "10": {
+      "12": {
         "name": "theme",
         "dispName": "테마",
         "description": "테마",
@@ -613,7 +633,7 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/config/admin/theme"
+        "sources": "/admin/theme"
       }
     }
   ],
@@ -997,11 +1017,31 @@
   ],
   [
     121,
-    "/admin/storage",
+    "/admin/menu",
     "",
     "webclient",
     {
       "0": {
+        "name": "menu",
+        "dispName": "메뉴",
+        "description": "메뉴",
+        "type": "element",
+        "format": "/admin/node",
+        "store": "/disk/static",
+        "processor": "/common/transparent",
+        "processingInterval": "10",
+        "processingUnit": "SEC",
+        "sources": "/admin/menu"
+      }
+    }
+  ],
+  [
+    122,
+    "/admin/storage",
+    "",
+    "webclient",
+    {
+      "1": {
         "name": "storage",
         "dispName": "데이터저장소",
         "description": "데이터 저장소",
@@ -1016,12 +1056,12 @@
     }
   ],
   [
-    122,
+    123,
     "/admin/format",
     "",
     "webclient",
     {
-      "0": {
+      "2": {
         "name": "format",
         "dispName": "데이터 포맷",
         "description": "데이터 포맷",
@@ -1036,12 +1076,12 @@
     }
   ],
   [
-    123,
+    124,
     "/admin/store",
     "",
     "webclient",
     {
-      "1": {
+      "3": {
         "name": "store",
         "dispName": "데이터 저장 정책",
         "description": "데이터 저장 정책",
@@ -1056,12 +1096,12 @@
     }
   ],
   [
-    124,
+    125,
     "/admin/processor",
     "",
     "webclient",
     {
-      "2": {
+      "4": {
         "name": "processor",
         "dispName": "데이터 프로세서",
         "description": " 데이터 프로세서",
@@ -1076,12 +1116,12 @@
     }
   ],
   [
-    125,
+    126,
     "/admin/system",
     "",
     "webclient",
     {
-      "3": {
+      "5": {
         "name": "system",
         "dispName": "시 스템",
         "description": "시스템",
@@ -1096,12 +1136,12 @@
     }
   ],
   [
-    126,
+    127,
     "/admin/element",
     "",
     "webclient",
     {
-      "4": {
+      "6": {
         "name": "element",
         "dispName": "데이터 엘리먼트",
         "description": "데이터 엘리먼트",
@@ -1116,12 +1156,12 @@
     }
   ],
   [
-    127,
+    128,
     "/admin/source",
     "",
     "webclient",
     {
-      "5": {
+      "7": {
         "name": "source",
         "dispName": "데이터 소스",
         "description": "데이터 소스",
@@ -1136,12 +1176,12 @@
     }
   ],
   [
-    128,
+    129,
     "/admin/contents",
     "",
     "webclient",
     {
-      "6": {
+      "8": {
         "name": "contents",
         "dispName": "컨텐츠",
         "description": "컨텐츠",
@@ -1156,12 +1196,12 @@
     }
   ],
   [
-    129,
+    130,
     "/admin/applet",
     "",
     "webclient",
     {
-      "7": {
+      "9": {
         "name": "applet",
         "dispName": "애플릿",
         "description": "애플릿",
@@ -1176,12 +1216,12 @@
     }
   ],
   [
-    130,
+    131,
     "/admin/section",
     "",
     "webclient",
     {
-      "8": {
+      "10": {
         "name": "section",
         "dispName": "웹섹션",
         "description": "웹섹션",
@@ -1196,12 +1236,12 @@
     }
   ],
   [
-    131,
+    132,
     "/admin/user",
     "",
     "webclient",
     {
-      "9": {
+      "11": {
         "name": "user",
         "dispName": "사용자",
         "description": "사용자",
@@ -1216,12 +1256,12 @@
     }
   ],
   [
-    132,
+    133,
     "/admin/theme",
     "",
     "webclient",
     {
-      "10": {
+      "12": {
         "name": "theme",
         "dispName": "테마",
         "description": "테마",

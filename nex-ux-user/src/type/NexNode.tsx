@@ -2,6 +2,8 @@ import { NexTheme, NexThemeUser } from "./NexTheme";
 
 export enum NexNodeType {
   FOLDER = "folder",
+  MENU = "menu",
+  STORAGE = "storage",
   FORMAT = "format",
   PROCESSOR = "processor",
   STORE = "store",
@@ -13,7 +15,6 @@ export enum NexNodeType {
   SECTION = "section",
   THEME = "theme", // THEME attribute : color, bgColor, ...
   USER = "user",
-  STORAGE = "storage",
 }
 
 export enum NexFeatureType {
@@ -48,8 +49,8 @@ export enum NexFeatureType {
   RECORDS = "RECORDS", // 레코드 목록 중에서 선택
   ATTRIBUTES = "ATTRIBUTES", // key-value 쌍의 속성 목록
   STRING_ARRAY = "STRING_ARRAY", // 문자열 배열
-  NUMBER_ARRAY = "NUMBER_ARRAY" // 숫자 배열
-};
+  NUMBER_ARRAY = "NUMBER_ARRAY", // 숫자 배열
+}
 
 export interface NexNode {
   name: string; //"Enter Name of Object",

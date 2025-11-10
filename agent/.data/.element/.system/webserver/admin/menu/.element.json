@@ -1,12 +1,12 @@
 {
-  "name": "theme",
-  "dispName": "테마",
-  "description": "테마",
+  "name": "menu",
+  "dispName": "메뉴",
+  "description": "메뉴",
   "type": "element",
   "format": "/admin/node",
   "store": "/disk/static",
   "processor": "/common/transparent",
   "processingInterval": "10",
   "processingUnit": "SEC",
-  "sources": "/admin/theme"
+  "sources": "/admin/menu"
 }
