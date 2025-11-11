@@ -24,7 +24,7 @@ pip install --upgrade pip setuptools wheel
 
 pip install -r requirements.txt
 
-# 1.1 현재 환경에 상용되는 PKG 파일을 저장
+# 1.1 현재 환경에 상용되는 PKG 파일을 저장(pip 로 패키지 추가 설치 시)
 
 pip freeze > requirements.txt
 
@@ -37,13 +37,18 @@ $env:PYTHONPATH = ".\src"
 
 # 2.2 실행
 
-# back-end
-
 python src/system_node.py --config-dir=config_nex --data-dir=.data
 
-# web
+# admin 데이터 가져오기(브라우저)
 
-http://127.0.0.1:9070/admin-api/get?system=*&element=/admin/element
+http://127.0.0.1:9080/admin-api/get?project=&system=webserver&element=/admin/element
+
+http://127.0.0.1:9080/admin-api/get?project=&system=webserver&element=/admin/menu
+...
+
+# 데이터 가져오기(브라우저)
+
+http://127.0.0.1:9080/data-api/get?project=&system=webserver&path=/admin/menu
 
 # 2.3 test
 

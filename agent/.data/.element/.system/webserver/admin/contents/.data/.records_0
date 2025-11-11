@@ -440,7 +440,7 @@
     {
       "0": {
         "name": "menu",
-        "dispName": "메뉴 설정",
+        "dispName": "메뉴",
         "type": "contents",
         "element": "/admin/menu",
         "conditions": [],
@@ -459,12 +459,12 @@
   ],
   [
     32,
-    "/admin/selectedMenu",
+    "/admin/SelectedMenu",
     "",
     "",
     {
       "1": {
-        "name": "menu",
+        "name": "SelectedMenu",
         "dispName": "메뉴 설정",
         "type": "contents",
         "element": "/admin/menu",

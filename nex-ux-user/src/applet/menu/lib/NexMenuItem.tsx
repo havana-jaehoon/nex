@@ -7,12 +7,14 @@ import {
 } from "react-icons/md";
 import { defaultThemeStyle, getThemeStyle, NexTheme } from "type/NexTheme";
 import { NexMenuNode } from "./NexMenuNode";
+import { NexNodeType } from "type/NexNode";
+import { Stack } from "@mui/material";
+import { json } from "stream/consumers";
 
 interface NexMenuItemProps {
   theme?: NexTheme; // Optional theme prop, can be used for styling
   depts: number;
-  path: string; // Optional path prop, can be used for routing
-  node: NexMenuNode;
+  node: any;
 
   onClick(route: string): void;
   selectedPath: string; // Current path for comparison
@@ -20,7 +22,6 @@ interface NexMenuItemProps {
 }
 
 const NexMenuItem: React.FC<NexMenuItemProps> = ({
-  path,
   selectedPath,
   theme,
   depts,
@@ -29,25 +30,61 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
   onSelect,
 }) => {
   //const { label, icon, path, children } = item;
+  const [path, setPath] = useState("");
+  const [index, setIndex] = useState(-1);
+  const [jsonData, setJsonData] = useState<any>(null);
+  const [nodeType, setNodeType] = useState<string | null>(null);
+
   const [isChildOpend, setChildOpened] = useState<boolean>(false);
+  const [isSelected, setSelected] = useState<boolean>(false);
+  const [isChildren, setIsChildren] = useState<boolean>(false);
+  const [isSelectedRoot, setIsSelectedRoot] = useState<boolean>(false);
+  const [isRoute, setIsRoute] = useState<boolean>(false);
   //const [isSelected, setSelected] = useState<boolean>(false);
   //const color = item[6];
 
-  const isFolder = node.type === "folder";
-
-  //const children: any[] | null = item[3];
-  const isChildren = node.children && node.children.length > 0;
-
-  const isSelectedRoot = selectedPath.startsWith(path) && depts === 0;
-  //const isSelectedRouteRoot = isSelectedRoot && path !== selectedPath;
-  const isRoute = node.route !== undefined && node.route !== "";
-  const isSelected = isRoute && selectedPath === path;
-
   useEffect(() => {
-    if (!isSelectedRoot) {
-      setChildOpened(false);
+    if (node && node.data) {
+      setPath(node.data[1]);
+      setIndex(node.data[0]);
+      const objData: any = Object.values(node.data[4])[0];
+      setJsonData(objData);
+
+      const type = objData["type"] || null;
+
+      setNodeType(type);
+      setIsChildren(
+        type === NexNodeType.FOLDER ||
+          (type === NexNodeType.MENU &&
+            node.children &&
+            node.children.length > 0)
+      );
+      const bSelectedRoot =
+        selectedPath.startsWith(node.data[1]) && depts === 0;
+      if (bSelectedRoot) {
+        setChildOpened(true);
+      }
+      console.log(
+        `NexMenuItem: path=${node.data[1]} selectedPath=${selectedPath} bSelectedRoot=${bSelectedRoot}`
+      );
+      setSelected(selectedPath === node.data[1]);
+      setIsSelectedRoot(bSelectedRoot);
+      setIsRoute(objData.route !== undefined && objData.route !== "");
+      console.log(
+        "NexMenuItem: node.route=",
+        node.route,
+        " isRoute=",
+        objData.route !== undefined && objData.route !== ""
+      );
     }
-  }, [isSelectedRoot]);
+  }, [node, selectedPath]);
+
+  console.log(
+    "NexMenuItem: render: path=",
+    path,
+    " selectedPath=",
+    selectedPath
+  );
 
   const defaultStyle = getThemeStyle(theme, "default");
   //const menuStyle = getThemeStyle(theme, "menu");
@@ -58,11 +95,12 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
 
   const fontSizeIndex = Math.max(0, defaultStyle.fontSize.length - 3 - depts);
   const fontSize = defaultStyle.fontSize[fontSizeIndex];
+  const tabSize = `calc(${fontSize} * ${depts})`;
 
   const handleClick = () => {
     if (isRoute) {
       onSelect(path);
-      onClick(node.route || "");
+      onClick(jsonData.route || "");
     }
     if (isChildren) setChildOpened(!isChildOpend);
     console.log("handleClick: route=", node.route);
@@ -91,20 +129,20 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
         align="center"
         justify="flex-start"
         onClick={handleClick}
-        title={node.route || ""}
+        title={jsonData?.route || ""}
       >
-        {isSelectedRoot ? (
-          <NexDiv width="0.5rem" height="100%" bgColor={selectedColor} />
+        {isSelected ? (
+          <NexDiv width="0.5rem" height="80%" bgColor={selectedColor} />
         ) : (
-          <NexDiv width="0.5rem" height="100%" bgColor="inherit" />
+          <NexDiv width="0.5rem" height="90%" bgColor="inherit" />
         )}
-        <NexLabel width="1rem" height="100%"></NexLabel>
+        <span style={{ width: tabSize }} />
 
         <NexLabel width="96%" height="100%">
-          {node.dispName || node.name}
+          {jsonData?.dispName || jsonData?.name || "No Name"}
         </NexLabel>
         <NexDiv justify="end" width="2rem" height="100%" color={selectedColor}>
-          {isFolder ? (
+          {isChildren ? (
             isChildOpend ? (
               <MdKeyboardArrowDown />
             ) : (
@@ -114,28 +152,20 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
         </NexDiv>
       </NexDiv>
       {isChildOpend && isChildren ? (
-        <NexDiv direction="row" width="100%" justify="start">
-          <NexDiv
-            direction="column"
-            width={fontSize}
-            height="100%"
-            align="center"
-            justify="center"
-          ></NexDiv>
-          <NexDiv direction="column" width="100%" height="100%">
-            {node.children?.map((child, index) => (
+        <NexDiv direction="row" width="100%">
+          <Stack spacing={0.5} direction="column" width="100%">
+            {node.children?.map((child: any, index: number) => (
               <NexMenuItem
                 key={index}
                 depts={depts + 1}
                 node={child}
                 theme={theme}
-                path={path + "/" + child.name}
                 onSelect={onSelect}
                 selectedPath={selectedPath}
                 onClick={handleChildClick}
               />
             ))}
-          </NexDiv>
+          </Stack>
         </NexDiv>
       ) : null}
     </NexDiv>

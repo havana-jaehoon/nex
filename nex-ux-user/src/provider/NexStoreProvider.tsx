@@ -131,9 +131,6 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
       const storeMap: Record<string, NexDataStore> = {};
       Object.entries(elementCfgs).forEach(([path, element]) => {
         const format = formatCfgs[element.format] || null;
-        console.log(
-          `NexStoreProvider element: ${path}, formatPath=${element.format}, format=${JSON.stringify(formatCfgs, null, 2)}`
-        );
 
         const store = new NexDataStore("", "", path, element, format);
         //console.log("NexStoreProvider element:", JSON.stringify(node, null, 2));

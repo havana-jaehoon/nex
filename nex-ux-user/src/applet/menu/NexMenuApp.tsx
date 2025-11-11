@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { buildMenuTree } from "./lib/NexMenuNode";
 import { clamp } from "utils/util";
 import { getThemeStyle } from "type/NexTheme";
+import { buildNexTree } from "utils/NexTreeNode";
 
 // CSV-Style menu data : type(item | folder), path, name, dispName, description, icon, color, route )
 
@@ -42,20 +43,30 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
   const storeIndex = 0; // only 1 store
   const [datas, setDatas] = useState<any[]>([]);
   const [features, setFeatures] = useState<any[]>([]);
+
+  const [nexTree, setNexTree] = useState<any>(null);
+  const [store, setStore] = useState<any>(null);
+
   useEffect(() => {
-    const cts = contents?.[storeIndex];
-    if (!cts) {
-      setFeatures([]);
-      setDatas([]);
-      return;
+    if (!contents || contents.length < 1) return;
+
+    const cts = contents[storeIndex];
+
+    const indexes = cts.indexes;
+    let contentsData = [];
+    if (!indexes)
+      // indexes 가 없으면 전체 데이터
+      contentsData = cts.data;
+    else {
+      contentsData = indexes.map((index: number) => cts.data[index]);
     }
 
-    const tdata = cts.indexes
-      ? cts.indexes?.map((i: number) => cts.data[i]) || []
-      : cts.data || [];
-
-    setFeatures(cts.format.features || []);
-    setDatas(tdata);
+    const tree = buildNexTree(contentsData);
+    console.log("NexMenuApp: nexTree=", JSON.stringify(tree, null, 2));
+    setNexTree(tree);
+    setStore(cts.store);
+    //setFormat(cts.format);
+    //setSelectedKeys(cts.selectedKeys);
   }, [contents]);
 
   const menuData = useMemo(() => buildMenuTree(datas), [datas]);
@@ -78,18 +89,19 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
       height="100%"
       overflow="auto"
     >
-      {menuData.map((node: any, index: number) => (
-        <NexMenuItem
-          key={index}
-          depts={0}
-          node={node}
-          theme={theme}
-          onClick={handleClick}
-          path={`/${node.name}`}
-          selectedPath={selectedPath}
-          onSelect={setSelectedPath}
-        />
-      ))}
+      {nexTree &&
+        nexTree.data &&
+        nexTree.data.map((node: any, index: number) => (
+          <NexMenuItem
+            key={index}
+            depts={0}
+            node={node}
+            theme={theme}
+            onClick={handleClick}
+            selectedPath={selectedPath}
+            onSelect={setSelectedPath}
+          />
+        ))}
     </NexDiv>
   );
 });

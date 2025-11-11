@@ -98,7 +98,7 @@ def convIndexToPath(index: int):
     # 레코드 인덱스를 기반으로 파일 인덱스를 계산합니다.
     # 예: 인덱스 0-99 -> file_index 0; 인덱스 100-199 -> file_index 1
     file_index = index // DATA_BLOCK_SIZE
-    file_name = f".record_{file_index}"
+    file_name = f".records_{file_index}"
 
     # 파일 인덱스를 기반으로 디렉토리 경로를 계산합니다.
     # 각 디렉토리 레벨은 10개의 항목(파일 또는 하위 디렉토리)을 포함합니다.
@@ -172,7 +172,7 @@ class DataFileIo:
         self._loadData()
 
     def __str__(self):
-        return f'DataFileIo({self._elementFullPath})'
+        return f'DataFileIo({self._elementPath})'
     
     def _write_json_file(self, file_path, data):
         try:
@@ -254,6 +254,9 @@ class DataFileIo:
 
             # 데이터 컬럼 정보 설정
             features = self._configs['format'].get('features', [])
+            print(f"{self.__str__()} : features count={len(features)}, path={self._elementPath}")
+            if(self._elementPath == '/admin/menu'):
+                print(f"{self.__str__()} : features={features}")    
             for feature in features:
                 featureName = feature['name']
                 self.data_columns.append(featureName)
@@ -448,12 +451,12 @@ class DataFileIo:
         if newData is None or len(newData) == 0:
 
             print(f"{self.__str__()}::add() - no data to add")
-            return False
+            return False, "no data"
         
         # 1.1 데이터의 컬럼 수 체크
         if len(newData) != len(self.data_columns):
             print(f"{self.__str__()}::add() - invalid data columns: expected {len(self.data_columns)}, got {len(newData)}")
-            return False
+            return False, "invalid data columns"
         
         copyData = newData.copy()
 
@@ -501,7 +504,7 @@ class DataFileIo:
             #print(f"{self.__str__()}::add(){json.dumps(self._records, ensure_ascii=False, indent=2)}")
             # Admin 설정데이터의 경우 path 로 연관되어 있어 전체 데이터를 다시 쓰는 것으로 처리
             self.set(self._records)        
-            return True
+            return True, "Success"
         
         elif self._dataType == 'static':
             # static & non-tree & non-temporary data
@@ -511,7 +514,7 @@ class DataFileIo:
 
             # 현재 전체 데이터 다시 쓰는 것을 이후 변경된 파일만 갱신하도록 변경 필요함.
             self.set(self._records)
-            return True
+            return True, "Success"
 
         if self._dataType == 'temporary':
             time = copyData[0] # time string format: YYYY/MM/DD/HH/MM
@@ -519,15 +522,13 @@ class DataFileIo:
             # 현재 전체 데이터 다시 쓰는 것을 이후 변경된 파일만 갱신하도록 변경 필요함.
             self._records.append(copyData)
             self.set(self._records)
-            return True
+            return True, "Success"
 
             ## 변경된 부분만 갱신하도록 하는 코드 예
             dir_path, file_name = convTimeToPath(time, self._recordBlock)                  
             file_path = f'{dir_path}/{file_name}'
 
             file_full_path = f'{self._elementFullPath}/{DATA_DIR_NAME}/{file_path}'
-
-
 
             records = self._read_json_file(file_full_path)
             if records is None:
@@ -558,8 +559,8 @@ class DataFileIo:
                         print(f"{self.__str__()}::add() - duplicate record found based on key columns, skipping add")
                         return False
                 self._records.append(data)    
-            return True
-        return False
+            return True, "Success"
+        return False, "Failure"
     
     def update(self, newData):
         if self._isAdminConfig: # admin 설정 데이터 
@@ -637,7 +638,7 @@ class DataFileIo:
             self.set(self._records)
             return True, "Success"
 
-        return None
+        return False, "Failure"
     
     def delete(self, keys):
         if self._isAdminConfig: # admin 설정 데이터 
@@ -670,7 +671,7 @@ class DataFileIo:
 
             self.set(self._records)
             return True, "Success"
-        return None
+        return False, "Failure"
     
     # 전체 데이터 쓰기 
     def set(self, datas):

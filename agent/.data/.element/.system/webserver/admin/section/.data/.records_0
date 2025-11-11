@@ -139,7 +139,7 @@
         "padding": "8px",
         "applet": "/common/menu",
         "contents": [
-          "/common/menu"
+          "/admin/menu"
         ]
       }
     }

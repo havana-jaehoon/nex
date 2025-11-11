@@ -68,7 +68,7 @@ class AdminMgr(SingletonInstance):
                 store = elementInfo['store']
                 processor = elementInfo['processor']
                 element = elementInfo['element']
-
+        
                 dataio = DataFileIo(self._rootPath, path, storage, system, element, format, store, processor)
 
                 self._dataioMap[projectName][systemName][path] = dataio
@@ -181,6 +181,7 @@ class AdminMgr(SingletonInstance):
 
                 data = handler_args.body
                 bres, msg = dataio.add(data)
+                print(f'AdminMgr::_cmdData-POST: add result: {bres}, msg:{msg}')
                 if bres is False:
                     return HandlerResult(status=400, body=f'Failed to add data: {msg}')
 

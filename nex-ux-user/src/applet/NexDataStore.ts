@@ -227,10 +227,6 @@ export class NexDataStore {
       this.odata = []; //getTestData(this.element?.name);
       this.format = format || {}; //getTestFormat(this.element?.format);
 
-      console.log(
-        `NexDataStore: element=${elementPath} format=${JSON.stringify(this.format, null, 2)}`
-      );
-
       if (!this.format || !this.element) {
         console.error(
           "NexDataStore require element:",
@@ -318,6 +314,12 @@ export class NexDataStore {
 
       //const datas = JSON.parse(JSON.stringify(response.data, null, 2));
 
+      if (this.elementPath === "/admin/menu") {
+        console.log(
+          "NexDataStore: /admin/menu fetch data:",
+          JSON.stringify(response.data, null, 2)
+        );
+      }
       if (response.status < 200 || response.status >= 300) {
         console.error("Failed to fetch Data:", response);
         return;
