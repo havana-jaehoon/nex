@@ -9,5 +9,7 @@
   "processor": "/common/transparent",
   "processingInterval": "10",
   "processingUnit": "SEC",
-  "sources": "/webserver/config/Line"
+  "sources": [
+    "/webserver/config/Line"
+  ]
 }

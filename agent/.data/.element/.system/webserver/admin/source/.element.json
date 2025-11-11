@@ -9,5 +9,5 @@
   "processor": "/common/transparent",
   "processingInterval": "10",
   "processingUnit": "SEC",
-  "sources": "/admin/source"
+  "sources": []
 }
