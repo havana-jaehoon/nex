@@ -152,7 +152,7 @@ class HttpReqMgr(SingletonInstance):
         fut = self._http_client.post_async_sync_result(url, data)
         try:
             status_code, body_str = fut.result()
-            Logger().log_error(f"HttpReq : Post-Rsp : {status_code}, {body_str} <= {url}")
+            Logger().log_info(f"HttpReq : Post-Rsp : {status_code}, {body_str} <= {url}")
             return status_code, body_str
         except Exception as e:
             Logger().log_error(f"HttpReq : Post : {url} exception : {e}")
@@ -167,7 +167,7 @@ class HttpReqMgr(SingletonInstance):
         fut = self._http_client.post_async_sync_result(url, data)
         try:
             status_code, body_str = fut.result()
-            Logger().log_error(f"HttpReq : Post-Rsp : {status_code}, {body_str} <= {url}")
+            Logger().log_info(f"HttpReq : Post-Rsp : {status_code}, {body_str} <= {url}")
             return status_code, body_str
         except Exception as e:
             Logger().log_error(f"HttpReq : Post : {url} exception : {e}")

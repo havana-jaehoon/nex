@@ -8,13 +8,15 @@ from util.log_util import Logger
 
 class ElementCfg:
 
+    EXTERNAL_PATH_PREFIX = 'external_#'
+
     def __init__(self, element_base_config_dir: str, parent_list: List[str], element_name: str, **kwargs):
         self._apiLock = threading.Lock()
         self._name = element_name
         self._parentList = parent_list
         parent_dir = f'/{"/".join(parent_list)}' if parent_list else ''
         self._elementConfigDir = f'{element_base_config_dir}{parent_dir}/{self._name}'
-        self._id = f'{parent_dir}/{self._name}'
+        self._id = self.genId(parent_list, element_name)
         self._configMap: Dict[str, dict] = {}    # key: config_type(format, element, ...), value: json config
         self._applyConfigMap(**kwargs)
 
@@ -27,6 +29,11 @@ class ElementCfg:
         for k, v in kwargs.items():
             if k in ELEMENT_CFG_LIST.values():
                 self._configMap[k.lower()] = v
+
+    @staticmethod
+    def genId(parent_list: List[str], element_name: str) -> str:
+        parent_dir = f'/{"/".join(parent_list)}' if parent_list else ''
+        return f'{parent_dir}/{element_name}'
 
     @property
     def parentList(self) -> List[str]:

@@ -3,7 +3,7 @@ import asyncio
 from contextlib import contextmanager
 from typing import Any, Type, Optional, Dict, List, Sequence, Tuple
 from datetime import datetime
-from sqlalchemy import create_engine, text, Integer, String, Boolean, JSON, Float, TIMESTAMP, select
+from sqlalchemy import create_engine, inspect, text, select
 from sqlalchemy.orm import sessionmaker, scoped_session, DeclarativeBase, declarative_base, Mapped, mapped_column
 from sqlalchemy.sql import func, sqltypes
 from sqlalchemy.dialects import postgresql, mysql
@@ -11,7 +11,7 @@ from sqlalchemy.dialects import sqlite
 from strenum import StrEnum
 
 from util.db.orm_oracle import OrmOracle
-from util.scheme_define import SchemaDefinition, MetaKeyword
+from util.scheme_define import SchemaDefinition, MetaKeyword, FieldDefinition
 
 
 class TimeStampKwd(StrEnum):
@@ -31,21 +31,31 @@ class OrmProc:
         self._registered_models: Dict[str, Tuple[List[str], Type[Any]]] = {} # key: table_name, value: (pk_columns, model_class)
 
     @staticmethod
-    def _python2orm_type(python_type: type):
+    def _pythonType2ormType(python_type: type):
         if python_type is int:
-            return Integer
+            return sqltypes.Integer
         elif python_type is float:
-            return Float
+            return sqltypes.Float
         elif python_type is bool:
-            return Boolean
-        elif python_type is str:
-            return String(255)
+            return sqltypes.Boolean
         elif python_type is dict:
-            return JSON
+            return sqltypes.JSON
         elif python_type is datetime:
-            return TIMESTAMP
+            return sqltypes.TIMESTAMP
         else:
-            return String(255)
+            return sqltypes.String(255)
+
+    @staticmethod
+    def _ormType2pythonType(t) -> Type:
+        if isinstance(t, (sqltypes.Integer, sqltypes.BigInteger, sqltypes.SmallInteger)):
+            return int
+        if isinstance(t, (sqltypes.Float, sqltypes.Numeric, sqltypes.DECIMAL, sqltypes.REAL)):
+            return float
+        if isinstance(t, sqltypes.Boolean):
+            return bool
+        if isinstance(t, (sqltypes.DateTime, sqltypes.TIMESTAMP, sqltypes.Date, sqltypes.Time)):
+            return datetime
+        return str
 
     @staticmethod
     def _get_url(db_type: str, user: str, passwd: str, ip: str, port: int, db: str) -> str:
@@ -132,11 +142,11 @@ class OrmProc:
 
             if not any(f.metadata.get(MetaKeyword.IS_KEY) for f in schema.fields):
                 attributes['__annotations__']['id'] = Mapped[int]
-                attributes['id'] = mapped_column(Integer, primary_key=True, autoincrement=True)
+                attributes['id'] = mapped_column(sqltypes.Integer, primary_key=True, autoincrement=True)
 
             pk_columns = []
             for field in schema.fields:
-                sqlalchemy_type = self._python2orm_type(field.python_type)
+                sqlalchemy_type = self._pythonType2ormType(field.python_type)
                 attributes['__annotations__'][field.name] = Mapped[Optional[field.python_type]]
                 column_kwargs = {}
                 # IS_KEY
@@ -149,7 +159,7 @@ class OrmProc:
                 default_value = field.metadata.get(MetaKeyword.DEFAULT)
                 if default_value is not None:
                     column_kwargs['nullable'] = False
-                    if sqlalchemy_type is TIMESTAMP:
+                    if sqlalchemy_type is sqltypes.TIMESTAMP:
                         if default_value == TimeStampKwd.DEFAULT_NOW:
                             column_kwargs['server_default'] = func.now()
                         elif isinstance(default_value, str) and default_value:
@@ -224,7 +234,21 @@ class OrmProc:
                 if commit_per_chunk:
                     session.commit()
 
-    def create_table(self, schema: SchemaDefinition):
+    def createSchemaFromTable(self, table_name: str) -> SchemaDefinition:
+        ins = inspect(self._engine)
+        cols = ins.get_columns(table_name)
+        pk = ins.get_pk_constraint(table_name)
+        pk_cols = set(pk.get('constrained_columns') or [])
+        fields: List[FieldDefinition] = []
+        for col in cols:
+            python_type = self._ormType2pythonType(col["type"])
+            meta = {}
+            if col["name"] in pk_cols:
+                meta[MetaKeyword.IS_KEY] = True
+            fields.append(FieldDefinition(name=col["name"], python_type=python_type, metadata=meta))
+        return SchemaDefinition(name=table_name, fields=fields)
+
+    def createTableFromSchema(self, schema: SchemaDefinition):
         try:
             self._register_orm_model(schema)
             table_to_create = self._base_repository.metadata.tables[schema.name]
@@ -296,6 +320,11 @@ class OrmProc:
         with self._get_read_session() as session:
             df = pd.read_sql_query(stmt, session.bind)
             return df
+
+    def inspect_table_names(self, schema: Optional[str] = None) -> List[str]:
+        with self._get_read_session() as session:
+            inspector = inspect(session.bind)
+            return inspector.get_table_names(schema=schema)
 
     async def get_data_async(self,
                              schema_name: str,

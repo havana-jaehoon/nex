@@ -9,7 +9,7 @@ from store.storage_api import StorageApi
 from system_info import SystemInfoMgr
 from api.api_proc import HttpReqMgr
 from config.element_cfg import ElementCfg
-from format.format_api import FormatApi
+from format.scheme_parser import SchemaParser
 from element.element_process import ElementProcess
 from util.module_loader import ModuleLoader
 from util.pi_http.http_handler import HandlerResult, HandlerArgs, Server_Dynamic_Handler
@@ -30,12 +30,12 @@ class ElementEntity:
             self._storage = StorageApi.createStorageInstance(storage_config)
             if not self._storage:
                 raise Exception(f"storage is not valid")
-            if self._config.parentList: scheme_name = f'{"_".join(self._config.parentList)}_{self._config.name}'.lower()
-            else:   scheme_name = self._config.name.lower()
-            self._scheme = FormatApi.createSchemeInstance(self._config.getConfig('format'), scheme_name)
+
+            self._scheme = SchemaParser.createSchemeInstance(self._config.parentList, self._config.name, self._config.getConfig('format'))
             if not self._scheme:
                 raise Exception(f"scheme is not valid")
             self._storage.applySchema(self._scheme)
+
             Logger().log_info(f'ElementEntity({self._config.id}) : {self._scheme.name} is created to {self._storage.name()}')
         except Exception as e:
             self._scheme = None
