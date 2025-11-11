@@ -29,7 +29,15 @@ class Storage(ABC):
         pass
 
     @abstractmethod
+    def inspectSchemaNames(self) -> List[str]:
+        pass
+
+    @abstractmethod
     def applySchema(self, schema: SchemaDefinition) -> bool:
+        pass
+
+    @abstractmethod
+    def extractSchema(self, table_name: str) -> SchemaDefinition:
         pass
 
     @abstractmethod

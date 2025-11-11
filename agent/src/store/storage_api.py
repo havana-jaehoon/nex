@@ -18,3 +18,10 @@ class StorageApi:
             return OracleStorage(storage_info)
         else:
             return None
+
+    @staticmethod
+    def createDbStorageInstance(storage_info: dict) -> Optional[Storage]:
+        if storage_info.get('dbType', '').upper() == StorageType.ORACLE:
+            return OracleStorage(storage_info)
+        else:
+            return None

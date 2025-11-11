@@ -30,8 +30,14 @@ class OracleStorage(Storage):
     def name(self) -> str:
         return self._sid
 
+    def inspectSchemaNames(self) -> List[str]:
+        return self._orm_proc.inspect_table_names()
+
     def applySchema(self, schema: SchemaDefinition):
-        self._orm_proc.create_table(schema)
+        self._orm_proc.createTableFromSchema(schema)
+
+    def extractSchema(self, table_name: str) -> SchemaDefinition:
+        return self._orm_proc.createSchemaFromTable(table_name)
 
     def setData(self, schema_name: str, data: pd.DataFrame, chunk_size: int, enable_upsert: bool):
         self._orm_proc.set_data(schema_name, data, chunk_size, enable_upsert)
