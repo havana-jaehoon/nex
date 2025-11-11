@@ -18,7 +18,14 @@ def generateConfig(element_parent_list: List[str], element_name: str, format_con
         "description": {storage_info.get("name")},
         "type": "storage",
         "storageType": "db",
-        "db": storage_info
+        "db": {
+            "dbType": storage_info.get("dbType"),
+            "ip": storage_info.get("ip"),
+            "port": storage_info.get("port"),
+            "user": storage_info.get("user"),
+            "password": storage_info.get("password"),
+            "name": storage_info.get("name")
+        }
     }
 
     element_config = {
@@ -43,12 +50,13 @@ def generateConfig(element_parent_list: List[str], element_name: str, format_con
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dbType', type=str, default=None, help='dbms type. ex) mysql, postgres, oracle')
-    parser.add_argument('--ip', type=str, default=None, help='dbms ip')
-    parser.add_argument('--port', type=int, default=None, help='dbms port')
-    parser.add_argument('--user', type=str, default=None, help='dbms user')
-    parser.add_argument('--password', type=str, default=None, help='dbms password of user')
-    parser.add_argument('--name', type=str, default=None, help='db name')
+    parser.add_argument('--dbType', type=str, required=True, help='dbms type. ex) mysql, postgres, oracle')
+    parser.add_argument('--ip', type=str, required=True, help='dbms ip')
+    parser.add_argument('--port', type=int, required=True, help='dbms port')
+    parser.add_argument('--user', type=str, required=True, help='dbms user')
+    parser.add_argument('--password', type=str, required=True, help='dbms password of user')
+    parser.add_argument('--name', type=str, required=True, help='db name')
+    parser.add_argument('--schema', type=str, default=None, help='db schema')
     args = parser.parse_args()
     storage_info = vars(args)
     # storage_info['param'] = {
@@ -67,7 +75,7 @@ if __name__ == "__main__":
 
     print(f'storage : {storage}')
 
-    for table_name in storage.inspectSchemaNames():
+    for table_name in storage.inspectSchemaNames(storage_info.get('schema')):
         print(f'table_name : {table_name}')
         scheme = storage.extractSchema(table_name)
         element_parent_list, element_name, format_config = SchemaParser.extractConfigFromSchema(scheme)

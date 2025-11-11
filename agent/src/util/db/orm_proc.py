@@ -321,10 +321,10 @@ class OrmProc:
             df = pd.read_sql_query(stmt, session.bind)
             return df
 
-    def inspect_table_names(self) -> List[str]:
+    def inspect_table_names(self, schema: Optional[str] = None) -> List[str]:
         with self._get_read_session() as session:
             inspector = inspect(session.bind)
-            return inspector.get_table_names()
+            return inspector.get_table_names(schema=schema)
 
     async def get_data_async(self,
                              schema_name: str,

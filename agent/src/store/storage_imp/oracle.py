@@ -30,8 +30,8 @@ class OracleStorage(Storage):
     def name(self) -> str:
         return self._sid
 
-    def inspectSchemaNames(self) -> List[str]:
-        return self._orm_proc.inspect_table_names()
+    def inspectSchemaNames(self, schema: Optional[str] = None) -> List[str]:
+        return self._orm_proc.inspect_table_names(schema)
 
     def applySchema(self, schema: SchemaDefinition):
         self._orm_proc.createTableFromSchema(schema)

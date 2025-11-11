@@ -29,7 +29,7 @@ class Storage(ABC):
         pass
 
     @abstractmethod
-    def inspectSchemaNames(self) -> List[str]:
+    def inspectSchemaNames(self, schema: Optional[str] = None) -> List[str]:
         pass
 
     @abstractmethod
