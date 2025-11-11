@@ -4,9 +4,10 @@
   "description": "사용자",
   "type": "element",
   "format": "/admin/node",
-  "store": "/memory/static",
+  "store": "/static",
+  "storage": "/disk",
   "processor": "/common/transparent",
   "processingInterval": "10",
   "processingUnit": "SEC",
-  "sources": "/config/admin/user"
+  "sources": "/admin/user"
 }

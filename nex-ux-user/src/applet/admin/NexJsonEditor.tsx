@@ -57,6 +57,7 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
       "JsonEditor::handleApply() : ",
       JSON.stringify(newData, null, 2)
     );
+
     const bres = onUpdate?.(0, newData);
     if (!bres) {
       window.alert("Data update failed");

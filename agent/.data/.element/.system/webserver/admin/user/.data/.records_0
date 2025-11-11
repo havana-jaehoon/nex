@@ -1,21 +1,69 @@
 [
   [
     0,
-    "/default",
+    "/jcryu",
     "",
     "",
     {
       "0": {
-        "name": "default",
-        "dispName": "Default User Theme",
-        "description": "Default User Theme",
+        "name": "jcryu",
+        "dispName": "유재철",
+        "description": "",
         "type": "user",
-        "icon": "user",
-        "color": "#33A1FF",
+        "icon": "",
+        "color": "",
         "user": {
-          "id": "default",
-          "fontLevel": 6,
-          "theme": "default"
+          "id": "jcryu",
+          "password": "jcryu",
+          "level": "admin",
+          "theme": "default",
+          "themeLevel": 6
+        }
+      }
+    }
+  ],
+  [
+    1,
+    "/hdkim",
+    "",
+    "",
+    {
+      "1": {
+        "name": "hdkim",
+        "dispName": "김현동",
+        "description": "",
+        "type": "user",
+        "icon": "",
+        "color": "",
+        "user": {
+          "id": "hdkim",
+          "password": "hdkim",
+          "level": "admin",
+          "theme": "default",
+          "themeLevel": 6
+        }
+      }
+    }
+  ],
+  [
+    2,
+    "/jaehoon.c",
+    "",
+    "",
+    {
+      "2": {
+        "name": "jaehoon.c",
+        "dispName": "최재훈",
+        "description": "",
+        "type": "user",
+        "icon": "",
+        "color": "",
+        "user": {
+          "id": "jaehoon.c",
+          "password": "jaehoon.c",
+          "level": "admin",
+          "theme": "default",
+          "themeLevel": 6
         }
       }
     }

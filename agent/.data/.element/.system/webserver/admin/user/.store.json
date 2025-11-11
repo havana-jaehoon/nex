@@ -2,7 +2,6 @@
   "name": "static",
   "type": "store",
   "record": {
-    "storage": "memory",
     "nature": "static",
     "unit": "NONE",
     "block": "NONE",

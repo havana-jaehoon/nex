@@ -481,6 +481,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
       { [orderIndex.toString()]: editingNode },
     ];
 
+    //console.log("# handleApply: ", JSON.stringify(newData, null, 2));
     onApply(newData);
   };
 
@@ -647,7 +648,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
       alignItems="center"
       justifyContent="end"
     >
-      <NexButton flex="1" bgColor="blue" onClick={handleApply}>
+      <NexButton flex="1" bgColor="blue" type="submit">
         {mode === "add" ? "추가" : "적용"}
       </NexButton>
       {onCancel && (
@@ -745,7 +746,86 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
         </NexDiv>
       );
     }
+    if (
+      feature.featureType === NexFeatureType.STRING_ARRAY ||
+      feature.featureType === NexFeatureType.NUMBER_ARRAY
+    ) {
+      const arr =
+        (getAtPath(editingNode, argPath) as any[]) &&
+        Array.isArray(getAtPath(editingNode, argPath))
+          ? (getAtPath(editingNode, argPath) as any[])
+          : [];
 
+      const itemType =
+        feature.featureType === NexFeatureType.NUMBER_ARRAY ? "number" : "text";
+
+      const updateArray = (nextArr: any[]) => {
+        const nextNode = { ...editingNode };
+        setDeep(nextNode, argPath, nextArr);
+        setEditingNode(nextNode);
+        onChange?.([index, editingPath, nextNode]);
+      };
+
+      const updateItem = (idx: number, raw: string) => {
+        const nextArr = [...arr];
+        nextArr[idx] =
+          itemType === "number" ? (raw === "" ? "" : Number(raw)) : raw;
+        updateArray(nextArr);
+      };
+
+      const addItem = () => {
+        updateArray([...arr, itemType === "number" ? "" : ""]);
+      };
+
+      const removeItem = (idx: number) => {
+        const nextArr = arr.filter((_, i) => i !== idx);
+        updateArray(nextArr);
+      };
+
+      return (
+        <NexDiv key={id} width="100%" direction="column">
+          <Typography variant="subtitle2" sx={{ fontWeight: "bold", mb: 0.5 }}>
+            {label}
+          </Typography>
+          <Stack spacing={0.5} direction="column" width="100%">
+            {arr.map((v, i) => (
+              <Stack
+                key={`${id}.${i}`}
+                spacing={0.5}
+                direction="row"
+                alignItems="flex-end"
+              >
+                <TextField
+                  variant="standard"
+                  label={`${label}[${i}]`}
+                  type={itemType}
+                  value={v ?? ""}
+                  style={{ flex: 1 }}
+                  onChange={(e) => updateItem(i, e.target.value)}
+                />
+                <IconButton
+                  size="small"
+                  title="삭제"
+                  onClick={() => removeItem(i)}
+                  sx={{ border: "1px solid gray", borderRadius: 1 }}
+                >
+                  <MdDelete fontSize="1rem" />
+                </IconButton>
+              </Stack>
+            ))}
+            <Button
+              variant="outlined"
+              size="small"
+              onClick={addItem}
+              startIcon={<MdAdd />}
+              sx={{ alignSelf: "flex-start" }}
+            >
+              추가
+            </Button>
+          </Stack>
+        </NexDiv>
+      );
+    }
     // Primitive (STRING / UINT32)
     const value = getAtPath(editingNode, argPath) ?? "";
     const type = isNumber(feature.featureType)

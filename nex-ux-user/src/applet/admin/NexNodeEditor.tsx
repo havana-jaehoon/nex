@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { NexDiv } from "component/base/NexBaseComponents";
 import NexApplet, { NexAppProps } from "applet/NexApplet";
 import { observer } from "mobx-react-lite";
@@ -36,6 +36,12 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
   const storeIndex = 0; // only 1 store
   const [data, setData] = useState<any>(null);
   const [features, setFeatures] = useState<any[]>([]);
+  // Memoize derived dependency to satisfy React Hooks lint rule
+  const contentsOdata = useMemo(
+    () => contents?.map((c) => c.store.odata),
+    [contents]
+  );
+
   useEffect(() => {
     const cts = contents?.[storeIndex];
     if (!cts || !cts.store) {
@@ -51,7 +57,7 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
     //console.log("NexJsonEditor: data=", JSON.stringify(cts, null, 2));
     setFeatures(cts.format.features || []);
     setData(tdata.length > 0 ? tdata[0] : null);
-  }, [contents]);
+  }, [contents, contentsOdata]);
 
   const handleApply = (newData: any) => {
     //console.log("onApply : ", JSON.stringify(newData, null, 2));

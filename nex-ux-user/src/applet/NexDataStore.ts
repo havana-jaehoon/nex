@@ -418,7 +418,10 @@ export class NexDataStore {
           "NexDataStore::add() response data:",
           JSON.stringify(response.data, null, 2)
         );
+        this.odata = response.data || [];
+        this.loffset = this.odata.length;
       });
+
       return true;
     } catch (error) {
       console.error(
@@ -456,6 +459,8 @@ export class NexDataStore {
           "NexDataStore::remove() response data:",
           JSON.stringify(response.data, null, 2)
         );
+        this.odata = response.data || [];
+        this.loffset = this.odata.length;
       });
       this.selectedKeys = [];
       return true;
@@ -591,9 +596,7 @@ export class NexDataStore {
     }
 
     // format 그룹 즉 tree 구조일 경우를 고려 필요함.
-    console.log(
-      `getIndexesByCondition: conditions=${JSON.stringify(conditions, null, 2)}, format=${JSON.stringify(this.elementPath, null, 2)}`
-    );
+    //console.log(`getIndexesByCondition: conditions=${JSON.stringify(conditions, null, 2)}, format=${JSON.stringify(this.elementPath, null, 2)}`);
     const features =
       this.format.features || this.format.children[0].features || [];
     const conds = conditions.map((condition) => ({
