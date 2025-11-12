@@ -1,0 +1,84 @@
+{
+  "name": "anod_ai_result",
+  "dispName": "anod_ai_result",
+  "type": "format",
+  "features": [
+    {
+      "name": "id",
+      "dispName": "id",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "adx_infer_job",
+      "dispName": "adx_infer_job",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "train",
+      "dispName": "train",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "car",
+      "dispName": "car",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "device",
+      "dispName": "device",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "device_type",
+      "dispName": "device_type",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "data_start_time",
+      "dispName": "data_start_time",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "TIMESTAMP"
+    },
+    {
+      "name": "data_end_time",
+      "dispName": "data_end_time",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "TIMESTAMP"
+    },
+    {
+      "name": "anod_level_code",
+      "dispName": "anod_level_code",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "total_anomaly_level",
+      "dispName": "total_anomaly_level",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "FLOAT"
+    },
+    {
+      "name": "created_at",
+      "dispName": "created_at",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "TIMESTAMP"
+    }
+  ]
+}

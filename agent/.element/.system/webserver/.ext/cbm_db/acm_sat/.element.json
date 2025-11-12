@@ -1,0 +1,9 @@
+{
+  "name": "acm_sat",
+  "dispName": "acm_sat",
+  "description": "acm_sat",
+  "type": "element",
+  "format": "/.ext/cbm_db/acm_sat",
+  "store": "",
+  "storage": "/cbm_db"
+}

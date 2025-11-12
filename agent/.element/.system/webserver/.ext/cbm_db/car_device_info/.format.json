@@ -1,0 +1,56 @@
+{
+  "name": "car_device_info",
+  "dispName": "car_device_info",
+  "type": "format",
+  "features": [
+    {
+      "name": "id",
+      "dispName": "id",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "car_type",
+      "dispName": "car_type",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "device_type",
+      "dispName": "device_type",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "bogie_index",
+      "dispName": "bogie_index",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "numbering",
+      "dispName": "numbering",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "table_name",
+      "dispName": "table_name",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "fc_table_name",
+      "dispName": "fc_table_name",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    }
+  ]
+}

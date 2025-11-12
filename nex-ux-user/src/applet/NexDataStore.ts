@@ -314,12 +314,6 @@ export class NexDataStore {
 
       //const datas = JSON.parse(JSON.stringify(response.data, null, 2));
 
-      if (this.elementPath === "/admin/menu") {
-        console.log(
-          "NexDataStore: /admin/menu fetch data:",
-          JSON.stringify(response.data, null, 2)
-        );
-      }
       if (response.status < 200 || response.status >= 300) {
         console.error("Failed to fetch Data:", response);
         return;
@@ -414,10 +408,6 @@ export class NexDataStore {
         return false;
       }
       runInAction(() => {
-        console.log(
-          "NexDataStore::add() response data:",
-          JSON.stringify(response.data, null, 2)
-        );
         this.odata = response.data || [];
         this.loffset = this.odata.length;
       });
@@ -455,10 +445,6 @@ export class NexDataStore {
         return false;
       }
       runInAction(() => {
-        console.log(
-          "NexDataStore::remove() response data:",
-          JSON.stringify(response.data, null, 2)
-        );
         this.odata = response.data || [];
         this.loffset = this.odata.length;
       });
@@ -483,10 +469,8 @@ export class NexDataStore {
         return false;
       }
       runInAction(() => {
-        console.log(
-          "NexDataStore::update() response data:",
-          JSON.stringify(response.data, null, 2)
-        );
+        this.odata = response.data || [];
+        this.loffset = this.odata.length;
       });
       return true;
     } catch (error) {

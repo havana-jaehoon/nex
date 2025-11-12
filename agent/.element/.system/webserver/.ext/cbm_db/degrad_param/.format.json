@@ -1,0 +1,84 @@
+{
+  "name": "degrad_param",
+  "dispName": "degrad_param",
+  "type": "format",
+  "features": [
+    {
+      "name": "device_type",
+      "dispName": "device_type",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "anomaly_rate",
+      "dispName": "anomaly_rate",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "FLOAT"
+    },
+    {
+      "name": "degrad_threshold_weight",
+      "dispName": "degrad_threshold_weight",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "FLOAT"
+    },
+    {
+      "name": "degrad_speed_period",
+      "dispName": "degrad_speed_period",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "degrad_speed_slow_slope",
+      "dispName": "degrad_speed_slow_slope",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "FLOAT"
+    },
+    {
+      "name": "degrad_speed_prog_slope",
+      "dispName": "degrad_speed_prog_slope",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "FLOAT"
+    },
+    {
+      "name": "degrad_speed_rapid_slope",
+      "dispName": "degrad_speed_rapid_slope",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "FLOAT"
+    },
+    {
+      "name": "distance",
+      "dispName": "distance",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "degrad_weight_level1_dist_rate",
+      "dispName": "degrad_weight_level1_dist_rate",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "degrad_weight_level2_dist_rate",
+      "dispName": "degrad_weight_level2_dist_rate",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "daily_min_cnt",
+      "dispName": "daily_min_cnt",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    }
+  ]
+}

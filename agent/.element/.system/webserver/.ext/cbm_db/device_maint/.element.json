@@ -1,0 +1,9 @@
+{
+  "name": "device_maint",
+  "dispName": "device_maint",
+  "description": "device_maint",
+  "type": "element",
+  "format": "/.ext/cbm_db/device_maint",
+  "store": "",
+  "storage": "/cbm_db"
+}

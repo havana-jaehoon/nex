@@ -1,0 +1,9 @@
+{
+  "name": "daily_degrad_result",
+  "dispName": "daily_degrad_result",
+  "description": "daily_degrad_result",
+  "type": "element",
+  "format": "/.ext/cbm_db/daily_degrad_result",
+  "store": "",
+  "storage": "/cbm_db"
+}

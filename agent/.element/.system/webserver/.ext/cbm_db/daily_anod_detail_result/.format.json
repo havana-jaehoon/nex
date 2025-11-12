@@ -1,0 +1,49 @@
+{
+  "name": "daily_anod_detail_result",
+  "dispName": "daily_anod_detail_result",
+  "type": "format",
+  "features": [
+    {
+      "name": "daily_anod_result",
+      "dispName": "daily_anod_result",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "model_output_info",
+      "dispName": "model_output_info",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "anomaly_direction",
+      "dispName": "anomaly_direction",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "anomaly_score",
+      "dispName": "anomaly_score",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "FLOAT"
+    },
+    {
+      "name": "anomaly_threshold",
+      "dispName": "anomaly_threshold",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "FLOAT"
+    },
+    {
+      "name": "anomaly_rate",
+      "dispName": "anomaly_rate",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "FLOAT"
+    }
+  ]
+}

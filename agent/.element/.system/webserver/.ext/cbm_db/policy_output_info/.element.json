@@ -1,0 +1,9 @@
+{
+  "name": "policy_output_info",
+  "dispName": "policy_output_info",
+  "description": "policy_output_info",
+  "type": "element",
+  "format": "/.ext/cbm_db/policy_output_info",
+  "store": "",
+  "storage": "/cbm_db"
+}

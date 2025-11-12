@@ -1,0 +1,9 @@
+{
+  "name": "pac_wed",
+  "dispName": "pac_wed",
+  "description": "pac_wed",
+  "type": "element",
+  "format": "/.ext/cbm_db/pac_wed",
+  "store": "",
+  "storage": "/cbm_db"
+}

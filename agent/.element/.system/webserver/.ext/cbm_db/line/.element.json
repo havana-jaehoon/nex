@@ -1,0 +1,9 @@
+{
+  "name": "line",
+  "dispName": "line",
+  "description": "line",
+  "type": "element",
+  "format": "/.ext/cbm_db/line",
+  "store": "",
+  "storage": "/cbm_db"
+}

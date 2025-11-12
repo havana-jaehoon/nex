@@ -292,6 +292,23 @@
     }
   ],
   [
+    90,
+    "/root/Home/Body/Main/Admin/Storage",
+    "",
+    "",
+    {
+      "1": {
+        "name": "Storage",
+        "dispName": "Storage",
+        "description": "Storage Section",
+        "type": "section",
+        "size": "1",
+        "direction": "row",
+        "route": "storage"
+      }
+    }
+  ],
+  [
     91,
     "/root/Home/Body/Main/Admin/Storage/StorageFinder",
     "",
@@ -588,7 +605,39 @@
   ],
   [
     141,
-    "/root/Home/Body/Main/Admin/Element/SystemFinder",
+    "/root/Home/Body/Main/Admin/Element/Left",
+    "",
+    "",
+    {
+      "0": {
+        "name": "Left",
+        "dispName": "Left",
+        "description": "Element Left Section",
+        "type": "section",
+        "size": "3",
+        "direction": "column"
+      }
+    }
+  ],
+  [
+    142,
+    "/root/Home/Body/Main/Admin/Element/Left/Up",
+    "",
+    "",
+    {
+      "1": {
+        "name": "Up",
+        "dispName": "Up",
+        "description": "Element Left Up Section",
+        "type": "section",
+        "size": "2",
+        "direction": "row"
+      }
+    }
+  ],
+  [
+    143,
+    "/root/Home/Body/Main/Admin/Element/Left/Up/SystemFinder",
     "",
     "",
     {
@@ -597,7 +646,7 @@
         "dispName": "시스템",
         "description": "시스템",
         "type": "section",
-        "size": "1.5",
+        "size": "1",
         "direction": "row",
         "applet": "/admin/NexNodeTree",
         "padding": "8px",
@@ -608,17 +657,60 @@
     }
   ],
   [
-    142,
-    "/root/Home/Body/Main/Admin/Element/ElementFinder",
+    144,
+    "/root/Home/Body/Main/Admin/Element/Left/Up/StorageFinder",
     "",
     "",
     {
       "1": {
+        "name": "StorageFinder",
+        "dispName": "데이터 보관소",
+        "description": "데이터 보관소",
+        "type": "section",
+        "size": "1",
+        "direction": "row",
+        "applet": "/admin/NexNodeTree",
+        "padding": "8px",
+        "contents": [
+          "/admin/storage"
+        ]
+      }
+    }
+  ],
+  [
+    145,
+    "/root/Home/Body/Main/Admin/Element/Left/StorageElementGenerator",
+    "",
+    "",
+    {
+      "1": {
+        "name": "StorageElementGenerator",
+        "dispName": "스토리지 엘리먼트 생성 및 설정 적용",
+        "description": "Storage Element Generator Applet",
+        "type": "section",
+        "size": "1",
+        "direction": "row",
+        "applet": "/admin/StorageElementGenerator",
+        "padding": "8px",
+        "contents": [
+          "/admin/SelectedSystem",
+          "/admin/SelectedStorage"
+        ]
+      }
+    }
+  ],
+  [
+    146,
+    "/root/Home/Body/Main/Admin/Element/Left/ElementFinder",
+    "",
+    "",
+    {
+      "2": {
         "name": "ElementFinder",
         "dispName": "엘리먼트",
         "description": "엘리먼트",
         "type": "section",
-        "size": "1.5",
+        "size": "6",
         "direction": "row",
         "applet": "/admin/NexNodeTree",
         "padding": "8px",
@@ -629,12 +721,12 @@
     }
   ],
   [
-    143,
+    147,
     "/root/Home/Body/Main/Admin/Element/ElementEditor",
     "",
     "",
     {
-      "2": {
+      "1": {
         "name": "ElementEditor",
         "dispName": "엘리먼트 편집",
         "description": "엘리먼트 편집",

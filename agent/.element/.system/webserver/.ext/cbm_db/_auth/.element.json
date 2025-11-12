@@ -1,0 +1,9 @@
+{
+  "name": "_auth",
+  "dispName": "_auth",
+  "description": "_auth",
+  "type": "element",
+  "format": "/.ext/cbm_db/_auth",
+  "store": "",
+  "storage": "/cbm_db"
+}

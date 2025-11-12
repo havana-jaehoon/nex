@@ -1,0 +1,28 @@
+{
+  "name": "config_downloadcfg",
+  "dispName": "config_downloadcfg",
+  "type": "format",
+  "features": [
+    {
+      "name": "project",
+      "dispName": "project",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "STRING"
+    },
+    {
+      "name": "system",
+      "dispName": "system",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "STRING"
+    },
+    {
+      "name": "config_revision",
+      "dispName": "config_revision",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    }
+  ]
+}

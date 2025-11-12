@@ -1,0 +1,9 @@
+{
+  "name": "acm_sun",
+  "dispName": "acm_sun",
+  "description": "acm_sun",
+  "type": "element",
+  "format": "/.ext/cbm_db/acm_sun",
+  "store": "",
+  "storage": "/cbm_db"
+}

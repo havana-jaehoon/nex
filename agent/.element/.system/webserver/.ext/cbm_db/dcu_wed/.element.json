@@ -1,0 +1,9 @@
+{
+  "name": "dcu_wed",
+  "dispName": "dcu_wed",
+  "description": "dcu_wed",
+  "type": "element",
+  "format": "/.ext/cbm_db/dcu_wed",
+  "store": "",
+  "storage": "/cbm_db"
+}

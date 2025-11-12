@@ -1,0 +1,9 @@
+{
+  "name": "impute_type_code",
+  "dispName": "impute_type_code",
+  "description": "impute_type_code",
+  "type": "element",
+  "format": "/.ext/cbm_db/impute_type_code",
+  "store": "",
+  "storage": "/cbm_db"
+}

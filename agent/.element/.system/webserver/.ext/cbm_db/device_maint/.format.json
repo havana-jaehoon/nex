@@ -1,0 +1,77 @@
+{
+  "name": "device_maint",
+  "dispName": "device_maint",
+  "type": "format",
+  "features": [
+    {
+      "name": "device",
+      "dispName": "device",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "degrad_rule",
+      "dispName": "degrad_rule",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "last_result_date",
+      "dispName": "last_result_date",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "TIMESTAMP"
+    },
+    {
+      "name": "last_degrad_level",
+      "dispName": "last_degrad_level",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "last_degrad_speed",
+      "dispName": "last_degrad_speed",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "rec_maint_action",
+      "dispName": "rec_maint_action",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "line",
+      "dispName": "line",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "train",
+      "dispName": "train",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "car",
+      "dispName": "car",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "is_action",
+      "dispName": "is_action",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    }
+  ]
+}

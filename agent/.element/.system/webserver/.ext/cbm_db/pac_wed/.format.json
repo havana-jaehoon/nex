@@ -1,0 +1,42 @@
+{
+  "name": "pac_wed",
+  "dispName": "pac_wed",
+  "type": "format",
+  "features": [
+    {
+      "name": "time",
+      "dispName": "time",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "TIMESTAMP"
+    },
+    {
+      "name": "car",
+      "dispName": "car",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "seq_cnt",
+      "dispName": "seq_cnt",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "pamp_1",
+      "dispName": "pamp_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "pamp_2",
+      "dispName": "pamp_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    }
+  ]
+}

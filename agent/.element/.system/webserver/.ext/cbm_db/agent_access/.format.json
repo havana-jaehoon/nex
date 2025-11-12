@@ -1,0 +1,35 @@
+{
+  "name": "agent_access",
+  "dispName": "agent_access",
+  "type": "format",
+  "features": [
+    {
+      "name": "project",
+      "dispName": "project",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "STRING"
+    },
+    {
+      "name": "system",
+      "dispName": "system",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "STRING"
+    },
+    {
+      "name": "ip",
+      "dispName": "ip",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "updated_at",
+      "dispName": "updated_at",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "TIMESTAMP"
+    }
+  ]
+}

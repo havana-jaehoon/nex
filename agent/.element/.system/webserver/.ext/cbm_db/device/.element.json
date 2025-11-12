@@ -1,0 +1,9 @@
+{
+  "name": "device",
+  "dispName": "device",
+  "description": "device",
+  "type": "element",
+  "format": "/.ext/cbm_db/device",
+  "store": "",
+  "storage": "/cbm_db"
+}

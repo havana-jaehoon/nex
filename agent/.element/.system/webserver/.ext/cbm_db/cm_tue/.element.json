@@ -1,0 +1,9 @@
+{
+  "name": "cm_tue",
+  "dispName": "cm_tue",
+  "description": "cm_tue",
+  "type": "element",
+  "format": "/.ext/cbm_db/cm_tue",
+  "store": "",
+  "storage": "/cbm_db"
+}

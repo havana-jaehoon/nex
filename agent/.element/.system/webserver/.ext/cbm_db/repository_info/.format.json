@@ -1,0 +1,28 @@
+{
+  "name": "repository_info",
+  "dispName": "repository_info",
+  "type": "format",
+  "features": [
+    {
+      "name": "server_ip",
+      "dispName": "server_ip",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "STRING"
+    },
+    {
+      "name": "repository_type",
+      "dispName": "repository_type",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "base_dir",
+      "dispName": "base_dir",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    }
+  ]
+}

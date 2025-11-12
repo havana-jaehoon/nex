@@ -1,0 +1,13 @@
+{
+  "name": "system",
+  "dispName": "시스템",
+  "description": "시스템",
+  "type": "element",
+  "format": "/admin/node",
+  "store": "/static",
+  "storage": "/disk",
+  "processor": "/common/transparent",
+  "processingInterval": "10",
+  "processingUnit": "SEC",
+  "sources": []
+}

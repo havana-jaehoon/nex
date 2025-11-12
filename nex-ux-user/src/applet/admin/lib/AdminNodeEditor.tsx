@@ -81,16 +81,8 @@ function getAtPath(obj: any, path: string[]) {
 
 function isNumber(featureType: NexFeatureType) {
   if (
-    featureType === NexFeatureType.UINT8 ||
-    featureType === NexFeatureType.UINT16 ||
-    featureType === NexFeatureType.UINT32 ||
-    featureType === NexFeatureType.UINT64 ||
-    featureType === NexFeatureType.INT8 ||
-    featureType === NexFeatureType.INT16 ||
-    featureType === NexFeatureType.INT32 ||
-    featureType === NexFeatureType.INT64 ||
-    featureType === NexFeatureType.FLOAT ||
-    featureType === NexFeatureType.DOUBLE
+    featureType === NexFeatureType.NUMBER ||
+    featureType === NexFeatureType.FLOAT
   )
     return true;
   return false;
@@ -506,12 +498,10 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   };
 
   const handleLiteralChange = (argPath: string[], raw: string) => {
-    console.log(`# handleLiteralChange : ${argPath.join(".")} = ${raw}`);
+    //console.log(`# handleLiteralChange : ${argPath.join(".")} = ${raw}`);
     const next = { ...editingNode };
     setDeep(next, argPath, raw);
-    console.log(
-      `# handleLiteralChange : ${argPath.join(".")} = ${JSON.stringify(next)}`
-    );
+    //console.log(`# handleLiteralChange : ${argPath.join(".")} = ${JSON.stringify(next)}`);
     setEditingNode(next);
 
     onChange?.([index, editingPath, next]);
@@ -693,7 +683,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
 
     if (feature.featureType === NexFeatureType.ATTRIBUTES) {
       return (
-        <NexDiv key={id} width="100%" direction="column">
+        <NexDiv key={feature.name} width="100%" direction="column">
           {iconSubItem(id, label)}
           <Stack
             spacing={0.5}
@@ -727,11 +717,11 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
     }
 
     if (feature.featureType === NexFeatureType.RECORDS) {
-      console.log("# renderFeature: RECORDS", argPath, id);
+      //console.log("# renderFeature: RECORDS", argPath, id);
       const rows = (getAtPath(editingNode, argPath) as any[]) || [];
-      console.log(
-        `# renderFeature: RECORDS at ${argPath} = ${JSON.stringify(feature, null, 2)}`
-      );
+      //console.log(
+      //  `# renderFeature: RECORDS at ${argPath} = ${JSON.stringify(feature, null, 2)}`
+      //);
       return (
         <NexDiv key={id} width="100%">
           <RecordsEditor

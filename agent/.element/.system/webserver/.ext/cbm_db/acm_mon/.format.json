@@ -1,0 +1,42 @@
+{
+  "name": "acm_mon",
+  "dispName": "acm_mon",
+  "type": "format",
+  "features": [
+    {
+      "name": "time",
+      "dispName": "time",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "TIMESTAMP"
+    },
+    {
+      "name": "car",
+      "dispName": "car",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "seq_cnt",
+      "dispName": "seq_cnt",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "acp",
+      "dispName": "acp",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "acmk",
+      "dispName": "acmk",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    }
+  ]
+}

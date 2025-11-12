@@ -1,0 +1,9 @@
+{
+  "name": "mtr_fri",
+  "dispName": "mtr_fri",
+  "description": "mtr_fri",
+  "type": "element",
+  "format": "/.ext/cbm_db/mtr_fri",
+  "store": "",
+  "storage": "/cbm_db"
+}

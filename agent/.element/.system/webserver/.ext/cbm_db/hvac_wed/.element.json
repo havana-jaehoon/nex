@@ -1,0 +1,9 @@
+{
+  "name": "hvac_wed",
+  "dispName": "hvac_wed",
+  "description": "hvac_wed",
+  "type": "element",
+  "format": "/.ext/cbm_db/hvac_wed",
+  "store": "",
+  "storage": "/cbm_db"
+}

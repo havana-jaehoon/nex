@@ -19,20 +19,13 @@ export enum NexNodeType {
 
 export enum NexFeatureType {
   INDEX = "INDEX", // 자동 증가 숫자
-  UINT8 = "UINT8",
-  UINT16 = "UINT16",
-  UINT32 = "UINT32",
-  UINT64 = "UINT64",
-  INT8 = "INT8",
-  INT16 = "INT16",
-  INT32 = "INT32",
-  INT64 = "INT64",
+  NUMBER = "NUMBER",
   FLOAT = "FLOAT",
-  DOUBLE = "DOUBLE",
+  BOOLEAN = "BOOLEAN",
   STRING = "STRING",
+  // 아래는 String 기반의 특수 유형
   PATH = "PATH", // 경로 /test1/.../node-name
   JSON = "JSON",
-  BOOLEAN = "BOOLEAN",
   BINARY = "BINARY",
   DATE = "DATE",
   TIME_SEC = "TIME_SEC",
@@ -46,8 +39,11 @@ export enum NexFeatureType {
   PASSWORD = "PASSWORD",
   URL = "URL",
   LITERALS = "LITERALS", // 문자열 목록 중에서 선택
+
+  // 아래는 복합 데이터 유형
   RECORDS = "RECORDS", // 레코드 목록 중에서 선택
   ATTRIBUTES = "ATTRIBUTES", // key-value 쌍의 속성 목록
+
   STRING_ARRAY = "STRING_ARRAY", // 문자열 배열
   NUMBER_ARRAY = "NUMBER_ARRAY", // 숫자 배열
 }

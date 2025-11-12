@@ -1,0 +1,119 @@
+{
+  "name": "anod_ai_feature_result",
+  "dispName": "anod_ai_feature_result",
+  "type": "format",
+  "features": [
+    {
+      "name": "id",
+      "dispName": "id",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "anod_ai_result",
+      "dispName": "anod_ai_result",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "feature_name",
+      "dispName": "feature_name",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "train",
+      "dispName": "train",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "car",
+      "dispName": "car",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "data_start_time",
+      "dispName": "data_start_time",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "TIMESTAMP"
+    },
+    {
+      "name": "data_end_time",
+      "dispName": "data_end_time",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "TIMESTAMP"
+    },
+    {
+      "name": "feature_disp_name",
+      "dispName": "feature_disp_name",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "feature_table_name",
+      "dispName": "feature_table_name",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "feature_column_name",
+      "dispName": "feature_column_name",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "is_variate",
+      "dispName": "is_variate",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "feature_anomaly_score",
+      "dispName": "feature_anomaly_score",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "FLOAT"
+    },
+    {
+      "name": "feature_anomaly_score_threshold",
+      "dispName": "feature_anomaly_score_threshold",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "FLOAT"
+    },
+    {
+      "name": "feature_anomaly_level",
+      "dispName": "feature_anomaly_level",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "FLOAT"
+    },
+    {
+      "name": "loss_threshold",
+      "dispName": "loss_threshold",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "FLOAT"
+    },
+    {
+      "name": "detailed_table_name",
+      "dispName": "detailed_table_name",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    }
+  ]
+}

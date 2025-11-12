@@ -1,0 +1,9 @@
+{
+  "name": "operation_mon",
+  "dispName": "operation_mon",
+  "description": "operation_mon",
+  "type": "element",
+  "format": "/.ext/cbm_db/operation_mon",
+  "store": "",
+  "storage": "/cbm_db"
+}

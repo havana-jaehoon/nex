@@ -1,0 +1,9 @@
+{
+  "name": "dcu_thu",
+  "dispName": "dcu_thu",
+  "description": "dcu_thu",
+  "type": "element",
+  "format": "/.ext/cbm_db/dcu_thu",
+  "store": "",
+  "storage": "/cbm_db"
+}

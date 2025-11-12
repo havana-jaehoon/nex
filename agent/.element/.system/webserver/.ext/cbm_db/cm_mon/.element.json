@@ -1,0 +1,9 @@
+{
+  "name": "cm_mon",
+  "dispName": "cm_mon",
+  "description": "cm_mon",
+  "type": "element",
+  "format": "/.ext/cbm_db/cm_mon",
+  "store": "",
+  "storage": "/cbm_db"
+}

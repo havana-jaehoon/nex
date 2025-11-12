@@ -62,7 +62,7 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
     }
 
     const tree = buildNexTree(contentsData);
-    console.log("NexMenuApp: nexTree=", JSON.stringify(tree, null, 2));
+    //console.log("NexMenuApp: nexTree=", JSON.stringify(tree, null, 2));
     setNexTree(tree);
     setStore(cts.store);
     //setFormat(cts.format);

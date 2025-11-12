@@ -1,0 +1,105 @@
+{
+  "name": "anod_rulebase_result",
+  "dispName": "anod_rulebase_result",
+  "type": "format",
+  "features": [
+    {
+      "name": "adx_infer_job",
+      "dispName": "adx_infer_job",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "device_feature_info",
+      "dispName": "device_feature_info",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "train",
+      "dispName": "train",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "car",
+      "dispName": "car",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "execute_data",
+      "dispName": "execute_data",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "warning",
+      "dispName": "warning",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "threat",
+      "dispName": "threat",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "data_start_time",
+      "dispName": "data_start_time",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "TIMESTAMP"
+    },
+    {
+      "name": "data_end_time",
+      "dispName": "data_end_time",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "TIMESTAMP"
+    },
+    {
+      "name": "feature_name",
+      "dispName": "feature_name",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "feature_disp_name",
+      "dispName": "feature_disp_name",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "feature_table_name",
+      "dispName": "feature_table_name",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "feature_column_name",
+      "dispName": "feature_column_name",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "anod_level_code",
+      "dispName": "anod_level_code",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    }
+  ]
+}

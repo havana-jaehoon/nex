@@ -1,0 +1,35 @@
+{
+  "name": "degrad_condition",
+  "dispName": "degrad_condition",
+  "type": "format",
+  "features": [
+    {
+      "name": "degrad_rule",
+      "dispName": "degrad_rule",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "policy_output_info",
+      "dispName": "policy_output_info",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "anomaly_direction",
+      "dispName": "anomaly_direction",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "modi_time",
+      "dispName": "modi_time",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "TIMESTAMP"
+    }
+  ]
+}

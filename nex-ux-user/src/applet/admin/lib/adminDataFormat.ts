@@ -82,8 +82,8 @@ const featureObjects = {
     ...folderTypeFeatureObject,
     literals: [
       {
-        name: NexNodeType.FOLDER,
-        dispName: "폴더",
+        name: NexNodeType.FORMAT,
+        dispName: "포맷",
       },
     ],
   },
@@ -189,52 +189,16 @@ const featureTypeLiterals = [
     dispName: "문자열",
   },
   {
+    name: NexFeatureType.NUMBER,
+    dispName: "정수",
+  },
+  {
     name: NexFeatureType.INDEX,
     dispName: "자동발행숫자",
   },
   {
-    name: NexFeatureType.UINT8,
-    dispName: "부호 없는 8비트 정수",
-  },
-  {
-    name: NexFeatureType.UINT16,
-    dispName: "부호 없는 16비트 정수",
-  },
-  {
-    name: NexFeatureType.UINT32,
-    dispName: "부호 없는 32비트 정수",
-  },
-  {
-    name: NexFeatureType.UINT64,
-    dispName: "부호 없는 64비트 정수",
-  },
-  {
-    name: NexFeatureType.UINT64,
-    dispName: "부호 없는 64비트 정수",
-  },
-  {
-    name: NexFeatureType.INT8,
-    dispName: "부호 있는 8비트 정수",
-  },
-  {
-    name: NexFeatureType.INT16,
-    dispName: "부호 있는 16비트 정수",
-  },
-  {
-    name: NexFeatureType.INT32,
-    dispName: "부호 있는 32비트 정수",
-  },
-  {
-    name: NexFeatureType.INT64,
-    dispName: "부호 있는 64비트 정수",
-  },
-  {
     name: NexFeatureType.FLOAT,
     dispName: "32비트 부동소수점",
-  },
-  {
-    name: NexFeatureType.DOUBLE,
-    dispName: "64비트 부동소수점",
   },
   {
     name: NexFeatureType.PATH,
@@ -340,7 +304,7 @@ const storageNodeDef: NexFormatNode = {
   type: NexNodeType.FORMAT,
   features: [
     ...commonFeatures.slice(0, 3),
-    featureObjects[NexNodeType.USER],
+    featureObjects[NexNodeType.STORAGE],
     ...commonFeatures.slice(4),
 
     {
@@ -514,7 +478,7 @@ const formatNodeDef: any = {
         {
           name: "uxSize",
           dispName: "UX 크기",
-          featureType: NexFeatureType.UINT8,
+          featureType: NexFeatureType.NUMBER,
           uxSize: 2,
         },
       ],
@@ -802,7 +766,7 @@ const elementNodeDef: any = {
       icon: null,
       color: null,
       isKey: false,
-      featureType: NexFeatureType.UINT32,
+      featureType: NexFeatureType.NUMBER,
       uxSize: 6,
     },
     {
@@ -1183,7 +1147,7 @@ const userNodeDef: NexFormatNode = {
         {
           name: "themeLevel", // 사용자 ID
           dispName: "테마 레벨",
-          featureType: NexFeatureType.UINT8,
+          featureType: NexFeatureType.NUMBER,
           icon: null,
           color: null,
           uxSize: 2,

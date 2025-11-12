@@ -1,0 +1,9 @@
+{
+  "name": "learning_job",
+  "dispName": "learning_job",
+  "description": "learning_job",
+  "type": "element",
+  "format": "/.ext/cbm_db/learning_job",
+  "store": "",
+  "storage": "/cbm_db"
+}

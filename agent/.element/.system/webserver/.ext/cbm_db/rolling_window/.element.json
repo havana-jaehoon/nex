@@ -1,0 +1,9 @@
+{
+  "name": "rolling_window",
+  "dispName": "rolling_window",
+  "description": "rolling_window",
+  "type": "element",
+  "format": "/.ext/cbm_db/rolling_window",
+  "store": "",
+  "storage": "/cbm_db"
+}

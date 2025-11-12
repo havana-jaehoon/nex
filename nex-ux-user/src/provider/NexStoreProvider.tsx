@@ -77,10 +77,9 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
   ({ children, configStore }) => {
     const userName = "admin";
 
-    const formatCfgs = useMemo(
-      () => collectNode(configStore.config.formats, "format"),
-      [configStore.config.formats]
-    );
+    const formatCfgs = useMemo(() => {
+      return collectNode(configStore.config.formats, "format");
+    }, [configStore.config.formats]);
 
     const storeCfgs = useMemo(
       () => collectNode(configStore.config.stores, "store"),
@@ -92,10 +91,30 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
       [configStore.config.processors]
     );
 
-    const systemCfgs = useMemo(
-      () => collectNode(configStore.config.systems, "system"),
-      [configStore.config.systems]
-    );
+    const systemCfgs = useMemo(() => {
+      console.log(
+        "NexStoreProvider: systems=",
+        JSON.stringify(configStore.config.systems, null, 2)
+      );
+      return collectNode(configStore.config.systems, "system");
+    }, [configStore.config.systems]);
+
+    const systemAddrDict = useMemo(() => {
+      const dict: Record<string, { ip: string; port: string | number }> = {};
+      Object.values(systemCfgs).forEach((sys: any) => {
+        if (sys?.name && sys?.address) {
+          dict[sys.name] = {
+            ip: sys.address.ip,
+            port: sys.address.port,
+          };
+        }
+      });
+      console.log(
+        "NexStoreProvider: systemAddrDict=",
+        JSON.stringify(systemCfgs, null, 2)
+      );
+      return dict;
+    }, [systemCfgs]);
 
     const elementCfgs = useMemo(
       () => collectNode(configStore.config.elements, "element"),

@@ -1,0 +1,28 @@
+{
+  "name": "agent_noauth",
+  "dispName": "agent_noauth",
+  "type": "format",
+  "features": [
+    {
+      "name": "project",
+      "dispName": "project",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "STRING"
+    },
+    {
+      "name": "system",
+      "dispName": "system",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "STRING"
+    },
+    {
+      "name": "updated_at",
+      "dispName": "updated_at",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "TIMESTAMP"
+    }
+  ]
+}

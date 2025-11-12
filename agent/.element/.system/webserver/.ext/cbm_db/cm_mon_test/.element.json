@@ -1,0 +1,9 @@
+{
+  "name": "cm_mon_test",
+  "dispName": "cm_mon_test",
+  "description": "cm_mon_test",
+  "type": "element",
+  "format": "/.ext/cbm_db/cm_mon_test",
+  "store": "",
+  "storage": "/cbm_db"
+}

@@ -1,0 +1,35 @@
+{
+  "name": "policy_input_group_info",
+  "dispName": "policy_input_group_info",
+  "type": "format",
+  "features": [
+    {
+      "name": "device_policy",
+      "dispName": "device_policy",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "group_order",
+      "dispName": "group_order",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "policy_input_info",
+      "dispName": "policy_input_info",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "group_name",
+      "dispName": "group_name",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    }
+  ]
+}

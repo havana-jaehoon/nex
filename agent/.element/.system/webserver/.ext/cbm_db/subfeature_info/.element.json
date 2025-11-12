@@ -1,0 +1,9 @@
+{
+  "name": "subfeature_info",
+  "dispName": "subfeature_info",
+  "description": "subfeature_info",
+  "type": "element",
+  "format": "/.ext/cbm_db/subfeature_info",
+  "store": "",
+  "storage": "/cbm_db"
+}

@@ -1,0 +1,35 @@
+{
+  "name": "impute",
+  "dispName": "impute",
+  "type": "format",
+  "features": [
+    {
+      "name": "device_policy",
+      "dispName": "device_policy",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "feature_type",
+      "dispName": "feature_type",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "feature_info",
+      "dispName": "feature_info",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "impute_type",
+      "dispName": "impute_type",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    }
+  ]
+}

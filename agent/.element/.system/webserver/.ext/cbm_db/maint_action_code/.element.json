@@ -1,0 +1,9 @@
+{
+  "name": "maint_action_code",
+  "dispName": "maint_action_code",
+  "description": "maint_action_code",
+  "type": "element",
+  "format": "/.ext/cbm_db/maint_action_code",
+  "store": "",
+  "storage": "/cbm_db"
+}

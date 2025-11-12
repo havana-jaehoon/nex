@@ -1,0 +1,9 @@
+{
+  "name": "degrad_rule",
+  "dispName": "degrad_rule",
+  "description": "degrad_rule",
+  "type": "element",
+  "format": "/.ext/cbm_db/degrad_rule",
+  "store": "",
+  "storage": "/cbm_db"
+}

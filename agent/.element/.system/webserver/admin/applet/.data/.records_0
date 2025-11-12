@@ -217,6 +217,23 @@
   ],
   [
     13,
+    "/admin/StorageElementGenerator",
+    "",
+    "",
+    {
+      "3": {
+        "name": "StorageElementGenerator",
+        "dispName": "Storage Element Generator",
+        "description": "Storage Element Generator Applet",
+        "type": "applet",
+        "icon": "tree",
+        "color": "#FF33A1",
+        "applet": "/admin/StorageElementGenerator"
+      }
+    }
+  ],
+  [
+    14,
     "/sample",
     "",
     "",
@@ -232,7 +249,7 @@
     }
   ],
   [
-    14,
+    15,
     "/sample/NexSampleList",
     "",
     "",
@@ -249,7 +266,7 @@
     }
   ],
   [
-    15,
+    16,
     "/admin/NexNodeEditor",
     "",
     "",

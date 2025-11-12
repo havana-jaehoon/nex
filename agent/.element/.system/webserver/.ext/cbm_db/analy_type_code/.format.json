@@ -1,0 +1,28 @@
+{
+  "name": "analy_type_code",
+  "dispName": "analy_type_code",
+  "type": "format",
+  "features": [
+    {
+      "name": "code",
+      "dispName": "code",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "name",
+      "dispName": "name",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "disp_name",
+      "dispName": "disp_name",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    }
+  ]
+}

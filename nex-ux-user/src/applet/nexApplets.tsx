@@ -2,6 +2,7 @@ import NexJsonEditor from "./admin/NexJsonEditor";
 import NexNodeEditor from "./admin/NexNodeEditor";
 import NexNodeSelctor from "./admin/NexNodeSelector";
 import NexNodeTreeApp from "./admin/NexNodeTreeApp";
+import StorageElementGenerator from "./admin/StorageElementGenerator";
 import NexLineChartApp from "./chart/NexLineChartApp";
 import EMU150TrainLineInfoApp from "./emu150/EMU150TrainLineInfo";
 import NexMenuApp from "./menu/NexMenuApp";
@@ -97,7 +98,7 @@ const appletList = [
         type: "applet",
         app: NexJsonEditor,
       },
-            {
+      {
         name: "NexNodeEditor",
         type: "applet",
         app: NexNodeEditor,
@@ -112,6 +113,16 @@ const appletList = [
         name: "NexNodeSelector",
         type: "applet",
         app: NexNodeSelctor,
+      },
+      {
+        name: "NexNodeSelector",
+        type: "applet",
+        app: NexNodeSelctor,
+      },
+      {
+        name: "StorageElementGenerator",
+        type: "applet",
+        app: StorageElementGenerator,
       },
     ],
   },

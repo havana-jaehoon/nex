@@ -1,0 +1,9 @@
+{
+  "name": "mtr_mon",
+  "dispName": "mtr_mon",
+  "description": "mtr_mon",
+  "type": "element",
+  "format": "/.ext/cbm_db/mtr_mon",
+  "store": "",
+  "storage": "/cbm_db"
+}

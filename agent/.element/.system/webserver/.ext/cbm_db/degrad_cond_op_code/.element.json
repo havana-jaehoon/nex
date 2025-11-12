@@ -1,0 +1,9 @@
+{
+  "name": "degrad_cond_op_code",
+  "dispName": "degrad_cond_op_code",
+  "description": "degrad_cond_op_code",
+  "type": "element",
+  "format": "/.ext/cbm_db/degrad_cond_op_code",
+  "store": "",
+  "storage": "/cbm_db"
+}

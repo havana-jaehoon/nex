@@ -486,7 +486,7 @@ class DataFileIo:
             # children 의 Index 를 새로 발행된 인덱스와 비교하여 삽입 하도록 인데스 재조정 
             if len(children) == 0:
                 self._setOrderIndex(copyData, 0)
-            elif len(children) == 0 or len(children) < newIndex: # 마지막에 추가
+            elif len(children) == 0 or len(children) < newIndex or newIndex < 0: # 마지막에 추가
                 self._setOrderIndex(copyData, len(children))
             else:
                 for child in children:

@@ -1,0 +1,9 @@
+{
+  "name": "car_infer_job",
+  "dispName": "car_infer_job",
+  "description": "car_infer_job",
+  "type": "element",
+  "format": "/.ext/cbm_db/car_infer_job",
+  "store": "",
+  "storage": "/cbm_db"
+}
