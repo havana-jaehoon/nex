@@ -69,16 +69,14 @@ class SchemaParser:
     @staticmethod
     def extractConfigFromSchema(schema_def: SchemaDefinition) -> Tuple[str, dict]:
         fmt = {
-            "format": {
-                "name": schema_def.name,
-                "dispName": schema_def.name,
-                "type": "format",
-                "features": []
-            }
+            "name": schema_def.name,
+            "dispName": schema_def.name,
+            "type": "format",
+            "features": []
         }
         for f in schema_def.fields:
             is_key = bool(f.metadata.get(MetaKeyword.IS_KEY)) if f.metadata else False
-            fmt["format"]["features"].append({
+            fmt["features"].append({
                 "name": f.name,
                 "dispName": f.name,
                 "type": "feature",
