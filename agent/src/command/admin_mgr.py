@@ -285,7 +285,7 @@ class AdminMgr(SingletonInstance):
 
             # 2. self._adm
             # inElementPath 경로를 self._adminCfgPath 로 복사
-            shutil.copytree(self._adminElementPath, self._adminCfgPath)
+            shutil.copytree(self._adminElementPath, self._adminCfgPath, dirs_exist_ok=True)
 
             # 3. 데이터 재로딩
             self._loadConfigs()

@@ -3,6 +3,7 @@ import { observer } from "mobx-react-lite";
 import NexApplet, { NexAppProps } from "../NexApplet";
 import { NexDiv, NexLabel } from "../../component/base/NexBaseComponents";
 import {
+  Autocomplete,
   Box,
   Button,
   ButtonGroup,
@@ -62,43 +63,30 @@ const StorageElementGenerator: React.FC<NexAppProps> = observer((props) => {
 
   const [systemName, setSystemName] = useState<string>("");
   const [storageName, setStorageName] = useState<string>("");
+  const [systemList, setSystemList] = useState<string[]>([]);
+  const [storageList, setStorageList] = useState<string[]>([]);
 
   useEffect(() => {
     // system name 과 storage name 을 contents 에서 가져오기
 
     const ctsSystem = contents?.[0];
     if (ctsSystem && ctsSystem.store) {
-      const tdata = ctsSystem.indexes
-        ? ctsSystem.indexes?.map((i: number) => ctsSystem.data[i]) || []
-        : ctsSystem.data || [];
-      if (tdata.length > 0) {
-        const item = tdata[0];
-        console.log(
-          "StorageElementGenerator: system-item=",
-          JSON.stringify(item, null, 2)
-        );
-
+      const tList = ctsSystem.data.map((item: any) => {
         const obj = item[4];
         const node: any = Object.values(obj)[0];
-        setSystemName(node.name);
-      }
+        return node.name;
+      });
+      setSystemList(tList);
     }
 
     const ctsStorage = contents?.[1];
     if (ctsStorage && ctsStorage.store) {
-      const tdata = ctsStorage.indexes
-        ? ctsStorage.indexes?.map((i: number) => ctsStorage.data[i]) || []
-        : ctsStorage.data || [];
-      if (tdata.length > 0) {
-        const item = tdata[0];
-        console.log(
-          "StorageElementGenerator: storage-item=",
-          JSON.stringify(item, null, 2)
-        );
+      const tList = ctsStorage.data.map((item: any) => {
         const obj = item[4];
         const node: any = Object.values(obj)[0];
-        setStorageName(node.name);
-      }
+        return node.name;
+      });
+      setStorageList(tList);
     }
   }, [contents]);
 
@@ -141,35 +129,68 @@ const StorageElementGenerator: React.FC<NexAppProps> = observer((props) => {
 
   return (
     <NexApplet {...props} error={errorMsg()}>
-      <NexDiv direction="column" width="100%" height="100%">
-        <Stack direction="row" spacing={1} padding="8px">
-          <TextField
-            disabled
-            size="small"
-            variant="standard"
-            label={"시스템"}
+      <Stack
+        direction="column"
+        width="100%"
+        height="100%"
+        spacing={1}
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Stack
+          direction="row"
+          spacing={1}
+          alignItems="center"
+          style={{ width: "96%" }}
+        >
+          <Autocomplete
+            options={systemList}
             value={systemName}
+            onChange={(event, newValue) => {
+              setSystemName(newValue || "");
+            }}
+            id="generate_storage_2_element_system"
             style={{ width: "100%" }}
+            renderInput={(params) => (
+              <TextField {...params} label="시스템" variant="outlined" />
+            )}
           />
-          <TextField
-            disabled
-            size="small"
-            variant="standard"
-            label={"스토리지"}
+
+          <Autocomplete
+            options={storageList}
             value={storageName}
+            onChange={(event, newValue) => {
+              setStorageName(newValue || "");
+            }}
+            id="generate_storage_2_element_storage"
             style={{ width: "100%" }}
+            renderInput={(params) => (
+              <TextField {...params} label="스토리지" variant="outlined" />
+            )}
           />
-          <IconButton
-            title="엘리먼트 생성"
+
+          <Button
+            title="데이터 생성"
+            variant="contained"
+            size="large"
             onClick={() => handleGenStorageElement()}
+            style={{ width: "100%" }}
+            startIcon={<MdGeneratingTokens />}
           >
-            <MdGeneratingTokens />
-          </IconButton>
-          <IconButton title="설정 적용" onClick={() => handleApplyConfig()}>
-            <MdPlayForWork />
-          </IconButton>
+            데이터 생성
+          </Button>
+          <Button
+            title="설정 적용"
+            variant="contained"
+            size="large"
+            onClick={() => handleApplyConfig()}
+            style={{ width: "100%" }}
+            startIcon={<MdPlayForWork />}
+          >
+            설정 적용
+          </Button>
         </Stack>
-      </NexDiv>
+      </Stack>
     </NexApplet>
   );
 });
