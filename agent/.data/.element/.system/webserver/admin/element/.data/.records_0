@@ -1,41 +1,20 @@
 [
   [
     0,
-    "/common",
+    "/admin",
     "",
     "webserver",
     {
       "0": {
-        "name": "common",
-        "dispName": "공통",
-        "description": "공통 데이터 엘리먼트 폴더",
+        "name": "admin",
+        "dispName": "관리자용 데이터",
+        "description": "관리자용 데이터 엘리먼트 폴더",
         "type": "folder"
       }
     }
   ],
   [
     1,
-    "/common/menu",
-    "",
-    "webserver",
-    {
-      "0": {
-        "name": "menu",
-        "dispName": "메뉴",
-        "description": "메뉴 테스트",
-        "type": "element",
-        "format": "/web/menu",
-        "store": "/static",
-        "storage": "/disk",
-        "processor": "/common/transparent",
-        "processingInterval": "10",
-        "processingUnit": "SEC",
-        "sources": ""
-      }
-    }
-  ],
-  [
-    2,
     "/cbm",
     "",
     "webserver",
@@ -64,6 +43,48 @@
   ],
   [
     4,
+    "/cbm/status",
+    "",
+    "webserver",
+    {
+      "1": {
+        "name": "status",
+        "dispName": "상태",
+        "description": "상태 데이터 엘리먼트 폴더",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    5,
+    "/cbm/event",
+    "",
+    "webserver",
+    {
+      "2": {
+        "name": "event",
+        "dispName": "이벤트",
+        "description": "이벤트 데이터 엘리먼트 폴더",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    6,
+    "/cbm/history",
+    "",
+    "webserver",
+    {
+      "3": {
+        "name": "history",
+        "dispName": "이력",
+        "description": "이력 데이터 엘리먼트 폴더",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    7,
     "/cbm/config/Line",
     "",
     "webserver",
@@ -79,12 +100,12 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/config/Line"
+        "sources": []
       }
     }
   ],
   [
-    5,
+    8,
     "/cbm/config/TrainPerLine",
     "",
     "webserver",
@@ -100,12 +121,12 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/config/TrainPerLine"
+        "sources": []
       }
     }
   ],
   [
-    6,
+    9,
     "/cbm/config/CarPerTrain",
     "",
     "webserver",
@@ -121,12 +142,12 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/config/CarPerTrain"
+        "sources": []
       }
     }
   ],
   [
-    7,
+    10,
     "/cbm/config/DevicePerCar",
     "",
     "webserver",
@@ -142,26 +163,12 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/config/DevicePerCar"
+        "sources": []
       }
     }
   ],
   [
-    8,
-    "/cbm/status",
-    "",
-    "webserver",
-    {
-      "1": {
-        "name": "status",
-        "dispName": "상태",
-        "description": "상태 데이터 엘리먼트 폴더",
-        "type": "folder"
-      }
-    }
-  ],
-  [
-    9,
+    11,
     "/cbm/status/LossPerLine",
     "",
     "webserver",
@@ -177,12 +184,12 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": ""
+        "sources": []
       }
     }
   ],
   [
-    10,
+    12,
     "/cbm/status/LossPerDevice",
     "",
     "webserver",
@@ -198,12 +205,12 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": ""
+        "sources": []
       }
     }
   ],
   [
-    11,
+    13,
     "/cbm/status/TrainCountPerLine",
     "",
     "webserver",
@@ -219,26 +226,12 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": ""
+        "sources": []
       }
     }
   ],
   [
-    12,
-    "/cbm/event",
-    "",
-    "webserver",
-    {
-      "2": {
-        "name": "event",
-        "dispName": "이벤트",
-        "description": "이벤트 데이터 엘리먼트 폴더",
-        "type": "folder"
-      }
-    }
-  ],
-  [
-    13,
+    14,
     "/cbm/event/RTMaintenanceInfo",
     "",
     "webserver",
@@ -253,12 +246,12 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/event/RTMaintenanceInfo"
+        "sources": []
       }
     }
   ],
   [
-    14,
+    15,
     "/cbm/event/SystemEventInfo",
     "",
     "webserver",
@@ -273,21 +266,7 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/event/SystemEventInfo"
-      }
-    }
-  ],
-  [
-    15,
-    "/cbm/history",
-    "",
-    "webserver",
-    {
-      "3": {
-        "name": "history",
-        "dispName": "이력",
-        "description": "이력 데이터 엘리먼트 폴더",
-        "type": "folder"
+        "sources": []
       }
     }
   ],
@@ -307,7 +286,7 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/history/LossHistoryPerLine"
+        "sources": []
       }
     }
   ],
@@ -327,7 +306,7 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/history/LossHistoryPerDevice"
+        "sources": []
       }
     }
   ],
@@ -347,7 +326,7 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/history/MaintenanceHistoryPerLine"
+        "sources": []
       }
     }
   ],
@@ -367,21 +346,7 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/history/DetailLossLevelHistory"
-      }
-    }
-  ],
-  [
-    20,
-    "/admin",
-    "",
-    "webserver",
-    {
-      "2": {
-        "name": "admin",
-        "dispName": "관리자용 데이터",
-        "description": "관리자용 데이터 엘리먼트 폴더",
-        "type": "folder"
+        "sources": []
       }
     }
   ],
@@ -402,7 +367,7 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/admin/menu"
+        "sources": []
       }
     }
   ],
@@ -423,7 +388,7 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/admin/storage"
+        "sources": []
       }
     }
   ],
@@ -444,7 +409,7 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/admin/format"
+        "sources": []
       }
     }
   ],
@@ -465,7 +430,7 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/admin/store"
+        "sources": []
       }
     }
   ],
@@ -486,7 +451,7 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/admin/processor"
+        "sources": []
       }
     }
   ],
@@ -507,7 +472,7 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/admin/system"
+        "sources": []
       }
     }
   ],
@@ -528,28 +493,7 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/admin/element"
-      }
-    }
-  ],
-  [
-    28,
-    "/admin/source",
-    "",
-    "webserver",
-    {
-      "7": {
-        "name": "source",
-        "dispName": "데이터 소스",
-        "description": "데이터 소스",
-        "type": "element",
-        "format": "/admin/node",
-        "store": "/static",
-        "storage": "/disk",
-        "processor": "/common/transparent",
-        "processingInterval": "10",
-        "processingUnit": "SEC",
-        "sources": "/admin/source"
+        "sources": []
       }
     }
   ],
@@ -570,7 +514,7 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/admin/contents"
+        "sources": []
       }
     }
   ],
@@ -593,10 +537,7 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "source": [
-          "webserver:/admin/applet"
-        ],
-        "sources": "/admin/applet"
+        "sources": []
       }
     }
   ],
@@ -617,7 +558,7 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/admin/section"
+        "sources": []
       }
     }
   ],
@@ -638,7 +579,7 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/admin/user"
+        "sources": []
       }
     }
   ],
@@ -659,42 +600,7 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/admin/theme"
-      }
-    }
-  ],
-  [
-    100,
-    "/common",
-    "",
-    "webclient",
-    {
-      "0": {
-        "name": "common",
-        "dispName": "공통",
-        "description": "공통 데이터 엘리먼트 폴더",
-        "type": "folder"
-      }
-    }
-  ],
-  [
-    101,
-    "/common/menu",
-    "",
-    "webclient",
-    {
-      "0": {
-        "name": "menu",
-        "dispName": "메뉴",
-        "description": "메뉴 테스트",
-        "type": "element",
-        "format": "/web/menu",
-        "store": "/static",
-        "storage": "/disk",
-        "processor": "/common/transparent",
-        "processingInterval": "10",
-        "processingUnit": "SEC",
-        "sources": ""
+        "sources": []
       }
     }
   ],
@@ -704,7 +610,7 @@
     "",
     "webclient",
     {
-      "1": {
+      "0": {
         "name": "cbm",
         "dispName": "CBM",
         "description": "CBM 전용 데이터 엘리먼트 폴더",
@@ -743,7 +649,9 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/config/Line"
+        "sources": [
+          "webserver:/cbm/config/Line"
+        ]
       }
     }
   ],
@@ -764,7 +672,9 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/config/TrainPerLine"
+        "sources": [
+          "webserver:/cbm/config/TrainPerLine"
+        ]
       }
     }
   ],
@@ -785,7 +695,9 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/config/CarPerTrain"
+        "sources": [
+          "webserver:/cbm/config/CarPerTrain"
+        ]
       }
     }
   ],
@@ -806,7 +718,9 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/config/DevicePerCar"
+        "sources": [
+          "webserver:/cbm/config/DevicePerCar"
+        ]
       }
     }
   ],
@@ -841,7 +755,9 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": ""
+        "sources": [
+          "webserver:/cbm/status/LossPerLine"
+        ]
       }
     }
   ],
@@ -862,7 +778,9 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": ""
+        "sources": [
+          "webserver:/cbm/status/LossPerDevice"
+        ]
       }
     }
   ],
@@ -883,7 +801,9 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": ""
+        "sources": [
+          "webserver:/cbm/status/TrainCountPerLine"
+        ]
       }
     }
   ],
@@ -917,7 +837,9 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/event/RTMaintenanceInfo"
+        "sources": [
+          "webserver:/cbm/event/RTMaintenanceInfo"
+        ]
       }
     }
   ],
@@ -937,7 +859,9 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/event/SystemEventInfo"
+        "sources": [
+          "webserver:/cbm/event/SystemEventInfo"
+        ]
       }
     }
   ],
@@ -971,7 +895,9 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/history/LossHistoryPerLine"
+        "sources": [
+          "webserver:/cbm/history/LossHistoryPerLine"
+        ]
       }
     }
   ],
@@ -991,7 +917,9 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/history/LossHistoryPerDevice"
+        "sources": [
+          "webserver:/cbm/history/LossHistoryPerDevice"
+        ]
       }
     }
   ],
@@ -1011,7 +939,9 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/history/MaintenanceHistoryPerLine"
+        "sources": [
+          "webserver:/cbm/history/MaintenanceHistoryPerLine"
+        ]
       }
     }
   ],
@@ -1031,7 +961,9 @@
         "processor": "/common/transparent",
         "processingInterval": "10",
         "processingUnit": "SEC",
-        "sources": "/webserver/history/DetailLossLevelHistory"
+        "sources": [
+          "webserver:/cbm/history/DetailLossLevelHistory"
+        ]
       }
     }
   ],
@@ -1041,7 +973,7 @@
     "",
     "webclient",
     {
-      "2": {
+      "1": {
         "name": "admin",
         "dispName": "관리자용 데이터",
         "description": "관리자용 데이터 엘리먼트 폴더",
@@ -1225,33 +1157,12 @@
     }
   ],
   [
-    128,
-    "/admin/source",
-    "",
-    "webclient",
-    {
-      "7": {
-        "name": "source",
-        "dispName": "데이터 소스",
-        "description": "데이터 소스",
-        "type": "element",
-        "format": "/admin/node",
-        "store": "/static",
-        "storage": "/disk",
-        "processor": "/common/transparent",
-        "processingInterval": "10",
-        "processingUnit": "SEC",
-        "sources": "/config/admin/source"
-      }
-    }
-  ],
-  [
     129,
     "/admin/contents",
     "",
     "webclient",
     {
-      "8": {
+      "7": {
         "name": "contents",
         "dispName": "컨텐츠",
         "description": "컨텐츠",
@@ -1276,7 +1187,7 @@
     "",
     "webclient",
     {
-      "9": {
+      "8": {
         "name": "applet",
         "dispName": "애플릿",
         "description": "애플릿",
@@ -1301,7 +1212,7 @@
     "",
     "webclient",
     {
-      "10": {
+      "0": {
         "name": "section",
         "dispName": "웹섹션",
         "description": "웹섹션",
@@ -1326,7 +1237,7 @@
     "",
     "webclient",
     {
-      "11": {
+      "10": {
         "name": "user",
         "dispName": "사용자",
         "description": "사용자",
@@ -1351,7 +1262,7 @@
     "",
     "webclient",
     {
-      "12": {
+      "11": {
         "name": "theme",
         "dispName": "테마",
         "description": "테마",

@@ -20,18 +20,19 @@ from util.pi_http.http_handler import HandlerResult, BodyData
 class AdminMgr(SingletonInstance):
     def _on_init_once(self):
         self._logger = Logger()
-        self._rootPath = "./.data/.element"
-        self._adminPath = f"{self._rootPath}/.system/webserver/admin"
 
-        #self._configList = {v: [] for v in CONFIG_LIST.values()}
+        self._adminCfgPath = f"./.config" # 배포용 경로
 
-        #for key, value in configReader.getDatas().items():
-        #self._elements = self._config.getElements('', 'webserver')
-        #print(f"AdminMgr::_on_init_once() elements: {self._elements}{self._config}")
+        # 데이터 엘리먼트 루트 경로
+        self._elementPath = ".element"
+        # 데이터 일리먼트 중 admin config 경로
+        self._adminElementPath = f"{self._elementPath}/.system/webserver/admin"
+
+
         self._loadConfigs()
 
     def _loadConfigs(self):
-        self._cfgReader = ConfigReader(self._adminPath)
+        self._cfgReader = ConfigReader(self._adminCfgPath)
 
         projectName = '' # default project
         systems = self._cfgReader.getSystems(projectName)
@@ -69,7 +70,7 @@ class AdminMgr(SingletonInstance):
                 processor = elementInfo['processor']
                 element = elementInfo['element']
         
-                dataio = DataFileIo(self._rootPath, path, storage, system, element, format, store, processor)
+                dataio = DataFileIo(self._elementPath, path, storage, system, element, format, store, processor)
 
                 self._dataioMap[projectName][systemName][path] = dataio
 
@@ -78,7 +79,6 @@ class AdminMgr(SingletonInstance):
 
                 
 
-            #print(f"AdminMgr::_loadConfigs() elements: {elementList}")
 
 
 
@@ -233,59 +233,6 @@ class AdminMgr(SingletonInstance):
             Logger().log_error(f'AdminMgr::_cmdData({handler_args, kwargs}) : {e}')
             return HandlerResult(status=500, body=f'exception : {e}')
 
-
-
-    async def _uploadData(self, handler_args: HandlerArgs, kwargs: dict)-> HandlerResult:
-        try:
-            # execute processor
-            #handler_result, output_list = await self._processor.process(exp, body, arg_list, kwargs)
-            #print(f'AdminMgr::_uploadData({handler_args}, {kwargs})')
-            #print(f"# Root-Path : {ADMIN_CONFIG_DIR}")
-            #res = load_all_config(ADMIN_CONFIG_DIR)
-            method = handler_args.method
-            if method != 'POST':
-                return HandlerResult(status=405, body='Method Not Allowed, use POST')
-            
-            body = handler_args.body
-            if isinstance(body, str):
-                try:
-                    body = json.loads(body)
-                except Exception:
-                    return HandlerResult(status=400, body='Invalid JSON body')
-
-            if not isinstance(body, dict):
-                return HandlerResult(status=400, body='Body must be JSON object')
-
-            path = body.get('path', '')
-            system = body.get('system', '')
-            project = body.get('project', '')
-            data = body.get('data', None)
-
-            dataio = self._dataioMap.get(project, {}).get(system, {}).get(path, None)
-            #print(f"AdminMgr::_uploadData() - path:{path}, project:{project}, system:{system}, dataio : {dataio}, data : {json.dumps(data, indent=2, ensure_ascii=False)}...")
-            if(dataio is None):
-                return HandlerResult(status=404, body=f'Not found dataio for project:{project}, system:{system}, path:{path}')
-            
-            print(f"# uploadData path:{path}, project:{project}, system:{system}, data-len:{len(data)}")
-
-            result = dataio.set(data)
-            if inspect.isawaitable(result):
-                res = await result
-            else:
-                res = result
-
-
-            print(f"# uploadData path:{path}, project:{project}, system:{system}, res:{res}")
-            if(res is False):
-                return HandlerResult(status=200, response='Success', body='No Data to save data')
-
-            # 성공 응답
-            return HandlerResult(status=200, response='Success', body='Success')
-        
-        except Exception as e:
-            Logger().log_error(f'AdminMgr::_uploadData({handler_args}, {kwargs}) : {e}')
-            return HandlerResult(status=500, body=f'exception : {e}')
-
     async def _set(self, handler_args: HandlerArgs, kwargs: dict)-> HandlerResult:
         try:
             # execute processor
@@ -306,12 +253,88 @@ class AdminMgr(SingletonInstance):
         except Exception as e:
             Logger().log_error(f'AdminMgr::_del({handler_args, kwargs}) : {e}')
             return HandlerResult(status=500, body=f'exception : {e}')
-        
+
+    async def _distribution(self, handler_args: HandlerArgs, kwargs: dict):
+        try:
+            # self._adminElementPath, self._adminCfgPath
+            # 1. self._adminCfgPath  경로를 백업 
+            # 예 : ./.config_20231010_153000
+            import shutil
+            from datetime import datetime
+            now = datetime.now()
+            timestamp = now.strftime("%Y%m%d_%H%M%S")
+            backupDir = f"{self._adminCfgPath}_{timestamp}"
+
+            shutil.move(self._adminCfgPath, backupDir)
+
+            # 2. self._adminElementPath 경로를 self._adminCfgPath 로 복사
+            shutil.copytree(self._adminElementPath, self._adminCfgPath)
+
+            # 3. 데이터 재로딩
+            self._loadConfigs()
+
+            return HandlerResult(status=200, body='success')
+        except Exception as e:
+            Logger().log_error(f'AdminMgr::_distribution({handler_args, kwargs}) : {e}')
+            return HandlerResult(status=500, body=f'exception : {e}')
+
+    async def _loadDb(self, handler_args: HandlerArgs, kwargs: dict):
+        try:
+
+            # 1. get params
+            method = handler_args.method
+            system = handler_args.query_params.get('system', '') # system name
+            project = handler_args.query_params.get('project', '') # project name
+            storage = handler_args.query_params.get('storage', '') # storage name
+
+
+            # 2. self._configMap 로 부터 storage(이름==storage) object 구하기
+            configData = self._configMap.get(project, {}).get(system, None)
+            if(configData is None):
+                return HandlerResult(status=404, body=f'Not found config for project:{project}, system:{system}')
+            storageList = configData.get('storage', [])
+            storageInfo = None
+            for s in storageList:
+                if s.get('name', '') == storage:
+                    storageInfo = s
+                    break
+
+            if storageInfo is None:
+                return HandlerResult(status=404, body=f'Not found storage config for project:{project}, system:{system}, storage:{storage}')
+
+
+            # 3.  storageInfo 를 이용해 format, store, processor, element 정보 생성
+            #output = generate_element_output(storageInfo)
+            output = { "format": [], "store": [], "element": [] }
+
+            # 4. output 데이터의 format, store, element
+            # Element Paht 가 /admin/format, /admin/store, /admin/element 인 DataIo 에 Add
+            formatDataio = self._dataioMap.get(project, {}).get(system, {}).get("/admin/format", None)
+            storeDataio = self._dataioMap.get(project, {}).get(system, {}).get("/admin/store", None)
+            elementDataio = self._dataioMap.get(project, {}).get(system, {}).get("/admin/element", None)
+            if formatDataio is None or storeDataio is None or elementDataio is None:
+                return HandlerResult(status=404, body=f'Not found admin dataio for project:{project}, system:{system}')
+
+
+            for fmt in output['format']:
+                formatDataio.add(fmt)
+            for store in output['store']:
+                storeDataio.add(store)
+            for elem in output['element']:
+                elementDataio.add(elem)
+
+            return HandlerResult(status=200, body='success')
+        except Exception as e:
+            Logger().log_error(f'AdminMgr::_loadDb({handler_args, kwargs}) : {e}')
+            return HandlerResult(status=500, body=f'exception : {e}')
+
     def get_query_handlers(self) -> List[Tuple[str, Server_Dynamic_Handler, dict]]:
         handler_list: List[Tuple[str, Server_Dynamic_Handler, dict]] = [
             ("/admin-api", self._getAdmin, {"cmd_id": "/admin-api"}),
             ("/data-api", self._cmdData, {"cmd_id": "/data-api"}),
-            ("/data-api/upload", self._uploadData, {"cmd_id": "/upload-api"}),
+            ("/cmd-api/dist", self._distribution, {"cmd_id": "/cmd-api/dist"}),
+            ("/cmd-api/load-db", self._loadDb, {"cmd_id": "/cmd-api/load-db"}),
+            
         ]
         return handler_list
 
