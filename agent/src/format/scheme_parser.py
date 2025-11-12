@@ -67,7 +67,7 @@ class SchemaParser:
         return SchemaDefinition(name=schema_name, fields=field_definitions)
 
     @staticmethod
-    def extractConfigFromSchema(schema_def: SchemaDefinition) -> Tuple[List[str], str, dict]:
+    def extractConfigFromSchema(schema_def: SchemaDefinition) -> Tuple[str, dict]:
         fmt = {
             "format": {
                 "name": schema_def.name,
@@ -85,5 +85,4 @@ class SchemaParser:
                 "isKey": is_key,
                 "featureType": SchemaParser._pyType_to_featureType(f.python_type)
             })
-        parent_list, config_name = SchemaParser._schemaName_to_configPath(schema_def.name)
-        return parent_list, config_name, fmt
+        return schema_def.name, fmt
