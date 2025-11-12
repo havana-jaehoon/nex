@@ -135,9 +135,14 @@
         "dispName": "메뉴섹션",
         "description": "메뉴섹션",
         "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoute": "",
+        "route": "",
+        "direction": "row",
         "size": "1",
         "padding": "8px",
-        "applet": "/common/menu",
+        "applet": "/admin/menu",
         "contents": [
           "/admin/menu"
         ]
@@ -816,13 +821,20 @@
     {
       "1": {
         "name": "Preview",
-        "dispName": "웹섹션",
-        "description": "웹섹션",
+        "dispName": "미리보기",
+        "description": "웹섹션 미리보기",
         "type": "section",
-        "size": "1",
+        "icon": "",
+        "color": "",
+        "isRoute": "",
+        "route": "",
         "direction": "column",
-        "applet": "",
-        "contents": []
+        "size": "1",
+        "padding": "",
+        "applet": "/admin/SectionViewer",
+        "contents": [
+          "/admin/section"
+        ]
       }
     }
   ],

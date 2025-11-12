@@ -22,7 +22,7 @@ import axios from "axios";
 
 const URL_CONFIG = "http://localhost:9080/admin-api";
 
-const buildAdminConfig = (datas: any[]) => {
+export const buildAdminConfig = (datas: any[]) => {
   //console.log("buildAdminConfig datas:", JSON.stringify(datas, null, 2));
 
   const root: any = {};
@@ -45,7 +45,7 @@ const buildAdminConfig = (datas: any[]) => {
     }
     const seq = Number(keys[0]);
     const node = object[keys[0]];
-    const newNode = { ...node, _seq: seq };
+    const newNode = { ...node, _seq: seq, _index: index };
 
     const parentNode = pathMap[parentPath];
     //console.log(`Parent Node(${path}): ${JSON.stringify(parentNode, null, 2)}`);

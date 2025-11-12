@@ -821,20 +821,13 @@
     {
       "1": {
         "name": "Preview",
-        "dispName": "미리보기",
-        "description": "웹섹션 미리보기",
+        "dispName": "웹섹션",
+        "description": "웹섹션",
         "type": "section",
-        "icon": "",
-        "color": "",
-        "isRoute": "",
-        "route": "",
-        "direction": "column",
         "size": "1",
-        "padding": "",
-        "applet": "/admin/SectionViewer",
-        "contents": [
-          "/admin/section"
-        ]
+        "direction": "column",
+        "applet": "",
+        "contents": []
       }
     }
   ],

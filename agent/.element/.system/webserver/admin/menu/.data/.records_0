@@ -142,11 +142,11 @@
     {
       "7": {
         "name": "contents",
-        "dispName": "웹 데이터 컨텐츠",
+        "dispName": "데이터 컨텐츠",
         "description": "웹 데이터 컨텐츠 설정",
+        "type": "menu",
         "icon": "",
         "color": "",
-        "type": "menu",
         "route": "/admin/contents"
       }
     }
@@ -176,11 +176,11 @@
     {
       "9": {
         "name": "section",
-        "dispName": "웹 데이터 섹션",
+        "dispName": "섹션",
         "description": "웹 데이터 섹션 설정",
+        "type": "menu",
         "icon": "",
         "color": "",
-        "type": "menu",
         "route": "/admin/section"
       }
     }

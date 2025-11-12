@@ -5,6 +5,7 @@ import React, { useMemo, useState } from "react";
 import { NexStoreContextValue } from "provider/NexStoreProvider";
 import NexDataStore from "./NexDataStore";
 import { getThemeStyle } from "type/NexTheme";
+import nexApplets from "./nexApplets";
 
 export interface NexAppProviderProps {
   section: any;
@@ -46,8 +47,8 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
 
     //const dataStores = elementPaths?.map((path) => stores[path]);
     const appletPath = section?.applet || "";
-    const app = appletPath ? appMap[appletPath] : null;
-
+    //const app = appletPath ? appMap[appletPath] : null;
+    const app = nexApplets(appletPath);
     const contentsPaths = section?.contents || [];
 
     const [modifiedCount, setModifiedCount] = useState<number>(0);
@@ -70,13 +71,6 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
           .filter((c: any) => c != null) || []
       );
     }, [contentsPaths, contentsMap]);
-
-    /*
-    const selectorDeps = useMemo(() => {
-      console.log("NexAppProvider selectorDeps:", JSON.stringify(selector.map));
-      return JSON.stringify(selector.map);
-    }, [selector.modifiedCount]);
-    */
 
     const contents: NexContents[] = useMemo(() => {
       return contentsNodeList?.map((content: any) => {
