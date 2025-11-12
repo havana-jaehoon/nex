@@ -53,3 +53,6 @@ http://127.0.0.1:9080/data-api/get?project=&system=webserver&path=/admin/menu
 # 2.3 test
 
 python .\src\command\config_reader.py
+
+# 2.4 DB 테이블 변환
+python .\src\generateConfigFromDb.py --dbType=oracle --ip=121.161.164.106 --port=1521 --user=cbm --password=core0908 --name=ORCLCDB --schema=CBM
