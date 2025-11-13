@@ -64,27 +64,12 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
       if (bSelectedRoot) {
         setChildOpened(true);
       }
-      console.log(
-        `NexMenuItem: path=${node.data[1]} selectedPath=${selectedPath} bSelectedRoot=${bSelectedRoot}`
-      );
+
       setSelected(selectedPath === node.data[1]);
       setIsSelectedRoot(bSelectedRoot);
       setIsRoute(objData.route !== undefined && objData.route !== "");
-      console.log(
-        "NexMenuItem: node.route=",
-        node.route,
-        " isRoute=",
-        objData.route !== undefined && objData.route !== ""
-      );
     }
   }, [node, selectedPath]);
-
-  console.log(
-    "NexMenuItem: render: path=",
-    path,
-    " selectedPath=",
-    selectedPath
-  );
 
   const defaultStyle = getThemeStyle(theme, "default");
   //const menuStyle = getThemeStyle(theme, "menu");

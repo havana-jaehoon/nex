@@ -45,7 +45,7 @@ export const buildAdminConfig = (datas: any[]) => {
     }
     const seq = Number(keys[0]);
     const node = object[keys[0]];
-    const newNode = { ...node, _seq: seq, _index: index };
+    const newNode = { ...node, _seq: seq, _record: item };
 
     const parentNode = pathMap[parentPath];
     //console.log(`Parent Node(${path}): ${JSON.stringify(parentNode, null, 2)}`);
