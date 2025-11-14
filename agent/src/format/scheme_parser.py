@@ -5,6 +5,7 @@ from util.scheme_define import SchemaDefinition, FieldDefinition, MetaKeyword
 
 
 class SchemaParser:
+    EXTERNAL_PATH_PREFIX = '.ext'
 
     @staticmethod
     def _featureType_to_pyType(feature_type: str) -> Type:
@@ -35,7 +36,13 @@ class SchemaParser:
 
     @staticmethod
     def _configPath_to_schemaName(element_parent_list: List[str], element_name: str) -> str:
-        return f'{"_".join(element_parent_list)}_{element_name}'.lower()
+        if element_parent_list and element_parent_list[0] == SchemaParser.EXTERNAL_PATH_PREFIX:
+            if len(element_parent_list) > 2:
+                return f'{"_".join(element_parent_list[2:])}_{element_name}'.lower()
+            else:
+                return element_name.lower()
+        else:
+            return f'{"_".join(element_parent_list)}_{element_name}'.lower()
 
     @staticmethod
     def _schemaName_to_configPath(schema_name: str) -> Tuple[List[str], str]:

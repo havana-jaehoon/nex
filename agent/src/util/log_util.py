@@ -6,10 +6,7 @@ from util.singleton import SingletonInstance
 
 class Logger(SingletonInstance):
 
-    def _on_init_once(self,
-                      log_dir: str='./',
-                      log_file_prefix: str='log_',
-                      retention_day: int=30):
+    def _on_init_once(self, log_dir: str='./', log_file_prefix: str='log_', retention_day: int=30):
         self._logger = logger
         os.makedirs(log_dir, exist_ok=True)
         self._handler = f"{log_dir}/{log_file_prefix}_{{time:YYYY-MM-DD}}.log"

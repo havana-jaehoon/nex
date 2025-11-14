@@ -1,57 +1,76 @@
-import configparser, os
-
+import os
+from enum import Enum, auto
+from typing import Optional
 
 from util.singleton import SingletonInstance
 
 
-class SystemInfoMgr(SingletonInstance):
+class SystemType(Enum):
+    ADMIN = auto()
+    CONFIG = auto()
+    AGENT = auto()
 
-    def _on_init_once(self, config_dir=None):
-        config_subdir = config_dir if config_dir else 'config'
-        log_subdir = 'logs'
-        src_subdir = 'src'
+
+class SystemInfoMgr(SingletonInstance):
+    LOG_SUBDIR = 'logs'
+    SRC_SUBDIR = 'src'
+
+    def _on_init_once(self, arg_info: dict):
+        self._baseDir = None
+        self._configDir = None
+        self._logDir = None
+        self._srcDir = None
+        self._adminDataDir = None
+        self._agentId = None
+        self._secretKey = None
+        self._type = None
+        self._projectName = None
+        self._configServerIp = None
+        self._configServerPort = None
 
         self._baseDir = f'{os.path.dirname(os.path.abspath(__file__))}/..'
-        self._configDir = f'{self._baseDir}/{config_subdir}'
-        self._logDir = f'{self._baseDir}/{log_subdir}'
-        self._srcDir = f'{self._baseDir}/{src_subdir}'
-        config = configparser.ConfigParser()
-        config.read(f'{self._configDir}/config.ini')
+        config_subdir = arg_info.get('config_dir')
+        if config_subdir:
+            self._configDir = f'{self._baseDir}/{config_subdir}'
+        else:
+            self._configDir = f'{self._baseDir}'
+        if not os.path.exists(self._configDir):
+            os.makedirs(self._configDir, exist_ok=True)
+        self._logDir = f'{self._baseDir}/{SystemInfoMgr.LOG_SUBDIR}'
+        self._srcDir = f'{self._baseDir}/{SystemInfoMgr.SRC_SUBDIR}'
+        self._agentId = arg_info.get('agent_id')
+        if not self._agentId:
+            raise Exception('agent-id is not valid')
+        if self._agentId.upper() == SystemType.ADMIN.name.upper():
+            self._setAdminInfo(arg_info)
+        elif self._agentId.upper() == SystemType.CONFIG.name.upper():
+            self._setConfigInfo(arg_info)
+        else:
+            self._setAgentInfo(arg_info)
 
-        self._project = config['project'].get('name', '')
-        self._type = config['system'].get('type', '')
-        self._agentId = config['system'].get('agent_id', '')
-        self._secretKey = config['system'].get('secret_key', '')
-        self._serverIp = config['server'].get('ip', '')
-        self._serverPort = int(config['server'].get('port', '0'))
-        self._logRetentionDay = int(config['log'].get('retention_day', '30'))
+    def _setAdminInfo(self, arg_info: dict):
+        self._type = SystemType.ADMIN
 
-    def isServer(self) -> bool:
-        return self._type == 'server'
+    def _setConfigInfo(self, arg_info: dict):
+        self._type = SystemType.CONFIG
+        self._secretKey = arg_info.get('secret_key')
+        if not self._secretKey:
+            raise Exception('secret-key is not valid')
+        self._projectName = arg_info.get('project')
+        if not self._projectName:
+            raise Exception('project is not valid')
+        admin_data_subdir = arg_info.get('data_dir')
+        self._adminDataDir = f"{self._baseDir}/{admin_data_subdir}"
 
-    @property
-    def project(self) -> str:
-        return self._project
-
-    @property
-    def agentId(self) -> str:
-        return self._agentId
-
-    @property
-    def secretKey(self) -> str:
-        return self._secretKey
-
-    @property
-    def serverIp(self) -> str:
-        return self._serverIp
-
-    @property
-    def serverPort(self) -> int:
-        return self._serverPort
-
-    @property
-    def logRetentionDay(self) -> int:
-        return self._logRetentionDay
+    def _setAgentInfo(self, arg_info: dict):
+        self._type = SystemType.AGENT
+        self._secretKey = arg_info.get('secret_key')
+        if not self._secretKey:
+            raise Exception('secret-key is not valid')
+        self._configServerIp = arg_info.get('cfgServer_ip')
+        self._configServerPort = arg_info.get('cfgServer_port')
+        if not self._configServerIp or not self._configServerPort:
+            raise Exception('cfgServer-ip or cfgServer-Port is not valid')
 
     @property
     def base_dir(self) -> str:
@@ -69,3 +88,30 @@ class SystemInfoMgr(SingletonInstance):
     def config_dir(self) -> str:
         return self._configDir
 
+    @property
+    def admin_data_dir(self) -> Optional[str]:
+        return self._adminDataDir
+
+    @property
+    def projectName(self) -> Optional[str]:
+        return self._projectName
+
+    @property
+    def agentId(self) -> str:
+        return self._agentId
+
+    @property
+    def secretKey(self) -> str:
+        return self._secretKey
+
+    @property
+    def type(self) -> SystemType:
+        return self._type
+
+    @property
+    def configServerIp(self) -> Optional[str]:
+        return self._configServerIp
+
+    @property
+    def configServerPort(self) -> Optional[int]:
+        return self._configServerPort

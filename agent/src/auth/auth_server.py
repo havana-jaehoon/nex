@@ -7,11 +7,8 @@ from pydantic import ValidationError
 
 from auth import url_def
 from auth.auth_base import AuthBase
-from auth.token.token_base import TokenBase
 from auth.msg_def import AgentInitRequest, AgentTokenRequest, AgentTokenResponsePayload, AgentTokenResponse, AgentInitResponse
 from element.element_mgr import ElementMgr
-from system_info import SystemInfoMgr
-from util.module_loader import ModuleLoader
 from util.pi_http.http_handler import HandlerResult, HandlerArgs, BodyData, Server_Dynamic_Handler
 from util.log_util import Logger
 
@@ -26,23 +23,17 @@ class AgentAccess:
 
 class AuthServer(AuthBase):
 
-    SYSTEM_NAME = 'webserver'
     INTERNAL_ELEMENT_CONFIG_FILE_NAME = 'auth_server_element_config.json'
     PROFILE_ELEMENT_ID = '/agent/profile'
     ACCESS_ELEMENT_ID = '/agent/access'
 
-    def __init__(self, base_dir: str, token_method: str):
-        super().__init__(base_dir)
+    def __init__(self, config_dir: str, src_dir: str, project_name: str, system_name: str, secret_key: str, token_method: str):
+        super().__init__(config_dir, src_dir, secret_key)
+        self._projectName = project_name
+        self._systemName = system_name
         self._tokenObj = self._loadTokenObj(token_method)
         self._challengeLock = threading.Lock()
         self._challengeStore = {}
-
-    @staticmethod
-    def _loadTokenObj(token_method: str):
-        token_obj = ModuleLoader.loadModule(f'{SystemInfoMgr().src_dir}/auth/token', '', os.path.basename(token_method))
-        if token_obj is None or not isinstance(token_obj, TokenBase):
-            raise SystemExit(f"token method({token_method}) is not valid")
-        return token_obj
 
     def _storeChallenge(self, agent_id: str, challenge: str):
         with self._challengeLock:
@@ -56,12 +47,13 @@ class AuthServer(AuthBase):
         with self._challengeLock:
             return self._challengeStore.get(agent_id, None)
 
-    def _proc_initiate(self, body: BodyData, profile_df: pd.DataFrame) -> Tuple[str, HandlerResult]:
+    def _procInitReq(self, body: BodyData, profile_df: pd.DataFrame) -> Tuple[str, HandlerResult]:
         if isinstance(body, dict):
             validated_request = AgentInitRequest.model_validate(body)
         else:
             validated_request = AgentInitRequest.model_validate_json(body)
         agent_id = validated_request.agent_id
+        Logger().log_info(f'AuthServer : AuthInit : agent({agent_id}) : start')
         agent_profile_df = profile_df[profile_df['agent_id'] == agent_id]
         handler_result = HandlerResult()
         if agent_profile_df.empty:
@@ -81,13 +73,14 @@ class AuthServer(AuthBase):
                 ).model_dump()
         return agent_id, handler_result
 
-    def _proc_token(self, client_ip: str, body: BodyData, profile_df: pd.DataFrame) \
+    def _procTokenReq(self, client_ip: str, body: BodyData, profile_df: pd.DataFrame) \
             -> Tuple[str, HandlerResult, Optional[AgentAccess]]:
         if isinstance(body, dict):
             validated_request = AgentTokenRequest.model_validate(body)
         else:
             validated_request = AgentTokenRequest.model_validate_json(body)
         agent_id = validated_request.agent_id
+        Logger().log_info(f'AuthServer : AuthToken : agent({agent_id}) : start')
         auth_token = validated_request.auth_token
         agent_profile_df = profile_df[profile_df['agent_id'] == agent_id]
         handler_result = HandlerResult()
@@ -112,7 +105,7 @@ class AuthServer(AuthBase):
                         agent_system = agent_profile_df['system'].iloc[0]
                         handler_result.status = 200
                         handler_result.body = AgentTokenResponse(
-                            access_token=self._tokenObj.genAccessToken(agent_id, SystemInfoMgr().secretKey),
+                            access_token=self._tokenObj.genAccessToken(agent_id, self._secretKey),
                             token_type='Bearer',
                             payload=AgentTokenResponsePayload(project=agent_project, system=agent_system)
                         ).model_dump()
@@ -127,7 +120,7 @@ class AuthServer(AuthBase):
         agent_id = None
         try:
             profile_df = await ElementMgr().getData(AuthServer.PROFILE_ELEMENT_ID)
-            agent_id, handler_result = self._proc_initiate(handler_args.body, profile_df)
+            agent_id, handler_result = self._procInitReq(handler_args.body, profile_df)
         except ValidationError as e:
             Logger().log_error(f'AuthServer : AuthInit : Pydantic validation failed: {e}')
             handler_result.status = 400
@@ -148,7 +141,7 @@ class AuthServer(AuthBase):
         agent_id = None
         try:
             profile_df = await ElementMgr().getData(AuthServer.PROFILE_ELEMENT_ID)
-            agent_id, handler_result, agent_access = self._proc_token(handler_args.client_ip, handler_args.body, profile_df)
+            agent_id, handler_result, agent_access = self._procTokenReq(handler_args.client_ip, handler_args.body, profile_df)
             if handler_result.status == 200:
                 ElementMgr().setData(AuthServer.ACCESS_ELEMENT_ID, pd.DataFrame([asdict(agent_access)]))
         except ValidationError as e:
@@ -173,18 +166,17 @@ class AuthServer(AuthBase):
         ]
         return handler_list
 
-    def init(self) -> bool:
+    def init(self, **kwargs) -> bool:
         self._logger.log_info(f'AuthServer : init : start')
-        if super()._init(SystemInfoMgr().project, AuthServer.SYSTEM_NAME):
+        if super()._init(self._projectName, self._systemName):
             self._logger.log_info(f'AuthServer : init : success')
             return True
         else:
             self._logger.log_error(f'AuthServer : init : fail')
             return False
 
-    @staticmethod
-    def getInternalElementConfigFile() -> str:
-        return f'{SystemInfoMgr().src_dir}/auth/{AuthServer.INTERNAL_ELEMENT_CONFIG_FILE_NAME}'
+    def getInternalElementConfigFile(self) -> str:
+        return f'{self._srcDir}/auth/{AuthServer.INTERNAL_ELEMENT_CONFIG_FILE_NAME}'
 
     @staticmethod
     async def isAccess(project: str, system: str, ip: str) -> bool:

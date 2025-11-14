@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from typing import Tuple, Optional, Dict, Any
+from typing import Tuple, Optional, Dict, Any, List
 from apscheduler.schedulers.base import BaseScheduler
 
 from const_def import TimeUnit
@@ -67,6 +67,7 @@ class ElementEntity:
             source_list = self._config.getConfig('element').get('sources')
             if source_list:
                 source_list = [ (source, None) for source in source_list ]
+                Logger().log_info(f"ElementEntity({self._config.id}) : query source : {source_list}")
                 df_list = HttpReqMgr().getMany(source_list)
                 arg_list = [(source, df) if isinstance(df, pd.DataFrame) else (source, pd.DataFrame()) for source, df in zip(source_list, df_list)]
 
@@ -90,7 +91,7 @@ class ElementEntity:
             # ??????
 
             # get data of element
-            data_df = await self.getData()
+            data_df = await self.getDataAsync()
             return HandlerResult(status=200, body=data_df)
 
     def register_interval(self, scheduler: BaseScheduler):
@@ -110,16 +111,22 @@ class ElementEntity:
                 trigger_args['seconds'] = processing_interval
             scheduler.add_job(self._interval_proc, 'interval', **trigger_args)
 
-    async def getData(self, filters: Optional[Dict[str, Any]] = None) -> pd.DataFrame:
+    def getDataSync(self, filters: Optional[Dict[str, Any]] = None, columns: Optional[List[str]] = None) -> pd.DataFrame:
         if self._storage:
-            return await self._storage.getDataAsync(self._scheme.name, filters)
+            return self._storage.getData(self._scheme.name, filters, columns)
+        else:
+            return pd.DataFrame()
+
+    async def getDataAsync(self, filters: Optional[Dict[str, Any]] = None, columns: Optional[List[str]] = None) -> pd.DataFrame:
+        if self._storage:
+            return await self._storage.getDataAsync(self._scheme.name, filters, columns)
         else:
             return pd.DataFrame()
 
     def setData(self, data: pd.DataFrame):
         if self._storage:
-            chunk_size = self._config.getConfig('store').get('record').get('chunkSize')
-            allowed_upsert = self._config.getConfig('store').get('record').get('allowUpsert')
+            chunk_size = self._config.getConfig('store').get('record').get('chunkSize', 1000)
+            allowed_upsert = self._config.getConfig('store').get('record').get('allowUpsert', True)
             self._storage.setData(self._scheme.name, data, chunk_size, allowed_upsert)
 
     def getQueryHandler(self) -> Tuple[Server_Dynamic_Handler, dict]:

@@ -12,18 +12,24 @@ from util.pi_http.http_handler import Server_Dynamic_Handler
 
 class ConfigAgentMgr(ConfigBaseMgr):
 
-    def _on_init_once(self, cfg_name: str, **kwargs):
-        super()._on_init_once(cfg_name=cfg_name, **kwargs)
-
-        self._auth:AuthAgent = AuthAgent(SystemInfoMgr().config_dir)
+    def _on_init_once(self, **kwargs):
+        super()._on_init_once(**kwargs)
+        self._auth:AuthAgent = AuthAgent(SystemInfoMgr().config_dir,
+                                         SystemInfoMgr().src_dir,
+                                         SystemInfoMgr().configServerIp,
+                                         SystemInfoMgr().configServerPort,
+                                         SystemInfoMgr().agentId,
+                                         SystemInfoMgr().secretKey)
+        self._serverIp = SystemInfoMgr().configServerIp
+        self._serverPort = SystemInfoMgr().configServerPort
 
     def _queryConfig(self) -> Optional[dict]:
         if not self._auth.isAuth:
             self._logger.log_error(f'ConfigClientMgr : queryConfig : fail : not auth status')
             return None
         else:
-            return HttpReqMgr().get1Once(SystemInfoMgr().serverIp,
-                                         SystemInfoMgr().serverPort,
+            return HttpReqMgr().get1Once(self._serverIp,
+                                         self._serverPort,
                                          url_def.AGENT_CONFIG_QUERY_SUB_URL,
                                          {
                                              'project': self._auth.projectName,
@@ -44,9 +50,9 @@ class ConfigAgentMgr(ConfigBaseMgr):
                     raise Exception('config query fail')
                 all_systems = config_data.get('system', [])
                 if not self._systemCfg.init(all_systems):
-                    raise Exception('system-cfg loadAll fail')
+                    raise Exception('system-cfg init fail')
                 if not self._elementCfgs.init(config_data, self._systemCfg.getSystemConfig(self._auth.systemName), True):
-                    raise Exception('element-cfgs loadAll fail')
+                    raise Exception('element-cfgs init fail')
                 self._logger.log_info(f'ConfigClientMgr : loadOwnConfig : init success')
         except Exception as e:
             self._logger.log_error(f'ConfigClientMgr : loadOwnConfig : fail to {e}')
@@ -63,11 +69,10 @@ class ConfigAgentMgr(ConfigBaseMgr):
             else:
                 raise Exception('auth-agent init fail')
 
-        self._systemCfg = SystemCfg(SystemInfoMgr().base_dir, self._cfgName)
-        self._elementCfgs = ElementCfgs(self._auth.systemName, SystemInfoMgr().base_dir, self._cfgName)
-
         # start config
+        self._systemCfg = SystemCfg(SystemInfoMgr().config_dir)
+        self._elementCfgs = ElementCfgs(SystemInfoMgr().config_dir, self._auth.systemName)
         self._loadOwnConfig()
 
     def getQueryHandlers(self) -> List[Tuple[str, Server_Dynamic_Handler, dict]]:
-        pass
+        return []

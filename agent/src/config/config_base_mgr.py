@@ -11,9 +11,8 @@ from util.log_util import Logger
 
 class ConfigBaseMgr(ABC, SingletonInstance):
 
-    def _on_init_once(self, cfg_name: str, **kwargs):
+    def _on_init_once(self, **kwargs):
         self._logger = Logger()
-        self._cfgName = cfg_name
         self._auth: Optional[AuthBase] = None
         self._systemCfg: Optional[SystemCfg] = None
         self._elementCfgs: Optional[ElementCfgs] = None

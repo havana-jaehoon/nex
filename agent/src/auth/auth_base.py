@@ -1,6 +1,8 @@
 import json, os
 from abc import ABC, abstractmethod
 
+from auth.token.token_base import TokenBase
+from util.module_loader import ModuleLoader
 from util.log_util import Logger
 
 
@@ -8,16 +10,25 @@ class AuthBase(ABC):
 
     LOCAL_AUTH_INFO_FILE_NAME = ".auth_info.json"
 
-    def __init__(self, base_dir: str):
+    def __init__(self, config_dir: str, src_dir: str, secret_key: str):
         self._logger = Logger()
-        self._authInfoFilePath:str = f'{base_dir}/{AuthBase.LOCAL_AUTH_INFO_FILE_NAME}'
-        self._projectName:str = ''
-        self._systemName:str = ''
-        self._authPayload: dict = {}
-        self._isAuth: bool = False
+        self._authInfoFilePath = f'{config_dir}/{AuthBase.LOCAL_AUTH_INFO_FILE_NAME}'
+        self._srcDir = src_dir
+        self._tokenDir = f'{src_dir}/auth/token'
+        self._secretKey = secret_key
+        self._projectName = None
+        self._systemName = None
+        self._authPayload = {}
+        self._isAuth = False
 
     def __str__(self):
         return f'project={self._projectName}, system={self._systemName}, authPayload={self._authPayload}'
+
+    def _loadTokenObj(self, token_method: str):
+        token_obj = ModuleLoader.loadModule(self._tokenDir, '', os.path.basename(token_method))
+        if token_obj is None or not isinstance(token_obj, TokenBase):
+            raise SystemExit(f"token method({token_method}) is not valid")
+        return token_obj
 
     def _init(self, project_name: str, system_name: str, **kwargs) -> bool:
         try:
@@ -53,7 +64,7 @@ class AuthBase(ABC):
             return False
 
     @abstractmethod
-    def init(self):
+    def init(self, **kwargs):
         pass
 
     @property

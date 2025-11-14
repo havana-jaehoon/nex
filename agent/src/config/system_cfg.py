@@ -6,11 +6,11 @@ from util.log_util import Logger
 
 class SystemCfg:
 
-    def __init__(self, base_dir: str, config_name: str = 'config'):
+    def __init__(self, config_dir: str):
         self._logger = Logger()
         self._apiLock = threading.Lock()
         self._systemCfgMap: Dict[str, dict] = {}   # key: system_name, value: system config
-        self._systemCfgFilePath = f'{base_dir}/{config_name}/.system.json'
+        self._systemCfgFilePath = f'{config_dir}/.system.json'
 
     def _deleteAllFiles(self):
         if os.path.exists(self._systemCfgFilePath):
@@ -33,7 +33,7 @@ class SystemCfg:
                 self._logger.log_info(f'SystemCfg : load')
                 return True
             except Exception as e:
-                self._logger.log_error(f'SystemCfg : init : fail to {e}')
+                self._logger.log_error(f'SystemCfg : load : fail to {e}')
                 return False
 
     def init(self, all_system_config_list: List[dict]) -> bool:
@@ -47,7 +47,7 @@ class SystemCfg:
                 self._logger.log_info(f'SystemCfg : init')
                 return True
             except Exception as e:
-                self._logger.log_error(f'SystemCfg : loadAll : fail to {e}')
+                self._logger.log_error(f'SystemCfg : init : fail to {e}')
                 return False
 
     def getAllSystemConfig(self) -> Dict[str, dict]:

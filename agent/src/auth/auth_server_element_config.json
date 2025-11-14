@@ -112,30 +112,15 @@
   ],
   "store": [
     [
-      0,
-      "/db",
-      "",
-      "",
-      {
-        "0": {
-          "name": "db",
-          "dispName": "db",
-          "description": "db 저장 정책 폴더",
-          "type": "folder"
-        }
-      }
-    ],
-    [
       1,
-      "/db/adminConfig",
+      "/static",
       "",
       "",
       {
         "0": {
-          "name": "adminConfig",
+          "name": "static",
           "type": "store",
           "record": {
-            "storage": "oracle1",
             "nature": "static",
             "unit": null,
             "block": null,
@@ -177,8 +162,8 @@
           "description": "agent 접속 정보 데이터 엘리먼트",
           "type": "element",
           "format": "/agent/access",
-          "store": "/db/adminConfig",
-          "storage": "/db/ext/cbm_db",
+          "store": "/static",
+          "storage": "/cbm_db",
           "processor": null,
           "processingInterval": null,
           "processingUnit": null,
@@ -198,8 +183,8 @@
           "description": "agent 프로파일 데이터 엘리먼트",
           "type": "element",
           "format": "/agent/profile",
-          "store": "/db/adminConfig",
-          "storage": "/db/ext/cbm_db",
+          "store": "/static",
+          "storage": "/cbm_db",
           "processor": null,
           "processingInterval": null,
           "processingUnit": null,
@@ -211,39 +196,7 @@
   "storage": [
     [
       1,
-      "/db",
-      "",
-      "",
-      {
-        "1": {
-          "name": "db",
-          "dispName": "db",
-          "description": "db",
-          "icon": "",
-          "color": "",
-          "type": "folder"
-        }
-      }
-    ],
-    [
-      2,
-      "/db/ext",
-      "",
-      "",
-      {
-        "0": {
-          "name": "ext",
-          "dispName": "외부 데이터베이스",
-          "description": "외부 데이터베이스",
-          "icon": "",
-          "color": "",
-          "type": "folder"
-        }
-      }
-    ],
-    [
-      3,
-      "/db/ext/cbm_db",
+      "/cbm_db",
       "",
       "",
       {
