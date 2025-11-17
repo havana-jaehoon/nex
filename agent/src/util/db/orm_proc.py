@@ -10,6 +10,8 @@ from sqlalchemy.dialects import postgresql, mysql
 from sqlalchemy.dialects import sqlite
 from strenum import StrEnum
 
+from util.db.orm_def import OrmDbType
+from util.db import orm_param
 from util.db.orm_oracle import OrmOracle
 from util.scheme_define import SchemaDefinition, MetaKeyword, FieldDefinition
 
@@ -24,8 +26,9 @@ class OrmProc:
 
     def __init__(self, db_type: str, user: str, passwd: str, ip: str, port: int, db: str, **kwargs):
         self._base_repository: Type[DeclarativeBase] = declarative_base()
-        self._db_url = self._get_url(db_type, user, passwd, ip, port, db)
-        self._engine = create_engine(self._db_url, **kwargs)
+        self._db_url = self._get_url(db_type, user, passwd, ip, port, db, **kwargs)
+        filter_param_dict = orm_param.filterEngineOptions(db_type, **kwargs)
+        self._engine = create_engine(self._db_url, **filter_param_dict)
         self._session_factory = sessionmaker(bind=self._engine, autoflush=True, expire_on_commit=True)
         self._session = scoped_session(self._session_factory)
         self._registered_models: Dict[str, Tuple[List[str], Type[Any]]] = {} # key: table_name, value: (pk_columns, model_class)
@@ -58,10 +61,14 @@ class OrmProc:
         return str
 
     @staticmethod
-    def _get_url(db_type: str, user: str, passwd: str, ip: str, port: int, db: str) -> str:
-        if db_type.upper() == "MYSQL":
-            return f"mysql+pymysql://{user}:{passwd}@{ip}:{port}/{db}"
-        elif db_type.upper() == "ORACLE":
+    def _get_url(db_type: str, user: str, passwd: str, ip: str, port: int, db: str, **kwargs) -> str:
+        if db_type.upper() == OrmDbType.MYSQL.name:
+            # sudo apt-get install python3-dev default-libmysqlclient-dev build-essential
+            # pip install mysqlclient
+            char_set = kwargs.get('charset', 'utf8mb4')
+            return f"mysql+mysqldb://{user}:{passwd}@{ip}:{port}/{db}?charset={char_set}"
+        elif db_type.upper() == OrmDbType.ORACLE.name:
+            # pip install oracledb
             return f"oracle+oracledb://{user}:{passwd}@{ip}:{port}/?service_name={db}"
         else:
             raise ValueError(f"OrmProc : unknown db type : {db_type}")
@@ -198,10 +205,10 @@ class OrmProc:
         prepared_df, use_cols = self._prepare_df_for_set(model_class, df, pk_columns)
         with self._get_write_session() as session:
             size = chunk_size if chunk_size > 0 else self.DEFAULT_CHUNK_SIZE
-            dialect_name = self._engine.dialect.name
+            dialect_name = self._engine.dialect.name.upper()
             for start in range(0, len(prepared_df), size):
                 sub_df = prepared_df.iloc[start:start + size]
-                if dialect_name == 'postgresql':
+                if dialect_name == OrmDbType.POSTGRESQL.name:
                     data_to_upsert = sub_df.to_dict(orient='records')
                     stmt = postgresql.insert(model_class).values(data_to_upsert)
                     update_cols = {
@@ -210,7 +217,7 @@ class OrmProc:
                     }
                     final_stmt = stmt.on_conflict_do_update(index_elements=pk_columns, set_=update_cols)
                     session.execute(final_stmt)
-                elif dialect_name == 'sqlite':
+                elif dialect_name == OrmDbType.SQLITE.name:
                     data_to_upsert = sub_df.to_dict(orient='records')
                     stmt = sqlite.insert(model_class).values(data_to_upsert)
                     update_cols = {
@@ -219,7 +226,7 @@ class OrmProc:
                     }
                     final_stmt = stmt.on_conflict_do_update(index_elements=pk_columns, set_=update_cols)
                     session.execute(final_stmt)
-                elif dialect_name == 'mysql':
+                elif dialect_name == OrmDbType.MYSQL.name:
                     data_to_upsert = sub_df.to_dict(orient='records')
                     stmt = mysql.insert(model_class).values(data_to_upsert)
                     update_cols = {
@@ -228,7 +235,7 @@ class OrmProc:
                     }
                     final_stmt = stmt.on_duplicate_key_update(update_cols)
                     session.execute(final_stmt)
-                elif dialect_name == 'oracle':
+                elif dialect_name == OrmDbType.ORACLE.name:
                     OrmOracle.merge_upsert(session, model_class, sub_df, use_cols, pk_columns)
 
                 if commit_per_chunk:
