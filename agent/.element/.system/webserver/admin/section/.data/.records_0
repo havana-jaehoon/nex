@@ -150,26 +150,6 @@
     }
   ],
   [
-    9,
-    "/root/Home/Body/Left/Sample",
-    "",
-    "",
-    {
-      "1": {
-        "name": "Sample",
-        "dispName": "샘플",
-        "description": "샘플 섹션",
-        "type": "section",
-        "size": "1",
-        "padding": "8px",
-        "applet": "/sample/NexSampleList",
-        "contents": [
-          "/common/sample"
-        ]
-      }
-    }
-  ],
-  [
     10,
     "/root/Home/Body/Main",
     "",
@@ -756,60 +736,18 @@
     }
   ],
   [
-    161,
-    "/root/Home/Body/Main/Admin/Section/SectionFinder",
-    "",
-    "",
-    {
-      "0": {
-        "name": "SectionFinder",
-        "dispName": "웹섹션",
-        "description": "웹섹션 검색",
-        "type": "section",
-        "size": "3",
-        "direction": "row",
-        "applet": "/admin/NexNodeTree",
-        "padding": "8px",
-        "contents": [
-          "/admin/section"
-        ]
-      }
-    }
-  ],
-  [
     162,
     "/root/Home/Body/Main/Admin/Section/Right",
     "",
     "",
     {
-      "1": {
+      "0": {
         "name": "Right",
         "dispName": "웹섹션",
         "description": "웹섹션",
         "type": "section",
         "size": "6",
         "direction": "column"
-      }
-    }
-  ],
-  [
-    163,
-    "/root/Home/Body/Main/Admin/Section/Right/SectionEditor",
-    "",
-    "",
-    {
-      "1": {
-        "name": "SectionEditor",
-        "dispName": "웹섹션 편집",
-        "description": "웹섹션 편집",
-        "type": "section",
-        "size": "1",
-        "direction": "row",
-        "applet": "/admin/NexNodeEditor",
-        "padding": "8px",
-        "contents": [
-          "/admin/SelectedSection"
-        ]
       }
     }
   ],

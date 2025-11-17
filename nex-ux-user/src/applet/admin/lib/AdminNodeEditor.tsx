@@ -38,7 +38,7 @@ import { set } from "mobx";
 const gridNarrowSpacing = 1;
 const gridNarrowColumns = 2;
 
-// 중간 화면 세포 편집 시 (팝업 등)
+// 중간 화면 편집 시 (팝업 등)
 const gridMidSpacing = 3;
 const gridMidColumns = 6;
 

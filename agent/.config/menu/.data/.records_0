@@ -5,7 +5,7 @@
     "",
     "",
     {
-      "0": {
+      "2": {
         "name": "admin",
         "dispName": "프로젝트관리",
         "description": "프로젝트관리",
@@ -152,29 +152,12 @@
     }
   ],
   [
-    9,
-    "/admin/applet",
-    "",
-    "",
-    {
-      "8": {
-        "name": "applet",
-        "dispName": "애플릿",
-        "description": "애플릿 설정",
-        "icon": "",
-        "color": "",
-        "type": "menu",
-        "route": "/admin/applet"
-      }
-    }
-  ],
-  [
     10,
     "/admin/section",
     "",
     "",
     {
-      "9": {
+      "8": {
         "name": "section",
         "dispName": "섹션",
         "description": "웹 데이터 섹션 설정",
@@ -191,7 +174,7 @@
     "",
     "",
     {
-      "10": {
+      "9": {
         "name": "user",
         "dispName": "사용자",
         "description": "사용자 설정",
@@ -208,7 +191,7 @@
     "",
     "",
     {
-      "11": {
+      "10": {
         "name": "theme",
         "dispName": "테마",
         "description": "테마 설정",
@@ -225,7 +208,7 @@
     "",
     "",
     {
-      "12": {
+      "11": {
         "name": "dashboard",
         "dispName": "대시보드",
         "description": "대시보드 설정",
@@ -242,7 +225,7 @@
     "",
     "",
     {
-      "13": {
+      "15": {
         "name": "cbm",
         "dispName": "CBM",
         "description": "CBM 데모",
@@ -283,6 +266,40 @@
         "icon": "",
         "color": "",
         "route": "/cbm/lineinfo"
+      }
+    }
+  ],
+  [
+    18,
+    "/new",
+    "",
+    "",
+    {
+      "1": {
+        "name": "new",
+        "dispName": "뉴프로젝트",
+        "description": "",
+        "type": "menu",
+        "icon": "",
+        "color": "",
+        "route": ""
+      }
+    }
+  ],
+  [
+    19,
+    "/dashboard",
+    "",
+    "",
+    {
+      "0": {
+        "name": "dashboard",
+        "dispName": "대시보드",
+        "description": "",
+        "type": "menu",
+        "icon": "",
+        "color": "",
+        "route": ""
       }
     }
   ]

@@ -1,6 +1,6 @@
 [
   [
-    536,
+    172,
     "/.ext/cbm_db/anomaly_direction_code",
     "",
     "webserver",
@@ -17,7 +17,7 @@
     }
   ],
   [
-    537,
+    173,
     "/.ext/cbm_db/bogie1_axlebr_fri",
     "",
     "webserver",
@@ -34,7 +34,7 @@
     }
   ],
   [
-    538,
+    174,
     "/.ext/cbm_db/bogie1_axlebr_mon",
     "",
     "webserver",
@@ -51,7 +51,7 @@
     }
   ],
   [
-    539,
+    175,
     "/.ext/cbm_db/bogie1_axlebr_sat",
     "",
     "webserver",
@@ -68,7 +68,7 @@
     }
   ],
   [
-    540,
+    176,
     "/.ext/cbm_db/bogie1_axlebr_sun",
     "",
     "webserver",
@@ -85,7 +85,7 @@
     }
   ],
   [
-    541,
+    177,
     "/.ext/cbm_db/bogie1_axlebr_thu",
     "",
     "webserver",
@@ -102,7 +102,7 @@
     }
   ],
   [
-    542,
+    178,
     "/.ext/cbm_db/bogie1_axlebr_tue",
     "",
     "webserver",
@@ -119,7 +119,7 @@
     }
   ],
   [
-    543,
+    179,
     "/.ext/cbm_db/bogie1_axlebr_wed",
     "",
     "webserver",
@@ -136,7 +136,7 @@
     }
   ],
   [
-    544,
+    180,
     "/.ext/cbm_db/bogie1_tm_fri",
     "",
     "webserver",
@@ -153,7 +153,7 @@
     }
   ],
   [
-    545,
+    181,
     "/.ext/cbm_db/bogie1_tm_mon",
     "",
     "webserver",
@@ -170,7 +170,7 @@
     }
   ],
   [
-    546,
+    182,
     "/.ext/cbm_db/bogie1_tm_sat",
     "",
     "webserver",
@@ -187,7 +187,7 @@
     }
   ],
   [
-    547,
+    183,
     "/.ext/cbm_db/bogie1_tm_sun",
     "",
     "webserver",
@@ -204,7 +204,7 @@
     }
   ],
   [
-    548,
+    184,
     "/.ext/cbm_db/bogie1_tm_thu",
     "",
     "webserver",
@@ -221,7 +221,7 @@
     }
   ],
   [
-    549,
+    185,
     "/.ext/cbm_db/bogie1_tm_tue",
     "",
     "webserver",
@@ -238,7 +238,7 @@
     }
   ],
   [
-    550,
+    186,
     "/.ext/cbm_db/bogie1_tm_wed",
     "",
     "webserver",
@@ -255,7 +255,7 @@
     }
   ],
   [
-    551,
+    187,
     "/.ext/cbm_db/bogie2_axlebr_fri",
     "",
     "webserver",
@@ -272,7 +272,7 @@
     }
   ],
   [
-    552,
+    188,
     "/.ext/cbm_db/bogie2_axlebr_mon",
     "",
     "webserver",
@@ -289,7 +289,7 @@
     }
   ],
   [
-    553,
+    189,
     "/.ext/cbm_db/bogie2_axlebr_sat",
     "",
     "webserver",
@@ -306,7 +306,7 @@
     }
   ],
   [
-    554,
+    190,
     "/.ext/cbm_db/bogie2_axlebr_sun",
     "",
     "webserver",
@@ -323,7 +323,7 @@
     }
   ],
   [
-    555,
+    191,
     "/.ext/cbm_db/bogie2_axlebr_thu",
     "",
     "webserver",
@@ -340,7 +340,7 @@
     }
   ],
   [
-    556,
+    192,
     "/.ext/cbm_db/bogie2_axlebr_tue",
     "",
     "webserver",
@@ -357,7 +357,7 @@
     }
   ],
   [
-    557,
+    193,
     "/.ext/cbm_db/bogie2_axlebr_wed",
     "",
     "webserver",
@@ -374,7 +374,7 @@
     }
   ],
   [
-    558,
+    194,
     "/.ext/cbm_db/bogie2_tm_fri",
     "",
     "webserver",
@@ -391,7 +391,7 @@
     }
   ],
   [
-    559,
+    195,
     "/.ext/cbm_db/bogie2_tm_mon",
     "",
     "webserver",
@@ -408,7 +408,7 @@
     }
   ],
   [
-    560,
+    196,
     "/.ext/cbm_db/bogie2_tm_sat",
     "",
     "webserver",
@@ -425,7 +425,7 @@
     }
   ],
   [
-    561,
+    197,
     "/.ext/cbm_db/bogie2_tm_sun",
     "",
     "webserver",
@@ -442,7 +442,7 @@
     }
   ],
   [
-    562,
+    198,
     "/.ext/cbm_db/bogie2_tm_thu",
     "",
     "webserver",
@@ -459,7 +459,7 @@
     }
   ],
   [
-    563,
+    199,
     "/.ext/cbm_db/bogie2_tm_tue",
     "",
     "webserver",
@@ -476,7 +476,7 @@
     }
   ],
   [
-    564,
+    200,
     "/.ext/cbm_db/bogie2_tm_wed",
     "",
     "webserver",
@@ -493,7 +493,7 @@
     }
   ],
   [
-    565,
+    201,
     "/.ext/cbm_db/car",
     "",
     "webserver",
@@ -510,7 +510,7 @@
     }
   ],
   [
-    566,
+    202,
     "/.ext/cbm_db/car_device_info",
     "",
     "webserver",
@@ -527,7 +527,7 @@
     }
   ],
   [
-    567,
+    203,
     "/.ext/cbm_db/car_infer_job",
     "",
     "webserver",
@@ -544,7 +544,7 @@
     }
   ],
   [
-    568,
+    204,
     "/.ext/cbm_db/car_type_info",
     "",
     "webserver",
@@ -561,7 +561,7 @@
     }
   ],
   [
-    569,
+    205,
     "/.ext/cbm_db/cbm_config_trainperline",
     "",
     "webserver",
@@ -578,7 +578,7 @@
     }
   ],
   [
-    570,
+    206,
     "/.ext/cbm_db/cm_fri",
     "",
     "webserver",
@@ -595,7 +595,7 @@
     }
   ],
   [
-    571,
+    207,
     "/.ext/cbm_db/cm_mon",
     "",
     "webserver",
@@ -612,7 +612,7 @@
     }
   ],
   [
-    572,
+    208,
     "/.ext/cbm_db/cm_mon_test",
     "",
     "webserver",
@@ -629,7 +629,7 @@
     }
   ],
   [
-    573,
+    209,
     "/.ext/cbm_db/cm_sat",
     "",
     "webserver",
@@ -646,7 +646,7 @@
     }
   ],
   [
-    574,
+    210,
     "/.ext/cbm_db/cm_sun",
     "",
     "webserver",
@@ -663,7 +663,7 @@
     }
   ],
   [
-    575,
+    211,
     "/.ext/cbm_db/cm_thu",
     "",
     "webserver",
@@ -680,7 +680,7 @@
     }
   ],
   [
-    576,
+    212,
     "/.ext/cbm_db/cm_tue",
     "",
     "webserver",
@@ -697,7 +697,7 @@
     }
   ],
   [
-    577,
+    213,
     "/.ext/cbm_db/cm_tue_test",
     "",
     "webserver",
@@ -714,7 +714,7 @@
     }
   ],
   [
-    578,
+    214,
     "/.ext/cbm_db/cm_wed",
     "",
     "webserver",
@@ -731,7 +731,7 @@
     }
   ],
   [
-    579,
+    215,
     "/.ext/cbm_db/config_downloadcfg",
     "",
     "webserver",
@@ -748,7 +748,7 @@
     }
   ],
   [
-    580,
+    216,
     "/.ext/cbm_db/daily_anod_detail_result",
     "",
     "webserver",
@@ -765,7 +765,7 @@
     }
   ],
   [
-    581,
+    217,
     "/.ext/cbm_db/daily_anod_result",
     "",
     "webserver",
@@ -782,7 +782,7 @@
     }
   ],
   [
-    582,
+    218,
     "/.ext/cbm_db/daily_degrad_result",
     "",
     "webserver",
@@ -799,7 +799,7 @@
     }
   ],
   [
-    583,
+    219,
     "/.ext/cbm_db/dcu_fri",
     "",
     "webserver",
@@ -816,7 +816,7 @@
     }
   ],
   [
-    584,
+    220,
     "/.ext/cbm_db/dcu_mon",
     "",
     "webserver",
@@ -833,7 +833,7 @@
     }
   ],
   [
-    585,
+    221,
     "/.ext/cbm_db/dcu_sat",
     "",
     "webserver",
@@ -850,7 +850,7 @@
     }
   ],
   [
-    586,
+    222,
     "/.ext/cbm_db/dcu_sun",
     "",
     "webserver",
@@ -867,7 +867,7 @@
     }
   ],
   [
-    587,
+    223,
     "/.ext/cbm_db/dcu_thu",
     "",
     "webserver",
@@ -884,7 +884,7 @@
     }
   ],
   [
-    588,
+    224,
     "/.ext/cbm_db/dcu_tue",
     "",
     "webserver",
@@ -901,7 +901,7 @@
     }
   ],
   [
-    589,
+    225,
     "/.ext/cbm_db/dcu_wed",
     "",
     "webserver",
@@ -918,7 +918,7 @@
     }
   ],
   [
-    590,
+    226,
     "/.ext/cbm_db/degrad_condition",
     "",
     "webserver",
@@ -935,7 +935,7 @@
     }
   ],
   [
-    591,
+    227,
     "/.ext/cbm_db/degrad_cond_op_code",
     "",
     "webserver",
@@ -952,7 +952,7 @@
     }
   ],
   [
-    592,
+    228,
     "/.ext/cbm_db/degrad_level_code",
     "",
     "webserver",
@@ -969,7 +969,7 @@
     }
   ],
   [
-    593,
+    229,
     "/.ext/cbm_db/degrad_param",
     "",
     "webserver",
@@ -986,7 +986,7 @@
     }
   ],
   [
-    594,
+    230,
     "/.ext/cbm_db/degrad_rule",
     "",
     "webserver",
@@ -1003,7 +1003,7 @@
     }
   ],
   [
-    595,
+    231,
     "/.ext/cbm_db/degrad_speed_code",
     "",
     "webserver",
@@ -1020,7 +1020,7 @@
     }
   ],
   [
-    596,
+    232,
     "/.ext/cbm_db/degrad_type_code",
     "",
     "webserver",
@@ -1037,7 +1037,7 @@
     }
   ],
   [
-    597,
+    233,
     "/.ext/cbm_db/device",
     "",
     "webserver",
@@ -1054,7 +1054,7 @@
     }
   ],
   [
-    598,
+    234,
     "/.ext/cbm_db/device_feature_info",
     "",
     "webserver",
@@ -1071,7 +1071,7 @@
     }
   ],
   [
-    599,
+    235,
     "/.ext/cbm_db/device_maint",
     "",
     "webserver",
@@ -1088,7 +1088,7 @@
     }
   ],
   [
-    600,
+    236,
     "/.ext/cbm_db/device_maint_action",
     "",
     "webserver",
@@ -1105,7 +1105,7 @@
     }
   ],
   [
-    601,
+    237,
     "/.ext/cbm_db/device_policy",
     "",
     "webserver",
@@ -1122,7 +1122,7 @@
     }
   ],
   [
-    602,
+    238,
     "/.ext/cbm_db/device_type_ai_config",
     "",
     "webserver",
@@ -1139,7 +1139,7 @@
     }
   ],
   [
-    603,
+    239,
     "/.ext/cbm_db/device_type_info",
     "",
     "webserver",
@@ -1156,7 +1156,7 @@
     }
   ],
   [
-    604,
+    240,
     "/.ext/cbm_db/device_type_rule_config",
     "",
     "webserver",
@@ -1173,7 +1173,7 @@
     }
   ],
   [
-    605,
+    241,
     "/.ext/cbm_db/external_feature_info",
     "",
     "webserver",
@@ -1190,7 +1190,7 @@
     }
   ],
   [
-    606,
+    242,
     "/.ext/cbm_db/ext_stat_anod_detail_result",
     "",
     "webserver",
@@ -1207,7 +1207,7 @@
     }
   ],
   [
-    607,
+    243,
     "/.ext/cbm_db/ext_stat_anod_result",
     "",
     "webserver",
@@ -1224,7 +1224,7 @@
     }
   ],
   [
-    608,
+    244,
     "/.ext/cbm_db/fdu_fri",
     "",
     "webserver",
@@ -1241,7 +1241,7 @@
     }
   ],
   [
-    609,
+    245,
     "/.ext/cbm_db/fdu_mon",
     "",
     "webserver",
@@ -1258,7 +1258,7 @@
     }
   ],
   [
-    610,
+    246,
     "/.ext/cbm_db/fdu_sat",
     "",
     "webserver",
@@ -1275,7 +1275,7 @@
     }
   ],
   [
-    611,
+    247,
     "/.ext/cbm_db/fdu_sun",
     "",
     "webserver",
@@ -1292,7 +1292,7 @@
     }
   ],
   [
-    612,
+    248,
     "/.ext/cbm_db/fdu_thu",
     "",
     "webserver",
@@ -1309,7 +1309,7 @@
     }
   ],
   [
-    613,
+    249,
     "/.ext/cbm_db/fdu_tue",
     "",
     "webserver",
@@ -1326,7 +1326,7 @@
     }
   ],
   [
-    614,
+    250,
     "/.ext/cbm_db/fdu_wed",
     "",
     "webserver",
@@ -1343,7 +1343,7 @@
     }
   ],
   [
-    615,
+    251,
     "/.ext/cbm_db/hvac_fri",
     "",
     "webserver",
@@ -1360,7 +1360,7 @@
     }
   ],
   [
-    616,
+    252,
     "/.ext/cbm_db/hvac_mon",
     "",
     "webserver",
@@ -1377,7 +1377,7 @@
     }
   ],
   [
-    617,
+    253,
     "/.ext/cbm_db/hvac_sat",
     "",
     "webserver",
@@ -1394,7 +1394,7 @@
     }
   ],
   [
-    618,
+    254,
     "/.ext/cbm_db/hvac_sun",
     "",
     "webserver",
@@ -1411,7 +1411,7 @@
     }
   ],
   [
-    619,
+    255,
     "/.ext/cbm_db/hvac_thu",
     "",
     "webserver",
@@ -1428,7 +1428,7 @@
     }
   ],
   [
-    620,
+    256,
     "/.ext/cbm_db/hvac_tue",
     "",
     "webserver",
@@ -1445,7 +1445,7 @@
     }
   ],
   [
-    621,
+    257,
     "/.ext/cbm_db/hvac_wed",
     "",
     "webserver",
@@ -1462,7 +1462,7 @@
     }
   ],
   [
-    622,
+    258,
     "/.ext/cbm_db/impute",
     "",
     "webserver",
@@ -1479,7 +1479,7 @@
     }
   ],
   [
-    623,
+    259,
     "/.ext/cbm_db/impute_type_code",
     "",
     "webserver",
@@ -1496,7 +1496,7 @@
     }
   ],
   [
-    624,
+    260,
     "/.ext/cbm_db/infer_model",
     "",
     "webserver",
@@ -1513,7 +1513,7 @@
     }
   ],
   [
-    625,
+    261,
     "/.ext/cbm_db/infer_module_info",
     "",
     "webserver",
@@ -1530,7 +1530,7 @@
     }
   ],
   [
-    626,
+    262,
     "/.ext/cbm_db/learning_job",
     "",
     "webserver",
@@ -1547,7 +1547,7 @@
     }
   ],
   [
-    627,
+    263,
     "/.ext/cbm_db/learning_job_result",
     "",
     "webserver",
@@ -1564,7 +1564,7 @@
     }
   ],
   [
-    628,
+    264,
     "/.ext/cbm_db/learning_model",
     "",
     "webserver",
@@ -1581,7 +1581,7 @@
     }
   ],
   [
-    629,
+    265,
     "/.ext/cbm_db/line",
     "",
     "webserver",
@@ -1598,7 +1598,7 @@
     }
   ],
   [
-    630,
+    266,
     "/.ext/cbm_db/maint_action_code",
     "",
     "webserver",
@@ -1615,7 +1615,7 @@
     }
   ],
   [
-    631,
+    267,
     "/.ext/cbm_db/model_alg_info",
     "",
     "webserver",
@@ -1632,7 +1632,7 @@
     }
   ],
   [
-    632,
+    268,
     "/.ext/cbm_db/model_output_info",
     "",
     "webserver",
@@ -1649,7 +1649,7 @@
     }
   ],
   [
-    633,
+    269,
     "/.ext/cbm_db/mtr_fri",
     "",
     "webserver",
@@ -1666,7 +1666,7 @@
     }
   ],
   [
-    634,
+    270,
     "/.ext/cbm_db/mtr_mon",
     "",
     "webserver",
@@ -1683,7 +1683,7 @@
     }
   ],
   [
-    635,
+    271,
     "/.ext/cbm_db/mtr_sat",
     "",
     "webserver",

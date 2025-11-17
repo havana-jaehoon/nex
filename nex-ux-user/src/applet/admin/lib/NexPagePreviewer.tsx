@@ -1,5 +1,5 @@
 import { NexDiv, NexLabel } from "component/base/NexBaseComponents";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 //import NexAppletStoreTest from "../applet/nexAppletStoreTest";
 import { getThemeStyle, NexThemeStyle } from "type/NexTheme";
 import { set } from "mobx";
@@ -10,28 +10,53 @@ import ArrowBack from "@mui/icons-material/ArrowBack";
 import ArrowForward from "@mui/icons-material/ArrowForward";
 
 interface NexPagePreviewerProps {
+  isPreview: boolean;
+  path: string;
+  route: string;
   section: any;
   style: NexThemeStyle;
-  onSelect?: (row: any) => void;
+  selectedIndex: number;
+  onSelect: (path: string, index: number) => void;
   isVisibleTitle?: boolean; // Optional prop to control visibility of section title
   isVisibleBorder?: boolean; // Optional prop to control visibility of border
 }
 
 const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
+  isPreview,
+  path,
+  route,
   section,
   style,
+  selectedIndex,
   onSelect,
   isVisibleTitle,
   isVisibleBorder,
 }) => {
-  const [route, setRoute] = React.useState<string>("");
+  //const [route, setRoute] = React.useState<string>("");
 
+  const [hovered, setHovered] = React.useState(false);
   const isRoutes = section && section.isRoutes === true;
   const isContents = section && section.contents;
   const isLastSection = section && !section.children;
   const isApplet = section && section.applet && section.applet !== "";
+  const isSelected =
+    section && section._record && section._index === selectedIndex;
   //console.log("NexPageViewer section:", JSON.stringify(section, null, 2));
 
+  /*
+  const [isSelected, setIsSelected] = React.useState<boolean>(false);
+  useEffect(() => {
+    if (section && section._record) {
+      setIsSelected(section._record[0] === selectedIndex);
+    }
+    console.log(
+      "NexPagePreviewer: selectedIndex=",
+      selectedIndex,
+      " section=",
+      section
+    );
+  }, [section, selectedIndex]);
+*/
   const gap = style.gap || "4px";
   const border = style.border || "none";
   const borderRadius = style.borderRadius || "0";
@@ -40,6 +65,8 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
 
   const color = style.colors[0];
   const bgColor = style.bgColors[0];
+  const activeColor1 = style.activeColors[0];
+  const activeColor2 = style.activeColors[1];
 
   if (!section) return null;
 
@@ -184,39 +211,46 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
         boxShadow: boxShadow,
         position: "relative",
       }}
-      onClick={() => onSelect?.(section._record)}
     >
       {section.name}
-      {resizeButtones()}
+      {/*resizeButtones()*/}
     </NexDiv>
   ) : (
     <NexDiv
       width="100%"
       height="100%"
       color="gray"
-      onClick={() => onSelect?.(section._record)}
       style={{ position: "relative" }}
     >
       {section.name}
-      {resizeButtones()}
+      {/*resizeButtones()*/}
     </NexDiv>
   );
 
   const routeView = () => {
     if (!Array.isArray(section.children) || section.children.length === 0)
       return null;
-    let childSection = (section.children as any[]).find(
-      (child) => child.route === route
-    );
+
+    let childSection = (section.children as any[]).find((child) => {
+      const curRoute = child.route;
+      const isRouteMatch = route.startsWith(curRoute);
+
+      return child.route === route;
+    });
 
     childSection = childSection || (section.children as any[])[0];
     //if (!childSection) return null;
     return (
       <NexPagePreviewer
+        isPreview={isPreview}
+        path={path + "/" + childSection.name}
+        route={route}
         section={childSection}
+        selectedIndex={selectedIndex}
         style={style}
         isVisibleBorder={isVisibleBorder}
         isVisibleTitle={isVisibleTitle}
+        onSelect={onSelect}
       />
     );
   };
@@ -237,11 +271,16 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
       //console.log("NexPagePreviewer child:", JSON.stringify(child, null, 2));
       return (
         <NexPagePreviewer
+          isPreview={isPreview}
+          path={path + "/" + child.name}
+          route={route}
           key={`${child.name}-${index}`}
           section={child}
+          selectedIndex={selectedIndex}
           style={style}
           isVisibleBorder={isVisibleBorder}
           isVisibleTitle={isVisibleTitle}
+          onSelect={onSelect}
         />
       );
     });
@@ -256,23 +295,33 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
       height="100%"
       flex={section.size || "1"}
       color={color}
-      bgColor={bgColor}
+      bgColor={isSelected ? activeColor2 : hovered ? "lightblue" : "lightgray"}
+      border={isSelected ? "5px solid " + activeColor2 : "none"}
       title={sectionInfo}
-      border={isVisibleBorder ? "1px solid #333333" : "none"}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+        console.log(
+          "NexPagePreviewer: onClick - path=",
+          path,
+          " section=",
+          section._record
+        );
+        //return true;
+        onSelect?.(path, section._index);
+      }}
     >
       {/* Section Name Label */}
-      {isVisibleTitle ? (
-        <NexDiv width="100%" height="1em">
-          <NexLabel
-            width="100%"
-            height="100%"
-            align="center"
-            justify="center"
-            style={{ cursor: "pointer", fontSize: "0.8em" }}
-          >
-            {section.name || "Unnamed Section"}
-          </NexLabel>
-        </NexDiv>
+      {!isPreview && !isLastSection ? (
+        <NexDiv
+          width="100%"
+          height="20px"
+          border={isSelected ? "none" : "1px solid white"}
+          bgColor={
+            isSelected ? activeColor2 : hovered ? "lightblue" : "lightgray"
+          }
+        ></NexDiv>
       ) : null}
       <NexDiv
         direction={section.direction || "row"}
