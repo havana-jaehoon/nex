@@ -18,6 +18,7 @@ from util.log_util import Logger
 
 
 class ElementEntity:
+
     def __init__(self, element_cfg: ElementCfg):
         self._config = element_cfg.clone()
         self._storage: Optional[Storage] = None
@@ -56,7 +57,11 @@ class ElementEntity:
 
     @property
     def id(self) -> str:
-        return self._config.id if self._config else ''
+        return self._config.id
+
+    @property
+    def url(self) -> str:
+        return self._config.url
 
     def _interval_proc(self):
         if not self._processor:

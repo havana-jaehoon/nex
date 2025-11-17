@@ -4,6 +4,7 @@ import json, io
 import pandas as pd
 from typing import List, Tuple, Callable, Awaitable, Any, Optional
 
+import url_def
 import mgr_registry
 from util.singleton import SingletonInstance
 from util.pi_http.http_client import HttpClient
@@ -52,14 +53,14 @@ class HttpReqMgr(SingletonInstance):
         system_address = mgr_registry.CONFIG_MGR.getSystemAddress(target_system_name)
         if not system_address:
             return ""
-        return f"http://{system_address[0]}:{system_address[1]}{new_source_id}"
+        return f"http://{system_address[0]}:{system_address[1]}{url_def.DATA_URL_PREFIX}{new_source_id}"
 
     @staticmethod
     def _getUrl2(target_ip: str, target_port: int, source_id: str, **kwargs) -> str:
         new_source_id = HttpReqMgr._setSourceIdParam(source_id, **kwargs)
         if not target_ip or not new_source_id:
             return ""
-        return f"http://{target_ip}:{target_port}{new_source_id}"
+        return f"http://{target_ip}:{target_port}{url_def.DATA_URL_PREFIX}{new_source_id}"
 
     def _sendGet1SyncResult(self, target_ip: str, target_port: int, source_id: str, source_param: dict=None) \
             -> Tuple[str, concurrent.futures.Future]:

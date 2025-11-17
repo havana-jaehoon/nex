@@ -1,5 +1,6 @@
 from typing import Optional
 
+from store.storage_imp.mysql import MysqlStorage
 from store.storage_imp.oracle import OracleStorage
 from store.storage import Storage, StorageType
 
@@ -28,5 +29,7 @@ class StorageApi:
     def createDbStorageInstance(storage_info: dict) -> Optional[Storage]:
         if storage_info.get('dbType', '').upper() == StorageType.ORACLE:
             return OracleStorage(storage_info)
+        elif storage_info.get('dbType', '').upper() == StorageType.MYSQL:
+            return MysqlStorage(storage_info)
         else:
             return None

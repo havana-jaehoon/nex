@@ -1,7 +1,7 @@
 import threading, json
 from typing import List, Tuple
 
-from config import url_def
+import url_def
 from config.element_cfg import ElementCfgs
 from config.system_cfg import SystemCfg
 from config.config_base_mgr import ConfigBaseMgr
