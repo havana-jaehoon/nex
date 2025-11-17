@@ -48,7 +48,7 @@ if __name__ == '__main__':
         if system_info.type == SystemType.ADMIN:
             admin_mgr = AdminMgr()
             local_ip = '0.0.0.0'
-            local_port = 9090
+            local_port = 9080
         else:
             if system_info.type == SystemType.CONFIG:
                 config_mgr = ConfigServerMgr()

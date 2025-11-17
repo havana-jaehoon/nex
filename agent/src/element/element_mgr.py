@@ -35,7 +35,7 @@ class ElementMgr(SingletonInstance):
         return_list = []
         for element in self._elements.values():
             handler, kwargs = element.getQueryHandler()
-            return_list.append((element.id, handler, kwargs))
+            return_list.append((element.url, handler, kwargs))
         return return_list
 
     async def getData(self, element_id: str, filters: Optional[Dict[str, Any]] = None, columns: Optional[List[str]] = None) -> pd.DataFrame:

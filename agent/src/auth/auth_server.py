@@ -5,7 +5,7 @@ from datetime import datetime
 from typing import List, Tuple, Optional
 from pydantic import ValidationError
 
-from auth import url_def
+import url_def
 from auth.auth_base import AuthBase
 from auth.msg_def import AgentInitRequest, AgentTokenRequest, AgentTokenResponsePayload, AgentTokenResponse, AgentInitResponse
 from element.element_mgr import ElementMgr
@@ -22,7 +22,6 @@ class AgentAccess:
 
 
 class AuthServer(AuthBase):
-
     INTERNAL_ELEMENT_CONFIG_FILE_NAME = 'auth_server_element_config.json'
     PROFILE_ELEMENT_ID = '/agent/profile'
     ACCESS_ELEMENT_ID = '/agent/access'
@@ -161,8 +160,8 @@ class AuthServer(AuthBase):
 
     def getQueryHandlers(self) -> List[Tuple[str, Server_Dynamic_Handler, dict]]:
         handler_list: List[Tuple[str, Server_Dynamic_Handler, dict]] = [
-            (url_def.AUTH_INIT_URL, self._rcvAuthInit, {}),
-            (url_def.AUTH_TOKEN_URL, self._rcvAuthToken, {}),
+            (url_def.AUTH_INIT_SUB_URL, self._rcvAuthInit, {}),
+            (url_def.AUTH_TOKEN_SUB_URL, self._rcvAuthToken, {}),
         ]
         return handler_list
 

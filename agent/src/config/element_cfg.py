@@ -2,6 +2,7 @@ import os, json, threading, copy, shutil
 from pathlib import Path
 from typing import List, Tuple, Dict, Generator, Optional
 
+import url_def
 from command.data_io import ELEMENT_CFG_LIST
 from util.log_util import Logger
 
@@ -15,6 +16,7 @@ class ElementCfg:
         parent_dir = f'/{"/".join(parent_list)}' if parent_list else ''
         self._elementConfigDir = f'{element_base_config_dir}{parent_dir}/{self._name}'
         self._id = self.genId(parent_list, element_name)
+        self._url = f'{url_def.DATA_URL_PREFIX}{self._id}'
         self._configMap: Dict[str, dict] = {}    # key: config_type(format, element, ...), value: json config
 
         self._applyConfigMap(**kwargs)
@@ -46,6 +48,10 @@ class ElementCfg:
     def id(self) -> str:
         return self._id
 
+    @property
+    def url(self) -> str:
+        return self._url
+
     def clone(self):
         clone_obj = ElementCfg.__new__(ElementCfg)
         with self._apiLock:
@@ -54,6 +60,7 @@ class ElementCfg:
             clone_obj._parentList = copy.deepcopy(self._parentList)
             clone_obj._elementConfigDir = self._elementConfigDir
             clone_obj._id = self._id
+            clone_obj._url = self._url
             clone_obj._configMap = copy.deepcopy(self._configMap)
         return clone_obj
 
