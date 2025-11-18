@@ -1282,7 +1282,7 @@
     }
   ],
   [
-    498,
+    134,
     "/.ext",
     "",
     "webserver",
@@ -1298,7 +1298,7 @@
     }
   ],
   [
-    499,
+    135,
     "/.ext/cbm_db",
     "",
     "webserver",
@@ -1314,30 +1314,24 @@
     }
   ],
   [
-    500,
+    136,
     "/.ext/cbm_db/acm_fri",
     "",
     "webserver",
     {
       "0": {
         "name": "acm_fri",
-        "dispName": "보조공기압축기(금)",
+        "dispName": "acm_fri",
         "description": "acm_fri",
         "type": "element",
-        "icon": "",
-        "color": "",
-        "storage": "/cbm_db",
         "format": "/.ext/cbm_db/acm_fri",
         "store": "",
-        "processor": "",
-        "processingInterval": "",
-        "processingUnit": "NONE",
-        "sources": ""
+        "storage": "/cbm_db"
       }
     }
   ],
   [
-    501,
+    137,
     "/.ext/cbm_db/acm_mon",
     "",
     "webserver",
@@ -1354,7 +1348,7 @@
     }
   ],
   [
-    502,
+    138,
     "/.ext/cbm_db/acm_sat",
     "",
     "webserver",
@@ -1371,7 +1365,7 @@
     }
   ],
   [
-    503,
+    139,
     "/.ext/cbm_db/acm_sun",
     "",
     "webserver",
@@ -1388,7 +1382,7 @@
     }
   ],
   [
-    504,
+    140,
     "/.ext/cbm_db/acm_thu",
     "",
     "webserver",
@@ -1405,7 +1399,7 @@
     }
   ],
   [
-    505,
+    141,
     "/.ext/cbm_db/acm_tue",
     "",
     "webserver",
@@ -1422,7 +1416,7 @@
     }
   ],
   [
-    506,
+    142,
     "/.ext/cbm_db/acm_wed",
     "",
     "webserver",
@@ -1439,7 +1433,7 @@
     }
   ],
   [
-    507,
+    143,
     "/.ext/cbm_db/adx_infer_job",
     "",
     "webserver",
@@ -1456,7 +1450,7 @@
     }
   ],
   [
-    508,
+    144,
     "/.ext/cbm_db/agent_access",
     "",
     "webserver",
@@ -1473,7 +1467,7 @@
     }
   ],
   [
-    509,
+    145,
     "/.ext/cbm_db/agent_noauth",
     "",
     "webserver",
@@ -1490,7 +1484,7 @@
     }
   ],
   [
-    510,
+    146,
     "/.ext/cbm_db/agent_profile",
     "",
     "webserver",
@@ -1507,7 +1501,7 @@
     }
   ],
   [
-    511,
+    147,
     "/.ext/cbm_db/analy_type_code",
     "",
     "webserver",
@@ -1524,7 +1518,7 @@
     }
   ],
   [
-    512,
+    148,
     "/.ext/cbm_db/anod_ai_feature_result",
     "",
     "webserver",
@@ -1541,7 +1535,7 @@
     }
   ],
   [
-    513,
+    149,
     "/.ext/cbm_db/anod_ai_feature_result_detail_1",
     "",
     "webserver",
@@ -1558,7 +1552,7 @@
     }
   ],
   [
-    514,
+    150,
     "/.ext/cbm_db/anod_ai_feature_result_detail_10",
     "",
     "webserver",
@@ -1575,7 +1569,7 @@
     }
   ],
   [
-    515,
+    151,
     "/.ext/cbm_db/anod_ai_feature_result_detail_11",
     "",
     "webserver",
@@ -1592,7 +1586,7 @@
     }
   ],
   [
-    516,
+    152,
     "/.ext/cbm_db/anod_ai_feature_result_detail_12",
     "",
     "webserver",
@@ -1609,7 +1603,7 @@
     }
   ],
   [
-    517,
+    153,
     "/.ext/cbm_db/anod_ai_feature_result_detail_13",
     "",
     "webserver",
@@ -1626,7 +1620,7 @@
     }
   ],
   [
-    518,
+    154,
     "/.ext/cbm_db/anod_ai_feature_result_detail_14",
     "",
     "webserver",
@@ -1643,7 +1637,7 @@
     }
   ],
   [
-    519,
+    155,
     "/.ext/cbm_db/anod_ai_feature_result_detail_15",
     "",
     "webserver",
@@ -1660,7 +1654,7 @@
     }
   ],
   [
-    520,
+    156,
     "/.ext/cbm_db/anod_ai_feature_result_detail_16",
     "",
     "webserver",
@@ -1677,7 +1671,7 @@
     }
   ],
   [
-    521,
+    157,
     "/.ext/cbm_db/anod_ai_feature_result_detail_17",
     "",
     "webserver",
@@ -1694,7 +1688,7 @@
     }
   ],
   [
-    522,
+    158,
     "/.ext/cbm_db/anod_ai_feature_result_detail_18",
     "",
     "webserver",
@@ -1711,7 +1705,7 @@
     }
   ],
   [
-    523,
+    159,
     "/.ext/cbm_db/anod_ai_feature_result_detail_19",
     "",
     "webserver",
@@ -1728,7 +1722,7 @@
     }
   ],
   [
-    524,
+    160,
     "/.ext/cbm_db/anod_ai_feature_result_detail_2",
     "",
     "webserver",
@@ -1745,7 +1739,7 @@
     }
   ],
   [
-    525,
+    161,
     "/.ext/cbm_db/anod_ai_feature_result_detail_20",
     "",
     "webserver",
@@ -1762,7 +1756,7 @@
     }
   ],
   [
-    526,
+    162,
     "/.ext/cbm_db/anod_ai_feature_result_detail_3",
     "",
     "webserver",
@@ -1779,7 +1773,7 @@
     }
   ],
   [
-    527,
+    163,
     "/.ext/cbm_db/anod_ai_feature_result_detail_4",
     "",
     "webserver",
@@ -1796,7 +1790,7 @@
     }
   ],
   [
-    528,
+    164,
     "/.ext/cbm_db/anod_ai_feature_result_detail_5",
     "",
     "webserver",
@@ -1813,7 +1807,7 @@
     }
   ],
   [
-    529,
+    165,
     "/.ext/cbm_db/anod_ai_feature_result_detail_6",
     "",
     "webserver",
@@ -1830,7 +1824,7 @@
     }
   ],
   [
-    530,
+    166,
     "/.ext/cbm_db/anod_ai_feature_result_detail_7",
     "",
     "webserver",
@@ -1847,7 +1841,7 @@
     }
   ],
   [
-    531,
+    167,
     "/.ext/cbm_db/anod_ai_feature_result_detail_8",
     "",
     "webserver",
@@ -1864,7 +1858,7 @@
     }
   ],
   [
-    532,
+    168,
     "/.ext/cbm_db/anod_ai_feature_result_detail_9",
     "",
     "webserver",
@@ -1881,7 +1875,7 @@
     }
   ],
   [
-    533,
+    169,
     "/.ext/cbm_db/anod_ai_result",
     "",
     "webserver",
@@ -1898,7 +1892,7 @@
     }
   ],
   [
-    534,
+    170,
     "/.ext/cbm_db/anod_rulebase_result",
     "",
     "webserver",
@@ -1915,7 +1909,7 @@
     }
   ],
   [
-    535,
+    171,
     "/.ext/cbm_db/anod_type_code",
     "",
     "webserver",

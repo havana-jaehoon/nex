@@ -1,11 +1,75 @@
 [
   [
-    382,
-    "/.ext/cbm_db/train_job_result_detail",
+    200,
+    "/.ext/cbm_db/train_infer_job",
     "",
     "",
     {
       "176": {
+        "name": "train_infer_job",
+        "dispName": "train_infer_job",
+        "type": "format",
+        "features": [
+          {
+            "name": "id",
+            "dispName": "id",
+            "type": "feature",
+            "isKey": true,
+            "featureType": "NUMBER"
+          },
+          {
+            "name": "train",
+            "dispName": "train",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "NUMBER"
+          },
+          {
+            "name": "line",
+            "dispName": "line",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "NUMBER"
+          },
+          {
+            "name": "data_start_time",
+            "dispName": "data_start_time",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "TIMESTAMP"
+          },
+          {
+            "name": "data_end_time",
+            "dispName": "data_end_time",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "TIMESTAMP"
+          },
+          {
+            "name": "status",
+            "dispName": "status",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "STRING"
+          },
+          {
+            "name": "anod_level_code",
+            "dispName": "anod_level_code",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "NUMBER"
+          }
+        ]
+      }
+    }
+  ],
+  [
+    201,
+    "/.ext/cbm_db/train_job_result_detail",
+    "",
+    "",
+    {
+      "177": {
         "name": "train_job_result_detail",
         "dispName": "train_job_result_detail",
         "type": "format",
@@ -50,12 +114,12 @@
     }
   ],
   [
-    383,
+    202,
     "/.ext/cbm_db/_auth",
     "",
     "",
     {
-      "177": {
+      "178": {
         "name": "_auth",
         "dispName": "_auth",
         "type": "format",
@@ -100,12 +164,12 @@
     }
   ],
   [
-    384,
+    203,
     "/.ext/cbm_db/status_DegradPerDevice",
     "",
     "",
     {
-      "178": {
+      "179": {
         "name": "status_DegradPerDevice",
         "dispName": "status_DegradPerDevice",
         "type": "format",
@@ -143,12 +207,12 @@
     }
   ],
   [
-    385,
+    204,
     "/.ext/cbm_db/status_DegradPerLine",
     "",
     "",
     {
-      "179": {
+      "180": {
         "name": "status_DegradPerLine",
         "dispName": "status_DegradPerLine",
         "type": "format",

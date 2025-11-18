@@ -1,6 +1,6 @@
 [
   [
-    636,
+    272,
     "/.ext/cbm_db/mtr_sun",
     "",
     "webserver",
@@ -17,7 +17,7 @@
     }
   ],
   [
-    637,
+    273,
     "/.ext/cbm_db/mtr_thu",
     "",
     "webserver",
@@ -34,7 +34,7 @@
     }
   ],
   [
-    638,
+    274,
     "/.ext/cbm_db/mtr_tue",
     "",
     "webserver",
@@ -51,7 +51,7 @@
     }
   ],
   [
-    639,
+    275,
     "/.ext/cbm_db/mtr_wed",
     "",
     "webserver",
@@ -68,7 +68,7 @@
     }
   ],
   [
-    640,
+    276,
     "/.ext/cbm_db/operation_fri",
     "",
     "webserver",
@@ -85,7 +85,7 @@
     }
   ],
   [
-    641,
+    277,
     "/.ext/cbm_db/operation_mon",
     "",
     "webserver",
@@ -102,7 +102,7 @@
     }
   ],
   [
-    642,
+    278,
     "/.ext/cbm_db/operation_sat",
     "",
     "webserver",
@@ -119,7 +119,7 @@
     }
   ],
   [
-    643,
+    279,
     "/.ext/cbm_db/operation_sun",
     "",
     "webserver",
@@ -136,7 +136,7 @@
     }
   ],
   [
-    644,
+    280,
     "/.ext/cbm_db/operation_thu",
     "",
     "webserver",
@@ -153,7 +153,7 @@
     }
   ],
   [
-    645,
+    281,
     "/.ext/cbm_db/operation_tue",
     "",
     "webserver",
@@ -170,7 +170,7 @@
     }
   ],
   [
-    646,
+    282,
     "/.ext/cbm_db/operation_wed",
     "",
     "webserver",
@@ -187,7 +187,7 @@
     }
   ],
   [
-    647,
+    283,
     "/.ext/cbm_db/pac_fri",
     "",
     "webserver",
@@ -204,7 +204,7 @@
     }
   ],
   [
-    648,
+    284,
     "/.ext/cbm_db/pac_mon",
     "",
     "webserver",
@@ -221,7 +221,7 @@
     }
   ],
   [
-    649,
+    285,
     "/.ext/cbm_db/pac_sat",
     "",
     "webserver",
@@ -238,7 +238,7 @@
     }
   ],
   [
-    650,
+    286,
     "/.ext/cbm_db/pac_sun",
     "",
     "webserver",
@@ -255,7 +255,7 @@
     }
   ],
   [
-    651,
+    287,
     "/.ext/cbm_db/pac_thu",
     "",
     "webserver",
@@ -272,7 +272,7 @@
     }
   ],
   [
-    652,
+    288,
     "/.ext/cbm_db/pac_tue",
     "",
     "webserver",
@@ -289,7 +289,7 @@
     }
   ],
   [
-    653,
+    289,
     "/.ext/cbm_db/pac_wed",
     "",
     "webserver",
@@ -306,7 +306,7 @@
     }
   ],
   [
-    654,
+    290,
     "/.ext/cbm_db/policy_input_group_info",
     "",
     "webserver",
@@ -323,7 +323,7 @@
     }
   ],
   [
-    655,
+    291,
     "/.ext/cbm_db/policy_input_info",
     "",
     "webserver",
@@ -340,7 +340,7 @@
     }
   ],
   [
-    656,
+    292,
     "/.ext/cbm_db/policy_output_group_info",
     "",
     "webserver",
@@ -357,7 +357,7 @@
     }
   ],
   [
-    657,
+    293,
     "/.ext/cbm_db/policy_output_info",
     "",
     "webserver",
@@ -374,7 +374,7 @@
     }
   ],
   [
-    658,
+    294,
     "/.ext/cbm_db/preproc_code",
     "",
     "webserver",
@@ -391,7 +391,7 @@
     }
   ],
   [
-    659,
+    295,
     "/.ext/cbm_db/repository_info",
     "",
     "webserver",
@@ -408,7 +408,7 @@
     }
   ],
   [
-    660,
+    296,
     "/.ext/cbm_db/rolling_window",
     "",
     "webserver",
@@ -425,12 +425,29 @@
     }
   ],
   [
-    661,
-    "/.ext/cbm_db/rule_ext_stat_anod_detail_result",
+    297,
+    "/.ext/cbm_db/rule_device_maint_action",
     "",
     "webserver",
     {
       "161": {
+        "name": "rule_device_maint_action",
+        "dispName": "rule_device_maint_action",
+        "description": "rule_device_maint_action",
+        "type": "element",
+        "format": "/.ext/cbm_db/rule_device_maint_action",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    298,
+    "/.ext/cbm_db/rule_ext_stat_anod_detail_result",
+    "",
+    "webserver",
+    {
+      "162": {
         "name": "rule_ext_stat_anod_detail_result",
         "dispName": "rule_ext_stat_anod_detail_result",
         "description": "rule_ext_stat_anod_detail_result",
@@ -442,12 +459,12 @@
     }
   ],
   [
-    662,
+    299,
     "/.ext/cbm_db/rule_ext_stat_anod_result",
     "",
     "webserver",
     {
-      "162": {
+      "163": {
         "name": "rule_ext_stat_anod_result",
         "dispName": "rule_ext_stat_anod_result",
         "description": "rule_ext_stat_anod_result",
@@ -459,12 +476,12 @@
     }
   ],
   [
-    663,
+    300,
     "/.ext/cbm_db/scaling",
     "",
     "webserver",
     {
-      "163": {
+      "164": {
         "name": "scaling",
         "dispName": "scaling",
         "description": "scaling",
@@ -476,12 +493,12 @@
     }
   ],
   [
-    664,
+    301,
     "/.ext/cbm_db/scaling_type_code",
     "",
     "webserver",
     {
-      "164": {
+      "165": {
         "name": "scaling_type_code",
         "dispName": "scaling_type_code",
         "description": "scaling_type_code",
@@ -493,12 +510,12 @@
     }
   ],
   [
-    665,
+    302,
     "/.ext/cbm_db/statistic_feature_extraction",
     "",
     "webserver",
     {
-      "165": {
+      "166": {
         "name": "statistic_feature_extraction",
         "dispName": "statistic_feature_extraction",
         "description": "statistic_feature_extraction",
@@ -510,12 +527,12 @@
     }
   ],
   [
-    666,
+    303,
     "/.ext/cbm_db/status_degradperdevice",
     "",
     "webserver",
     {
-      "166": {
+      "167": {
         "name": "status_degradperdevice",
         "dispName": "status_degradperdevice",
         "description": "status_degradperdevice",
@@ -527,12 +544,12 @@
     }
   ],
   [
-    667,
+    304,
     "/.ext/cbm_db/status_degradperline",
     "",
     "webserver",
     {
-      "167": {
+      "168": {
         "name": "status_degradperline",
         "dispName": "status_degradperline",
         "description": "status_degradperline",
@@ -544,12 +561,12 @@
     }
   ],
   [
-    668,
+    305,
     "/.ext/cbm_db/stat_type_code",
     "",
     "webserver",
     {
-      "168": {
+      "169": {
         "name": "stat_type_code",
         "dispName": "stat_type_code",
         "description": "stat_type_code",
@@ -561,12 +578,12 @@
     }
   ],
   [
-    669,
+    306,
     "/.ext/cbm_db/subfeature_info",
     "",
     "webserver",
     {
-      "169": {
+      "170": {
         "name": "subfeature_info",
         "dispName": "subfeature_info",
         "description": "subfeature_info",
@@ -578,12 +595,12 @@
     }
   ],
   [
-    670,
+    307,
     "/.ext/cbm_db/system_profile_degradperline",
     "",
     "webserver",
     {
-      "170": {
+      "171": {
         "name": "system_profile_degradperline",
         "dispName": "system_profile_degradperline",
         "description": "system_profile_degradperline",
@@ -595,12 +612,12 @@
     }
   ],
   [
-    671,
+    308,
     "/.ext/cbm_db/sys_export_schema_01",
     "",
     "webserver",
     {
-      "171": {
+      "172": {
         "name": "sys_export_schema_01",
         "dispName": "sys_export_schema_01",
         "description": "sys_export_schema_01",
@@ -612,12 +629,12 @@
     }
   ],
   [
-    672,
+    309,
     "/.ext/cbm_db/tcms_trouble_info",
     "",
     "webserver",
     {
-      "172": {
+      "173": {
         "name": "tcms_trouble_info",
         "dispName": "tcms_trouble_info",
         "description": "tcms_trouble_info",
@@ -629,12 +646,12 @@
     }
   ],
   [
-    673,
+    310,
     "/.ext/cbm_db/test_config_trainperline",
     "",
     "webserver",
     {
-      "173": {
+      "174": {
         "name": "test_config_trainperline",
         "dispName": "test_config_trainperline",
         "description": "test_config_trainperline",
@@ -646,12 +663,12 @@
     }
   ],
   [
-    674,
+    311,
     "/.ext/cbm_db/train",
     "",
     "webserver",
     {
-      "174": {
+      "175": {
         "name": "train",
         "dispName": "train",
         "description": "train",
@@ -663,12 +680,12 @@
     }
   ],
   [
-    675,
+    312,
     "/.ext/cbm_db/train_infer_job",
     "",
     "webserver",
     {
-      "175": {
+      "176": {
         "name": "train_infer_job",
         "dispName": "train_infer_job",
         "description": "train_infer_job",
@@ -680,12 +697,12 @@
     }
   ],
   [
-    676,
+    313,
     "/.ext/cbm_db/train_job_result_detail",
     "",
     "webserver",
     {
-      "176": {
+      "177": {
         "name": "train_job_result_detail",
         "dispName": "train_job_result_detail",
         "description": "train_job_result_detail",
@@ -697,12 +714,12 @@
     }
   ],
   [
-    677,
+    314,
     "/.ext/cbm_db/_auth",
     "",
     "webserver",
     {
-      "177": {
+      "178": {
         "name": "_auth",
         "dispName": "_auth",
         "description": "_auth",
@@ -714,12 +731,12 @@
     }
   ],
   [
-    678,
+    315,
     "/.ext/cbm_db/status_DegradPerDevice",
     "",
     "webserver",
     {
-      "178": {
+      "179": {
         "name": "status_DegradPerDevice",
         "dispName": "status_DegradPerDevice",
         "description": "status_DegradPerDevice",
@@ -731,12 +748,12 @@
     }
   ],
   [
-    679,
+    316,
     "/.ext/cbm_db/status_DegradPerLine",
     "",
     "webserver",
     {
-      "179": {
+      "180": {
         "name": "status_DegradPerLine",
         "dispName": "status_DegradPerLine",
         "description": "status_DegradPerLine",

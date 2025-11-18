@@ -1,15 +1,9 @@
 {
   "name": "acm_fri",
-  "dispName": "보조공기압축기(금)",
+  "dispName": "acm_fri",
   "description": "acm_fri",
   "type": "element",
-  "icon": "",
-  "color": "",
-  "storage": "/cbm_db",
   "format": "/.ext/cbm_db/acm_fri",
   "store": "",
-  "processor": "",
-  "processingInterval": "",
-  "processingUnit": "NONE",
-  "sources": ""
+  "storage": "/cbm_db"
 }

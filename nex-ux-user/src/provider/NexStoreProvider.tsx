@@ -92,10 +92,6 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
     );
 
     const systemCfgs = useMemo(() => {
-      console.log(
-        "NexStoreProvider: systems=",
-        JSON.stringify(configStore.config.systems, null, 2)
-      );
       return collectNode(configStore.config.systems, "system");
     }, [configStore.config.systems]);
 
@@ -109,10 +105,7 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
           };
         }
       });
-      console.log(
-        "NexStoreProvider: systemAddrDict=",
-        JSON.stringify(systemCfgs, null, 2)
-      );
+
       return dict;
     }, [systemCfgs]);
 

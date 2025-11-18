@@ -809,7 +809,7 @@ const sectionNodeDef = {
       color: null,
       isKey: false,
       featureType: NexFeatureType.BOOLEAN, // 경로는 문자열로 처리
-      uxSize: 2,
+      uxSize: 6,
     },
     {
       name: "route", // 경로
@@ -818,7 +818,7 @@ const sectionNodeDef = {
       color: null,
       isKey: false,
       featureType: NexFeatureType.STRING, // 경로는 문자열로 처리
-      uxSize: 3,
+      uxSize: 6,
     },
     {
       name: "direction", // 방향
@@ -831,7 +831,7 @@ const sectionNodeDef = {
         { name: "row", dispName: "가로" },
         { name: "column", dispName: "세로" },
       ],
-      uxSize: 2,
+      uxSize: 6,
     },
     {
       name: "size", // 크기
@@ -839,7 +839,7 @@ const sectionNodeDef = {
       icon: null,
       color: null,
       featureType: NexFeatureType.STRING, // 크기는 문자열로 처리
-      uxSize: 2,
+      uxSize: 6,
     },
     {
       name: "padding",
