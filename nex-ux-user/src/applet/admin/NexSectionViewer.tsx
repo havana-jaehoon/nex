@@ -10,13 +10,16 @@ import NexPagePreviewer from "./lib/NexPagePreviewer";
 import {
   Autocomplete,
   Box,
+  Button,
   FormControl,
   FormControlLabel,
   FormLabel,
   Grid,
   IconButton,
+  MenuItem,
   Radio,
   RadioGroup,
+  Select,
   Stack,
   TextField,
 } from "@mui/material";
@@ -36,10 +39,11 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
   const [isPreview, setPreviewMode] = useState<boolean>(false);
   const [isMouseEnter, setMouseEnter] = useState(false);
   const [isFocus, setFocus] = useState(false);
-  const [section, setSection] = useState<any>(null);
+  //const [section, setSection] = useState<any>(null);
 
   //const [selectedRecord, setSelectedRecord] = useState<any>(null);
   const [selectedSection, setSelectedSection] = useState<any>(null);
+  const [selectedRecord, setSelectedRecord] = useState<any>(null);
 
   const [routeList, setRouteList] = useState<string[]>([]);
   const [route, setRoute] = useState<string>("");
@@ -82,10 +86,20 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
       ? cts.indexes?.map((i: number) => cts.data[i]) || []
       : cts.data || [];
 
-    const treeData = buildAdminConfig(tdata);
+    //const treeData = buildAdminConfig(tdata);
     setData(tdata);
     setFeatures(cts.format?.features || []);
     // routeList 작성 (부모 경로와 상대 경로를 결합하도록 수정)
+
+    //console.log("NexSectionViewer routeList:", JSON.stringify(rlist, null, 2));
+    //setRouteList(rlist);
+    //if (rlist.length > 0) setRoute(rlist[0]);
+  }, [contents]);
+
+  const section = useMemo(() => {
+    if (!data) return [];
+    const tree = buildAdminConfig(data);
+
     const collectRoutes = (nodes: any[]): string[] => {
       const out: string[] = [];
       const seen = new Set<string>();
@@ -168,25 +182,22 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
       return out;
     };
 
-    const rlist = collectRoutes(treeData);
+    const rlist = collectRoutes(tree);
     setRouteList(rlist);
     setRoute((prev) => (prev && rlist.includes(prev) ? prev : rlist[0] || ""));
 
-    if (treeData && treeData.length > 0) {
-      setSection(treeData[0]);
+    if (selectedIndex >= 0) {
+      const record = data
+        ? data.find((record: any) => record[0] === selectedIndex)
+        : null;
+      if (record) {
+        setSelectedSection(Object.values(record[4])[0]);
+        setSelectedRecord(record);
+      }
     }
-    //console.log("NexSectionViewer routeList:", JSON.stringify(rlist, null, 2));
-    //setRouteList(rlist);
-    //if (rlist.length > 0) setRoute(rlist[0]);
-  }, [contents]);
 
-  const handleApply = (newData: any) => {
-    //console.log("onApply : ", JSON.stringify(newData, null, 2));
-    const bres = onUpdate?.(0, newData);
-    if (!bres) {
-      window.alert("Data update failed");
-    }
-  };
+    return tree.length > 0 ? tree[0] : null;
+  }, [data]);
 
   const handleSelect = (path: string, index: number) => {
     const record = data
@@ -207,79 +218,157 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
     console.log("handleSelect : ", record ? Object.values(record[4])[0] : null);
     setSelectedIndex(index);
     setSelectedSection(record ? Object.values(record[4])[0] : null);
+    setSelectedRecord(record);
     onSelect?.(storeIndex, record);
   };
 
-  const handleAdd = (row: any) => {
-    console.log("handleAddSection : ", JSON.stringify(row, null, 2));
-    //onAdd?.(storeIndex, row);
-  };
-
-  const handleRemove = (row: any) => {
-    console.log("handleRemoveSection : ", JSON.stringify(row, null, 2));
-    onRemove?.(storeIndex, row);
-  };
-
-  const increase = () => {
+  const handleAdd = async () => {
     if (selectedIndex < 0 || !selectedSection) return;
 
-    const newSection = { ...selectedSection };
-    newSection.size = clamp((newSection.size || 1) + 1, 1, 100);
+    const newRecord = data
+      ? data.find((record: any) => record[0] === selectedIndex)
+      : null;
+    if (!newRecord || newRecord.length !== 5) return;
 
-    setSelectedSection(newSection);
-    console.log(
-      "increase new section size:",
-      JSON.stringify(newSection, null, 2)
-    );
-    const newRecord = data ? data[selectedIndex] : null;
+    const keys = Object.keys(newRecord[4] || {});
+    if (keys.length === 0) return;
+    const key = keys[0];
+
+    //const prevSection: any = (newRecord[4] as any)[key] || {};
     newRecord[4] = {
       ...newRecord[4],
-      [Object.keys(newRecord[4])[0]]: newSection,
+      [key]: selectedSection,
     };
-    //onUpdate?.(storeIndex, selectedRecord);
+
+    const bres = await onAdd?.(storeIndex, newRecord);
+    if (!bres) {
+      window.alert("추가에 실패했습니다.");
+    } //onAdd?.(storeIndex, row);
   };
 
-  const decrease = () => {
+  const handleUpdate = async () => {
     if (selectedIndex < 0 || !selectedSection) return;
 
-    const newSection = { ...selectedSection };
-    newSection.size = clamp((newSection.size || 1) - 1, 1, 100);
+    const newRecord = data
+      ? data.find((record: any) => record[0] === selectedIndex)
+      : null;
+    if (!newRecord || newRecord.length !== 5) return;
 
-    setSelectedSection(newSection);
-    console.log(
-      "decrease new section size:",
-      JSON.stringify(newSection, null, 2)
-    );
-    const newRecord = data ? data[selectedIndex] : null;
+    const keys = Object.keys(newRecord[4] || {});
+    if (keys.length === 0) return;
+    const key = keys[0];
+
+    //const prevSection: any = (newRecord[4] as any)[key] || {};
     newRecord[4] = {
       ...newRecord[4],
-      [Object.keys(newRecord[4])[0]]: newSection,
-    }; //onUpdate?.(storeIndex, selectedRecord);
+      [key]: selectedSection,
+    };
+
+    const bres = await onUpdate?.(storeIndex, newRecord);
+    if (!bres) {
+      window.alert("업데이트에 실패했습니다.");
+    }
   };
 
-  const modeSelector = (
-    <FormControl
-      onChange={(e) => {
-        const v = (e.target as HTMLInputElement).value;
-        setPreviewMode(v === "preview" ? true : false);
-      }}
-    >
-      <FormLabel id="nex-section-preview">모드</FormLabel>
-      <RadioGroup
-        row
-        aria-labelledby="nex-section-preview"
-        name="nex-section-preview-radio-group"
-        value={isPreview ? "preview" : "editting"}
-      >
-        <FormControlLabel value={"editting"} control={<Radio />} label="편집" />
-        <FormControlLabel
-          value={"preview"}
-          control={<Radio />}
-          label="미리보기"
-        />
-      </RadioGroup>
-    </FormControl>
-  );
+  const handleRemove = async () => {
+    if (selectedIndex < 0 || !selectedSection) return;
+
+    const newRecord = data
+      ? data.find((record: any) => record[0] === selectedIndex)
+      : null;
+    if (!newRecord || newRecord.length !== 5) return;
+
+    const keys = Object.keys(newRecord[4] || {});
+    if (keys.length === 0) return;
+    const key = keys[0];
+
+    //const prevSection: any = (newRecord[4] as any)[key] || {};
+
+    const bres = await onRemove?.(storeIndex, newRecord);
+    if (!bres) {
+      window.alert("삭제에 실패했습니다.");
+    }
+  };
+
+  const setValues = async (type: string, value: any) => {
+    if (!selectedSection) return;
+
+    const allowed = new Set([
+      "name",
+      "dispName",
+      "direction",
+      "padding",
+      "gap",
+      "border",
+      "borderRadius",
+    ] as const);
+
+    if (!allowed.has(type as any)) return;
+    setSelectedSection({ ...selectedSection, [type]: value });
+  };
+
+  const resize = async (diff: number) => {
+    if (selectedIndex < 0) return;
+
+    const newRecord = data
+      ? data.find((record: any) => record[0] === selectedIndex)
+      : null;
+    if (!newRecord || newRecord.length !== 5) return;
+
+    const keys = Object.keys(newRecord[4] || {});
+    if (keys.length === 0) return;
+    const key = keys[0];
+
+    const prevSection: any = (newRecord[4] as any)[key] || {};
+
+    const size = clamp(Number(prevSection.size ?? 1) + diff, 1, 100);
+    if (size === Number(prevSection.size)) return;
+    newRecord[4] = {
+      ...newRecord[4],
+      [key]: {
+        ...prevSection,
+        size: clamp(Number(prevSection.size ?? 1) + diff, 1, 100),
+      },
+    };
+
+    console.log(
+      `resize section(diff=${diff}): ${JSON.stringify(newRecord, null, 2)}`
+    );
+    const bres = await onUpdate?.(storeIndex, newRecord);
+    if (!bres) {
+      newRecord[4] = {
+        ...newRecord[4],
+        [key]: prevSection,
+      };
+    }
+  };
+
+  const reorder = async (diff: number) => {
+    if (selectedIndex < 0) return;
+    // TODO 순서 변경
+    const newRecord = data
+      ? data.find((record: any) => record[0] === selectedIndex)
+      : null;
+    if (!newRecord || newRecord.length !== 5) return;
+    const keys = Object.keys(newRecord[4] || {});
+    if (keys.length === 0) return;
+    const orderIndex = Number(keys[0]);
+    const values = Object.values(newRecord[4] || {});
+    if (values.length === 0) return;
+    const prevSection: any = values[0] || {};
+
+    newRecord[4] = { [orderIndex + diff]: prevSection };
+
+    console.log(
+      `reorder section(diff=${diff}): ${JSON.stringify(newRecord, null, 2)}`
+    );
+
+    const bres = await onUpdate?.(storeIndex, newRecord);
+    console.log("reorder result:", JSON.stringify(bres, null, 2));
+    if (!bres) {
+      newRecord[4] = { [orderIndex]: prevSection };
+    }
+  };
 
   const pageSelector = (
     <Grid container spacing={3} columns={12} width="100%" alignItems="flex-end">
@@ -305,7 +394,7 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
               setPreviewMode(v === "preview" ? true : false);
             }}
           >
-            <FormLabel id="nex-section-preview">모드</FormLabel>
+            <FormLabel id="nex-section-preview">편집 모드</FormLabel>
             <RadioGroup
               row
               aria-labelledby="nex-section-preview"
@@ -315,12 +404,12 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
               <FormControlLabel
                 value={"editting"}
                 control={<Radio />}
-                label="편집"
+                label="레이어"
               />
               <FormControlLabel
                 value={"preview"}
                 control={<Radio />}
-                label="미리보기"
+                label="애플릿"
               />
             </RadioGroup>
           </FormControl>
@@ -336,7 +425,7 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
         <Stack spacing={1} direction="row" alignItems="center">
           <IconButton
             title="크게"
-            onClick={() => increase()}
+            onClick={() => resize(1)}
             size="small"
             sx={{ border: "1px solid gray", borderRadius: 1.5 }}
           >
@@ -344,7 +433,7 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
           </IconButton>
           <IconButton
             title="작게"
-            onClick={() => decrease()}
+            onClick={() => resize(-1)}
             size="small"
             sx={{ border: "1px solid gray", borderRadius: 1.5 }}
           >
@@ -357,7 +446,7 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
         <Stack spacing={1} direction="row" alignItems="center">
           <IconButton
             title="앞으로"
-            onClick={() => null}
+            onClick={() => reorder(-1)}
             size="small"
             sx={{ border: "1px solid gray", borderRadius: 1.5 }}
           >
@@ -365,7 +454,7 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
           </IconButton>
           <IconButton
             title="뒤로"
-            onClick={() => null}
+            onClick={() => reorder(1)}
             size="small"
             sx={{ border: "1px solid gray", borderRadius: 1.5 }}
           >
@@ -376,25 +465,6 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
     </Stack>
   );
 
-  const directionSelector = (
-    <FormControl
-      onChange={(e) => {
-        const v = (e.target as HTMLInputElement).value;
-        setPreviewMode(v === "preview" ? true : false);
-      }}
-    >
-      <FormLabel id="nex-section-preview">방향</FormLabel>
-      <RadioGroup
-        row
-        aria-labelledby="nex-section-preview"
-        name="nex-section-preview-radio-group"
-        value={selectedSection?.direction || "row"}
-      >
-        <FormControlLabel value={"row"} control={<Radio />} label="가로" />
-        <FormControlLabel value={"column"} control={<Radio />} label="세로" />
-      </RadioGroup>
-    </FormControl>
-  );
   // name, dispName, padding , gap, boarder, boarderRadius
 
   const baseEditor = (
@@ -413,9 +483,7 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
           label={"이름(영문)"}
           value={String(selectedSection?.name || "")}
           style={{ width: "100%" }}
-          onChange={(e) =>
-            setSelectedSection({ ...selectedSection, name: e.target.value })
-          }
+          onChange={(e) => setValues("name", e.target.value)}
         />
       </Grid>
 
@@ -426,12 +494,53 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
           label={"표시이름"}
           value={String(selectedSection?.dispName || "")}
           style={{ width: "100%" }}
-          onChange={(e) =>
-            setSelectedSection({ ...selectedSection, dispName: e.target.value })
-          }
+          onChange={(e) => setValues("dispName", e.target.value)}
+        />
+      </Grid>
+      <Grid item xs={"auto"} sm={"auto"} md={0.5}>
+        <FormControl title={"방향"} variant="standard" sx={{ width: "100%" }}>
+          <Select
+            value={selectedSection?.direction || "row"}
+            onChange={(e: any) => {
+              setValues("direction", e.target.value);
+            }}
+            label={"방향"}
+            style={{ width: "100%" }}
+          >
+            <MenuItem value="row">{"가로"}</MenuItem>
+            <MenuItem value="column">{"세로"}</MenuItem>
+          </Select>
+        </FormControl>
+      </Grid>
+      <Grid item xs={"auto"} sm={"auto"} md={0.5}>
+        <TextField
+          size="medium"
+          variant="standard"
+          type="text"
+          label={"간격"}
+          value={selectedSection?.gap || 0}
+          onChange={(e) => setValues("gap", e.target.value)}
+          style={{ width: "100%" }}
+          inputProps={{
+            style: { textAlign: "right" },
+          }}
         />
       </Grid>
 
+      <Grid item xs={"auto"} sm={"auto"} md={0.5}>
+        <TextField
+          size="medium"
+          variant="standard"
+          type="text"
+          label={"패딩"}
+          value={selectedSection?.padding || 0}
+          onChange={(e) => setValues("padding", e.target.value)}
+          style={{ width: "100%" }}
+          inputProps={{
+            style: { textAlign: "right" },
+          }}
+        />
+      </Grid>
       <Grid item xs={"auto"} sm={"auto"} md={2}>
         <TextField
           size="medium"
@@ -439,10 +548,7 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
           label={"테두리"}
           value={String(selectedSection?.border || "")}
           style={{ width: "100%" }}
-          onChange={(e) =>
-            selectedSection &&
-            setSelectedSection({ ...selectedSection, border: e.target.value })
-          }
+          onChange={(e) => setValues("border", e.target.value)}
           inputProps={{
             style: { textAlign: "right" },
           }}
@@ -455,64 +561,26 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
           label={"모서리반경"}
           value={String(selectedSection?.borderRadius || "")}
           style={{ width: "100%" }}
-          onChange={(e) =>
-            selectedSection &&
-            setSelectedSection({
-              ...selectedSection,
-              borderRadius: e.target.value,
-            })
-          }
+          onChange={(e) => setValues("borderRadius", e.target.value)}
           inputProps={{
             style: { textAlign: "right" },
           }}
         />
       </Grid>
-      <Grid item xs={"auto"} sm={"auto"} md={0.5}>
-        <TextField
-          size="medium"
-          variant="standard"
-          type="number"
-          label={"간격"}
-          value={selectedSection?.gap || 0}
-          onChange={(e) =>
-            setSelectedSection({
-              ...selectedSection,
-              gap: Number(e.target.value),
-            })
-          }
-          style={{ width: "100%" }}
-          inputProps={{
-            style: { textAlign: "right" },
-          }}
-        />
-      </Grid>
-      <Grid item xs={"auto"} sm={"auto"} md={0.5}>
-        <TextField
-          size="medium"
-          variant="standard"
-          type="number"
-          label={"패딩"}
-          value={selectedSection?.padding || 0}
-          onChange={(e) =>
-            selectedSection &&
-            setSelectedSection({
-              ...selectedSection,
-              padding: Number(e.target.value),
-            })
-          }
-          style={{ width: "100%" }}
-          inputProps={{
-            style: { textAlign: "right" },
-          }}
-        />
-      </Grid>
+
       <Grid item xs={"auto"} sm={"auto"} md={2} justifyItems="center">
         {resizeButton}
       </Grid>
-      <Grid item xs={"auto"} sm={"auto"} md={3} justifyItems="flex-end">
-        <NexDiv width="100%" justify="flex-end" align="end">
-          {directionSelector}
-        </NexDiv>
+      <Grid item xs={"auto"} sm={"auto"} md={2} justifyItems="center">
+        <Button size="large" variant="contained" onClick={() => handleUpdate()}>
+          업데이트
+        </Button>{" "}
+        <Button size="large" variant="contained" onClick={() => handleAdd()}>
+          추가
+        </Button>{" "}
+        <Button size="large" variant="contained" onClick={() => handleRemove()}>
+          삭제
+        </Button>
       </Grid>
     </Grid>
   );
