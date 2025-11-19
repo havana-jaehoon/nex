@@ -19,13 +19,15 @@ def _generateElementConfig(element_name: str) -> dict:
 
 
 def generateConfig(storage_config: dict, schema: Optional[str] = None) -> Optional[Dict[str, List[dict]]]:
-    storage_info = StorageApi.getStorageInfo(storage_config)
-    if not storage_info:
+    storage_v = StorageApi.getStorageInfo(storage_config)
+    if not storage_v:
+        return None
+
+    storage_type, storage_info = storage_v
+    if storage_type.upper() != "DB":
         return None
 
     storage = StorageApi.createDbStorageInstance(storage_info)
-    if not storage:
-        return None
 
     element_list: List[dict] = []
     format_list: List[dict] = []
@@ -43,7 +45,7 @@ def generateConfig(storage_config: dict, schema: Optional[str] = None) -> Option
 
 
 if __name__ == "__main__":
-    sample_oracle_cbm_config = {
+    sample_cbm_oracle_config = {
         "name": "cbm_oracle_db",
         "dispName": "CBM DB",
         "description": "CBM DB",
@@ -64,7 +66,7 @@ if __name__ == "__main__":
         }
     }
 
-    sample_mysql_cbm_config = {
+    sample_cbm_mysql_config = {
         "name": "cbm_mysql_db",
         "dispName": "CBM DB",
         "description": "CBM DB",
@@ -88,6 +90,31 @@ if __name__ == "__main__":
         }
     }
 
-    # config = generateConfig(sample_oracle_cbm_config, "CBM")
-    config = generateConfig(sample_mysql_cbm_config)
+    sample_vfras_mysql_config = {
+        "name": "vfras_mysql_db",
+        "dispName": "VFRAS DB",
+        "description": "VFRAS DB",
+        "type": "storage",
+        "storageType": "db",
+        "db": {
+            "dbType": "mysql",
+            "ip": "121.134.202.235",
+            "port": 3306,
+            "user": "vfras-user",
+            "password": "my-user1",
+            "name": "VFRAS",
+            "param": {
+                "charset": "UTF8"
+            }
+        },
+        "hdfs": {
+            "ip": "",
+            "port": 9000,
+            "path": ""
+        }
+    }
+
+    # config = generateConfig(sample_cbm_oracle_config, "CBM")
+    # config = generateConfig(sample_cbm_mysql_config)
+    config = generateConfig(sample_vfras_mysql_config)
     print(json.dumps(config, indent=2, ensure_ascii=False))
