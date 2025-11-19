@@ -1,5 +1,6 @@
-import threading
+import copy
 import pandas as pd
+from readerwriterlock import rwlock
 from typing import Dict, Tuple, Optional
 from fastapi import APIRouter, Request
 from starlette.responses import JSONResponse, PlainTextResponse, Response
@@ -60,7 +61,7 @@ async def _encode_reqHandler_args(request: Request) -> HandlerArgs:
                        body_data)
 
 
-class HealthController:
+class HealthRouteProc:
 
     def __init__(self):
         pass
@@ -69,19 +70,21 @@ class HealthController:
         return {"status": "ok"}
 
 
-class DynamicController:
+class DynamicRouteProc:
 
     def __init__(self):
         self._logger = Logger()
         self._routes: Dict[str, Tuple[Server_Dynamic_Handler, dict]] = {}
-        self._lock = threading.Lock()
+        self._routeRWLock = rwlock.RWLockFairD()
+        self._routeRLock = self._routeRWLock.gen_rlock()
+        self._routeWLock = self._routeRWLock.gen_wlock()
 
     def add_route(self, path: str, handler: Server_Dynamic_Handler, kwargs: dict = None):
-        with self._lock:
+        with self._routeWLock:
             self._routes[path] = (handler, kwargs)
 
     def remove_route(self, path: str):
-        with self._lock:
+        with self._routeWLock:
             del self._routes[path]
 
     async def route(self, req: Request, full_path: str) -> Response:
@@ -89,18 +92,27 @@ class DynamicController:
         try:
             handler_args = await _encode_reqHandler_args(req)
         except HttpException as e:
-            Logger().log_error(f"HttpServer : route({full_path}) : fail : exception : {e}")
+            Logger().log_error(f"HttpServer : route({full_path}) : fail : HttpException : {e}")
             return PlainTextResponse(status_code=e.error_code, content=e.message)
 
         # find handler
-        match_base_path = ""
-        for base_path in self._routes.keys():
-            if HttpUtil.is_match_url(base_path, full_path) and len(base_path) > len(match_base_path):
-                match_base_path = base_path
-        if len(match_base_path) == 0:
-            self._logger.log_error(f"HttpServer : route({full_path}) : fail : No route")
-            return PlainTextResponse(status_code=404, content=f"No route for '{full_path}'")
-        handler, kwargs = self._routes[match_base_path]
+        with self._routeRLock:
+            match_base_path = ""
+            for base_path in self._routes.keys():
+                if HttpUtil.is_match_url(base_path, full_path) and len(base_path) > len(match_base_path):
+                    match_base_path = base_path
+            if len(match_base_path) == 0:
+                self._logger.log_error(f"HttpServer : route({full_path}) : fail : No route")
+                return PlainTextResponse(status_code=404, content=f"No route for '{full_path}'")
+            handler_info = self._routes.get(match_base_path)
+            if handler_info is None:
+                self._logger.log_error(f"HttpServer : route({full_path}) : fail : No handler")
+                return PlainTextResponse(status_code=500, content=f"No handler for '{full_path}'")
+            handler, kwargs = handler_info
+            if kwargs is None:
+                kwargs = {}
+            else:
+                kwargs = copy.deepcopy(kwargs)
 
         # execute handler
         try:
@@ -119,8 +131,8 @@ class HttpServerController:
 
     def __init__(self, router: APIRouter):
         self._logger = Logger()
-        self._dynamic_controller = DynamicController()
-        self._health_controller = HealthController()
+        self._dynamic_controller = DynamicRouteProc()
+        self._health_controller = HealthRouteProc()
         self._controller_mapping = {
             HttpServerController.SUB_URL_HEALTH:    (self._health_controller.health, ["GET"]),
             HttpServerController.SUB_URL_DYNAMIC:   (self._dynamic_controller.route, ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"])

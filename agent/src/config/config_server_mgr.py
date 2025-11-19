@@ -1,4 +1,5 @@
-import threading, json
+import copy, json
+from readerwriterlock import rwlock
 from typing import List, Tuple
 
 import url_def
@@ -24,7 +25,9 @@ class ConfigServerMgr(ConfigBaseMgr):
                                            ConfigServerMgr.SYSTEM_NAME,
                                            SystemInfoMgr().secretKey,
                                            'token_jwt')
-        self._systemDataMapLock = threading.Lock()
+        self._systemDataMapRWLock = rwlock.RWLockFairD()
+        self._systemDataMapRLock = self._systemDataMapRWLock.gen_rlock()
+        self._systemDataMapWLock = self._systemDataMapRWLock.gen_wlock()
         self._systemDataMap = {}
         self._cfgReader = ConfigReader(SystemInfoMgr().admin_data_dir)
 
@@ -80,7 +83,7 @@ class ConfigServerMgr(ConfigBaseMgr):
             self._logger.log_error(f'ConfigServerMgr : loadSystemData : fail to {tb_str}')
             raise Exception(f'ConfigServerMgr : loadSystemData fail to {tb_str}')
         else:
-            with self._systemDataMapLock:
+            with self._systemDataMapWLock:
                 self._systemDataMap = system_dataMap
                 self._logger.log_info(f'ConfigServerMgr : loadSystemData : load success')
 
@@ -103,8 +106,8 @@ class ConfigServerMgr(ConfigBaseMgr):
             raise Exception(f'ConfigServerMgr : loadOwnConfig fail to {e}')
 
     def _getSystemData(self, system_name: str) -> dict:
-        with self._systemDataMapLock:
-            return self._systemDataMap.get(system_name, {})
+        with self._systemDataMapRLock:
+            return copy.deepcopy(self._systemDataMap.get(system_name, {}))
 
     async def _get(self, handler_args: HandlerArgs, kwargs: dict) -> HandlerResult:
         try:
