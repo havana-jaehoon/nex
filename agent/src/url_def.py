@@ -1,0 +1,9 @@
+
+DATA_URL_PREFIX = '/data-api'
+CONFIG_URL_PREFIX = '/config-api'
+
+
+AUTH_INIT_SUB_URL = CONFIG_URL_PREFIX + '/auth/initiate'
+AUTH_PASS_SUB_URL = CONFIG_URL_PREFIX + '/auth/pass'
+AUTH_TOKEN_SUB_URL = CONFIG_URL_PREFIX + '/auth/token'
+AGENT_CONFIG_QUERY_SUB_URL = CONFIG_URL_PREFIX + '/agent/config/query'
