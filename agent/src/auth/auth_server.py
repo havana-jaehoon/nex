@@ -118,8 +118,13 @@ class AuthServer(AuthBase):
         handler_result = HandlerResult()
         agent_id = None
         try:
-            profile_df = await ElementMgr().getData(AuthServer.PROFILE_ELEMENT_ID)
-            agent_id, handler_result = self._procInitReq(handler_args.body, profile_df)
+            if handler_args.method != 'POST':
+                Logger().log_error(f'AuthServer : AuthInit : method is not valid : {handler_args.method}')
+                handler_result.status = 405
+                handler_result.body = 'method is not valid'
+            else:
+                profile_df = await ElementMgr().getData(AuthServer.PROFILE_ELEMENT_ID)
+                agent_id, handler_result = self._procInitReq(handler_args.body, profile_df)
         except ValidationError as e:
             Logger().log_error(f'AuthServer : AuthInit : Pydantic validation failed: {e}')
             handler_result.status = 400
@@ -139,10 +144,15 @@ class AuthServer(AuthBase):
         handler_result = HandlerResult()
         agent_id = None
         try:
-            profile_df = await ElementMgr().getData(AuthServer.PROFILE_ELEMENT_ID)
-            agent_id, handler_result, agent_access = self._procTokenReq(handler_args.client_ip, handler_args.body, profile_df)
-            if handler_result.status == 200:
-                ElementMgr().setData(AuthServer.ACCESS_ELEMENT_ID, pd.DataFrame([asdict(agent_access)]))
+            if handler_args.method != 'POST':
+                Logger().log_error(f'AuthServer : AuthToken : method is not valid : {handler_args.method}')
+                handler_result.status = 405
+                handler_result.body = 'method is not valid'
+            else:
+                profile_df = await ElementMgr().getData(AuthServer.PROFILE_ELEMENT_ID)
+                agent_id, handler_result, agent_access = self._procTokenReq(handler_args.client_ip, handler_args.body, profile_df)
+                if handler_result.status == 200:
+                    ElementMgr().setData(AuthServer.ACCESS_ELEMENT_ID, pd.DataFrame([asdict(agent_access)]))
         except ValidationError as e:
             Logger().log_error(f'AuthServer : AuthToken : Pydantic validation failed: {e}')
             handler_result.status = 400
@@ -157,13 +167,6 @@ class AuthServer(AuthBase):
             handler_result.body = f'exception : {e}'
         Logger().log_info(f'AuthServer : AuthToken : agent({agent_id}) : response {handler_result.status}, {handler_result.body}')
         return handler_result
-
-    def getQueryHandlers(self) -> List[Tuple[str, Server_Dynamic_Handler, dict]]:
-        handler_list: List[Tuple[str, Server_Dynamic_Handler, dict]] = [
-            (url_def.AUTH_INIT_SUB_URL, self._rcvAuthInit, {}),
-            (url_def.AUTH_TOKEN_SUB_URL, self._rcvAuthToken, {}),
-        ]
-        return handler_list
 
     def init(self, **kwargs) -> bool:
         self._logger.log_info(f'AuthServer : init : start')
@@ -189,3 +192,10 @@ class AuthServer(AuthBase):
     @staticmethod
     def getAccessElementId() -> str:
         return AuthServer.ACCESS_ELEMENT_ID
+
+    def getQueryHandlers(self) -> List[Tuple[str, Server_Dynamic_Handler, dict]]:
+        handler_list: List[Tuple[str, Server_Dynamic_Handler, dict]] = [
+            (url_def.AUTH_INIT_SUB_URL, self._rcvAuthInit, {}),
+            (url_def.AUTH_TOKEN_SUB_URL, self._rcvAuthToken, {}),
+        ]
+        return handler_list

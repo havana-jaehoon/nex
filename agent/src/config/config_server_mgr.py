@@ -1,4 +1,5 @@
-import threading, json
+import copy, json
+from readerwriterlock import rwlock
 from typing import List, Tuple
 
 import url_def
@@ -24,7 +25,9 @@ class ConfigServerMgr(ConfigBaseMgr):
                                            ConfigServerMgr.SYSTEM_NAME,
                                            SystemInfoMgr().secretKey,
                                            'token_jwt')
-        self._systemDataMapLock = threading.Lock()
+        self._systemDataMapRWLock = rwlock.RWLockFairD()
+        self._systemDataMapRLock = self._systemDataMapRWLock.gen_rlock()
+        self._systemDataMapWLock = self._systemDataMapRWLock.gen_wlock()
         self._systemDataMap = {}
         self._cfgReader = ConfigReader(SystemInfoMgr().admin_data_dir)
 
@@ -80,7 +83,7 @@ class ConfigServerMgr(ConfigBaseMgr):
             self._logger.log_error(f'ConfigServerMgr : loadSystemData : fail to {tb_str}')
             raise Exception(f'ConfigServerMgr : loadSystemData fail to {tb_str}')
         else:
-            with self._systemDataMapLock:
+            with self._systemDataMapWLock:
                 self._systemDataMap = system_dataMap
                 self._logger.log_info(f'ConfigServerMgr : loadSystemData : load success')
 
@@ -103,11 +106,14 @@ class ConfigServerMgr(ConfigBaseMgr):
             raise Exception(f'ConfigServerMgr : loadOwnConfig fail to {e}')
 
     def _getSystemData(self, system_name: str) -> dict:
-        with self._systemDataMapLock:
-            return self._systemDataMap.get(system_name, {})
+        with self._systemDataMapRLock:
+            return copy.deepcopy(self._systemDataMap.get(system_name, {}))
 
     async def _get(self, handler_args: HandlerArgs, kwargs: dict) -> HandlerResult:
         try:
+            if handler_args.method != 'GET':
+                self._logger.log_error(f'ConfigServerMgr : config query : invalid method')
+                return HandlerResult(status=405, body=f'invalid method')
             project = handler_args.query_params.get('project', '')
             system = handler_args.query_params.get('system', '')
             self._logger.log_info(f'ConfigServerMgr : {project}, {system} : config query : start')
@@ -124,6 +130,17 @@ class ConfigServerMgr(ConfigBaseMgr):
         except Exception as e:
             self._logger.log_error(f'ConfigServerMgr : config query ({handler_args, kwargs}) : {e}')
             return HandlerResult(status=500, body=f'exception : {e}')
+
+    async def _adminDataRefresh(self, handler_args: HandlerArgs, kwargs: dict) -> HandlerResult:
+        try:
+            self._logger.log_info(f'ConfigServerMgr : admin-data refresh : start')
+            self._loadSystemData()
+            self._logger.log_info(f'ConfigServerMgr : admin-data refresh : success')
+            return HandlerResult(status=200, body='success')
+        except Exception as e:
+            self._logger.log_error(f'ConfigServerMgr : admin-data refresh ({handler_args, kwargs}) : {e}')
+            return HandlerResult(status=500, body=f'exception : {e}')
+
 
     def start(self):
         self._logger.log_info(f'ConfigServerMgr : start')
@@ -145,7 +162,8 @@ class ConfigServerMgr(ConfigBaseMgr):
 
     def getQueryHandlers(self) -> List[Tuple[str, Server_Dynamic_Handler, dict]]:
         handler_list: List[Tuple[str, Server_Dynamic_Handler, dict]] = [
-            (url_def.AGENT_CONFIG_QUERY_SUB_URL,    self._get,      {}),
+            (url_def.AGENT_CONFIG_QUERY_SUB_URL,    self._get,                      {}),
+            (url_def.ADMIN_CONFIG_REFRESH,          self._adminDataRefresh,         {})
         ]
         handler_list.extend(self._auth.getQueryHandlers())
         return handler_list
