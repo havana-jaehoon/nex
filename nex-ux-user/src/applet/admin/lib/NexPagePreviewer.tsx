@@ -35,7 +35,7 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
   //const [route, setRoute] = React.useState<string>("");
 
   const [hovered, setHovered] = React.useState(false);
-  const isRoutes = section && section.isRoutes === true;
+  const isRoutes = section && Boolean(section.isRoutes) === true;
   const isContents = section && section.contents;
   const isLastSection = section && !section.children;
   const isApplet = section && section.applet && section.applet !== "";
@@ -212,7 +212,7 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
         position: "relative",
       }}
     >
-      {section.name}
+      {section.dispName || section.name}
       {/*resizeButtones()*/}
     </NexDiv>
   ) : (
@@ -222,7 +222,7 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
       color="gray"
       style={{ position: "relative" }}
     >
-      {section.name}
+      {section.dispName || section.name}
       {/*resizeButtones()*/}
     </NexDiv>
   );
@@ -231,12 +231,27 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
     if (!Array.isArray(section.children) || section.children.length === 0)
       return null;
 
-    let childSection = (section.children as any[]).find((child) => {
-      const curRoute = child.route;
-      const isRouteMatch = route.startsWith(curRoute);
+    let curRoute = route.replace(/^\/+|\/+$/g, "").replace(/\*+$/g, "");
+    console.log("NexPagePreviewer: routeView - route=", route);
 
-      return child.route === route;
+    let childSection = (section.children as any[]).find((child) => {
+      const childRoute = child.route
+        .replace(/^\/+|\/+$/g, "")
+        .replace(/\*+$/g, "");
+
+      console.log(
+        `NexPagePreviewer: routeView - curRoute=${curRoute}, childRoute=${childRoute}`
+      );
+      const isRouteMatch = curRoute.startsWith(childRoute);
+      if (isRouteMatch) {
+        curRoute = curRoute.substring(childRoute.length);
+        return true;
+      }
+      return false;
     });
+
+    // route 에서 childSection 의 route 를 제거 하여 나머지 경로로 다시 찾기
+    // 맨 앞 뒤의 / 는 제거, 맨 마지막 * 도 제거
 
     childSection = childSection || (section.children as any[])[0];
     //if (!childSection) return null;
@@ -244,7 +259,7 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
       <NexPagePreviewer
         isPreview={isPreview}
         path={path + "/" + childSection.name}
-        route={route}
+        route={curRoute}
         section={childSection}
         selectedIndex={selectedIndex}
         style={style}
@@ -258,32 +273,32 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
   const childView = () => {
     if (isRoutes) {
       return routeView();
+    } else {
+      if (isLastSection) {
+        return lastView;
+      }
+
+      if (!Array.isArray(section.children) || section.children.length === 0)
+        return null;
+
+      return (section.children as any[]).map((child, index) => {
+        //console.log("NexPagePreviewer child:", JSON.stringify(child, null, 2));
+        return (
+          <NexPagePreviewer
+            isPreview={isPreview}
+            path={path + "/" + child.name}
+            route={route}
+            key={`${child.name}-${index}`}
+            section={child}
+            selectedIndex={selectedIndex}
+            style={style}
+            isVisibleBorder={isVisibleBorder}
+            isVisibleTitle={isVisibleTitle}
+            onSelect={onSelect}
+          />
+        );
+      });
     }
-
-    if (isLastSection) {
-      return lastView;
-    }
-
-    if (!Array.isArray(section.children) || section.children.length === 0)
-      return null;
-
-    return (section.children as any[]).map((child, index) => {
-      //console.log("NexPagePreviewer child:", JSON.stringify(child, null, 2));
-      return (
-        <NexPagePreviewer
-          isPreview={isPreview}
-          path={path + "/" + child.name}
-          route={route}
-          key={`${child.name}-${index}`}
-          section={child}
-          selectedIndex={selectedIndex}
-          style={style}
-          isVisibleBorder={isVisibleBorder}
-          isVisibleTitle={isVisibleTitle}
-          onSelect={onSelect}
-        />
-      );
-    });
   };
 
   return (
@@ -321,7 +336,10 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
           bgColor={
             isSelected ? activeColor2 : hovered ? "lightblue" : "lightgray"
           }
-        ></NexDiv>
+        >
+          {" "}
+          {section.dispName || section.name}
+        </NexDiv>
       ) : null}
       <NexDiv
         direction={section.direction || "row"}

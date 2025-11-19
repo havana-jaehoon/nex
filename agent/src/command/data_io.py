@@ -481,20 +481,22 @@ class DataFileIo:
                 return False, "no parent"
             
             # newData[4] 는 { "index_number": node_object } 형태이며, key 가 인덱스
-            newIndex = self._getOrderIndex(newData)
+            newOrderIndex = self._getOrderIndex(newData)
 
             # children 의 Index 를 새로 발행된 인덱스와 비교하여 삽입 하도록 인데스 재조정 
+            print(f"{self.__str__()}::add() - # 1 insert new node at index: {newOrderIndex} under parent path: {parentPath}")
             if len(children) == 0:
                 self._setOrderIndex(copyData, 0)
-            elif len(children) == 0 or len(children) < newIndex or newIndex < 0: # 마지막에 추가
+            elif len(children) == 0 or len(children) < newOrderIndex or newOrderIndex < 0: # 마지막에 추가
                 self._setOrderIndex(copyData, len(children))
             else:
                 for child in children:
                     childIndex = self._getOrderIndex(child)
-                    if newIndex <= childIndex:
+                    if newOrderIndex <= childIndex:
                         self._increaseOrderIndex(child)
 
-
+            
+            print(f"{self.__str__()}::add() - # 2 insert new node at index: {newOrderIndex} under parent path: {parentPath}")
             # 발행된 인덱스로 저장할 파일 및 경로 결정 
             self.lastIndex += 1
             copyData[0] = self.lastIndex # 신규 인덱스 발행

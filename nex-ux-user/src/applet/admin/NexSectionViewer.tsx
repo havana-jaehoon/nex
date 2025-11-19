@@ -11,6 +11,7 @@ import {
   Autocomplete,
   Box,
   Button,
+  Checkbox,
   FormControl,
   FormControlLabel,
   FormLabel,
@@ -31,6 +32,9 @@ import {
   MdNewLabel,
 } from "react-icons/md";
 import { set } from "mobx";
+import { Form } from "react-router-dom";
+import { ServerURL } from "nexConfig";
+import axios from "axios";
 
 const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
   const { contents, theme, user, onUpdate, onSelect, onAdd, onRemove } = props;
@@ -41,7 +45,7 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
   const [isFocus, setFocus] = useState(false);
   //const [section, setSection] = useState<any>(null);
 
-  //const [selectedRecord, setSelectedRecord] = useState<any>(null);
+  const [selectedPath, setSelectedPath] = useState<string>("");
   const [selectedSection, setSelectedSection] = useState<any>(null);
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
 
@@ -199,6 +203,22 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
     return tree.length > 0 ? tree[0] : null;
   }, [data]);
 
+  const handleApplyConfig = async () => {
+    try {
+      await axios
+        .request({
+          method: "get",
+          url: ServerURL + "/cmd-api/dist",
+        })
+        .then((response) => {
+          console.log("NexConfigDistApp::handleClick() response:", response);
+          window.location.reload();
+        });
+    } catch (error) {
+      console.error("Failed to apply config:", error);
+    }
+  };
+
   const handleSelect = (path: string, index: number) => {
     const record = data
       ? data.find((record: any) => record[0] === index)
@@ -217,6 +237,7 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
     );
     console.log("handleSelect : ", record ? Object.values(record[4])[0] : null);
     setSelectedIndex(index);
+    setSelectedPath(path);
     setSelectedSection(record ? Object.values(record[4])[0] : null);
     setSelectedRecord(record);
     onSelect?.(storeIndex, record);
@@ -225,19 +246,20 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
   const handleAdd = async () => {
     if (selectedIndex < 0 || !selectedSection) return;
 
-    const newRecord = data
+    const curRecord = data
       ? data.find((record: any) => record[0] === selectedIndex)
       : null;
-    if (!newRecord || newRecord.length !== 5) return;
+    if (!curRecord || curRecord.length !== 5) return;
 
-    const keys = Object.keys(newRecord[4] || {});
-    if (keys.length === 0) return;
-    const key = keys[0];
+    const newRecord = [...curRecord];
 
+    // -1: 서버에서 인덱스 발행
+    newRecord[0] = -1; // new record
+    newRecord[1] = `${selectedPath}/${selectedSection.name}`; // path;
     //const prevSection: any = (newRecord[4] as any)[key] || {};
+    //-1 : 마지막에 추가
     newRecord[4] = {
-      ...newRecord[4],
-      [key]: selectedSection,
+      [-1]: selectedSection,
     };
 
     const bres = await onAdd?.(storeIndex, newRecord);
@@ -260,7 +282,6 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
 
     //const prevSection: any = (newRecord[4] as any)[key] || {};
     newRecord[4] = {
-      ...newRecord[4],
       [key]: selectedSection,
     };
 
@@ -297,6 +318,10 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
       "name",
       "dispName",
       "direction",
+      "icon",
+      "color",
+      "isRoutes",
+      "route",
       "padding",
       "gap",
       "border",
@@ -324,7 +349,6 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
     const size = clamp(Number(prevSection.size ?? 1) + diff, 1, 100);
     if (size === Number(prevSection.size)) return;
     newRecord[4] = {
-      ...newRecord[4],
       [key]: {
         ...prevSection,
         size: clamp(Number(prevSection.size ?? 1) + diff, 1, 100),
@@ -337,7 +361,6 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
     const bres = await onUpdate?.(storeIndex, newRecord);
     if (!bres) {
       newRecord[4] = {
-        ...newRecord[4],
         [key]: prevSection,
       };
     }
@@ -370,24 +393,72 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
     }
   };
 
+  const resizeButton = (
+    <Stack
+      spacing={2}
+      width="100%"
+      direction="row"
+      alignItems="flex-end"
+      justifyContent="flex-end"
+    >
+      <Button
+        variant="contained"
+        color="inherit"
+        title="크게"
+        onClick={() => resize(1)}
+        size="medium"
+        startIcon={<MdArrowDropUp />}
+        sx={{ flex: 1 }}
+      >
+        크게
+      </Button>
+      <Button
+        variant="contained"
+        color="inherit"
+        title="작게"
+        onClick={() => resize(-1)}
+        size="medium"
+        startIcon={<MdArrowDropDown />}
+        sx={{ flex: 1 }}
+      >
+        작게
+      </Button>
+      <Button
+        variant="contained"
+        color="inherit"
+        title="앞으로"
+        onClick={() => reorder(-1)}
+        size="medium"
+        startIcon={<MdArrowLeft />}
+        sx={{ flex: 1 }}
+      >
+        앞으로
+      </Button>
+      <Button
+        variant="contained"
+        color="inherit"
+        title="뒤로"
+        onClick={() => reorder(1)}
+        size="medium"
+        startIcon={<MdArrowRight />}
+        sx={{ flex: 1 }}
+      >
+        뒤로
+      </Button>
+    </Stack>
+  );
+
   const pageSelector = (
-    <Grid container spacing={3} columns={12} width="100%" alignItems="flex-end">
-      <Grid item xs={"auto"} sm={"auto"} md={4}>
-        <Autocomplete
-          options={routeList}
-          value={route}
-          onChange={(event, newValue) => {
-            console.log("route changed:", newValue);
-            setRoute(newValue || "");
-          }}
-          style={{ width: "100%" }}
-          renderInput={(params) => (
-            <TextField {...params} label="route" variant="standard" />
-          )}
-        />
-      </Grid>
-      <Grid item xs={"auto"} sm={"auto"} md={8}>
-        <NexDiv width="100%" align="flex-end" justify="flex-end">
+    <NexDiv width="100%" align="flex-end">
+      <Stack
+        flex={8}
+        spacing={4}
+        direction="row"
+        width="100%"
+        alignItems="center"
+        justifyContent="flex-start"
+      >
+        <NexDiv align="flex-end" justify="flex-start">
           <FormControl
             onChange={(e) => {
               const v = (e.target as HTMLInputElement).value;
@@ -414,175 +485,229 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
             </RadioGroup>
           </FormControl>
         </NexDiv>
-      </Grid>
-    </Grid>
-  );
 
-  const resizeButton = (
-    <Stack spacing={4} direction="row" alignItems="center">
-      <Stack spacing={1} direction="column" alignItems="flex-start">
-        <NexLabel>크기 </NexLabel>
-        <Stack spacing={1} direction="row" alignItems="center">
-          <IconButton
-            title="크게"
-            onClick={() => resize(1)}
-            size="small"
-            sx={{ border: "1px solid gray", borderRadius: 1.5 }}
-          >
-            <MdArrowDropUp fontSize="large" />
-          </IconButton>
-          <IconButton
-            title="작게"
-            onClick={() => resize(-1)}
-            size="small"
-            sx={{ border: "1px solid gray", borderRadius: 1.5 }}
-          >
-            <MdArrowDropDown fontSize="large" />
-          </IconButton>
-        </Stack>
+        <NexDiv flex="3" align="flex-end" justify="flex-start">
+          <Autocomplete
+            options={routeList}
+            value={route}
+            onChange={(event, newValue) => {
+              console.log("route changed:", newValue);
+              setRoute(newValue || "");
+            }}
+            style={{ width: "100%" }}
+            renderInput={(params) => (
+              <TextField {...params} label="route" variant="standard" />
+            )}
+          />
+        </NexDiv>
+        <NexDiv flex="2" align="flex-end" justify="flex-end">
+          {resizeButton}
+        </NexDiv>
+        <NexDiv flex="2"> </NexDiv>
       </Stack>
-      <Stack spacing={1} direction="column" alignItems="flex-start">
-        <NexLabel>순서 </NexLabel>
-        <Stack spacing={1} direction="row" alignItems="center">
-          <IconButton
-            title="앞으로"
-            onClick={() => reorder(-1)}
-            size="small"
-            sx={{ border: "1px solid gray", borderRadius: 1.5 }}
-          >
-            <MdArrowLeft fontSize="large" />
-          </IconButton>
-          <IconButton
-            title="뒤로"
-            onClick={() => reorder(1)}
-            size="small"
-            sx={{ border: "1px solid gray", borderRadius: 1.5 }}
-          >
-            <MdArrowRight fontSize="large" />
-          </IconButton>
-        </Stack>
-      </Stack>
-    </Stack>
+      <NexDiv flex="1.5">
+        <Button
+          size="large"
+          variant="contained"
+          onClick={() => handleApplyConfig()}
+          sx={{ flex: 1 }}
+        >
+          반영
+        </Button>
+      </NexDiv>
+    </NexDiv>
   );
 
   // name, dispName, padding , gap, boarder, boarderRadius
 
   const baseEditor = (
-    <Grid
-      container
-      spacing={3}
-      columnSpacing={2}
-      columns={12}
-      width="100%"
-      alignItems="flex-end"
-    >
-      <Grid item xs={"auto"} sm={"auto"} md={1}>
-        <TextField
-          size="medium"
-          variant="standard"
-          label={"이름(영문)"}
-          value={String(selectedSection?.name || "")}
-          style={{ width: "100%" }}
-          onChange={(e) => setValues("name", e.target.value)}
-        />
-      </Grid>
-
-      <Grid item xs={"auto"} sm={"auto"} md={1}>
-        <TextField
-          size="medium"
-          variant="standard"
-          label={"표시이름"}
-          value={String(selectedSection?.dispName || "")}
-          style={{ width: "100%" }}
-          onChange={(e) => setValues("dispName", e.target.value)}
-        />
-      </Grid>
-      <Grid item xs={"auto"} sm={"auto"} md={0.5}>
-        <FormControl title={"방향"} variant="standard" sx={{ width: "100%" }}>
-          <Select
-            value={selectedSection?.direction || "row"}
-            onChange={(e: any) => {
-              setValues("direction", e.target.value);
-            }}
-            label={"방향"}
+    <NexDiv width="100%" align="flex-end">
+      <Grid
+        container
+        spacing={3}
+        columnSpacing={2}
+        columns={13}
+        flex="8"
+        alignItems="flex-end"
+      >
+        <Grid item xs={"auto"} sm={"auto"} md={3}>
+          <TextField
+            size="medium"
+            variant="standard"
+            disabled
+            label={"섹션 경로"}
+            value={selectedPath}
             style={{ width: "100%" }}
-          >
-            <MenuItem value="row">{"가로"}</MenuItem>
-            <MenuItem value="column">{"세로"}</MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
-      <Grid item xs={"auto"} sm={"auto"} md={0.5}>
-        <TextField
-          size="medium"
-          variant="standard"
-          type="text"
-          label={"간격"}
-          value={selectedSection?.gap || 0}
-          onChange={(e) => setValues("gap", e.target.value)}
-          style={{ width: "100%" }}
-          inputProps={{
-            style: { textAlign: "right" },
-          }}
-        />
-      </Grid>
+          />
+        </Grid>
+        <Grid item xs={"auto"} sm={"auto"} md={2}>
+          <TextField
+            size="medium"
+            variant="standard"
+            label={"이름(영문)"}
+            value={String(selectedSection?.name || "")}
+            style={{ width: "100%" }}
+            onChange={(e) => setValues("name", e.target.value)}
+          />
+        </Grid>
 
-      <Grid item xs={"auto"} sm={"auto"} md={0.5}>
-        <TextField
-          size="medium"
-          variant="standard"
-          type="text"
-          label={"패딩"}
-          value={selectedSection?.padding || 0}
-          onChange={(e) => setValues("padding", e.target.value)}
-          style={{ width: "100%" }}
-          inputProps={{
-            style: { textAlign: "right" },
-          }}
-        />
-      </Grid>
-      <Grid item xs={"auto"} sm={"auto"} md={2}>
-        <TextField
-          size="medium"
-          variant="standard"
-          label={"테두리"}
-          value={String(selectedSection?.border || "")}
-          style={{ width: "100%" }}
-          onChange={(e) => setValues("border", e.target.value)}
-          inputProps={{
-            style: { textAlign: "right" },
-          }}
-        />
-      </Grid>
-      <Grid item xs={"auto"} sm={"auto"} md={2}>
-        <TextField
-          size="medium"
-          variant="standard"
-          label={"모서리반경"}
-          value={String(selectedSection?.borderRadius || "")}
-          style={{ width: "100%" }}
-          onChange={(e) => setValues("borderRadius", e.target.value)}
-          inputProps={{
-            style: { textAlign: "right" },
-          }}
-        />
-      </Grid>
+        <Grid item xs={"auto"} sm={"auto"} md={2}>
+          <TextField
+            size="medium"
+            variant="standard"
+            label={"표시이름"}
+            value={String(selectedSection?.dispName || "")}
+            style={{ width: "100%" }}
+            onChange={(e) => setValues("dispName", e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={"auto"} sm={"auto"} md={1.5}>
+          <TextField
+            size="medium"
+            variant="standard"
+            label={"아이콘"}
+            value={String(selectedSection?.icon || "")}
+            style={{ width: "100%" }}
+            onChange={(e) => setValues("icon", e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={"auto"} sm={"auto"} md={1.5}>
+          <TextField
+            size="medium"
+            variant="standard"
+            label={"컬러"}
+            value={String(selectedSection?.color || "")}
+            style={{ width: "100%" }}
+            onChange={(e) => setValues("color", e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={"auto"} sm={"auto"} md={2}>
+          <FormControlLabel
+            label={"페이지여부"}
+            control={
+              <Checkbox
+                checked={Boolean(selectedSection?.isRoutes)}
+                onChange={(e) => setValues("isRoutes", e.target.checked)}
+                size="medium"
+              />
+            }
+          />
+        </Grid>
+        <Grid item xs={"auto"} sm={"auto"} md={2}>
+          <TextField
+            size="medium"
+            variant="standard"
+            label={"라우트"}
+            value={String(selectedSection?.route || "")}
+            style={{ width: "100%" }}
+            onChange={(e) => setValues("route", e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={"auto"} sm={"auto"} md={1}>
+          <FormControl title={"방향"} variant="standard" sx={{ width: "100%" }}>
+            <Select
+              value={selectedSection?.direction || "row"}
+              onChange={(e: any) => {
+                setValues("direction", e.target.value);
+              }}
+              label={"방향"}
+              style={{ width: "100%" }}
+            >
+              <MenuItem value="row">{"가로"}</MenuItem>
+              <MenuItem value="column">{"세로"}</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={"auto"} sm={"auto"} md={1}>
+          <TextField
+            size="medium"
+            variant="standard"
+            type="text"
+            label={"간격"}
+            value={selectedSection?.gap || 0}
+            onChange={(e) => setValues("gap", e.target.value)}
+            style={{ width: "100%" }}
+            inputProps={{
+              style: { textAlign: "right" },
+            }}
+          />
+        </Grid>
 
-      <Grid item xs={"auto"} sm={"auto"} md={2} justifyItems="center">
-        {resizeButton}
+        <Grid item xs={"auto"} sm={"auto"} md={1}>
+          <TextField
+            size="medium"
+            variant="standard"
+            type="text"
+            label={"패딩"}
+            value={selectedSection?.padding || 0}
+            onChange={(e) => setValues("padding", e.target.value)}
+            style={{ width: "100%" }}
+            inputProps={{
+              style: { textAlign: "right" },
+            }}
+          />
+        </Grid>
+        <Grid item xs={"auto"} sm={"auto"} md={3}>
+          <TextField
+            size="medium"
+            variant="standard"
+            label={"테두리"}
+            value={String(selectedSection?.border || "")}
+            style={{ width: "100%" }}
+            onChange={(e) => setValues("border", e.target.value)}
+            inputProps={{
+              style: { textAlign: "right" },
+            }}
+          />
+        </Grid>
+        <Grid item xs={"auto"} sm={"auto"} md={3}>
+          <TextField
+            size="medium"
+            variant="standard"
+            label={"모서리반경"}
+            value={String(selectedSection?.borderRadius || "")}
+            style={{ width: "100%" }}
+            onChange={(e) => setValues("borderRadius", e.target.value)}
+            inputProps={{
+              style: { textAlign: "right" },
+            }}
+          />
+        </Grid>
       </Grid>
-      <Grid item xs={"auto"} sm={"auto"} md={2} justifyItems="center">
-        <Button size="large" variant="contained" onClick={() => handleUpdate()}>
+      <Stack
+        spacing={2}
+        direction={"row"}
+        flex="1.5"
+        justifyContent="flex-end"
+        mt={2}
+        width="100%"
+      >
+        <Button
+          size="large"
+          variant="contained"
+          onClick={() => handleUpdate()}
+          sx={{ flex: 1 }}
+        >
           업데이트
-        </Button>{" "}
-        <Button size="large" variant="contained" onClick={() => handleAdd()}>
+        </Button>
+        <Button
+          size="large"
+          variant="contained"
+          onClick={() => handleAdd()}
+          sx={{ flex: 1 }}
+        >
           추가
-        </Button>{" "}
-        <Button size="large" variant="contained" onClick={() => handleRemove()}>
+        </Button>
+        <Button
+          size="large"
+          variant="contained"
+          onClick={() => handleRemove()}
+          sx={{ flex: 1 }}
+        >
           삭제
         </Button>
-      </Grid>
-    </Grid>
+      </Stack>
+    </NexDiv>
   );
 
   return (

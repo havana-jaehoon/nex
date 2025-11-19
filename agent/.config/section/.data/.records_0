@@ -155,7 +155,7 @@
     "",
     "",
     {
-      "0": {
+      "1": {
         "name": "Main",
         "type": "section",
         "size": "24",
@@ -228,7 +228,7 @@
         "dispName": "메뉴",
         "description": "메뉴",
         "type": "section",
-        "size": "3",
+        "size": 2,
         "direction": "row",
         "applet": "/admin/NexNodeTree",
         "padding": "8px",
@@ -249,7 +249,7 @@
         "dispName": "데이터 보관소 편집",
         "description": "데이터 보관소 편집",
         "type": "section",
-        "size": "6",
+        "size": 7,
         "direction": "row",
         "applet": "/admin/NexNodeEditor",
         "padding": "8px",
@@ -1144,6 +1144,40 @@
         "contents": [
           "/cbm/event/SystemEventInfo"
         ]
+      }
+    }
+  ],
+  [
+    225,
+    "/root/Home/Body/Main/Admin/Menu1",
+    "",
+    "",
+    {
+      "11": {
+        "name": "Menu1",
+        "dispName": "Menu1",
+        "description": "Menu Section",
+        "type": "section",
+        "size": "1",
+        "direction": "row",
+        "route": "menu"
+      }
+    }
+  ],
+  [
+    226,
+    "/root/Home/Body/Main/Admin/Menu2",
+    "",
+    "",
+    {
+      "12": {
+        "name": "Menu2",
+        "dispName": "Menu2",
+        "description": "Menu Section",
+        "type": "section",
+        "size": "1",
+        "direction": "row",
+        "route": "menu"
       }
     }
   ]

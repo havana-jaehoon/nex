@@ -38,6 +38,7 @@ $env:PYTHONPATH = ".\src"
 # 2.2 실행
 
 python src/system_node.py --config-dir=config_nex --data-dir=.data
+python src/system_node.py --agent-id=admin
 
 # admin 데이터 가져오기(브라우저)
 
