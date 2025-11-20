@@ -1180,5 +1180,80 @@
         "route": "menu"
       }
     }
+  ],
+  [
+    227,
+    "/root/Home/Body/Main/Admin/Section/Right/Preview/Preview",
+    "",
+    "",
+    {
+      "1": {
+        "name": "Preview",
+        "dispName": "미리보기",
+        "description": "웹섹션 미리보기",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoute": "",
+        "route": "",
+        "direction": "column",
+        "size": "1",
+        "padding": "",
+        "applet": "/admin/SectionViewer",
+        "contents": [
+          "/admin/section"
+        ]
+      }
+    }
+  ],
+  [
+    228,
+    "/root/Home/Body/Main/Admin/Section/Right/Preview/Preview1",
+    "",
+    "",
+    {
+      "0": {
+        "name": "Preview1",
+        "dispName": "미리보기1",
+        "description": "웹섹션 미리보기",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoute": "",
+        "route": "",
+        "direction": "column",
+        "size": 1,
+        "padding": "",
+        "applet": "/admin/SectionViewer",
+        "contents": [
+          "/admin/section"
+        ]
+      }
+    }
+  ],
+  [
+    229,
+    "/root/Home/Body/Main/Admin/Section/Right/Preview/Preview/Preview1",
+    "",
+    "",
+    {
+      "0": {
+        "name": "Preview1",
+        "dispName": "미리보기1",
+        "description": "웹섹션 미리보기",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoute": "",
+        "route": "",
+        "direction": "column",
+        "size": "1",
+        "padding": "",
+        "applet": "/admin/SectionViewer",
+        "contents": [
+          "/admin/section"
+        ]
+      }
+    }
   ]
 ]

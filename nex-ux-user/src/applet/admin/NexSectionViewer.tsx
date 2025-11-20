@@ -735,6 +735,7 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
           </Stack>
           <span style={{ height: "20px" }}></span>
           <NexPagePreviewer
+            isLastRoute={false}
             isPreview={isPreview}
             path={"/" + section.name}
             route={route}

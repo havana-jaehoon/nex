@@ -10,6 +10,7 @@ import ArrowBack from "@mui/icons-material/ArrowBack";
 import ArrowForward from "@mui/icons-material/ArrowForward";
 
 interface NexPagePreviewerProps {
+  isLastRoute: boolean;
   isPreview: boolean;
   path: string;
   route: string;
@@ -22,6 +23,7 @@ interface NexPagePreviewerProps {
 }
 
 const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
+  isLastRoute,
   isPreview,
   path,
   route,
@@ -41,22 +43,7 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
   const isApplet = section && section.applet && section.applet !== "";
   const isSelected =
     section && section._record && section._index === selectedIndex;
-  //console.log("NexPageViewer section:", JSON.stringify(section, null, 2));
 
-  /*
-  const [isSelected, setIsSelected] = React.useState<boolean>(false);
-  useEffect(() => {
-    if (section && section._record) {
-      setIsSelected(section._record[0] === selectedIndex);
-    }
-    console.log(
-      "NexPagePreviewer: selectedIndex=",
-      selectedIndex,
-      " section=",
-      section
-    );
-  }, [section, selectedIndex]);
-*/
   const gap = style.gap || "4px";
   const border = style.border || "none";
   const borderRadius = style.borderRadius || "0";
@@ -253,10 +240,12 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
     // route 에서 childSection 의 route 를 제거 하여 나머지 경로로 다시 찾기
     // 맨 앞 뒤의 / 는 제거, 맨 마지막 * 도 제거
 
-    childSection = childSection || (section.children as any[])[0];
-    //if (!childSection) return null;
+    //childSection = childSection || (section.children as any[])[0];
+    if (!childSection) return null;
+    console.log("NexPagePreviewer: routeView - childSection:", childSection);
     return (
       <NexPagePreviewer
+        isLastRoute={curRoute === ""}
         isPreview={isPreview}
         path={path + "/" + childSection.name}
         route={curRoute}
@@ -272,6 +261,7 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
 
   const childView = () => {
     if (isRoutes) {
+      if (isLastRoute) return null;
       return routeView();
     } else {
       if (isLastSection) {
@@ -285,6 +275,7 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
         //console.log("NexPagePreviewer child:", JSON.stringify(child, null, 2));
         return (
           <NexPagePreviewer
+            isLastRoute={false}
             isPreview={isPreview}
             path={path + "/" + child.name}
             route={route}
