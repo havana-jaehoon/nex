@@ -1,6 +1,8 @@
 import argparse
 import time
 import traceback
+import faulthandler
+import signal
 
 from config.config_agent_mgr import ConfigAgentMgr
 from config.config_server_mgr import ConfigServerMgr
@@ -41,6 +43,9 @@ if __name__ == '__main__':
     try:
         logger.log_info(f'==================== {system_info.agentId} start ====================')
 
+        faulthandler.enable()
+        faulthandler.register(signal.SIGINT, all_threads=True, chain=True)
+
         HttpReqMgr()
         element_mgr = ElementMgr()
         mgr_registry.ELEMENT_MGR = element_mgr
@@ -61,14 +66,15 @@ if __name__ == '__main__':
             mgr_registry.CONFIG_MGR = config_mgr
 
         http_server = HttpServer(local_ip, local_port)
+        mgr_registry.HTTP_SERVER = http_server
         http_server.add_dynamic_rules(element_mgr.getQueryHandlers())
         if admin_mgr:
             http_server.add_dynamic_rules(admin_mgr.get_query_handlers())
         if config_mgr:
             http_server.add_dynamic_rules(config_mgr.getQueryHandlers())
 
-        http_server.start()
         element_mgr.start()
+        http_server.start()
 
         # cmd_mgr = CmdMgr(element_mgr)
         # http_server.add_dynamic_rules(cmd_mgr.get_query_handlers())
@@ -81,11 +87,13 @@ if __name__ == '__main__':
         tb_str = traceback.format_exc()
         logger.log_info(f'==================== {system_info.agentId} stop : {e} : {tb_str} ====================')
         # if cmd_mgr: cmd_mgr.stop()
-        if element_mgr: element_mgr.stop()
         if http_server: http_server.stop(5)
+        if element_mgr: element_mgr.stop()
+        if config_mgr: config_mgr.stop()
     except Exception as e:
         tb_str = traceback.format_exc()
         logger.log_error(f'==================== {system_info.agentId} stop : {e}: {tb_str} ====================')
         # if cmd_mgr: cmd_mgr.stop()
-        if element_mgr: element_mgr.stop()
         if http_server: http_server.stop(5)
+        if element_mgr: element_mgr.stop()
+        if config_mgr: config_mgr.stop()

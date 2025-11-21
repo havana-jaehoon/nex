@@ -31,5 +31,9 @@ class ConfigBaseMgr(ABC, SingletonInstance):
         pass
 
     @abstractmethod
+    def stop(self):
+        pass
+
+    @abstractmethod
     def getQueryHandlers(self) -> List[Tuple[str, Server_Dynamic_Handler, dict]]:
         pass
