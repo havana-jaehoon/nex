@@ -56,6 +56,10 @@ class SystemInfoMgr(SingletonInstance):
         self._secretKey = arg_info.get('secret_key')
         if not self._secretKey:
             raise Exception('secret-key is not valid')
+        self._configServerIp = arg_info.get('cfgServer_ip')
+        self._configServerPort = arg_info.get('cfgServer_port')
+        if not self._configServerIp or not self._configServerPort:
+            raise Exception('cfgServer-ip or cfgServer-Port is not valid')
         self._projectName = arg_info.get('project')
         if not self._projectName:
             raise Exception('project is not valid')

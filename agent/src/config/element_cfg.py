@@ -240,6 +240,10 @@ class ElementCfgs:
                 self._logger.log_error(f'ElementCfgs : init : fail to {e}')
                 return False
 
+    def isExistElementCfg(self, element_id: str) -> bool:
+        with self._apiLock:
+            return element_id in self._elementCfgMap
+
     def getElementConfig(self, element_id: str, config_type: str) -> Optional[dict]:
         with self._apiLock:
             element_cfg = self._elementCfgMap.get(element_id, None)

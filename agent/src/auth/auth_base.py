@@ -1,9 +1,11 @@
 import json, os
 from abc import ABC, abstractmethod
+from typing import List, Tuple
 
 from auth.token.token_base import TokenBase
 from util.module_loader import ModuleLoader
 from util.log_util import Logger
+from util.pi_http.http_handler import Server_Dynamic_Handler
 
 
 class AuthBase(ABC):
@@ -62,6 +64,9 @@ class AuthBase(ABC):
         except Exception as e:
             self._logger.log_error(f'AuthBase : LocalAuthInfo File load fail : {e}')
             return False
+
+    def getQueryHandlers(self) -> List[Tuple[str, Server_Dynamic_Handler, dict]]:
+        return []
 
     @abstractmethod
     def init(self, **kwargs):

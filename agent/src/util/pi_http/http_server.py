@@ -87,6 +87,10 @@ class HttpServer:
         self._controller.add_dynamic_route(path, handler, kwargs)
         self._logger.log_info(f'http server add dynamic rule: {path}')
 
+    def del_dynamic_rules(self, paths: List[str]):
+        for path in paths:
+            self.del_dynamic_rule(path)
+
     def del_dynamic_rule(self, path: str):
         self._controller.del_dynamic_route(path)
         self._logger.log_info(f'http server del dynamic rule: {path}')

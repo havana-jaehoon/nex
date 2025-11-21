@@ -123,7 +123,7 @@ class AuthServer(AuthBase):
                 handler_result.status = 405
                 handler_result.body = 'method is not valid'
             else:
-                profile_df = await ElementMgr().getData(AuthServer.PROFILE_ELEMENT_ID)
+                profile_df = await ElementMgr().getDataAsync(AuthServer.PROFILE_ELEMENT_ID)
                 agent_id, handler_result = self._procInitReq(handler_args.body, profile_df)
         except ValidationError as e:
             Logger().log_error(f'AuthServer : AuthInit : Pydantic validation failed: {e}')
@@ -149,7 +149,7 @@ class AuthServer(AuthBase):
                 handler_result.status = 405
                 handler_result.body = 'method is not valid'
             else:
-                profile_df = await ElementMgr().getData(AuthServer.PROFILE_ELEMENT_ID)
+                profile_df = await ElementMgr().getDataAsync(AuthServer.PROFILE_ELEMENT_ID)
                 agent_id, handler_result, agent_access = self._procTokenReq(handler_args.client_ip, handler_args.body, profile_df)
                 if handler_result.status == 200:
                     ElementMgr().setData(AuthServer.ACCESS_ELEMENT_ID, pd.DataFrame([asdict(agent_access)]))
@@ -181,9 +181,26 @@ class AuthServer(AuthBase):
         return f'{self._srcDir}/auth/{AuthServer.INTERNAL_ELEMENT_CONFIG_FILE_NAME}'
 
     @staticmethod
-    async def isAccess(project: str, system: str, ip: str) -> bool:
-        access_df = await ElementMgr().getData(AuthServer.ACCESS_ELEMENT_ID, {'project': project, 'system': system, 'ip': ip})
-        return False if access_df.empty else True
+    async def getAccessAsync(system: str, project: Optional[str]=None, ip: Optional[str]=None) -> Optional[AgentAccess]:
+        filter_dict = { 'system': system }
+        if project:
+            filter_dict['project'] = project
+        if ip:
+            filter_dict['ip'] = ip
+        access_df = await ElementMgr().getDataAsync(AuthServer.ACCESS_ELEMENT_ID, filter_dict)
+        return None if access_df.empty else AgentAccess(access_df['project'].iloc[0], access_df['system'].iloc[0],
+                                                        access_df['ip'].iloc[0], access_df['updated_at'].iloc[0])
+
+    @staticmethod
+    def getAccessSync(system: str, project: Optional[str] = None, ip: Optional[str] = None) -> Optional[AgentAccess]:
+        filter_dict = {'system': system}
+        if project:
+            filter_dict['project'] = project
+        if ip:
+            filter_dict['ip'] = ip
+        access_df = ElementMgr().getDataSync(AuthServer.ACCESS_ELEMENT_ID, filter_dict)
+        return None if access_df.empty else AgentAccess(access_df['project'].iloc[0], access_df['system'].iloc[0],
+                                                        access_df['ip'].iloc[0], access_df['updated_at'].iloc[0])
 
     @staticmethod
     def getProfileElementId() -> str:

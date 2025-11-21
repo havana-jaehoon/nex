@@ -21,10 +21,10 @@ class AuthAgent(AuthBase):
 
     def _init_req(self) -> Optional[AgentInitResponse]:
         body = AgentInitRequest(agent_id=self._agentId).model_dump()
-        status, rsp_body_str = HttpReqMgr().post1Once(self._serverIp,
-                                                      self._serverPort,
-                                                      url_def.AUTH_INIT_SUB_URL,
-                                                      body)
+        status, rsp_body_str = HttpReqMgr().postByAddress(self._serverIp,
+                                                          self._serverPort,
+                                                          url_def.AUTH_INIT_SUB_URL,
+                                                          body)
         if status == 200:
             try:
                 validated_response = AgentInitResponse.model_validate_json(rsp_body_str)
@@ -51,7 +51,7 @@ class AuthAgent(AuthBase):
         auth_token = token_obj.genAuthToken(self._agentId, challenge, self._secretKey)
         Logger().log_info(f'generate auth_token : {auth_token}')
         body = AgentTokenRequest(agent_id=self._agentId, auth_token=auth_token).model_dump()
-        status, rsp_body_str = HttpReqMgr().post1Once(self._serverIp, self._serverPort, url_def.AUTH_TOKEN_SUB_URL, body)
+        status, rsp_body_str = HttpReqMgr().postByAddress(self._serverIp, self._serverPort, url_def.AUTH_TOKEN_SUB_URL, body)
         if status == 200:
             try:
                 validated_response = AgentTokenResponse.model_validate_json(rsp_body_str)

@@ -21,15 +21,15 @@ class HttpReqMgr(SingletonInstance):
         self._http_client = HttpClient()
 
     @staticmethod
-    def _setSourceIdParam(source_id: str, **kwargs) -> str:
+    def _setSubUrlParam(sub_url: str, **kwargs) -> str:
         param_str = ''
         for i, param in enumerate(kwargs.items()):
             if i == 0:
                 param_str += f'?{param[0]}={param[1]}'
             else:
                 param_str += f'&{param[0]}={param[1]}'
-        source_id = f'{source_id}{param_str}'
-        return source_id
+        sub_url = f'{sub_url}{param_str}'
+        return sub_url
 
     @staticmethod
     def _readBody(status_code: int, content_type: str, body_data: bytes) -> Optional[Any]:
@@ -46,58 +46,60 @@ class HttpReqMgr(SingletonInstance):
         return None
 
     @staticmethod
-    def _getUrl1(target_system_name: str, source_id: str, **kwargs) -> str:
-        new_source_id = HttpReqMgr._setSourceIdParam(source_id, **kwargs)
-        if not target_system_name or not new_source_id:
+    def _getUrlBySystem(target_system_name: str, sub_url: str, **kwargs) -> str:
+        new_sub_url = HttpReqMgr._setSubUrlParam(sub_url, **kwargs)
+        if not target_system_name or not new_sub_url:
             return ""
         system_address = mgr_registry.CONFIG_MGR.getSystemAddress(target_system_name)
         if not system_address:
             return ""
-        return f"http://{system_address[0]}:{system_address[1]}{url_def.DATA_URL_PREFIX}{new_source_id}"
+        return f"http://{system_address[0]}:{system_address[1]}{new_sub_url}"
 
     @staticmethod
-    def _getUrl2(target_ip: str, target_port: int, source_id: str, **kwargs) -> str:
-        new_source_id = HttpReqMgr._setSourceIdParam(source_id, **kwargs)
-        if not target_ip or not new_source_id:
+    def _getUrlByAddress(target_ip: str, target_port: int, sub_url: str, **kwargs) -> str:
+        new_sub_url = HttpReqMgr._setSubUrlParam(sub_url, **kwargs)
+        if not target_ip or not new_sub_url:
             return ""
-        return f"http://{target_ip}:{target_port}{url_def.DATA_URL_PREFIX}{new_source_id}"
+        return f"http://{target_ip}:{target_port}{new_sub_url}"
 
-    def _sendGet1SyncResult(self, target_ip: str, target_port: int, source_id: str, source_param: dict=None) \
+    def _sendGetByAddressSyncResult(self, target_ip: str, target_port: int, sub_url: str, sub_url_param: dict=None) \
+            -> Tuple[str, concurrent.futures.Future]:
+        if sub_url_param is None:
+            sub_url_param = {}
+        url = HttpReqMgr._getUrlByAddress(target_ip, target_port, sub_url, **sub_url_param)
+        Logger().log_info(f"HttpReq : Get-Req : => {url}")
+        return url, self._http_client.get_async_sync_result(url, HttpReqMgr.REQ_TIME_OUT)
+
+    def _sendGetBySourceSyncResult(self, source: str, source_param: dict=None) \
             -> Tuple[str, concurrent.futures.Future]:
         if source_param is None:
             source_param = {}
-        url = HttpReqMgr._getUrl2(target_ip, target_port, source_id, **source_param)
-        Logger().log_info(f"HttpReq : Get-Req : {source_id} : {url}")
+        system_name, sub_url = source.split(':', 1)
+        sub_url = f'{url_def.DATA_URL_PREFIX}{sub_url}'
+        url = HttpReqMgr._getUrlBySystem(system_name, sub_url, **source_param)
+        Logger().log_info(f"HttpReq : Get-Req : {system_name} => {url}")
         return url, self._http_client.get_async_sync_result(url, HttpReqMgr.REQ_TIME_OUT)
 
-    def _sendGet2SyncResult(self, source: str, source_param: dict=None) \
-            -> Tuple[str, concurrent.futures.Future]:
-        if source_param is None:
-            source_param = {}
-        system_name, source_id = source.split(':', 1)
-        url = HttpReqMgr._getUrl1(system_name, source_id, **source_param)
-        Logger().log_info(f"HttpReq : Get-Req : {system_name}, {source_id} : {url}")
-        return url, self._http_client.get_async_sync_result(url, HttpReqMgr.REQ_TIME_OUT)
+    def _sendGetByAddressAsyncResult(self, target_ip: str, target_port: int, sub_url: str, sub_url_param: dict=None, result_loop: Optional[asyncio.AbstractEventLoop]=None) \
+            -> Tuple[str, asyncio.Future]:
+        if sub_url_param is None:
+            sub_url_param = {}
+        url = HttpReqMgr._getUrlByAddress(target_ip, target_port, sub_url, **sub_url_param)
+        Logger().log_info(f"HttpReq : Get-Req : => {url}")
+        return url, self._http_client.get_async(url, HttpReqMgr.REQ_TIME_OUT, result_loop)
 
-    def _sendGet1AsyncResult(self, target_ip: str, target_port: int, source_id: str, source_param: dict=None, result_loop: Optional[asyncio.AbstractEventLoop]=None) \
+    def _sendGetBySourceAsyncResult(self, source: str, source_param: dict=None, result_loop: Optional[asyncio.AbstractEventLoop]=None) \
             -> Tuple[str, asyncio.Future]:
         if source_param is None:
             source_param = {}
-        url = HttpReqMgr._getUrl2(target_ip, target_port, source_id, **source_param)
-        Logger().log_info(f"HttpReq : Get-Req : {source_id} : {url}")
+        system_name, sub_url = source.split(':', 1)
+        sub_url = f'{url_def.DATA_URL_PREFIX}{sub_url}'
+        url = HttpReqMgr._getUrlBySystem(system_name, sub_url, **source_param)
+        Logger().log_info(f"HttpReq : Get-Req : {system_name} => {url}")
         return url, self._http_client.get_async(url, HttpReqMgr.REQ_TIME_OUT, result_loop)
 
-    def _sendGet2AsyncResult(self, source: str, source_param: dict=None, result_loop: Optional[asyncio.AbstractEventLoop]=None) \
-            -> Tuple[str, asyncio.Future]:
-        if source_param is None:
-            source_param = {}
-        system_name, source_id = source.split(':', 1)
-        url = HttpReqMgr._getUrl1(system_name, source_id, **source_param)
-        Logger().log_info(f"HttpReq : Get-Req : {system_name}, {source_id} : {url}")
-        return url, self._http_client.get_async(url, HttpReqMgr.REQ_TIME_OUT, result_loop)
-
-    def get1Once(self, target_ip: str, target_port: int, source_id: str, source_param: dict=None) -> Optional[Any]:
-        url, fut = self._sendGet1SyncResult(target_ip, target_port, source_id, source_param)
+    def getByAddress(self, target_ip: str, target_port: int, sub_url: str, sub_url_param: dict=None) -> Optional[Any]:
+        url, fut = self._sendGetByAddressSyncResult(target_ip, target_port, sub_url, sub_url_param)
         try:
             status_code, content_type, body_data = fut.result()
             if status_code != 200:
@@ -110,8 +112,8 @@ class HttpReqMgr(SingletonInstance):
             Logger().log_error(f"HttpReq : Get : {url} exception : {e}")
             return None
 
-    def get2Once(self, source: str, source_param: dict=None) -> Optional[Any]:
-        url, fut = self._sendGet2SyncResult(source, source_param)
+    def getBySource(self, source: str, source_param: dict=None) -> Optional[Any]:
+        url, fut = self._sendGetBySourceSyncResult(source, source_param)
         try:
             status_code, content_type, body_data = fut.result()
             if status_code != 200:
@@ -127,7 +129,7 @@ class HttpReqMgr(SingletonInstance):
     def getMany(self, source_list: List[Tuple[str, Optional[dict]]]) -> List[Any]:
         indexed_futures = []
         for idx, source_tuple in enumerate(source_list):
-            url, fut = self._sendGet2SyncResult(source_tuple[0], source_tuple[1])
+            url, fut = self._sendGetBySourceSyncResult(source_tuple[0], source_tuple[1])
             indexed_futures.append((idx, fut, url))
 
         results: List[Any] = [None] * len(source_list)
@@ -145,11 +147,11 @@ class HttpReqMgr(SingletonInstance):
                 results[idx] = None
         return results
 
-    def post1Once(self, target_ip: str, target_port: int, source_id: str, data: dict, source_param: Optional[dict]=None) -> Tuple[int, str]:
-        if source_param is None:
-            source_param = {}
-        url = HttpReqMgr._getUrl2(target_ip, target_port, source_id, **source_param)
-        Logger().log_info(f"HttpClient : Post-Req : {source_id} => {url}")
+    def postByAddress(self, target_ip: str, target_port: int, sub_url: str, data: dict, sub_url_param: Optional[dict]=None) -> Tuple[int, str]:
+        if sub_url_param is None:
+            sub_url_param = {}
+        url = HttpReqMgr._getUrlByAddress(target_ip, target_port, sub_url, **sub_url_param)
+        Logger().log_info(f"HttpClient : Post-Req : => {url}")
         fut = self._http_client.post_async_sync_result(url, data)
         try:
             status_code, body_str = fut.result()
@@ -159,12 +161,12 @@ class HttpReqMgr(SingletonInstance):
             Logger().log_error(f"HttpReq : Post : {url} exception : {e}")
             return 500, str(e)
 
-    def post2Once(self, source: str, data: dict, source_param: Optional[dict]=None) -> Tuple[int, str]:
+    def postBySource(self, source: str, data: dict, source_param: Optional[dict]=None) -> Tuple[int, str]:
         if source_param is None:
             source_param = {}
         system_name, source_id = source.split(':', 1)
-        url = HttpReqMgr._getUrl1(system_name, source_id, **source_param)
-        Logger().log_info(f"HttpClient : Post-Req : {system_name}, {source_id} => {url}")
+        url = HttpReqMgr._getUrlBySystem(system_name, f'{url_def.DATA_URL_PREFIX}{source_id}', **source_param)
+        Logger().log_info(f"HttpClient : Post-Req : {system_name} => {url}")
         fut = self._http_client.post_async_sync_result(url, data)
         try:
             status_code, body_str = fut.result()
@@ -173,6 +175,32 @@ class HttpReqMgr(SingletonInstance):
         except Exception as e:
             Logger().log_error(f"HttpReq : Post : {url} exception : {e}")
             return 500, str(e)
+
+    def postMany(self, target_list: List[Tuple[str, int, str, dict, Optional[dict]]]) -> List[Any]:
+        indexed_futures = []
+        for idx, target_tuple in enumerate(target_list):
+            target_ip, target_port, sub_url, data, sub_url_param = target_tuple
+            if sub_url_param is None:
+                sub_url_param = {}
+            url = HttpReqMgr._getUrlByAddress(target_ip, target_port, sub_url, **sub_url_param)
+            Logger().log_info(f"HttpClient : Post-Req : => {url}")
+            fut = self._http_client.post_async_sync_result(url, data)
+            indexed_futures.append((idx, fut, url))
+
+        results: List[Any] = [None] * len(target_list)
+        for idx, fut, url in indexed_futures:
+            try:
+                status_code, content_type, body_data = fut.result()
+                if status_code != 200:
+                    Logger().log_error(f"HttpReq : Post-Rsp : {status_code}, {body_data} <= {url}")
+                else:
+                    Logger().log_info(f"HttpReq : Post-Rsp : {status_code} <= {url}")
+                data = HttpReqMgr._readBody(status_code, content_type, body_data)
+                results[idx] = (status_code, data)
+            except Exception as e:
+                Logger().log_error(f"HttpReq : Get : {url} exception : {e}")
+                results[idx] = None
+        return results
 
 
 class InternalDataReqMgr:

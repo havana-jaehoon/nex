@@ -3,3 +3,4 @@ ADMIN_MGR = None
 CMD_MGR = None
 CONFIG_MGR = None
 ELEMENT_MGR = None
+HTTP_SERVER = None

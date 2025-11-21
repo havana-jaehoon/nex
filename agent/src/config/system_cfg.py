@@ -12,6 +12,9 @@ class SystemCfg:
         self._systemCfgMap: Dict[str, dict] = {}   # key: system_name, value: system config
         self._systemCfgFilePath = f'{config_dir}/.system.json'
 
+    def __str__(self):
+        return f'\n{json.dumps(self._systemCfgMap, indent=4, ensure_ascii=False)}'
+
     def _deleteAllFiles(self):
         if os.path.exists(self._systemCfgFilePath):
             os.remove(self._systemCfgFilePath)
