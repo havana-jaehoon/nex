@@ -1,9 +1,0 @@
-{
-  "name": "degrad_level_code",
-  "dispName": "degrad_level_code",
-  "description": "degrad_level_code",
-  "type": "element",
-  "format": "/.ext/cbm_db/degrad_level_code",
-  "store": "",
-  "storage": "/cbm_db"
-}

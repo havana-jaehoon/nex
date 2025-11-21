@@ -1,9 +1,0 @@
-{
-  "name": "learning_job_result",
-  "dispName": "learning_job_result",
-  "description": "learning_job_result",
-  "type": "element",
-  "format": "/.ext/cbm_db/learning_job_result",
-  "store": "",
-  "storage": "/cbm_db"
-}

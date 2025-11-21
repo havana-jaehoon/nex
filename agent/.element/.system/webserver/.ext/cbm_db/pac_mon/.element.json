@@ -1,9 +1,0 @@
-{
-  "name": "pac_mon",
-  "dispName": "pac_mon",
-  "description": "pac_mon",
-  "type": "element",
-  "format": "/.ext/cbm_db/pac_mon",
-  "store": "",
-  "storage": "/cbm_db"
-}

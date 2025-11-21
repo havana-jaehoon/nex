@@ -1,9 +1,0 @@
-{
-  "name": "cm_sun",
-  "dispName": "cm_sun",
-  "description": "cm_sun",
-  "type": "element",
-  "format": "/.ext/cbm_db/cm_sun",
-  "store": "",
-  "storage": "/cbm_db"
-}

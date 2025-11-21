@@ -1,9 +1,0 @@
-{
-  "name": "degrad_condition",
-  "dispName": "degrad_condition",
-  "description": "degrad_condition",
-  "type": "element",
-  "format": "/.ext/cbm_db/degrad_condition",
-  "store": "",
-  "storage": "/cbm_db"
-}

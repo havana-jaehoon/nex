@@ -1,9 +1,0 @@
-{
-  "name": "pac_sat",
-  "dispName": "pac_sat",
-  "description": "pac_sat",
-  "type": "element",
-  "format": "/.ext/cbm_db/pac_sat",
-  "store": "",
-  "storage": "/cbm_db"
-}

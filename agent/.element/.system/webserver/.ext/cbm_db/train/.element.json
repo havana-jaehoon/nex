@@ -1,9 +1,0 @@
-{
-  "name": "train",
-  "dispName": "train",
-  "description": "train",
-  "type": "element",
-  "format": "/.ext/cbm_db/train",
-  "store": "",
-  "storage": "/cbm_db"
-}

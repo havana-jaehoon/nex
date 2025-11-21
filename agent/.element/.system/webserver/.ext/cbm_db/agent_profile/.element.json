@@ -1,9 +1,0 @@
-{
-  "name": "agent_profile",
-  "dispName": "agent_profile",
-  "description": "agent_profile",
-  "type": "element",
-  "format": "/.ext/cbm_db/agent_profile",
-  "store": "",
-  "storage": "/cbm_db"
-}

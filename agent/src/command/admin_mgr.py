@@ -25,12 +25,14 @@ class AdminMgr(SingletonInstance):
     def _on_init_once(self):
         self._logger = Logger()
 
-        self._adminCfgPath = f"./.config" # 배포용 경로
+        self.configSystemName = "config"
+
+        self._configPath = f"./.config" # 배포용 경로
 
         # 데이터 엘리먼트 루트 경로
         self._elementPath = ".element"
         # 데이터 일리먼트 중 admin config 경로
-        self._adminElementPath = f"{self._elementPath}/.system/webserver/admin"
+        self._configElementPath = f"{self._elementPath}/.system/{self.configSystemName}/admin"
 
 
         self._loadConfigs()
@@ -39,23 +41,19 @@ class AdminMgr(SingletonInstance):
         return f'AdminMgr'    
 
     def _loadConfigs(self):
-        self._cfgReader = ConfigReader(self._adminCfgPath)
+        self._cfgReader = ConfigReader(self._configPath)
 
         projectName = '' # default project
         systems = self._cfgReader.getSystems(projectName)
 
 
         self._configMap = {}  # all projects
-        self._dataioMap = {}  # all projects
         self._configMap[projectName] = {} # default project
-        self._dataioMap[projectName] = {} # default project
 
-        self._dataioMap[projectName] = {} # default project
         for system in systems:
             systemName = system.get('name', '')
 
             self._configMap[projectName][systemName] = {}
-            self._dataioMap[projectName][systemName] = {}
 
             # load config data
             configData = {v: [] for v in CONFIG_LIST.values()}
@@ -66,23 +64,26 @@ class AdminMgr(SingletonInstance):
                     configData[value] = self._cfgReader.getDatas(value, projectName, '')
             self._configMap[projectName][systemName] = configData
 
-            #data io for elements
-            elementInfoList = self._cfgReader.getElements(projectName, systemName)
-            for elementInfo in elementInfoList:
-                path = elementInfo['path'] # element path 
-                system = elementInfo['system']
-                storage = elementInfo['storage']
-                format = elementInfo['format']
-                store = elementInfo['store']
-                processor = elementInfo['processor']
-                element = elementInfo['element']
-        
-                dataio = DataFileIo(self._elementPath, path, storage, system, element, format, store, processor)
 
-                self._dataioMap[projectName][systemName][path] = dataio
+        #data io for elements
+        self._dataioMap = {}  # all projects
+        self._dataioMap[projectName] = {} # default project
+        elementInfoList = self._cfgReader.getElements(projectName, self.configSystemName)
+        for elementInfo in elementInfoList:
+            path = elementInfo['path'] # element path 
+            system = elementInfo['system']
+            storage = elementInfo['storage']
+            format = elementInfo['format']
+            store = elementInfo['store']
+            processor = elementInfo['processor']
+            element = elementInfo['element']
+    
+            dataio = DataFileIo(self._elementPath, path, storage, system, element, format, store, processor)
 
-                data = self._dataioMap[projectName][systemName][path].get()
-                print(f"# element data path: {path} data-len: {len(data)}")
+            self._dataioMap[projectName][path] = dataio
+
+            data = self._dataioMap[projectName][path].get()
+            print(f"# element data path: {path} data-len: {len(data)}")
 
                 
 
@@ -99,7 +100,7 @@ class AdminMgr(SingletonInstance):
             Logger().log_error(f'{self.__str__()}::_add({handler_args, kwargs}) : {e}')
             return HandlerResult(status=500, body=f'exception : {e}')
 
-    async def _getAdmin(self, handler_args: HandlerArgs, kwargs: dict)-> HandlerResult:
+    async def _getConfig(self, handler_args: HandlerArgs, kwargs: dict)-> HandlerResult:
         try:
             # execute processor
             #handler_result, output_list = await self._processor.process(exp, body, arg_list, kwargs)
@@ -139,7 +140,10 @@ class AdminMgr(SingletonInstance):
             soffset = int(handler_args.query_params.get('soffset', '0'))
             eoffset = int(handler_args.query_params.get('eoffset', '0'))
 
-            dataio = self._dataioMap.get(project, {}).get(system, {}).get(path, None)
+            if(system != self.configSystemName):
+                return HandlerResult(status=400, body=f'Invalid system name for getData: {system}, must be {self.configSystemName}')
+
+            dataio = self._dataioMap.get(project, {}).get(path, None)
             if(dataio is None):
                 return HandlerResult(status=404, body=f'Not found dataio for project:{project}, system:{system}, path:{path}')
             
@@ -163,12 +167,11 @@ class AdminMgr(SingletonInstance):
             #res = load_all_config(ADMIN_CONFIG_DIR)
             method = handler_args.method
 
-            system = handler_args.query_params.get('system', '')
             project = handler_args.query_params.get('project', '')
             path = handler_args.query_params.get('path', '')
             cmd = handler_args.query_params.get('cmd', '')
 
-            dataio = self._dataioMap.get(project, {}).get(system, {}).get(path, None)
+            dataio = self._dataioMap.get(project, {}).get(path, None)
             if dataio is None:
                 return HandlerResult(status=404, body=f'Not found dataio for project:{project}, system:{system}, path:{path}')
 
@@ -263,29 +266,29 @@ class AdminMgr(SingletonInstance):
 
     def _backupConfig(self):
         try:
-            # self._adminElementPath, self._adminCfgPath
-            # 1. self._adminCfgPath  경로를 백업 
+            # self._configElementPath, self._configPath
+            # 1. self._configPath  경로를 백업 
             # 예 : ./.config_20231010_153000
             now = datetime.now()
             timestamp = now.strftime("%Y%m%d_%H%M%S")
-            backupDir = f"{self._adminCfgPath}_{timestamp}"
+            backupDir = f"{self._configPath}_{timestamp}"
 
-            shutil.copytree(self._adminCfgPath, backupDir)
+            shutil.copytree(self._configPath, backupDir)
             return True
         except Exception as e:
             return False
 
     async def _distribution(self, handler_args: HandlerArgs, kwargs: dict):
         try:
-            # self._adminElementPath, self._adminCfgPath
-            # 1. self._adminCfgPath  경로를 백업 
+            # self._configElementPath, self._configPath
+            # 1. self._configPath  경로를 백업 
             # 예 : ./.config_20231010_153000
 
             self._backupConfig()
 
             # 2. self._adm
-            # inElementPath 경로를 self._adminCfgPath 로 복사
-            shutil.copytree(self._adminElementPath, self._adminCfgPath, dirs_exist_ok=True)
+            # inElementPath 경로를 self._configPath 로 복사
+            shutil.copytree(self._configElementPath, self._configPath, dirs_exist_ok=True)
 
             # 3. 데이터 재로딩
             self._loadConfigs()
@@ -297,7 +300,7 @@ class AdminMgr(SingletonInstance):
 
     async def _genDbElement(self, handler_args: HandlerArgs, kwargs: dict):
         try:
-
+            #configSystemName = "webserver"
             # 1. get params
             method = handler_args.method
             system = handler_args.query_params.get('system', '') # system name
@@ -307,7 +310,7 @@ class AdminMgr(SingletonInstance):
             print(f'AdminMgr::_genDbElement(project={project}, system={system}, storage={storage})')
 
             # 2. self._configMap 로 부터 storage(이름==storage) object 구하기
-            configData = self._configMap.get(project, {}).get(system, None)
+            configData = self._configMap.get(project, {}).get(self.configSystemName, None)
             if(configData is None):
                 return HandlerResult(status=404, body=f'Not found config for project:{project}, system:{system}')
 
@@ -339,10 +342,11 @@ class AdminMgr(SingletonInstance):
 
             # 4. output 데이터의 format, store, element
             # Element Paht 가 /admin/format, /admin/store, /admin/element 인 DataIo 에 Add
-            
-            formatDataio = self._dataioMap.get(project, {}).get(system, {}).get("/admin/format", None)
+
+
+            formatDataio = self._dataioMap.get(project, {}).get("/admin/format", None)
             #storeDataio = self._dataioMap.get(project, {}).get(system, {}).get("/admin/store", None)
-            elementDataio = self._dataioMap.get(project, {}).get(system, {}).get("/admin/element", None)
+            elementDataio = self._dataioMap.get(project, {}).get("/admin/element", None)
             if formatDataio is None or elementDataio is None:
                 return HandlerResult(status=404, body=f'Not found admin dataio for project:{project}, system:{system}')
 
@@ -435,7 +439,7 @@ class AdminMgr(SingletonInstance):
 
     def get_query_handlers(self) -> List[Tuple[str, Server_Dynamic_Handler, dict]]:
         handler_list: List[Tuple[str, Server_Dynamic_Handler, dict]] = [
-            ("/admin-api", self._getAdmin, {"cmd_id": "/admin-api"}),
+            ("/config-api", self._getConfig, {"cmd_id": "/admin-api"}),
             ("/data-api", self._cmdData, {"cmd_id": "/data-api"}),
             ("/cmd-api/dist", self._distribution, {"cmd_id": "/cmd-api/dist"}),
             ("/cmd-api/gen-db-element", self._genDbElement, {"cmd_id": "/cmd-api/gen-db-element"}),

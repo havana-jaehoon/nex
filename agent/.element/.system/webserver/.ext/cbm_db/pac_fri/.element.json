@@ -1,9 +1,0 @@
-{
-  "name": "pac_fri",
-  "dispName": "pac_fri",
-  "description": "pac_fri",
-  "type": "element",
-  "format": "/.ext/cbm_db/pac_fri",
-  "store": "",
-  "storage": "/cbm_db"
-}

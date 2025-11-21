@@ -1,9 +1,0 @@
-{
-  "name": "train_infer_job",
-  "dispName": "train_infer_job",
-  "description": "train_infer_job",
-  "type": "element",
-  "format": "/.ext/cbm_db/train_infer_job",
-  "store": "",
-  "storage": "/cbm_db"
-}

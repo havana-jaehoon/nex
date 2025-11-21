@@ -1,4 +1,5 @@
 import { action, makeObservable, observable, runInAction } from "mobx";
+import pxConfig from "config/px-config.json";
 
 import {
   NexNode,
@@ -20,7 +21,7 @@ import { contentsConfig } from "test/data/config/contentsConfig";
 import { systemConfig } from "test/data/config/systemConfig";
 import axios from "axios";
 
-const URL_CONFIG = "http://localhost:9080/admin-api";
+//const URL_CONFIG = "http://localhost:9080/admin-api";
 
 export const buildAdminConfig = (datas: any[]) => {
   //console.log("buildAdminConfig datas:", JSON.stringify(datas, null, 2));
@@ -89,7 +90,7 @@ interface NexConfig {
 class NexConfigStore {
   url: string = ""; // URL 정보
   projectName: string = ""; // 프로젝트 이름
-  systemName: string = "webserver"; // "/webui"; // 시스템 경로
+  systemName: string = ""; // "/webui"; // 시스템 경로
 
   isReady: boolean = false;
   config: NexConfig = {
@@ -171,9 +172,7 @@ class NexConfigStore {
 
   async fetch() {
     try {
-      const url = this.url;
-
-      const response = await axios.get(url, {
+      const response = await axios.get(this.url, {
         params: {
           project: this.projectName,
           system: this.systemName,
@@ -307,5 +306,9 @@ class NexConfigStore {
 //const nexConfig = new NexConfigStore("", "test", "/webui");
 //export default nexConfig;
 
-export const configStore = new NexConfigStore(URL_CONFIG, "", "webserver");
+export const configStore = new NexConfigStore(
+  pxConfig["config-url"],
+  pxConfig["project"],
+  pxConfig["system"]
+);
 export default NexConfigStore;

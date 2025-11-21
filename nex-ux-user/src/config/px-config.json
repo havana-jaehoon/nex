@@ -1,4 +1,5 @@
 {
-  "project": "px-demo",
+  "config-url": "http://localhost:9080/config-api",
+  "project": "",
   "system": "webclient"
 }

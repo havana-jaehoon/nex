@@ -1,9 +1,0 @@
-{
-  "name": "anod_type_code",
-  "dispName": "anod_type_code",
-  "description": "anod_type_code",
-  "type": "element",
-  "format": "/.ext/cbm_db/anod_type_code",
-  "store": "",
-  "storage": "/cbm_db"
-}

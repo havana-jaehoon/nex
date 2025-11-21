@@ -1,9 +1,0 @@
-{
-  "name": "rule_ext_stat_anod_detail_result",
-  "dispName": "rule_ext_stat_anod_detail_result",
-  "description": "rule_ext_stat_anod_detail_result",
-  "type": "element",
-  "format": "/.ext/cbm_db/rule_ext_stat_anod_detail_result",
-  "store": "",
-  "storage": "/cbm_db"
-}

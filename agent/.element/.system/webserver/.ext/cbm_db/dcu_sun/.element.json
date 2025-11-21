@@ -1,9 +1,0 @@
-{
-  "name": "dcu_sun",
-  "dispName": "dcu_sun",
-  "description": "dcu_sun",
-  "type": "element",
-  "format": "/.ext/cbm_db/dcu_sun",
-  "store": "",
-  "storage": "/cbm_db"
-}

@@ -1,9 +1,0 @@
-{
-  "name": "acm_mon",
-  "dispName": "acm_mon",
-  "description": "acm_mon",
-  "type": "element",
-  "format": "/.ext/cbm_db/acm_mon",
-  "store": "",
-  "storage": "/cbm_db"
-}

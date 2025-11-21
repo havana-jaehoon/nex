@@ -56,7 +56,7 @@
       "0": {
         "name": "HeadLeft",
         "type": "section",
-        "size": 13,
+        "size": "10",
         "applet": "",
         "contents": []
       }

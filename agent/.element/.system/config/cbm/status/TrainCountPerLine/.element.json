@@ -1,0 +1,15 @@
+{
+  "name": "TrainCountPerLine",
+  "dispName": "노선별 편성 수",
+  "description": "노선별 편성 수 데이터 엘리먼트",
+  "type": "element",
+  "format": "/cbm/status/TrainCountPerLine",
+  "store": "/static",
+  "storage": "/disk",
+  "processor": "/common/transparent",
+  "processingInterval": "10",
+  "processingUnit": "SEC",
+  "sources": [
+    "config:/cbm/status/TrainCountPerLine"
+  ]
+}

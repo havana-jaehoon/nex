@@ -1,9 +1,0 @@
-{
-  "name": "hvac_mon",
-  "dispName": "hvac_mon",
-  "description": "hvac_mon",
-  "type": "element",
-  "format": "/.ext/cbm_db/hvac_mon",
-  "store": "",
-  "storage": "/cbm_db"
-}

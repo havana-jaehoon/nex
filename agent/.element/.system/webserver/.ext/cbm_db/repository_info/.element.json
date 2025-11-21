@@ -1,9 +1,0 @@
-{
-  "name": "repository_info",
-  "dispName": "repository_info",
-  "description": "repository_info",
-  "type": "element",
-  "format": "/.ext/cbm_db/repository_info",
-  "store": "",
-  "storage": "/cbm_db"
-}

@@ -1,9 +1,0 @@
-{
-  "name": "mtr_sun",
-  "dispName": "mtr_sun",
-  "description": "mtr_sun",
-  "type": "element",
-  "format": "/.ext/cbm_db/mtr_sun",
-  "store": "",
-  "storage": "/cbm_db"
-}

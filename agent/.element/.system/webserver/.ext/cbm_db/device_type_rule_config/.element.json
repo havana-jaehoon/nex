@@ -1,9 +1,0 @@
-{
-  "name": "device_type_rule_config",
-  "dispName": "device_type_rule_config",
-  "description": "device_type_rule_config",
-  "type": "element",
-  "format": "/.ext/cbm_db/device_type_rule_config",
-  "store": "",
-  "storage": "/cbm_db"
-}

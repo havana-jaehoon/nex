@@ -1,9 +1,0 @@
-{
-  "name": "fdu_sun",
-  "dispName": "fdu_sun",
-  "description": "fdu_sun",
-  "type": "element",
-  "format": "/.ext/cbm_db/fdu_sun",
-  "store": "",
-  "storage": "/cbm_db"
-}

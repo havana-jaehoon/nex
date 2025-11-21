@@ -1,0 +1,15 @@
+{
+  "name": "Line",
+  "dispName": "노선정보",
+  "description": "노선정보",
+  "type": "element",
+  "format": "/cbm/config/Line",
+  "store": "/static",
+  "storage": "/disk",
+  "processor": "/common/transparent",
+  "processingInterval": "10",
+  "processingUnit": "SEC",
+  "sources": [
+    "config:/cbm/config/Line"
+  ]
+}

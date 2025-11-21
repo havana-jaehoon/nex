@@ -1,9 +1,0 @@
-{
-  "name": "external_feature_info",
-  "dispName": "external_feature_info",
-  "description": "external_feature_info",
-  "type": "element",
-  "format": "/.ext/cbm_db/external_feature_info",
-  "store": "",
-  "storage": "/cbm_db"
-}

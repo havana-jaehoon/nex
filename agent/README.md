@@ -37,7 +37,6 @@ $env:PYTHONPATH = ".\src"
 
 # 2.2 실행
 
-python src/system_node.py --config-dir=config_nex --data-dir=.data
 python src/system_node.py --agent-id=admin
 
 # admin 데이터 가져오기(브라우저)
@@ -56,4 +55,5 @@ http://127.0.0.1:9080/data-api/get?project=&system=webserver&path=/admin/menu
 python .\src\command\config_reader.py
 
 # 2.4 DB 테이블 변환
+
 python .\src\generateConfigFromDb.py --dbType=oracle --ip=121.161.164.106 --port=1521 --user=cbm --password=core0908 --name=ORCLCDB --schema=CBM

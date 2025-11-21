@@ -1,9 +1,0 @@
-{
-  "name": "cm_fri",
-  "dispName": "cm_fri",
-  "description": "cm_fri",
-  "type": "element",
-  "format": "/.ext/cbm_db/cm_fri",
-  "store": "",
-  "storage": "/cbm_db"
-}

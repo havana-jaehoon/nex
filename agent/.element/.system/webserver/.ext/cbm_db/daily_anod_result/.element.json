@@ -1,9 +1,0 @@
-{
-  "name": "daily_anod_result",
-  "dispName": "daily_anod_result",
-  "description": "daily_anod_result",
-  "type": "element",
-  "format": "/.ext/cbm_db/daily_anod_result",
-  "store": "",
-  "storage": "/cbm_db"
-}

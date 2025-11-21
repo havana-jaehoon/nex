@@ -1,9 +1,0 @@
-{
-  "name": "bogie1_tm_fri",
-  "dispName": "bogie1_tm_fri",
-  "description": "bogie1_tm_fri",
-  "type": "element",
-  "format": "/.ext/cbm_db/bogie1_tm_fri",
-  "store": "",
-  "storage": "/cbm_db"
-}

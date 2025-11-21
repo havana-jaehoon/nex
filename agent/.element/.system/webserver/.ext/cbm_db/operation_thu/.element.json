@@ -1,9 +1,0 @@
-{
-  "name": "operation_thu",
-  "dispName": "operation_thu",
-  "description": "operation_thu",
-  "type": "element",
-  "format": "/.ext/cbm_db/operation_thu",
-  "store": "",
-  "storage": "/cbm_db"
-}

@@ -1,9 +1,0 @@
-{
-  "name": "device_type_ai_config",
-  "dispName": "device_type_ai_config",
-  "description": "device_type_ai_config",
-  "type": "element",
-  "format": "/.ext/cbm_db/device_type_ai_config",
-  "store": "",
-  "storage": "/cbm_db"
-}

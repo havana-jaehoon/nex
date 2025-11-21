@@ -1,9 +1,0 @@
-{
-  "name": "car_device_info",
-  "dispName": "car_device_info",
-  "description": "car_device_info",
-  "type": "element",
-  "format": "/.ext/cbm_db/car_device_info",
-  "store": "",
-  "storage": "/cbm_db"
-}

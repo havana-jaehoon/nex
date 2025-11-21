@@ -1,9 +1,0 @@
-{
-  "name": "analy_type_code",
-  "dispName": "analy_type_code",
-  "description": "analy_type_code",
-  "type": "element",
-  "format": "/.ext/cbm_db/analy_type_code",
-  "store": "",
-  "storage": "/cbm_db"
-}

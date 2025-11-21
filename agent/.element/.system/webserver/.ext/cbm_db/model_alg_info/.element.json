@@ -1,9 +1,0 @@
-{
-  "name": "model_alg_info",
-  "dispName": "model_alg_info",
-  "description": "model_alg_info",
-  "type": "element",
-  "format": "/.ext/cbm_db/model_alg_info",
-  "store": "",
-  "storage": "/cbm_db"
-}

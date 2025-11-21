@@ -130,7 +130,9 @@ class DataFileIo:
 
         # 시스템 별로 element 데이터 폴더를 만들기 위한 경로
         # system 이 None 이면 Config Reeader only 용으로 사용
-        self._systemPath = f'/.system/{system.get("name", "")}' if system is not None else ""
+
+        configSystemName = 'config'
+        self._systemPath = f'/.system/{configSystemName}' if system is not None else ""
         self._elementFullPath = f'{root_path}{self._systemPath}{self._elementPath}'
 
         self._configs = {v: None for v in ELEMENT_CFG_LIST.values()}

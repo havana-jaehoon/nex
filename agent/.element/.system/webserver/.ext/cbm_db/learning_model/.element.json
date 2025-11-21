@@ -1,9 +1,0 @@
-{
-  "name": "learning_model",
-  "dispName": "learning_model",
-  "description": "learning_model",
-  "type": "element",
-  "format": "/.ext/cbm_db/learning_model",
-  "store": "",
-  "storage": "/cbm_db"
-}

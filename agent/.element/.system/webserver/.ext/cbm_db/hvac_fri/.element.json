@@ -1,9 +1,0 @@
-{
-  "name": "hvac_fri",
-  "dispName": "hvac_fri",
-  "description": "hvac_fri",
-  "type": "element",
-  "format": "/.ext/cbm_db/hvac_fri",
-  "store": "",
-  "storage": "/cbm_db"
-}

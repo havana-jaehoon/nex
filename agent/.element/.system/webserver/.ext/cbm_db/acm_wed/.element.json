@@ -1,9 +1,0 @@
-{
-  "name": "acm_wed",
-  "dispName": "acm_wed",
-  "description": "acm_wed",
-  "type": "element",
-  "format": "/.ext/cbm_db/acm_wed",
-  "store": "",
-  "storage": "/cbm_db"
-}

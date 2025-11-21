@@ -1,9 +1,0 @@
-{
-  "name": "acm_tue",
-  "dispName": "acm_tue",
-  "description": "acm_tue",
-  "type": "element",
-  "format": "/.ext/cbm_db/acm_tue",
-  "store": "",
-  "storage": "/cbm_db"
-}

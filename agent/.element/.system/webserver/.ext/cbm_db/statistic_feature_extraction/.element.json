@@ -1,9 +1,0 @@
-{
-  "name": "statistic_feature_extraction",
-  "dispName": "statistic_feature_extraction",
-  "description": "statistic_feature_extraction",
-  "type": "element",
-  "format": "/.ext/cbm_db/statistic_feature_extraction",
-  "store": "",
-  "storage": "/cbm_db"
-}

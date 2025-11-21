@@ -1,9 +1,0 @@
-{
-  "name": "tcms_trouble_info",
-  "dispName": "tcms_trouble_info",
-  "description": "tcms_trouble_info",
-  "type": "element",
-  "format": "/.ext/cbm_db/tcms_trouble_info",
-  "store": "",
-  "storage": "/cbm_db"
-}

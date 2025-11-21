@@ -1,9 +1,0 @@
-{
-  "name": "hvac_sat",
-  "dispName": "hvac_sat",
-  "description": "hvac_sat",
-  "type": "element",
-  "format": "/.ext/cbm_db/hvac_sat",
-  "store": "",
-  "storage": "/cbm_db"
-}

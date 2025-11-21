@@ -1,0 +1,15 @@
+{
+  "name": "DevicePerCar",
+  "dispName": "차량별장치정보",
+  "description": "차량별장치정보",
+  "type": "element",
+  "format": "/cbm/config/DevicePerCar",
+  "store": "/static",
+  "storage": "/disk",
+  "processor": "/common/transparent",
+  "processingInterval": "10",
+  "processingUnit": "SEC",
+  "sources": [
+    "config:/cbm/config/DevicePerCar"
+  ]
+}

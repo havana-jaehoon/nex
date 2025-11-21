@@ -1,9 +1,0 @@
-{
-  "name": "policy_input_info",
-  "dispName": "policy_input_info",
-  "description": "policy_input_info",
-  "type": "element",
-  "format": "/.ext/cbm_db/policy_input_info",
-  "store": "",
-  "storage": "/cbm_db"
-}

@@ -1,9 +1,0 @@
-{
-  "name": "agent_access",
-  "dispName": "agent_access",
-  "description": "agent_access",
-  "type": "element",
-  "format": "/.ext/cbm_db/agent_access",
-  "store": "",
-  "storage": "/cbm_db"
-}

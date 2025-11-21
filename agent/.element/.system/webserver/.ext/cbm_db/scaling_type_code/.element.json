@@ -1,9 +1,0 @@
-{
-  "name": "scaling_type_code",
-  "dispName": "scaling_type_code",
-  "description": "scaling_type_code",
-  "type": "element",
-  "format": "/.ext/cbm_db/scaling_type_code",
-  "store": "",
-  "storage": "/cbm_db"
-}

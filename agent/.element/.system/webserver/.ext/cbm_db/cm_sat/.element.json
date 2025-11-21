@@ -1,9 +1,0 @@
-{
-  "name": "cm_sat",
-  "dispName": "cm_sat",
-  "description": "cm_sat",
-  "type": "element",
-  "format": "/.ext/cbm_db/cm_sat",
-  "store": "",
-  "storage": "/cbm_db"
-}

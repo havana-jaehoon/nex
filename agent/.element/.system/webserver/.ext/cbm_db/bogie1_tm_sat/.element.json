@@ -1,9 +1,0 @@
-{
-  "name": "bogie1_tm_sat",
-  "dispName": "bogie1_tm_sat",
-  "description": "bogie1_tm_sat",
-  "type": "element",
-  "format": "/.ext/cbm_db/bogie1_tm_sat",
-  "store": "",
-  "storage": "/cbm_db"
-}

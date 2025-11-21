@@ -1,9 +1,0 @@
-{
-  "name": "mtr_wed",
-  "dispName": "mtr_wed",
-  "description": "mtr_wed",
-  "type": "element",
-  "format": "/.ext/cbm_db/mtr_wed",
-  "store": "",
-  "storage": "/cbm_db"
-}

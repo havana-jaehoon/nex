@@ -1,9 +1,0 @@
-{
-  "name": "degrad_param",
-  "dispName": "degrad_param",
-  "description": "degrad_param",
-  "type": "element",
-  "format": "/.ext/cbm_db/degrad_param",
-  "store": "",
-  "storage": "/cbm_db"
-}

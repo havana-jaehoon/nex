@@ -6,7 +6,7 @@ import { NexCondition, NexFeatureType } from "type/NexNode";
 import { makeSampleJsonAndCsv, parseCsv2Json } from "type/nexNodeConv";
 import axios from "axios";
 
-const URL_DATA = "http://127.0.0.1:9080/data-api";
+//const URL_DATA = "http://127.0.0.1:9080/data-api";
 
 export interface NexData {
   csv: any[]; // conditions 가 반영된 CSV data
@@ -209,6 +209,8 @@ export class NexDataStore {
   constructor(
     url: string,
     path: string,
+    project: string,
+    system: string,
     elementPath: string,
     element?: any,
     format?: any,
@@ -237,10 +239,10 @@ export class NexDataStore {
       }
     }
 
-    this.url = URL_DATA; // url;
+    this.url = url; // url;
     this.queryParams = {
-      project: "", //this.projectName,
-      system: "webserver", // this.systemName,
+      project: project, //this.projectName,
+      system: system, // this.systemName,
       path: this.elementPath,
     };
     this.name = this.element?.dispName || this.format?.dispName || "";
@@ -274,8 +276,8 @@ export class NexDataStore {
       update: action,
 
       getData: action,
-      getValuesByCondition: action,
-      getCountByCondition: action,
+      //getValuesByCondition: action,
+      //getCountByCondition: action,
       //buildTreeData: action,
     });
 
@@ -289,8 +291,8 @@ export class NexDataStore {
     this.update = this.update.bind(this);
 
     this.getData = this.getData.bind(this);
-    this.getCountByCondition = this.getCountByCondition.bind(this);
-    this.getValuesByCondition = this.getValuesByCondition.bind(this);
+    //this.getCountByCondition = this.getCountByCondition.bind(this);
+    //this.getValuesByCondition = this.getValuesByCondition.bind(this);
     //this.buildTreeData = this.buildTreeData.bind(this);
 
     const interval = makePeriodMSec(
@@ -489,6 +491,7 @@ export class NexDataStore {
     };
   }
 
+  /*
   getValuesByCondition(
     conditions: any[],
     tFeatures?: string[] // 출력 할 행의 feature 이름들
@@ -570,7 +573,7 @@ export class NexDataStore {
 
     return { csv: data, format: format };
   }
-
+*/
   getIndexesByCondition(conditions: any[]): number[] {
     const matchingIndexes: number[] = [];
 
@@ -626,7 +629,7 @@ export class NexDataStore {
 
     return matchingIndexes;
   }
-
+/*
   getCountByCondition(
     conditions: any[], // 조건에 해당하는 행의 고유한(Target) 값을 반환
     cFeature: string, // 카운팅할 원본데이터의 freature 이름
@@ -740,7 +743,7 @@ export class NexDataStore {
 
     return new NexDataStore("", "", "", format, data);
   }
-
+*/
   buildTreeData3() {
     if (!this.isTree) {
       console.error(

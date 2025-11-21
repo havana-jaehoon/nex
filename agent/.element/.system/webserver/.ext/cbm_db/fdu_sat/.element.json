@@ -1,9 +1,0 @@
-{
-  "name": "fdu_sat",
-  "dispName": "fdu_sat",
-  "description": "fdu_sat",
-  "type": "element",
-  "format": "/.ext/cbm_db/fdu_sat",
-  "store": "",
-  "storage": "/cbm_db"
-}

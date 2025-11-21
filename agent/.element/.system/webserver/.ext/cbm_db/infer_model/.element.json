@@ -1,9 +1,0 @@
-{
-  "name": "infer_model",
-  "dispName": "infer_model",
-  "description": "infer_model",
-  "type": "element",
-  "format": "/.ext/cbm_db/infer_model",
-  "store": "",
-  "storage": "/cbm_db"
-}

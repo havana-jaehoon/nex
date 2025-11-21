@@ -1,9 +1,0 @@
-{
-  "name": "dcu_fri",
-  "dispName": "dcu_fri",
-  "description": "dcu_fri",
-  "type": "element",
-  "format": "/.ext/cbm_db/dcu_fri",
-  "store": "",
-  "storage": "/cbm_db"
-}

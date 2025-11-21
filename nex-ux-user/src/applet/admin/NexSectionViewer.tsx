@@ -253,11 +253,27 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
 
     const newRecord = [...curRecord];
 
+    if (
+      (selectedSection.applet && selectedSection.applet !== "") ||
+      (selectedSection.contents && selectedSection.contents.length > 0)
+    ) {
+      console.log(
+        `# applet=${Boolean(selectedSection.applet)}, contents=${selectedSection.contents}`
+      );
+      window.alert(
+        "애플릿이나 컨텐츠가 있는 섹션은 하위 섹션을 추가할 수 없습니다."
+      );
+      return;
+    }
+
     // -1: 서버에서 인덱스 발행
     newRecord[0] = -1; // new record
     newRecord[1] = `${selectedPath}/${selectedSection.name}`; // path;
     //const prevSection: any = (newRecord[4] as any)[key] || {};
     //-1 : 마지막에 추가
+
+    //const newSection = { ...selectedSection, applet: "", contents: [] };
+
     newRecord[4] = {
       [-1]: selectedSection,
     };

@@ -1,9 +1,0 @@
-{
-  "name": "acm_fri",
-  "dispName": "acm_fri",
-  "description": "acm_fri",
-  "type": "element",
-  "format": "/.ext/cbm_db/acm_fri",
-  "store": "",
-  "storage": "/cbm_db"
-}

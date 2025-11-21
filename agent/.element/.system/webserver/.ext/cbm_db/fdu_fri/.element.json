@@ -1,9 +1,0 @@
-{
-  "name": "fdu_fri",
-  "dispName": "fdu_fri",
-  "description": "fdu_fri",
-  "type": "element",
-  "format": "/.ext/cbm_db/fdu_fri",
-  "store": "",
-  "storage": "/cbm_db"
-}

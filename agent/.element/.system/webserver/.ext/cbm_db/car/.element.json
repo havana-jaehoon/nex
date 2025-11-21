@@ -1,9 +1,0 @@
-{
-  "name": "car",
-  "dispName": "car",
-  "description": "car",
-  "type": "element",
-  "format": "/.ext/cbm_db/car",
-  "store": "",
-  "storage": "/cbm_db"
-}

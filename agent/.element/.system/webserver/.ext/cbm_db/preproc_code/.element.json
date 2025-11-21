@@ -1,9 +1,0 @@
-{
-  "name": "preproc_code",
-  "dispName": "preproc_code",
-  "description": "preproc_code",
-  "type": "element",
-  "format": "/.ext/cbm_db/preproc_code",
-  "store": "",
-  "storage": "/cbm_db"
-}

@@ -1,9 +1,0 @@
-{
-  "name": "dcu_sat",
-  "dispName": "dcu_sat",
-  "description": "dcu_sat",
-  "type": "element",
-  "format": "/.ext/cbm_db/dcu_sat",
-  "store": "",
-  "storage": "/cbm_db"
-}

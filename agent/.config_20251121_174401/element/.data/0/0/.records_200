@@ -1,0 +1,767 @@
+[
+  [
+    455,
+    "/.ext/cbm_db/mtr_sun",
+    "",
+    "collector",
+    {
+      "136": {
+        "name": "mtr_sun",
+        "dispName": "mtr_sun",
+        "description": "mtr_sun",
+        "type": "element",
+        "format": "/.ext/cbm_db/mtr_sun",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    456,
+    "/.ext/cbm_db/mtr_thu",
+    "",
+    "collector",
+    {
+      "137": {
+        "name": "mtr_thu",
+        "dispName": "mtr_thu",
+        "description": "mtr_thu",
+        "type": "element",
+        "format": "/.ext/cbm_db/mtr_thu",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    457,
+    "/.ext/cbm_db/mtr_tue",
+    "",
+    "collector",
+    {
+      "138": {
+        "name": "mtr_tue",
+        "dispName": "mtr_tue",
+        "description": "mtr_tue",
+        "type": "element",
+        "format": "/.ext/cbm_db/mtr_tue",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    458,
+    "/.ext/cbm_db/mtr_wed",
+    "",
+    "collector",
+    {
+      "139": {
+        "name": "mtr_wed",
+        "dispName": "mtr_wed",
+        "description": "mtr_wed",
+        "type": "element",
+        "format": "/.ext/cbm_db/mtr_wed",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    459,
+    "/.ext/cbm_db/operation_fri",
+    "",
+    "collector",
+    {
+      "140": {
+        "name": "operation_fri",
+        "dispName": "operation_fri",
+        "description": "operation_fri",
+        "type": "element",
+        "format": "/.ext/cbm_db/operation_fri",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    460,
+    "/.ext/cbm_db/operation_mon",
+    "",
+    "collector",
+    {
+      "141": {
+        "name": "operation_mon",
+        "dispName": "operation_mon",
+        "description": "operation_mon",
+        "type": "element",
+        "format": "/.ext/cbm_db/operation_mon",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    461,
+    "/.ext/cbm_db/operation_sat",
+    "",
+    "collector",
+    {
+      "142": {
+        "name": "operation_sat",
+        "dispName": "operation_sat",
+        "description": "operation_sat",
+        "type": "element",
+        "format": "/.ext/cbm_db/operation_sat",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    462,
+    "/.ext/cbm_db/operation_sun",
+    "",
+    "collector",
+    {
+      "143": {
+        "name": "operation_sun",
+        "dispName": "operation_sun",
+        "description": "operation_sun",
+        "type": "element",
+        "format": "/.ext/cbm_db/operation_sun",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    463,
+    "/.ext/cbm_db/operation_thu",
+    "",
+    "collector",
+    {
+      "144": {
+        "name": "operation_thu",
+        "dispName": "operation_thu",
+        "description": "operation_thu",
+        "type": "element",
+        "format": "/.ext/cbm_db/operation_thu",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    464,
+    "/.ext/cbm_db/operation_tue",
+    "",
+    "collector",
+    {
+      "145": {
+        "name": "operation_tue",
+        "dispName": "operation_tue",
+        "description": "operation_tue",
+        "type": "element",
+        "format": "/.ext/cbm_db/operation_tue",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    465,
+    "/.ext/cbm_db/operation_wed",
+    "",
+    "collector",
+    {
+      "146": {
+        "name": "operation_wed",
+        "dispName": "operation_wed",
+        "description": "operation_wed",
+        "type": "element",
+        "format": "/.ext/cbm_db/operation_wed",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    466,
+    "/.ext/cbm_db/pac_fri",
+    "",
+    "collector",
+    {
+      "147": {
+        "name": "pac_fri",
+        "dispName": "pac_fri",
+        "description": "pac_fri",
+        "type": "element",
+        "format": "/.ext/cbm_db/pac_fri",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    467,
+    "/.ext/cbm_db/pac_mon",
+    "",
+    "collector",
+    {
+      "148": {
+        "name": "pac_mon",
+        "dispName": "pac_mon",
+        "description": "pac_mon",
+        "type": "element",
+        "format": "/.ext/cbm_db/pac_mon",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    468,
+    "/.ext/cbm_db/pac_sat",
+    "",
+    "collector",
+    {
+      "149": {
+        "name": "pac_sat",
+        "dispName": "pac_sat",
+        "description": "pac_sat",
+        "type": "element",
+        "format": "/.ext/cbm_db/pac_sat",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    469,
+    "/.ext/cbm_db/pac_sun",
+    "",
+    "collector",
+    {
+      "150": {
+        "name": "pac_sun",
+        "dispName": "pac_sun",
+        "description": "pac_sun",
+        "type": "element",
+        "format": "/.ext/cbm_db/pac_sun",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    470,
+    "/.ext/cbm_db/pac_thu",
+    "",
+    "collector",
+    {
+      "151": {
+        "name": "pac_thu",
+        "dispName": "pac_thu",
+        "description": "pac_thu",
+        "type": "element",
+        "format": "/.ext/cbm_db/pac_thu",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    471,
+    "/.ext/cbm_db/pac_tue",
+    "",
+    "collector",
+    {
+      "152": {
+        "name": "pac_tue",
+        "dispName": "pac_tue",
+        "description": "pac_tue",
+        "type": "element",
+        "format": "/.ext/cbm_db/pac_tue",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    472,
+    "/.ext/cbm_db/pac_wed",
+    "",
+    "collector",
+    {
+      "153": {
+        "name": "pac_wed",
+        "dispName": "pac_wed",
+        "description": "pac_wed",
+        "type": "element",
+        "format": "/.ext/cbm_db/pac_wed",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    473,
+    "/.ext/cbm_db/policy_input_group_info",
+    "",
+    "collector",
+    {
+      "154": {
+        "name": "policy_input_group_info",
+        "dispName": "policy_input_group_info",
+        "description": "policy_input_group_info",
+        "type": "element",
+        "format": "/.ext/cbm_db/policy_input_group_info",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    474,
+    "/.ext/cbm_db/policy_input_info",
+    "",
+    "collector",
+    {
+      "155": {
+        "name": "policy_input_info",
+        "dispName": "policy_input_info",
+        "description": "policy_input_info",
+        "type": "element",
+        "format": "/.ext/cbm_db/policy_input_info",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    475,
+    "/.ext/cbm_db/policy_output_group_info",
+    "",
+    "collector",
+    {
+      "156": {
+        "name": "policy_output_group_info",
+        "dispName": "policy_output_group_info",
+        "description": "policy_output_group_info",
+        "type": "element",
+        "format": "/.ext/cbm_db/policy_output_group_info",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    476,
+    "/.ext/cbm_db/policy_output_info",
+    "",
+    "collector",
+    {
+      "157": {
+        "name": "policy_output_info",
+        "dispName": "policy_output_info",
+        "description": "policy_output_info",
+        "type": "element",
+        "format": "/.ext/cbm_db/policy_output_info",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    477,
+    "/.ext/cbm_db/preproc_code",
+    "",
+    "collector",
+    {
+      "158": {
+        "name": "preproc_code",
+        "dispName": "preproc_code",
+        "description": "preproc_code",
+        "type": "element",
+        "format": "/.ext/cbm_db/preproc_code",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    478,
+    "/.ext/cbm_db/repository_info",
+    "",
+    "collector",
+    {
+      "159": {
+        "name": "repository_info",
+        "dispName": "repository_info",
+        "description": "repository_info",
+        "type": "element",
+        "format": "/.ext/cbm_db/repository_info",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    479,
+    "/.ext/cbm_db/rolling_window",
+    "",
+    "collector",
+    {
+      "160": {
+        "name": "rolling_window",
+        "dispName": "rolling_window",
+        "description": "rolling_window",
+        "type": "element",
+        "format": "/.ext/cbm_db/rolling_window",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    480,
+    "/.ext/cbm_db/rule_device_maint_action",
+    "",
+    "collector",
+    {
+      "161": {
+        "name": "rule_device_maint_action",
+        "dispName": "rule_device_maint_action",
+        "description": "rule_device_maint_action",
+        "type": "element",
+        "format": "/.ext/cbm_db/rule_device_maint_action",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    481,
+    "/.ext/cbm_db/rule_ext_stat_anod_detail_result",
+    "",
+    "collector",
+    {
+      "162": {
+        "name": "rule_ext_stat_anod_detail_result",
+        "dispName": "rule_ext_stat_anod_detail_result",
+        "description": "rule_ext_stat_anod_detail_result",
+        "type": "element",
+        "format": "/.ext/cbm_db/rule_ext_stat_anod_detail_result",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    482,
+    "/.ext/cbm_db/rule_ext_stat_anod_result",
+    "",
+    "collector",
+    {
+      "163": {
+        "name": "rule_ext_stat_anod_result",
+        "dispName": "rule_ext_stat_anod_result",
+        "description": "rule_ext_stat_anod_result",
+        "type": "element",
+        "format": "/.ext/cbm_db/rule_ext_stat_anod_result",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    483,
+    "/.ext/cbm_db/scaling",
+    "",
+    "collector",
+    {
+      "164": {
+        "name": "scaling",
+        "dispName": "scaling",
+        "description": "scaling",
+        "type": "element",
+        "format": "/.ext/cbm_db/scaling",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    484,
+    "/.ext/cbm_db/scaling_type_code",
+    "",
+    "collector",
+    {
+      "165": {
+        "name": "scaling_type_code",
+        "dispName": "scaling_type_code",
+        "description": "scaling_type_code",
+        "type": "element",
+        "format": "/.ext/cbm_db/scaling_type_code",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    485,
+    "/.ext/cbm_db/statistic_feature_extraction",
+    "",
+    "collector",
+    {
+      "166": {
+        "name": "statistic_feature_extraction",
+        "dispName": "statistic_feature_extraction",
+        "description": "statistic_feature_extraction",
+        "type": "element",
+        "format": "/.ext/cbm_db/statistic_feature_extraction",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    486,
+    "/.ext/cbm_db/status_degradperdevice",
+    "",
+    "collector",
+    {
+      "167": {
+        "name": "status_degradperdevice",
+        "dispName": "status_degradperdevice",
+        "description": "status_degradperdevice",
+        "type": "element",
+        "format": "/.ext/cbm_db/status_degradperdevice",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    487,
+    "/.ext/cbm_db/status_degradperline",
+    "",
+    "collector",
+    {
+      "168": {
+        "name": "status_degradperline",
+        "dispName": "status_degradperline",
+        "description": "status_degradperline",
+        "type": "element",
+        "format": "/.ext/cbm_db/status_degradperline",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    488,
+    "/.ext/cbm_db/stat_type_code",
+    "",
+    "collector",
+    {
+      "169": {
+        "name": "stat_type_code",
+        "dispName": "stat_type_code",
+        "description": "stat_type_code",
+        "type": "element",
+        "format": "/.ext/cbm_db/stat_type_code",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    489,
+    "/.ext/cbm_db/subfeature_info",
+    "",
+    "collector",
+    {
+      "170": {
+        "name": "subfeature_info",
+        "dispName": "subfeature_info",
+        "description": "subfeature_info",
+        "type": "element",
+        "format": "/.ext/cbm_db/subfeature_info",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    490,
+    "/.ext/cbm_db/system_profile_degradperline",
+    "",
+    "collector",
+    {
+      "171": {
+        "name": "system_profile_degradperline",
+        "dispName": "system_profile_degradperline",
+        "description": "system_profile_degradperline",
+        "type": "element",
+        "format": "/.ext/cbm_db/system_profile_degradperline",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    491,
+    "/.ext/cbm_db/sys_export_schema_01",
+    "",
+    "collector",
+    {
+      "172": {
+        "name": "sys_export_schema_01",
+        "dispName": "sys_export_schema_01",
+        "description": "sys_export_schema_01",
+        "type": "element",
+        "format": "/.ext/cbm_db/sys_export_schema_01",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    492,
+    "/.ext/cbm_db/tcms_trouble_info",
+    "",
+    "collector",
+    {
+      "173": {
+        "name": "tcms_trouble_info",
+        "dispName": "tcms_trouble_info",
+        "description": "tcms_trouble_info",
+        "type": "element",
+        "format": "/.ext/cbm_db/tcms_trouble_info",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    493,
+    "/.ext/cbm_db/test_config_trainperline",
+    "",
+    "collector",
+    {
+      "174": {
+        "name": "test_config_trainperline",
+        "dispName": "test_config_trainperline",
+        "description": "test_config_trainperline",
+        "type": "element",
+        "format": "/.ext/cbm_db/test_config_trainperline",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    494,
+    "/.ext/cbm_db/train",
+    "",
+    "collector",
+    {
+      "175": {
+        "name": "train",
+        "dispName": "train",
+        "description": "train",
+        "type": "element",
+        "format": "/.ext/cbm_db/train",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    495,
+    "/.ext/cbm_db/train_infer_job",
+    "",
+    "collector",
+    {
+      "176": {
+        "name": "train_infer_job",
+        "dispName": "train_infer_job",
+        "description": "train_infer_job",
+        "type": "element",
+        "format": "/.ext/cbm_db/train_infer_job",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    496,
+    "/.ext/cbm_db/train_job_result_detail",
+    "",
+    "collector",
+    {
+      "177": {
+        "name": "train_job_result_detail",
+        "dispName": "train_job_result_detail",
+        "description": "train_job_result_detail",
+        "type": "element",
+        "format": "/.ext/cbm_db/train_job_result_detail",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    497,
+    "/.ext/cbm_db/_auth",
+    "",
+    "collector",
+    {
+      "178": {
+        "name": "_auth",
+        "dispName": "_auth",
+        "description": "_auth",
+        "type": "element",
+        "format": "/.ext/cbm_db/_auth",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    498,
+    "/.ext/cbm_db/status_DegradPerDevice",
+    "",
+    "collector",
+    {
+      "179": {
+        "name": "status_DegradPerDevice",
+        "dispName": "status_DegradPerDevice",
+        "description": "status_DegradPerDevice",
+        "type": "element",
+        "format": "/.ext/cbm_db/status_DegradPerDevice",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    499,
+    "/.ext/cbm_db/status_DegradPerLine",
+    "",
+    "collector",
+    {
+      "180": {
+        "name": "status_DegradPerLine",
+        "dispName": "status_DegradPerLine",
+        "description": "status_DegradPerLine",
+        "type": "element",
+        "format": "/.ext/cbm_db/status_DegradPerLine",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ]
+]

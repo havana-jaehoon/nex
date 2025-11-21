@@ -1,9 +1,0 @@
-{
-  "name": "device_policy",
-  "dispName": "device_policy",
-  "description": "device_policy",
-  "type": "element",
-  "format": "/.ext/cbm_db/device_policy",
-  "store": "",
-  "storage": "/cbm_db"
-}

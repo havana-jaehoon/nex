@@ -1,9 +1,0 @@
-{
-  "name": "system_profile_degradperline",
-  "dispName": "system_profile_degradperline",
-  "description": "system_profile_degradperline",
-  "type": "element",
-  "format": "/.ext/cbm_db/system_profile_degradperline",
-  "store": "",
-  "storage": "/cbm_db"
-}

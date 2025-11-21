@@ -1,0 +1,15 @@
+{
+  "name": "TrainPerLine",
+  "dispName": "노선별편성정보",
+  "description": "노선별 편성정보",
+  "type": "element",
+  "format": "/cbm/config/TrainPerLine",
+  "store": "/static",
+  "storage": "/disk",
+  "processor": "/common/transparent",
+  "processingInterval": "10",
+  "processingUnit": "SEC",
+  "sources": [
+    "config:/cbm/config/TrainPerLine"
+  ]
+}

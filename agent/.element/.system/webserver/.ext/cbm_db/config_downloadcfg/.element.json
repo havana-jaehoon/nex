@@ -1,9 +1,0 @@
-{
-  "name": "config_downloadcfg",
-  "dispName": "config_downloadcfg",
-  "description": "config_downloadcfg",
-  "type": "element",
-  "format": "/.ext/cbm_db/config_downloadcfg",
-  "store": "",
-  "storage": "/cbm_db"
-}

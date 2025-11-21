@@ -3,7 +3,7 @@
     0,
     "/admin",
     "",
-    "config",
+    "webserver",
     {
       "0": {
         "name": "admin",
@@ -17,7 +17,7 @@
     1,
     "/cbm",
     "",
-    "config",
+    "webserver",
     {
       "1": {
         "name": "cbm",
@@ -31,7 +31,7 @@
     3,
     "/cbm/config",
     "",
-    "config",
+    "webserver",
     {
       "0": {
         "name": "config",
@@ -45,7 +45,7 @@
     4,
     "/cbm/status",
     "",
-    "config",
+    "webserver",
     {
       "1": {
         "name": "status",
@@ -59,7 +59,7 @@
     5,
     "/cbm/event",
     "",
-    "config",
+    "webserver",
     {
       "2": {
         "name": "event",
@@ -73,7 +73,7 @@
     6,
     "/cbm/history",
     "",
-    "config",
+    "webserver",
     {
       "3": {
         "name": "history",
@@ -87,7 +87,7 @@
     7,
     "/cbm/config/Line",
     "",
-    "config",
+    "webserver",
     {
       "0": {
         "name": "Line",
@@ -108,7 +108,7 @@
     8,
     "/cbm/config/TrainPerLine",
     "",
-    "config",
+    "webserver",
     {
       "1": {
         "name": "TrainPerLine",
@@ -129,7 +129,7 @@
     9,
     "/cbm/config/CarPerTrain",
     "",
-    "config",
+    "webserver",
     {
       "2": {
         "name": "CarPerTrain",
@@ -150,7 +150,7 @@
     10,
     "/cbm/config/DevicePerCar",
     "",
-    "config",
+    "webserver",
     {
       "3": {
         "name": "DevicePerCar",
@@ -171,7 +171,7 @@
     11,
     "/cbm/status/LossPerLine",
     "",
-    "config",
+    "webserver",
     {
       "0": {
         "name": "LossPerLine",
@@ -192,7 +192,7 @@
     12,
     "/cbm/status/LossPerDevice",
     "",
-    "config",
+    "webserver",
     {
       "1": {
         "name": "LossPerDevice",
@@ -213,7 +213,7 @@
     13,
     "/cbm/status/TrainCountPerLine",
     "",
-    "config",
+    "webserver",
     {
       "2": {
         "name": "TrainCountPerLine",
@@ -234,7 +234,7 @@
     14,
     "/cbm/event/RTMaintenanceInfo",
     "",
-    "config",
+    "webserver",
     {
       "0": {
         "name": "RTMaintenanceInfo",
@@ -254,7 +254,7 @@
     15,
     "/cbm/event/SystemEventInfo",
     "",
-    "config",
+    "webserver",
     {
       "1": {
         "name": "SystemEventInfo",
@@ -274,7 +274,7 @@
     16,
     "/cbm/history/LossHistoryPerLine",
     "",
-    "config",
+    "webserver",
     {
       "0": {
         "name": "LossHistoryPerLine",
@@ -294,7 +294,7 @@
     17,
     "/cbm/history/LossHistoryPerDevice",
     "",
-    "config",
+    "webserver",
     {
       "1": {
         "name": "LossHistoryPerDevice",
@@ -314,7 +314,7 @@
     18,
     "/cbm/history/MaintenanceHistoryPerLine",
     "",
-    "config",
+    "webserver",
     {
       "2": {
         "name": "MaintenanceHistoryPerLine",
@@ -334,7 +334,7 @@
     19,
     "/cbm/history/DetailLossLevelHistory",
     "",
-    "config",
+    "webserver",
     {
       "3": {
         "name": "DetailLossLevelHistory",
@@ -354,7 +354,7 @@
     21,
     "/admin/menu",
     "",
-    "config",
+    "webserver",
     {
       "0": {
         "name": "menu",
@@ -375,7 +375,7 @@
     22,
     "/admin/storage",
     "",
-    "config",
+    "webserver",
     {
       "1": {
         "name": "storage",
@@ -396,7 +396,7 @@
     23,
     "/admin/format",
     "",
-    "config",
+    "webserver",
     {
       "2": {
         "name": "format",
@@ -417,7 +417,7 @@
     24,
     "/admin/store",
     "",
-    "config",
+    "webserver",
     {
       "3": {
         "name": "store",
@@ -438,7 +438,7 @@
     25,
     "/admin/processor",
     "",
-    "config",
+    "webserver",
     {
       "4": {
         "name": "processor",
@@ -459,7 +459,7 @@
     26,
     "/admin/system",
     "",
-    "config",
+    "webserver",
     {
       "5": {
         "name": "system",
@@ -480,7 +480,7 @@
     27,
     "/admin/element",
     "",
-    "config",
+    "webserver",
     {
       "6": {
         "name": "element",
@@ -501,7 +501,7 @@
     28,
     "/admin/contents",
     "",
-    "config",
+    "webserver",
     {
       "7": {
         "name": "contents",
@@ -522,7 +522,7 @@
     29,
     "/admin/applet",
     "",
-    "config",
+    "webserver",
     {
       "8": {
         "name": "applet",
@@ -545,7 +545,7 @@
     30,
     "/admin/section",
     "",
-    "config",
+    "webserver",
     {
       "9": {
         "name": "section",
@@ -566,7 +566,7 @@
     31,
     "/admin/user",
     "",
-    "config",
+    "webserver",
     {
       "10": {
         "name": "user",
@@ -587,7 +587,7 @@
     32,
     "/admin/theme",
     "",
-    "config",
+    "webserver",
     {
       "11": {
         "name": "theme",
@@ -650,7 +650,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/cbm/config/Line"
+          "webserver:/cbm/config/Line"
         ]
       }
     }
@@ -673,7 +673,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/cbm/config/TrainPerLine"
+          "webserver:/cbm/config/TrainPerLine"
         ]
       }
     }
@@ -696,7 +696,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/cbm/config/CarPerTrain"
+          "webserver:/cbm/config/CarPerTrain"
         ]
       }
     }
@@ -719,7 +719,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/cbm/config/DevicePerCar"
+          "webserver:/cbm/config/DevicePerCar"
         ]
       }
     }
@@ -756,7 +756,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/cbm/status/LossPerLine"
+          "webserver:/cbm/status/LossPerLine"
         ]
       }
     }
@@ -779,7 +779,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/cbm/status/LossPerDevice"
+          "webserver:/cbm/status/LossPerDevice"
         ]
       }
     }
@@ -802,7 +802,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/cbm/status/TrainCountPerLine"
+          "webserver:/cbm/status/TrainCountPerLine"
         ]
       }
     }
@@ -838,7 +838,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/cbm/event/RTMaintenanceInfo"
+          "webserver:/cbm/event/RTMaintenanceInfo"
         ]
       }
     }
@@ -860,7 +860,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/cbm/event/SystemEventInfo"
+          "webserver:/cbm/event/SystemEventInfo"
         ]
       }
     }
@@ -896,7 +896,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/cbm/history/LossHistoryPerLine"
+          "webserver:/cbm/history/LossHistoryPerLine"
         ]
       }
     }
@@ -918,7 +918,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/cbm/history/LossHistoryPerDevice"
+          "webserver:/cbm/history/LossHistoryPerDevice"
         ]
       }
     }
@@ -940,7 +940,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/cbm/history/MaintenanceHistoryPerLine"
+          "webserver:/cbm/history/MaintenanceHistoryPerLine"
         ]
       }
     }
@@ -962,7 +962,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/cbm/history/DetailLossLevelHistory"
+          "webserver:/cbm/history/DetailLossLevelHistory"
         ]
       }
     }
@@ -1026,7 +1026,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/admin/storage"
+          "webserver:/admin/storage"
         ]
       }
     }
@@ -1051,7 +1051,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/admin/format"
+          "webserver:/admin/format"
         ]
       }
     }
@@ -1076,7 +1076,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/admin/store"
+          "webserver:/admin/store"
         ]
       }
     }
@@ -1101,7 +1101,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/admin/processor"
+          "webserver:/admin/processor"
         ]
       }
     }
@@ -1126,7 +1126,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/admin/system"
+          "webserver:/admin/system"
         ]
       }
     }
@@ -1151,7 +1151,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/admin/element"
+          "webserver:/admin/element"
         ]
       }
     }
@@ -1176,7 +1176,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/admin/contents"
+          "webserver:/admin/contents"
         ]
       }
     }
@@ -1201,7 +1201,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/admin/applet"
+          "webserver:/admin/applet"
         ]
       }
     }
@@ -1226,7 +1226,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/admin/section"
+          "webserver:/admin/section"
         ]
       }
     }
@@ -1251,7 +1251,7 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/admin/user"
+          "webserver:/admin/user"
         ]
       }
     }
@@ -1276,8 +1276,652 @@
         "processingInterval": "10",
         "processingUnit": "SEC",
         "sources": [
-          "config:/admin/theme"
+          "webserver:/admin/theme"
         ]
+      }
+    }
+  ],
+  [
+    317,
+    "/.ext",
+    "",
+    "collector",
+    {
+      "4": {
+        "name": ".ext",
+        "dispName": "외부데이터",
+        "description": "외부데이터",
+        "type": "folder",
+        "icon": "",
+        "color": ""
+      }
+    }
+  ],
+  [
+    318,
+    "/.ext/cbm_db",
+    "",
+    "collector",
+    {
+      "0": {
+        "name": "cbm_db",
+        "dispName": "CBM DB",
+        "description": "CBM DB",
+        "type": "folder",
+        "icon": "",
+        "color": ""
+      }
+    }
+  ],
+  [
+    319,
+    "/.ext/cbm_db/acm_fri",
+    "",
+    "collector",
+    {
+      "0": {
+        "name": "acm_fri",
+        "dispName": "acm_fri",
+        "description": "acm_fri",
+        "type": "element",
+        "format": "/.ext/cbm_db/acm_fri",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    320,
+    "/.ext/cbm_db/acm_mon",
+    "",
+    "collector",
+    {
+      "1": {
+        "name": "acm_mon",
+        "dispName": "acm_mon",
+        "description": "acm_mon",
+        "type": "element",
+        "format": "/.ext/cbm_db/acm_mon",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    321,
+    "/.ext/cbm_db/acm_sat",
+    "",
+    "collector",
+    {
+      "2": {
+        "name": "acm_sat",
+        "dispName": "acm_sat",
+        "description": "acm_sat",
+        "type": "element",
+        "format": "/.ext/cbm_db/acm_sat",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    322,
+    "/.ext/cbm_db/acm_sun",
+    "",
+    "collector",
+    {
+      "3": {
+        "name": "acm_sun",
+        "dispName": "acm_sun",
+        "description": "acm_sun",
+        "type": "element",
+        "format": "/.ext/cbm_db/acm_sun",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    323,
+    "/.ext/cbm_db/acm_thu",
+    "",
+    "collector",
+    {
+      "4": {
+        "name": "acm_thu",
+        "dispName": "acm_thu",
+        "description": "acm_thu",
+        "type": "element",
+        "format": "/.ext/cbm_db/acm_thu",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    324,
+    "/.ext/cbm_db/acm_tue",
+    "",
+    "collector",
+    {
+      "5": {
+        "name": "acm_tue",
+        "dispName": "acm_tue",
+        "description": "acm_tue",
+        "type": "element",
+        "format": "/.ext/cbm_db/acm_tue",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    325,
+    "/.ext/cbm_db/acm_wed",
+    "",
+    "collector",
+    {
+      "6": {
+        "name": "acm_wed",
+        "dispName": "acm_wed",
+        "description": "acm_wed",
+        "type": "element",
+        "format": "/.ext/cbm_db/acm_wed",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    326,
+    "/.ext/cbm_db/adx_infer_job",
+    "",
+    "collector",
+    {
+      "7": {
+        "name": "adx_infer_job",
+        "dispName": "adx_infer_job",
+        "description": "adx_infer_job",
+        "type": "element",
+        "format": "/.ext/cbm_db/adx_infer_job",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    327,
+    "/.ext/cbm_db/agent_access",
+    "",
+    "collector",
+    {
+      "8": {
+        "name": "agent_access",
+        "dispName": "agent_access",
+        "description": "agent_access",
+        "type": "element",
+        "format": "/.ext/cbm_db/agent_access",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    328,
+    "/.ext/cbm_db/agent_noauth",
+    "",
+    "collector",
+    {
+      "9": {
+        "name": "agent_noauth",
+        "dispName": "agent_noauth",
+        "description": "agent_noauth",
+        "type": "element",
+        "format": "/.ext/cbm_db/agent_noauth",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    329,
+    "/.ext/cbm_db/agent_profile",
+    "",
+    "collector",
+    {
+      "10": {
+        "name": "agent_profile",
+        "dispName": "agent_profile",
+        "description": "agent_profile",
+        "type": "element",
+        "format": "/.ext/cbm_db/agent_profile",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    330,
+    "/.ext/cbm_db/analy_type_code",
+    "",
+    "collector",
+    {
+      "11": {
+        "name": "analy_type_code",
+        "dispName": "analy_type_code",
+        "description": "analy_type_code",
+        "type": "element",
+        "format": "/.ext/cbm_db/analy_type_code",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    331,
+    "/.ext/cbm_db/anod_ai_feature_result",
+    "",
+    "collector",
+    {
+      "12": {
+        "name": "anod_ai_feature_result",
+        "dispName": "anod_ai_feature_result",
+        "description": "anod_ai_feature_result",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    332,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_1",
+    "",
+    "collector",
+    {
+      "13": {
+        "name": "anod_ai_feature_result_detail_1",
+        "dispName": "anod_ai_feature_result_detail_1",
+        "description": "anod_ai_feature_result_detail_1",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_1",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    333,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_10",
+    "",
+    "collector",
+    {
+      "14": {
+        "name": "anod_ai_feature_result_detail_10",
+        "dispName": "anod_ai_feature_result_detail_10",
+        "description": "anod_ai_feature_result_detail_10",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_10",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    334,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_11",
+    "",
+    "collector",
+    {
+      "15": {
+        "name": "anod_ai_feature_result_detail_11",
+        "dispName": "anod_ai_feature_result_detail_11",
+        "description": "anod_ai_feature_result_detail_11",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_11",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    335,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_12",
+    "",
+    "collector",
+    {
+      "16": {
+        "name": "anod_ai_feature_result_detail_12",
+        "dispName": "anod_ai_feature_result_detail_12",
+        "description": "anod_ai_feature_result_detail_12",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_12",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    336,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_13",
+    "",
+    "collector",
+    {
+      "17": {
+        "name": "anod_ai_feature_result_detail_13",
+        "dispName": "anod_ai_feature_result_detail_13",
+        "description": "anod_ai_feature_result_detail_13",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_13",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    337,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_14",
+    "",
+    "collector",
+    {
+      "18": {
+        "name": "anod_ai_feature_result_detail_14",
+        "dispName": "anod_ai_feature_result_detail_14",
+        "description": "anod_ai_feature_result_detail_14",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_14",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    338,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_15",
+    "",
+    "collector",
+    {
+      "19": {
+        "name": "anod_ai_feature_result_detail_15",
+        "dispName": "anod_ai_feature_result_detail_15",
+        "description": "anod_ai_feature_result_detail_15",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_15",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    339,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_16",
+    "",
+    "collector",
+    {
+      "20": {
+        "name": "anod_ai_feature_result_detail_16",
+        "dispName": "anod_ai_feature_result_detail_16",
+        "description": "anod_ai_feature_result_detail_16",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_16",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    340,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_17",
+    "",
+    "collector",
+    {
+      "21": {
+        "name": "anod_ai_feature_result_detail_17",
+        "dispName": "anod_ai_feature_result_detail_17",
+        "description": "anod_ai_feature_result_detail_17",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_17",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    341,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_18",
+    "",
+    "collector",
+    {
+      "22": {
+        "name": "anod_ai_feature_result_detail_18",
+        "dispName": "anod_ai_feature_result_detail_18",
+        "description": "anod_ai_feature_result_detail_18",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_18",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    342,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_19",
+    "",
+    "collector",
+    {
+      "23": {
+        "name": "anod_ai_feature_result_detail_19",
+        "dispName": "anod_ai_feature_result_detail_19",
+        "description": "anod_ai_feature_result_detail_19",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_19",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    343,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_2",
+    "",
+    "collector",
+    {
+      "24": {
+        "name": "anod_ai_feature_result_detail_2",
+        "dispName": "anod_ai_feature_result_detail_2",
+        "description": "anod_ai_feature_result_detail_2",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_2",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    344,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_20",
+    "",
+    "collector",
+    {
+      "25": {
+        "name": "anod_ai_feature_result_detail_20",
+        "dispName": "anod_ai_feature_result_detail_20",
+        "description": "anod_ai_feature_result_detail_20",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_20",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    345,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_3",
+    "",
+    "collector",
+    {
+      "26": {
+        "name": "anod_ai_feature_result_detail_3",
+        "dispName": "anod_ai_feature_result_detail_3",
+        "description": "anod_ai_feature_result_detail_3",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_3",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    346,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_4",
+    "",
+    "collector",
+    {
+      "27": {
+        "name": "anod_ai_feature_result_detail_4",
+        "dispName": "anod_ai_feature_result_detail_4",
+        "description": "anod_ai_feature_result_detail_4",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_4",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    347,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_5",
+    "",
+    "collector",
+    {
+      "28": {
+        "name": "anod_ai_feature_result_detail_5",
+        "dispName": "anod_ai_feature_result_detail_5",
+        "description": "anod_ai_feature_result_detail_5",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_5",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    348,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_6",
+    "",
+    "collector",
+    {
+      "29": {
+        "name": "anod_ai_feature_result_detail_6",
+        "dispName": "anod_ai_feature_result_detail_6",
+        "description": "anod_ai_feature_result_detail_6",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_6",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    349,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_7",
+    "",
+    "collector",
+    {
+      "30": {
+        "name": "anod_ai_feature_result_detail_7",
+        "dispName": "anod_ai_feature_result_detail_7",
+        "description": "anod_ai_feature_result_detail_7",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_7",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    350,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_8",
+    "",
+    "collector",
+    {
+      "31": {
+        "name": "anod_ai_feature_result_detail_8",
+        "dispName": "anod_ai_feature_result_detail_8",
+        "description": "anod_ai_feature_result_detail_8",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_8",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    351,
+    "/.ext/cbm_db/anod_ai_feature_result_detail_9",
+    "",
+    "collector",
+    {
+      "32": {
+        "name": "anod_ai_feature_result_detail_9",
+        "dispName": "anod_ai_feature_result_detail_9",
+        "description": "anod_ai_feature_result_detail_9",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_feature_result_detail_9",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    352,
+    "/.ext/cbm_db/anod_ai_result",
+    "",
+    "collector",
+    {
+      "33": {
+        "name": "anod_ai_result",
+        "dispName": "anod_ai_result",
+        "description": "anod_ai_result",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_ai_result",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    353,
+    "/.ext/cbm_db/anod_rulebase_result",
+    "",
+    "collector",
+    {
+      "34": {
+        "name": "anod_rulebase_result",
+        "dispName": "anod_rulebase_result",
+        "description": "anod_rulebase_result",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_rulebase_result",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    354,
+    "/.ext/cbm_db/anod_type_code",
+    "",
+    "collector",
+    {
+      "35": {
+        "name": "anod_type_code",
+        "dispName": "anod_type_code",
+        "description": "anod_type_code",
+        "type": "element",
+        "format": "/.ext/cbm_db/anod_type_code",
+        "store": "",
+        "storage": "/cbm_db"
       }
     }
   ]

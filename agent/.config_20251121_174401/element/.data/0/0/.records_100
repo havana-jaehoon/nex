@@ -1,0 +1,1702 @@
+[
+  [
+    355,
+    "/.ext/cbm_db/anomaly_direction_code",
+    "",
+    "collector",
+    {
+      "36": {
+        "name": "anomaly_direction_code",
+        "dispName": "anomaly_direction_code",
+        "description": "anomaly_direction_code",
+        "type": "element",
+        "format": "/.ext/cbm_db/anomaly_direction_code",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    356,
+    "/.ext/cbm_db/bogie1_axlebr_fri",
+    "",
+    "collector",
+    {
+      "37": {
+        "name": "bogie1_axlebr_fri",
+        "dispName": "bogie1_axlebr_fri",
+        "description": "bogie1_axlebr_fri",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie1_axlebr_fri",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    357,
+    "/.ext/cbm_db/bogie1_axlebr_mon",
+    "",
+    "collector",
+    {
+      "38": {
+        "name": "bogie1_axlebr_mon",
+        "dispName": "bogie1_axlebr_mon",
+        "description": "bogie1_axlebr_mon",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie1_axlebr_mon",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    358,
+    "/.ext/cbm_db/bogie1_axlebr_sat",
+    "",
+    "collector",
+    {
+      "39": {
+        "name": "bogie1_axlebr_sat",
+        "dispName": "bogie1_axlebr_sat",
+        "description": "bogie1_axlebr_sat",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie1_axlebr_sat",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    359,
+    "/.ext/cbm_db/bogie1_axlebr_sun",
+    "",
+    "collector",
+    {
+      "40": {
+        "name": "bogie1_axlebr_sun",
+        "dispName": "bogie1_axlebr_sun",
+        "description": "bogie1_axlebr_sun",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie1_axlebr_sun",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    360,
+    "/.ext/cbm_db/bogie1_axlebr_thu",
+    "",
+    "collector",
+    {
+      "41": {
+        "name": "bogie1_axlebr_thu",
+        "dispName": "bogie1_axlebr_thu",
+        "description": "bogie1_axlebr_thu",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie1_axlebr_thu",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    361,
+    "/.ext/cbm_db/bogie1_axlebr_tue",
+    "",
+    "collector",
+    {
+      "42": {
+        "name": "bogie1_axlebr_tue",
+        "dispName": "bogie1_axlebr_tue",
+        "description": "bogie1_axlebr_tue",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie1_axlebr_tue",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    362,
+    "/.ext/cbm_db/bogie1_axlebr_wed",
+    "",
+    "collector",
+    {
+      "43": {
+        "name": "bogie1_axlebr_wed",
+        "dispName": "bogie1_axlebr_wed",
+        "description": "bogie1_axlebr_wed",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie1_axlebr_wed",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    363,
+    "/.ext/cbm_db/bogie1_tm_fri",
+    "",
+    "collector",
+    {
+      "44": {
+        "name": "bogie1_tm_fri",
+        "dispName": "bogie1_tm_fri",
+        "description": "bogie1_tm_fri",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie1_tm_fri",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    364,
+    "/.ext/cbm_db/bogie1_tm_mon",
+    "",
+    "collector",
+    {
+      "45": {
+        "name": "bogie1_tm_mon",
+        "dispName": "bogie1_tm_mon",
+        "description": "bogie1_tm_mon",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie1_tm_mon",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    365,
+    "/.ext/cbm_db/bogie1_tm_sat",
+    "",
+    "collector",
+    {
+      "46": {
+        "name": "bogie1_tm_sat",
+        "dispName": "bogie1_tm_sat",
+        "description": "bogie1_tm_sat",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie1_tm_sat",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    366,
+    "/.ext/cbm_db/bogie1_tm_sun",
+    "",
+    "collector",
+    {
+      "47": {
+        "name": "bogie1_tm_sun",
+        "dispName": "bogie1_tm_sun",
+        "description": "bogie1_tm_sun",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie1_tm_sun",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    367,
+    "/.ext/cbm_db/bogie1_tm_thu",
+    "",
+    "collector",
+    {
+      "48": {
+        "name": "bogie1_tm_thu",
+        "dispName": "bogie1_tm_thu",
+        "description": "bogie1_tm_thu",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie1_tm_thu",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    368,
+    "/.ext/cbm_db/bogie1_tm_tue",
+    "",
+    "collector",
+    {
+      "49": {
+        "name": "bogie1_tm_tue",
+        "dispName": "bogie1_tm_tue",
+        "description": "bogie1_tm_tue",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie1_tm_tue",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    369,
+    "/.ext/cbm_db/bogie1_tm_wed",
+    "",
+    "collector",
+    {
+      "50": {
+        "name": "bogie1_tm_wed",
+        "dispName": "bogie1_tm_wed",
+        "description": "bogie1_tm_wed",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie1_tm_wed",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    370,
+    "/.ext/cbm_db/bogie2_axlebr_fri",
+    "",
+    "collector",
+    {
+      "51": {
+        "name": "bogie2_axlebr_fri",
+        "dispName": "bogie2_axlebr_fri",
+        "description": "bogie2_axlebr_fri",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie2_axlebr_fri",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    371,
+    "/.ext/cbm_db/bogie2_axlebr_mon",
+    "",
+    "collector",
+    {
+      "52": {
+        "name": "bogie2_axlebr_mon",
+        "dispName": "bogie2_axlebr_mon",
+        "description": "bogie2_axlebr_mon",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie2_axlebr_mon",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    372,
+    "/.ext/cbm_db/bogie2_axlebr_sat",
+    "",
+    "collector",
+    {
+      "53": {
+        "name": "bogie2_axlebr_sat",
+        "dispName": "bogie2_axlebr_sat",
+        "description": "bogie2_axlebr_sat",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie2_axlebr_sat",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    373,
+    "/.ext/cbm_db/bogie2_axlebr_sun",
+    "",
+    "collector",
+    {
+      "54": {
+        "name": "bogie2_axlebr_sun",
+        "dispName": "bogie2_axlebr_sun",
+        "description": "bogie2_axlebr_sun",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie2_axlebr_sun",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    374,
+    "/.ext/cbm_db/bogie2_axlebr_thu",
+    "",
+    "collector",
+    {
+      "55": {
+        "name": "bogie2_axlebr_thu",
+        "dispName": "bogie2_axlebr_thu",
+        "description": "bogie2_axlebr_thu",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie2_axlebr_thu",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    375,
+    "/.ext/cbm_db/bogie2_axlebr_tue",
+    "",
+    "collector",
+    {
+      "56": {
+        "name": "bogie2_axlebr_tue",
+        "dispName": "bogie2_axlebr_tue",
+        "description": "bogie2_axlebr_tue",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie2_axlebr_tue",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    376,
+    "/.ext/cbm_db/bogie2_axlebr_wed",
+    "",
+    "collector",
+    {
+      "57": {
+        "name": "bogie2_axlebr_wed",
+        "dispName": "bogie2_axlebr_wed",
+        "description": "bogie2_axlebr_wed",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie2_axlebr_wed",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    377,
+    "/.ext/cbm_db/bogie2_tm_fri",
+    "",
+    "collector",
+    {
+      "58": {
+        "name": "bogie2_tm_fri",
+        "dispName": "bogie2_tm_fri",
+        "description": "bogie2_tm_fri",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie2_tm_fri",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    378,
+    "/.ext/cbm_db/bogie2_tm_mon",
+    "",
+    "collector",
+    {
+      "59": {
+        "name": "bogie2_tm_mon",
+        "dispName": "bogie2_tm_mon",
+        "description": "bogie2_tm_mon",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie2_tm_mon",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    379,
+    "/.ext/cbm_db/bogie2_tm_sat",
+    "",
+    "collector",
+    {
+      "60": {
+        "name": "bogie2_tm_sat",
+        "dispName": "bogie2_tm_sat",
+        "description": "bogie2_tm_sat",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie2_tm_sat",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    380,
+    "/.ext/cbm_db/bogie2_tm_sun",
+    "",
+    "collector",
+    {
+      "61": {
+        "name": "bogie2_tm_sun",
+        "dispName": "bogie2_tm_sun",
+        "description": "bogie2_tm_sun",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie2_tm_sun",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    381,
+    "/.ext/cbm_db/bogie2_tm_thu",
+    "",
+    "collector",
+    {
+      "62": {
+        "name": "bogie2_tm_thu",
+        "dispName": "bogie2_tm_thu",
+        "description": "bogie2_tm_thu",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie2_tm_thu",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    382,
+    "/.ext/cbm_db/bogie2_tm_tue",
+    "",
+    "collector",
+    {
+      "63": {
+        "name": "bogie2_tm_tue",
+        "dispName": "bogie2_tm_tue",
+        "description": "bogie2_tm_tue",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie2_tm_tue",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    383,
+    "/.ext/cbm_db/bogie2_tm_wed",
+    "",
+    "collector",
+    {
+      "64": {
+        "name": "bogie2_tm_wed",
+        "dispName": "bogie2_tm_wed",
+        "description": "bogie2_tm_wed",
+        "type": "element",
+        "format": "/.ext/cbm_db/bogie2_tm_wed",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    384,
+    "/.ext/cbm_db/car",
+    "",
+    "collector",
+    {
+      "65": {
+        "name": "car",
+        "dispName": "car",
+        "description": "car",
+        "type": "element",
+        "format": "/.ext/cbm_db/car",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    385,
+    "/.ext/cbm_db/car_device_info",
+    "",
+    "collector",
+    {
+      "66": {
+        "name": "car_device_info",
+        "dispName": "car_device_info",
+        "description": "car_device_info",
+        "type": "element",
+        "format": "/.ext/cbm_db/car_device_info",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    386,
+    "/.ext/cbm_db/car_infer_job",
+    "",
+    "collector",
+    {
+      "67": {
+        "name": "car_infer_job",
+        "dispName": "car_infer_job",
+        "description": "car_infer_job",
+        "type": "element",
+        "format": "/.ext/cbm_db/car_infer_job",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    387,
+    "/.ext/cbm_db/car_type_info",
+    "",
+    "collector",
+    {
+      "68": {
+        "name": "car_type_info",
+        "dispName": "car_type_info",
+        "description": "car_type_info",
+        "type": "element",
+        "format": "/.ext/cbm_db/car_type_info",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    388,
+    "/.ext/cbm_db/cbm_config_trainperline",
+    "",
+    "collector",
+    {
+      "69": {
+        "name": "cbm_config_trainperline",
+        "dispName": "cbm_config_trainperline",
+        "description": "cbm_config_trainperline",
+        "type": "element",
+        "format": "/.ext/cbm_db/cbm_config_trainperline",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    389,
+    "/.ext/cbm_db/cm_fri",
+    "",
+    "collector",
+    {
+      "70": {
+        "name": "cm_fri",
+        "dispName": "cm_fri",
+        "description": "cm_fri",
+        "type": "element",
+        "format": "/.ext/cbm_db/cm_fri",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    390,
+    "/.ext/cbm_db/cm_mon",
+    "",
+    "collector",
+    {
+      "71": {
+        "name": "cm_mon",
+        "dispName": "cm_mon",
+        "description": "cm_mon",
+        "type": "element",
+        "format": "/.ext/cbm_db/cm_mon",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    391,
+    "/.ext/cbm_db/cm_mon_test",
+    "",
+    "collector",
+    {
+      "72": {
+        "name": "cm_mon_test",
+        "dispName": "cm_mon_test",
+        "description": "cm_mon_test",
+        "type": "element",
+        "format": "/.ext/cbm_db/cm_mon_test",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    392,
+    "/.ext/cbm_db/cm_sat",
+    "",
+    "collector",
+    {
+      "73": {
+        "name": "cm_sat",
+        "dispName": "cm_sat",
+        "description": "cm_sat",
+        "type": "element",
+        "format": "/.ext/cbm_db/cm_sat",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    393,
+    "/.ext/cbm_db/cm_sun",
+    "",
+    "collector",
+    {
+      "74": {
+        "name": "cm_sun",
+        "dispName": "cm_sun",
+        "description": "cm_sun",
+        "type": "element",
+        "format": "/.ext/cbm_db/cm_sun",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    394,
+    "/.ext/cbm_db/cm_thu",
+    "",
+    "collector",
+    {
+      "75": {
+        "name": "cm_thu",
+        "dispName": "cm_thu",
+        "description": "cm_thu",
+        "type": "element",
+        "format": "/.ext/cbm_db/cm_thu",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    395,
+    "/.ext/cbm_db/cm_tue",
+    "",
+    "collector",
+    {
+      "76": {
+        "name": "cm_tue",
+        "dispName": "cm_tue",
+        "description": "cm_tue",
+        "type": "element",
+        "format": "/.ext/cbm_db/cm_tue",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    396,
+    "/.ext/cbm_db/cm_tue_test",
+    "",
+    "collector",
+    {
+      "77": {
+        "name": "cm_tue_test",
+        "dispName": "cm_tue_test",
+        "description": "cm_tue_test",
+        "type": "element",
+        "format": "/.ext/cbm_db/cm_tue_test",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    397,
+    "/.ext/cbm_db/cm_wed",
+    "",
+    "collector",
+    {
+      "78": {
+        "name": "cm_wed",
+        "dispName": "cm_wed",
+        "description": "cm_wed",
+        "type": "element",
+        "format": "/.ext/cbm_db/cm_wed",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    398,
+    "/.ext/cbm_db/config_downloadcfg",
+    "",
+    "collector",
+    {
+      "79": {
+        "name": "config_downloadcfg",
+        "dispName": "config_downloadcfg",
+        "description": "config_downloadcfg",
+        "type": "element",
+        "format": "/.ext/cbm_db/config_downloadcfg",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    399,
+    "/.ext/cbm_db/daily_anod_detail_result",
+    "",
+    "collector",
+    {
+      "80": {
+        "name": "daily_anod_detail_result",
+        "dispName": "daily_anod_detail_result",
+        "description": "daily_anod_detail_result",
+        "type": "element",
+        "format": "/.ext/cbm_db/daily_anod_detail_result",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    400,
+    "/.ext/cbm_db/daily_anod_result",
+    "",
+    "collector",
+    {
+      "81": {
+        "name": "daily_anod_result",
+        "dispName": "daily_anod_result",
+        "description": "daily_anod_result",
+        "type": "element",
+        "format": "/.ext/cbm_db/daily_anod_result",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    401,
+    "/.ext/cbm_db/daily_degrad_result",
+    "",
+    "collector",
+    {
+      "82": {
+        "name": "daily_degrad_result",
+        "dispName": "daily_degrad_result",
+        "description": "daily_degrad_result",
+        "type": "element",
+        "format": "/.ext/cbm_db/daily_degrad_result",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    402,
+    "/.ext/cbm_db/dcu_fri",
+    "",
+    "collector",
+    {
+      "83": {
+        "name": "dcu_fri",
+        "dispName": "dcu_fri",
+        "description": "dcu_fri",
+        "type": "element",
+        "format": "/.ext/cbm_db/dcu_fri",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    403,
+    "/.ext/cbm_db/dcu_mon",
+    "",
+    "collector",
+    {
+      "84": {
+        "name": "dcu_mon",
+        "dispName": "dcu_mon",
+        "description": "dcu_mon",
+        "type": "element",
+        "format": "/.ext/cbm_db/dcu_mon",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    404,
+    "/.ext/cbm_db/dcu_sat",
+    "",
+    "collector",
+    {
+      "85": {
+        "name": "dcu_sat",
+        "dispName": "dcu_sat",
+        "description": "dcu_sat",
+        "type": "element",
+        "format": "/.ext/cbm_db/dcu_sat",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    405,
+    "/.ext/cbm_db/dcu_sun",
+    "",
+    "collector",
+    {
+      "86": {
+        "name": "dcu_sun",
+        "dispName": "dcu_sun",
+        "description": "dcu_sun",
+        "type": "element",
+        "format": "/.ext/cbm_db/dcu_sun",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    406,
+    "/.ext/cbm_db/dcu_thu",
+    "",
+    "collector",
+    {
+      "87": {
+        "name": "dcu_thu",
+        "dispName": "dcu_thu",
+        "description": "dcu_thu",
+        "type": "element",
+        "format": "/.ext/cbm_db/dcu_thu",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    407,
+    "/.ext/cbm_db/dcu_tue",
+    "",
+    "collector",
+    {
+      "88": {
+        "name": "dcu_tue",
+        "dispName": "dcu_tue",
+        "description": "dcu_tue",
+        "type": "element",
+        "format": "/.ext/cbm_db/dcu_tue",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    408,
+    "/.ext/cbm_db/dcu_wed",
+    "",
+    "collector",
+    {
+      "89": {
+        "name": "dcu_wed",
+        "dispName": "dcu_wed",
+        "description": "dcu_wed",
+        "type": "element",
+        "format": "/.ext/cbm_db/dcu_wed",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    409,
+    "/.ext/cbm_db/degrad_condition",
+    "",
+    "collector",
+    {
+      "90": {
+        "name": "degrad_condition",
+        "dispName": "degrad_condition",
+        "description": "degrad_condition",
+        "type": "element",
+        "format": "/.ext/cbm_db/degrad_condition",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    410,
+    "/.ext/cbm_db/degrad_cond_op_code",
+    "",
+    "collector",
+    {
+      "91": {
+        "name": "degrad_cond_op_code",
+        "dispName": "degrad_cond_op_code",
+        "description": "degrad_cond_op_code",
+        "type": "element",
+        "format": "/.ext/cbm_db/degrad_cond_op_code",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    411,
+    "/.ext/cbm_db/degrad_level_code",
+    "",
+    "collector",
+    {
+      "92": {
+        "name": "degrad_level_code",
+        "dispName": "degrad_level_code",
+        "description": "degrad_level_code",
+        "type": "element",
+        "format": "/.ext/cbm_db/degrad_level_code",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    412,
+    "/.ext/cbm_db/degrad_param",
+    "",
+    "collector",
+    {
+      "93": {
+        "name": "degrad_param",
+        "dispName": "degrad_param",
+        "description": "degrad_param",
+        "type": "element",
+        "format": "/.ext/cbm_db/degrad_param",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    413,
+    "/.ext/cbm_db/degrad_rule",
+    "",
+    "collector",
+    {
+      "94": {
+        "name": "degrad_rule",
+        "dispName": "degrad_rule",
+        "description": "degrad_rule",
+        "type": "element",
+        "format": "/.ext/cbm_db/degrad_rule",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    414,
+    "/.ext/cbm_db/degrad_speed_code",
+    "",
+    "collector",
+    {
+      "95": {
+        "name": "degrad_speed_code",
+        "dispName": "degrad_speed_code",
+        "description": "degrad_speed_code",
+        "type": "element",
+        "format": "/.ext/cbm_db/degrad_speed_code",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    415,
+    "/.ext/cbm_db/degrad_type_code",
+    "",
+    "collector",
+    {
+      "96": {
+        "name": "degrad_type_code",
+        "dispName": "degrad_type_code",
+        "description": "degrad_type_code",
+        "type": "element",
+        "format": "/.ext/cbm_db/degrad_type_code",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    416,
+    "/.ext/cbm_db/device",
+    "",
+    "collector",
+    {
+      "97": {
+        "name": "device",
+        "dispName": "device",
+        "description": "device",
+        "type": "element",
+        "format": "/.ext/cbm_db/device",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    417,
+    "/.ext/cbm_db/device_feature_info",
+    "",
+    "collector",
+    {
+      "98": {
+        "name": "device_feature_info",
+        "dispName": "device_feature_info",
+        "description": "device_feature_info",
+        "type": "element",
+        "format": "/.ext/cbm_db/device_feature_info",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    418,
+    "/.ext/cbm_db/device_maint",
+    "",
+    "collector",
+    {
+      "99": {
+        "name": "device_maint",
+        "dispName": "device_maint",
+        "description": "device_maint",
+        "type": "element",
+        "format": "/.ext/cbm_db/device_maint",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    419,
+    "/.ext/cbm_db/device_maint_action",
+    "",
+    "collector",
+    {
+      "100": {
+        "name": "device_maint_action",
+        "dispName": "device_maint_action",
+        "description": "device_maint_action",
+        "type": "element",
+        "format": "/.ext/cbm_db/device_maint_action",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    420,
+    "/.ext/cbm_db/device_policy",
+    "",
+    "collector",
+    {
+      "101": {
+        "name": "device_policy",
+        "dispName": "device_policy",
+        "description": "device_policy",
+        "type": "element",
+        "format": "/.ext/cbm_db/device_policy",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    421,
+    "/.ext/cbm_db/device_type_ai_config",
+    "",
+    "collector",
+    {
+      "102": {
+        "name": "device_type_ai_config",
+        "dispName": "device_type_ai_config",
+        "description": "device_type_ai_config",
+        "type": "element",
+        "format": "/.ext/cbm_db/device_type_ai_config",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    422,
+    "/.ext/cbm_db/device_type_info",
+    "",
+    "collector",
+    {
+      "103": {
+        "name": "device_type_info",
+        "dispName": "device_type_info",
+        "description": "device_type_info",
+        "type": "element",
+        "format": "/.ext/cbm_db/device_type_info",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    423,
+    "/.ext/cbm_db/device_type_rule_config",
+    "",
+    "collector",
+    {
+      "104": {
+        "name": "device_type_rule_config",
+        "dispName": "device_type_rule_config",
+        "description": "device_type_rule_config",
+        "type": "element",
+        "format": "/.ext/cbm_db/device_type_rule_config",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    424,
+    "/.ext/cbm_db/external_feature_info",
+    "",
+    "collector",
+    {
+      "105": {
+        "name": "external_feature_info",
+        "dispName": "external_feature_info",
+        "description": "external_feature_info",
+        "type": "element",
+        "format": "/.ext/cbm_db/external_feature_info",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    425,
+    "/.ext/cbm_db/ext_stat_anod_detail_result",
+    "",
+    "collector",
+    {
+      "106": {
+        "name": "ext_stat_anod_detail_result",
+        "dispName": "ext_stat_anod_detail_result",
+        "description": "ext_stat_anod_detail_result",
+        "type": "element",
+        "format": "/.ext/cbm_db/ext_stat_anod_detail_result",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    426,
+    "/.ext/cbm_db/ext_stat_anod_result",
+    "",
+    "collector",
+    {
+      "107": {
+        "name": "ext_stat_anod_result",
+        "dispName": "ext_stat_anod_result",
+        "description": "ext_stat_anod_result",
+        "type": "element",
+        "format": "/.ext/cbm_db/ext_stat_anod_result",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    427,
+    "/.ext/cbm_db/fdu_fri",
+    "",
+    "collector",
+    {
+      "108": {
+        "name": "fdu_fri",
+        "dispName": "fdu_fri",
+        "description": "fdu_fri",
+        "type": "element",
+        "format": "/.ext/cbm_db/fdu_fri",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    428,
+    "/.ext/cbm_db/fdu_mon",
+    "",
+    "collector",
+    {
+      "109": {
+        "name": "fdu_mon",
+        "dispName": "fdu_mon",
+        "description": "fdu_mon",
+        "type": "element",
+        "format": "/.ext/cbm_db/fdu_mon",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    429,
+    "/.ext/cbm_db/fdu_sat",
+    "",
+    "collector",
+    {
+      "110": {
+        "name": "fdu_sat",
+        "dispName": "fdu_sat",
+        "description": "fdu_sat",
+        "type": "element",
+        "format": "/.ext/cbm_db/fdu_sat",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    430,
+    "/.ext/cbm_db/fdu_sun",
+    "",
+    "collector",
+    {
+      "111": {
+        "name": "fdu_sun",
+        "dispName": "fdu_sun",
+        "description": "fdu_sun",
+        "type": "element",
+        "format": "/.ext/cbm_db/fdu_sun",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    431,
+    "/.ext/cbm_db/fdu_thu",
+    "",
+    "collector",
+    {
+      "112": {
+        "name": "fdu_thu",
+        "dispName": "fdu_thu",
+        "description": "fdu_thu",
+        "type": "element",
+        "format": "/.ext/cbm_db/fdu_thu",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    432,
+    "/.ext/cbm_db/fdu_tue",
+    "",
+    "collector",
+    {
+      "113": {
+        "name": "fdu_tue",
+        "dispName": "fdu_tue",
+        "description": "fdu_tue",
+        "type": "element",
+        "format": "/.ext/cbm_db/fdu_tue",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    433,
+    "/.ext/cbm_db/fdu_wed",
+    "",
+    "collector",
+    {
+      "114": {
+        "name": "fdu_wed",
+        "dispName": "fdu_wed",
+        "description": "fdu_wed",
+        "type": "element",
+        "format": "/.ext/cbm_db/fdu_wed",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    434,
+    "/.ext/cbm_db/hvac_fri",
+    "",
+    "collector",
+    {
+      "115": {
+        "name": "hvac_fri",
+        "dispName": "hvac_fri",
+        "description": "hvac_fri",
+        "type": "element",
+        "format": "/.ext/cbm_db/hvac_fri",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    435,
+    "/.ext/cbm_db/hvac_mon",
+    "",
+    "collector",
+    {
+      "116": {
+        "name": "hvac_mon",
+        "dispName": "hvac_mon",
+        "description": "hvac_mon",
+        "type": "element",
+        "format": "/.ext/cbm_db/hvac_mon",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    436,
+    "/.ext/cbm_db/hvac_sat",
+    "",
+    "collector",
+    {
+      "117": {
+        "name": "hvac_sat",
+        "dispName": "hvac_sat",
+        "description": "hvac_sat",
+        "type": "element",
+        "format": "/.ext/cbm_db/hvac_sat",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    437,
+    "/.ext/cbm_db/hvac_sun",
+    "",
+    "collector",
+    {
+      "118": {
+        "name": "hvac_sun",
+        "dispName": "hvac_sun",
+        "description": "hvac_sun",
+        "type": "element",
+        "format": "/.ext/cbm_db/hvac_sun",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    438,
+    "/.ext/cbm_db/hvac_thu",
+    "",
+    "collector",
+    {
+      "119": {
+        "name": "hvac_thu",
+        "dispName": "hvac_thu",
+        "description": "hvac_thu",
+        "type": "element",
+        "format": "/.ext/cbm_db/hvac_thu",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    439,
+    "/.ext/cbm_db/hvac_tue",
+    "",
+    "collector",
+    {
+      "120": {
+        "name": "hvac_tue",
+        "dispName": "hvac_tue",
+        "description": "hvac_tue",
+        "type": "element",
+        "format": "/.ext/cbm_db/hvac_tue",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    440,
+    "/.ext/cbm_db/hvac_wed",
+    "",
+    "collector",
+    {
+      "121": {
+        "name": "hvac_wed",
+        "dispName": "hvac_wed",
+        "description": "hvac_wed",
+        "type": "element",
+        "format": "/.ext/cbm_db/hvac_wed",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    441,
+    "/.ext/cbm_db/impute",
+    "",
+    "collector",
+    {
+      "122": {
+        "name": "impute",
+        "dispName": "impute",
+        "description": "impute",
+        "type": "element",
+        "format": "/.ext/cbm_db/impute",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    442,
+    "/.ext/cbm_db/impute_type_code",
+    "",
+    "collector",
+    {
+      "123": {
+        "name": "impute_type_code",
+        "dispName": "impute_type_code",
+        "description": "impute_type_code",
+        "type": "element",
+        "format": "/.ext/cbm_db/impute_type_code",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    443,
+    "/.ext/cbm_db/infer_model",
+    "",
+    "collector",
+    {
+      "124": {
+        "name": "infer_model",
+        "dispName": "infer_model",
+        "description": "infer_model",
+        "type": "element",
+        "format": "/.ext/cbm_db/infer_model",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    444,
+    "/.ext/cbm_db/infer_module_info",
+    "",
+    "collector",
+    {
+      "125": {
+        "name": "infer_module_info",
+        "dispName": "infer_module_info",
+        "description": "infer_module_info",
+        "type": "element",
+        "format": "/.ext/cbm_db/infer_module_info",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    445,
+    "/.ext/cbm_db/learning_job",
+    "",
+    "collector",
+    {
+      "126": {
+        "name": "learning_job",
+        "dispName": "learning_job",
+        "description": "learning_job",
+        "type": "element",
+        "format": "/.ext/cbm_db/learning_job",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    446,
+    "/.ext/cbm_db/learning_job_result",
+    "",
+    "collector",
+    {
+      "127": {
+        "name": "learning_job_result",
+        "dispName": "learning_job_result",
+        "description": "learning_job_result",
+        "type": "element",
+        "format": "/.ext/cbm_db/learning_job_result",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    447,
+    "/.ext/cbm_db/learning_model",
+    "",
+    "collector",
+    {
+      "128": {
+        "name": "learning_model",
+        "dispName": "learning_model",
+        "description": "learning_model",
+        "type": "element",
+        "format": "/.ext/cbm_db/learning_model",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    448,
+    "/.ext/cbm_db/line",
+    "",
+    "collector",
+    {
+      "129": {
+        "name": "line",
+        "dispName": "line",
+        "description": "line",
+        "type": "element",
+        "format": "/.ext/cbm_db/line",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    449,
+    "/.ext/cbm_db/maint_action_code",
+    "",
+    "collector",
+    {
+      "130": {
+        "name": "maint_action_code",
+        "dispName": "maint_action_code",
+        "description": "maint_action_code",
+        "type": "element",
+        "format": "/.ext/cbm_db/maint_action_code",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    450,
+    "/.ext/cbm_db/model_alg_info",
+    "",
+    "collector",
+    {
+      "131": {
+        "name": "model_alg_info",
+        "dispName": "model_alg_info",
+        "description": "model_alg_info",
+        "type": "element",
+        "format": "/.ext/cbm_db/model_alg_info",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    451,
+    "/.ext/cbm_db/model_output_info",
+    "",
+    "collector",
+    {
+      "132": {
+        "name": "model_output_info",
+        "dispName": "model_output_info",
+        "description": "model_output_info",
+        "type": "element",
+        "format": "/.ext/cbm_db/model_output_info",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    452,
+    "/.ext/cbm_db/mtr_fri",
+    "",
+    "collector",
+    {
+      "133": {
+        "name": "mtr_fri",
+        "dispName": "mtr_fri",
+        "description": "mtr_fri",
+        "type": "element",
+        "format": "/.ext/cbm_db/mtr_fri",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    453,
+    "/.ext/cbm_db/mtr_mon",
+    "",
+    "collector",
+    {
+      "134": {
+        "name": "mtr_mon",
+        "dispName": "mtr_mon",
+        "description": "mtr_mon",
+        "type": "element",
+        "format": "/.ext/cbm_db/mtr_mon",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    454,
+    "/.ext/cbm_db/mtr_sat",
+    "",
+    "collector",
+    {
+      "135": {
+        "name": "mtr_sat",
+        "dispName": "mtr_sat",
+        "description": "mtr_sat",
+        "type": "element",
+        "format": "/.ext/cbm_db/mtr_sat",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ]
+]

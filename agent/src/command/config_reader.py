@@ -289,7 +289,7 @@ class ConfigReader:
         return systemNodes
 
     def getElements(self, project_name:str, system_name:str)->List[dict]:
-        return self._elements.get(project_name, {}).get(system_name, [])
+        return [e for sys_elems in self._elements.get(project_name, {}).values() for e in sys_elems]
         
     # 특정 노드 데이터 가져오기
     def getNode(self, type:str, project_name:str, system_name:str, path:str):

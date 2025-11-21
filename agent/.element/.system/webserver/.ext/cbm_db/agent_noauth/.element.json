@@ -1,9 +1,0 @@
-{
-  "name": "agent_noauth",
-  "dispName": "agent_noauth",
-  "description": "agent_noauth",
-  "type": "element",
-  "format": "/.ext/cbm_db/agent_noauth",
-  "store": "",
-  "storage": "/cbm_db"
-}

@@ -1,9 +1,0 @@
-{
-  "name": "train_job_result_detail",
-  "dispName": "train_job_result_detail",
-  "description": "train_job_result_detail",
-  "type": "element",
-  "format": "/.ext/cbm_db/train_job_result_detail",
-  "store": "",
-  "storage": "/cbm_db"
-}

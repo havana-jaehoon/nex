@@ -1,9 +1,0 @@
-{
-  "name": "impute",
-  "dispName": "impute",
-  "description": "impute",
-  "type": "element",
-  "format": "/.ext/cbm_db/impute",
-  "store": "",
-  "storage": "/cbm_db"
-}

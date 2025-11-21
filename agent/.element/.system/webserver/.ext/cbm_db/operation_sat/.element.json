@@ -1,9 +1,0 @@
-{
-  "name": "operation_sat",
-  "dispName": "operation_sat",
-  "description": "operation_sat",
-  "type": "element",
-  "format": "/.ext/cbm_db/operation_sat",
-  "store": "",
-  "storage": "/cbm_db"
-}
