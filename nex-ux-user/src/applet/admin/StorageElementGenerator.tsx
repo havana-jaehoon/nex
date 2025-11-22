@@ -11,21 +11,12 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import NexNodeItem from "./lib/NexNodeItem";
 
-import {
-  MdAdd,
-  MdCreate,
-  MdDelete,
-  MdDownload,
-  MdEdit,
-  MdGeneratingTokens,
-  MdPlayForWork,
-} from "react-icons/md";
+import { MdGeneratingTokens, MdPlayForWork } from "react-icons/md";
 import { clamp } from "utils/util";
 import { getThemeStyle } from "type/NexTheme";
 import axios from "axios";
-import { ServerURL } from "nexConfig";
+import pxConfig from "config/px-config.json";
 
 const StorageElementGenerator: React.FC<NexAppProps> = observer((props) => {
   const { contents, theme, user, onSelect } = props;
@@ -95,7 +86,7 @@ const StorageElementGenerator: React.FC<NexAppProps> = observer((props) => {
       await axios
         .request({
           method: "get",
-          url: ServerURL + "/cmd-api/gen-db-element",
+          url: pxConfig["command-url"] + "/gen-db-element",
           params: {
             project: "",
             system: systemName,
@@ -116,7 +107,7 @@ const StorageElementGenerator: React.FC<NexAppProps> = observer((props) => {
       await axios
         .request({
           method: "get",
-          url: ServerURL + "/cmd-api/dist",
+          url: pxConfig["command-url"] + "/dist",
         })
         .then((response) => {
           console.log("NexConfigDistApp::handleClick() response:", response);
@@ -130,17 +121,17 @@ const StorageElementGenerator: React.FC<NexAppProps> = observer((props) => {
   return (
     <NexApplet {...props} error={errorMsg()}>
       <Stack
-        direction="column"
-        width="100%"
-        height="100%"
+        direction='column'
+        width='100%'
+        height='100%'
         spacing={1}
-        alignItems="center"
-        justifyContent="center"
+        alignItems='center'
+        justifyContent='center'
       >
         <Stack
-          direction="row"
+          direction='row'
           spacing={1}
-          alignItems="center"
+          alignItems='center'
           style={{ width: "96%" }}
         >
           <Autocomplete
@@ -149,10 +140,10 @@ const StorageElementGenerator: React.FC<NexAppProps> = observer((props) => {
             onChange={(event, newValue) => {
               setSystemName(newValue || "");
             }}
-            id="generate_storage_2_element_system"
+            id='generate_storage_2_element_system'
             style={{ width: "100%" }}
             renderInput={(params) => (
-              <TextField {...params} label="시스템" variant="outlined" />
+              <TextField {...params} label='시스템' variant='outlined' />
             )}
           />
 
@@ -162,17 +153,17 @@ const StorageElementGenerator: React.FC<NexAppProps> = observer((props) => {
             onChange={(event, newValue) => {
               setStorageName(newValue || "");
             }}
-            id="generate_storage_2_element_storage"
+            id='generate_storage_2_element_storage'
             style={{ width: "100%" }}
             renderInput={(params) => (
-              <TextField {...params} label="스토리지" variant="outlined" />
+              <TextField {...params} label='스토리지' variant='outlined' />
             )}
           />
 
           <Button
-            title="데이터 생성"
-            variant="contained"
-            size="large"
+            title='데이터 생성'
+            variant='contained'
+            size='large'
             onClick={() => handleGenStorageElement()}
             style={{ width: "100%" }}
             startIcon={<MdGeneratingTokens />}
@@ -180,9 +171,9 @@ const StorageElementGenerator: React.FC<NexAppProps> = observer((props) => {
             데이터 생성
           </Button>
           <Button
-            title="설정 적용"
-            variant="contained"
-            size="large"
+            title='설정 적용'
+            variant='contained'
+            size='large'
             onClick={() => handleApplyConfig()}
             style={{ width: "100%" }}
             startIcon={<MdPlayForWork />}

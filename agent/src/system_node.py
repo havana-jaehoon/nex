@@ -44,7 +44,7 @@ if __name__ == '__main__':
         logger.log_info(f'==================== {system_info.agentId} start ====================')
 
         faulthandler.enable()
-        faulthandler.register(signal.SIGINT, all_threads=True, chain=True)
+        #faulthandler.register(signal.SIGINT, all_threads=True, chain=True)
 
         HttpReqMgr()
         element_mgr = ElementMgr()

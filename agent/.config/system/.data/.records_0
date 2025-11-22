@@ -3,7 +3,7 @@
     0,
     "/webclient",
     "",
-    "webclient",
+    "",
     {
       "0": {
         "name": "webclient",
@@ -12,21 +12,21 @@
         "type": "system",
         "address": {
           "ip": "",
-          "port": ""
+          "port": 0
         }
       }
     }
   ],
   [
     1,
-    "/webserver",
+    "/config",
     "",
-    "webserver",
+    "",
     {
       "1": {
-        "name": "webserver",
-        "dispName": "웹서버",
-        "description": "CBM 웹서버",
+        "name": "config",
+        "dispName": "설정서버",
+        "description": "설정서버",
         "type": "system",
         "address": {
           "ip": "127.0.0.1",
@@ -39,7 +39,7 @@
     2,
     "/collector",
     "",
-    "collector",
+    "",
     {
       "2": {
         "name": "collector",
