@@ -27,7 +27,11 @@ import {
   MdDelete,
   MdKeyboardArrowDown,
   MdKeyboardArrowRight,
+  MdLockReset,
+  MdOutlineResetTv,
   MdRemove,
+  MdResetTv,
+  MdUpdate,
 } from "react-icons/md";
 import { defaultThemeStyle, NexThemeStyle } from "type/NexTheme";
 import { clamp } from "utils/util";
@@ -135,7 +139,7 @@ const LabeledSelect: React.FC<SelectProps> = ({
   }
 
   return (
-    <FormControl title={placeholder} variant="standard" sx={{ width: "100%" }}>
+    <FormControl title={placeholder} variant='standard' sx={{ width: "100%" }}>
       <Select
         value={value}
         onChange={(e: any) => {
@@ -219,14 +223,14 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
   };
 
   return (
-    <NexDiv width="100%" direction="column">
-      <Typography variant="subtitle2" sx={{ fontWeight: "bold", md: 1 }}>
+    <NexDiv width='100%' direction='column'>
+      <Typography variant='subtitle2' sx={{ fontWeight: "bold", md: 1 }}>
         {label}
       </Typography>
       {recordFields && (
-        <Stack spacing={1.5} width="100%" direction="column" sx={{ p: 1 }}>
+        <Stack spacing={1.5} width='100%' direction='column' sx={{ p: 1 }}>
           {rows.map((row: any, rIdx: number) => (
-            <NexDiv align="center" width="100%" direction="row">
+            <NexDiv align='center' width='100%' direction='row'>
               <Box
                 key={rIdx}
                 sx={{
@@ -247,7 +251,7 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
                   rowSpacing={1.2}
                   columnSpacing={gridMidSpacing}
                   columns={gridMidColumns}
-                  alignItems="flex-end"
+                  alignItems='flex-end'
                 >
                   {recordFields.map((f, i) => {
                     const size = (f as any).uxSize || 6;
@@ -270,7 +274,7 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
                         ) : (
                           <TextField
                             label={f.dispName || f.name}
-                            variant="standard"
+                            variant='standard'
                             value={row[f.name] ?? ""}
                             style={{ width: "100%" }}
                             onChange={(e) => {
@@ -289,68 +293,68 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
                 </Grid>
               </Box>
               <NexDiv
-                flex="1"
-                width="100%"
-                height="100%"
-                align="center"
-                justify="center"
-                direction="column"
+                flex='1'
+                width='100%'
+                height='100%'
+                align='center'
+                justify='center'
+                direction='column'
               >
-                <Stack spacing={1} direction="column" alignItems="center">
-                  <Stack spacing={0.5} direction="row" alignItems="center">
+                <Stack spacing={1} direction='column' alignItems='center'>
+                  <Stack spacing={0.5} direction='row' alignItems='center'>
                     <IconButton
-                      title="삽입"
+                      title='삽입'
                       onClick={() => addRow(rIdx)}
-                      size="small"
+                      size='small'
                       sx={{ border: "1px solid gray", borderRadius: 1.5 }}
                     >
-                      <MdArrowLeft fontSize="large" />
+                      <MdArrowLeft fontSize='large' />
                     </IconButton>
                     <IconButton
-                      title="삭제"
+                      title='삭제'
                       onClick={() => removeRow(rIdx)}
-                      size="small"
+                      size='small'
                       sx={{ border: "1px solid gray", borderRadius: 1.5 }}
                     >
-                      <MdArrowRight fontSize="large" />
+                      <MdArrowRight fontSize='large' />
                     </IconButton>
                   </Stack>
-                  <Stack spacing={0.5} direction="row" alignItems="center">
+                  <Stack spacing={0.5} direction='row' alignItems='center'>
                     <IconButton
-                      title="위로 이동"
+                      title='위로 이동'
                       onClick={() => upRow(rIdx)}
-                      size="small"
+                      size='small'
                       sx={{ border: "1px solid gray", borderRadius: 1.5 }}
                     >
-                      <MdArrowDropUp fontSize="large" />
+                      <MdArrowDropUp fontSize='large' />
                     </IconButton>
                     <IconButton
-                      title="아래로 이동"
+                      title='아래로 이동'
                       onClick={() => downRow(rIdx)}
-                      size="small"
+                      size='small'
                       sx={{ border: "1px solid gray", borderRadius: 1.5 }}
                     >
-                      <MdArrowDropDown fontSize="large" />
+                      <MdArrowDropDown fontSize='large' />
                     </IconButton>
                   </Stack>
                 </Stack>
               </NexDiv>
             </NexDiv>
           ))}
-          <NexDiv width="100%" direction="row">
-            <NexDiv flex="11">
+          <NexDiv width='100%' direction='row'>
+            <NexDiv flex='11'>
               <Button
-                title="추가"
-                variant="outlined"
+                title='추가'
+                variant='outlined'
                 onClick={() => addRow(-1)}
-                size="small"
+                size='small'
                 startIcon={<MdAdd />}
                 sx={{ width: "100%", border: "1px solid gray" }}
               >
                 추가
               </Button>
             </NexDiv>
-            <NexDiv flex="1" />
+            <NexDiv flex='1' />
           </NexDiv>
         </Stack>
       )}
@@ -360,85 +364,56 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
 
 // ===== Main component =====
 export interface AdminNodeEditorProps {
-  data: any; // node for input
+  node: any; // node for input
   fontLevel?: number; // 1~10
   style?: NexThemeStyle;
-  //initialValue?: any;              // if omitted, the form will initialize from the schema
-  onChange?: (data: any) => void; // emit current JSON on every edit
-  //onSubmit: (value: any) => void; // submit handler
-  submitText?: string;
 
-  mode: "add" | "edit"; // add, update, delete
-  onApply(data: any): void;
+  onAdd?(data: any): void; // "추가"
+  onUpdate?(data: any): void; // "수정"
   onCancel?(): void;
 }
 
 const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   const {
-    mode,
-    data,
+    node,
     fontLevel = 5,
     style = defaultThemeStyle,
-    // onSetValue,
-    onApply,
-    onCancel,
-    onChange,
-    //onSubmit,
-    // submitText = "저장",
+    onUpdate,
+    onAdd,
   } = props;
 
-  const [index, setIndex] = useState<any>(null);
-  const [path, setPath] = useState<string>("");
-  const [project, setProject] = useState<string>("");
-  const [system, setSystem] = useState<string>("");
-  const [orderIndex, setOrderIndex] = useState<number>(-1);
+  //const [index, setIndex] = useState<any>(null);
+  //const [path, setPath] = useState<string>("");
+  //const [project, setProject] = useState<string>("");
+  //const [system, setSystem] = useState<string>("");
+  //const [orderIndex, setOrderIndex] = useState<number>(-1);
 
-  const [node, setNode] = useState<any>(null);
+  const [orgNode, setOrgNode] = useState<any>(null);
 
   const [format, setFormat] = useState<any>(null);
   const [features, setFeatures] = useState<any>(null);
   const [editingNode, setEditingNode] = useState<any>(null);
-  const [parentPath, setParentPath] = useState<string>("");
-  const [editingPath, setEditingPath] = useState<string>("");
+  //  const [parentPath, setParentPath] = useState<string>("");
+  //const [editingPath, setEditingPath] = useState<string>("");
 
   const [isOpen, setIsOpen] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
-    //console.log("# AdminNodeEditor: data=", JSON.stringify(data, null, 2));
-    const nodePath = data[1];
-
-    // original node setting
-    setIndex(data[0]);
-    setPath(nodePath);
-    setProject(data[2]);
-    setSystem(data[3]);
-
-    const nodeObject: any = Object.values(data[4])[0];
-    // Object.keys(data[4])[0] => order of Node Objects
-
-    const tformat = nodeObject
-      ? adminNodeDefs[nodeObject.type as NexNodeType]
-      : null;
+    const tformat = node ? adminNodeDefs[node.type as NexNodeType] : null;
     const tfeatures = tformat?.features || [];
 
     // Merge the node with the template format
     const tNode = getAdminNodeFromFeatures(tfeatures);
-    const next = { ...tNode, ...nodeObject };
+    const next = { ...tNode, ...node };
 
-    setOrderIndex(
-      Object.keys(data[4])[0] ? parseInt(Object.keys(data[4])[0]) : -1
-    );
-
-    setNode(next);
+    setOrgNode(next);
 
     // set editing state
     setEditingNode(next);
     //console.log("# AdminNodeEditor: format=", JSON.stringify(tformat, null, 2));
     setFormat(tformat);
     setFeatures(tfeatures);
-    setEditingPath(nodePath);
-    setParentPath(`${nodePath.substring(0, nodePath.lastIndexOf("/"))}`);
-  }, [data]);
+  }, [node]);
 
   const fontSize =
     style.fontSize[clamp(fontLevel - 1, 0, style.fontSize.length - 1)] ||
@@ -447,34 +422,19 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   const color = style.colors[0];
   const bgColor = style.bgColors[0];
 
-  const handleHeaderChange = (field: string, v: any) => {
-    if (field === "project") {
-      setProject(v);
-    } else if (field === "system") {
-      setSystem(v);
-    } else if (field === "orderIndex") {
-      setOrderIndex(Number(v));
-    }
-  };
-
   const handleReset = () => {
     // 입력된 node 데이터와 format 에 의해 만들어진 데이터를 병합
-    setEditingNode(node);
-    setEditingPath(path);
+    setEditingNode(orgNode);
     console.log("# handleReset: ", JSON.stringify(editingNode));
   };
 
-  const handleApply = () => {
-    const newData = [
-      index,
-      editingPath,
-      project,
-      system,
-      { [orderIndex.toString()]: editingNode },
-    ];
+  const handleAdd = () => {
+    //const newData = [-1, editingPath, project, system, { ["-1"]: editingNode }];
+    onAdd?.(editingNode);
+  };
 
-    //console.log("# handleApply: ", JSON.stringify(newData, null, 2));
-    onApply(newData);
+  const handleUpdate = () => {
+    onUpdate?.(editingNode);
   };
 
   const handlePrimitiveChange = (
@@ -489,12 +449,8 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
     setDeep(next, argPath, value);
     setEditingNode(next);
 
-    let newNodePath = editingPath;
-    if (argPath.join(".") === "name") {
-      newNodePath = `${parentPath}/${raw}`;
-    }
-    setEditingPath(newNodePath);
-    onChange?.([index, newNodePath, next]);
+    //setEditingPath(newNodePath);
+    //onChange?.([index, newNodePath, next]);
   };
 
   const handleLiteralChange = (argPath: string[], raw: string) => {
@@ -504,7 +460,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
     //console.log(`# handleLiteralChange : ${argPath.join(".")} = ${JSON.stringify(next)}`);
     setEditingNode(next);
 
-    onChange?.([index, editingPath, next]);
+    //onChange?.([index, editingPath, next]);
   };
 
   const handleRecordsChange = (argPath: string[], rows: any[]) => {
@@ -512,7 +468,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
     setDeep(next, argPath, rows);
     setEditingNode(next);
 
-    onChange?.([index, editingPath, next]);
+    //onChange?.([index, editingPath, next]);
   };
 
   const toggleSubItem = (key: string) => {
@@ -523,94 +479,16 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   const headFields = () => {
     //console.log("# format: ", JSON.stringify(format, null, 2));
     return (
-      <NexDiv width="100%" direction="column">
+      <NexDiv width='100%' direction='column'>
         {/* 간격 조정 */}
-        <span style={{ height: fontSize }} />
-        <NexDiv width="100%">
-          <Grid
-            container
-            spacing={0.5}
-            columnSpacing={gridMidSpacing}
-            columns={12}
-            width="100%"
-            alignItems="flex-end"
-          >
-            <Grid item xs={"auto"} sm={"auto"} md={1}>
-              <TextField
-                size="small"
-                disabled
-                variant="standard"
-                label={"인덱스"}
-                value={String(index)}
-                style={{ width: "100%" }}
-                inputProps={{
-                  style: { textAlign: "right" },
-                }}
-              />
-            </Grid>
 
-            <Grid item xs={"auto"} sm={"auto"} md={7}>
-              <TextField
-                disabled
-                size="small"
-                variant="standard"
-                label={"경로"}
-                value={editingPath}
-                style={{ width: "100%" }}
-              />
-            </Grid>
-            <Grid item xs={"auto"} sm={"auto"} md={4} />
-
-            <Grid item xs={"auto"} sm={"auto"} md={4}>
-              <TextField
-                size="small"
-                variant="standard"
-                label={"프로젝트"}
-                type="text"
-                value={project}
-                onChange={(e) => handleHeaderChange("project", e.target.value)}
-                style={{ width: "100%" }}
-              />
-            </Grid>
-            <Grid item xs={"auto"} sm={"auto"} md={4}>
-              <TextField
-                size="small"
-                variant="standard"
-                label={"시스템"}
-                type="text"
-                value={system}
-                onChange={(e) => handleHeaderChange("system", e.target.value)}
-                style={{ width: "100%" }}
-              />
-            </Grid>
-            <Grid item xs={"auto"} sm={"auto"} md={2} />
-            <Grid item xs={"auto"} sm={"auto"} md={2}>
-              <TextField
-                size="medium"
-                variant="outlined"
-                label={"순서"}
-                type="number"
-                value={orderIndex}
-                onChange={(e) =>
-                  handleHeaderChange("orderIndex", e.target.value)
-                }
-                style={{ width: "100%" }}
-                inputProps={{
-                  style: { textAlign: "right" },
-                }}
-              />
-            </Grid>
-          </Grid>
-        </NexDiv>
-        {/* 간격 조정 */}
-        <span style={{ height: fontSize }} />
         <span style={{ height: fontSize }} />
       </NexDiv>
     );
   };
 
   const bodyFields = () => (
-    <Grid container spacing={3} width="100%" alignItems="flex-end">
+    <Grid container spacing={3} width='100%' alignItems='flex-end'>
       {features &&
         features.map((f: any) => {
           const size = (f as any).uxSize || 12;
@@ -632,38 +510,60 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   const tailFields = () => (
     <Stack
       spacing={2}
-      direction="row"
-      width="100%"
-      alignContent="end"
-      alignItems="center"
-      justifyContent="end"
+      direction='row'
+      width='100%'
+      alignContent='end'
+      alignItems='center'
+      justifyContent='end'
     >
-      <NexButton flex="1" bgColor="blue" type="submit">
-        {mode === "add" ? "추가" : "적용"}
-      </NexButton>
-      {onCancel && (
-        <NexButton type="button" flex="1" bgColor="#777777" onClick={onCancel}>
-          취소
-        </NexButton>
+      {onUpdate && (
+        <Button
+          size='large'
+          variant='contained'
+          onClick={() => handleUpdate()}
+          sx={{ flex: 3 }}
+          startIcon={<MdUpdate />}
+        >
+          업데이트
+        </Button>
       )}
-      <NexButton type="button" flex="1" bgColor="#999999" onClick={handleReset}>
+
+      {onAdd && (
+        <Button
+          size='large'
+          variant='contained'
+          onClick={() => handleAdd()}
+          sx={{ flex: 3 }}
+          startIcon={<MdAdd />}
+        >
+          추가
+        </Button>
+      )}
+
+      <Button
+        size='large'
+        variant='contained'
+        onClick={() => handleReset()}
+        sx={{ flex: 3 }}
+        startIcon={<MdOutlineResetTv />}
+      >
         초기화
-      </NexButton>
+      </Button>
     </Stack>
   );
 
   const iconSubItem = (key: string, label: string) => {
     return (
       <NexDiv
-        direction="row"
-        align="center"
-        justify="space-between"
+        direction='row'
+        align='center'
+        justify='space-between'
         onClick={() => toggleSubItem(key)}
-        cursor="pointer"
-        width="100%"
+        cursor='pointer'
+        width='100%'
       >
         <NexLabel fontSize={fontSize}>{key}</NexLabel>
-        <NexDiv align="end">
+        <NexDiv align='end'>
           {isOpen[key] !== false ? (
             <MdKeyboardArrowDown />
           ) : (
@@ -683,12 +583,12 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
 
     if (feature.featureType === NexFeatureType.ATTRIBUTES) {
       return (
-        <NexDiv key={feature.name} width="100%" direction="column">
+        <NexDiv key={feature.name} width='100%' direction='column'>
           {iconSubItem(id, label)}
           <Stack
             spacing={0.5}
-            direction="column"
-            width="100%"
+            direction='column'
+            width='100%'
             paddingLeft={fontSize}
           >
             {isOpen[id] !== false &&
@@ -703,7 +603,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
     if (feature.featureType === NexFeatureType.LITERALS) {
       const value = String(getAtPath(editingNode, argPath) ?? "");
       return (
-        <NexDiv width="100%" align="flex-end">
+        <NexDiv width='100%' align='flex-end'>
           <LabeledSelect
             key={id}
             label={label}
@@ -723,7 +623,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
       //  `# renderFeature: RECORDS at ${argPath} = ${JSON.stringify(feature, null, 2)}`
       //);
       return (
-        <NexDiv key={id} width="100%">
+        <NexDiv key={id} width='100%'>
           <RecordsEditor
             key={id}
             id={id}
@@ -753,7 +653,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
         const nextNode = { ...editingNode };
         setDeep(nextNode, argPath, nextArr);
         setEditingNode(nextNode);
-        onChange?.([index, editingPath, nextNode]);
+        //onChange?.([index, editingPath, nextNode]);
       };
 
       const updateItem = (idx: number, raw: string) => {
@@ -773,20 +673,20 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
       };
 
       return (
-        <NexDiv key={id} width="100%" direction="column">
-          <Typography variant="subtitle2" sx={{ fontWeight: "bold", mb: 0.5 }}>
+        <NexDiv key={id} width='100%' direction='column'>
+          <Typography variant='subtitle2' sx={{ fontWeight: "bold", mb: 0.5 }}>
             {label}
           </Typography>
-          <Stack spacing={0.5} direction="column" width="100%">
+          <Stack spacing={0.5} direction='column' width='100%'>
             {arr.map((v, i) => (
               <Stack
                 key={`${id}.${i}`}
                 spacing={0.5}
-                direction="row"
-                alignItems="flex-end"
+                direction='row'
+                alignItems='flex-end'
               >
                 <TextField
-                  variant="standard"
+                  variant='standard'
                   label={`${label}[${i}]`}
                   type={itemType}
                   value={v ?? ""}
@@ -794,18 +694,18 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
                   onChange={(e) => updateItem(i, e.target.value)}
                 />
                 <IconButton
-                  size="small"
-                  title="삭제"
+                  size='small'
+                  title='삭제'
                   onClick={() => removeItem(i)}
                   sx={{ border: "1px solid gray", borderRadius: 1 }}
                 >
-                  <MdDelete fontSize="1rem" />
+                  <MdDelete fontSize='1rem' />
                 </IconButton>
               </Stack>
             ))}
             <Button
-              variant="outlined"
-              size="small"
+              variant='outlined'
+              size='small'
               onClick={addItem}
               startIcon={<MdAdd />}
               sx={{ alignSelf: "flex-start" }}
@@ -828,7 +728,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
     return (
       <TextField
         key={id}
-        variant="standard"
+        variant='standard'
         label={label}
         placeholder={placeholder || label}
         value={value as any}
@@ -843,10 +743,10 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
 
   return (
     <NexDiv
-      direction="column"
-      width="100%"
-      height="100%"
-      padding="1rem"
+      direction='column'
+      width='100%'
+      height='100%'
+      padding='1rem'
       bgColor={bgColor}
       color={color}
       fontSize={fontSize}
@@ -854,29 +754,29 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          handleApply();
+          handleUpdate();
         }}
         style={{ width: "100%", height: "100%" }}
       >
         <Stack
           spacing={2}
-          direction="column"
-          width="100%"
-          height="100%"
+          direction='column'
+          width='100%'
+          height='100%'
           style={{ minHeight: 0 }}
         >
-          <NexDiv width="100%">{headFields()}</NexDiv>
+          <NexDiv width='100%'>{headFields()}</NexDiv>
           <NexDiv
-            flex="10"
-            width="100%"
+            flex='10'
+            width='100%'
             style={{ minHeight: 0, overflow: "auto" }}
           >
             {bodyFields()}
           </NexDiv>
-          {false && editingNode && (
+          {true && editingNode && (
             <pre>{JSON.stringify(editingNode, null, 2)}</pre>
           )}
-          <NexDiv flex="1" width="100%">
+          <NexDiv flex='1' width='100%'>
             {tailFields()}
           </NexDiv>
         </Stack>

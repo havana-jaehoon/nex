@@ -10,38 +10,38 @@ const commonFeatures: any[] = [
     name: "name",
     dispName: "이름",
     featureType: NexFeatureType.STRING,
-    uxSize: 3,
+    uxSize: 6,
   },
   {
     name: "dispName",
     dispName: "출력이름",
     featureType: NexFeatureType.STRING,
-    uxSize: 3,
+    uxSize: 6,
   },
   {
     name: "description",
     dispName: "설명",
     featureType: NexFeatureType.STRING,
-    uxSize: 6,
+    uxSize: 12,
   },
   {
     name: "type",
     dispName: "타입",
     featureType: NexFeatureType.LITERALS, // 기록 유형은 문자열로 처리
-    uxSize: 4,
+    uxSize: 12,
     literals: [],
   },
   {
     name: "icon",
     dispName: "아이콘",
     featureType: NexFeatureType.STRING,
-    uxSize: 4,
+    uxSize: 6,
   },
   {
     name: "color",
     dispName: "컬러",
     featureType: NexFeatureType.STRING,
-    uxSize: 4,
+    uxSize: 6,
   },
 ];
 
@@ -55,7 +55,7 @@ const folderTypeFeatureObject = {
       dispName: "폴더",
     },
   ],
-  uxSize: 4,
+  uxSize: 12,
 };
 
 const featureObjects = {
@@ -794,7 +794,7 @@ const elementNodeDef: any = {
 };
 
 const sectionNodeDef = {
-  name: "websection",
+  name: "section",
   dispName: "웹 섹션",
   description: "웹 섹션 데이터 포맷",
   type: NexNodeType.FORMAT,
@@ -803,13 +803,13 @@ const sectionNodeDef = {
     featureObjects[NexNodeType.SECTION],
     ...commonFeatures.slice(4),
     {
-      name: "isRoute", // 경로
-      dispName: '경로 (예시 : "/home" 또는 "/dashboard")',
+      name: "isRoutes", // 경로
+      dispName: "페이지",
       icon: null,
       color: null,
       isKey: false,
       featureType: NexFeatureType.BOOLEAN, // 경로는 문자열로 처리
-      uxSize: 6,
+      uxSize: 12,
     },
     {
       name: "route", // 경로
@@ -818,7 +818,7 @@ const sectionNodeDef = {
       color: null,
       isKey: false,
       featureType: NexFeatureType.STRING, // 경로는 문자열로 처리
-      uxSize: 6,
+      uxSize: 12,
     },
     {
       name: "direction", // 방향
@@ -831,7 +831,7 @@ const sectionNodeDef = {
         { name: "row", dispName: "가로" },
         { name: "column", dispName: "세로" },
       ],
-      uxSize: 6,
+      uxSize: 12,
     },
     {
       name: "size", // 크기
@@ -839,7 +839,7 @@ const sectionNodeDef = {
       icon: null,
       color: null,
       featureType: NexFeatureType.STRING, // 크기는 문자열로 처리
-      uxSize: 6,
+      uxSize: 12,
     },
     {
       name: "padding",
@@ -847,7 +847,7 @@ const sectionNodeDef = {
       icon: null,
       color: null,
       featureType: NexFeatureType.STRING, //문자열로 처리
-      uxSize: 2,
+      uxSize: 12,
     },
     {
       name: "applet", // applet 경로
@@ -855,7 +855,7 @@ const sectionNodeDef = {
       icon: null,
       color: null,
       featureType: NexFeatureType.STRING, //
-      uxSize: 6,
+      uxSize: 12,
     },
     {
       name: "contents", // applet 경로
@@ -863,7 +863,7 @@ const sectionNodeDef = {
       icon: null,
       color: null,
       featureType: NexFeatureType.STRING_ARRAY, //
-      uxSize: 6,
+      uxSize: 12,
     },
   ],
 };

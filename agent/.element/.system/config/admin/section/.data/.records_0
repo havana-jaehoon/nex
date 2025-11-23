@@ -270,9 +270,15 @@
         "dispName": "Storage",
         "description": "Storage Section",
         "type": "section",
-        "size": "1",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "storage",
         "direction": "row",
-        "route": "storage"
+        "size": "1",
+        "padding": "",
+        "applet": "",
+        "contents": ""
       }
     }
   ],

@@ -3,11 +3,12 @@ import React, { useContext, useEffect } from "react";
 //import NexAppletStoreTest from "../applet/nexAppletStoreTest";
 import { getThemeStyle, NexThemeStyle } from "type/NexTheme";
 import { set } from "mobx";
-import { IconButton } from "@mui/material";
+import { Icon, IconButton } from "@mui/material";
 import ArrowUpward from "@mui/icons-material/ArrowUpward";
 import ArrowDownward from "@mui/icons-material/ArrowDownward";
 import ArrowBack from "@mui/icons-material/ArrowBack";
 import ArrowForward from "@mui/icons-material/ArrowForward";
+import { MdCancel, MdRemove } from "react-icons/md";
 
 interface NexPagePreviewerProps {
   isLastRoute: boolean;
@@ -18,6 +19,7 @@ interface NexPagePreviewerProps {
   style: NexThemeStyle;
   selectedIndex: number;
   onSelect: (path: string, index: number) => void;
+  onRemove?: (index: number) => void;
   isVisibleTitle?: boolean; // Optional prop to control visibility of section title
   isVisibleBorder?: boolean; // Optional prop to control visibility of border
 }
@@ -31,6 +33,7 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
   style,
   selectedIndex,
   onSelect,
+  onRemove,
   isVisibleTitle,
   isVisibleBorder,
 }) => {
@@ -78,9 +81,9 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
 
         {/* Up */}
         <IconButton
-          aria-label="up"
-          size="small"
-          className="hover-btn"
+          aria-label='up'
+          size='small'
+          className='hover-btn'
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             e.stopPropagation();
             // handle up
@@ -104,9 +107,9 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
 
         {/* Down */}
         <IconButton
-          aria-label="down"
-          size="small"
-          className="hover-btn"
+          aria-label='down'
+          size='small'
+          className='hover-btn'
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             e.stopPropagation();
             // handle down
@@ -130,9 +133,9 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
 
         {/* Left */}
         <IconButton
-          aria-label="left"
-          size="small"
-          className="hover-btn"
+          aria-label='left'
+          size='small'
+          className='hover-btn'
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             e.stopPropagation();
             // handle left
@@ -156,9 +159,9 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
 
         {/* Right */}
         <IconButton
-          aria-label="right"
-          size="small"
-          className="hover-btn"
+          aria-label='right'
+          size='small'
+          className='hover-btn'
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             e.stopPropagation();
             // handle right
@@ -184,15 +187,15 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
   };
   const lastView = isContents ? (
     <NexDiv
-      width="100%"
-      height="100%"
-      direction="column"
+      width='100%'
+      height='100%'
+      direction='column'
       color={color}
       bgColor={bgColor}
       border={border}
       borderRadius={borderRadius}
       padding={gap}
-      className="hover-controls"
+      className='hover-controls'
       style={{
         boxSizing: "border-box",
         boxShadow: boxShadow,
@@ -204,9 +207,9 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
     </NexDiv>
   ) : (
     <NexDiv
-      width="100%"
-      height="100%"
-      color="gray"
+      width='100%'
+      height='100%'
+      color='gray'
       style={{ position: "relative" }}
     >
       {section.dispName || section.name}
@@ -295,14 +298,20 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
   return (
     <NexDiv
       direction={"column"}
-      align="center"
-      justify="center"
-      width="100%"
-      height="100%"
+      align='center'
+      justify='center'
+      width='100%'
+      height='100%'
       flex={section.size || "1"}
       color={color}
       bgColor={isSelected ? activeColor2 : hovered ? "lightblue" : "lightgray"}
-      border={isSelected ? "5px solid " + activeColor2 : "none"}
+      border={
+        isSelected
+          ? "5px solid " + activeColor2
+          : hovered
+            ? "1px solid lightblue"
+            : "none"
+      }
       title={sectionInfo}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -321,24 +330,24 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
       {/* Section Name Label */}
       {!isPreview && !isLastSection ? (
         <NexDiv
-          width="100%"
-          height="20px"
+          width='100%'
+          height='20px'
           border={isSelected ? "none" : "1px solid white"}
           bgColor={
             isSelected ? activeColor2 : hovered ? "lightblue" : "lightgray"
           }
+          align='stretch'
         >
-          {" "}
-          {section.dispName || section.name}
+          {section.dispName || section.name}\
         </NexDiv>
       ) : null}
       <NexDiv
         direction={section.direction || "row"}
-        width="100%"
-        height="100%"
-        align="center"
-        justify="center"
-        overflow="visible"
+        width='100%'
+        height='100%'
+        align='center'
+        justify='center'
+        overflow='visible'
       >
         {childView()}
       </NexDiv>

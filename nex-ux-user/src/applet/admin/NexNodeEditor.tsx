@@ -5,9 +5,10 @@ import { observer } from "mobx-react-lite";
 import { clamp } from "utils/util";
 import { defaultThemeStyle, getThemeStyle } from "type/NexTheme";
 import AdminNodeEditor from "./lib/AdminNodeEditor";
+import { set } from "mobx";
 
 const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
-  const { contents, theme, user, onUpdate } = props;
+  const { contents, theme, user, onUpdate, onAdd } = props;
 
   const [isMouseEnter, setMouseEnter] = useState(false);
   const [isFocus, setFocus] = useState(false);
@@ -34,7 +35,8 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
   const bgColor = defaultStyle?.bgColors[0] || "#e8edf7";
 
   const storeIndex = 0; // only 1 store
-  const [data, setData] = useState<any>(null);
+  const [record, setRecord] = useState<any>(null);
+  const [node, setNode] = useState<any>(null);
   const [features, setFeatures] = useState<any[]>([]);
   // Memoize derived dependency to satisfy React Hooks lint rule
   const contentsOdata = useMemo(
@@ -46,42 +48,104 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
     const cts = contents?.[storeIndex];
     if (!cts || !cts.store) {
       setFeatures([]);
-      setData(null);
+      setRecord(null);
+      setNode(null);
       return;
     }
+
+    setFeatures(cts.format.features || []);
 
     const tdata = cts.indexes
       ? cts.indexes?.map((i: number) => cts.data[i]) || []
       : cts.data || [];
 
-    //console.log("NexJsonEditor: data=", JSON.stringify(cts, null, 2));
-    setFeatures(cts.format.features || []);
-    setData(tdata.length > 0 ? tdata[0] : null);
+    let curRecord = null;
+    let curNode = null;
+    if (tdata.length > 0) {
+      curRecord = tdata[0];
+      curNode = Object.values(tdata[0][4])[0];
+    }
+
+    setRecord(curRecord);
+    setNode(curNode);
   }, [contents, contentsOdata]);
 
-  const handleApply = (newData: any) => {
-    //console.log("onApply : ", JSON.stringify(newData, null, 2));
-    const bres = onUpdate?.(0, newData);
+  const handleUpdate = (newNode: any) => {
+    //console.log("handleUpdate : ", JSON.stringify(newNode, null, 2));
+
+    if (!record || record.length !== 5) return;
+    const keys = Object.keys(record[4] || {});
+    if (keys.length !== 1) return;
+    const key = keys[0];
+    const path = record[1];
+
+    const parentPath = (() => {
+      if (!path) return "";
+      const trimmed = path.replace(/\/+$/, "");
+      const idx = trimmed.lastIndexOf("/");
+      return idx <= 0 ? "" : trimmed.slice(0, idx);
+    })();
+
+    const newRecord = [
+      record[0],
+      `/${parentPath}/${newNode.name}`,
+      record[2],
+      record[3],
+      { [key]: newNode },
+    ];
+
+    const bres = onUpdate?.(0, newRecord);
     if (!bres) {
       window.alert("Data update failed");
     }
   };
 
+  const handleAdd = (newNode: any) => {
+    let newRecord: any = null;
+    if (!record) {
+      newRecord = [-1, `/${newNode.name}`, "", "", { [-1]: newNode }];
+    } else if (record.length === 5) {
+      const keys = Object.keys(record[4] || {});
+      if (keys.length !== 1) return;
+      const key = keys[0];
+      const path = record[1];
+
+      newRecord = [
+        record[0],
+        `/${path}/${newNode.name}`,
+        record[2],
+        record[3],
+        { [key]: newNode },
+      ];
+    }
+
+    if (!newRecord) return;
+
+    const bres = onAdd?.(0, newRecord);
+    if (!bres) {
+      window.alert("Data add failed");
+    }
+  };
+
   return (
     <NexApplet {...props} error={errorMsg()}>
-      {data ? (
+      {node ? (
         <NexDiv
-          direction="column"
-          align="center"
-          width="100%"
-          height="100%"
+          direction='column'
+          align='center'
+          width='100%'
+          height='100%'
           color={color}
           bgColor={bgColor}
           onMouseEnter={() => setMouseEnter(true)}
           onMouseLeave={() => setMouseEnter(false)}
-          overflow="auto"
+          overflow='auto'
         >
-          <AdminNodeEditor data={data} mode="edit" onApply={handleApply} />
+          <AdminNodeEditor
+            node={node}
+            onUpdate={handleUpdate}
+            onAdd={handleAdd}
+          />
         </NexDiv>
       ) : null}
     </NexApplet>

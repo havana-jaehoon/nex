@@ -49,9 +49,9 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   //const treeData = contents?.[0]?.json || [];
 
   const [nexTree, setNexTree] = useState<any>(null);
-  const [store, setStore] = useState<any>(null);
-  const [format, setFormat] = useState<any>(null);
-  const [data, setData] = useState<any>(null);
+  //const [store, setStore] = useState<any>(null);
+  //const [format, setFormat] = useState<any>(null);
+  //const [data, setData] = useState<any>(null);
 
   useEffect(() => {
     if (!contents || contents.length < 1) return;
@@ -69,8 +69,8 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
 
     const tree = buildNexTree(contentsData);
     setNexTree(tree);
-    setStore(cts.store);
-    setFormat(cts.format);
+    //setStore(cts.store);
+    //setFormat(cts.format);
     setSelectedKeys(cts.selectedKeys);
   }, [contents]);
 
@@ -88,120 +88,6 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     if (onSelect) {
       onSelect(0, row); // Assuming single store for now
     }
-  };
-
-  const addNode = (type: NexNodeType) => {
-    const newNodeObject = getAdminNodeFromType(type);
-
-    const index = -1;
-    const project = curData?.[2] || "";
-    const system = curData?.[3] || "";
-    let orderIndex = -1; // 마지막에 추가
-
-    let parentNodePath = "";
-    if (!curData) {
-      parentNodePath = "/";
-      orderIndex = -1; // 루트에 추가하는 경우 마지막에 추가
-    } else if (curData[2].type === NexNodeType.FOLDER) {
-      parentNodePath = curData[1] + "/";
-      orderIndex = -1; // 폴더 내 마지막 항목으로 추가
-    } else {
-      parentNodePath =
-        curData[1].substring(0, curData[1].lastIndexOf("/")) + "/";
-      const keys = Object.keys(curData[4]);
-      if (keys.length > 0) orderIndex = parseInt(keys[0]);
-      else {
-        console.warn("addNode: curData has no child nodes");
-        return;
-      }
-    }
-
-    console.log("# parentNodePath=", parentNodePath);
-
-    const newData = [
-      index,
-      parentNodePath,
-      project,
-      system,
-      { [orderIndex.toString()]: newNodeObject },
-    ];
-
-    console.log("addNode: curData=", JSON.stringify(curData, null, 2));
-    console.log("addNode: newData=", JSON.stringify(newData, null, 2));
-
-    setEditingNode(newData);
-
-    setIsAdding(true);
-    setIsEditing(true);
-  };
-
-  const handleAddFolder = () => {
-    if (!onAdd) {
-      console.warn("NexNodeTreeApp: addFolder - onAdd is not provided");
-      return;
-    }
-    //const store.element.name
-    const nodeType = "folder";
-    addNode(nodeType as NexNodeType);
-  };
-
-  const handleAddEntity = () => {
-    if (!onAdd) {
-      console.warn("NexNodeTreeApp: addNode - onAdd is not provided");
-      return;
-    }
-    const nodeType = store.element.name;
-    addNode(nodeType as NexNodeType);
-  };
-
-  const handleEdit = () => {
-    console.log(`NexNodeTreeApp: editNode path=${selectedPath}`);
-
-    let parentNodePath = "";
-    if (!curData) {
-      window.alert("편집할 노드를 선택하세요.");
-      return;
-    }
-
-    console.log("# parentNodePath=", parentNodePath);
-
-    /*
-    setEditingNode([
-      curData[0],
-      curData[1].substring(0, curData[1].lastIndexOf("/")) + "/",
-      curData[2],
-    ]);
-    */
-    setEditingNode(curData);
-    setIsEditing(true);
-  };
-
-  const handleApply = (mode: "add" | "edit", node: any) => {
-    if (mode === "add") {
-      console.log("NexNodeTreeApp: handleApply - add", node);
-      if (onAdd && onAdd(storeIndex, node)) {
-        // 추가가 성공한 경우
-        setIsAdding(false);
-        setIsEditing(false);
-
-        const nodePath = node[1];
-        handleSelect(nodePath);
-        setCurData(null);
-      }
-    } else if (mode === "edit") {
-      console.log("NexNodeTreeApp: handleApply - edit", node);
-      if (onUpdate && onUpdate(storeIndex, node)) {
-        setIsEditing(false);
-        const nodePath = node[1];
-        handleSelect(nodePath);
-      }
-    }
-  };
-
-  const handleCancel = () => {
-    console.log("NexNodeTreeApp: handleCancel");
-    setIsAdding(false);
-    setIsEditing(false);
   };
 
   const handleRemove = (index: number) => {
@@ -236,15 +122,15 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   return (
     <NexApplet {...props} error={errorMsg()}>
       <NexDiv
-        flex="1"
-        direction="column"
-        align="center"
-        justify="flex-start"
+        flex='1'
+        direction='column'
+        align='center'
+        justify='flex-start'
         color={color}
         bgColor={bgColor}
-        width="100%"
-        height="100%"
-        overflow="auto"
+        width='100%'
+        height='100%'
+        overflow='auto'
         fontSize={fontSize}
         onClick={(e) => {
           // 컨테이너 자신을 직접 클릭한 경우(빈 영역)만 선택 해제
@@ -253,27 +139,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
           handleSelect(-1);
         }}
       >
-        {/* Add & Delete & Edit */}
-        <Stack spacing={0.5} direction="row" justifyContent="end" width="100%">
-          <IconButton
-            title="폴더 추가"
-            onClick={handleAddFolder}
-            sx={{ color: color }}
-          >
-            <MdCreateNewFolder />
-          </IconButton>
-          <IconButton
-            title="Add"
-            sx={{ color: color }}
-            onClick={handleAddEntity}
-          >
-            <MdNewLabel />
-          </IconButton>
-          <IconButton title="Edit" sx={{ color: color }} onClick={handleEdit}>
-            <MdEdit />
-          </IconButton>
-        </Stack>
-        <Stack spacing={0.5} direction="column" width="100%">
+        <Stack spacing={0.5} direction='column' width='100%'>
           {nexTree &&
             nexTree.data &&
             nexTree.data.map(
@@ -293,16 +159,6 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
             )}
         </Stack>
       </NexDiv>
-      {isEditing && (
-        <NexModalNodeEditer
-          label={`${name} ${isAdding ? "추가" : "편집"} `}
-          isOpen={isEditing}
-          data={editingNode}
-          mode={isEditing ? "add" : "edit"}
-          onApply={(data) => handleApply(isEditing ? "add" : "edit", data)}
-          onCancel={() => handleCancel()}
-        />
-      )}
     </NexApplet>
   );
 });
