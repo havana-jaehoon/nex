@@ -154,11 +154,10 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       "handleAddFolder: newRecord=",
       JSON.stringify(newRecord, null, 2)
     );
-    return;
     const bres = await onAdd?.(storeIndex, newRecord);
     if (!bres) {
       window.alert("추가에 실패했습니다.");
-    } //onAdd?.(storeIndex, row);
+    }
   };
 
   const handleAddEntity = async () => {
@@ -220,11 +219,10 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       "handleAddEntity: newRecord=",
       JSON.stringify(newRecord, null, 2)
     );
-    return;
     const bres = await onAdd?.(storeIndex, newRecord);
     if (!bres) {
       window.alert("추가에 실패했습니다.");
-    } //onAdd?.(storeIndex, row);
+    }
   };
 
   const handleRemove = (index: number) => {
@@ -267,7 +265,6 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
         bgColor={bgColor}
         width="100%"
         height="100%"
-        overflow="auto"
         fontSize={fontSize}
         onClick={(e) => {
           // 컨테이너 자신을 직접 클릭한 경우(빈 영역)만 선택 해제
@@ -294,7 +291,13 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
             <MdNewLabel />
           </IconButton>
         </Stack>
-        <Stack spacing={0.5} direction="column" width="100%">
+        <NexDiv width="100%" overflow="auto">
+        <Stack
+          spacing={0.5}
+          direction="column"
+          width="100%"
+
+        >
           {nexTree &&
             nexTree.data &&
             nexTree.data.map(
@@ -313,6 +316,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
                 )
             )}
         </Stack>
+        </NexDiv>
       </NexDiv>
     </NexApplet>
   );

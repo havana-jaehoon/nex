@@ -100,52 +100,22 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
     }
   };
 
-  const handleAdd = (newNode: any) => {
-    let newRecord: any = null;
-    if (!record) {
-      newRecord = [-1, `/${newNode.name}`, "", "", { [-1]: newNode }];
-    } else if (record.length === 5) {
-      const keys = Object.keys(record[4] || {});
-      if (keys.length !== 1) return;
-      const key = keys[0];
-      const path = record[1];
-
-      newRecord = [
-        record[0],
-        `/${path}/${newNode.name}`,
-        record[2],
-        record[3],
-        { [key]: newNode },
-      ];
-    }
-
-    if (!newRecord) return;
-
-    const bres = onAdd?.(0, newRecord);
-    if (!bres) {
-      window.alert("Data add failed");
-    }
-  };
-
+  
   return (
     <NexApplet {...props} error={errorMsg()}>
       {node ? (
         <NexDiv
-          direction='column'
-          align='center'
-          width='100%'
-          height='100%'
+          direction="column"
+          align="center"
+          width="100%"
+          height="100%"
           color={color}
           bgColor={bgColor}
           onMouseEnter={() => setMouseEnter(true)}
           onMouseLeave={() => setMouseEnter(false)}
-          overflow='auto'
+          overflow="auto"
         >
-          <AdminNodeEditor
-            node={node}
-            onUpdate={handleUpdate}
-            onAdd={handleAdd}
-          />
+          <AdminNodeEditor node={node} onUpdate={handleUpdate} />
         </NexDiv>
       ) : null}
     </NexApplet>

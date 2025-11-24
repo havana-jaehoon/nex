@@ -1179,39 +1179,5 @@
         ]
       }
     }
-  ],
-  [
-    225,
-    "/Home/Body/Main/Admin/Menu1",
-    "",
-    "",
-    {
-      "11": {
-        "name": "Menu1",
-        "dispName": "Menu1",
-        "description": "Menu Section",
-        "type": "section",
-        "size": "1",
-        "direction": "row",
-        "route": "menu"
-      }
-    }
-  ],
-  [
-    226,
-    "/Home/Body/Main/Admin/Menu2",
-    "",
-    "",
-    {
-      "12": {
-        "name": "Menu2",
-        "dispName": "Menu2",
-        "description": "Menu Section",
-        "type": "section",
-        "size": "1",
-        "direction": "row",
-        "route": "menu"
-      }
-    }
   ]
 ]
