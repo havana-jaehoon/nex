@@ -244,7 +244,6 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
     onSelect?.(storeIndex, record);
   };
 
-
   const handleAddEntity = async () => {
     const projectName = "";
     const systemName = "";
@@ -279,25 +278,14 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
 
     let newRecord: any = null;
 
-    if (type === NexNodeType.ELEMENT) {
-      // include system
-      // current system-name
-      newRecord = [
-        -1,
-        `${parentPath}/${newNode.name}`,
-        projectName,
-        systemName,
-        { [-1]: newNode },
-      ];
-    } else {
-      newRecord = [
-        -1,
-        `${parentPath}/${newNode.name}`,
-        projectName,
-        "",
-        { [-1]: newNode },
-      ];
-    }
+    newRecord = [
+      -1,
+      `${parentPath}/${newNode.name}`,
+      projectName,
+      "",
+      { [-1]: newNode },
+    ];
+
     if (!newRecord) return;
 
     console.log(
@@ -310,8 +298,6 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
       window.alert("추가에 실패했습니다.");
     } //onAdd?.(storeIndex, row);
   };
-
-
 
   const handleAdd = async (newSection: any) => {
     let newRecord: any = null;
