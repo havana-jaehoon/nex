@@ -1,10 +1,10 @@
 {
-  "name": "webserver",
-  "dispName": "웹서버",
-  "description": "CBM 웹서버",
+  "name": "webclient",
+  "dispName": "웹클라이언트",
+  "description": "웹클라이언트",
   "type": "system",
   "address": {
-    "ip": "127.0.0.1",
-    "port": "9080"
+    "ip": "",
+    "port": 0
   }
 }

@@ -11,9 +11,9 @@ import ArrowForward from "@mui/icons-material/ArrowForward";
 import { MdCancel, MdRemove } from "react-icons/md";
 
 interface NexPagePreviewerProps {
-  isLastRoute: boolean;
   isPreview: boolean;
   path: string;
+  selectedRoute: string;
   route: string;
   section: any;
   style: NexThemeStyle;
@@ -25,9 +25,9 @@ interface NexPagePreviewerProps {
 }
 
 const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
-  isLastRoute,
   isPreview,
   path,
+  selectedRoute,
   route,
   section,
   style,
@@ -62,140 +62,16 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
 
   const sectionInfo = JSON.stringify(section.name, null, 2);
 
-  const resizeButtones = () => {
-    return (
-      <>
-        <style>
-          {`
-        .hover-controls .hover-btn {
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 120ms ease-in-out;
-        }
-        .hover-controls:hover .hover-btn {
-        opacity: 1;
-        pointer-events: auto;
-        }
-      `}
-        </style>
-
-        {/* Up */}
-        <IconButton
-          aria-label='up'
-          size='small'
-          className='hover-btn'
-          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-            e.stopPropagation();
-            // handle up
-          }}
-          style={{
-            position: "absolute",
-            top: 8,
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: 32,
-            height: 32,
-            borderRadius: "50%",
-            backgroundColor: "rgba(0,0,0,0.35)",
-            color: "#fff",
-            zIndex: 1,
-            userSelect: "none",
-          }}
-        >
-          <ArrowUpward />
-        </IconButton>
-
-        {/* Down */}
-        <IconButton
-          aria-label='down'
-          size='small'
-          className='hover-btn'
-          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-            e.stopPropagation();
-            // handle down
-          }}
-          style={{
-            position: "absolute",
-            bottom: 8,
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: 32,
-            height: 32,
-            borderRadius: "50%",
-            backgroundColor: "rgba(0,0,0,0.35)",
-            color: "#fff",
-            zIndex: 1,
-            userSelect: "none",
-          }}
-        >
-          <ArrowDownward />
-        </IconButton>
-
-        {/* Left */}
-        <IconButton
-          aria-label='left'
-          size='small'
-          className='hover-btn'
-          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-            e.stopPropagation();
-            // handle left
-          }}
-          style={{
-            position: "absolute",
-            left: 8,
-            top: "50%",
-            transform: "translateY(-50%)",
-            width: 32,
-            height: 32,
-            borderRadius: "50%",
-            backgroundColor: "rgba(0,0,0,0.35)",
-            color: "#fff",
-            zIndex: 1,
-            userSelect: "none",
-          }}
-        >
-          <ArrowBack />
-        </IconButton>
-
-        {/* Right */}
-        <IconButton
-          aria-label='right'
-          size='small'
-          className='hover-btn'
-          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-            e.stopPropagation();
-            // handle right
-          }}
-          style={{
-            position: "absolute",
-            right: 8,
-            top: "50%",
-            transform: "translateY(-50%)",
-            width: 32,
-            height: 32,
-            borderRadius: "50%",
-            backgroundColor: "rgba(0,0,0,0.35)",
-            color: "#fff",
-            zIndex: 1,
-            userSelect: "none",
-          }}
-        >
-          <ArrowForward />
-        </IconButton>
-      </>
-    );
-  };
   const lastView = isContents ? (
     <NexDiv
-      width='100%'
-      height='100%'
-      direction='column'
+      width="100%"
+      height="100%"
+      direction="column"
       color={color}
       bgColor={bgColor}
       border={border}
       borderRadius={borderRadius}
       padding={gap}
-      className='hover-controls'
       style={{
         boxSizing: "border-box",
         boxShadow: boxShadow,
@@ -207,9 +83,9 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
     </NexDiv>
   ) : (
     <NexDiv
-      width='100%'
-      height='100%'
-      color='gray'
+      width="100%"
+      height="100%"
+      color="gray"
       style={{ position: "relative" }}
     >
       {section.dispName || section.name}
@@ -221,20 +97,19 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
     if (!Array.isArray(section.children) || section.children.length === 0)
       return null;
 
-    let curRoute = route.replace(/^\/+|\/+$/g, "").replace(/\*+$/g, "");
-    console.log("NexPagePreviewer: routeView - route=", route);
-
     let childSection = (section.children as any[]).find((child) => {
-      const childRoute = child.route
-        .replace(/^\/+|\/+$/g, "")
-        .replace(/\*+$/g, "");
+      const childRoute = `${route}/${child.route}`;
 
       console.log(
-        `NexPagePreviewer: routeView - curRoute=${curRoute}, childRoute=${childRoute}`
+        "## Routing - childRoute:",
+        childRoute,
+        " selectedRoute:",
+        selectedRoute,
+        "child.route:",
+        child.route
       );
-      const isRouteMatch = curRoute.startsWith(childRoute);
+      const isRouteMatch = selectedRoute.startsWith(childRoute);
       if (isRouteMatch) {
-        curRoute = curRoute.substring(childRoute.length);
         return true;
       }
       return false;
@@ -243,15 +118,14 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
     // route 에서 childSection 의 route 를 제거 하여 나머지 경로로 다시 찾기
     // 맨 앞 뒤의 / 는 제거, 맨 마지막 * 도 제거
 
-    //childSection = childSection || (section.children as any[])[0];
     if (!childSection) return null;
     console.log("NexPagePreviewer: routeView - childSection:", childSection);
     return (
       <NexPagePreviewer
-        isLastRoute={curRoute === ""}
         isPreview={isPreview}
         path={path + "/" + childSection.name}
-        route={curRoute}
+        selectedRoute={selectedRoute}
+        route={`${route}/${childSection.route}`}
         section={childSection}
         selectedIndex={selectedIndex}
         style={style}
@@ -264,7 +138,6 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
 
   const childView = () => {
     if (isRoutes) {
-      if (isLastRoute) return null;
       return routeView();
     } else {
       if (isLastSection) {
@@ -278,10 +151,10 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
         //console.log("NexPagePreviewer child:", JSON.stringify(child, null, 2));
         return (
           <NexPagePreviewer
-            isLastRoute={false}
             isPreview={isPreview}
             path={path + "/" + child.name}
             route={route}
+            selectedRoute={selectedRoute}
             key={`${child.name}-${index}`}
             section={child}
             selectedIndex={selectedIndex}
@@ -298,10 +171,10 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
   return (
     <NexDiv
       direction={"column"}
-      align='center'
-      justify='center'
-      width='100%'
-      height='100%'
+      align="center"
+      justify="center"
+      width="100%"
+      height="100%"
       flex={section.size || "1"}
       color={color}
       bgColor={isSelected ? activeColor2 : hovered ? "lightblue" : "lightgray"}
@@ -313,8 +186,6 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
             : "none"
       }
       title={sectionInfo}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       onClick={(e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
         console.log(
@@ -330,24 +201,24 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
       {/* Section Name Label */}
       {!isPreview && !isLastSection ? (
         <NexDiv
-          width='100%'
-          height='20px'
+          width="100%"
+          height="20px"
           border={isSelected ? "none" : "1px solid white"}
           bgColor={
             isSelected ? activeColor2 : hovered ? "lightblue" : "lightgray"
           }
-          align='stretch'
+          align="stretch"
         >
           {section.dispName || section.name}\
         </NexDiv>
       ) : null}
       <NexDiv
         direction={section.direction || "row"}
-        width='100%'
-        height='100%'
-        align='center'
-        justify='center'
-        overflow='visible'
+        width="100%"
+        height="100%"
+        align="center"
+        justify="center"
+        overflow="visible"
       >
         {childView()}
       </NexDiv>

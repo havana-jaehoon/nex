@@ -19,12 +19,12 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const { name, contents, theme, user, onSelect, onUpdate, onAdd, onRemove } =
     props;
 
-  const [editingNode, setEditingNode] = useState<any>(null);
-  const [curData, setCurData] = useState<any>(null);
-  const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [isAdding, setIsAdding] = useState<boolean>(false);
+  const [curRecord, setCurRecord] = useState<any>(null);
+  const [curNode, setCurNode] = useState<any>(null);
   const [selectedPath, setSelectedPath] = useState<string>("");
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [selectedKeys, setSelectedKeys] = useState<number[]>([]);
+  const [type, setType] = useState<string>(NexNodeType.FOLDER);
 
   const style = getThemeStyle(theme, "applet");
   const activeColor = style.activeColors[0];
@@ -67,6 +67,9 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       contentsData = indexes.map((index: number) => cts.data[index]);
     }
 
+    const nodeType = cts.store?.element?.name || NexNodeType.FOLDER;
+    setType(nodeType);
+
     const tree = buildNexTree(contentsData);
     setNexTree(tree);
     //setStore(cts.store);
@@ -77,17 +80,151 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const handleSelect = (index: number) => {
     const row = nexTree?.getNode(index) || null;
 
-    setCurData(row);
+    if (!row || row.length !== 5) {
+      setSelectedPath("");
+      setSelectedIndex(-1);
+    } else {
+      setSelectedPath(row[1]);
+      setSelectedIndex(index);
+      const node = Object.values(row[4])[0];
+      setCurNode(node);
+    }
 
-    /*
-    console.log(
-      `NexNodeTreeApp: onSelect index=${index}, row=`,
-      JSON.stringify(row, null, 2)
-    );
-    */
+    setCurRecord(row);
+
     if (onSelect) {
       onSelect(0, row); // Assuming single store for now
     }
+  };
+
+  const handleAddFolder = async () => {
+    const projectName = "";
+    const systemName = "";
+
+    const now = new Date();
+    const nodeName = `new-folder-${now.getHours().toString().padStart(2, "0")}${now.getMinutes().toString().padStart(2, "0")}${now.getSeconds().toString().padStart(2, "0")}`;
+
+    //const defaultNode = getAdminNodeFromType(NexNodeType.FOLDER);
+    const newNode = {
+      ...getAdminNodeFromType(NexNodeType.FOLDER),
+      name: nodeName,
+    };
+
+    let parentPath = "";
+    if (!curNode) {
+      parentPath = "";
+    } else if (
+      curNode.type === NexNodeType.FOLDER ||
+      curNode.type === NexNodeType.SECTION
+    ) {
+      parentPath = selectedPath;
+    } else {
+      parentPath = (() => {
+        if (!selectedPath || selectedPath === "") return "";
+        const trimmed = selectedPath.replace(/\/+$/, "");
+        const idx = trimmed.lastIndexOf("/");
+        return idx <= 0 ? "" : trimmed.slice(0, idx);
+      })();
+    }
+
+    let newRecord: any = null;
+
+    if (type === NexNodeType.ELEMENT) {
+      // include system
+      // current system-name
+      newRecord = [
+        -1,
+        `${parentPath}/${newNode.name}`,
+        projectName,
+        systemName,
+        { [-1]: newNode },
+      ];
+    } else {
+      newRecord = [
+        -1,
+        `${parentPath}/${newNode.name}`,
+        projectName,
+        "",
+        { [-1]: newNode },
+      ];
+    }
+    if (!newRecord) return;
+
+    console.log(
+      "handleAddFolder: newRecord=",
+      JSON.stringify(newRecord, null, 2)
+    );
+    return;
+    const bres = await onAdd?.(storeIndex, newRecord);
+    if (!bres) {
+      window.alert("추가에 실패했습니다.");
+    } //onAdd?.(storeIndex, row);
+  };
+
+  const handleAddEntity = async () => {
+    const projectName = "";
+    const systemName = "";
+
+    const now = new Date();
+    const nodeName = `new-${type}-${now.getHours().toString().padStart(2, "0")}${now.getMinutes().toString().padStart(2, "0")}${now.getSeconds().toString().padStart(2, "0")}`;
+    const newNode = {
+      ...getAdminNodeFromType(type),
+      name: nodeName,
+    };
+
+    let parentPath = "";
+    if (!curNode) {
+      parentPath = "";
+    } else if (
+      curNode.type === NexNodeType.FOLDER ||
+      (type === NexNodeType.SECTION &&
+        (curNode.applet === undefined ||
+          curNode.contents === undefined ||
+          curNode.applet === "" ||
+          curNode.contents.length === 0))
+    ) {
+      parentPath = selectedPath;
+    } else {
+      parentPath = (() => {
+        if (!selectedPath || selectedPath === "") return "";
+        const trimmed = selectedPath.replace(/\/+$/, "");
+        const idx = trimmed.lastIndexOf("/");
+        return idx <= 0 ? "" : trimmed.slice(0, idx);
+      })();
+    }
+
+    let newRecord: any = null;
+
+    if (type === NexNodeType.ELEMENT) {
+      // include system
+      // current system-name
+      newRecord = [
+        -1,
+        `${parentPath}/${newNode.name}`,
+        projectName,
+        systemName,
+        { [-1]: newNode },
+      ];
+    } else {
+      newRecord = [
+        -1,
+        `${parentPath}/${newNode.name}`,
+        projectName,
+        "",
+        { [-1]: newNode },
+      ];
+    }
+    if (!newRecord) return;
+
+    console.log(
+      "handleAddEntity: newRecord=",
+      JSON.stringify(newRecord, null, 2)
+    );
+    return;
+    const bres = await onAdd?.(storeIndex, newRecord);
+    if (!bres) {
+      window.alert("추가에 실패했습니다.");
+    } //onAdd?.(storeIndex, row);
   };
 
   const handleRemove = (index: number) => {
@@ -122,15 +259,15 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   return (
     <NexApplet {...props} error={errorMsg()}>
       <NexDiv
-        flex='1'
-        direction='column'
-        align='center'
-        justify='flex-start'
+        flex="1"
+        direction="column"
+        align="center"
+        justify="flex-start"
         color={color}
         bgColor={bgColor}
-        width='100%'
-        height='100%'
-        overflow='auto'
+        width="100%"
+        height="100%"
+        overflow="auto"
         fontSize={fontSize}
         onClick={(e) => {
           // 컨테이너 자신을 직접 클릭한 경우(빈 영역)만 선택 해제
@@ -139,7 +276,25 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
           handleSelect(-1);
         }}
       >
-        <Stack spacing={0.5} direction='column' width='100%'>
+        <Stack spacing={0.5} direction="row" justifyContent="end" width="100%">
+          {!(type === NexNodeType.SYSTEM || type === NexNodeType.SECTION) && (
+            <IconButton
+              title="폴더 추가"
+              onClick={handleAddFolder}
+              sx={{ color: color }}
+            >
+              <MdCreateNewFolder />
+            </IconButton>
+          )}
+          <IconButton
+            title="Add"
+            sx={{ color: color }}
+            onClick={handleAddEntity}
+          >
+            <MdNewLabel />
+          </IconButton>
+        </Stack>
+        <Stack spacing={0.5} direction="column" width="100%">
           {nexTree &&
             nexTree.data &&
             nexTree.data.map(

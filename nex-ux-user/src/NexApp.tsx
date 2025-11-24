@@ -35,24 +35,31 @@ const NexApp: React.FC<NexAppProps> = observer((props) => {
   return (
     <NexStoreProvider configStore={configStore}>
       <NexDiv
-        align='center'
-        justify='center'
-        width='100%'
-        height='100%'
-        overflow='hidden'
-        padding='10px'
+        align="center"
+        justify="center"
+        width="100%"
+        height="100%"
+        overflow="hidden"
+        padding="10px"
         style={{ position: "fixed", inset: 0, boxSizing: "border-box" }}
       >
         {!rootSection || !configStore.isReady ? (
           <div>Loading... {configStore.isReady ? "Ready" : "Not Ready"}</div>
         ) : (
           <Router>
-            <NexPageViewer
-              key={rootSection.name}
-              section={rootSection}
-              isVisibleBorder={false}
-              isVisibleTitle={false}
-            />
+            <Routes>
+              <Route
+                path="*"
+                element={
+                  <NexPageViewer
+                    key={rootSection.name}
+                    section={rootSection}
+                    isVisibleBorder={false}
+                    isVisibleTitle={false}
+                  />
+                }
+              />
+            </Routes>
           </Router>
         )}
       </NexDiv>

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { observer } from "mobx-react-lite";
 import NexApplet, { NexAppProps } from "../NexApplet";
 import { NexDiv } from "../../component/base/NexBaseComponents";
-import { Alert, IconButton, Stack } from "@mui/material";
+import { IconButton, Stack } from "@mui/material";
 import NexNodeItem from "./lib/NexNodeItem";
 
 import { MdCreateNewFolder, MdEdit, MdNewLabel } from "react-icons/md";
@@ -11,8 +11,7 @@ import NexModalNodeEditer from "modal/NexModalNodeEditer";
 import { buildNexTree } from "utils/NexTreeNode";
 import { getAdminNodeFromType } from "./lib/adminDataFormat";
 import { NexNodeType } from "type/NexNode";
-import { set } from "mobx";
-import { data, Route } from "react-router-dom";
+
 import { getThemeStyle } from "type/NexTheme";
 
 const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
@@ -297,9 +296,9 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
         <NexModalNodeEditer
           label={`${name} ${isAdding ? "추가" : "편집"} `}
           isOpen={isEditing}
-          data={editingNode}
-          mode={isEditing ? "add" : "edit"}
-          onApply={(data) => handleApply(isEditing ? "add" : "edit", data)}
+          node={editingNode}
+          
+          onUpdate={(data) => handleApply(isEditing ? "add" : "edit", data)}
           onCancel={() => handleCancel()}
         />
       )}

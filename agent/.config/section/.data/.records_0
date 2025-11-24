@@ -1,23 +1,7 @@
 [
   [
-    0,
-    "/root",
-    "",
-    "",
-    {
-      "0": {
-        "name": "root",
-        "dispName": "root",
-        "description": "root",
-        "type": "section",
-        "isRoutes": true,
-        "padding": "10px"
-      }
-    }
-  ],
-  [
     1,
-    "/root/Home",
+    "/Home",
     "",
     "",
     {
@@ -26,14 +10,13 @@
         "dispName": "Home",
         "description": "Home Section",
         "type": "section",
-        "route": "/*",
         "direction": "column"
       }
     }
   ],
   [
     2,
-    "/root/Home/Head",
+    "/Home/Head",
     "",
     "",
     {
@@ -49,7 +32,7 @@
   ],
   [
     3,
-    "/root/Home/Head/HeadLeft",
+    "/Home/Head/HeadLeft",
     "",
     "",
     {
@@ -64,7 +47,7 @@
   ],
   [
     4,
-    "/root/Home/Head/HeadMain",
+    "/Home/Head/HeadMain",
     "",
     "",
     {
@@ -79,7 +62,7 @@
   ],
   [
     5,
-    "/root/Home/Head/HeadRight",
+    "/Home/Head/HeadRight",
     "",
     "",
     {
@@ -94,7 +77,7 @@
   ],
   [
     6,
-    "/root/Home/Body",
+    "/Home/Body",
     "",
     "",
     {
@@ -110,7 +93,7 @@
   ],
   [
     7,
-    "/root/Home/Body/Left",
+    "/Home/Body/Left",
     "",
     "",
     {
@@ -126,7 +109,7 @@
   ],
   [
     8,
-    "/root/Home/Body/Left/Menu",
+    "/Home/Body/Left/Menu",
     "",
     "",
     {
@@ -137,8 +120,6 @@
         "type": "section",
         "icon": "",
         "color": "",
-        "isRoute": "",
-        "route": "",
         "direction": "row",
         "size": "1",
         "padding": "8px",
@@ -151,7 +132,7 @@
   ],
   [
     10,
-    "/root/Home/Body/Main",
+    "/Home/Body/Main",
     "",
     "",
     {
@@ -166,7 +147,7 @@
   ],
   [
     11,
-    "/root/Home/Body/Main/Admin",
+    "/Home/Body/Main/Admin",
     "",
     "",
     {
@@ -177,14 +158,14 @@
         "type": "section",
         "size": "24",
         "direction": "column",
-        "route": "/admin/*",
+        "route": "admin",
         "isRoutes": true
       }
     }
   ],
   [
     12,
-    "/root/Home/Body/Main/CBM",
+    "/Home/Body/Main/CBM",
     "",
     "",
     {
@@ -195,14 +176,14 @@
         "type": "section",
         "size": "24",
         "direction": "column",
-        "route": "/cbm/*",
+        "route": "cbm",
         "isRoutes": true
       }
     }
   ],
   [
     80,
-    "/root/Home/Body/Main/Admin/Menu",
+    "/Home/Body/Main/Admin/Menu",
     "",
     "",
     {
@@ -219,7 +200,7 @@
   ],
   [
     81,
-    "/root/Home/Body/Main/Admin/Menu/MenuFinder",
+    "/Home/Body/Main/Admin/Menu/MenuFinder",
     "",
     "",
     {
@@ -240,7 +221,7 @@
   ],
   [
     82,
-    "/root/Home/Body/Main/Admin/Menu/MenuEditor",
+    "/Home/Body/Main/Admin/Menu/MenuEditor",
     "",
     "",
     {
@@ -261,7 +242,7 @@
   ],
   [
     90,
-    "/root/Home/Body/Main/Admin/Storage",
+    "/Home/Body/Main/Admin/Storage",
     "",
     "",
     {
@@ -270,15 +251,21 @@
         "dispName": "Storage",
         "description": "Storage Section",
         "type": "section",
-        "size": "1",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "storage",
         "direction": "row",
-        "route": "storage"
+        "size": "1",
+        "padding": "",
+        "applet": "",
+        "contents": ""
       }
     }
   ],
   [
     91,
-    "/root/Home/Body/Main/Admin/Storage/StorageFinder",
+    "/Home/Body/Main/Admin/Storage/StorageFinder",
     "",
     "",
     {
@@ -299,7 +286,7 @@
   ],
   [
     92,
-    "/root/Home/Body/Main/Admin/Storage/StorageEditor",
+    "/Home/Body/Main/Admin/Storage/StorageEditor",
     "",
     "",
     {
@@ -320,7 +307,7 @@
   ],
   [
     100,
-    "/root/Home/Body/Main/Admin/Format",
+    "/Home/Body/Main/Admin/Format",
     "",
     "",
     {
@@ -337,7 +324,7 @@
   ],
   [
     101,
-    "/root/Home/Body/Main/Admin/Format/FormatFinder",
+    "/Home/Body/Main/Admin/Format/FormatFinder",
     "",
     "",
     {
@@ -358,7 +345,7 @@
   ],
   [
     102,
-    "/root/Home/Body/Main/Admin/Format/FormatEditor",
+    "/Home/Body/Main/Admin/Format/FormatEditor",
     "",
     "",
     {
@@ -379,7 +366,7 @@
   ],
   [
     110,
-    "/root/Home/Body/Main/Admin/Store",
+    "/Home/Body/Main/Admin/Store",
     "",
     "",
     {
@@ -396,7 +383,7 @@
   ],
   [
     111,
-    "/root/Home/Body/Main/Admin/Store/StoreFinder",
+    "/Home/Body/Main/Admin/Store/StoreFinder",
     "",
     "",
     {
@@ -417,7 +404,7 @@
   ],
   [
     112,
-    "/root/Home/Body/Main/Admin/Store/StoreEditor",
+    "/Home/Body/Main/Admin/Store/StoreEditor",
     "",
     "",
     {
@@ -438,7 +425,7 @@
   ],
   [
     120,
-    "/root/Home/Body/Main/Admin/Processor",
+    "/Home/Body/Main/Admin/Processor",
     "",
     "",
     {
@@ -455,7 +442,7 @@
   ],
   [
     121,
-    "/root/Home/Body/Main/Admin/Processor/ProcessorFinder",
+    "/Home/Body/Main/Admin/Processor/ProcessorFinder",
     "",
     "",
     {
@@ -476,7 +463,7 @@
   ],
   [
     122,
-    "/root/Home/Body/Main/Admin/Processor/ProcessorEditor",
+    "/Home/Body/Main/Admin/Processor/ProcessorEditor",
     "",
     "",
     {
@@ -497,7 +484,7 @@
   ],
   [
     130,
-    "/root/Home/Body/Main/Admin/System",
+    "/Home/Body/Main/Admin/System",
     "",
     "",
     {
@@ -514,7 +501,7 @@
   ],
   [
     131,
-    "/root/Home/Body/Main/Admin/System/SystemFinder",
+    "/Home/Body/Main/Admin/System/SystemFinder",
     "",
     "",
     {
@@ -535,7 +522,7 @@
   ],
   [
     132,
-    "/root/Home/Body/Main/Admin/System/SystemEditor",
+    "/Home/Body/Main/Admin/System/SystemEditor",
     "",
     "",
     {
@@ -556,7 +543,7 @@
   ],
   [
     140,
-    "/root/Home/Body/Main/Admin/Element",
+    "/Home/Body/Main/Admin/Element",
     "",
     "",
     {
@@ -573,7 +560,7 @@
   ],
   [
     141,
-    "/root/Home/Body/Main/Admin/Element/Left",
+    "/Home/Body/Main/Admin/Element/Left",
     "",
     "",
     {
@@ -589,7 +576,7 @@
   ],
   [
     145,
-    "/root/Home/Body/Main/Admin/Element/Left/StorageElementGenerator",
+    "/Home/Body/Main/Admin/Element/Left/StorageElementGenerator",
     "",
     "",
     {
@@ -600,8 +587,6 @@
         "type": "section",
         "icon": "",
         "color": "",
-        "isRoute": "",
-        "route": "",
         "direction": "row",
         "size": "1",
         "padding": "8px",
@@ -615,7 +600,7 @@
   ],
   [
     146,
-    "/root/Home/Body/Main/Admin/Element/Left/ElementFinder",
+    "/Home/Body/Main/Admin/Element/Left/ElementFinder",
     "",
     "",
     {
@@ -636,7 +621,7 @@
   ],
   [
     147,
-    "/root/Home/Body/Main/Admin/Element/ElementEditor",
+    "/Home/Body/Main/Admin/Element/ElementEditor",
     "",
     "",
     {
@@ -647,8 +632,6 @@
         "type": "section",
         "icon": "",
         "color": "",
-        "isRoute": "",
-        "route": "",
         "direction": "row",
         "size": "8",
         "padding": "8px",
@@ -661,7 +644,7 @@
   ],
   [
     150,
-    "/root/Home/Body/Main/Admin/Contents",
+    "/Home/Body/Main/Admin/Contents",
     "",
     "",
     {
@@ -678,7 +661,7 @@
   ],
   [
     151,
-    "/root/Home/Body/Main/Admin/Contents/ContentsFinder",
+    "/Home/Body/Main/Admin/Contents/ContentsFinder",
     "",
     "",
     {
@@ -699,7 +682,7 @@
   ],
   [
     152,
-    "/root/Home/Body/Main/Admin/Contents/ContentsEditor",
+    "/Home/Body/Main/Admin/Contents/ContentsEditor",
     "",
     "",
     {
@@ -720,7 +703,7 @@
   ],
   [
     160,
-    "/root/Home/Body/Main/Admin/Section",
+    "/Home/Body/Main/Admin/Section",
     "",
     "",
     {
@@ -737,23 +720,73 @@
   ],
   [
     162,
-    "/root/Home/Body/Main/Admin/Section/Right",
+    "/Home/Body/Main/Admin/Section/Left",
     "",
     "",
     {
       "0": {
-        "name": "Right",
-        "dispName": "웹섹션",
-        "description": "웹섹션",
+        "name": "Left",
+        "dispName": "섹션 검색 & 편집",
+        "description": "섹션",
         "type": "section",
-        "size": "6",
+        "size": 3,
         "direction": "column"
       }
     }
   ],
   [
+    163,
+    "/Home/Body/Main/Admin/Section/Left/Finder",
+    "",
+    "",
+    {
+      "0": {
+        "name": "Finder",
+        "dispName": "섹션 검색",
+        "description": "섹션 검색",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "column",
+        "size": "1",
+        "padding": "",
+        "applet": "/admin/NexNodeTree",
+        "contents": [
+          "/admin/section"
+        ]
+      }
+    }
+  ],
+  [
     164,
-    "/root/Home/Body/Main/Admin/Section/Right/Preview",
+    "/Home/Body/Main/Admin/Section/Left/Editor",
+    "",
+    "",
+    {
+      "0": {
+        "name": "Editor",
+        "dispName": "섹션 편집",
+        "description": "섹션 편집",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "column",
+        "size": "2",
+        "padding": "",
+        "applet": "/admin/NexNodeEditor",
+        "contents": [
+          "/admin/SelectedSection"
+        ]
+      }
+    }
+  ],
+  [
+    165,
+    "/Home/Body/Main/Admin/Section/Preview",
     "",
     "",
     {
@@ -778,7 +811,7 @@
   ],
   [
     170,
-    "/root/Home/Body/Main/Admin/Theme",
+    "/Home/Body/Main/Admin/Theme",
     "",
     "",
     {
@@ -795,7 +828,7 @@
   ],
   [
     171,
-    "/root/Home/Body/Main/Admin/Theme/ThemeFinder",
+    "/Home/Body/Main/Admin/Theme/ThemeFinder",
     "",
     "",
     {
@@ -816,7 +849,7 @@
   ],
   [
     172,
-    "/root/Home/Body/Main/Admin/Theme/ThemeEditor",
+    "/Home/Body/Main/Admin/Theme/ThemeEditor",
     "",
     "",
     {
@@ -837,7 +870,7 @@
   ],
   [
     180,
-    "/root/Home/Body/Main/Admin/User",
+    "/Home/Body/Main/Admin/User",
     "",
     "",
     {
@@ -854,7 +887,7 @@
   ],
   [
     181,
-    "/root/Home/Body/Main/Admin/User/UserFinder",
+    "/Home/Body/Main/Admin/User/UserFinder",
     "",
     "",
     {
@@ -875,7 +908,7 @@
   ],
   [
     182,
-    "/root/Home/Body/Main/Admin/User/UserEditor",
+    "/Home/Body/Main/Admin/User/UserEditor",
     "",
     "",
     {
@@ -896,7 +929,7 @@
   ],
   [
     200,
-    "/root/Home/Body/Main/CBM/Dashboard",
+    "/Home/Body/Main/CBM/Dashboard",
     "",
     "",
     {
@@ -913,7 +946,7 @@
   ],
   [
     201,
-    "/root/Home/Body/Main/CBM/Dashboard/Top",
+    "/Home/Body/Main/CBM/Dashboard/Top",
     "",
     "",
     {
@@ -927,7 +960,7 @@
   ],
   [
     202,
-    "/root/Home/Body/Main/CBM/Dashboard/Bottom",
+    "/Home/Body/Main/CBM/Dashboard/Bottom",
     "",
     "",
     {
@@ -941,7 +974,7 @@
   ],
   [
     203,
-    "/root/Home/Body/Main/CBM/Dashboard/Top/Left",
+    "/Home/Body/Main/CBM/Dashboard/Top/Left",
     "",
     "",
     {
@@ -955,7 +988,7 @@
   ],
   [
     204,
-    "/root/Home/Body/Main/CBM/Dashboard/Top/Right",
+    "/Home/Body/Main/CBM/Dashboard/Top/Right",
     "",
     "",
     {
@@ -969,7 +1002,7 @@
   ],
   [
     205,
-    "/root/Home/Body/Main/CBM/Dashboard/Top/Left/Top",
+    "/Home/Body/Main/CBM/Dashboard/Top/Left/Top",
     "",
     "",
     {
@@ -983,7 +1016,7 @@
   ],
   [
     206,
-    "/root/Home/Body/Main/CBM/Dashboard/Top/Left/Bottom",
+    "/Home/Body/Main/CBM/Dashboard/Top/Left/Bottom",
     "",
     "",
     {
@@ -997,7 +1030,7 @@
   ],
   [
     207,
-    "/root/Home/Body/Main/CBM/Dashboard/Top/Left/Top/LossPerLine",
+    "/Home/Body/Main/CBM/Dashboard/Top/Left/Top/LossPerLine",
     "",
     "",
     {
@@ -1016,7 +1049,7 @@
   ],
   [
     208,
-    "/root/Home/Body/Main/CBM/Dashboard/Top/Left/Top/LossHistoryPerLine",
+    "/Home/Body/Main/CBM/Dashboard/Top/Left/Top/LossHistoryPerLine",
     "",
     "",
     {
@@ -1035,7 +1068,7 @@
   ],
   [
     209,
-    "/root/Home/Body/Main/CBM/Dashboard/Top/Left/Bottom/TrainCountPerLine",
+    "/Home/Body/Main/CBM/Dashboard/Top/Left/Bottom/TrainCountPerLine",
     "",
     "",
     {
@@ -1054,7 +1087,7 @@
   ],
   [
     210,
-    "/root/Home/Body/Main/CBM/Dashboard/Top/Left/Bottom/MaintenancePerLineHistory",
+    "/Home/Body/Main/CBM/Dashboard/Top/Left/Bottom/MaintenancePerLineHistory",
     "",
     "",
     {
@@ -1073,7 +1106,7 @@
   ],
   [
     211,
-    "/root/Home/Body/Main/CBM/Dashboard/Top/Right/LossPerDevice",
+    "/Home/Body/Main/CBM/Dashboard/Top/Right/LossPerDevice",
     "",
     "",
     {
@@ -1092,7 +1125,7 @@
   ],
   [
     222,
-    "/root/Home/Body/Main/CBM/Dashboard/Top/Right/LossHistoryPerDevice",
+    "/Home/Body/Main/CBM/Dashboard/Top/Right/LossHistoryPerDevice",
     "",
     "",
     {
@@ -1111,7 +1144,7 @@
   ],
   [
     223,
-    "/root/Home/Body/Main/CBM/Dashboard/Bottom/RTMaintenanceInfo",
+    "/Home/Body/Main/CBM/Dashboard/Bottom/RTMaintenanceInfo",
     "",
     "",
     {
@@ -1130,7 +1163,7 @@
   ],
   [
     224,
-    "/root/Home/Body/Main/CBM/Dashboard/Bottom/SystemEventInfo",
+    "/Home/Body/Main/CBM/Dashboard/Bottom/SystemEventInfo",
     "",
     "",
     {
@@ -1149,7 +1182,7 @@
   ],
   [
     225,
-    "/root/Home/Body/Main/Admin/Menu1",
+    "/Home/Body/Main/Admin/Menu1",
     "",
     "",
     {
@@ -1166,7 +1199,7 @@
   ],
   [
     226,
-    "/root/Home/Body/Main/Admin/Menu2",
+    "/Home/Body/Main/Admin/Menu2",
     "",
     "",
     {

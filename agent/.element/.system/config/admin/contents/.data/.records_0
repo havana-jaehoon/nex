@@ -481,13 +481,17 @@
   ],
   [
     33,
-    "/admin/storage",
+    "//admin/storage",
     "",
     "",
     {
       "2": {
         "name": "storage",
+        "dispName": "저장소",
+        "description": "",
         "type": "contents",
+        "icon": "",
+        "color": "",
         "element": "/admin/storage",
         "conditions": [],
         "selections": [
@@ -501,13 +505,17 @@
   ],
   [
     34,
-    "/admin/SelectedStorage",
+    "//admin/SelectedStorage",
     "",
     "",
     {
       "3": {
         "name": "SelectedStorage",
+        "dispName": "선택된 저장소",
+        "description": "",
         "type": "contents",
+        "icon": "",
+        "color": "",
         "element": "/admin/storage",
         "conditions": [
           {
@@ -522,13 +530,17 @@
   ],
   [
     35,
-    "/admin/format",
+    "//admin/format",
     "",
     "",
     {
       "4": {
         "name": "format",
+        "dispName": "데이터포맷",
+        "description": "",
         "type": "contents",
+        "icon": "",
+        "color": "",
         "element": "/admin/format",
         "conditions": [],
         "selections": [
@@ -542,13 +554,17 @@
   ],
   [
     36,
-    "/admin/SelectedFormat",
+    "//admin/SelectedFormat",
     "",
     "",
     {
       "5": {
         "name": "SelectedFormat",
+        "dispName": "선택된 포맷",
+        "description": "",
         "type": "contents",
+        "icon": "",
+        "color": "",
         "element": "/admin/format",
         "conditions": [
           {
@@ -563,14 +579,17 @@
   ],
   [
     37,
-    "/admin/store",
+    "//admin/store",
     "",
     "",
     {
       "6": {
         "name": "store",
-        "dispName": "저장소",
+        "dispName": "저장정책",
+        "description": "",
         "type": "contents",
+        "icon": "",
+        "color": "",
         "element": "/admin/store",
         "conditions": [],
         "selections": [
@@ -584,14 +603,17 @@
   ],
   [
     38,
-    "/admin/SelectedStore",
+    "//admin/SelectedStore",
     "",
     "",
     {
       "7": {
         "name": "SelectedStore",
-        "dispName": "저장소",
+        "dispName": "선택된 저장정책",
+        "description": "",
         "type": "contents",
+        "icon": "",
+        "color": "",
         "element": "/admin/store",
         "conditions": [
           {
@@ -627,14 +649,17 @@
   ],
   [
     40,
-    "/admin/SelectedProcessor",
+    "//admin/SelectedProcessor",
     "",
     "",
     {
       "9": {
         "name": "SelectedProcessor",
-        "dispName": "프로세서",
+        "dispName": "선택된 프로세서",
+        "description": "",
         "type": "contents",
+        "icon": "",
+        "color": "",
         "element": "/admin/processor",
         "conditions": [
           {
@@ -674,14 +699,17 @@
   ],
   [
     42,
-    "/admin/SelectedSystem",
+    "//admin/SelectedSystem",
     "",
     "",
     {
       "11": {
         "name": "SelectedSystem",
-        "dispName": " 시스템",
+        "dispName": " 선택된 시스템",
+        "description": "",
         "type": "contents",
+        "icon": "",
+        "color": "",
         "element": "/admin/system",
         "conditions": [
           {
@@ -717,14 +745,17 @@
   ],
   [
     44,
-    "/admin/systemElement",
+    "//admin/systemElement",
     "",
     "",
     {
       "13": {
         "name": "systemElement",
-        "dispName": "시스템 엘리먼트",
+        "dispName": "선택된 엘리먼트",
+        "description": "",
         "type": "contents",
+        "icon": "",
+        "color": "",
         "element": "/admin/element",
         "conditions": [
           {
@@ -792,14 +823,17 @@
   ],
   [
     47,
-    "/admin/SelectedContents",
+    "//admin/SelectedContents",
     "",
     "",
     {
       "16": {
         "name": "SelectedContents",
-        "dispName": "웹 컨텐츠",
+        "dispName": "선택된 컨텐츠",
+        "description": "",
         "type": "contents",
+        "icon": "",
+        "color": "",
         "element": "/admin/contents",
         "conditions": [
           {
@@ -835,14 +869,17 @@
   ],
   [
     49,
-    "/admin/SelectedApplet",
+    "//admin/SelectedApplet",
     "",
     "",
     {
       "18": {
         "name": "SelectedApplet",
-        "dispName": "애플릿",
+        "dispName": "선택된 애플릿",
+        "description": "",
         "type": "contents",
+        "icon": "",
+        "color": "",
         "element": "/admin/applet",
         "conditions": [
           {
@@ -921,18 +958,21 @@
   ],
   [
     53,
-    "/admin/SelectedUser",
+    "///admin/SelectedTheme",
     "",
     "",
     {
       "22": {
-        "name": "SelectedUser",
-        "dispName": "선택된 사용자",
+        "name": "SelectedTheme",
+        "dispName": "선택된 테마",
+        "description": "",
         "type": "contents",
-        "element": "/admin/user",
+        "icon": "",
+        "color": "",
+        "element": "/admin/theme",
         "conditions": [
           {
-            "key": "user-index",
+            "key": "theme-index",
             "feature": "index",
             "method": "match"
           }
