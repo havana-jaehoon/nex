@@ -9,7 +9,7 @@ import { MdAdd, MdDelete, MdDownload, MdEdit } from "react-icons/md";
 import { clamp } from "utils/util";
 import { getThemeStyle } from "type/NexTheme";
 import axios from "axios";
-import { ServerURL } from "nexConfig";
+import pxConfig from "config/px-config.json";
 
 const NexConfigDistApp: React.FC<NexAppProps> = observer((props) => {
   const { contents, theme, user, onSelect } = props;
@@ -53,19 +53,21 @@ const NexConfigDistApp: React.FC<NexAppProps> = observer((props) => {
   const nameIndex = features.findIndex((f: any) => f.name === "dispName") || 4;
 
   const handleClick = () => {
-    axios.request({
-      method: "post",
-      url: ServerURL + "/cmd-api/dist",
-    }).then((response) => {
-      console.log("NexConfigDistApp::handleClick() response:", response);
-    });
+    axios
+      .request({
+        method: "post",
+        url: pxConfig["command-url"] + "/dist",
+      })
+      .then((response) => {
+        console.log("NexConfigDistApp::handleClick() response:", response);
+      });
     window.location.reload();
   };
 
   return (
     <NexApplet {...props} error={errorMsg()}>
-      <NexDiv direction="column" width="100%" height="100%">
-        <IconButton onClick={() =>handleClick()}>
+      <NexDiv direction='column' width='100%' height='100%'>
+        <IconButton onClick={() => handleClick()}>
           <MdDownload />
         </IconButton>
       </NexDiv>

@@ -12,6 +12,6 @@
   "processingInterval": "10",
   "processingUnit": "SEC",
   "sources": [
-    "system:/admin/menu"
+    "config:/admin/menu"
   ]
 }

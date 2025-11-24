@@ -172,8 +172,7 @@ export class NexDataStore {
   name: string = ""; // label name
   url: string = ""; // 데이터 소스 URL
   //path: string = "/"; // 데이터 소스 경로
-  elementPath: string = ""; // element 경로
-  queryParams: any = {};
+  path: string = ""; // element 경로
 
   element: any = null; // element 정보
   format: any = null; // format 정보
@@ -207,45 +206,56 @@ export class NexDataStore {
   //keyFieldMap: KeyFieldsMap = {};
 
   constructor(
-    url: string,
     path: string,
-    project: string,
-    system: string,
-    elementPath: string,
-    element?: any,
-    format?: any,
-    data?: any[]
+    element: any,
+    format: any,
+    systems: Record<string, { ip: string; port: number }>
   ) {
     //this.url = url;
-    if (elementPath === "") {
-      this.format = format || {};
-      this.element = {};
-      this.odata = data || [];
-    } else {
-      this.elementPath = elementPath;
 
-      this.name = this.element?.name || "";
-      this.element = element || {}; //getTestElement(elementPath);
-      this.odata = []; //getTestData(this.element?.name);
-      this.format = format || {}; //getTestFormat(this.element?.format);
+    this.path = path;
 
-      if (!this.format || !this.element) {
-        console.error(
-          "NexDataStore require element:",
-          JSON.stringify(this.element, null, 2)
-        );
+    this.name = this.element?.name || "";
+    this.element = element || {}; //getTestElement(path);
+    this.odata = []; //getTestData(this.element?.name);
+    this.format = format || {}; //getTestFormat(this.element?.format);
 
-        //return;
-      }
+    if (!this.format || !this.element) {
+      console.error(
+        "NexDataStore require element:",
+        JSON.stringify(this.element, null, 2)
+      );
+
+      //return;
     }
 
-    this.url = url; // url;
-    this.queryParams = {
-      project: project, //this.projectName,
-      system: system, // this.systemName,
-      path: this.elementPath,
-    };
-    this.name = this.element?.dispName || this.format?.dispName || "";
+    const systemName = (() => {
+      const first = this.element?.sources?.[0];
+      if (typeof first !== "string") return null;
+      const idx = first.indexOf(":");
+      return idx >= 0 ? first.slice(0, idx) : first;
+    })();
+
+    if (!systemName) {
+      console.error(
+        "NexDataStore: element.sources is empty:",
+        JSON.stringify(this.element, null, 2)
+      );
+      return;
+    }
+
+    const systemIp = systems[systemName]?.ip || null;
+    const systemPort = systems[systemName]?.port || null;
+
+    if (!systemIp || !systemPort) {
+      console.error(
+        "NexDataStore: system IP or port is missing:",
+        JSON.stringify(this.element, null, 2)
+      );
+      return;
+    }
+
+    this.url = `http://${systemIp}:${systemPort}/data-api${this.path}`;
 
     this.ioffset = 0;
     this.foffset = 0;
@@ -311,7 +321,7 @@ export class NexDataStore {
       //const url = URL_DATA;
       //const url = this.url;
       const response = await axios.get(this.url, {
-        params: { ...this.queryParams, cmd: "get" },
+        params: { cmd: "add", soffset: 0, eoffset: 0 },
       });
 
       //const datas = JSON.parse(JSON.stringify(response.data, null, 2));
@@ -372,7 +382,7 @@ export class NexDataStore {
 
     try {
       const response = await axios.put(this.url, row, {
-        params: { ...this.queryParams, cmd: "select" },
+        params: { cmd: "select" },
       });
 
       //const datas = JSON.parse(JSON.stringify(response.data, null, 2));
@@ -400,7 +410,7 @@ export class NexDataStore {
     console.log("NexDataStore: add", JSON.stringify(newRow, null, 2));
     try {
       const response = await axios.post(this.url, newRow, {
-        params: { ...this.queryParams, cmd: "add" },
+        params: { cmd: "add" },
       });
 
       //const datas = JSON.parse(JSON.stringify(response.data, null, 2));
@@ -437,7 +447,6 @@ export class NexDataStore {
     try {
       const response = await axios.delete(this.url, {
         params: {
-          ...this.queryParams,
           cmd: "remove",
           keys: JSON.stringify(keys, null, 2),
         },
@@ -464,7 +473,7 @@ export class NexDataStore {
     console.error("NexDataStore: update", JSON.stringify(row, null, 2));
     try {
       const response = await axios.put(this.url, row, {
-        params: { ...this.queryParams, cmd: "update" },
+        params: { cmd: "update" },
       });
       if (response.status < 200 || response.status >= 300) {
         console.error("Failed to update Data response:", response);
@@ -583,7 +592,7 @@ export class NexDataStore {
     }
 
     // format 그룹 즉 tree 구조일 경우를 고려 필요함.
-    //console.log(`getIndexesByCondition: conditions=${JSON.stringify(conditions, null, 2)}, format=${JSON.stringify(this.elementPath, null, 2)}`);
+    //console.log(`getIndexesByCondition: conditions=${JSON.stringify(conditions, null, 2)}, format=${JSON.stringify(this.path, null, 2)}`);
     const features =
       this.format.features || this.format.children[0].features || [];
     const conds = conditions.map((condition) => ({
@@ -629,7 +638,7 @@ export class NexDataStore {
 
     return matchingIndexes;
   }
-/*
+  /*
   getCountByCondition(
     conditions: any[], // 조건에 해당하는 행의 고유한(Target) 값을 반환
     cFeature: string, // 카운팅할 원본데이터의 freature 이름

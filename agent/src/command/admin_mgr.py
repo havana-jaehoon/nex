@@ -1,5 +1,5 @@
-import inspect
-import glob, json, re
+import os
+import json
 import shutil
 from datetime import datetime
 
@@ -40,6 +40,19 @@ class AdminMgr(SingletonInstance):
     def __str__(self):
         return f'AdminMgr'    
 
+
+    def _write_json_file(self, file_path, data):
+        try:
+            dir_full_path = os.path.dirname(file_path)
+            if not os.path.exists(dir_full_path):
+                os.makedirs(dir_full_path)            
+            with open(file_path, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+            return True
+        except Exception as e:
+            print(f"Error writing JSON file {file_path}: {e}")
+        return False
+
     def _loadConfigs(self):
         self._cfgReader = ConfigReader(self._configPath)
 
@@ -62,6 +75,12 @@ class AdminMgr(SingletonInstance):
                     configData[value] = self._cfgReader.getDatas(value, projectName, systemName)
                 else: # common config
                     configData[value] = self._cfgReader.getDatas(value, projectName, '')
+
+                #print(f"# system:{systemName}, config:{value}, data-len:{len(configData[value])}")
+                #if(value == "system"):
+                    #    self._write_json_file(f"./{value}.json", configData[value])
+                #    print(f"# system:{systemName}, config:{value}, data:{json.dumps(configData[value], indent=2, ensure_ascii=False)}")
+
             self._configMap[projectName][systemName] = configData
 
 
@@ -167,15 +186,18 @@ class AdminMgr(SingletonInstance):
             #res = load_all_config(ADMIN_CONFIG_DIR)
             method = handler_args.method
 
+            
+            full_path = handler_args.full_path
+            # full_path 에서 /data-api 제거
+            path = full_path[len('/data-api'):]
             project = handler_args.query_params.get('project', '')
-            path = handler_args.query_params.get('path', '')
             cmd = handler_args.query_params.get('cmd', '')
 
             dataio = self._dataioMap.get(project, {}).get(path, None)
             if dataio is None:
-                return HandlerResult(status=404, body=f'Not found dataio for project:{project}, system:{system}, path:{path}')
+                return HandlerResult(status=404, body=f'Not found dataio for project:{project}, path:{path}')
 
-            print(f'{self.__str__()}::_cmdData: method:{method}, project:{project}, system:{system}, path:{path}')
+            print(f'{self.__str__()}::_cmdData: method:{method}, project:{project}, path:{path}')
 
             if method == 'GET': # get command -> get
                 # Handle GET request

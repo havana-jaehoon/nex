@@ -52,9 +52,9 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
     setData(tdata.length > 0 ? tdata[0] : null);
   }, [contents]);
 
-  const handleApply = (newData: any) => {
+  const handleUpdate = (newData: any) => {
     console.log(
-      "JsonEditor::handleApply() : ",
+      "JsonEditor::handleUpdate() : ",
       JSON.stringify(newData, null, 2)
     );
 
@@ -68,16 +68,16 @@ const NexJsonEditor: React.FC<NexAppProps> = observer((props) => {
     <NexApplet {...props} error={errorMsg()}>
       {data ? (
         <NexDiv
-          direction="column"
-          align="center"
-          width="100%"
-          height="100%"
+          direction='column'
+          align='center'
+          width='100%'
+          height='100%'
           color={color}
           bgColor={bgColor}
           onMouseEnter={() => setMouseEnter(true)}
           onMouseLeave={() => setMouseEnter(false)}
         >
-          <AdminNodeEditor data={data} mode="edit" onApply={handleApply} />
+          <AdminNodeEditor node={data} onUpdate={handleUpdate} />
         </NexDiv>
       ) : null}
     </NexApplet>

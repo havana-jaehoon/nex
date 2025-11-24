@@ -5,6 +5,6 @@
   "type": "system",
   "address": {
     "ip": "",
-    "port": ""
+    "port": 0
   }
 }

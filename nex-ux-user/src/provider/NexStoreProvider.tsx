@@ -96,16 +96,15 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
     }, [configStore.config.systems]);
 
     const systemAddrDict = useMemo(() => {
-      const dict: Record<string, { ip: string; port: string | number }> = {};
+      const dict: Record<string, { ip: string; port: number }> = {};
       Object.values(systemCfgs).forEach((sys: any) => {
-        if (sys?.name && sys?.address) {
+        if (sys?.name) {
           dict[sys.name] = {
-            ip: sys.address.ip,
-            port: sys.address.port,
+            ip: sys.address?.ip || "",
+            port: Number(sys.address?.port) || 0,
           };
         }
       });
-
       return dict;
     }, [systemCfgs]);
 
@@ -144,13 +143,13 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
       Object.entries(elementCfgs).forEach(([path, element]) => {
         const format = formatCfgs[element.format] || null;
 
-        const store = new NexDataStore("", "", path, element, format);
+        const store = new NexDataStore(path, element, format, systemAddrDict);
         //console.log("NexStoreProvider element:", JSON.stringify(node, null, 2));
         //console.log("NexStoreProvider path:", path);
         storeMap[path] = store;
       });
       return storeMap;
-    }, [elementCfgs, formatCfgs]);
+    }, [elementCfgs, formatCfgs, systemAddrDict]);
 
     const appMap = useMemo(() => {
       const appMap: Record<string, React.FC<any>> = {};

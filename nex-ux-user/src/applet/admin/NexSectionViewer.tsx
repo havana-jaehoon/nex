@@ -29,12 +29,11 @@ import {
   MdArrowDropUp,
   MdArrowLeft,
   MdArrowRight,
-  MdNewLabel,
+  MdCancel,
 } from "react-icons/md";
-import { set } from "mobx";
-import { Form } from "react-router-dom";
-import { ServerURL } from "nexConfig";
+
 import axios from "axios";
+import pxConfig from "config/px-config.json";
 
 const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
   const { contents, theme, user, onUpdate, onSelect, onAdd, onRemove } = props;
@@ -208,7 +207,7 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
       await axios
         .request({
           method: "get",
-          url: ServerURL + "/cmd-api/dist",
+          url: pxConfig["command-url"] + "/dist",
         })
         .then((response) => {
           console.log("NexConfigDistApp::handleClick() response:", response);
@@ -243,40 +242,35 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
     onSelect?.(storeIndex, record);
   };
 
-  const handleAdd = async () => {
-    if (selectedIndex < 0 || !selectedSection) return;
-
-    const curRecord = data
-      ? data.find((record: any) => record[0] === selectedIndex)
-      : null;
-    if (!curRecord || curRecord.length !== 5) return;
-
-    const newRecord = [...curRecord];
-
-    if (
-      (selectedSection.applet && selectedSection.applet !== "") ||
-      (selectedSection.contents && selectedSection.contents.length > 0)
-    ) {
-      console.log(
-        `# applet=${Boolean(selectedSection.applet)}, contents=${selectedSection.contents}`
-      );
-      window.alert(
-        "애플릿이나 컨텐츠가 있는 섹션은 하위 섹션을 추가할 수 없습니다."
-      );
-      return;
+  const handleAdd = async (newSection: any) => {
+    let newRecord: any = null;
+    if (selectedIndex < 0 || !selectedSection) {
+      // 선택된 섹션이 없으면 최상위에 추가
+      newRecord = [-1, `/${newSection.name}`, "", "", { [-1]: newSection }]; // dummy init
+    } else {
+      if (
+        (selectedSection.applet && selectedSection.applet !== "") ||
+        (selectedSection.contents && selectedSection.contents.length > 0)
+      ) {
+        console.log(
+          `# applet=${Boolean(selectedSection.applet)}, contents=${selectedSection.contents}`
+        );
+        window.alert(
+          "애플릿이나 컨텐츠가 있는 섹션은 하위 섹션을 추가할 수 없습니다."
+        );
+      } else {
+        // 선택된 섹션의 하위에 추가
+        newRecord = [
+          -1,
+          `${selectedPath}/${selectedSection.name}`,
+          "",
+          "",
+          { [-1]: newSection },
+        ]; // dummy init
+      }
     }
 
-    // -1: 서버에서 인덱스 발행
-    newRecord[0] = -1; // new record
-    newRecord[1] = `${selectedPath}/${selectedSection.name}`; // path;
-    //const prevSection: any = (newRecord[4] as any)[key] || {};
-    //-1 : 마지막에 추가
-
-    //const newSection = { ...selectedSection, applet: "", contents: [] };
-
-    newRecord[4] = {
-      [-1]: selectedSection,
-    };
+    if (!newRecord) return;
 
     const bres = await onAdd?.(storeIndex, newRecord);
     if (!bres) {
@@ -284,7 +278,7 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
     } //onAdd?.(storeIndex, row);
   };
 
-  const handleUpdate = async () => {
+  const handleUpdate = async (newSection: any) => {
     if (selectedIndex < 0 || !selectedSection) return;
 
     const newRecord = data
@@ -293,12 +287,21 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
     if (!newRecord || newRecord.length !== 5) return;
 
     const keys = Object.keys(newRecord[4] || {});
-    if (keys.length === 0) return;
+    if (keys.length !== 1) return;
     const key = keys[0];
 
     //const prevSection: any = (newRecord[4] as any)[key] || {};
+    // newSection.name 이 변경되었으면 기존 path 경로 변경
+    const parentPath = (() => {
+      if (!selectedPath) return "";
+      const trimmed = selectedPath.replace(/\/+$/, "");
+      const idx = trimmed.lastIndexOf("/");
+      return idx <= 0 ? "" : trimmed.slice(0, idx);
+    })();
+
+    newRecord[1] = `${parentPath}/${newSection.name}`;
     newRecord[4] = {
-      [key]: selectedSection,
+      [key]: newSection,
     };
 
     const bres = await onUpdate?.(storeIndex, newRecord);
@@ -411,98 +414,110 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
 
   const resizeButton = (
     <Stack
-      spacing={2}
-      width="100%"
-      direction="row"
-      alignItems="flex-end"
-      justifyContent="flex-end"
+      spacing={1}
+      width='100%'
+      direction='row'
+      alignItems='flex-end'
+      justifyContent='flex-end'
     >
       <Button
-        variant="contained"
-        color="inherit"
-        title="크게"
+        variant='contained'
+        color='inherit'
+        title='크게'
         onClick={() => resize(1)}
-        size="medium"
+        size='medium'
         startIcon={<MdArrowDropUp />}
         sx={{ flex: 1 }}
       >
         크게
       </Button>
       <Button
-        variant="contained"
-        color="inherit"
-        title="작게"
+        variant='contained'
+        color='inherit'
+        title='작게'
         onClick={() => resize(-1)}
-        size="medium"
+        size='medium'
         startIcon={<MdArrowDropDown />}
         sx={{ flex: 1 }}
       >
         작게
       </Button>
       <Button
-        variant="contained"
-        color="inherit"
-        title="앞으로"
+        variant='contained'
+        color='inherit'
+        title='앞으로'
         onClick={() => reorder(-1)}
-        size="medium"
+        size='medium'
         startIcon={<MdArrowLeft />}
         sx={{ flex: 1 }}
       >
         앞으로
       </Button>
       <Button
-        variant="contained"
-        color="inherit"
-        title="뒤로"
+        variant='contained'
+        color='inherit'
+        title='뒤로'
         onClick={() => reorder(1)}
-        size="medium"
+        size='medium'
         startIcon={<MdArrowRight />}
         sx={{ flex: 1 }}
       >
         뒤로
       </Button>
+      <Button
+        variant='contained'
+        color='error'
+        title='삭제'
+        onClick={() => handleRemove()}
+        size='medium'
+        startIcon={<MdCancel />}
+        sx={{ flex: 1 }}
+      >
+        삭제
+      </Button>
     </Stack>
   );
 
   const pageSelector = (
-    <NexDiv width="100%" align="flex-end">
+    <NexDiv width='100%' align='flex-end'>
       <Stack
         flex={8}
         spacing={4}
-        direction="row"
-        width="100%"
-        alignItems="center"
-        justifyContent="flex-start"
+        direction='row'
+        width='100%'
+        alignItems='flex-end'
+        justifyContent='flex-end'
+        style={{ padding: "4px" }}
       >
-        <NexDiv align="flex-end" justify="flex-start">
+        <NexDiv align='flex-end' justify='flex-end'>
           <FormControl
             onChange={(e) => {
               const v = (e.target as HTMLInputElement).value;
               setPreviewMode(v === "preview" ? true : false);
             }}
           >
-            <FormLabel id="nex-section-preview">편집 모드</FormLabel>
+            <FormLabel id='nex-section-preview'>편집 모드</FormLabel>
             <RadioGroup
               row
-              aria-labelledby="nex-section-preview"
-              name="nex-section-preview-radio-group"
+              aria-labelledby='nex-section-preview'
+              name='nex-section-preview-radio-group'
               value={isPreview ? "preview" : "editting"}
             >
               <FormControlLabel
                 value={"editting"}
                 control={<Radio />}
-                label="레이어"
+                label='레이어'
               />
               <FormControlLabel
                 value={"preview"}
                 control={<Radio />}
-                label="애플릿"
+                label='애플릿'
               />
             </RadioGroup>
           </FormControl>
         </NexDiv>
 
-        <NexDiv flex="3" align="flex-end" justify="flex-start">
+        <NexDiv flex='3' align='flex-end' justify='flex-end'>
           <Autocomplete
             options={routeList}
             value={route}
@@ -512,23 +527,22 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
             }}
             style={{ width: "100%" }}
             renderInput={(params) => (
-              <TextField {...params} label="route" variant="standard" />
+              <TextField {...params} label='route' variant='standard' />
             )}
           />
         </NexDiv>
-        <NexDiv flex="2" align="flex-end" justify="flex-end">
+        <NexDiv flex='5' align='flex-end' justify='flex-end'>
           {resizeButton}
         </NexDiv>
-        <NexDiv flex="2"> </NexDiv>
       </Stack>
-      <NexDiv flex="1.5">
+      <NexDiv flex='2' padding='4px'>
         <Button
-          size="large"
-          variant="contained"
+          size='large'
+          variant='contained'
           onClick={() => handleApplyConfig()}
           sx={{ flex: 1 }}
         >
-          반영
+          설정 서버 반영
         </Button>
       </NexDiv>
     </NexDiv>
@@ -537,19 +551,19 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
   // name, dispName, padding , gap, boarder, boarderRadius
 
   const baseEditor = (
-    <NexDiv width="100%" align="flex-end">
+    <NexDiv width='100%' align='flex-end'>
       <Grid
         container
         spacing={3}
         columnSpacing={2}
         columns={13}
-        flex="8"
-        alignItems="flex-end"
+        flex='8'
+        alignItems='flex-end'
       >
         <Grid item xs={"auto"} sm={"auto"} md={3}>
           <TextField
-            size="medium"
-            variant="standard"
+            size='medium'
+            variant='standard'
             disabled
             label={"섹션 경로"}
             value={selectedPath}
@@ -558,8 +572,8 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
         </Grid>
         <Grid item xs={"auto"} sm={"auto"} md={2}>
           <TextField
-            size="medium"
-            variant="standard"
+            size='medium'
+            variant='standard'
             label={"이름(영문)"}
             value={String(selectedSection?.name || "")}
             style={{ width: "100%" }}
@@ -569,8 +583,8 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
 
         <Grid item xs={"auto"} sm={"auto"} md={2}>
           <TextField
-            size="medium"
-            variant="standard"
+            size='medium'
+            variant='standard'
             label={"표시이름"}
             value={String(selectedSection?.dispName || "")}
             style={{ width: "100%" }}
@@ -579,8 +593,8 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
         </Grid>
         <Grid item xs={"auto"} sm={"auto"} md={1.5}>
           <TextField
-            size="medium"
-            variant="standard"
+            size='medium'
+            variant='standard'
             label={"아이콘"}
             value={String(selectedSection?.icon || "")}
             style={{ width: "100%" }}
@@ -589,8 +603,8 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
         </Grid>
         <Grid item xs={"auto"} sm={"auto"} md={1.5}>
           <TextField
-            size="medium"
-            variant="standard"
+            size='medium'
+            variant='standard'
             label={"컬러"}
             value={String(selectedSection?.color || "")}
             style={{ width: "100%" }}
@@ -604,15 +618,15 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
               <Checkbox
                 checked={Boolean(selectedSection?.isRoutes)}
                 onChange={(e) => setValues("isRoutes", e.target.checked)}
-                size="medium"
+                size='medium'
               />
             }
           />
         </Grid>
         <Grid item xs={"auto"} sm={"auto"} md={2}>
           <TextField
-            size="medium"
-            variant="standard"
+            size='medium'
+            variant='standard'
             label={"라우트"}
             value={String(selectedSection?.route || "")}
             style={{ width: "100%" }}
@@ -620,7 +634,7 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
           />
         </Grid>
         <Grid item xs={"auto"} sm={"auto"} md={1}>
-          <FormControl title={"방향"} variant="standard" sx={{ width: "100%" }}>
+          <FormControl title={"방향"} variant='standard' sx={{ width: "100%" }}>
             <Select
               value={selectedSection?.direction || "row"}
               onChange={(e: any) => {
@@ -629,16 +643,16 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
               label={"방향"}
               style={{ width: "100%" }}
             >
-              <MenuItem value="row">{"가로"}</MenuItem>
-              <MenuItem value="column">{"세로"}</MenuItem>
+              <MenuItem value='row'>{"가로"}</MenuItem>
+              <MenuItem value='column'>{"세로"}</MenuItem>
             </Select>
           </FormControl>
         </Grid>
         <Grid item xs={"auto"} sm={"auto"} md={1}>
           <TextField
-            size="medium"
-            variant="standard"
-            type="text"
+            size='medium'
+            variant='standard'
+            type='text'
             label={"간격"}
             value={selectedSection?.gap || 0}
             onChange={(e) => setValues("gap", e.target.value)}
@@ -651,9 +665,9 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
 
         <Grid item xs={"auto"} sm={"auto"} md={1}>
           <TextField
-            size="medium"
-            variant="standard"
-            type="text"
+            size='medium'
+            variant='standard'
+            type='text'
             label={"패딩"}
             value={selectedSection?.padding || 0}
             onChange={(e) => setValues("padding", e.target.value)}
@@ -665,8 +679,8 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
         </Grid>
         <Grid item xs={"auto"} sm={"auto"} md={3}>
           <TextField
-            size="medium"
-            variant="standard"
+            size='medium'
+            variant='standard'
             label={"테두리"}
             value={String(selectedSection?.border || "")}
             style={{ width: "100%" }}
@@ -678,8 +692,8 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
         </Grid>
         <Grid item xs={"auto"} sm={"auto"} md={3}>
           <TextField
-            size="medium"
-            variant="standard"
+            size='medium'
+            variant='standard'
             label={"모서리반경"}
             value={String(selectedSection?.borderRadius || "")}
             style={{ width: "100%" }}
@@ -693,30 +707,14 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
       <Stack
         spacing={2}
         direction={"row"}
-        flex="1.5"
-        justifyContent="flex-end"
+        flex='1.5'
+        justifyContent='flex-end'
         mt={2}
-        width="100%"
+        width='100%'
       >
         <Button
-          size="large"
-          variant="contained"
-          onClick={() => handleUpdate()}
-          sx={{ flex: 1 }}
-        >
-          업데이트
-        </Button>
-        <Button
-          size="large"
-          variant="contained"
-          onClick={() => handleAdd()}
-          sx={{ flex: 1 }}
-        >
-          추가
-        </Button>
-        <Button
-          size="large"
-          variant="contained"
+          size='large'
+          variant='contained'
           onClick={() => handleRemove()}
           sx={{ flex: 1 }}
         >
@@ -730,37 +728,50 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
     <NexApplet {...props} error={errorMsg()}>
       {section ? (
         <NexDiv
-          direction="column"
-          align="center"
-          width="100%"
-          height="100%"
+          direction='column'
+          align='center'
+          width='100%'
+          height='100%'
           color={color}
           bgColor={bgColor}
           onMouseEnter={() => setMouseEnter(true)}
           onMouseLeave={() => setMouseEnter(false)}
-          overflow="auto"
+          overflow='auto'
         >
           <Stack
             spacing={1}
-            width="100%"
-            direction="column"
-            alignItems="center"
+            width='100%'
+            direction='column'
+            alignItems='center'
           >
             {pageSelector}
-            {baseEditor}
+            {/*baseEditor*/}
           </Stack>
           <span style={{ height: "20px" }}></span>
-          <NexPagePreviewer
-            isLastRoute={false}
-            isPreview={isPreview}
-            path={"/" + section.name}
-            route={route}
-            section={section}
-            selectedIndex={selectedIndex}
-            style={style}
-            isVisibleBorder={false}
-            onSelect={handleSelect}
-          />
+          <NexDiv width='100%' height='100%'>
+            <NexDiv flex='8' width='100%' height='100%'>
+              <NexPagePreviewer
+                isLastRoute={false}
+                isPreview={isPreview}
+                path={"/" + section.name}
+                route={route}
+                section={section}
+                selectedIndex={selectedIndex}
+                style={style}
+                isVisibleBorder={false}
+                onSelect={handleSelect}
+              />
+            </NexDiv>
+            <NexDiv flex='2' width='100%' height='100%' overflow='auto'>
+              {selectedRecord && (
+                <AdminNodeEditor
+                  node={selectedSection}
+                  onAdd={handleAdd}
+                  onUpdate={handleUpdate}
+                />
+              )}
+            </NexDiv>
+          </NexDiv>
         </NexDiv>
       ) : null}
     </NexApplet>
