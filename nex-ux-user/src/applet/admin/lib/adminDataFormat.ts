@@ -984,11 +984,11 @@ const themeNodeDef = {
       records: [
         {
           name: "name",
-          dispName: "컨텍츠이름",
+          dispName: "스타일",
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING, // DB IP 주소는 문자열로 처리
-          uxSize: 1,
+          uxSize: 6,
         },
         {
           name: "gap",
@@ -996,7 +996,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING, // DB IP 주소는 문자열로 처리
-          uxSize: 1,
+          uxSize: 3,
         },
         {
           name: "padding",
@@ -1004,7 +1004,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING, // DB IP 주소는 문자열로 처리
-          uxSize: 1,
+          uxSize: 3,
         },
         {
           name: "border",
@@ -1012,7 +1012,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING, // DB IP 주소는 문자열로 처리
-          uxSize: 2,
+          uxSize: 6,
         },
         {
           name: "borderRadius",
@@ -1020,7 +1020,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING, // DB IP 주소는 문자열로 처리
-          uxSize: 1,
+          uxSize: 6,
         },
         {
           name: "boxShadow",
@@ -1028,7 +1028,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING, // DB IP 주소는 문자열로 처리
-          uxSize: 2,
+          uxSize: 6,
         },
         {
           name: "colors",
@@ -1036,7 +1036,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING_ARRAY, // DB IP 주소는 문자열로 처리
-          uxSize: 2,
+          uxSize: 6,
         },
         {
           name: "bgColors",
@@ -1044,7 +1044,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING_ARRAY,
-          uxSize: 2,
+          uxSize: 6,
         },
         {
           name: "bdColors",
@@ -1052,7 +1052,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING_ARRAY,
-          uxSize: 2,
+          uxSize: 6,
         },
         {
           name: "activeColors",
@@ -1060,7 +1060,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING_ARRAY,
-          uxSize: 2,
+          uxSize: 6,
         },
         {
           name: "activeBgColors",
@@ -1068,7 +1068,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING_ARRAY,
-          uxSize: 2,
+          uxSize: 6,
         },
         {
           name: "hoverColors",
@@ -1076,7 +1076,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING_ARRAY,
-          uxSize: 2,
+          uxSize: 6,
         },
         {
           name: "fontFamily",
@@ -1085,7 +1085,7 @@ const themeNodeDef = {
           color: null,
           featureType: NexFeatureType.LITERALS,
           literals: [{ name: "Arial, sans-serif", dispName: "Arial" }],
-          uxSize: 1,
+          uxSize: 3,
         },
         {
           name: "fontSize",

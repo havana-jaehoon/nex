@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { observer } from "mobx-react-lite";
 import NexApplet, { NexAppProps } from "../NexApplet";
 import { NexDiv } from "../../component/base/NexBaseComponents";
-import { IconButton, Stack } from "@mui/material";
+import { Button, IconButton, Stack } from "@mui/material";
 import NexNodeItem from "./lib/NexNodeItem";
 
 import { MdCreateNewFolder, MdEdit, MdNewLabel } from "react-icons/md";
@@ -13,6 +13,8 @@ import { getAdminNodeFromType } from "./lib/adminDataFormat";
 import { NexNodeType } from "type/NexNode";
 
 import { getThemeStyle } from "type/NexTheme";
+import axios from "axios";
+import pxConfig from "config/px-config.json";
 
 const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const { name, contents, theme, user, onSelect, onUpdate, onAdd, onRemove } =
@@ -254,6 +256,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       >
         {/* Add & Delete & Edit */}
         <Stack spacing={0.5} direction="row" justifyContent="end" width="100%">
+
           <IconButton
             title="폴더 추가"
             onClick={handleAddFolder}
@@ -297,7 +300,6 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
           label={`${name} ${isAdding ? "추가" : "편집"} `}
           isOpen={isEditing}
           node={editingNode}
-          
           onUpdate={(data) => handleApply(isEditing ? "add" : "edit", data)}
           onCancel={() => handleCancel()}
         />

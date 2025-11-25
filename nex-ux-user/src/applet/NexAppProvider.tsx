@@ -57,7 +57,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
       console.log(
         `NexAppProvider => section=${JSON.stringify(section)}, appletPath=${appletPath}`
       );
-      return <NexDiv width='100%' height='100%' padding={padding}></NexDiv>;
+      return <NexDiv width="100%" height="100%" padding={padding}></NexDiv>;
     }
 
     const contentsNodeList = useMemo(() => {
@@ -196,8 +196,8 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     //const conditions = applet?.contents.
     return (
       <NexDiv
-        width='100%'
-        height='100%'
+        width="100%"
+        height="100%"
         padding={padding}
         border={border}
         borderRadius={borderRadius}

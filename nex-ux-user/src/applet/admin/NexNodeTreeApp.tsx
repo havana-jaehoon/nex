@@ -134,6 +134,22 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     }
   };
 
+  const handleApplyConfig = async () => {
+    try {
+      await axios
+        .request({
+          method: "get",
+          url: pxConfig["command-url"] + "/dist",
+        })
+        .then((response) => {
+          console.log("NexConfigDistApp::handleClick() response:", response);
+          window.location.reload();
+        });
+    } catch (error) {
+      console.error("Failed to apply config:", error);
+    }
+  };
+
   const handleAddFolder = async () => {
     const projectName = "";
     const systemName = "";
@@ -374,6 +390,14 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
           handleSelect(-1);
         }}
       >
+        <Button
+          variant="contained"
+          size="large"
+          fullWidth
+          onClick={handleApplyConfig}
+        >
+          설정 적용
+        </Button>
         <Stack spacing={0.5} direction="row" justifyContent="end" width="100%">
           {!(type === NexNodeType.SYSTEM || type === NexNodeType.SECTION) && (
             <IconButton

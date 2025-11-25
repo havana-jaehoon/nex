@@ -18,19 +18,14 @@ import {
 import { adminNodeDefs, getAdminNodeFromFeatures } from "./adminDataFormat";
 import {
   MdAdd,
-  MdArrowDownward,
   MdArrowDropDown,
   MdArrowDropUp,
   MdArrowLeft,
   MdArrowRight,
-  MdCancel,
   MdDelete,
   MdKeyboardArrowDown,
   MdKeyboardArrowRight,
-  MdLockReset,
   MdOutlineResetTv,
-  MdRemove,
-  MdResetTv,
   MdUpdate,
 } from "react-icons/md";
 import { defaultThemeStyle, NexThemeStyle } from "type/NexTheme";
@@ -293,7 +288,7 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
                 </Grid>
               </Box>
               <NexDiv
-                flex="1"
+                flex="3"
                 width="100%"
                 height="100%"
                 align="center"
@@ -412,7 +407,10 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
 
     // set editing state
     setEditingNode(next);
-    //console.log("# AdminNodeEditor: format=", JSON.stringify(tformat, null, 2));
+    console.log(
+      "# AdminNodeEditor: format=",
+      JSON.stringify(tfeatures, null, 2)
+    );
     setFormat(tformat);
     setFeatures(tfeatures);
   }, [node]);
@@ -734,11 +732,6 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
           feature.name === NexNodeType.THEME ||
           feature.name === NexNodeType.USER
         ) {
-          console.log(
-            "# renderFeature: selectOptions for ",
-            feature.name,
-            JSON.stringify(nodes, null, 2)
-          );
           if (nodes[feature.name]) {
             selectOptions = nodes[feature.name];
           }
@@ -862,11 +855,6 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
         feature.name === NexNodeType.THEME ||
         feature.name === NexNodeType.USER
       ) {
-        console.log(
-          "# renderFeature: selectOptions for ",
-          feature.name,
-          JSON.stringify(nodes, null, 2)
-        );
         if (nodes[feature.name]) {
           selectOptions = nodes[feature.name];
         }
@@ -942,7 +930,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
           >
             {bodyFields()}
           </NexDiv>
-          {true && editingNode && (
+          {false && editingNode && (
             <pre>{JSON.stringify(editingNode, null, 2)}</pre>
           )}
           <NexDiv flex="1" width="100%">

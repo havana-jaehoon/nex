@@ -560,7 +560,7 @@
     {
       "5": {
         "name": "SelectedFormat",
-        "dispName": "선택된 포맷",
+        "dispName": "선택된 데이터포맷",
         "description": "",
         "type": "contents",
         "icon": "",
@@ -926,21 +926,21 @@
   ],
   [
     53,
-    "/admin/SelectedTheme",
+    "/admin/SelectedUser",
     "",
     "",
     {
       "22": {
-        "name": "SelectedTheme",
-        "dispName": "선택된 테마",
+        "name": "SelectedUser",
+        "dispName": "선택된 사용자",
         "description": "",
         "type": "contents",
         "icon": "",
         "color": "",
-        "element": "/admin/theme",
+        "element": "/admin/user",
         "conditions": [
           {
-            "key": "theme-index",
+            "key": "user-index",
             "feature": "index",
             "method": "match"
           }

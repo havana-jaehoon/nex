@@ -6,6 +6,7 @@ import NexSectionViewer from "./admin/NexSectionViewer";
 import StorageElementGenerator from "./admin/StorageElementGenerator";
 import NexLineChartApp from "./chart/NexLineChartApp";
 import EMU150TrainLineInfoApp from "./emu150/EMU150TrainLineInfo";
+import PXHeadApp from "./head/PHeadApplet";
 import NexMenuApp from "./menu/NexMenuApp";
 import NexSampleListApp from "./sample/NexSampleListApp";
 import NexCountApp from "./status/NexCountApp";
@@ -13,6 +14,18 @@ import NexStatusApp from "./status/NexStatusApp";
 import NexTableApp from "./table/NexTableApp";
 
 const appletList = [
+  {
+    name: "head",
+    type: "folder",
+    children: [
+      {
+        name: "PXHeadApplet",
+        dispName: "PX Builder",
+        type: "applet",
+        app: PXHeadApp,
+      },
+    ],
+  },
   {
     name: "menu",
     type: "folder",
