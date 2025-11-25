@@ -831,7 +831,7 @@ const sectionNodeDef = {
         { name: "row", dispName: "가로" },
         { name: "column", dispName: "세로" },
       ],
-      uxSize: 12,
+      uxSize: 6,
     },
     {
       name: "size", // 크기
@@ -839,19 +839,28 @@ const sectionNodeDef = {
       icon: null,
       color: null,
       featureType: NexFeatureType.STRING, // 크기는 문자열로 처리
-      uxSize: 12,
+      uxSize: 6,
     },
+
     {
       name: "padding",
       dispName: "패딩",
       icon: null,
       color: null,
       featureType: NexFeatureType.STRING, //문자열로 처리
-      uxSize: 12,
+      uxSize: 6,
+    },
+    {
+      name: "app-padding",
+      dispName: "앱 패딩",
+      icon: null,
+      color: null,
+      featureType: NexFeatureType.STRING, //문자열로 처리
+      uxSize: 6,
     },
     {
       name: "applet", // applet 경로
-      dispName: "Applet Path",
+      dispName: "애플릿",
       icon: null,
       color: null,
       featureType: NexFeatureType.STRING, //

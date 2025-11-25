@@ -13,10 +13,10 @@
         "icon": "",
         "color": "",
         "isRoutes": "",
-        "route": "",
+        "route": "pxbulider",
         "direction": "column",
         "size": "",
-        "padding": "6px",
+        "padding": "12px",
         "app-padding": "",
         "applet": "",
         "contents": "",
@@ -40,7 +40,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "row",
-        "size": 7,
+        "size": 6,
         "padding": "",
         "app-padding": "12px",
         "applet": "/head/PXHeadApplet",
@@ -1674,6 +1674,30 @@
         "contents": [
           "/admin/SelectedTheme"
         ]
+      }
+    }
+  ],
+  [
+    248,
+    "/cbm",
+    "",
+    "",
+    {
+      "1": {
+        "name": "cbm",
+        "dispName": "CBM",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "cbm",
+        "direction": "row",
+        "size": "",
+        "padding": "",
+        "app-padding": "",
+        "applet": "",
+        "contents": ""
       }
     }
   ]

@@ -82,7 +82,7 @@
             "boxShadow": "0 2px 4px rgba(0, 0, 0, 0.1)",
             "border": "2px solid #E5E5E5",
             "padding": "",
-            "gap": "6px",
+            "gap": "",
             "fontSize": [
               "0.5rem",
               "0.6rem",

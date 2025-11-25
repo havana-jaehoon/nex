@@ -19,15 +19,15 @@ interface NexAppProps {
 const NexApp: React.FC<NexAppProps> = observer((props) => {
   const { configStore } = props;
 
-  const [rootSection, setRootSection] = useState<any>(null);
+  const [sections, setSections] = useState<any[]>([]);
   useEffect(() => {
     // Fetch configuration when the component mounts
     if (!configStore.isReady) {
-      setRootSection(null);
+      setSections([]);
       return;
     }
     console.log("NexApp configStore:", configStore);
-    setRootSection(configStore?.config.websections[0]);
+    setSections(configStore?.config.websections);
   }, [configStore, configStore.isReady]);
   //const section = configStore?.config.websections[0];
 
@@ -35,28 +35,74 @@ const NexApp: React.FC<NexAppProps> = observer((props) => {
   return (
     <NexStoreProvider configStore={configStore}>
       <NexDiv
-        align="center"
-        justify="center"
-        width="100%"
-        height="100%"
-        overflow="hidden"
-        padding="10px"
+        align='center'
+        justify='center'
+        width='100%'
+        height='100%'
+        overflow='hidden'
         style={{ position: "fixed", inset: 0, boxSizing: "border-box" }}
       >
-        {!rootSection || !configStore.isReady ? (
+        {sections.length === 0 || !configStore.isReady ? (
           <div>Loading... {configStore.isReady ? "Ready" : "Not Ready"}</div>
         ) : (
           <Router>
             <Routes>
               <Route
-                path="*"
+                path='*'
                 element={
                   <NexPageViewer
-                    key={rootSection.name}
-                    section={rootSection}
+                    key={sections[0].name}
+                    section={sections[0]}
                     isVisibleBorder={false}
                     isVisibleTitle={false}
                   />
+                }
+              />
+            </Routes>
+          </Router>
+        )}
+      </NexDiv>
+    </NexStoreProvider>
+  );
+  return (
+    <NexStoreProvider configStore={configStore}>
+      <NexDiv
+        align='center'
+        justify='center'
+        width='100%'
+        height='100%'
+        overflow='hidden'
+        style={{ position: "fixed", inset: 0, boxSizing: "border-box" }}
+      >
+        {sections.length === 0 || !configStore.isReady ? (
+          <div>Loading... {configStore.isReady ? "Ready" : "Not Ready"}</div>
+        ) : (
+          <Router>
+            <Routes>
+              <Route
+                path='*'
+                element={
+                  <Routes>
+                    {sections.map((section, i) => {
+                      if (!section.route) return null;
+                      const path = `${section.route}/*`;
+                      console.log("NexApp Route path:", path);
+                      return (
+                        <Route
+                          key={section.name}
+                          path={`${path}`}
+                          element={
+                            <NexPageViewer
+                              key={section.name}
+                              section={section}
+                              isVisibleBorder={false}
+                              isVisibleTitle={false}
+                            />
+                          }
+                        />
+                      );
+                    })}
+                  </Routes>
                 }
               />
             </Routes>

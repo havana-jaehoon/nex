@@ -10,7 +10,17 @@
         "dispName": "Home",
         "description": "Home Section",
         "type": "section",
-        "direction": "column"
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "column",
+        "size": "",
+        "padding": "6px",
+        "app-padding": "",
+        "applet": "",
+        "contents": "",
+        "gap": ""
       }
     }
   ],
@@ -30,8 +40,9 @@
         "isRoutes": "",
         "route": "",
         "direction": "row",
-        "size": 6,
-        "padding": "1rem",
+        "size": 7,
+        "padding": "",
+        "app-padding": "12px",
         "applet": "/head/PXHeadApplet",
         "contents": [
           "/admin/menu"
@@ -95,7 +106,7 @@
         "route": "",
         "direction": "row",
         "size": "1",
-        "padding": "1rem",
+        "padding": "",
         "applet": "/admin/menu",
         "contents": [
           "/admin/menu"
@@ -230,10 +241,15 @@
         "dispName": "데이터 포맷",
         "description": "데이터 포맷",
         "type": "section",
-        "size": "3",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
         "direction": "row",
+        "size": "3",
+        "padding": "",
+        "app-padding": "",
         "applet": "/admin/NexNodeTree",
-        "padding": "8px",
         "contents": [
           "/admin/format"
         ]
@@ -251,10 +267,15 @@
         "dispName": "데이터 포맷 편집",
         "description": "데이터 포맷 편집",
         "type": "section",
-        "size": "6",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
         "direction": "row",
+        "size": "6",
+        "padding": "",
+        "app-padding": "",
         "applet": "/admin/NexNodeEditor",
-        "padding": "8px",
         "contents": [
           "/admin/SelectedFormat"
         ]
@@ -280,7 +301,7 @@
   ],
   [
     111,
-    "/Home/Body/Main/Admin/Store/StoreFinder",
+    "/Home/Body/Main/Admin/Store/데이터 보관정책",
     "",
     "",
     {
@@ -289,10 +310,15 @@
         "dispName": "StoreFinder",
         "description": "StoreFinder Section",
         "type": "section",
-        "size": "3",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
         "direction": "row",
+        "size": "3",
+        "padding": "",
+        "app-padding": "",
         "applet": "/admin/NexNodeTree",
-        "padding": "8px",
         "contents": [
           "/admin/store"
         ]
@@ -310,10 +336,15 @@
         "dispName": "데이터 보관정책 편집",
         "description": "데이터 보관정책 편집",
         "type": "section",
-        "size": "6",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
         "direction": "row",
+        "size": "6",
+        "padding": "",
+        "app-padding": "",
         "applet": "/admin/NexNodeEditor",
-        "padding": "8px",
         "contents": [
           "/admin/SelectedStore"
         ]
@@ -348,10 +379,15 @@
         "dispName": "데이터 프로세서",
         "description": "데이터 프로세서 검색",
         "type": "section",
-        "size": "3",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
         "direction": "row",
+        "size": "3",
+        "padding": "",
+        "app-padding": "",
         "applet": "/admin/NexNodeTree",
-        "padding": "8px",
         "contents": [
           "/admin/processor"
         ]
@@ -369,10 +405,15 @@
         "dispName": "데이터 프로세서 편집",
         "description": "데이터 프로세서 편집",
         "type": "section",
-        "size": "6",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
         "direction": "row",
+        "size": "6",
+        "padding": "",
+        "app-padding": "",
         "applet": "/admin/NexNodeEditor",
-        "padding": "8px",
         "contents": [
           "/admin/SelectedProcessor"
         ]
@@ -407,10 +448,15 @@
         "dispName": "시스템",
         "description": "시스템",
         "type": "section",
-        "size": "3",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
         "direction": "row",
+        "size": "3",
+        "padding": "",
+        "app-padding": "",
         "applet": "/admin/NexNodeTree",
-        "padding": "8px",
         "contents": [
           "/admin/system"
         ]
@@ -428,10 +474,15 @@
         "dispName": "시스템 편집",
         "description": "시스템 편집",
         "type": "section",
-        "size": "6",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
         "direction": "row",
+        "size": "6",
+        "padding": "",
+        "app-padding": "",
         "applet": "/admin/NexNodeEditor",
-        "padding": "8px",
         "contents": [
           "/admin/SelectedSystem"
         ]
@@ -488,7 +539,8 @@
         "route": "",
         "direction": "row",
         "size": "6",
-        "padding": "8px",
+        "padding": "",
+        "app-padding": "",
         "applet": "/admin/NexNodeTree",
         "contents": [
           "/admin/element",
@@ -515,7 +567,8 @@
         "route": "",
         "direction": "row",
         "size": "8",
-        "padding": "8px",
+        "padding": "",
+        "app-padding": "",
         "applet": "/admin/NexNodeEditor",
         "contents": [
           "/admin/SelectedElement",
@@ -556,10 +609,15 @@
         "dispName": "웹컨텐츠",
         "description": "웹컨텐츠",
         "type": "section",
-        "size": "2",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
         "direction": "row",
+        "size": "2",
+        "padding": "",
+        "app-padding": "",
         "applet": "/admin/NexNodeTree",
-        "padding": "8px",
         "contents": [
           "/admin/contents"
         ]
@@ -583,7 +641,8 @@
         "route": "",
         "direction": "row",
         "size": "8",
-        "padding": "8px",
+        "padding": "",
+        "app-padding": "",
         "applet": "/admin/NexNodeEditor",
         "contents": [
           "/admin/SelectedContents",
@@ -731,10 +790,15 @@
         "dispName": "웹테마",
         "description": "웹테마",
         "type": "section",
-        "size": "2",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
         "direction": "row",
+        "size": "2",
+        "padding": "",
+        "app-padding": "",
         "applet": "/admin/NexNodeTree",
-        "padding": "8px",
         "contents": [
           "/admin/theme"
         ]
@@ -752,10 +816,15 @@
         "dispName": "웹테마",
         "description": "웹테마 편집",
         "type": "section",
-        "size": "8",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
         "direction": "row",
+        "size": "8",
+        "padding": "",
+        "app-padding": "",
         "applet": "/admin/NexNodeEditor",
-        "padding": "8px",
         "contents": [
           "/admin/SelectedTheme"
         ]
@@ -895,9 +964,16 @@
       "0": {
         "name": "LossPerLine",
         "dispName": "노선별 열화 현황",
+        "description": "",
         "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "row",
         "size": "4",
-        "padding": "8px",
+        "padding": "",
+        "app-padding": "",
         "applet": "/status/NexStatus",
         "contents": [
           "/cbm/status/LossPerLine"
@@ -914,9 +990,16 @@
       "1": {
         "name": "LossHistoryPerLine",
         "dispName": "노선별 열화 이력",
+        "description": "",
         "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "row",
         "size": "8",
-        "padding": "8px",
+        "padding": "",
+        "app-padding": "",
         "applet": "/chart/NexLineChart",
         "contents": [
           "/cbm/history/LossHistoryPerLine"
@@ -933,10 +1016,17 @@
       "0": {
         "name": "TrainCountPerLine",
         "dispName": "노선별 평성 수",
+        "description": "",
         "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "row",
         "size": "4",
+        "padding": "",
+        "app-padding": "",
         "applet": "/status/NexCount",
-        "padding": "8px",
         "contents": [
           "/cbm/status/TrainCountPerLine"
         ]
@@ -952,10 +1042,17 @@
       "1": {
         "name": "MaintenancePerLineHistory",
         "dispName": "노선별 유지보수 이력",
+        "description": "",
         "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "row",
         "size": "8",
+        "padding": "",
+        "app-padding": "",
         "applet": "/chart/NexLineChart",
-        "padding": "8px",
         "contents": [
           "/cbm/history/MaintenancePerLineHistory"
         ]
@@ -971,9 +1068,16 @@
       "0": {
         "name": "LossPerDevice",
         "dispName": "장치별 열화 현황",
-        "type": "contents",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "row",
         "size": "2",
-        "padding": "8px",
+        "padding": "",
+        "app-padding": "",
         "applet": "/status/NexStatus",
         "contents": [
           "/cbm/status/LossPerDevice"
@@ -990,9 +1094,16 @@
       "1": {
         "name": "LossHistoryPerDevice",
         "dispName": "장치별 열화 이력",
+        "description": "",
         "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "row",
         "size": "4",
-        "padding": "8px",
+        "padding": "",
+        "app-padding": "",
         "applet": "/chart/NexLineChart",
         "contents": [
           "/cbm/history/LossHistoryPerDevice"
@@ -1009,10 +1120,17 @@
       "0": {
         "name": "RTMaintenanceInfo",
         "dispName": "실시간 유지보수 정보",
+        "description": "",
         "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "row",
         "size": "1",
+        "padding": "",
+        "app-padding": "",
         "applet": "/table/NexTable",
-        "padding": "8px",
         "contents": [
           "/cbm/event/RTMaintenanceInfo"
         ]
@@ -1036,7 +1154,8 @@
         "route": "",
         "direction": "row",
         "size": "1",
-        "padding": "8px",
+        "padding": "",
+        "app-padding": "",
         "applet": "/table/NexTable",
         "contents": [
           "/cbm/event/SystemEventInfo"
@@ -1107,7 +1226,8 @@
         "route": "",
         "direction": "row",
         "size": 1,
-        "padding": "8px",
+        "padding": "",
+        "app-padding": "",
         "applet": "/admin/NexNodeTree",
         "contents": [
           "/admin/menu"
@@ -1137,28 +1257,6 @@
         "contents": [
           "/admin/SelectedMenu"
         ]
-      }
-    }
-  ],
-  [
-    229,
-    "/Home/Body/Main/CBM/Dashboard/Top/Left/Top/new-section-141402",
-    "",
-    "",
-    {
-      "2": {
-        "name": "new-section-141402",
-        "dispName": "",
-        "description": "",
-        "type": "section",
-        "icon": "",
-        "color": "",
-        "isRoutes": "",
-        "route": "",
-        "size": 7,
-        "padding": "",
-        "applet": "",
-        "contents": ""
       }
     }
   ],

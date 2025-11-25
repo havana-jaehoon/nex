@@ -37,13 +37,14 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     const name = section?.dispName || "";
     const icon = section?.icon || "";
 
-    const padding = section.padding || "0";
     const defaultStyle = getThemeStyle(theme, "default");
     const appletStyle = getThemeStyle(theme, "applet");
     const border = appletStyle.border || "none";
     const borderRadius = appletStyle.borderRadius || "0";
     const boxShadow = appletStyle.boxShadow || "none";
     const appletBgColor = appletStyle.bgColors[0] || "#ffffff";
+
+    const padding = section["app-padding"] || appletStyle.padding || "12px";
 
     //const dataStores = elementPaths?.map((path) => stores[path]);
     const appletPath = section?.applet || "";
@@ -57,7 +58,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
       console.log(
         `NexAppProvider => section=${JSON.stringify(section)}, appletPath=${appletPath}`
       );
-      return <NexDiv width="100%" height="100%" padding={padding}></NexDiv>;
+      return <NexDiv width='100%' height='100%' padding={padding}></NexDiv>;
     }
 
     const contentsNodeList = useMemo(() => {
@@ -196,8 +197,8 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     //const conditions = applet?.contents.
     return (
       <NexDiv
-        width="100%"
-        height="100%"
+        width='100%'
+        height='100%'
         padding={padding}
         border={border}
         borderRadius={borderRadius}

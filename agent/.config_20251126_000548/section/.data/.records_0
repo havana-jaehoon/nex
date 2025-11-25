@@ -16,11 +16,10 @@
         "route": "",
         "direction": "column",
         "size": "",
-        "padding": "6px",
-        "app-padding": "",
+        "gap": "",
+        "padding": "12px",
         "applet": "",
-        "contents": "",
-        "gap": ""
+        "contents": ""
       }
     }
   ],
@@ -40,7 +39,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "row",
-        "size": 7,
+        "size": 6,
         "padding": "",
         "app-padding": "12px",
         "applet": "/head/PXHeadApplet",

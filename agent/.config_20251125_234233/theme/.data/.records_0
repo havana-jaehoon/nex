@@ -38,8 +38,8 @@
               "#ffffff"
             ],
             "fontFamily": "Arial, sans-serif",
-            "gap": "",
-            "padding": "",
+            "gap": "1rem",
+            "padding": "0.2rem",
             "fontSize": [
               "0.5rem",
               "0.6rem",
@@ -81,7 +81,7 @@
             "borderRadius": "8px",
             "boxShadow": "0 2px 4px rgba(0, 0, 0, 0.1)",
             "border": "2px solid #E5E5E5",
-            "padding": "",
+            "padding": "12px",
             "gap": "6px",
             "fontSize": [
               "0.5rem",

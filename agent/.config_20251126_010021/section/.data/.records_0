@@ -40,7 +40,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "row",
-        "size": 7,
+        "size": 6,
         "padding": "",
         "app-padding": "12px",
         "applet": "/head/PXHeadApplet",

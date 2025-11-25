@@ -201,4 +201,10 @@ const nexApplets = (path: string): React.FC<any> | null => {
   return applet.app;
 };
 
+export const nexAppletMap: Record<string, React.FC<any> | null> =
+  appletPathList.reduce((acc: Record<string, React.FC<any> | null>, item) => {
+    acc[item.path] = nexApplets(item.path);
+    return acc;
+  }, {});
+
 export default nexApplets;

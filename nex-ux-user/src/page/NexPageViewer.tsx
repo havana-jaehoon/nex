@@ -27,6 +27,7 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
   const style = getThemeStyle(theme, "default");
   const appletStyle = getThemeStyle(theme, "applet");
   const gap = appletStyle.gap || "0";
+  const padding = section.padding || "0";
   const border = appletStyle.border || "none";
   const borderRadius = appletStyle.borderRadius || "0";
   const boxShadow = appletStyle.boxShadow || "none";
@@ -43,9 +44,9 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
 
   const contentsView = isContents && (
     <NexDiv
-      width="100%"
-      height="100%"
-      direction="column"
+      width='100%'
+      height='100%'
+      direction='column'
       padding={gap}
       style={{ boxSizing: "border-box" }}
     >
@@ -103,10 +104,10 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
   return (
     <NexDiv
       direction={"column"}
-      align="center"
-      justify="center"
-      width="100%"
-      height="100%"
+      align='center'
+      justify='center'
+      width='100%'
+      height='100%'
       flex={section.size || "1"}
       color={color}
       bgColor={bgColor}
@@ -115,12 +116,12 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
     >
       {/* Section Name Label */}
       {isVisibleTitle ? (
-        <NexDiv width="100%" height="1em">
+        <NexDiv width='100%' height='1em'>
           <NexLabel
-            width="100%"
-            height="100%"
-            align="center"
-            justify="center"
+            width='100%'
+            height='100%'
+            align='center'
+            justify='center'
             style={{ cursor: "pointer", fontSize: "0.8em" }}
           >
             {section.name || "Unnamed Section"}
@@ -129,15 +130,15 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
       ) : null}
       <NexDiv
         direction={section.direction || "row"}
-        width="100%"
-        height="100%"
-        align="center"
-        justify="center"
-        overflow="visible"
+        width='100%'
+        height='100%'
+        align='center'
+        justify='center'
+        overflow='visible'
+        padding={padding}
       >
         {contentsView}
         {pageView}
-
         {childView}
       </NexDiv>
     </NexDiv>

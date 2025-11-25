@@ -8,7 +8,7 @@ import {
   defaultTheme,
   NexTheme,
 } from "type/NexTheme";
-import nexApplets from "applet/nexApplets";
+import nexApplets, { nexAppletMap } from "applet/nexApplets";
 import NexSelector from "store/NexSelector";
 export interface NexStoreProviderProps {
   configStore: NexConfigStore; // ConfigStore를 prop으로 받음
@@ -18,7 +18,7 @@ export interface NexStoreProviderProps {
 // Context 타입 확장
 export interface NexStoreContextValue {
   storeMap: Record<string, NexDataStore>; // key element path, value NexDataStore
-  appMap: Record<string, React.FC<any>>; // key applet  path, value NexApplet
+  appMap: Record<string, React.FC<any> | null>; // key applet  path, value NexApplet
   contentsMap: Record<string, any>; // key contents path, value contents data
   theme: NexTheme;
   user: NexThemeUser;
@@ -150,7 +150,7 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
       });
       return storeMap;
     }, [elementCfgs, formatCfgs, systemAddrDict]);
-
+    /*
     const appMap = useMemo(() => {
       const appMap: Record<string, React.FC<any>> = {};
       Object.entries(appletCfgs).forEach(([path, node]) => {
@@ -163,13 +163,13 @@ const NexStoreProvider: React.FC<NexStoreProviderProps> = observer(
       });
       return appMap;
     }, [appletCfgs]);
-
+*/
     const selector = useMemo(() => new NexSelector(), []);
 
     // theme, applet도 context value에 포함
     const contextValue: NexStoreContextValue = {
       storeMap: storeMap,
-      appMap: appMap,
+      appMap: nexAppletMap,
       contentsMap: contentsCfgs,
       theme: theme,
       user: themeUser,
