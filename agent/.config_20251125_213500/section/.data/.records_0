@@ -50,7 +50,7 @@
         "dispName": "Body",
         "description": "Body View",
         "type": "section",
-        "size": 87,
+        "size": "90",
         "direction": "row"
       }
     }

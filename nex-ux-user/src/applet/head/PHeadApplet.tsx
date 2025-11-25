@@ -20,7 +20,7 @@ const PXHeadApp: React.FC<NexAppProps> = observer((props) => {
 
   const style = getThemeStyle(theme, "table");
   const contentsFontSize =
-    style.fontSize[clamp(fontLevel + 4, 0, style.fontSize?.length - 1)] ||
+    style.fontSize[clamp(fontLevel + 3, 0, style.fontSize?.length - 1)] ||
     "1rem";
 
   return (
