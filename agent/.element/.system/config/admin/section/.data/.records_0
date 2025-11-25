@@ -199,48 +199,6 @@
     }
   ],
   [
-    81,
-    "/Home/Body/Main/Admin/Menu/MenuFinder",
-    "",
-    "",
-    {
-      "0": {
-        "name": "MenuFinder",
-        "dispName": "메뉴",
-        "description": "메뉴",
-        "type": "section",
-        "size": 2,
-        "direction": "row",
-        "applet": "/admin/NexNodeTree",
-        "padding": "8px",
-        "contents": [
-          "/admin/menu"
-        ]
-      }
-    }
-  ],
-  [
-    82,
-    "/Home/Body/Main/Admin/Menu/MenuEditor",
-    "",
-    "",
-    {
-      "1": {
-        "name": "MenuEditor",
-        "dispName": "데이터 보관소 편집",
-        "description": "데이터 보관소 편집",
-        "type": "section",
-        "size": 7,
-        "direction": "row",
-        "applet": "/admin/NexNodeEditor",
-        "padding": "8px",
-        "contents": [
-          "/admin/SelectedMenu"
-        ]
-      }
-    }
-  ],
-  [
     90,
     "/Home/Body/Main/Admin/Storage",
     "",
@@ -260,48 +218,6 @@
         "padding": "",
         "applet": "",
         "contents": ""
-      }
-    }
-  ],
-  [
-    91,
-    "/Home/Body/Main/Admin/Storage/StorageFinder",
-    "",
-    "",
-    {
-      "0": {
-        "name": "StorageFinder",
-        "dispName": "데이터 보관소",
-        "description": "데이터 보관소",
-        "type": "section",
-        "size": "3",
-        "direction": "row",
-        "applet": "/admin/NexNodeTree",
-        "padding": "8px",
-        "contents": [
-          "/admin/storage"
-        ]
-      }
-    }
-  ],
-  [
-    92,
-    "/Home/Body/Main/Admin/Storage/StorageEditor",
-    "",
-    "",
-    {
-      "1": {
-        "name": "StorageEditor",
-        "dispName": "데이터 보관소 편집",
-        "description": "데이터 보관소 편집",
-        "type": "section",
-        "size": "6",
-        "direction": "row",
-        "applet": "/admin/NexNodeEditor",
-        "padding": "8px",
-        "contents": [
-          "/admin/SelectedStorage"
-        ]
       }
     }
   ],
@@ -575,30 +491,6 @@
     }
   ],
   [
-    145,
-    "/Home/Body/Main/Admin/Element/Left/StorageElementGenerator",
-    "",
-    "",
-    {
-      "1": {
-        "name": "StorageElementGenerator",
-        "dispName": "스토리지 엘리먼트 생성 및 설정 적용",
-        "description": "Storage Element Generator Applet",
-        "type": "section",
-        "icon": "",
-        "color": "",
-        "direction": "row",
-        "size": "1",
-        "padding": "8px",
-        "applet": "/admin/StorageElementGenerator",
-        "contents": [
-          "/admin/SelectedSystem",
-          "/admin/SelectedStorage"
-        ]
-      }
-    }
-  ],
-  [
     146,
     "/Home/Body/Main/Admin/Element/Left/ElementFinder",
     "",
@@ -609,12 +501,18 @@
         "dispName": "엘리먼트",
         "description": "엘리먼트",
         "type": "section",
-        "size": "6",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
         "direction": "row",
-        "applet": "/admin/NexNodeTree",
+        "size": "6",
         "padding": "8px",
+        "applet": "/admin/NexNodeTree",
         "contents": [
-          "/admin/systemElement"
+          "/admin/element",
+          "/admin/system",
+          "/admin/storage"
         ]
       }
     }
@@ -632,12 +530,19 @@
         "type": "section",
         "icon": "",
         "color": "",
+        "isRoutes": "",
+        "route": "",
         "direction": "row",
         "size": "8",
         "padding": "8px",
         "applet": "/admin/NexNodeEditor",
         "contents": [
-          "/admin/SelectedElement"
+          "/admin/SelectedElement",
+          "/admin/storage",
+          "/admin/format",
+          "/admin/store",
+          "/admin/processor",
+          "/admin/system"
         ]
       }
     }
@@ -691,12 +596,17 @@
         "dispName": "웹컨텐츠 편집",
         "description": "웹컨텐츠 편집",
         "type": "section",
-        "size": "8",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
         "direction": "row",
-        "applet": "/admin/NexNodeEditor",
+        "size": "8",
         "padding": "8px",
+        "applet": "/admin/NexNodeEditor",
         "contents": [
-          "/admin/SelectedContents"
+          "/admin/SelectedContents",
+          "/admin/element"
         ]
       }
     }
@@ -750,7 +660,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "column",
-        "size": "1",
+        "size": 1,
         "padding": "",
         "applet": "/admin/NexNodeTree",
         "contents": [
@@ -779,7 +689,8 @@
         "padding": "",
         "applet": "/admin/NexNodeEditor",
         "contents": [
-          "/admin/SelectedSection"
+          "/admin/SelectedSection",
+          "/admin/contents"
         ]
       }
     }
@@ -797,15 +708,17 @@
         "type": "section",
         "icon": "",
         "color": "",
-        "isRoute": "",
+        "isRoutes": "",
         "route": "",
         "direction": "column",
         "size": 9,
         "padding": "",
         "applet": "/admin/SectionViewer",
         "contents": [
-          "/admin/section"
-        ]
+          "/admin/section",
+          "/admin/contents"
+        ],
+        "isRoute": ""
       }
     }
   ],
@@ -1170,13 +1083,333 @@
       "1": {
         "name": "SystemEventInfo",
         "dispName": "시스템 이벤트 정보",
+        "description": "",
         "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "row",
         "size": "1",
-        "applet": "/table/NexTable",
         "padding": "8px",
+        "applet": "/table/NexTable",
         "contents": [
           "/cbm/event/SystemEventInfo"
         ]
+      }
+    }
+  ],
+  [
+    225,
+    "/Home/Body/Main/Admin/Menu/Left",
+    "",
+    "",
+    {
+      "0": {
+        "name": "Left",
+        "dispName": "",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "column",
+        "size": 1,
+        "padding": "",
+        "applet": "",
+        "contents": ""
+      }
+    }
+  ],
+  [
+    226,
+    "/Home/Body/Main/Admin/Menu/Right",
+    "",
+    "",
+    {
+      "1": {
+        "name": "Right",
+        "dispName": "",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "row",
+        "size": 2,
+        "padding": "",
+        "applet": "",
+        "contents": ""
+      }
+    }
+  ],
+  [
+    227,
+    "/Home/Body/Main/Admin/Menu/Left/MenuFinder",
+    "",
+    "",
+    {
+      "0": {
+        "name": "MenuFinder",
+        "dispName": "메뉴",
+        "description": "엘리먼트",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "row",
+        "size": 1,
+        "padding": "8px",
+        "applet": "/admin/NexNodeTree",
+        "contents": [
+          "/admin/menu"
+        ]
+      }
+    }
+  ],
+  [
+    228,
+    "/Home/Body/Main/Admin/Menu/Left/MenuEditor",
+    "",
+    "",
+    {
+      "1": {
+        "name": "MenuEditor",
+        "dispName": "메뉴 편집",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "row",
+        "size": 3,
+        "padding": "",
+        "applet": "/admin/NexNodeEditor",
+        "contents": [
+          "/admin/SelectedMenu"
+        ]
+      }
+    }
+  ],
+  [
+    229,
+    "/Home/Body/Main/CBM/Dashboard/Top/Left/Top/new-section-141402",
+    "",
+    "",
+    {
+      "2": {
+        "name": "new-section-141402",
+        "dispName": "",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 7,
+        "padding": "",
+        "applet": "",
+        "contents": ""
+      }
+    }
+  ],
+  [
+    230,
+    "/Home/Body/Main/Admin/Storage/Left",
+    "",
+    "",
+    {
+      "0": {
+        "name": "Left",
+        "dispName": "",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "column",
+        "size": "",
+        "padding": "",
+        "applet": "",
+        "contents": ""
+      }
+    }
+  ],
+  [
+    231,
+    "/Home/Body/Main/Admin/Storage/Right",
+    "",
+    "",
+    {
+      "1": {
+        "name": "Right",
+        "dispName": "",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "row",
+        "size": 3,
+        "padding": "",
+        "applet": "",
+        "contents": ""
+      }
+    }
+  ],
+  [
+    232,
+    "/Home/Body/Main/Admin/Storage/Left/Finder",
+    "",
+    "",
+    {
+      "0": {
+        "name": "Finder",
+        "dispName": "스토리지 검색",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "row",
+        "size": "",
+        "padding": "",
+        "applet": "/admin/NexNodeTree",
+        "contents": [
+          "/admin/storage"
+        ]
+      }
+    }
+  ],
+  [
+    233,
+    "/Home/Body/Main/Admin/Storage/Left/Editior",
+    "",
+    "",
+    {
+      "1": {
+        "name": "Editior",
+        "dispName": "스토리지 편집",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "row",
+        "size": 3,
+        "padding": "",
+        "applet": "/admin/NexNodeEditor",
+        "contents": [
+          "/admin/SelectedStorage"
+        ]
+      }
+    }
+  ],
+  [
+    234,
+    "/Home/Body/Main/Admin/Element/Left/Editor",
+    "",
+    "",
+    {
+      "1": {
+        "name": "Editor",
+        "dispName": "엘리먼트 편집",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "row",
+        "size": 12,
+        "padding": "",
+        "applet": "/admin/NexNodeEditor",
+        "contents": [
+          "/admin/SelectedElement",
+          "/admin/storage",
+          "/admin/format",
+          "/admin/store",
+          "/admin/system",
+          "/admin/processor"
+        ]
+      }
+    }
+  ],
+  [
+    235,
+    "/Home/Body/Main/NewProject",
+    "",
+    "",
+    {
+      "2": {
+        "name": "NewProject",
+        "dispName": "뉴프로젝트",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "new",
+        "direction": "column",
+        "size": "",
+        "padding": "",
+        "applet": "",
+        "contents": ""
+      }
+    }
+  ],
+  [
+    236,
+    "/Home/Body/Main/NewProject/new-section-174337",
+    "",
+    "",
+    {
+      "0": {
+        "name": "new-section-174337",
+        "dispName": "",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "row",
+        "size": "",
+        "padding": "",
+        "applet": "/table/NexTable",
+        "contents": [
+          "/cbm/status/LossPerLine"
+        ]
+      }
+    }
+  ],
+  [
+    237,
+    "/Home/Body/Main/NewProject/new-section-174348",
+    "",
+    "",
+    {
+      "1": {
+        "name": "new-section-174348",
+        "dispName": "",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 3,
+        "padding": "",
+        "applet": "",
+        "contents": ""
       }
     }
   ]

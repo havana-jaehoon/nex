@@ -41,6 +41,11 @@ import { getAdminNodeFromType } from "./lib/adminDataFormat";
 const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
   const { contents, theme, user, onUpdate, onSelect, onAdd, onRemove } = props;
 
+  const [type, setType] = useState<string>("");
+  const [nodes, setNodes] = useState<any>({});
+  const [mainDatas, setMainDatas] = useState<any[]>([]);
+  const [features, setFeatures] = useState<any[]>([]);
+
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [isPreview, setPreviewMode] = useState<boolean>(false);
   const [isMouseEnter, setMouseEnter] = useState(false);
@@ -58,8 +63,7 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
   //console.log("NexNodeEditor: stores=", JSON.stringify(stores, null, 2));
   const errorMsg = () => {
     // check isTree, volatility, features.length ...
-    if (contents?.length !== 1)
-      return "NexNodeEditor must be one store element.";
+    if (contents?.length < 1) return "NexNodeEditor must be one store element.";
     return null;
   };
 
@@ -76,10 +80,53 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
   const bgColor = defaultStyle?.bgColors[0] || "#e8edf7";
 
   const storeIndex = 0; // only 1 store
-  const [data, setData] = useState<any>(null);
-  const [features, setFeatures] = useState<any[]>([]);
+  //const [data, setData] = useState<any>(null);
   // Memoize derived dependency to satisfy React Hooks lint rule
 
+  useEffect(() => {
+    if (!contents) return;
+
+    let nodeList: any = {};
+    contents.forEach((content, i) => {
+      const nodeType = content.store?.element?.name || null;
+      if (!nodeType) return;
+
+      // main node 타입
+      if (i === 0) {
+        const indexes = content.indexes;
+        let contentsData = [];
+        if (!indexes)
+          // indexes 가 없으면 전체 데이터
+          contentsData = content.data;
+        else {
+          contentsData = indexes.map((index: number) => content.data[index]);
+        }
+
+        setMainDatas(contentsData);
+        setFeatures(content.format?.features || []);
+
+        setType(nodeType);
+      }
+
+      nodeList[nodeType] = [];
+      content.data.forEach((item: any) => {
+        const obj = item[4];
+        const node: any = Object.values(obj)[0];
+        if (node?.type === nodeType) {
+          // folder 제외
+          nodeList[nodeType].push({
+            index: i,
+            name: node.name,
+            dispName: node.dispName,
+          });
+        }
+      });
+    });
+
+    setNodes(nodeList);
+  }, [contents]);
+
+  /*
   useEffect(() => {
     const cts = contents?.[storeIndex];
     if (!cts || !cts.store) {
@@ -101,10 +148,10 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
     //setRouteList(rlist);
     //if (rlist.length > 0) setRoute(rlist[0]);
   }, [contents]);
-
+*/
   const section = useMemo(() => {
-    if (!data) return [];
-    const tree = buildAdminConfig(data);
+    if (!mainDatas) return [];
+    const tree = buildAdminConfig(mainDatas);
 
     const collectRoutes = (nodes: any[]): string[] => {
       const out: string[] = [];
@@ -193,8 +240,8 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
     setRoute((prev) => (prev && rlist.includes(prev) ? prev : rlist[0] || ""));
 
     if (selectedIndex >= 0) {
-      const record = data
-        ? data.find((record: any) => record[0] === selectedIndex)
+      const record = mainDatas
+        ? mainDatas.find((record: any) => record[0] === selectedIndex)
         : null;
       if (record) {
         setSelectedSection(Object.values(record[4])[0]);
@@ -203,7 +250,7 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
     }
 
     return tree.length > 0 ? tree[0] : null;
-  }, [data]);
+  }, [mainDatas]);
 
   const handleApplyConfig = async () => {
     try {
@@ -222,8 +269,8 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
   };
 
   const handleSelect = (path: string, index: number) => {
-    const record = data
-      ? data.find((record: any) => record[0] === index)
+    const record = mainDatas
+      ? mainDatas.find((record: any) => record[0] === index)
       : null;
 
     console.log(
@@ -297,8 +344,8 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
   const handleUpdate = async (newSection: any) => {
     if (selectedIndex < 0 || !selectedSection) return;
 
-    const newRecord = data
-      ? data.find((record: any) => record[0] === selectedIndex)
+    const newRecord = mainDatas
+      ? mainDatas.find((record: any) => record[0] === selectedIndex)
       : null;
     if (!newRecord || newRecord.length !== 5) return;
 
@@ -329,8 +376,8 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
   const handleRemove = async () => {
     if (selectedIndex < 0 || !selectedSection) return;
 
-    const newRecord = data
-      ? data.find((record: any) => record[0] === selectedIndex)
+    const newRecord = mainDatas
+      ? mainDatas.find((record: any) => record[0] === selectedIndex)
       : null;
     if (!newRecord || newRecord.length !== 5) return;
 
@@ -370,8 +417,8 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
   const resize = async (diff: number) => {
     if (selectedIndex < 0) return;
 
-    const newRecord = data
-      ? data.find((record: any) => record[0] === selectedIndex)
+    const newRecord = mainDatas
+      ? mainDatas.find((record: any) => record[0] === selectedIndex)
       : null;
     if (!newRecord || newRecord.length !== 5) return;
 
@@ -404,8 +451,8 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
   const reorder = async (diff: number) => {
     if (selectedIndex < 0) return;
     // TODO 순서 변경
-    const newRecord = data
-      ? data.find((record: any) => record[0] === selectedIndex)
+    const newRecord = mainDatas
+      ? mainDatas.find((record: any) => record[0] === selectedIndex)
       : null;
     if (!newRecord || newRecord.length !== 5) return;
     const keys = Object.keys(newRecord[4] || {});

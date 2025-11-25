@@ -282,7 +282,7 @@
         "type": "menu",
         "icon": "",
         "color": "",
-        "route": ""
+        "route": "/new"
       }
     }
   ],

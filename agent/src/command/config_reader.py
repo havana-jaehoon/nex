@@ -283,9 +283,7 @@ class ConfigReader:
 
     def getSystems(self, project_name:str)->List[dict]:
         system_values = self._configMap['system'].get(project_name, {}).values()
-        systemNodes = [self._getNodeFromObject(entries[0][4]) for entries in system_values if entries]
-        #print(f"Systems: {json.dumps(systemNodes, ensure_ascii=False, indent=2)}")
-
+        systemNodes = [self._getNodeFromObject(item[4]) for entries in system_values for item in entries if item and len(item) > 4]
         return systemNodes
 
     def getElements(self, project_name:str, system_name:str)->List[dict]:
@@ -335,7 +333,7 @@ newSystem = [
 
 if __name__ == '__main__':
     #cfg = ConfigReader("./config_nex/.element/admin")
-    cfg = ConfigReader("./config_nex/.element/.system/webserver/admin")
+    cfg = ConfigReader("./.config")
     project_name = '' # default project
 
     #cfgDatas = cfg.getDatas('format', '', '')
@@ -348,7 +346,7 @@ if __name__ == '__main__':
     systems = cfg.getSystems(project_name)
     #print(f"# Systems: {json.dumps(systems, ensure_ascii=False, indent=2)}")
     #print(f"# Format: {json.dumps(format, ensure_ascii=False, indent=2)}")
-    
+    exit(0)
 
     for system in systems:
         # 시스템 이름이 'webserver' 인 element 목록 가져오기

@@ -607,6 +607,7 @@ class DataFileIo:
                     else:
                         newChildPath = os.path.join(newPath, relativePath)
                     # 경로 정규화 및 구분자 통일
+                    print(f"{self.__str__()}::update() - path: child={childPath}, old={oldPath}, new={newPath}, rel={relativePath} newchild{newChildPath}")
                     newChildPath = os.path.normpath(newChildPath).replace("\\", "/")
 
                     #print(f"{self.__str__()}::update()-move path: {childPath} -> {newChildPath}")

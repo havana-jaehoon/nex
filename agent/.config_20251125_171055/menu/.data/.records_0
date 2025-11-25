@@ -1,0 +1,306 @@
+[
+  [
+    0,
+    "/admin",
+    "",
+    "",
+    {
+      "2": {
+        "name": "admin",
+        "dispName": "프로젝트관리",
+        "description": "프로젝트관리",
+        "icon": "",
+        "color": "",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    1,
+    "/admin/menu",
+    "",
+    "",
+    {
+      "0": {
+        "name": "menu",
+        "dispName": "메뉴",
+        "description": "메뉴설정",
+        "icon": "",
+        "color": "",
+        "type": "menu",
+        "route": "/admin/menu"
+      }
+    }
+  ],
+  [
+    2,
+    "/admin/storage",
+    "",
+    "",
+    {
+      "1": {
+        "name": "storage",
+        "dispName": "스토리지",
+        "description": "스토리지설정",
+        "icon": "",
+        "color": "",
+        "type": "menu",
+        "route": "/admin/storage"
+      }
+    }
+  ],
+  [
+    3,
+    "/admin/format",
+    "",
+    "",
+    {
+      "2": {
+        "name": "format",
+        "dispName": "데이터 포맷",
+        "description": "데이터 포맷 설정",
+        "icon": "",
+        "color": "",
+        "type": "menu",
+        "route": "/admin/format"
+      }
+    }
+  ],
+  [
+    4,
+    "/admin/store",
+    "",
+    "",
+    {
+      "3": {
+        "name": "store",
+        "dispName": "데이터 보관정책",
+        "description": "데이터 보관정책 설정",
+        "icon": "",
+        "color": "",
+        "type": "menu",
+        "route": "/admin/store"
+      }
+    }
+  ],
+  [
+    5,
+    "/admin/processor",
+    "",
+    "",
+    {
+      "4": {
+        "name": "processor",
+        "dispName": "데이터 프로세서",
+        "description": "데이터 프로세서 설정",
+        "icon": "",
+        "color": "",
+        "type": "menu",
+        "route": "/admin/processor"
+      }
+    }
+  ],
+  [
+    6,
+    "/admin/system",
+    "",
+    "",
+    {
+      "5": {
+        "name": "system",
+        "dispName": "시스템",
+        "description": "시스템 설정",
+        "icon": "",
+        "color": "",
+        "type": "menu",
+        "route": "/admin/system"
+      }
+    }
+  ],
+  [
+    7,
+    "/admin/element",
+    "",
+    "",
+    {
+      "6": {
+        "name": "element",
+        "dispName": "데이터 엘리먼트",
+        "description": "데이터 엘리먼트 설정",
+        "icon": "",
+        "color": "",
+        "type": "menu",
+        "route": "/admin/element"
+      }
+    }
+  ],
+  [
+    8,
+    "/admin/contents",
+    "",
+    "",
+    {
+      "7": {
+        "name": "contents",
+        "dispName": "데이터 컨텐츠",
+        "description": "웹 데이터 컨텐츠 설정",
+        "type": "menu",
+        "icon": "",
+        "color": "",
+        "route": "/admin/contents"
+      }
+    }
+  ],
+  [
+    10,
+    "/admin/section",
+    "",
+    "",
+    {
+      "8": {
+        "name": "section",
+        "dispName": "섹션",
+        "description": "웹 데이터 섹션 설정",
+        "type": "menu",
+        "icon": "",
+        "color": "",
+        "route": "/admin/section"
+      }
+    }
+  ],
+  [
+    11,
+    "/admin/user",
+    "",
+    "",
+    {
+      "9": {
+        "name": "user",
+        "dispName": "사용자",
+        "description": "사용자 설정",
+        "icon": "",
+        "color": "",
+        "type": "menu",
+        "route": "/admin/user"
+      }
+    }
+  ],
+  [
+    12,
+    "/admin/theme",
+    "",
+    "",
+    {
+      "10": {
+        "name": "theme",
+        "dispName": "테마",
+        "description": "테마 설정",
+        "icon": "",
+        "color": "",
+        "type": "menu",
+        "route": "/admin/theme"
+      }
+    }
+  ],
+  [
+    13,
+    "/admin/dashboard",
+    "",
+    "",
+    {
+      "11": {
+        "name": "dashboard",
+        "dispName": "대시보드",
+        "description": "대시보드 설정",
+        "icon": "",
+        "color": "",
+        "type": "menu",
+        "route": "/admin/dashboard"
+      }
+    }
+  ],
+  [
+    14,
+    "/cbm",
+    "",
+    "",
+    {
+      "15": {
+        "name": "cbm",
+        "dispName": "CBM",
+        "description": "CBM 데모",
+        "icon": "",
+        "color": "",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    15,
+    "/cbm/dashboard",
+    "",
+    "",
+    {
+      "14": {
+        "name": "dashboard",
+        "dispName": "대시보드",
+        "description": "CBM 대시보드",
+        "icon": "",
+        "color": "",
+        "type": "menu",
+        "route": "/cbm/dashboard"
+      }
+    }
+  ],
+  [
+    17,
+    "/cbm/lineinfo",
+    "",
+    "",
+    {
+      "1": {
+        "name": "lineinfo",
+        "dispName": "호선정보",
+        "description": "",
+        "type": "menu",
+        "icon": "",
+        "color": "",
+        "route": "/cbm/lineinfo"
+      }
+    }
+  ],
+  [
+    18,
+    "/new",
+    "",
+    "",
+    {
+      "1": {
+        "name": "new",
+        "dispName": "뉴프로젝트",
+        "description": "",
+        "type": "menu",
+        "icon": "",
+        "color": "",
+        "route": ""
+      }
+    }
+  ],
+  [
+    19,
+    "/dashboard",
+    "",
+    "",
+    {
+      "0": {
+        "name": "dashboard",
+        "dispName": "대시보드",
+        "description": "",
+        "type": "menu",
+        "icon": "",
+        "color": "",
+        "route": ""
+      }
+    }
+  ]
+]

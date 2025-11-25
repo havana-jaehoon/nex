@@ -2,7 +2,14 @@ import React, { useEffect, useMemo, useState } from "react";
 import { observer } from "mobx-react-lite";
 import NexApplet, { NexAppProps } from "../NexApplet";
 import { NexDiv } from "../../component/base/NexBaseComponents";
-import { Alert, IconButton, Stack } from "@mui/material";
+import {
+  Alert,
+  Button,
+  IconButton,
+  MenuItem,
+  Select,
+  Stack,
+} from "@mui/material";
 import NexNodeItem from "./lib/NexNodeItem";
 
 import { MdCreateNewFolder, MdEdit, MdNewLabel } from "react-icons/md";
@@ -14,17 +21,23 @@ import { NexNodeType } from "type/NexNode";
 import { set } from "mobx";
 import { data, Route } from "react-router-dom";
 import { getThemeStyle } from "type/NexTheme";
+import axios from "axios";
+import pxConfig from "config/px-config.json";
 
 const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const { name, contents, theme, user, onSelect, onUpdate, onAdd, onRemove } =
     props;
 
-  const [curRecord, setCurRecord] = useState<any>(null);
+  const [type, setType] = useState<string>(NexNodeType.FOLDER);
+  const [nodes, setNodes] = useState<any>({});
+  const [systemName, setSystemName] = useState<string>("");
+  const [storageName, setStorageName] = useState<string>("");
+  const [mainDatas, setMainDatas] = useState<any[]>([]);
+  //const [curRecord, setCurRecord] = useState<any>(null);
   const [curNode, setCurNode] = useState<any>(null);
   const [selectedPath, setSelectedPath] = useState<string>("");
-  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+  //const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [selectedKeys, setSelectedKeys] = useState<number[]>([]);
-  const [type, setType] = useState<string>(NexNodeType.FOLDER);
 
   const style = getThemeStyle(theme, "applet");
   const activeColor = style.activeColors[0];
@@ -35,7 +48,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   // 1.1 NexApplet 의 데이터 유형 체크
   const errorMsg = () => {
     // check isTree, volatility, features.length ...
-    if (contents?.length !== 1)
+    if (contents?.length < 1)
       return "NexNodeTreeApp must be one store element.";
     return null;
   };
@@ -46,51 +59,75 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const fontSize =
     style.fontSize[clamp(fontLevel, 0, style.fontSize?.length - 1)] || "1rem";
 
-  //const treeData = contents?.[0]?.json || [];
-
-  const [nexTree, setNexTree] = useState<any>(null);
-  //const [store, setStore] = useState<any>(null);
-  //const [format, setFormat] = useState<any>(null);
-  //const [data, setData] = useState<any>(null);
-
   useEffect(() => {
-    if (!contents || contents.length < 1) return;
+    if (!contents) return;
 
-    const cts = contents[storeIndex];
+    let nodeList: any = {};
+    contents.forEach((content, i) => {
+      const nodeType = content.store?.element?.name || null;
+      if (!nodeType) return;
 
-    const indexes = cts.indexes;
-    let contentsData = [];
-    if (!indexes)
-      // indexes 가 없으면 전체 데이터
-      contentsData = cts.data;
-    else {
-      contentsData = indexes.map((index: number) => cts.data[index]);
-    }
+      // main node 타입
+      if (i === 0) {
+        const indexes = content.indexes;
+        let contentsData = [];
+        if (!indexes)
+          // indexes 가 없으면 전체 데이터
+          contentsData = content.data;
+        else {
+          contentsData = indexes.map((index: number) => content.data[index]);
+        }
 
-    const nodeType = cts.store?.element?.name || NexNodeType.FOLDER;
-    setType(nodeType);
+        setMainDatas(contentsData);
+        //const tree = buildNexTree(contentsData);
+        setType(nodeType);
+        //setNexTree(tree);
+        setSelectedKeys(content.selectedKeys);
+      }
 
-    const tree = buildNexTree(contentsData);
-    setNexTree(tree);
-    //setStore(cts.store);
-    //setFormat(cts.format);
-    setSelectedKeys(cts.selectedKeys);
+      nodeList[nodeType] = [];
+      content.data.forEach((item: any) => {
+        const obj = item[4];
+        const node: any = Object.values(obj)[0];
+        if (node?.type === nodeType) {
+          // folder 제외
+          nodeList[nodeType].push({
+            index: i,
+            name: node.name,
+            dispName: node.dispName,
+          });
+        }
+      });
+    });
+
+    setNodes(nodeList);
   }, [contents]);
 
+  const treeData = useMemo(() => {
+    let selectedDatas: any[] = [];
+    mainDatas.forEach((data: any) => {
+      if (data[3] === systemName) {
+        selectedDatas.push(data);
+      }
+    });
+
+    return buildNexTree(selectedDatas);
+  }, [mainDatas, systemName]);
+
   const handleSelect = (index: number) => {
-    const row = nexTree?.getNode(index) || null;
+    const row = treeData?.getNode(index) || null;
 
     if (!row || row.length !== 5) {
       setSelectedPath("");
-      setSelectedIndex(-1);
+      //setSelectedIndex(-1);
     } else {
       setSelectedPath(row[1]);
-      setSelectedIndex(index);
+      //setSelectedIndex(index);
       const node = Object.values(row[4])[0];
       setCurNode(node);
     }
 
-    setCurRecord(row);
+    //setCurRecord(row);
 
     if (onSelect) {
       onSelect(0, row); // Assuming single store for now
@@ -227,7 +264,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
 
   const handleRemove = (index: number) => {
     //    setSelectedPath(path);
-    const row = nexTree.getNode(index);
+    const row = treeData.getNode(index);
     //setCurData(row);
 
     if (!row) {
@@ -252,6 +289,70 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     if (index === selectedKeys[0]) {
       handleSelect(-1);
     }
+  };
+
+  const handleGenDbData = async () => {
+    console.log(
+      "handleGenDbData: systemName=",
+      systemName,
+      " storageName=",
+      storageName
+    );
+    try {
+      await axios
+        .request({
+          method: "get",
+          url: pxConfig["command-url"] + "/gen-db-element",
+          params: {
+            project: "",
+            system: systemName,
+            storage: storageName,
+          },
+        })
+        .then((response) => {
+          console.log("NexConfigDistApp::handleClick() response:", response);
+          window.location.reload();
+        });
+    } catch (error) {
+      console.error("Failed to generate storage element:", error);
+    }
+  };
+
+  const systemSelector = () => {
+    if (
+      type === NexNodeType.ELEMENT &&
+      nodes[NexNodeType.SYSTEM] &&
+      nodes[NexNodeType.SYSTEM].length > 0
+    ) {
+      return (
+        <Stack spacing={0.5} direction="row" justifyContent="end" width="100%">
+          <Select
+            value={systemName}
+            onChange={(e) => setSystemName(e.target.value as string)}
+          >
+            {nodes[NexNodeType.SYSTEM].map((node: any) => (
+              <MenuItem key={node.index} value={node.name}>
+                {node.dispName}
+              </MenuItem>
+            ))}
+          </Select>
+          <Select
+            value={storageName}
+            onChange={(e) => setStorageName(e.target.value as string)}
+          >
+            {nodes[NexNodeType.STORAGE].map((node: any) => (
+              <MenuItem key={node.index} value={node.name}>
+                {node.dispName}
+              </MenuItem>
+            ))}
+          </Select>
+          <Button variant="contained" onClick={handleGenDbData}>
+            DB 데이터 생성
+          </Button>
+        </Stack>
+      );
+    }
+    return null;
   };
 
   return (
@@ -291,31 +392,27 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
             <MdNewLabel />
           </IconButton>
         </Stack>
+        {systemSelector()}
         <NexDiv width="100%" overflow="auto">
-        <Stack
-          spacing={0.5}
-          direction="column"
-          width="100%"
-
-        >
-          {nexTree &&
-            nexTree.data &&
-            nexTree.data.map(
-              (obj: any, index: number) =>
-                obj && (
-                  <NexNodeItem
-                    key={index}
-                    depts={0}
-                    node={obj}
-                    theme={theme}
-                    user={user}
-                    onSelect={handleSelect}
-                    onRemove={handleRemove}
-                    selectedIndex={selectedKeys[0]}
-                  />
-                )
-            )}
-        </Stack>
+          <Stack spacing={0.5} direction="column" width="100%">
+            {treeData &&
+              treeData.data &&
+              treeData.data.map(
+                (obj: any, index: number) =>
+                  obj && (
+                    <NexNodeItem
+                      key={index}
+                      depts={0}
+                      node={obj}
+                      theme={theme}
+                      user={user}
+                      onSelect={handleSelect}
+                      onRemove={handleRemove}
+                      selectedIndex={selectedKeys[0]}
+                    />
+                  )
+              )}
+          </Stack>
         </NexDiv>
       </NexDiv>
     </NexApplet>

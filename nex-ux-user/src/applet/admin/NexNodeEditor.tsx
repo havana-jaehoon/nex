@@ -6,9 +6,15 @@ import { clamp } from "utils/util";
 import { defaultThemeStyle, getThemeStyle } from "type/NexTheme";
 import AdminNodeEditor from "./lib/AdminNodeEditor";
 import { set } from "mobx";
+import { NexNodeType } from "type/NexNode";
+import { appletPathList } from "applet/nexApplets";
 
 const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
   const { contents, theme, user, onUpdate, onAdd } = props;
+
+  const [type, setType] = useState<string>("");
+  const [nodes, setNodes] = useState<any>({});
+  const [mainDatas, setMainDatas] = useState<any[]>([]);
 
   const [isMouseEnter, setMouseEnter] = useState(false);
   const [isFocus, setFocus] = useState(false);
@@ -18,8 +24,7 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
   //console.log("NexNodeEditor: stores=", JSON.stringify(stores, null, 2));
   const errorMsg = () => {
     // check isTree, volatility, features.length ...
-    if (contents?.length !== 1)
-      return "NexNodeEditor must be one store element.";
+    if (contents?.length < 1) return "NexNodeEditor must be one store element.";
     return null;
   };
 
@@ -39,11 +44,68 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
   const [node, setNode] = useState<any>(null);
   const [features, setFeatures] = useState<any[]>([]);
   // Memoize derived dependency to satisfy React Hooks lint rule
+
   const contentsOdata = useMemo(
     () => contents?.map((c) => c.store.odata),
     [contents]
   );
 
+  useEffect(() => {
+    if (!contents) return;
+
+    let nodeList: any = {};
+    contents.forEach((content, i) => {
+      const nodeType = content.store?.element?.name || null;
+      if (!nodeType) return;
+
+      // main node 타입
+      if (i === 0) {
+        const tdata = content.indexes
+          ? content.indexes?.map((i: number) => content.data[i]) || []
+          : content.data || [];
+
+        let curRecord = null;
+        let curNode = null;
+        if (tdata.length > 0) {
+          curRecord = tdata[0];
+          curNode = Object.values(tdata[0][4])[0];
+        }
+
+        setRecord(curRecord);
+        setNode(curNode);
+
+        setType(nodeType);
+      }
+
+      nodeList[nodeType] = [];
+      content.data.forEach((item: any) => {
+        const node: any = Object.values(item[4])[0];
+        if (node?.type || node.type !== NexNodeType.FOLDER) {
+          // folder 제외
+          const index = item[0];
+          let path = item[1];
+          if (node.type === NexNodeType.SYSTEM) {
+            path = node.name;
+          }
+          const systemName = item[3];
+          nodeList[nodeType].push({
+            index: i,
+            path: path,
+            name: node.name,
+            dispName: node.dispName,
+            system: systemName,
+            helper: `${node.dispName || node.name}(${path})`,
+          });
+        }
+      });
+    });
+
+    nodeList[NexNodeType.APPLET] = appletPathList;
+
+    setNodes(nodeList);
+  }, [contents, contentsOdata]);
+
+  /*
   useEffect(() => {
     const cts = contents?.[storeIndex];
     if (!cts || !cts.store) {
@@ -69,7 +131,7 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
     setRecord(curRecord);
     setNode(curNode);
   }, [contents, contentsOdata]);
-
+*/
   const handleUpdate = (newNode: any) => {
     //console.log("handleUpdate : ", JSON.stringify(newNode, null, 2));
 
@@ -88,7 +150,7 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
 
     const newRecord = [
       record[0],
-      `/${parentPath}/${newNode.name}`,
+      `${parentPath}/${newNode.name}`,
       record[2],
       record[3],
       { [key]: newNode },
@@ -100,7 +162,6 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
     }
   };
 
-  
   return (
     <NexApplet {...props} error={errorMsg()}>
       {node ? (
@@ -115,7 +176,7 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
           onMouseLeave={() => setMouseEnter(false)}
           overflow="auto"
         >
-          <AdminNodeEditor node={node} onUpdate={handleUpdate} />
+          <AdminNodeEditor node={node} nodes={nodes} onUpdate={handleUpdate} />
         </NexDiv>
       ) : null}
     </NexApplet>

@@ -1,0 +1,454 @@
+{
+  "element": [
+    {
+      "index": 0,
+      "path": "/cbm/config/Line",
+      "name": "Line",
+      "dispName": "노선정보",
+      "helper": "노선정보(/cbm/config/Line)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/config/TrainPerLine",
+      "name": "TrainPerLine",
+      "dispName": "노선별편성정보",
+      "helper": "노선별편성정보(/cbm/config/TrainPerLine)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/config/CarPerTrain",
+      "name": "CarPerTrain",
+      "dispName": "편성별차량정보",
+      "helper": "편성별차량정보(/cbm/config/CarPerTrain)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/config/DevicePerCar",
+      "name": "DevicePerCar",
+      "dispName": "차량별장치정보",
+      "helper": "차량별장치정보(/cbm/config/DevicePerCar)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/status/LossPerLine",
+      "name": "LossPerLine",
+      "dispName": "노선별 열화 현황",
+      "helper": "노선별 열화 현황(/cbm/status/LossPerLine)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/status/LossPerDevice",
+      "name": "LossPerDevice",
+      "dispName": "장치별 열화 현상",
+      "helper": "장치별 열화 현상(/cbm/status/LossPerDevice)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/status/TrainCountPerLine",
+      "name": "TrainCountPerLine",
+      "dispName": "노선별 편성 수",
+      "helper": "노선별 편성 수(/cbm/status/TrainCountPerLine)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/event/RTMaintenanceInfo",
+      "name": "RTMaintenanceInfo",
+      "dispName": "실시간 유지보수 정보",
+      "helper": "실시간 유지보수 정보(/cbm/event/RTMaintenanceInfo)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/event/SystemEventInfo",
+      "name": "SystemEventInfo",
+      "dispName": "시스템 이벤트 정보",
+      "helper": "시스템 이벤트 정보(/cbm/event/SystemEventInfo)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/history/LossHistoryPerLine",
+      "name": "LossHistoryPerLine",
+      "dispName": "노선별 열화 이력",
+      "helper": "노선별 열화 이력(/cbm/history/LossHistoryPerLine)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/history/LossHistoryPerDevice",
+      "name": "LossHistoryPerDevice",
+      "dispName": "장치별 열화 이력",
+      "helper": "장치별 열화 이력(/cbm/history/LossHistoryPerDevice)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/history/MaintenanceHistoryPerLine",
+      "name": "MaintenanceHistoryPerLine",
+      "dispName": "노선별 유지보수 이력",
+      "helper": "노선별 유지보수 이력(/cbm/history/MaintenanceHistoryPerLine)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/history/DetailLossLevelHistory",
+      "name": "DetailLossLevelHistory",
+      "dispName": "상세 열화등급 이력",
+      "helper": "상세 열화등급 이력(/cbm/history/DetailLossLevelHistory)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/menu",
+      "name": "menu",
+      "dispName": "메뉴",
+      "helper": "메뉴(/admin/menu)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/storage",
+      "name": "storage",
+      "dispName": "데이터저장소",
+      "helper": "데이터저장소(/admin/storage)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/format",
+      "name": "format",
+      "dispName": "데이터 포맷",
+      "helper": "데이터 포맷(/admin/format)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/store",
+      "name": "store",
+      "dispName": "데이터 저장 정책",
+      "helper": "데이터 저장 정책(/admin/store)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/processor",
+      "name": "processor",
+      "dispName": "데이터 프로세서",
+      "helper": "데이터 프로세서(/admin/processor)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/system",
+      "name": "system",
+      "dispName": "시스템",
+      "helper": "시스템(/admin/system)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/element",
+      "name": "element",
+      "dispName": "데이터 엘리먼트",
+      "helper": "데이터 엘리먼트(/admin/element)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/contents",
+      "name": "contents",
+      "dispName": "컨텐츠",
+      "helper": "컨텐츠(/admin/contents)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/applet",
+      "name": "applet",
+      "dispName": "애플릿",
+      "helper": "애플릿(/admin/applet)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/section",
+      "name": "section",
+      "dispName": "웹섹션",
+      "helper": "웹섹션(/admin/section)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/user",
+      "name": "user",
+      "dispName": "사용자",
+      "helper": "사용자(/admin/user)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/theme",
+      "name": "theme",
+      "dispName": "테마",
+      "helper": "테마(/admin/theme)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/config/Line",
+      "name": "Line",
+      "dispName": "노선정보",
+      "helper": "노선정보(/cbm/config/Line)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/config/TrainPerLine",
+      "name": "TrainPerLine",
+      "dispName": "노선별편성정보",
+      "helper": "노선별편성정보(/cbm/config/TrainPerLine)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/config/CarPerTrain",
+      "name": "CarPerTrain",
+      "dispName": "편성별차량정보",
+      "helper": "편성별차량정보(/cbm/config/CarPerTrain)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/config/DevicePerCar",
+      "name": "DevicePerCar",
+      "dispName": "차량별장치정보",
+      "helper": "차량별장치정보(/cbm/config/DevicePerCar)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/status/LossPerLine",
+      "name": "LossPerLine",
+      "dispName": "노선별 열화 현황",
+      "helper": "노선별 열화 현황(/cbm/status/LossPerLine)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/status/LossPerDevice",
+      "name": "LossPerDevice",
+      "dispName": "장치별 열화 현상",
+      "helper": "장치별 열화 현상(/cbm/status/LossPerDevice)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/status/TrainCountPerLine",
+      "name": "TrainCountPerLine",
+      "dispName": "노선별 편성 수",
+      "helper": "노선별 편성 수(/cbm/status/TrainCountPerLine)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/event/RTMaintenanceInfo",
+      "name": "RTMaintenanceInfo",
+      "dispName": "실시간 유지보수 정보",
+      "helper": "실시간 유지보수 정보(/cbm/event/RTMaintenanceInfo)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/event/SystemEventInfo",
+      "name": "SystemEventInfo",
+      "dispName": "시스템 이벤트 정보",
+      "helper": "시스템 이벤트 정보(/cbm/event/SystemEventInfo)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/history/LossHistoryPerLine",
+      "name": "LossHistoryPerLine",
+      "dispName": "노선별 열화 이력",
+      "helper": "노선별 열화 이력(/cbm/history/LossHistoryPerLine)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/history/LossHistoryPerDevice",
+      "name": "LossHistoryPerDevice",
+      "dispName": "장치별 열화 이력",
+      "helper": "장치별 열화 이력(/cbm/history/LossHistoryPerDevice)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/history/MaintenanceHistoryPerLine",
+      "name": "MaintenanceHistoryPerLine",
+      "dispName": "노선별 유지보수 이력",
+      "helper": "노선별 유지보수 이력(/cbm/history/MaintenanceHistoryPerLine)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/history/DetailLossLevelHistory",
+      "name": "DetailLossLevelHistory",
+      "dispName": "상세 열화등급 이력",
+      "helper": "상세 열화등급 이력(/cbm/history/DetailLossLevelHistory)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/menu",
+      "name": "menu",
+      "dispName": "메뉴",
+      "helper": "메뉴(/admin/menu)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/storage",
+      "name": "storage",
+      "dispName": "데이터저장소",
+      "helper": "데이터저장소(/admin/storage)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/format",
+      "name": "format",
+      "dispName": "데이터 포맷",
+      "helper": "데이터 포맷(/admin/format)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/store",
+      "name": "store",
+      "dispName": "데이터 저장 정책",
+      "helper": "데이터 저장 정책(/admin/store)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/processor",
+      "name": "processor",
+      "dispName": "데이터 프로세서",
+      "helper": "데이터 프로세서(/admin/processor)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/system",
+      "name": "system",
+      "dispName": "시 스템",
+      "helper": "시 스템(/admin/system)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/element",
+      "name": "element",
+      "dispName": "데이터 엘리먼트",
+      "helper": "데이터 엘리먼트(/admin/element)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/contents",
+      "name": "contents",
+      "dispName": "컨텐츠",
+      "helper": "컨텐츠(/admin/contents)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/applet",
+      "name": "applet",
+      "dispName": "애플릿",
+      "helper": "애플릿(/admin/applet)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/section",
+      "name": "section",
+      "dispName": "웹섹션",
+      "helper": "웹섹션(/admin/section)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/user",
+      "name": "user",
+      "dispName": "사용자",
+      "helper": "사용자(/admin/user)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/theme",
+      "name": "theme",
+      "dispName": "테마",
+      "helper": "테마(/admin/theme)"
+    }
+  ],
+  "applet": [
+    {
+      "index": 0,
+      "path": "/menu/NexMenu",
+      "name": "NexMenu",
+      "dispName": "메뉴",
+      "helper": "메뉴(/menu/NexMenu)"
+    },
+    {
+      "index": 1,
+      "path": "/menu/menu2",
+      "name": "menu2",
+      "dispName": "menu2",
+      "helper": "menu2(/menu/menu2)"
+    },
+    {
+      "index": 0,
+      "path": "/chart/NexLineChart",
+      "name": "NexLineChart",
+      "dispName": "라인 차트",
+      "helper": "라인 차트(/chart/NexLineChart)"
+    },
+    {
+      "index": 0,
+      "path": "/table/NexTable",
+      "name": "NexTable",
+      "dispName": "테이블",
+      "helper": "테이블(/table/NexTable)"
+    },
+    {
+      "index": 0,
+      "path": "/status/NexStatus",
+      "name": "NexStatus",
+      "dispName": "상태",
+      "helper": "상태(/status/NexStatus)"
+    },
+    {
+      "index": 1,
+      "path": "/status/NexCount",
+      "name": "NexCount",
+      "dispName": "카운트",
+      "helper": "카운트(/status/NexCount)"
+    },
+    {
+      "index": 0,
+      "path": "/sample/NexSampleList",
+      "name": "NexSampleList",
+      "dispName": "샘플",
+      "helper": "샘플(/sample/NexSampleList)"
+    },
+    {
+      "index": 0,
+      "path": "/cbm/TrainInfoLine",
+      "name": "TrainInfoLine",
+      "dispName": "호선별열차정보",
+      "helper": "호선별열차정보(/cbm/TrainInfoLine)"
+    },
+    {
+      "index": 0,
+      "path": "/admin/menu",
+      "name": "menu",
+      "dispName": "메뉴",
+      "helper": "메뉴(/admin/menu)"
+    },
+    {
+      "index": 1,
+      "path": "/admin/NexJsonEditor",
+      "name": "NexJsonEditor",
+      "dispName": "JSON 편집기",
+      "helper": "JSON 편집기(/admin/NexJsonEditor)"
+    },
+    {
+      "index": 2,
+      "path": "/admin/NexNodeEditor",
+      "name": "NexNodeEditor",
+      "dispName": "노드 편집기",
+      "helper": "노드 편집기(/admin/NexNodeEditor)"
+    },
+    {
+      "index": 3,
+      "path": "/admin/NexNodeTree",
+      "name": "NexNodeTree",
+      "dispName": "노드 검색기",
+      "helper": "노드 검색기(/admin/NexNodeTree)"
+    },
+    {
+      "index": 4,
+      "path": "/admin/StorageElementGenerator",
+      "name": "StorageElementGenerator",
+      "dispName": "DB 엘리먼트 생성기",
+      "helper": "DB 엘리먼트 생성기(/admin/StorageElementGenerator)"
+    },
+    {
+      "index": 5,
+      "path": "/admin/SectionViewer",
+      "name": "SectionViewer",
+      "dispName": "섹션 뷰어",
+      "helper": "섹션 뷰어(/admin/SectionViewer)"
+    }
+  ]
+}

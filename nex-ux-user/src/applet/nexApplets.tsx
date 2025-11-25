@@ -19,6 +19,7 @@ const appletList = [
     children: [
       {
         name: "NexMenu",
+        dispName: "메뉴",
         type: "applet",
         app: NexMenuApp,
       },
@@ -35,6 +36,7 @@ const appletList = [
     children: [
       {
         name: "NexLineChart",
+        dispName: "라인 차트",
         type: "applet",
         app: NexLineChartApp,
       },
@@ -46,6 +48,7 @@ const appletList = [
     children: [
       {
         name: "NexTable",
+        dispName: "테이블",
         type: "applet",
         app: NexTableApp,
       },
@@ -57,11 +60,13 @@ const appletList = [
     children: [
       {
         name: "NexStatus",
+        dispName: "상태",
         type: "applet",
         app: NexStatusApp,
       },
       {
         name: "NexCount",
+        dispName: "카운트",
         type: "applet",
         app: NexCountApp,
       },
@@ -73,17 +78,19 @@ const appletList = [
     children: [
       {
         name: "NexSampleList",
+        dispName: "샘플",
         type: "applet",
         app: NexSampleListApp,
       },
     ],
   },
   {
-    name: "emu150",
+    name: "cbm",
     type: "folder",
     children: [
       {
         name: "TrainInfoLine",
+        dispName: "호선별열차정보",
         type: "applet",
         app: EMU150TrainLineInfoApp,
       },
@@ -96,44 +103,63 @@ const appletList = [
     children: [
       {
         name: "menu",
+        dispName: "메뉴",
         type: "applet",
         app: NexMenuApp,
       },
       {
         name: "NexJsonEditor",
+        dispName: "JSON 편집기",
         type: "applet",
         app: NexJsonEditor,
       },
       {
         name: "NexNodeEditor",
+        dispName: "노드 편집기",
         type: "applet",
         app: NexNodeEditor,
       },
       {
         name: "NexNodeTree",
+        dispName: "노드 검색기",
         type: "applet",
         app: NexNodeTreeApp,
       },
 
       {
-        name: "NexNodeSelector",
-        type: "applet",
-        app: NexNodeSelctor,
-      },
-      {
-        name: "NexNodeSelector",
-        type: "applet",
-        app: NexNodeSelctor,
-      },
-      {
         name: "StorageElementGenerator",
+        dispName: "DB 엘리먼트 생성기",
         type: "applet",
         app: StorageElementGenerator,
       },
-      { name: "SectionViewer", type: "applet", app: NexSectionViewer },
+      {
+        name: "SectionViewer",
+        dispName: "섹션 뷰어",
+        type: "applet",
+        app: NexSectionViewer,
+      },
     ],
   },
 ];
+
+export const appletPathList: any[] = appletList.reduce((acc: any[], folder) => {
+  if (folder.children && Array.isArray(folder.children)) {
+    folder.children.forEach((applet, i) => {
+      const path = `/${folder.name}/${applet.name}`;
+      const name = applet.name;
+      const dispName = applet.dispName || applet.name;
+      const helper = `${dispName}(${path})`;
+      acc.push({
+        index: i,
+        path: path,
+        name: name,
+        dispName: dispName,
+        helper: helper,
+      });
+    });
+  }
+  return acc;
+}, []);
 
 const nexApplets = (path: string): React.FC<any> | null => {
   //console.log("findNexApplets1 path:", path);

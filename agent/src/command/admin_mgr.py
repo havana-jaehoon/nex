@@ -59,7 +59,6 @@ class AdminMgr(SingletonInstance):
         projectName = '' # default project
         systems = self._cfgReader.getSystems(projectName)
 
-
         self._configMap = {}  # all projects
         self._configMap[projectName] = {} # default project
 

@@ -1,0 +1,285 @@
+[
+  [
+    0,
+    "/common",
+    "",
+    "",
+    {
+      "0": {
+        "name": "common",
+        "dispName": "공용 폴더",
+        "description": "공용 폴더",
+        "type": "folder",
+        "icon": "",
+        "color": ""
+      }
+    }
+  ],
+  [
+    1,
+    "/common/menu",
+    "",
+    "",
+    {
+      "0": {
+        "name": "menu",
+        "dispName": "Nex Menu",
+        "description": "Nex Menu Applet",
+        "type": "applet",
+        "icon": "menu",
+        "color": "#FF5733",
+        "applet": "/menu/NexMenu"
+      }
+    }
+  ],
+  [
+    2,
+    "/chart",
+    "",
+    "",
+    {
+      "1": {
+        "name": "chart",
+        "dispName": "Chart",
+        "description": "Chart Applet 폴더",
+        "type": "folder",
+        "icon": "",
+        "color": ""
+      }
+    }
+  ],
+  [
+    3,
+    "/chart/NexLineChart",
+    "",
+    "",
+    {
+      "0": {
+        "name": "NexLineChart",
+        "dispName": "Nex Line Chart",
+        "description": "Nex Line Chart Applet",
+        "type": "applet",
+        "icon": "chart",
+        "color": "#33FF57",
+        "applet": "/chart/NexLineChart"
+      }
+    }
+  ],
+  [
+    4,
+    "/table",
+    "",
+    "",
+    {
+      "2": {
+        "name": "table",
+        "dispName": "Table",
+        "description": "Table Applet 폴더",
+        "type": "folder",
+        "icon": "",
+        "color": ""
+      }
+    }
+  ],
+  [
+    5,
+    "/table/NexTable",
+    "",
+    "",
+    {
+      "0": {
+        "name": "NexTable",
+        "dispName": "Nex Table",
+        "description": "Nex Table Applet",
+        "type": "applet",
+        "icon": "table",
+        "color": "#3357FF",
+        "applet": "/table/NexTable"
+      }
+    }
+  ],
+  [
+    6,
+    "/status",
+    "",
+    "",
+    {
+      "3": {
+        "name": "status",
+        "dispName": "Status",
+        "description": "Status Applet 폴더",
+        "type": "folder",
+        "icon": "",
+        "color": ""
+      }
+    }
+  ],
+  [
+    7,
+    "/status/NexStatus",
+    "",
+    "",
+    {
+      "0": {
+        "name": "NexStatus",
+        "dispName": "Nex Status",
+        "description": "Nex Status Applet",
+        "type": "applet",
+        "icon": "status",
+        "color": "#FF33A1",
+        "applet": "/status/NexStatus"
+      }
+    }
+  ],
+  [
+    8,
+    "/status/NexCount",
+    "",
+    "",
+    {
+      "1": {
+        "name": "NexCount",
+        "dispName": "Nex Count",
+        "description": "Nex Count Applet",
+        "type": "applet",
+        "icon": "",
+        "color": "#A133FF",
+        "applet": "/status/NexCount"
+      }
+    }
+  ],
+  [
+    9,
+    "/admin",
+    "",
+    "",
+    {
+      "4": {
+        "name": "admin",
+        "dispName": "Admin",
+        "description": "Admin 용 Applet 폴더",
+        "type": "folder",
+        "icon": "",
+        "color": ""
+      }
+    }
+  ],
+  [
+    10,
+    "/admin/NexNodeTree",
+    "",
+    "",
+    {
+      "0": {
+        "name": "NexNodeTree",
+        "dispName": "Nex Tree",
+        "description": "Nex Tree Applet",
+        "type": "applet",
+        "icon": "tree",
+        "color": "#FF33A1",
+        "applet": "/admin/NexNodeTree"
+      }
+    }
+  ],
+  [
+    11,
+    "/admin/NexJsonEditor",
+    "",
+    "",
+    {
+      "1": {
+        "name": "NexJsonEditor",
+        "dispName": "Nex Json Editor",
+        "description": "Nex Json Editor Applet",
+        "type": "applet",
+        "icon": "tree",
+        "color": "#FF33A1",
+        "applet": "/admin/NexJsonEditor"
+      }
+    }
+  ],
+  [
+    12,
+    "/admin/NexNodeSelector",
+    "",
+    "",
+    {
+      "2": {
+        "name": "NexNodeSelector",
+        "dispName": "Nex Node Selector",
+        "description": "Nex Node Selector Applet",
+        "type": "applet",
+        "icon": "tree",
+        "color": "#FF33A1",
+        "applet": "/admin/NexNodeSelector"
+      }
+    }
+  ],
+  [
+    13,
+    "/admin/StorageElementGenerator",
+    "",
+    "",
+    {
+      "3": {
+        "name": "StorageElementGenerator",
+        "dispName": "Storage Element Generator",
+        "description": "Storage Element Generator Applet",
+        "type": "applet",
+        "icon": "tree",
+        "color": "#FF33A1",
+        "applet": "/admin/StorageElementGenerator"
+      }
+    }
+  ],
+  [
+    14,
+    "/sample",
+    "",
+    "",
+    {
+      "5": {
+        "name": "sample",
+        "dispName": "Sample",
+        "description": "Sample Applet 폴더, 다양한 샘플을 포함하는 폴더입니다.",
+        "type": "folder",
+        "icon": "",
+        "color": ""
+      }
+    }
+  ],
+  [
+    15,
+    "/sample/NexSampleList",
+    "",
+    "",
+    {
+      "0": {
+        "name": "NexSampleList",
+        "dispName": "Nex Sample List",
+        "description": "Nex Sample List Applet",
+        "type": "applet",
+        "icon": "sample",
+        "color": "#33A1FF",
+        "applet": "/sample/NexSampleList"
+      }
+    }
+  ],
+  [
+    16,
+    "/admin/NexNodeEditor",
+    "",
+    "",
+    {
+      "1": {
+        "name": "NexNodeEditor",
+        "dispName": "Nex Node Editor",
+        "description": "Nex Node Editor Applet",
+        "type": "applet",
+        "icon": "tree",
+        "color": "#FF33A1",
+        "applet": "/admin/NexNodeEditor"
+      }
+    }
+  ]
+]

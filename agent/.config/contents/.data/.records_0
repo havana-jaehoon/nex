@@ -481,7 +481,7 @@
   ],
   [
     33,
-    "//admin/storage",
+    "/admin/storage",
     "",
     "",
     {
@@ -505,7 +505,7 @@
   ],
   [
     34,
-    "//admin/SelectedStorage",
+    "/admin/SelectedStorage",
     "",
     "",
     {
@@ -530,7 +530,7 @@
   ],
   [
     35,
-    "//admin/format",
+    "/admin/format",
     "",
     "",
     {
@@ -554,7 +554,7 @@
   ],
   [
     36,
-    "//admin/SelectedFormat",
+    "/admin/SelectedFormat",
     "",
     "",
     {
@@ -579,7 +579,7 @@
   ],
   [
     37,
-    "//admin/store",
+    "/admin/store",
     "",
     "",
     {
@@ -603,7 +603,7 @@
   ],
   [
     38,
-    "//admin/SelectedStore",
+    "/admin/SelectedStore",
     "",
     "",
     {
@@ -649,7 +649,7 @@
   ],
   [
     40,
-    "//admin/SelectedProcessor",
+    "/admin/SelectedProcessor",
     "",
     "",
     {
@@ -699,7 +699,7 @@
   ],
   [
     42,
-    "//admin/SelectedSystem",
+    "/admin/SelectedSystem",
     "",
     "",
     {
@@ -745,12 +745,12 @@
   ],
   [
     44,
-    "//admin/systemElement",
+    "/admin/SelectedElement",
     "",
     "",
     {
       "13": {
-        "name": "systemElement",
+        "name": "SelectedElement",
         "dispName": "선택된 엘리먼트",
         "description": "",
         "type": "contents",
@@ -759,41 +759,9 @@
         "element": "/admin/element",
         "conditions": [
           {
-            "key": "system",
-            "feature": "system",
-            "method": "match"
-          }
-        ],
-        "selections": [
-          {
-            "key": "element-index",
-            "feature": "index"
-          }
-        ]
-      }
-    }
-  ],
-  [
-    45,
-    "/admin/SelectedElement",
-    "",
-    "",
-    {
-      "14": {
-        "name": "SelectedElement",
-        "dispName": "엘리먼트",
-        "type": "contents",
-        "element": "/admin/element",
-        "conditions": [
-          {
-            "key": "system",
-            "feature": "system",
-            "method": "match"
-          },
-          {
             "key": "element-index",
             "feature": "index",
-            "method": "match"
+            "method": ""
           }
         ],
         "selections": []
@@ -823,7 +791,7 @@
   ],
   [
     47,
-    "//admin/SelectedContents",
+    "/admin/SelectedContents",
     "",
     "",
     {
@@ -869,7 +837,7 @@
   ],
   [
     49,
-    "//admin/SelectedApplet",
+    "/admin/SelectedApplet",
     "",
     "",
     {
@@ -958,7 +926,7 @@
   ],
   [
     53,
-    "///admin/SelectedTheme",
+    "/admin/SelectedTheme",
     "",
     "",
     {
@@ -1020,6 +988,41 @@
             "method": "match"
           }
         ],
+        "selections": []
+      }
+    }
+  ],
+  [
+    55,
+    "/ems",
+    "",
+    "",
+    {
+      "3": {
+        "name": "ems",
+        "dispName": "CBM-EMS",
+        "description": "",
+        "type": "folder",
+        "icon": "",
+        "color": ""
+      }
+    }
+  ],
+  [
+    56,
+    "/ems/test1",
+    "",
+    "",
+    {
+      "0": {
+        "name": "test1",
+        "dispName": "",
+        "description": "",
+        "type": "contents",
+        "icon": "",
+        "color": "",
+        "element": "",
+        "conditions": [],
         "selections": []
       }
     }
