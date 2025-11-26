@@ -88,7 +88,7 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
     >
       <Stack
         direction="column"
-        spacing={1}
+        spacing={20}
         justifyContent="flex-start"
         alignContent="flex-start"
         alignItems="flex-start"

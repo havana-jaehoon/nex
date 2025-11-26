@@ -82,7 +82,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "column",
-        "size": 13,
+        "size": 15,
         "padding": "",
         "applet": "",
         "contents": ""
@@ -107,6 +107,7 @@
         "direction": "row",
         "size": "1",
         "padding": "",
+        "app-padding": "8px",
         "applet": "/admin/menu",
         "contents": [
           "/admin/menu"
@@ -293,9 +294,16 @@
         "dispName": "Store",
         "description": "Store Section",
         "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "store",
+        "direction": "column",
         "size": "1",
-        "direction": "row",
-        "route": "store"
+        "padding": "",
+        "app-padding": "",
+        "applet": "",
+        "contents": ""
       }
     }
   ],
@@ -315,7 +323,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "row",
-        "size": "3",
+        "size": "10",
         "padding": "",
         "app-padding": "",
         "applet": "/admin/NexNodeTree",
@@ -341,7 +349,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "row",
-        "size": "6",
+        "size": 21,
         "padding": "",
         "app-padding": "",
         "applet": "/admin/NexNodeEditor",
@@ -1462,7 +1470,7 @@
     "",
     "",
     {
-      "1": {
+      "2": {
         "name": "User",
         "dispName": "사용자",
         "description": "",
@@ -1472,7 +1480,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "column",
-        "size": "",
+        "size": 2,
         "padding": "",
         "applet": "",
         "contents": ""
@@ -1495,7 +1503,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "row",
-        "size": 1,
+        "size": 2,
         "padding": "",
         "applet": "/admin/NexNodeTree",
         "contents": [
@@ -1520,7 +1528,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "row",
-        "size": 3,
+        "size": 4,
         "padding": "",
         "applet": "/admin/NexNodeEditor",
         "contents": [
@@ -1536,7 +1544,7 @@
     "",
     "",
     {
-      "0": {
+      "1": {
         "name": "Contents",
         "dispName": "컨텐츠",
         "description": "",
@@ -1546,30 +1554,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "column",
-        "size": 1,
-        "padding": "",
-        "applet": "",
-        "contents": ""
-      }
-    }
-  ],
-  [
-    242,
-    "/Home/Body/Main/Admin/Web/theme",
-    "",
-    "",
-    {
-      "2": {
-        "name": "theme",
-        "dispName": "테마",
-        "description": "",
-        "type": "section",
-        "icon": "",
-        "color": "",
-        "isRoutes": "",
-        "route": "",
-        "direction": "column",
-        "size": "",
+        "size": 2,
         "padding": "",
         "applet": "",
         "contents": ""
@@ -1592,7 +1577,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "row",
-        "size": 1,
+        "size": 2,
         "padding": "",
         "applet": "/admin/NexNodeTree",
         "contents": [
@@ -1617,7 +1602,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "row",
-        "size": 3,
+        "size": 4,
         "padding": "",
         "applet": "/admin/NexNodeEditor",
         "contents": [
@@ -1629,51 +1614,47 @@
   ],
   [
     245,
-    "/Home/Body/Main/Admin/Web/theme/Finder",
+    "/Home/Body/Main/Admin/Web/new-section-154101",
     "",
     "",
     {
       "0": {
-        "name": "Finder",
-        "dispName": "테마 검색",
+        "name": "new-section-154101",
+        "dispName": "",
         "description": "",
         "type": "section",
         "icon": "",
         "color": "",
         "isRoutes": "",
         "route": "",
-        "direction": "row",
         "size": 1,
         "padding": "",
-        "applet": "/admin/NexNodeTree",
-        "contents": [
-          "/admin/theme"
-        ]
+        "app-padding": "",
+        "applet": "",
+        "contents": ""
       }
     }
   ],
   [
     246,
-    "/Home/Body/Main/Admin/Web/theme/Editor",
+    "/Home/Body/Main/Admin/Web/new-section-154102",
     "",
     "",
     {
-      "1": {
-        "name": "Editor",
-        "dispName": "테마 편집",
+      "3": {
+        "name": "new-section-154102",
+        "dispName": "",
         "description": "",
         "type": "section",
         "icon": "",
         "color": "",
         "isRoutes": "",
         "route": "",
-        "direction": "row",
-        "size": 3,
+        "size": 1,
         "padding": "",
-        "applet": "/admin/NexNodeEditor",
-        "contents": [
-          "/admin/SelectedTheme"
-        ]
+        "app-padding": "",
+        "applet": "",
+        "contents": ""
       }
     }
   ]

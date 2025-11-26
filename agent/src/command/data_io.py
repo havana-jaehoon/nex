@@ -317,12 +317,14 @@ class DataFileIo:
 
 
     # 특정 데이터 찾기
-    def _findNodeFromPath(self, path):
+    def _findNodeFromPath(self, path, project, system):
         if path is None or len(self._records) == 0 or path == "" or path == "/":
             return None
         
         if self._isAdminConfig:
             for record in self._records:
+                if( record[2] != project or record[3] != system):
+                    continue
                 if record[1] == path: # path 기준 비교
                     return record
         return None
@@ -338,7 +340,7 @@ class DataFileIo:
         return None
 
     # for Admin Configuration Data Tree 구조에서 특정 경로의 자식 노드들 찾기
-    def _findChildren(self, path, includeChildren=False):
+    def _findChildren(self, path, project, system, includeChildren=False):
         if path is None or len(path) == 0 or len(self._records) == 0:
             return []
 
@@ -347,6 +349,8 @@ class DataFileIo:
         isParent = False
 
         for record in self._records:
+            if( record[2] != project or record[3] != system):
+                continue
             record_path = record[1]
             parentPath = os.path.dirname(record_path)
 
@@ -469,14 +473,16 @@ class DataFileIo:
             # static & tree
             # 기존 선택된 데이터의 인덱스에 추가
             path = newData[1]
+            project = newData[2]
+            system = newData[3]
 
-            node = self._findNodeFromPath(path)
-            if node is not None:
+            node = self._findNodeFromPath(path, project, system)
+            if node is not None :
                 print(f"{self.__str__()}::add() - node already exists for path: {path}")
                 return False, f"node already exists for path: {path}"
 
             parentPath = os.path.dirname(path)
-            children = self._findChildren(parentPath)
+            children = self._findChildren(parentPath, project, system)
 
             if children is None:
                 print(f"{self.__str__()}::add() - no children for parent path: {parentPath}")
@@ -592,11 +598,10 @@ class DataFileIo:
             oldOrderIndex = self._getOrderIndex(oldData)
             newOrderIndex = self._getOrderIndex(newData)
 
-
             # 하위 Path 노드를 찾아서 모두 이동 처리
             # True 면 자식 노드 포함 (자신을 포함해 Path 변경)
             if oldPath != newPath or oldProject != newProject or oldSystem != newSystem:
-                children = self._findChildren(oldPath, True)
+                children = self._findChildren(oldPath, oldProject, oldSystem, True)
                 for child in children:
                     # child path 변경 (앞 부분만 변경)
                     #print(f"{self.__str__()}::update() - update child node: {child}")
@@ -619,7 +624,7 @@ class DataFileIo:
             # object node 의 인덱스 재조정 필요
             if oldOrderIndex != newOrderIndex:
                 parentPath = os.path.dirname(newPath)
-                children = self._findChildren(parentPath)
+                children = self._findChildren(parentPath, newProject, newSystem)
                 if children is None or len(children) == 0 :
                     print(f"{self.__str__()}::update() - no children for parent path: {parentPath}")
                     return False, "no parent"
@@ -651,15 +656,18 @@ class DataFileIo:
             # 기존 선택된 데이터의 인덱스에 추가
             index = keys[0]
             oldData = self._findNodeFromIndex(index)
+            
             if oldData is None:
                 print(f"{self.__str__()}::delete() - no existing data found for delete: {keys}")
                 return False, f"no existing data by index : {index}"
 
             oldPath = oldData[1]
+            oldProject = oldData[2]
+            oldSystem = oldData[3]
 
             # 동일 부모 패스내의 다른 노드들의 인덱스 재조정
             parentPath = os.path.dirname(oldPath)
-            children = self._findChildren(parentPath)
+            children = self._findChildren(parentPath, oldProject, oldSystem)
             if children is not None:
                 oldOrderIndex = self._getOrderIndex(oldData)
                 for child in children:
@@ -669,7 +677,7 @@ class DataFileIo:
 
             # 하위 Path 노드를 찾아서 모두 삭제 처리
             # True 면 자식 노드 포함 (자신을 포함해 Path 변경)
-            children = self._findChildren(oldPath, True)
+            children = self._findChildren(oldPath, oldProject, oldSystem, True)
             for child in children:
                 print(f"{self.__str__()}::delete() - delete child node: {child}")
                 self._records.remove(child)

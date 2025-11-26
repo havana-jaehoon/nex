@@ -212,60 +212,26 @@
         "name": "dashboard",
         "dispName": "대시보드",
         "description": "대시보드 설정",
-        "icon": "",
-        "color": "",
         "type": "menu",
+        "icon": "/config/section",
+        "color": "",
         "route": "/admin/dashboard"
       }
     }
   ],
   [
     14,
-    "/cbm",
+    "/project",
     "",
     "",
     {
       "15": {
-        "name": "cbm",
-        "dispName": "CBM",
-        "description": "CBM 데모",
+        "name": "project",
+        "dispName": "프로젝트",
+        "description": "프로젝트",
+        "type": "folder",
         "icon": "",
-        "color": "",
-        "type": "folder"
-      }
-    }
-  ],
-  [
-    15,
-    "/cbm/dashboard",
-    "",
-    "",
-    {
-      "14": {
-        "name": "dashboard",
-        "dispName": "대시보드",
-        "description": "CBM 대시보드",
-        "icon": "",
-        "color": "",
-        "type": "menu",
-        "route": "/cbm/dashboard"
-      }
-    }
-  ],
-  [
-    17,
-    "/cbm/lineinfo",
-    "",
-    "",
-    {
-      "1": {
-        "name": "lineinfo",
-        "dispName": "호선정보",
-        "description": "",
-        "type": "menu",
-        "icon": "",
-        "color": "",
-        "route": "/cbm/lineinfo"
+        "color": ""
       }
     }
   ],
@@ -298,6 +264,71 @@
         "description": "",
         "type": "menu",
         "icon": "",
+        "color": "",
+        "route": ""
+      }
+    }
+  ],
+  [
+    20,
+    "/cbm/new-folder-161951",
+    "",
+    "",
+    {
+      "0": {
+        "name": "new-folder-161951",
+        "dispName": "",
+        "description": "",
+        "type": "folder",
+        "icon": "",
+        "color": ""
+      }
+    }
+  ],
+  [
+    21,
+    "/cbm/new-folder-162002",
+    "",
+    "",
+    {
+      "1": {
+        "name": "new-folder-162002",
+        "dispName": "",
+        "description": "",
+        "type": "folder",
+        "icon": "",
+        "color": ""
+      }
+    }
+  ],
+  [
+    22,
+    "/project/cbm",
+    "",
+    "",
+    {
+      "1": {
+        "name": "cbm",
+        "dispName": "CBM",
+        "description": "CBM 프로젝트",
+        "type": "folder",
+        "icon": "",
+        "color": ""
+      }
+    }
+  ],
+  [
+    23,
+    "/project/cbm/dashboard",
+    "",
+    "",
+    {
+      "0": {
+        "name": "dashboard",
+        "dispName": "대시보드",
+        "description": "",
+        "type": "menu",
+        "icon": "/config/system",
         "color": "",
         "route": ""
       }

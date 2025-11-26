@@ -1,0 +1,189 @@
+[
+  [
+    672,
+    "/.ext/cbm_db/subfeature_info",
+    "",
+    "webclient",
+    {
+      "170": {
+        "name": "subfeature_info",
+        "dispName": "subfeature_info",
+        "description": "subfeature_info",
+        "type": "element",
+        "format": "/.ext/cbm_db/subfeature_info",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    673,
+    "/.ext/cbm_db/system_profile_degradperline",
+    "",
+    "webclient",
+    {
+      "171": {
+        "name": "system_profile_degradperline",
+        "dispName": "system_profile_degradperline",
+        "description": "system_profile_degradperline",
+        "type": "element",
+        "format": "/.ext/cbm_db/system_profile_degradperline",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    674,
+    "/.ext/cbm_db/sys_export_schema_01",
+    "",
+    "webclient",
+    {
+      "172": {
+        "name": "sys_export_schema_01",
+        "dispName": "sys_export_schema_01",
+        "description": "sys_export_schema_01",
+        "type": "element",
+        "format": "/.ext/cbm_db/sys_export_schema_01",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    675,
+    "/.ext/cbm_db/tcms_trouble_info",
+    "",
+    "webclient",
+    {
+      "173": {
+        "name": "tcms_trouble_info",
+        "dispName": "tcms_trouble_info",
+        "description": "tcms_trouble_info",
+        "type": "element",
+        "format": "/.ext/cbm_db/tcms_trouble_info",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    676,
+    "/.ext/cbm_db/test_config_trainperline",
+    "",
+    "webclient",
+    {
+      "174": {
+        "name": "test_config_trainperline",
+        "dispName": "test_config_trainperline",
+        "description": "test_config_trainperline",
+        "type": "element",
+        "format": "/.ext/cbm_db/test_config_trainperline",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    677,
+    "/.ext/cbm_db/train",
+    "",
+    "webclient",
+    {
+      "175": {
+        "name": "train",
+        "dispName": "train",
+        "description": "train",
+        "type": "element",
+        "format": "/.ext/cbm_db/train",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    678,
+    "/.ext/cbm_db/train_infer_job",
+    "",
+    "webclient",
+    {
+      "176": {
+        "name": "train_infer_job",
+        "dispName": "train_infer_job",
+        "description": "train_infer_job",
+        "type": "element",
+        "format": "/.ext/cbm_db/train_infer_job",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    679,
+    "/.ext/cbm_db/train_job_result_detail",
+    "",
+    "webclient",
+    {
+      "177": {
+        "name": "train_job_result_detail",
+        "dispName": "train_job_result_detail",
+        "description": "train_job_result_detail",
+        "type": "element",
+        "format": "/.ext/cbm_db/train_job_result_detail",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    680,
+    "/.ext/cbm_db/_auth",
+    "",
+    "webclient",
+    {
+      "178": {
+        "name": "_auth",
+        "dispName": "_auth",
+        "description": "_auth",
+        "type": "element",
+        "format": "/.ext/cbm_db/_auth",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    681,
+    "/.ext/cbm_db/status_DegradPerDevice",
+    "",
+    "webclient",
+    {
+      "179": {
+        "name": "status_DegradPerDevice",
+        "dispName": "status_DegradPerDevice",
+        "description": "status_DegradPerDevice",
+        "type": "element",
+        "format": "/.ext/cbm_db/status_DegradPerDevice",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ],
+  [
+    682,
+    "/.ext/cbm_db/status_DegradPerLine",
+    "",
+    "webclient",
+    {
+      "180": {
+        "name": "status_DegradPerLine",
+        "dispName": "status_DegradPerLine",
+        "description": "status_DegradPerLine",
+        "type": "element",
+        "format": "/.ext/cbm_db/status_DegradPerLine",
+        "store": "",
+        "storage": "/cbm_db"
+      }
+    }
+  ]
+]
