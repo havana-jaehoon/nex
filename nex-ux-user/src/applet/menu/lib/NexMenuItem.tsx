@@ -76,11 +76,10 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
   //const menuStyle = getThemeStyle(theme, "menu");
   const menuStyle = getThemeStyle(theme, "applet");
 
-  const selectedColor = menuStyle.activeColors[0];
-  const selectedBgColor = depts !== 0 ? "inherit" : menuStyle.activeBgColors[0];
+  const selectedColor = menuStyle.activeColor;
+  const selectedBgColor = depts !== 0 ? "inherit" : menuStyle.activeBgColor;
 
-  const fontSizeIndex = Math.max(0, defaultStyle.fontSize.length - 3 - depts);
-  const fontSize = defaultStyle.fontSize[fontSizeIndex];
+  const fontSize = defaultStyle.fontSize;
   const tabSize = `calc(${fontSize} * ${depts} / 1.5)`;
 
   const iconSize = `calc(${fontSize} * 1.2)`;

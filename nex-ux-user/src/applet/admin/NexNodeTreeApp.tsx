@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { observer } from "mobx-react-lite";
 import NexApplet, { NexAppProps } from "../NexApplet";
-import { NexDiv } from "../../component/base/NexBaseComponents";
+import { NexDiv, NexLabel } from "../../component/base/NexBaseComponents";
 import {
   Alert,
   Button,
@@ -41,9 +41,10 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const [selectedKeys, setSelectedKeys] = useState<number[]>([]);
 
   const style = getThemeStyle(theme, "applet");
-  const activeColor = style.activeColors[0];
-  const color = style.colors[0];
-  const bgColor = style.bgColors[0];
+  const activeColor = style.activeColor;
+  const activeBgColor = style.activeBgColor;
+  const color = style.color;
+  const bgColor = style.bgColor;
 
   // 1. Apllet 의 기본 적인 코드
   // 1.1 NexApplet 의 데이터 유형 체크
@@ -56,11 +57,11 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
 
   const storeIndex = 0; // only 1 store
 
-  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
   const fontSize =
-    style.fontSize[clamp(fontLevel, 0, style.fontSize?.length - 1)] || "1rem";
+    style.fontSize || "1rem";
 
-  const iconSize = `calc(${fontSize} * 1.2)`;
+  const iconSize = `calc(${fontSize} * 1.1)`;
+  const gapSize = `calc(${fontSize} * 0.4)`;
 
   useEffect(() => {
     if (!contents) return;
@@ -406,25 +407,29 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
             <IconButton
               title="폴더 추가"
               onClick={handleAddFolder}
-              sx={{ color: color }}
+              sx={{ color: color, alignItems: "flex-center" }}
             >
               <PXIcon
                 path="/config/new-folder"
                 width={iconSize}
                 height={iconSize}
-              />
+              />{" "}
+              <span style={{ width: gapSize }} />
+              <NexLabel fontSize={fontSize}>폴더 추가</NexLabel>
             </IconButton>
           )}
           <IconButton
-            title="Add"
-            sx={{ color: color }}
+            title="엔티티 추가"
+            sx={{ color: color, alignItems: "flex-center" }}
             onClick={handleAddEntity}
           >
             <PXIcon
               path="/config/new-entity"
               width={iconSize}
               height={iconSize}
-            />
+            />{" "}
+            <span style={{ width: gapSize }} />
+            <NexLabel fontSize={fontSize}>엔티티 추가</NexLabel>
           </IconButton>
         </Stack>
         {systemSelector()}

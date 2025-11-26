@@ -35,13 +35,9 @@ const NexNodeSelctor: React.FC<NexAppProps> = observer((props) => {
   // 1.2 Theme 속성
   const appletStyle = getThemeStyle(theme, "applet");
 
-  const color = appletStyle.colors[0];
-  const bgColor = appletStyle.bgColors[0];
-  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
-  const fontSize =
-    appletStyle.fontSize[
-      clamp(fontLevel, 0, appletStyle.fontSize?.length - 1)
-    ] || "1rem";
+  const color = appletStyle.color;
+  const bgColor = appletStyle.bgColor;
+  const fontSize = appletStyle.fontSize;
 
   const features =
     contents?.[0].store.format.features ||

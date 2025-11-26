@@ -28,9 +28,9 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const [selectedKeys, setSelectedKeys] = useState<number[]>([]);
 
   const style = getThemeStyle(theme, "applet");
-  const activeColor = style.activeColors[0];
-  const color = style.colors[0];
-  const bgColor = style.bgColors[0];
+  const activeColor = style.activeColor;
+  const color = style.color;
+  const bgColor = style.bgColor;
 
   // 1. Apllet 의 기본 적인 코드
   // 1.1 NexApplet 의 데이터 유형 체크
@@ -43,9 +43,8 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
 
   const storeIndex = 0; // only 1 store
 
-  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
   const fontSize =
-    style.fontSize[clamp(fontLevel, 0, style.fontSize?.length - 1)] || "1rem";
+    style.fontSize || "1rem";
 
   //const treeData = contents?.[0]?.json || [];
 
@@ -256,7 +255,6 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       >
         {/* Add & Delete & Edit */}
         <Stack spacing={0.5} direction="row" justifyContent="end" width="100%">
-
           <IconButton
             title="폴더 추가"
             onClick={handleAddFolder}

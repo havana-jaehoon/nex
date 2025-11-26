@@ -31,10 +31,10 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
   const border = appletStyle.border || "none";
   const borderRadius = appletStyle.borderRadius || "0";
   const boxShadow = appletStyle.boxShadow || "none";
-  const appletBgColor = appletStyle.bgColors[0] || "#ffffff";
+  const appletBgColor = appletStyle.bgColor || "#ffffff";
 
-  const color = style.colors[0];
-  const bgColor = style.bgColors[0];
+  const color = style.color;
+  const bgColor = style.bgColor;
 
   if (!section) return null;
   //console.log("### NexPageViewer:", JSON.stringify(section, null, 2));
@@ -44,9 +44,9 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
 
   const contentsView = isContents && (
     <NexDiv
-      width='100%'
-      height='100%'
-      direction='column'
+      width="100%"
+      height="100%"
+      direction="column"
       padding={gap}
       style={{ boxSizing: "border-box" }}
     >
@@ -104,10 +104,10 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
   return (
     <NexDiv
       direction={"column"}
-      align='center'
-      justify='center'
-      width='100%'
-      height='100%'
+      align="center"
+      justify="center"
+      width="100%"
+      height="100%"
       flex={section.size || "1"}
       color={color}
       bgColor={bgColor}
@@ -116,12 +116,12 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
     >
       {/* Section Name Label */}
       {isVisibleTitle ? (
-        <NexDiv width='100%' height='1em'>
+        <NexDiv width="100%" height="1em">
           <NexLabel
-            width='100%'
-            height='100%'
-            align='center'
-            justify='center'
+            width="100%"
+            height="100%"
+            align="center"
+            justify="center"
             style={{ cursor: "pointer", fontSize: "0.8em" }}
           >
             {section.name || "Unnamed Section"}
@@ -130,11 +130,11 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
       ) : null}
       <NexDiv
         direction={section.direction || "row"}
-        width='100%'
-        height='100%'
-        align='center'
-        justify='center'
-        overflow='visible'
+        width="100%"
+        height="100%"
+        align="center"
+        justify="center"
+        overflow="visible"
         padding={padding}
       >
         {contentsView}

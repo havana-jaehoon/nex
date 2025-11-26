@@ -33,7 +33,7 @@ const PXHeadApp: React.FC<NexAppProps> = observer((props) => {
       justify="center"
       fontSize={contentsFontSize}
       fontWeight="bold"
-      color={style.colors[0]}
+      color={style.color}
     >
       <NexLabel> {name} </NexLabel>
     </NexDiv>

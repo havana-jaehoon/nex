@@ -37,13 +37,9 @@ const NexConfigDistApp: React.FC<NexAppProps> = observer((props) => {
   // 1.2 Theme 속성
   const appletStyle = getThemeStyle(theme, "applet");
 
-  const color = appletStyle.colors[0];
-  const bgColor = appletStyle.bgColors[0];
-  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
-  const fontSize =
-    appletStyle.fontSize[
-      clamp(fontLevel, 0, appletStyle.fontSize?.length - 1)
-    ] || "1rem";
+  const color = appletStyle.color;
+  const bgColor = appletStyle.bgColor;
+  const fontSize = appletStyle.fontSize || "1rem";
 
   const features =
     contents?.[0].store.format.features ||
@@ -66,7 +62,7 @@ const NexConfigDistApp: React.FC<NexAppProps> = observer((props) => {
 
   return (
     <NexApplet {...props} error={errorMsg()}>
-      <NexDiv direction='column' width='100%' height='100%'>
+      <NexDiv direction="column" width="100%" height="100%">
         <IconButton onClick={() => handleClick()}>
           <MdDownload />
         </IconButton>

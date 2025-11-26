@@ -30,14 +30,10 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
 
   const defaultStyle = getThemeStyle(theme, "default");
 
-  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
-  const fontSize =
-    defaultStyle?.fontSize[
-      clamp(fontLevel - 1, 0, defaultStyle?.fontSize?.length - 1)
-    ] || "1rem";
+  const fontSize = defaultStyle?.fontSize || "1rem";
 
-  const color = defaultStyle?.colors[0] || "#393c45";
-  const bgColor = defaultStyle?.bgColors[0] || "#e8edf7";
+  const color = defaultStyle?.color || "#393c45";
+  const bgColor = defaultStyle?.bgColor || "#e8edf7";
 
   const storeIndex = 0; // only 1 store
   const [record, setRecord] = useState<any>(null);

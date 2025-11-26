@@ -32,6 +32,7 @@ import { defaultThemeStyle, NexThemeStyle } from "type/NexTheme";
 import { clamp } from "utils/util";
 import { set } from "mobx";
 import { pxIconList, pxIconMap } from "icon/pxIcon";
+import { render } from "react-dom";
 
 // 향후 Theme 등에 적용 고려
 // 좁은 화면 세로 1열 편집 시
@@ -163,6 +164,8 @@ interface RecordsEditorProps {
   rows: any[];
   setRows: (rows: any[]) => void;
   recordFields?: any[]; // if provided, render object rows with these fields
+  argPath: string[];
+  renderFeature: (feature: any, path?: string[]) => React.ReactNode;
 }
 
 const RecordsEditor: React.FC<RecordsEditorProps> = ({
@@ -172,6 +175,8 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
   rows,
   setRows,
   recordFields,
+  renderFeature,
+  argPath,
 }) => {
   const addRow = (index: number) => {
     if (recordFields && recordFields.length > 0) {
@@ -251,9 +256,9 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
                 >
                   {recordFields.map((f, i) => {
                     const size = (f as any).uxSize || 6;
-                    return (
-                      <Grid item key={i} xs={size}>
-                        {f.featureType === NexFeatureType.LITERALS ? (
+                    if (f.featureType === NexFeatureType.LITERALS) {
+                      return (
+                        <Grid item key={i} xs={size}>
                           <LabeledSelect
                             label={f.dispName || f.name}
                             value={row[f.name] ?? ""}
@@ -267,7 +272,26 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
                               setRows(next);
                             }}
                           />
-                        ) : (
+                        </Grid>
+                      );
+                    }
+
+                    if (f.featureType === NexFeatureType.STRING_ARRAY) {
+                      const arr = Array.isArray(row[f.name]) ? row[f.name] : [];
+                      const setStr2Arr = (
+                        rows: any[],
+                        name: string,
+                        value: string
+                      ) => {
+                        const next = [...rows];
+                        next[rIdx] = {
+                          ...next[rIdx],
+                          [name]: value.split(",").map((s) => s.trim()),
+                        };
+                        setRows(next);
+                      };
+                      return (
+                        <Grid item key={i} xs={size}>
                           <TextField
                             label={f.dispName || f.name}
                             variant="standard"
@@ -282,7 +306,26 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
                               setRows(next);
                             }}
                           />
-                        )}
+                        </Grid>
+                      );
+                    }
+
+                    return (
+                      <Grid item key={i} xs={size}>
+                        <TextField
+                          label={f.dispName || f.name}
+                          variant="standard"
+                          value={row[f.name] ?? ""}
+                          style={{ width: "100%" }}
+                          onChange={(e) => {
+                            const next = [...rows];
+                            next[rIdx] = {
+                              ...next[rIdx],
+                              [f.name]: e.target.value,
+                            };
+                            setRows(next);
+                          }}
+                        />
                       </Grid>
                     );
                   })}
@@ -413,12 +456,10 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
     setFeatures(tfeatures);
   }, [node]);
 
-  const fontSize =
-    style.fontSize[clamp(fontLevel - 1, 0, style.fontSize.length - 1)] ||
-    "1rem";
+  const fontSize = style.fontSize || "1rem";
 
-  const color = style.colors[0];
-  const bgColor = style.bgColors[0];
+  const color = style.color;
+  const bgColor = style.bgColor;
 
   const handleReset = () => {
     // 입력된 node 데이터와 format 에 의해 만들어진 데이터를 병합
@@ -630,6 +671,8 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
             rows={rows}
             setRows={(r) => handleRecordsChange(argPath, r)}
             recordFields={feature.records}
+            argPath={argPath}
+            renderFeature={renderFeature}
           />
         </NexDiv>
       );

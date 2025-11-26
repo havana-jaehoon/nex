@@ -46,7 +46,7 @@ const NexApplet: React.FC<NexAppProps> = observer(
 
     if (error) {
       return (
-        <Alert severity='error' sx={{ textAlign: "left" }}>
+        <Alert severity="error" sx={{ textAlign: "left" }}>
           <AlertTitle>Error</AlertTitle>
           {error}
         </Alert>
@@ -60,17 +60,17 @@ const NexApplet: React.FC<NexAppProps> = observer(
       style?.fontSize[clamp(fontLevel, 0, style?.fontSize?.length - 1)] ||
       "1rem";
 
-    const color = style.colors?.[0] || "#000000";
-    const bgColor = style.bgColors?.[0] || "#FFFFFF";
-    const contentsBGColor = style?.bgColors?.[1] || "#FFFFFF";
+    const color = style.color || "#000000";
+    const bgColor = style.bgColor || "#FFFFFF";
+    const contentsBGColor = style.bgColor || "#FFFFFF";
 
     const padding = style.padding || "8px";
     return (
-      <NexDiv width='100%' height='100%'>
+      <NexDiv width="100%" height="100%">
         <NexDiv
-          direction='column'
-          width='100%'
-          height='100%'
+          direction="column"
+          width="100%"
+          height="100%"
           color={color}
           bgColor={bgColor}
           fontFamily={style?.fontFamily}
@@ -81,14 +81,14 @@ const NexApplet: React.FC<NexAppProps> = observer(
           {nexIcon(icon, fontSize)}
           {(name || name !== "") && (
             <NexDiv
-              fontWeight='bold'
+              fontWeight="bold"
               height={`calc(${fontSize} *2)`} // 0.5rem for padding
             >
               <NexLabel>{name}</NexLabel>
             </NexDiv>
           )}
 
-          <NexDiv width='100%' height='100%' bgColor={contentsBGColor}>
+          <NexDiv width="100%" height="100%" bgColor={contentsBGColor}>
             {children}
           </NexDiv>
         </NexDiv>

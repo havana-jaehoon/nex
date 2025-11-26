@@ -51,12 +51,12 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
   const border = style.border || "none";
   const borderRadius = style.borderRadius || "0";
   const boxShadow = style.boxShadow || "none";
-  const appletBgColor = style.bgColors[0] || "#ffffff";
+  const appletBgColor = style.bgColor || "#ffffff";
 
-  const color = style.colors[0];
-  const bgColor = style.bgColors[0];
-  const activeColor1 = style.activeColors[0];
-  const activeColor2 = style.activeColors[1];
+  const color = style.color;
+  const bgColor = style.bgColor;
+  const activeColor1 = style.activeColor;
+  const activeColor2 = style.activeColor;
 
   if (!section) return null;
 

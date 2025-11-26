@@ -57,8 +57,21 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
   const [jsonData, setJsonData] = useState<any>(null);
   const [nodeType, setNodeType] = useState<string | null>(null);
 
-  const appletStyle = getThemeStyle(theme, "applet");
-  const menuStyle = getThemeStyle(theme, "menu");
+  const style = getThemeStyle(theme, "applet");
+
+  const selectedColor = style.activeColor;
+  const selectedBgColor = style.activeBgColor;
+  console.log(
+    "NexNodeItem: style=",
+    JSON.stringify(style, null, 2),
+    "selectedBgColor=",
+    selectedBgColor
+  );
+
+  const fontSize = style.fontSize;
+  const borderFontSize = `calc(${fontSize} * 1.5)`;
+  // 들여쓰기 크기
+  const tabSize = `calc(${fontSize} * ${depts})`;
 
   useEffect(() => {
     if (node && node.data) {
@@ -84,21 +97,6 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
   }, [selectedIndex]);
 
   //console.log("NexNodeItem: theme=", JSON.stringify(theme, null, 2));
-
-  const selectedColor = appletStyle.activeColors[0];
-  const selectedBgColor = appletStyle.activeBgColors[0];
-
-  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
-
-  const fontSize =
-    appletStyle.fontSize[
-      clamp(fontLevel - 1, 0, appletStyle.fontSize?.length - 1)
-    ];
-
-  const borderFontSize = `calc(${fontSize} * 1.5)`;
-
-  // 들여쓰기 크기
-  const tabSize = `calc(${fontSize} * ${depts})`;
 
   const handleSelect = (i: number) => {
     //console.log("handleClick: path=", curPath);

@@ -1,16 +1,16 @@
 export interface NexThemeStyle {
   name: string;
-  colors: string[]; // 여러 색상을 지원하기 위해 배열로 변경
-  bgColors: string[]; // 배경색, 여러 색상을 지원하기 위해 배열로 변경
-  activeColors: string[]; // 활성화 색상, 여러 색상을 지원하기 위해 배열로 변경
-  activeBgColors: string[]; // 활성화 배경색, 여러 색상을 지원하기 위해 배열로 변경
-  hoverColors: string[]; // 호버 색상, 여러 색상을 지원하기 위해 배열로 변경
-  hoverBgColors: string[]; // 호버 배경색, 여러 색상을 지원하기 위해 배열로 변경
+  color: string; // 여러 색상을 지원하기 위해 배열로 변경
+  bgColor: string; // 배경색, 여러 색상을 지원하기 위해 배열로 변경
+  activeColor: string; // 활성화 색상, 여러 색상을 지원하기 위해 배열로 변경
+  activeBgColor: string; // 활성화 배경색, 여러 색상을 지원하기 위해 배열로 변경
+  hoverColor: string; // 호버 색상, 여러 색상을 지원하기 위해 배열로 변경
+  hoverBgColor: string; // 호버 배경색, 여러 색상을 지원하기 위해 배열로 변경
 
-  bdColors: string[]; // 테두리 색상, 여러 색상을 지원하기 위해 배열로 변경
+  bdColor: string; // 테두리 색상, 여러 색상을 지원하기 위해 배열로 변경
 
   fontFamily: string;
-  fontSize: string[]; //0~N levels of font size
+  fontSize: string; //0~N levels of font size
 
   boxShadow?: string;
   borderRadius?: string;
@@ -20,9 +20,9 @@ export interface NexThemeStyle {
   margin?: string;
 
   disabledBackgroundColor?: string;
-  disabledColor?: string[];
-  disabledBgColors?: string[]; // 여러 색상을 지원하기 위해 배열로 변경
-  disabledBdColor?: string[];
+  disabledColor?: string;
+  disabledBgColor?: string; // 여러 색상을 지원하기 위해 배열로 변경
+  disabledBdColor?: string;
   disabledBoxShadow?: string;
   focusBdColor?: string; // 포커스 시 테두리(Border) 색상
   focusBoxShadow?: string;
@@ -51,71 +51,49 @@ export const defaultThemeUser: NexThemeUser = {
 
 export const defaultThemeStyle: NexThemeStyle = {
   name: "default",
-  colors: ["#393c45", "#03dac6"],
-  bgColors: ["#eeeeee", "#e8edf7"],
-  bdColors: ["#cccccc", "#ccccee"], // 테두리 색상, 여러 색상을 지원하기 위해 배열로 변경
-  activeColors: ["#393c45", "#045bac"],
-  activeBgColors: ["#e8edf7", "#ffffff"], // 활성화 배경색, 여러 색상을 지원하기 위해 배열로 변경
-  hoverColors: ["#393c45", "#045bac"],
-  hoverBgColors: ["#e8edf7", "#ffffff"], // 호버 배경색, 여러 색상을 지원하기 위해 배열로 변경
+  color: "#393c45",
+  bgColor: "#eeeeee",
+  bdColor: "#cccccc", // 테두리 색상, 여러 색상을 지원하기 위해 배열로 변경
+  activeColor: "#393c45",
+  activeBgColor: "#e8edf7", // 활성화 배경색, 여러 색상을 지원하기 위해 배열로 변경
+  hoverColor: "#393c45",
+  hoverBgColor: "#e8edf7", // 호버 배경색, 여러 색상을 지원하기 위해 배열로 변경
   fontFamily: "Arial, sans-serif",
   gap: "2rem",
   padding: "0.2rem",
-  fontSize: [
-    "0.5rem",
-    "0.6rem",
-    "0.7rem",
-    "0.8rem",
-    "0.9rem",
-    "1rem",
-    "1.25rem",
-    "1.5rem",
-    "1.75rem",
-    "2rem",
-  ], // 0~N levels of font size
+  fontSize: "1rem",
 };
 
 export const defaultTheme: NexTheme = [
   defaultThemeStyle,
   {
     name: "applet",
-    colors: ["#393c45", "#045bac"],
-    bgColors: ["#e8edf7", "#ffffff"],
-    bdColors: ["#cccccc", "#ccccee"], // 테두리 색상, 여러 색상을 지원하기 위해 배열로 변경
-    activeColors: ["#393c45", "#045bac"],
-    activeBgColors: ["#e8edf7", "#ffffff"], // 활성화 배경색, 여러 색상을 지원하기 위해 배열로 변경
-    hoverColors: ["#393c45", "#045bac"],
-    hoverBgColors: ["#e8edf7", "#ffffff"], // 호버 배경색, 여러 색상을 지원하기 위해 배열로 변경
+    color: "#393c45",
+    bgColor: "#e8edf7",
+    bdColor: "#cccccc", // 테두리 색상, 여러 색상을 지원하기 위해 배열로 변경
+    activeColor: "#393c45",
+    activeBgColor: "#e8edf7", // 활성화 배경색, 여러 색상을 지원하기 위해 배열로 변경
+    hoverColor: "#393c45",
+    hoverBgColor: "#e8edf7", // 호버 배경색, 여러 색상을 지원하기 위해 배열로 변경
 
     fontFamily: "Arial, sans-serif",
     borderRadius: "0.5rem", // all | top right bottom left
     padding: "0rem", // all | top right bottom left
     gap: "0rem",
-    fontSize: [
-      "0.5rem",
-      "0.6rem",
-      "0.7rem",
-      "0.8rem",
-      "0.9rem",
-      "1rem",
-      "1.25rem",
-      "1.5rem",
-      "1.75rem",
-      "2rem",
-    ], // 0~N levels of font size
+    fontSize: "1rem",
   },
   {
     name: "button",
-    colors: ["#393c45", "#045bac"],
-    bgColors: ["#e8edf7", "#ffffff"],
-    bdColors: ["#cccccc", "#ccccee"], // 테두리 색상, 여러 색상을 지원하기 위해 배열로 변경
-    activeColors: ["#393c45", "#045bac"],
-    activeBgColors: ["#e8edf7", "#ffffff"], // 활성화 배경색, 여러 색상을 지원하기 위해 배열로 변경
-    hoverColors: ["#393c45", "#045bac"],
-    hoverBgColors: ["#e8edf7", "#ffffff"], // 호버 배경색, 여러 색상을 지원하기 위해 배열로 변경
+    color: "#393c45",
+    bgColor: "#e8edf7",
+    bdColor: "#cccccc", // 테두리 색상, 여러 색상을 지원하기 위해 배열로 변경
+    activeColor: "#393c45",
+    activeBgColor: "#e8edf7", // 활성화 배경색, 여러 색상을 지원하기 위해 배열로 변경
+    hoverColor: "#393c45",
+    hoverBgColor: "#e8edf7", // 호버 배경색, 여러 색상을 지원하기 위해 배열로 변경
 
     fontFamily: "Arial, sans-serif",
-    fontSize: ["1.5rem", "1.25rem", "1rem", "0.875rem"], // 0~N levels of font size
+    fontSize: "1rem",
     borderRadius: "4px",
   },
 ];

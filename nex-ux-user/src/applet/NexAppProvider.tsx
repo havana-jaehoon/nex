@@ -37,12 +37,11 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     const name = section?.dispName || "";
     const icon = section?.icon || "";
 
-    const defaultStyle = getThemeStyle(theme, "default");
     const appletStyle = getThemeStyle(theme, "applet");
     const border = appletStyle.border || "none";
     const borderRadius = appletStyle.borderRadius || "0";
     const boxShadow = appletStyle.boxShadow || "none";
-    const appletBgColor = appletStyle.bgColors[0] || "#ffffff";
+    const appletBgColor = appletStyle.bgColor || "#ffffff";
 
     const padding = section["app-padding"] || appletStyle.padding || "12px";
 

@@ -60,8 +60,8 @@ const JsonEditor: React.FC<JsonEditorProps> = ({
 
   const inputStyle = getThemeStyle(theme, "input");
 
-  const colorInput = inputStyle.colors[0];
-  const bgColorInput = inputStyle.bgColors[0];
+  const colorInput = inputStyle.color;
+  const bgColorInput = inputStyle.bgColor;
 
   const setValue = (e: React.KeyboardEvent<HTMLInputElement>) => {
     console.log("setValue : ", e.key);

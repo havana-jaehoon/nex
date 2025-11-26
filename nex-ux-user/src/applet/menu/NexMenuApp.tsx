@@ -20,8 +20,8 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
   //const style = getThemeStyle(theme, "menu");
   const style = getThemeStyle(theme, "applet");
 
-  const color = style.colors[0];
-  const bgColor = style.bgColors[0];
+  const color = style.color;
+  const bgColor = style.bgColor;
 
   // 1. Apllet 의 기본 적인 코드
   // 1.1 NexApplet 의 데이터 유형 체크
