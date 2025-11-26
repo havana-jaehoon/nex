@@ -8,6 +8,7 @@ import { buildMenuTree } from "./lib/NexMenuNode";
 import { clamp } from "utils/util";
 import { getThemeStyle } from "type/NexTheme";
 import { buildNexTree } from "utils/NexTreeNode";
+import { Stack } from "@mui/material";
 
 // CSV-Style menu data : type(item | folder), path, name, dispName, description, icon, color, route )
 
@@ -79,29 +80,38 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
 
   return (
     <NexDiv
-      flex="1"
-      direction="column"
-      align="center"
-      justify="flex-start"
       color={color}
       bgColor={bgColor}
       width="100%"
       height="100%"
       overflow="auto"
     >
-      {nexTree &&
-        nexTree.data &&
-        nexTree.data.map((node: any, index: number) => (
-          <NexMenuItem
-            key={index}
-            depts={0}
-            node={node}
-            theme={theme}
-            onClick={handleClick}
-            selectedPath={selectedPath}
-            onSelect={setSelectedPath}
-          />
-        ))}
+      <Stack
+        direction="column"
+        spacing={1}
+        justifyContent="flex-start"
+        alignContent="flex-start"
+        alignItems="flex-start"
+        sx={{
+          flex: 1,
+          minHeight: 0,
+          overflowY: "auto",
+        }}
+      >
+        {nexTree &&
+          nexTree.data &&
+          nexTree.data.map((node: any, index: number) => (
+            <NexMenuItem
+              key={index}
+              depts={0}
+              node={node}
+              theme={theme}
+              onClick={handleClick}
+              selectedPath={selectedPath}
+              onSelect={setSelectedPath}
+            />
+          ))}
+      </Stack>
     </NexDiv>
   );
 });

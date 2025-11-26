@@ -188,10 +188,7 @@
               "#cccccc",
               "#ccccee"
             ],
-            "activeColors": [
-              "#045bac",
-              "#045bac"
-            ],
+            "activeColors": "#0B6ABC,#045bac",
             "activeBgColors": [
               "#FFFFFF",
               "#ffffff"

@@ -7,6 +7,7 @@ import { NexDiv, NexLabel } from "../../component/base/NexBaseComponents";
 import { clamp } from "../../utils/util";
 import { Box, Button, Stack } from "@mui/material";
 import { getThemeStyle } from "type/NexTheme";
+import PXIcon from "icon/pxIcon";
 
 //import { fieldPaths } from "test/data/testProjects";
 

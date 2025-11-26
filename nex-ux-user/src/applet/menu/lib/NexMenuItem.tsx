@@ -10,6 +10,7 @@ import { NexMenuNode } from "./NexMenuNode";
 import { NexNodeType } from "type/NexNode";
 import { Stack } from "@mui/material";
 import { json } from "stream/consumers";
+import PXIcon from "icon/pxIcon";
 
 interface NexMenuItemProps {
   theme?: NexTheme; // Optional theme prop, can be used for styling
@@ -80,7 +81,9 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
 
   const fontSizeIndex = Math.max(0, defaultStyle.fontSize.length - 3 - depts);
   const fontSize = defaultStyle.fontSize[fontSizeIndex];
-  const tabSize = `calc(${fontSize} * ${depts})`;
+  const tabSize = `calc(${fontSize} * ${depts} / 1.5)`;
+
+  const iconSize = `calc(${fontSize} * 1.2)`;
 
   const handleClick = () => {
     if (isRoute) {
@@ -123,8 +126,18 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
         )}
         <span style={{ width: tabSize }} />
 
+        {jsonData && jsonData.icon && jsonData.icon !== "" && (
+          <>
+            <PXIcon
+              path={jsonData?.icon || ""}
+              width={iconSize}
+              height={iconSize}
+            />
+            <span style={{ width: fontSize }} />
+          </>
+        )}
         <NexLabel width="96%" height="100%">
-          {jsonData?.dispName || jsonData?.name || "No Name"}
+          {jsonData?.dispName || jsonData?.name || ""}
         </NexLabel>
         <NexDiv justify="end" width="2rem" height="100%" color={selectedColor}>
           {isChildren ? (

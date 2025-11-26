@@ -23,6 +23,7 @@ import { data, Route } from "react-router-dom";
 import { getThemeStyle } from "type/NexTheme";
 import axios from "axios";
 import pxConfig from "config/px-config.json";
+import PXIcon from "icon/pxIcon";
 
 const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const { name, contents, theme, user, onSelect, onUpdate, onAdd, onRemove } =
@@ -58,6 +59,8 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const fontLevel = user?.fontLevel || 5; // Default font level if not provided
   const fontSize =
     style.fontSize[clamp(fontLevel, 0, style.fontSize?.length - 1)] || "1rem";
+
+  const iconSize = `calc(${fontSize} * 1.2)`;
 
   useEffect(() => {
     if (!contents) return;
@@ -405,7 +408,11 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
               onClick={handleAddFolder}
               sx={{ color: color }}
             >
-              <MdCreateNewFolder />
+              <PXIcon
+                path="/config/new-folder"
+                width={iconSize}
+                height={iconSize}
+              />
             </IconButton>
           )}
           <IconButton
@@ -413,7 +420,11 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
             sx={{ color: color }}
             onClick={handleAddEntity}
           >
-            <MdNewLabel />
+            <PXIcon
+              path="/config/new-entity"
+              width={iconSize}
+              height={iconSize}
+            />
           </IconButton>
         </Stack>
         {systemSelector()}
