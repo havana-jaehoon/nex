@@ -25,6 +25,9 @@ class MessageQueueData:
     messageBody: dict = field(default_factory=dict)
     future: Optional[asyncio.Future] = None
 
+    def __str__(self):
+        return f'msg-type={self.messageType}'
+
 
 class ConfigAgentMgr(ConfigBaseMgr):
 
@@ -64,14 +67,15 @@ class ConfigAgentMgr(ConfigBaseMgr):
     def _initOwnConfig(self):
         try:
             self._logger.log_info(f'ConfigClientMgr : initOwnConfig : start')
-            if self._elementCfgs.load() and self._systemCfg.load():
-                self._logger.log_info(f'ConfigClientMgr : initOwnConfig : load success')
-            else:
-                config_data = self._queryConfig()
-                if not config_data or not isinstance(config_data, dict):
-                    raise Exception('config query fail')
+            config_data = self._queryConfig()
+            if config_data and isinstance(config_data, dict):
                 self._applyConfig(config_data)
                 self._logger.log_info(f'ConfigClientMgr : initOwnConfig : init success')
+            else:
+                if self._elementCfgs.load() and self._systemCfg.load():
+                    self._logger.log_info(f'ConfigClientMgr : initOwnConfig : load installed config')
+                else:
+                    raise Exception('load fail')
         except Exception as e:
             self._logger.log_error(f'ConfigClientMgr : initOwnConfig : fail to {e}')
             raise Exception(f'ConfigClientMgr : initOwnConfig fail to {e}')
@@ -126,13 +130,10 @@ class ConfigAgentMgr(ConfigBaseMgr):
     def start(self):
         self._logger.log_info(f'ConfigClientMgr : start')
         # start auth
-        if self._auth.load():
-            self._logger.log_info(f'ConfigClientMgr : auth-agent load success')
+        if self._auth.init():
+            self._logger.log_info(f'ConfigClientMgr : auth-agent init success')
         else:
-            if self._auth.init():
-                self._logger.log_info(f'ConfigClientMgr : auth-agent init success')
-            else:
-                raise Exception('auth-agent init fail')
+            raise Exception('auth-agent init fail')
 
         # start config
         self._systemCfg = SystemCfg(SystemInfoMgr().config_dir)

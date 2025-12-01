@@ -222,8 +222,8 @@ class ElementCfgs:
     def init(self, config_data: dict, own_system_config: dict, reset: bool=False) -> bool:
         reordered_data = self._reorder_by_elements(config_data)
         if not reordered_data:
-            self._logger.log_error(f'ElementCfgs : init : fail to reorder data')
-            return False
+            self._logger.log_info(f'ElementCfgs : init : element data is empty')
+            return True
         with self._apiLock:
             try:
                 if reset:

@@ -169,12 +169,12 @@ class AuthServer(AuthBase):
         return handler_result
 
     def init(self, **kwargs) -> bool:
-        self._logger.log_info(f'AuthServer : init : start')
+        self._logger.log_info(f'AuthServer : init : start : {self._projectName}, {self._systemName}')
         if super()._init(self._projectName, self._systemName):
-            self._logger.log_info(f'AuthServer : init : success')
+            self._logger.log_info(f'AuthServer : init : success : {self._projectName}, {self._systemName}')
             return True
         else:
-            self._logger.log_error(f'AuthServer : init : fail')
+            self._logger.log_error(f'AuthServer : init : fail : {self._projectName}, {self._systemName}')
             return False
 
     def getInternalElementConfigFile(self) -> str:

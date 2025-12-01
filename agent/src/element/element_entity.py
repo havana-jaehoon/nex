@@ -27,19 +27,17 @@ class ElementEntity:
         self._scheme: Optional[SchemaDefinition] = None
         self._processor: Optional[ElementProcess] = None
         self._configRWLock = rwlock.RWLockFairD()
-        self._configRLock = self._configRWLock.gen_rlock()
-        self._configWLock = self._configRWLock.gen_wlock()
         self._schedulerJob = None
 
         self.applyConfig(element_cfg, scheduler)
 
     def __str__(self):
-        with self._configRLock:
+        with self._configRWLock.gen_rlock():
             return f'ElementEntity({self._config})'
 
     # scheduler-job handler
     def _interval_proc(self):
-        with self._configRLock:
+        with self._configRWLock.gen_rlock():
             if not self._processor:
                 return
             try:
@@ -66,7 +64,7 @@ class ElementEntity:
 
     # element-query handler
     async def _queryHandler(self, handler_args: HandlerArgs, kwargs: dict) -> HandlerResult:
-        with self._configRLock:
+        with self._configRWLock.gen_rlock():
             if self._processor and self._processor.is_query_custom_handler:
                 return await self._processor.query_custom_handler(handler_args, kwargs)
             else:
@@ -133,32 +131,32 @@ class ElementEntity:
                 self._schedulerJob = scheduler.add_job(self._interval_proc, 'interval', **trigger_args)
 
     def stop(self):
-        with self._configRLock:
+        with self._configRWLock.gen_wlock():
             self._reset()
 
     def getDataSync(self, filters: Optional[Dict[str, Any]] = None, columns: Optional[List[str]] = None) -> pd.DataFrame:
-        with self._configRLock:
+        with self._configRWLock.gen_rlock():
             if self._storage:
                 return self._storage.getData(self._scheme.name, filters, columns)
             else:
                 return pd.DataFrame()
 
     async def getDataAsync(self, filters: Optional[Dict[str, Any]] = None, columns: Optional[List[str]] = None) -> pd.DataFrame:
-        with self._configRLock:
+        with self._configRWLock.gen_rlock():
             if self._storage:
                 return await self._storage.getDataAsync(self._scheme.name, filters, columns)
             else:
                 return pd.DataFrame()
 
     def setData(self, data: pd.DataFrame):
-        with self._configRLock:
+        with self._configRWLock.gen_rlock():
             if self._storage:
                 chunk_size = self._config.getConfig('store').get('record').get('chunkSize', 1000)
                 allowed_upsert = self._config.getConfig('store').get('record').get('allowUpsert', True)
                 self._storage.setData(self._scheme.name, data, chunk_size, allowed_upsert)
 
     def applyConfig(self, element_cfg: ElementCfg, scheduler: BaseScheduler):
-        with self._configWLock:
+        with self._configRWLock.gen_wlock():
             if DictUtil.deep_equal_ignore_order(self._config, element_cfg):
                 Logger().log_info(f'Element is not applied (config same) : {self._config.id}')
                 return
@@ -175,12 +173,12 @@ class ElementEntity:
 
     @property
     def id(self) -> str:
-        with self._configRLock:
+        with self._configRWLock.gen_rlock():
             return self._config.id
 
     @property
     def url(self) -> str:
-        with self._configRLock:
+        with self._configRWLock.gen_rlock():
             return self._config.url
 
     def getQueryHandler(self) -> Tuple[Server_Dynamic_Handler, dict]:

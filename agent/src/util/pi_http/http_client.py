@@ -71,15 +71,15 @@ class HttpClient:
             response = await self._http_client_async.post(url, json=data, timeout=timeout)
             response_code = response.status_code
             body_str = response.text
-            # self._logger.log_verbose(f"http-post(async): {url}-{data} : {response_code}")
+            # self._logger.log_verbose(f"http-post(async): {url} : {response_code}")
         except httpx.RequestError as exc:
             response_code = self._getRsp4Exception(exc)
             body_str = ''
-            self._logger.log_error(f"http-post(async): {url}-{data} : exception {exc} : {response_code}")
+            self._logger.log_error(f"http-post(async): {url} : exception {exc} : {response_code}")
         except Exception as exc:
             response_code = 500
             body_str = ''
-            self._logger.log_error(f"http-post(async): {url}-{data} : exception {exc} : {response_code}")
+            self._logger.log_error(f"http-post(async): {url} : exception {exc} : {response_code}")
         return response_code, body_str
 
     async def _get_async(self, url: str, timeout: int=5) -> Tuple[int, str, bytes]:

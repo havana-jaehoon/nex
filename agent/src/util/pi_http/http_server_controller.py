@@ -76,15 +76,13 @@ class DynamicRouteProc:
         self._logger = Logger()
         self._routes: Dict[str, Tuple[Server_Dynamic_Handler, dict]] = {}
         self._routeRWLock = rwlock.RWLockFairD()
-        self._routeRLock = self._routeRWLock.gen_rlock()
-        self._routeWLock = self._routeRWLock.gen_wlock()
 
     def add_route(self, path: str, handler: Server_Dynamic_Handler, kwargs: dict = None):
-        with self._routeWLock:
+        with self._routeRWLock.gen_wlock():
             self._routes[path] = (handler, kwargs)
 
     def remove_route(self, path: str):
-        with self._routeWLock:
+        with self._routeRWLock.gen_wlock():
             del self._routes[path]
 
     async def route(self, req: Request, full_path: str) -> Response:
@@ -96,7 +94,7 @@ class DynamicRouteProc:
             return PlainTextResponse(status_code=e.error_code, content=e.message)
 
         # find handler
-        with self._routeRLock:
+        with self._routeRWLock.gen_rlock():
             match_base_path = ""
             for base_path in self._routes.keys():
                 if HttpUtil.is_match_url(base_path, full_path) and len(base_path) > len(match_base_path):
@@ -121,7 +119,9 @@ class DynamicRouteProc:
             res = _http_response(handler_result)
             return res
         except Exception as e:
-            self._logger.log_error(f"HttpServer : route({full_path}) : fail : exception : {e}")
+            import traceback
+            tb_str = traceback.format_exc()
+            self._logger.log_error(f"HttpServer : route({full_path}) : fail : exception : {e} : {tb_str}")
             return PlainTextResponse(status_code=500, content=f"exception : {e}")
 
 
