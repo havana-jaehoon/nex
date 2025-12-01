@@ -20,8 +20,6 @@ class ElementMgr(SingletonInstance):
         self._scheduler.add_executor(ThreadPoolExecutor(max_workers=20))
         self._elements: Dict[str, ElementEntity] = {}   # key: element_id
         self._elementMapRWLock = rwlock.RWLockFairD()
-        self._elementMapRLock = self._elementMapRWLock.gen_rlock()
-        self._elementMapWLock = self._elementMapRWLock.gen_wlock()
 
     def _addElement(self, element_cfg: ElementCfg):
         element_entity = ElementEntity(element_cfg, self._scheduler)
@@ -35,13 +33,13 @@ class ElementMgr(SingletonInstance):
             self._scheduler.shutdown()
 
     def addElement(self, element_cfg: ElementCfg):
-        with self._elementMapWLock:
+        with self._elementMapRWLock.gen_wlock():
             element_entity = ElementEntity(element_cfg, self._scheduler)
             self._elements[element_entity.id] = element_entity
             self._logger.log_info(f'Element is registered: {element_entity.id}')
 
     def reloadElementCfgs(self, element_cfgs: ElementCfgs):
-        with self._elementMapWLock:
+        with self._elementMapRWLock.gen_wlock():
             add_list = []
             del_list = []
             for element_cfg in element_cfgs.getElementConfigList():
@@ -65,7 +63,7 @@ class ElementMgr(SingletonInstance):
                 self._logger.log_info(f'Element is added: {element_cfg.id}')
 
     def getQueryHandlers(self) -> List[Tuple[str, Server_Dynamic_Handler, dict]]:
-        with self._elementMapRLock:
+        with self._elementMapRWLock.gen_rlock():
             return_list = []
             for element in self._elements.values():
                 handler, kwargs = element.getQueryHandler()
@@ -73,7 +71,7 @@ class ElementMgr(SingletonInstance):
             return return_list
 
     async def getDataAsync(self, element_id: str, filters: Optional[Dict[str, Any]] = None, columns: Optional[List[str]] = None) -> pd.DataFrame:
-        with self._elementMapRLock:
+        with self._elementMapRWLock.gen_rlock():
             element = self._elements.get(element_id, None)
             if element:
                 return await element.getDataAsync(filters, columns)
@@ -81,7 +79,7 @@ class ElementMgr(SingletonInstance):
                 return pd.DataFrame()
 
     def getDataSync(self, element_id: str, filters: Optional[Dict[str, Any]] = None, columns: Optional[List[str]] = None) -> pd.DataFrame:
-        with self._elementMapRLock:
+        with self._elementMapRWLock.gen_rlock():
             element = self._elements.get(element_id, None)
             if element:
                 return element.getDataSync(filters, columns)
@@ -89,7 +87,7 @@ class ElementMgr(SingletonInstance):
                 return pd.DataFrame()
 
     def setData(self, element_id: str, data: pd.DataFrame):
-        with self._elementMapRLock:
+        with self._elementMapRWLock.gen_rlock():
             element = self._elements.get(element_id, None)
             if element:
                 element.setData(data)

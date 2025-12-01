@@ -32,7 +32,7 @@ class HttpReqMgr(SingletonInstance):
         return sub_url
 
     @staticmethod
-    def _readBody(status_code: int, content_type: str, body_data: bytes) -> Optional[Any]:
+    def _readBody(status_code: int, content_type: Optional[str], body_data: bytes) -> Optional[Any]:
         media_type, charset = HttpUtil.parse_content_type_header(content_type)
         if status_code == 200 and body_data:
             if media_type == "application/json":
@@ -43,6 +43,8 @@ class HttpReqMgr(SingletonInstance):
                 return pd.read_csv(io.StringIO(body_str))
             elif media_type == "text/plain":
                 return body_data.decode(charset, errors='ignore')
+            else:
+                return body_data
         return None
 
     @staticmethod
@@ -190,15 +192,17 @@ class HttpReqMgr(SingletonInstance):
         results: List[Any] = [None] * len(target_list)
         for idx, fut, url in indexed_futures:
             try:
-                status_code, content_type, body_data = fut.result()
+                status_code, body_data = fut.result()
                 if status_code != 200:
                     Logger().log_error(f"HttpReq : Post-Rsp : {status_code}, {body_data} <= {url}")
                 else:
                     Logger().log_info(f"HttpReq : Post-Rsp : {status_code} <= {url}")
-                data = HttpReqMgr._readBody(status_code, content_type, body_data)
+                data = HttpReqMgr._readBody(status_code, None, body_data)
                 results[idx] = (status_code, data)
             except Exception as e:
-                Logger().log_error(f"HttpReq : Get : {url} exception : {e}")
+                import traceback
+                tb_str = traceback.format_exc()
+                Logger().log_error(f"HttpReq : Post-Rsp : {url} exception : {e} : {tb_str}")
                 results[idx] = None
         return results
 
