@@ -1,0 +1,217 @@
+{
+  "name": "fdu_wed",
+  "dispName": "fdu_wed",
+  "type": "format",
+  "features": [
+    {
+      "name": "time",
+      "dispName": "time",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "TIMESTAMP"
+    },
+    {
+      "name": "car",
+      "dispName": "car",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "seq_cnt",
+      "dispName": "seq_cnt",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "tp_1",
+      "dispName": "tp_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "tp_2",
+      "dispName": "tp_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "tp_3",
+      "dispName": "tp_3",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "tp_4",
+      "dispName": "tp_4",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "tp_5",
+      "dispName": "tp_5",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "tp_6",
+      "dispName": "tp_6",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "tp_7",
+      "dispName": "tp_7",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "tp_8",
+      "dispName": "tp_8",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "tp_9",
+      "dispName": "tp_9",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "sd_1",
+      "dispName": "sd_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "sd_2",
+      "dispName": "sd_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "sd_3",
+      "dispName": "sd_3",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "sd_4",
+      "dispName": "sd_4",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "sd_5",
+      "dispName": "sd_5",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "sd_6",
+      "dispName": "sd_6",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "sd_7",
+      "dispName": "sd_7",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "sd_8",
+      "dispName": "sd_8",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "sd_9",
+      "dispName": "sd_9",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "dv_1",
+      "dispName": "dv_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "dv_2",
+      "dispName": "dv_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "dv_3",
+      "dispName": "dv_3",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "dv_4",
+      "dispName": "dv_4",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "dv_5",
+      "dispName": "dv_5",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "dv_6",
+      "dispName": "dv_6",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "dv_7",
+      "dispName": "dv_7",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "dv_8",
+      "dispName": "dv_8",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "dv_9",
+      "dispName": "dv_9",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "name": "car_type_info",
+  "dispName": "car_type_info",
+  "type": "format",
+  "features": [
+    {
+      "name": "id",
+      "dispName": "id",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "name",
+      "dispName": "name",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "cars_num",
+      "dispName": "cars_num",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "post_car_no",
+      "dispName": "post_car_no",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "device_mtr_num",
+      "dispName": "device_mtr_num",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "device_cm_num",
+      "dispName": "device_cm_num",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "device_acm_num",
+      "dispName": "device_acm_num",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "device_dcu_num",
+      "dispName": "device_dcu_num",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "device_hvac_num",
+      "dispName": "device_hvac_num",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "device_tm_num",
+      "dispName": "device_tm_num",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "device_fdu_num",
+      "dispName": "device_fdu_num",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "device_daq_num",
+      "dispName": "device_daq_num",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "device_pac_num",
+      "dispName": "device_pac_num",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "device_ci_num",
+      "dispName": "device_ci_num",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    }
+  ]
+}

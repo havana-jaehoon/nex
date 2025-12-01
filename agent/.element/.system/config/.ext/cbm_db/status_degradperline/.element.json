@@ -1,0 +1,9 @@
+{
+  "name": "status_DegradPerLine",
+  "dispName": "status_DegradPerLine",
+  "description": "status_DegradPerLine",
+  "type": "element",
+  "format": "/.ext/cbm_db/status_DegradPerLine",
+  "store": "",
+  "storage": "/cbm_db"
+}

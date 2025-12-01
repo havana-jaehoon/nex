@@ -132,7 +132,7 @@ const LabeledSelect: React.FC<SelectProps> = ({
     console.warn(
       `# LabeledSelect: invalid value : label=${label}, value=${value}, opts=${JSON.stringify(literals, null, 2)}`
     );
-    onChange(literals[0].name);
+    //onChange(literals[0].name);
   }
 
   return (

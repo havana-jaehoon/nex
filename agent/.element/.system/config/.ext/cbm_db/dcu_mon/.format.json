@@ -1,0 +1,301 @@
+{
+  "name": "dcu_mon",
+  "dispName": "dcu_mon",
+  "type": "format",
+  "features": [
+    {
+      "name": "time",
+      "dispName": "time",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "TIMESTAMP"
+    },
+    {
+      "name": "car",
+      "dispName": "car",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "seq_cnt",
+      "dispName": "seq_cnt",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "dmc_1",
+      "dispName": "dmc_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "dmc_2",
+      "dispName": "dmc_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "pldmc_1",
+      "dispName": "pldmc_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "pldmc_2",
+      "dispName": "pldmc_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "hsmc_1",
+      "dispName": "hsmc_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "hsmc_2",
+      "dispName": "hsmc_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "lsmc_1",
+      "dispName": "lsmc_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "lsmc_2",
+      "dispName": "lsmc_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "topen_1",
+      "dispName": "topen_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "topen_2",
+      "dispName": "topen_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "tclose_1",
+      "dispName": "tclose_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "tclose_2",
+      "dispName": "tclose_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "siso_1",
+      "dispName": "siso_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "siso_2",
+      "dispName": "siso_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "diso_1",
+      "dispName": "diso_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "diso_2",
+      "dispName": "diso_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "close_relay",
+      "dispName": "close_relay",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "hsodone_1",
+      "dispName": "hsodone_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "hsodone_2",
+      "dispName": "hsodone_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "lsodone_1",
+      "dispName": "lsodone_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "lsodone_2",
+      "dispName": "lsodone_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "hscdone_1",
+      "dispName": "hscdone_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "hscdone_2",
+      "dispName": "hscdone_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "lscdone_1",
+      "dispName": "lscdone_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "lscdone_2",
+      "dispName": "lscdone_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "pldodone_1",
+      "dispName": "pldodone_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "pldodone_2",
+      "dispName": "pldodone_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "pldldone_1",
+      "dispName": "pldldone_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "pldldone_2",
+      "dispName": "pldldone_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "dodone_1",
+      "dispName": "dodone_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "dodone_2",
+      "dispName": "dodone_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "dcdone_1",
+      "dispName": "dcdone_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "dcdone_2",
+      "dispName": "dcdone_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "ishs_1",
+      "dispName": "ishs_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "ishs_2",
+      "dispName": "ishs_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "isls_1",
+      "dispName": "isls_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "isls_2",
+      "dispName": "isls_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "opc_1",
+      "dispName": "opc_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "opc_2",
+      "dispName": "opc_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    }
+  ]
+}

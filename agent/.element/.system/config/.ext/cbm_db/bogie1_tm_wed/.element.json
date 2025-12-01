@@ -1,0 +1,9 @@
+{
+  "name": "bogie1_tm_wed",
+  "dispName": "bogie1_tm_wed",
+  "description": "bogie1_tm_wed",
+  "type": "element",
+  "format": "/.ext/cbm_db/bogie1_tm_wed",
+  "store": "",
+  "storage": "/cbm_db"
+}

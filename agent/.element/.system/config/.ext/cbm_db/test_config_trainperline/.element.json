@@ -1,0 +1,9 @@
+{
+  "name": "test_config_trainperline",
+  "dispName": "test_config_trainperline",
+  "description": "test_config_trainperline",
+  "type": "element",
+  "format": "/.ext/cbm_db/test_config_trainperline",
+  "store": "",
+  "storage": "/cbm_db"
+}

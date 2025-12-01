@@ -1,0 +1,9 @@
+{
+  "name": "rule_device_maint_action",
+  "dispName": "rule_device_maint_action",
+  "description": "rule_device_maint_action",
+  "type": "element",
+  "format": "/.ext/cbm_db/rule_device_maint_action",
+  "store": "",
+  "storage": "/cbm_db"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "scaling",
+  "dispName": "scaling",
+  "description": "scaling",
+  "type": "element",
+  "format": "/.ext/cbm_db/scaling",
+  "store": "",
+  "storage": "/cbm_db"
+}

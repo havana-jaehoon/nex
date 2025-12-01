@@ -1,0 +1,9 @@
+{
+  "name": "cm_wed",
+  "dispName": "cm_wed",
+  "description": "cm_wed",
+  "type": "element",
+  "format": "/.ext/cbm_db/cm_wed",
+  "store": "",
+  "storage": "/cbm_db"
+}

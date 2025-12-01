@@ -1,0 +1,9 @@
+{
+  "name": "degrad_type_code",
+  "dispName": "degrad_type_code",
+  "description": "degrad_type_code",
+  "type": "element",
+  "format": "/.ext/cbm_db/degrad_type_code",
+  "store": "",
+  "storage": "/cbm_db"
+}

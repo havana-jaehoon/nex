@@ -1,0 +1,9 @@
+{
+  "name": "fdu_tue",
+  "dispName": "fdu_tue",
+  "description": "fdu_tue",
+  "type": "element",
+  "format": "/.ext/cbm_db/fdu_tue",
+  "store": "",
+  "storage": "/cbm_db"
+}

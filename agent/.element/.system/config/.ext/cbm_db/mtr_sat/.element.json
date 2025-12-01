@@ -1,0 +1,9 @@
+{
+  "name": "mtr_sat",
+  "dispName": "mtr_sat",
+  "description": "mtr_sat",
+  "type": "element",
+  "format": "/.ext/cbm_db/mtr_sat",
+  "store": "",
+  "storage": "/cbm_db"
+}

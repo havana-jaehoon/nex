@@ -1,0 +1,9 @@
+{
+  "name": "ext_stat_anod_result",
+  "dispName": "ext_stat_anod_result",
+  "description": "ext_stat_anod_result",
+  "type": "element",
+  "format": "/.ext/cbm_db/ext_stat_anod_result",
+  "store": "",
+  "storage": "/cbm_db"
+}

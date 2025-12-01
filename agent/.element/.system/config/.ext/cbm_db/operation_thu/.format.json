@@ -1,0 +1,259 @@
+{
+  "name": "operation_thu",
+  "dispName": "operation_thu",
+  "type": "format",
+  "features": [
+    {
+      "name": "time",
+      "dispName": "time",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "TIMESTAMP"
+    },
+    {
+      "name": "train",
+      "dispName": "train",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "tcms_seq",
+      "dispName": "tcms_seq",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "train_number",
+      "dispName": "train_number",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "active",
+      "dispName": "active",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "head",
+      "dispName": "head",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "car_number",
+      "dispName": "car_number",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "speed",
+      "dispName": "speed",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "cur_station",
+      "dispName": "cur_station",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "next_station",
+      "dispName": "next_station",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "final_station",
+      "dispName": "final_station",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "distance",
+      "dispName": "distance",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "distance_tc1",
+      "dispName": "distance_tc1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "distance_tc2",
+      "dispName": "distance_tc2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "dist",
+      "dispName": "dist",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "close",
+      "dispName": "close",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "left_open",
+      "dispName": "left_open",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "right_open",
+      "dispName": "right_open",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "npf",
+      "dispName": "npf",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "lpf",
+      "dispName": "lpf",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "siv_tc1_power",
+      "dispName": "siv_tc1_power",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "siv_tc2_power",
+      "dispName": "siv_tc2_power",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "si_m1_1_cs_power",
+      "dispName": "si_m1_1_cs_power",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "si_m1_2_cs_power",
+      "dispName": "si_m1_2_cs_power",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "si_m2_1_cs_power",
+      "dispName": "si_m2_1_cs_power",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "si_m2_2_cs_power",
+      "dispName": "si_m2_2_cs_power",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "si_m_1_cs_power",
+      "dispName": "si_m_1_cs_power",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "si_m_2_cs_power",
+      "dispName": "si_m_2_cs_power",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "si_m1_1_re_power",
+      "dispName": "si_m1_1_re_power",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "si_m1_2_re_power",
+      "dispName": "si_m1_2_re_power",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "si_m2_1_re_power",
+      "dispName": "si_m2_1_re_power",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "si_m_1_re_power",
+      "dispName": "si_m_1_re_power",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "si_m_2_re_power",
+      "dispName": "si_m_2_re_power",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "si_m2_2_re_power",
+      "dispName": "si_m2_2_re_power",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "created_at",
+      "dispName": "created_at",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "TIMESTAMP"
+    },
+    {
+      "name": "otemp",
+      "dispName": "otemp",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    }
+  ]
+}

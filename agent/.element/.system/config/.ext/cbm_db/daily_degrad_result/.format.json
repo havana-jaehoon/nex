@@ -1,0 +1,105 @@
+{
+  "name": "daily_degrad_result",
+  "dispName": "daily_degrad_result",
+  "type": "format",
+  "features": [
+    {
+      "name": "id",
+      "dispName": "id",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "device",
+      "dispName": "device",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "degrad_rule",
+      "dispName": "degrad_rule",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "result_date",
+      "dispName": "result_date",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "TIMESTAMP"
+    },
+    {
+      "name": "device_type",
+      "dispName": "device_type",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "device_policy",
+      "dispName": "device_policy",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "line",
+      "dispName": "line",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "train",
+      "dispName": "train",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "car",
+      "dispName": "car",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "total_op_dist",
+      "dispName": "total_op_dist",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "degrad_score",
+      "dispName": "degrad_score",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "FLOAT"
+    },
+    {
+      "name": "degrad_threshold",
+      "dispName": "degrad_threshold",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "FLOAT"
+    },
+    {
+      "name": "degrad_level",
+      "dispName": "degrad_level",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "degrad_speed",
+      "dispName": "degrad_speed",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    }
+  ]
+}

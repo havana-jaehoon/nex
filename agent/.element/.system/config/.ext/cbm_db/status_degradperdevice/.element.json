@@ -1,0 +1,9 @@
+{
+  "name": "status_DegradPerDevice",
+  "dispName": "status_DegradPerDevice",
+  "description": "status_DegradPerDevice",
+  "type": "element",
+  "format": "/.ext/cbm_db/status_DegradPerDevice",
+  "store": "",
+  "storage": "/cbm_db"
+}

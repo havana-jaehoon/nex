@@ -107,7 +107,7 @@
         "direction": "row",
         "size": "1",
         "padding": "",
-        "app-padding": "8px",
+        "app-padding": "",
         "applet": "/admin/menu",
         "contents": [
           "/admin/menu"
@@ -1651,6 +1651,52 @@
         "isRoutes": "",
         "route": "",
         "size": 1,
+        "padding": "",
+        "app-padding": "",
+        "applet": "",
+        "contents": ""
+      }
+    }
+  ],
+  [
+    248,
+    "/Home/Body/Main/new-section-205808",
+    "",
+    "",
+    {
+      "3": {
+        "name": "new-section-205808",
+        "dispName": "",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "test1",
+        "size": "",
+        "padding": "",
+        "app-padding": "",
+        "applet": "",
+        "contents": ""
+      }
+    }
+  ],
+  [
+    249,
+    "/Home/Body/Main/new-section-205911",
+    "",
+    "",
+    {
+      "4": {
+        "name": "new-section-205911",
+        "dispName": "",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "test2",
+        "size": "",
         "padding": "",
         "app-padding": "",
         "applet": "",

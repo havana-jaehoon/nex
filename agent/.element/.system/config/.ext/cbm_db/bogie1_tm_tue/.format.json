@@ -1,0 +1,112 @@
+{
+  "name": "bogie1_tm_tue",
+  "dispName": "bogie1_tm_tue",
+  "type": "format",
+  "features": [
+    {
+      "name": "time",
+      "dispName": "time",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "TIMESTAMP"
+    },
+    {
+      "name": "car",
+      "dispName": "car",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "seq_cnt",
+      "dispName": "seq_cnt",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "igo",
+      "dispName": "igo",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "p",
+      "dispName": "p",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "b",
+      "dispName": "b",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "im",
+      "dispName": "im",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "tebe",
+      "dispName": "tebe",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "lw",
+      "dispName": "lw",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "dsb_temp_1",
+      "dispName": "dsb_temp_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "dsb_temp_2",
+      "dispName": "dsb_temp_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "sc_temp_1",
+      "dispName": "sc_temp_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "sc_temp_2",
+      "dispName": "sc_temp_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "speed_1",
+      "dispName": "speed_1",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "speed_2",
+      "dispName": "speed_2",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    }
+  ]
+}

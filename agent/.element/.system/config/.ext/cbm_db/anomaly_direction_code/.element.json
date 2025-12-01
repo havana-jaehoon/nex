@@ -1,0 +1,9 @@
+{
+  "name": "anomaly_direction_code",
+  "dispName": "anomaly_direction_code",
+  "description": "anomaly_direction_code",
+  "type": "element",
+  "format": "/.ext/cbm_db/anomaly_direction_code",
+  "store": "",
+  "storage": "/cbm_db"
+}

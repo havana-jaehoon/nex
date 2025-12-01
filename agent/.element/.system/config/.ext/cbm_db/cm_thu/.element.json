@@ -1,0 +1,9 @@
+{
+  "name": "cm_thu",
+  "dispName": "cm_thu",
+  "description": "cm_thu",
+  "type": "element",
+  "format": "/.ext/cbm_db/cm_thu",
+  "store": "",
+  "storage": "/cbm_db"
+}

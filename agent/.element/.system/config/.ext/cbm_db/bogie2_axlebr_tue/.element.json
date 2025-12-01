@@ -1,0 +1,9 @@
+{
+  "name": "bogie2_axlebr_tue",
+  "dispName": "bogie2_axlebr_tue",
+  "description": "bogie2_axlebr_tue",
+  "type": "element",
+  "format": "/.ext/cbm_db/bogie2_axlebr_tue",
+  "store": "",
+  "storage": "/cbm_db"
+}

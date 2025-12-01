@@ -316,23 +316,21 @@ class AdminMgr(SingletonInstance):
             self._loadConfigs()
 
             # 4. http://121.134.202.23:8090/cmd-api/admin/config/refresh POST 호출 루틴 추가 필요
-            try:
-                req = HttpReqMgr()
-                status, body = req.postByAddress(
-                    target_ip="121.134.202.23",
-                    target_port=8090,
-                    sub_url="/cmd-api/admin/config/refresh",
-                    data={}
-                )
-                if status != 200:
-                    Logger().log_error(f'{self.__str__()}::_distribution() : refresh POST failed status={status}, body={body}')
-                else:
-                    Logger().log_info(f'{self.__str__()}::_distribution() : refresh POST succeeded')
-            except Exception as e:
-                Logger().log_error(f'{self.__str__()}::_distribution() : refresh POST exception: {e}')
-
-
-
+            if False:
+                try:
+                    req = HttpReqMgr()
+                    status, body = req.postByAddress(
+                        target_ip="121.134.202.23",
+                        target_port=8090,
+                        sub_url="/cmd-api/admin/config/refresh",
+                        data={}
+                    )
+                    if status != 200:
+                        Logger().log_error(f'{self.__str__()}::_distribution() : refresh POST failed status={status}, body={body}')
+                    else:
+                        Logger().log_info(f'{self.__str__()}::_distribution() : refresh POST succeeded')
+                except Exception as e:
+                    Logger().log_error(f'{self.__str__()}::_distribution() : refresh POST exception: {e}')
 
             return HandlerResult(status=200, body='success')
         except Exception as e:

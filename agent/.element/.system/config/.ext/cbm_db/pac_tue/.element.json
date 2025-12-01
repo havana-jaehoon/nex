@@ -1,0 +1,9 @@
+{
+  "name": "pac_tue",
+  "dispName": "pac_tue",
+  "description": "pac_tue",
+  "type": "element",
+  "format": "/.ext/cbm_db/pac_tue",
+  "store": "",
+  "storage": "/cbm_db"
+}

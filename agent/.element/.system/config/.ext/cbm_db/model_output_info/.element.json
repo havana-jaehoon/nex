@@ -1,0 +1,9 @@
+{
+  "name": "model_output_info",
+  "dispName": "model_output_info",
+  "description": "model_output_info",
+  "type": "element",
+  "format": "/.ext/cbm_db/model_output_info",
+  "store": "",
+  "storage": "/cbm_db"
+}

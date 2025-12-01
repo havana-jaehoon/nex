@@ -1,0 +1,91 @@
+{
+  "name": "mtr_tue",
+  "dispName": "mtr_tue",
+  "type": "format",
+  "features": [
+    {
+      "name": "time",
+      "dispName": "time",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "TIMESTAMP"
+    },
+    {
+      "name": "car",
+      "dispName": "car",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "seq_cnt",
+      "dispName": "seq_cnt",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "oiltemp",
+      "dispName": "oiltemp",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "lv",
+      "dispName": "lv",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "lc",
+      "dispName": "lc",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "siv_input_v",
+      "dispName": "siv_input_v",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "siv_input_c",
+      "dispName": "siv_input_c",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "bogie1_input_v",
+      "dispName": "bogie1_input_v",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "bogie1_input_c",
+      "dispName": "bogie1_input_c",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "bogie2_input_v",
+      "dispName": "bogie2_input_v",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "bogie2_input_c",
+      "dispName": "bogie2_input_c",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    }
+  ]
+}

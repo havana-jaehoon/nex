@@ -57,8 +57,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
 
   const storeIndex = 0; // only 1 store
 
-  const fontSize =
-    style.fontSize || "1rem";
+  const fontSize = style.fontSize || "1rem";
 
   const iconSize = `calc(${fontSize} * 1.1)`;
   const gapSize = `calc(${fontSize} * 0.4)`;
@@ -89,7 +88,8 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
         setSelectedKeys(content.selectedKeys);
       }
 
-      nodeList[nodeType] = [];
+      if (!nodeList[nodeType]) nodeList[nodeType] = [];
+
       content.data.forEach((item: any) => {
         const obj = item[4];
         const node: any = Object.values(obj)[0];
@@ -110,7 +110,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const treeData = useMemo(() => {
     let selectedDatas: any[] = [];
     mainDatas.forEach((data: any) => {
-      if (data[3] === systemName) {
+      if (type !== NexNodeType.ELEMENT || data[3] === systemName) {
         selectedDatas.push(data);
       }
     });
@@ -345,28 +345,55 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       nodes[NexNodeType.SYSTEM].length > 0
     ) {
       return (
-        <Stack spacing={0.5} direction="row" justifyContent="end" width="100%">
+        <Stack
+          spacing={1}
+          direction="row"
+          justifyContent="space-between"
+          width="100%"
+        >
           <Select
             value={systemName}
             onChange={(e) => setSystemName(e.target.value as string)}
+            fullWidth={true}
+            displayEmpty
+            renderValue={(selected) => {
+              if (selected === "") return "시스템을 선택";
+              const item = nodes[NexNodeType.SYSTEM].find(
+                (n: any) => n.name === selected
+              );
+              return item ? item.dispName : selected;
+            }}
           >
-            {nodes[NexNodeType.SYSTEM].map((node: any) => (
-              <MenuItem key={node.index} value={node.name}>
+            {nodes[NexNodeType.SYSTEM].map((node: any, index: number) => (
+              <MenuItem key={index} value={node.name}>
                 {node.dispName}
               </MenuItem>
             ))}
           </Select>
           <Select
             value={storageName}
+            fullWidth={true}
             onChange={(e) => setStorageName(e.target.value as string)}
+            displayEmpty
+            renderValue={(selected) => {
+              if (selected === "") return "스토리지 선택";
+              const item = nodes[NexNodeType.SYSTEM].find(
+                (n: any) => n.name === selected
+              );
+              return item ? item.dispName : selected;
+            }}
           >
-            {nodes[NexNodeType.STORAGE].map((node: any) => (
-              <MenuItem key={node.index} value={node.name}>
+            {nodes[NexNodeType.STORAGE].map((node: any, index: number) => (
+              <MenuItem key={index} value={node.name}>
                 {node.dispName}
               </MenuItem>
             ))}
           </Select>
-          <Button variant="contained" onClick={handleGenDbData}>
+          <Button
+            variant="contained"
+            sx={{ width: "70%" }}
+            onClick={handleGenDbData}
+          >
             DB 데이터 생성
           </Button>
         </Stack>
@@ -394,6 +421,8 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
           handleSelect(-1);
         }}
       >
+        <span style={{ height: gapSize }} />
+        <span style={{ height: gapSize }} />
         <Button
           variant="contained"
           size="large"
@@ -402,7 +431,10 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
         >
           설정 적용
         </Button>
-        <Stack spacing={0.5} direction="row" justifyContent="end" width="100%">
+        <span style={{ height: gapSize }} />
+
+        {systemSelector()}
+        <Stack spacing={1} direction="row" justifyContent="end" width="100%">
           {!(type === NexNodeType.SYSTEM || type === NexNodeType.SECTION) && (
             <IconButton
               title="폴더 추가"
@@ -432,7 +464,10 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
             <NexLabel fontSize={fontSize}>엔티티 추가</NexLabel>
           </IconButton>
         </Stack>
-        {systemSelector()}
+
+        <span style={{ height: gapSize }} />
+        <span style={{ height: gapSize }} />
+
         <NexDiv width="100%" overflow="auto">
           <Stack spacing={0.5} direction="column" width="100%">
             {treeData &&

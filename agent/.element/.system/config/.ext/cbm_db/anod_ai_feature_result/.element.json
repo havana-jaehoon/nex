@@ -1,0 +1,9 @@
+{
+  "name": "anod_ai_feature_result",
+  "dispName": "anod_ai_feature_result",
+  "description": "anod_ai_feature_result",
+  "type": "element",
+  "format": "/.ext/cbm_db/anod_ai_feature_result",
+  "store": "",
+  "storage": "/cbm_db"
+}

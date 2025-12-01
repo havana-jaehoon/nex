@@ -1,0 +1,9 @@
+{
+  "name": "sys_export_schema_01",
+  "dispName": "sys_export_schema_01",
+  "description": "sys_export_schema_01",
+  "type": "element",
+  "format": "/.ext/cbm_db/sys_export_schema_01",
+  "store": "",
+  "storage": "/cbm_db"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "adx_infer_job",
+  "dispName": "adx_infer_job",
+  "description": "adx_infer_job",
+  "type": "element",
+  "format": "/.ext/cbm_db/adx_infer_job",
+  "store": "",
+  "storage": "/cbm_db"
+}

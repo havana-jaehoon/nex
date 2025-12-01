@@ -1,0 +1,9 @@
+{
+  "name": "bogie1_tm_sun",
+  "dispName": "bogie1_tm_sun",
+  "description": "bogie1_tm_sun",
+  "type": "element",
+  "format": "/.ext/cbm_db/bogie1_tm_sun",
+  "store": "",
+  "storage": "/cbm_db"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "device_type_info",
+  "dispName": "device_type_info",
+  "description": "device_type_info",
+  "type": "element",
+  "format": "/.ext/cbm_db/device_type_info",
+  "store": "",
+  "storage": "/cbm_db"
+}

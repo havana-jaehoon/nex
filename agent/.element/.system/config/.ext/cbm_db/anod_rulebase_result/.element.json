@@ -1,0 +1,9 @@
+{
+  "name": "anod_rulebase_result",
+  "dispName": "anod_rulebase_result",
+  "description": "anod_rulebase_result",
+  "type": "element",
+  "format": "/.ext/cbm_db/anod_rulebase_result",
+  "store": "",
+  "storage": "/cbm_db"
+}

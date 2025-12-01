@@ -1,0 +1,35 @@
+{
+  "name": "status_DegradPerDevice",
+  "dispName": "status_DegradPerDevice",
+  "type": "format",
+  "features": [
+    {
+      "name": "label",
+      "dispName": "label",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "STRING"
+    },
+    {
+      "name": "alert",
+      "dispName": "alert",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "warning",
+      "dispName": "warning",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "created_at",
+      "dispName": "created_at",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "TIMESTAMP"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "name": "train",
+  "dispName": "train",
+  "type": "format",
+  "features": [
+    {
+      "name": "id",
+      "dispName": "id",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "line",
+      "dispName": "line",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "train_no",
+      "dispName": "train_no",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "system_type",
+      "dispName": "system_type",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    },
+    {
+      "name": "external_link",
+      "dispName": "external_link",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "STRING"
+    }
+  ]
+}

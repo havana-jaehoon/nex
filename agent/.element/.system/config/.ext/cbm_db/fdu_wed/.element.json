@@ -1,0 +1,9 @@
+{
+  "name": "fdu_wed",
+  "dispName": "fdu_wed",
+  "description": "fdu_wed",
+  "type": "element",
+  "format": "/.ext/cbm_db/fdu_wed",
+  "store": "",
+  "storage": "/cbm_db"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "pac_sun",
+  "dispName": "pac_sun",
+  "description": "pac_sun",
+  "type": "element",
+  "format": "/.ext/cbm_db/pac_sun",
+  "store": "",
+  "storage": "/cbm_db"
+}

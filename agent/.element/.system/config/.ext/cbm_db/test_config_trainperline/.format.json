@@ -1,0 +1,21 @@
+{
+  "name": "test_config_trainperline",
+  "dispName": "test_config_trainperline",
+  "type": "format",
+  "features": [
+    {
+      "name": "line",
+      "dispName": "line",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "STRING"
+    },
+    {
+      "name": "train",
+      "dispName": "train",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "STRING"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "bogie2_axlebr_sat",
+  "dispName": "bogie2_axlebr_sat",
+  "description": "bogie2_axlebr_sat",
+  "type": "element",
+  "format": "/.ext/cbm_db/bogie2_axlebr_sat",
+  "store": "",
+  "storage": "/cbm_db"
+}

@@ -1,0 +1,28 @@
+{
+  "name": "device",
+  "dispName": "device",
+  "type": "format",
+  "features": [
+    {
+      "name": "id",
+      "dispName": "id",
+      "type": "feature",
+      "isKey": true,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "car",
+      "dispName": "car",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    },
+    {
+      "name": "car_device",
+      "dispName": "car_device",
+      "type": "feature",
+      "isKey": false,
+      "featureType": "NUMBER"
+    }
+  ]
+}
