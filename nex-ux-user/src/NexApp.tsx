@@ -26,7 +26,7 @@ const NexApp: React.FC<NexAppProps> = observer((props) => {
       setSections([]);
       return;
     }
-    console.log("NexApp configStore:", configStore);
+    //console.log("NexApp configStore:", configStore);
     setSections(configStore?.config.websections);
   }, [configStore, configStore.isReady]);
   //const section = configStore?.config.websections[0];
@@ -35,11 +35,11 @@ const NexApp: React.FC<NexAppProps> = observer((props) => {
   return (
     <NexStoreProvider configStore={configStore}>
       <NexDiv
-        align='center'
-        justify='center'
-        width='100%'
-        height='100%'
-        overflow='hidden'
+        align="center"
+        justify="center"
+        width="100%"
+        height="100%"
+        overflow="hidden"
         style={{ position: "fixed", inset: 0, boxSizing: "border-box" }}
       >
         {sections.length === 0 || !configStore.isReady ? (
@@ -48,7 +48,7 @@ const NexApp: React.FC<NexAppProps> = observer((props) => {
           <Router>
             <Routes>
               <Route
-                path='*'
+                path="*"
                 element={
                   <NexPageViewer
                     key={sections[0].name}
@@ -67,11 +67,11 @@ const NexApp: React.FC<NexAppProps> = observer((props) => {
   return (
     <NexStoreProvider configStore={configStore}>
       <NexDiv
-        align='center'
-        justify='center'
-        width='100%'
-        height='100%'
-        overflow='hidden'
+        align="center"
+        justify="center"
+        width="100%"
+        height="100%"
+        overflow="hidden"
         style={{ position: "fixed", inset: 0, boxSizing: "border-box" }}
       >
         {sections.length === 0 || !configStore.isReady ? (
@@ -80,7 +80,7 @@ const NexApp: React.FC<NexAppProps> = observer((props) => {
           <Router>
             <Routes>
               <Route
-                path='*'
+                path="*"
                 element={
                   <Routes>
                     {sections.map((section, i) => {

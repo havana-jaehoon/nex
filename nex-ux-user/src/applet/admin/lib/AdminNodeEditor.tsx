@@ -33,6 +33,9 @@ import { clamp } from "utils/util";
 import { set } from "mobx";
 import { pxIconList, pxIconMap } from "icon/pxIcon";
 import { render } from "react-dom";
+import { on } from "events";
+import { appletPathList, appletPathMap } from "applet/nexApplets";
+import path from "path";
 
 // 향후 Theme 등에 적용 고려
 // 좁은 화면 세로 1열 편집 시
@@ -101,6 +104,368 @@ function asFeatureValue(value: string, featureType: NexFeatureType) {
 }
 
 // ===== UI atoms =====
+
+interface ItemInputProps {
+  label: string;
+  value: any;
+  itemType: string;
+  argPath: string[];
+  featureType: any;
+  nodes: any;
+  nodePaths: any;
+  onChange: (
+    argPath: string[],
+    featureType: NexFeatureType,
+    value: any
+  ) => void;
+}
+
+const ItemInput: React.FC<ItemInputProps> = ({
+  label,
+  value,
+  itemType,
+  argPath,
+  featureType,
+  nodes,
+  nodePaths,
+  onChange,
+}) => {
+  const [systemName, setSystemName] = useState<string>("");
+  const [pathValue, setPathValue] = useState<string>("");
+  const [nodeValue, setNodeValue] = useState<string>("");
+
+  //const [pathSelections, setPathSelections] = useState<any[] | null>(null);
+  //const [nodeSelections, setNodeSelections] = useState<any[] | null>(null);
+  /*
+  let pathSelections: any[] | null = null;
+
+  if (
+    label === NexNodeType.SYSTEM ||
+    label === NexNodeType.STORAGE ||
+    label === NexNodeType.FORMAT ||
+    label === NexNodeType.FORMAT ||
+    label === NexNodeType.STORE ||
+    label === NexNodeType.PROCESSOR ||
+    label === NexNodeType.ELEMENT ||
+    label === NexNodeType.CONTENTS ||
+    label === NexNodeType.APPLET ||
+    label === NexNodeType.THEME ||
+    label === NexNodeType.USER ||
+    label === "icon" ||
+    label === "sources"
+  ) {
+    if (nodes[label]) {
+      pathSelections = nodePaths[label];
+    }
+  } 
+*/
+
+  const pathSelections = useMemo(() => {
+    if (label === "icon") return null;
+    if (label === "sources") {
+      return nodePaths["element"] ? nodePaths["element"][systemName] : null;
+    }
+    if (label === NexNodeType.APPLET) {
+      return appletPathList;
+    }
+    return nodePaths[label]
+      ? nodePaths[label][systemName]
+        ? nodePaths[label][systemName]
+        : null
+      : null;
+  }, [label, systemName, nodePaths]);
+
+  const nodeSelections = useMemo(() => {
+    if (label === "icon") return pxIconList;
+    if (label === "sources") {
+      const tnodes = nodes["element"]
+        ? nodes["element"][systemName]
+          ? nodes["element"][systemName][pathValue]
+            ? nodes["element"][systemName][pathValue]
+            : null
+          : null
+        : null;
+      console.log(
+        `# 1 Node Selection : system=${systemName}, path=${pathValue}}`
+      );
+      console.log(
+        `# 2 Node Selection : nodes=${JSON.stringify(tnodes, null, 2)}`
+      );
+      return tnodes;
+    }
+
+    if (label === NexNodeType.APPLET) {
+      return appletPathMap[pathValue] ? appletPathMap[pathValue] : null;
+    }
+
+    return nodes[label]
+      ? nodes[label][systemName]
+        ? nodes[label][systemName][pathValue]
+          ? nodes[label][systemName][pathValue]
+          : null
+        : null
+      : null;
+  }, [label, systemName, pathValue]);
+
+  const systemSelections = nodes["system"]
+    ? nodes["system"][""]
+      ? nodes["system"][""][""]
+      : null
+    : null;
+
+  useEffect(() => {
+    //console.log(`ItemInput: pathValue changed: ${pathValue}`);
+    if (label === "sources") {
+      const sysName = value ? value.split(":")[0] : "";
+      const elPath = value ? value.split(":")[1] : "";
+      const parentPath = elPath.split("/").slice(0, -1).join("/");
+      const nodeName = elPath.split("/").slice(-1)[0];
+      console.log(
+        `ItemInput: sources value changed: ${value}, sysName=${sysName}, elPath=${elPath}, parentPath=${parentPath}, nodeName=${nodeName}`
+      );
+      setSystemName(sysName);
+      setPathValue(parentPath);
+      setNodeValue(nodeName);
+    } else if (label === NexNodeType.SYSTEM || label === "icon") {
+      setNodeValue(value);
+    } else if (label === NexNodeType.STORAGE) {
+      const parentPath = value.split("/").slice(0, -1).join("/");
+      const nodeName = value.split("/").slice(-1)[0];
+      setNodeValue(nodeName);
+    } else if (label === NexNodeType.ELEMENT) {
+      const parentPath = value.split("/").slice(0, -1).join("/");
+      const nodeName = value.split("/").slice(-1)[0];
+      setSystemName("webclient");
+      setPathValue(parentPath);
+      setNodeValue(nodeName);
+    } else if (
+      label === NexNodeType.FORMAT ||
+      label === NexNodeType.STORE ||
+      label === NexNodeType.PROCESSOR ||
+      label === NexNodeType.CONTENTS ||
+      label === NexNodeType.APPLET ||
+      label === NexNodeType.THEME ||
+      label === NexNodeType.USER
+    ) {
+      const parentPath = value.split("/").slice(0, -1).join("/");
+      const nodeName = value.split("/").slice(-1)[0];
+      console.log(
+        `ItemInput: value changed: ${value}, parentPath=${parentPath}, nodeName=${nodeName}`
+      );
+      setPathValue(parentPath);
+      setNodeValue(nodeName);
+    }
+  }, [value]);
+
+  // system ,  path , node-name 각각 선택
+  if (label === "sources") {
+    return (
+      <Stack direction="row" spacing={1} width="100%">
+        {systemSelections && (
+          <TextField
+            select
+            label={`system`}
+            variant="standard"
+            value={systemName}
+            onChange={(e) => {
+              //setNodeValue("");
+              //setPathValue("");
+              //setSystemName(e.target.value)
+              onChange(argPath, featureType, `${e.target.value}:`);
+            }}
+            style={{ flex: 1, width: "50%" }}
+          >
+            {systemSelections.map((item: any, index: number) => (
+              <MenuItem key={index} value={item.name}>
+                {item.helper}
+              </MenuItem>
+            ))}
+          </TextField>
+        )}
+        {pathSelections ? (
+          <TextField
+            select
+            label={`${label}-path`}
+            variant="standard"
+            value={pathValue}
+            onChange={(e) => {
+              //setPathValue(e.target.value)
+              onChange(
+                argPath,
+                featureType,
+                `${systemName}:${e.target.value}/`
+              );
+            }}
+            style={{ flex: 1, width: "50%" }}
+          >
+            {pathSelections.map((item: any, index: number) => (
+              <MenuItem key={index} value={item.path}>
+                {`${item.helper} ${item.name} ${item.path}`}
+              </MenuItem>
+            ))}
+          </TextField>
+        ) : (
+          <>
+            <TextField
+              disabled
+              label={`${label}-path`}
+              variant="standard"
+              value={pathValue}
+              style={{ flex: 1, width: "50%" }}
+            />
+            <pre>
+              {" "}
+              {`${JSON.stringify(nodePaths["element"][systemName], null, 2)}`}{" "}
+            </pre>
+          </>
+        )}
+        {nodeSelections ? (
+          <TextField
+            select
+            label={label}
+            variant="standard"
+            value={nodeValue}
+            onChange={(e) => {
+              const outValue =
+                pathValue === ""
+                  ? e.target.value
+                  : `${systemName}:${pathValue}/${e.target.value}`;
+              //setNodeValue(e.target.value);
+              onChange(argPath, featureType, outValue);
+            }}
+            style={{ flex: 1, width: "50%" }}
+          >
+            {nodeSelections.map((item: any, index: number) => (
+              <MenuItem key={index} value={item.name}>
+                {item.helper}
+              </MenuItem>
+            ))}
+          </TextField>
+        ) : (
+          <TextField
+            disabled
+            label={label}
+            variant="standard"
+            value={nodeValue}
+            style={{ flex: 1, width: "50%" }}
+          />
+        )}
+      </Stack>
+    );
+  }
+
+  // node-name 만 선택
+  if (label === NexNodeType.SYSTEM || label === "icon") {
+    return nodeSelections ? (
+      <TextField
+        select
+        label={label}
+        variant="standard"
+        value={nodeValue}
+        onChange={(e) => {
+          onChange(argPath, featureType, e.target.value);
+        }}
+        style={{ flex: 1, width: "100%" }}
+      >
+        {nodeSelections.map((item: any, index: number) => (
+          <MenuItem key={index} value={item.name}>
+            {item.helper}
+          </MenuItem>
+        ))}
+      </TextField>
+    ) : (
+      `${label} 데이터가 없습니다.`
+    );
+  }
+
+  // path , node-name 선택
+  if (
+    label === NexNodeType.FORMAT ||
+    label === NexNodeType.STORE ||
+    label === NexNodeType.PROCESSOR ||
+    label === NexNodeType.ELEMENT ||
+    label === NexNodeType.STORAGE ||
+    label === NexNodeType.CONTENTS ||
+    label === NexNodeType.APPLET ||
+    label === NexNodeType.THEME ||
+    label === NexNodeType.USER
+  ) {
+    return (
+      <Stack direction="row" spacing={1} width="100%">
+        {pathSelections && (
+          <TextField
+            select
+            label={`${label}-dir`}
+            variant="standard"
+            value={pathValue ?? ""}
+            onChange={(e) => {
+              onChange(argPath, featureType, `${e.target.value}/`);
+            }}
+            style={{ flex: 1, width: "50%" }}
+          >
+            {pathSelections.map((item: any) => (
+              <MenuItem key={item.path} value={item.path}>
+                {item.helper}
+              </MenuItem>
+            ))}
+          </TextField>
+        )}
+        {nodeSelections ? (
+          <TextField
+            select
+            label={label}
+            variant="standard"
+            value={nodeValue ?? ""}
+            onChange={(e) => {
+              const outValue =
+                pathValue === ""
+                  ? e.target.value
+                  : `${pathValue}/${e.target.value}`;
+              setNodeValue(e.target.value);
+              onChange(argPath, featureType, outValue);
+            }}
+            style={{ flex: 1, width: "50%" }}
+          >
+            {nodeSelections.map((item: any, index: number) => (
+              <MenuItem key={index} value={item.name}>
+                {item.helper}
+              </MenuItem>
+            ))}
+          </TextField>
+        ) : (
+          <TextField
+            disabled
+            label={label}
+            variant="standard"
+            value={""}
+            style={{ flex: 1, width: "50%" }}
+          />
+        )}
+      </Stack>
+    );
+  }
+
+  // 기본 입력 폼
+  return (
+    <TextField
+      variant="standard"
+      label={label}
+      type={itemType}
+      value={value ?? ""}
+      style={{ flex: 1, width: "100%" }}
+      onChange={(e) => onChange(argPath, featureType, e.target.value)}
+    />
+  );
+};
+
+interface ArrayItemInputProps {
+  label: string;
+  value: any;
+  index: number;
+  featureName: string;
+  nodes: any;
+  nodePaths: any;
+}
 
 interface SelectProps {
   label: string;
@@ -406,7 +771,8 @@ export interface AdminNodeEditorProps {
   node: any; // node for input
   fontLevel?: number; // 1~10
   style?: NexThemeStyle;
-  nodes?: any;
+  nodes: any;
+  nodePaths: any;
 
   onAdd?(data: any): void; // "추가"
   onUpdate?(data: any): void; // "수정"
@@ -417,6 +783,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   const {
     node,
     nodes,
+    nodePaths,
     fontLevel = 5,
     style = defaultThemeStyle,
     onUpdate,
@@ -714,11 +1081,14 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
       };
 
       const arrayItemView = (label: string, value: any, index: number) => {
-        let selectOptions: [] | null = null;
-
+        let pathSelections: [] | null = null;
+        let nodeSelections: [] | null = null;
+        let pathValue = "";
+        let nodeValue = value;
         if (feature.name === "sources") {
-          const systemOptions = nodes["system"] || [];
-          const elementList = nodes["element"] || [];
+          const systemOptions = nodes["system"][""] || [];
+          const elementList = nodes["element"]["config"] || [];
+          console.log(`# elementList: ${JSON.stringify(elementList, null, 2)}`);
 
           const systemName = value ? value.split(":")[0] : "";
           const elementPath = value ? value.split(":")[1] : "";
@@ -774,26 +1144,60 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
           feature.name === NexNodeType.USER
         ) {
           if (nodes[feature.name]) {
-            selectOptions = nodes[feature.name];
+            //selectOptions = nodes[feature.name];
+            pathSelections = nodePaths[feature.name];
+            //nodeSelections = nodes[feature.name];
+            pathValue = value.toString().split("/").slice(0, -1).join("/");
+            nodeValue = value.toString().split("/").slice(-1)[0];
+            nodeSelections = nodes[feature.name][pathValue];
+            nodeSelections = nodes[feature.name];
           }
         }
 
-        if (selectOptions) {
+        const setPathValue = (path: string) => {
+          updateItem(index, path);
+        };
+
+        const setNodeValue = (nodeName: string) => {
+          updateItem(index, `${pathValue}/${nodeName}`);
+        };
+
+        if (nodeSelections || pathSelections) {
           return (
-            <TextField
-              select
-              label={label}
-              variant="standard"
-              value={value ?? ""}
-              onChange={(e) => updateItem(index, e.target.value)}
-              style={{ flex: 1, width: "100%" }}
-            >
-              {selectOptions.map((item: any) => (
-                <MenuItem key={item.path} value={item.path}>
-                  {item.helper}
-                </MenuItem>
-              ))}
-            </TextField>
+            <>
+              {pathSelections && (
+                <TextField
+                  select
+                  label={label}
+                  variant="standard"
+                  value={pathValue ?? ""}
+                  onChange={(e) => setPathValue(e.target.value)}
+                  style={{ flex: 1, width: "100%" }}
+                >
+                  {pathSelections.map((item: any) => (
+                    <MenuItem key={item.path} value={item.path}>
+                      {item.helper}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              )}
+              {nodeSelections && (
+                <TextField
+                  select
+                  label={label}
+                  variant="standard"
+                  value={nodeValue ?? ""}
+                  onChange={(e) => setNodeValue(e.target.value)}
+                  style={{ flex: 1, width: "100%" }}
+                >
+                  {nodeSelections.map((item: any) => (
+                    <MenuItem key={item.path} value={item.path}>
+                      {item.helper}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              )}
+            </>
           );
         }
 
@@ -822,7 +1226,20 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
                 direction="row"
                 alignItems="flex-end"
               >
-                {arrayItemView(label, v, i)}
+                {/*arrayItemView(label, v, i)*/}
+                <ItemInput
+                  label={label}
+                  value={v}
+                  itemType={itemType}
+                  argPath={argPath}
+                  featureType={feature.featureType}
+                  nodes={nodes}
+                  nodePaths={nodePaths}
+                  onChange={(argPath, featureType, newValue) =>
+                    updateItem(i, newValue)
+                  }
+                />
+
                 <IconButton
                   size="small"
                   title="삭제"
@@ -856,53 +1273,105 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
         : "text";
 
     const itemView = (
-      label: string,
-      value: any,
+      label: string, // feature name
+      value: any, // feature value
       itemType: string,
-      index: number,
       argPath: string[],
       featureType: any
     ) => {
-      let selectOptions: any[] | null = null;
+      //let selectOptions: any[] | null = null;
+      let pathSelections: any[] | null = null;
+      let nodeSelections: any[] | null = null;
+
+      let pathValue = "";
+      let nodeValue = value;
 
       if (
-        feature.name === NexNodeType.SYSTEM ||
-        feature.name === NexNodeType.STORAGE ||
-        feature.name === NexNodeType.FORMAT ||
-        feature.name === NexNodeType.FORMAT ||
-        feature.name === NexNodeType.STORE ||
-        feature.name === NexNodeType.PROCESSOR ||
-        feature.name === NexNodeType.ELEMENT ||
-        feature.name === NexNodeType.CONTENTS ||
-        feature.name === NexNodeType.APPLET ||
-        feature.name === NexNodeType.THEME ||
-        feature.name === NexNodeType.USER
+        label === NexNodeType.SYSTEM ||
+        label === NexNodeType.STORAGE ||
+        label === NexNodeType.FORMAT ||
+        label === NexNodeType.FORMAT ||
+        label === NexNodeType.STORE ||
+        label === NexNodeType.PROCESSOR ||
+        label === NexNodeType.ELEMENT ||
+        label === NexNodeType.CONTENTS ||
+        label === NexNodeType.APPLET ||
+        label === NexNodeType.THEME ||
+        label === NexNodeType.USER
       ) {
         if (nodes[feature.name]) {
-          selectOptions = nodes[feature.name];
+          //selectOptions = nodes[feature.name];
+          pathSelections = nodePaths[feature.name];
+          //nodeSelections = nodes[feature.name];
+          pathValue = value.toString().split("/").slice(0, -1).join("/");
+          nodeValue = value.toString().split("/").slice(-1)[0];
+
+          if (pathValue !== "") nodeSelections = nodes[feature.name][pathValue];
         }
       } else if (feature.name === "icon") {
-        selectOptions = pxIconList;
+        //selectOptions = pxIconList;
+        pathSelections = null;
+        pathValue = "";
+        nodeValue = value;
+        nodeSelections = pxIconList;
+
+        //nodeSelections = pxIconList;
       }
 
-      if (selectOptions) {
+      // pathValue 가 변경될때  nodeSelections 를 갱싱하려면
+
+      const setPathValue = (path: string) => {
+        handlePrimitiveChange(argPath, featureType, path);
+      };
+
+      const setNodeValue = (nodeName: string) => {
+        handlePrimitiveChange(
+          argPath,
+          featureType,
+          pathValue === "" ? nodeName : `${pathValue}/${nodeName}`
+        );
+      };
+
+      if (pathSelections || nodeSelections) {
         return (
-          <TextField
-            select
-            label={label}
-            variant="standard"
-            value={value ?? ""}
-            onChange={(e) =>
-              handlePrimitiveChange(argPath, featureType, e.target.value)
-            }
-            style={{ flex: 1, width: "100%" }}
-          >
-            {selectOptions.map((item: any) => (
-              <MenuItem key={item.path} value={item.path}>
-                {item.helper}
-              </MenuItem>
-            ))}
-          </TextField>
+          <>
+            {pathSelections && (
+              <TextField
+                select
+                label={`${label}-dir`}
+                variant="standard"
+                value={value ?? ""}
+                onChange={(e) =>
+                  handlePrimitiveChange(argPath, featureType, e.target.value)
+                }
+                style={{ flex: 1, width: "100%" }}
+              >
+                {pathSelections.map((item: any) => (
+                  <MenuItem key={item.path} value={item.path}>
+                    {item.helper}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
+            {nodeSelections && (
+              <TextField
+                select
+                label={label}
+                variant="standard"
+                value={value ?? ""}
+                onChange={(e) =>
+                  handlePrimitiveChange(argPath, featureType, e.target.value)
+                }
+                style={{ flex: 1, width: "100%" }}
+              >
+                {nodeSelections.map((item: any) => (
+                  <MenuItem key={item.path} value={item.path}>
+                    {item.helper}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
+          </>
         );
       }
 
@@ -920,7 +1389,19 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
       );
     };
 
-    return itemView(label, value, type, 0, argPath, feature.featureType);
+    return (
+      <ItemInput
+        label={label}
+        value={value}
+        itemType={type}
+        argPath={argPath}
+        featureType={feature.featureType}
+        nodes={nodes}
+        nodePaths={nodePaths}
+        onChange={handlePrimitiveChange}
+      />
+    );
+    //return itemView(label, value, type,  argPath, feature.featureType);
   };
 
   return (
@@ -955,7 +1436,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
           >
             {bodyFields()}
           </NexDiv>
-          {false && editingNode && (
+          {true && editingNode && (
             <pre>{JSON.stringify(editingNode, null, 2)}</pre>
           )}
           <NexDiv flex="1" width="100%">

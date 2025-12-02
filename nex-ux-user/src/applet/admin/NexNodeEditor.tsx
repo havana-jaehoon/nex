@@ -7,13 +7,14 @@ import { defaultThemeStyle, getThemeStyle } from "type/NexTheme";
 import AdminNodeEditor from "./lib/AdminNodeEditor";
 import { set } from "mobx";
 import { NexNodeType } from "type/NexNode";
-import { appletPathList } from "applet/nexApplets";
+import { appletPathList, appletPathMap } from "applet/nexApplets";
 
 const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
   const { contents, theme, user, onUpdate, onAdd } = props;
 
   const [type, setType] = useState<string>("");
   const [nodes, setNodes] = useState<any>({});
+  const [nodePaths, setNodePaths] = useState<any>({});
   const [mainDatas, setMainDatas] = useState<any[]>([]);
 
   const [isMouseEnter, setMouseEnter] = useState(false);
@@ -50,6 +51,7 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
     if (!contents) return;
 
     let nodeList: any = {};
+    let pathList: any = {};
     contents.forEach((content, i) => {
       const nodeType = content.store?.element?.name || null;
       if (!nodeType) return;
@@ -71,33 +73,82 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
         setNode(curNode);
 
         setType(nodeType);
+        //return;
       }
 
-      nodeList[nodeType] = [];
+      pathList[nodeType] = {};
+      nodeList[nodeType] = {};
+
       content.data.forEach((item: any) => {
         const node: any = Object.values(item[4])[0];
-        if (node?.type || node.type !== NexNodeType.FOLDER) {
+        if (node?.type) {
           // folder 제외
           const index = item[0];
           let path = item[1];
-          if (node.type === NexNodeType.SYSTEM) {
-            path = node.name;
+          let systemName = item[3] ?? "";
+          let parentPath = path.replace(/\/+$/, "").replace(/\/[^\/]+$/, "");
+
+          if (node.type === NexNodeType.FOLDER) {
+            if (!pathList[nodeType][systemName]) {
+              pathList[nodeType][systemName] = [
+                {
+                  index: -1,
+                  path: "",
+                  name: "",
+                  dispName: "/",
+                  helper: "Root(/)",
+                },
+              ];
+            }
+            pathList[nodeType][systemName].push({
+              index: i,
+              path: path,
+              name: node.name,
+              dispName: node.dispName,
+              helper: `${node.dispName || node.name}(${path})`,
+            });
+          } else {
+            if (
+              node.type === NexNodeType.SYSTEM ||
+              node.type === NexNodeType.STORAGE
+            ) {
+              path = node.name;
+              systemName = "";
+              parentPath = "";
+            }
+
+            if (!nodeList[nodeType][systemName])
+              nodeList[nodeType][systemName] = {};
+            if (!nodeList[nodeType][systemName][parentPath])
+              nodeList[nodeType][systemName][parentPath] = [];
+
+            nodeList[nodeType][systemName][parentPath].push({
+              index: i,
+              path: path, // 필요한가?
+              name: node.name,
+              dispName: node.dispName,
+              system: systemName,
+              helper: `${node.dispName || node.name}`,
+            });
           }
-          const systemName = item[3];
-          nodeList[nodeType].push({
-            index: i,
-            path: path,
-            name: node.name,
-            dispName: node.dispName,
-            system: systemName,
-            helper: `${node.dispName || node.name}(${path})`,
-          });
         }
       });
     });
+    pathList[NexNodeType.APPLET] = appletPathList;
+    nodeList[NexNodeType.APPLET] = appletPathMap;
 
-    nodeList[NexNodeType.APPLET] = appletPathList;
+    /*
+    console.log(
+      "NexNodeEditor: nodePaths=",
+      JSON.stringify(pathList[NexNodeType.ELEMENT], null, 2)
+    );
 
+       console.log(
+      "NexNodeEditor: nodes=",
+      JSON.stringify(nodeList[NexNodeType.ELEMENT], null, 2)
+    );
+*/
+    setNodePaths(pathList);
     setNodes(nodeList);
   }, [contents, contentsOdata]);
 
@@ -172,7 +223,12 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
           onMouseLeave={() => setMouseEnter(false)}
           overflow="auto"
         >
-          <AdminNodeEditor node={node} nodes={nodes} onUpdate={handleUpdate} />
+          <AdminNodeEditor
+            node={node}
+            nodes={nodes}
+            nodePaths={nodePaths}
+            onUpdate={handleUpdate}
+          />
         </NexDiv>
       ) : null}
     </NexApplet>

@@ -100,15 +100,13 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
     let childSection = (section.children as any[]).find((child) => {
       const childRoute = `${route}/${child.route}`;
 
-      console.log(
-        "## Routing - childRoute:",
-        childRoute,
-        " selectedRoute:",
-        selectedRoute,
-        "child.route:",
-        child.route
-      );
-      const isRouteMatch = selectedRoute.startsWith(childRoute);
+      const clean = (p: string) =>
+        (p || "")
+          .replace(/\/+$/g, "") // remove trailing slashes
+          .replace(/\/\*$/g, ""); // remove trailing /*
+      const sr = clean(selectedRoute);
+      const cr = clean(childRoute);
+      const isRouteMatch = sr === cr || sr.startsWith(cr + "/");
       if (isRouteMatch) {
         return true;
       }
@@ -119,7 +117,7 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
     // 맨 앞 뒤의 / 는 제거, 맨 마지막 * 도 제거
 
     if (!childSection) return null;
-    console.log("NexPagePreviewer: routeView - childSection:", childSection);
+    //console.log("NexPagePreviewer: routeView - childSection:", childSection);
     return (
       <NexPagePreviewer
         isPreview={isPreview}
@@ -153,7 +151,11 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
           <NexPagePreviewer
             isPreview={isPreview}
             path={path + "/" + child.name}
-            route={route}
+            route={
+              child.route && child.route !== ""
+                ? `${route}/${child.route}`
+                : route
+            }
             selectedRoute={selectedRoute}
             key={`${child.name}-${index}`}
             section={child}

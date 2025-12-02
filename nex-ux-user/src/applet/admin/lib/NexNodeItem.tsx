@@ -61,12 +61,12 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
 
   const selectedColor = style.activeColor;
   const selectedBgColor = style.activeBgColor;
-  console.log(
+  /*console.log(
     "NexNodeItem: style=",
     JSON.stringify(style, null, 2),
     "selectedBgColor=",
     selectedBgColor
-  );
+  );*/
 
   const fontSize = style.fontSize;
   const borderFontSize = `calc(${fontSize} * 1.5)`;

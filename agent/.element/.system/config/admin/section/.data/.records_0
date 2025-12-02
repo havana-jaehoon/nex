@@ -584,7 +584,8 @@
           "/admin/format",
           "/admin/store",
           "/admin/processor",
-          "/admin/system"
+          "/admin/system",
+          "/admin/element"
         ]
       }
     }
@@ -1672,7 +1673,7 @@
         "icon": "",
         "color": "",
         "isRoutes": "",
-        "route": "test1",
+        "route": "admin2",
         "size": "",
         "padding": "",
         "app-padding": "",

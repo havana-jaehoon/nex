@@ -84,7 +84,7 @@ const iconList: any[] = Object.keys(pxIconMap).map((key) => ({
   helper: `${pxIconMap[key].dispName}(${key})`,
 }));
 
-export const pxIconList: any[] = [
+export const pxIconList = [
   {
     path: "",
     name: "none",

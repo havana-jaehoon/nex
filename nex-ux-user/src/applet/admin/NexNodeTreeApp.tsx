@@ -357,7 +357,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
             fullWidth={true}
             displayEmpty
             renderValue={(selected) => {
-              if (selected === "") return "시스템을 선택";
+              if (selected === "") return "시스템 선택";
               const item = nodes[NexNodeType.SYSTEM].find(
                 (n: any) => n.name === selected
               );

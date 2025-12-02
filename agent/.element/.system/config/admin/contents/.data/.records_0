@@ -14,28 +14,12 @@
     }
   ],
   [
-    1,
-    "/common/menu",
-    "",
-    "",
-    {
-      "0": {
-        "name": "menu",
-        "dispName": "Menu",
-        "type": "contents",
-        "element": "/common/menu",
-        "condition": [],
-        "selection": []
-      }
-    }
-  ],
-  [
     2,
     "/common/sample",
     "",
     "",
     {
-      "1": {
+      "0": {
         "name": "sample",
         "dispName": "Sample",
         "type": "contents",

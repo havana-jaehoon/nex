@@ -8,7 +8,7 @@ import {
   defaultTheme,
   NexTheme,
 } from "type/NexTheme";
-import nexApplets, { nexAppletMap } from "applet/nexApplets";
+import { nexAppletMap } from "applet/nexApplets";
 import NexSelector from "store/NexSelector";
 export interface NexStoreProviderProps {
   configStore: NexConfigStore; // ConfigStore를 prop으로 받음

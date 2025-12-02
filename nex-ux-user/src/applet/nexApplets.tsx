@@ -1,4 +1,4 @@
-import NexJsonEditor from "./admin/NexJsonEditor";
+import path from "path";
 import NexNodeEditor from "./admin/NexNodeEditor";
 import NexNodeSelctor from "./admin/NexNodeSelector";
 import NexNodeTreeApp from "./admin/NexNodeTreeApp";
@@ -16,7 +16,9 @@ import NexTableApp from "./table/NexTableApp";
 const appletList = [
   {
     name: "head",
+    dispName: "헤더",
     type: "folder",
+
     children: [
       {
         name: "PXHeadApplet",
@@ -28,6 +30,7 @@ const appletList = [
   },
   {
     name: "menu",
+    dispName: "메뉴",
     type: "folder",
     children: [
       {
@@ -36,15 +39,11 @@ const appletList = [
         type: "applet",
         app: NexMenuApp,
       },
-      {
-        name: "menu2",
-        type: "applet",
-        app: NexMenuApp,
-      },
     ],
   },
   {
     name: "chart",
+    dispName: "차트",
     type: "folder",
     children: [
       {
@@ -57,6 +56,7 @@ const appletList = [
   },
   {
     name: "table",
+    dispName: "테이블",
     type: "folder",
     children: [
       {
@@ -69,6 +69,7 @@ const appletList = [
   },
   {
     name: "status",
+    dispName: "상태",
     type: "folder",
     children: [
       {
@@ -87,11 +88,12 @@ const appletList = [
   },
   {
     name: "sample",
+    dispName: "샘플",
     type: "folder",
     children: [
       {
         name: "NexSampleList",
-        dispName: "샘플",
+        dispName: "샘플 리스트",
         type: "applet",
         app: NexSampleListApp,
       },
@@ -99,6 +101,7 @@ const appletList = [
   },
   {
     name: "cbm",
+    dispName: "CBM",
     type: "folder",
     children: [
       {
@@ -112,6 +115,7 @@ const appletList = [
 
   {
     name: "admin",
+    dispName: "관리자",
     type: "folder",
     children: [
       {
@@ -120,12 +124,7 @@ const appletList = [
         type: "applet",
         app: NexMenuApp,
       },
-      {
-        name: "NexJsonEditor",
-        dispName: "JSON 편집기",
-        type: "applet",
-        app: NexJsonEditor,
-      },
+
       {
         name: "NexNodeEditor",
         dispName: "노드 편집기",
@@ -138,13 +137,6 @@ const appletList = [
         type: "applet",
         app: NexNodeTreeApp,
       },
-
-      {
-        name: "StorageElementGenerator",
-        dispName: "DB 엘리먼트 생성기",
-        type: "applet",
-        app: StorageElementGenerator,
-      },
       {
         name: "SectionViewer",
         dispName: "섹션 뷰어",
@@ -155,24 +147,44 @@ const appletList = [
   },
 ];
 
-export const appletPathList: any[] = appletList.reduce((acc: any[], folder) => {
-  if (folder.children && Array.isArray(folder.children)) {
-    folder.children.forEach((applet, i) => {
-      const path = `/${folder.name}/${applet.name}`;
-      const name = applet.name;
-      const dispName = applet.dispName || applet.name;
-      const helper = `${dispName}(${path})`;
-      acc.push({
-        index: i,
-        path: path,
-        name: name,
-        dispName: dispName,
-        helper: helper,
-      });
+const getAppletInfo: () => { path: any; nodeMap: any } = () => {
+  const pathList: any = [];
+  const nodeMap: any = {};
+  appletList.forEach((folder, index) => {
+    pathList.push({
+      index: index,
+      path: `/${folder.name}`,
+      name: folder.name,
+      dispName: folder?.dispName || folder.name,
+      helper: `${folder?.dispName || folder.name}(/${folder.name})`,
     });
-  }
-  return acc;
-}, []);
+
+    if (folder.children && Array.isArray(folder.children)) {
+      nodeMap[`/${folder.name}`] = [];
+      nodeMap[`/${folder.name}`] = folder.children.map(
+        (applet: any, i: number) => {
+          const path = `/${folder.name}/${applet.name}`;
+          const name = applet.name;
+          const dispName = applet.dispName || applet.name;
+          const helper = `${dispName}(${path})`;
+          return {
+            index: i,
+            path: path,
+            name: name,
+            dispName: dispName,
+            helper: helper,
+          };
+        }
+      );
+    }
+  });
+  return { path: pathList, nodeMap: nodeMap };
+};
+
+const appletListInfo = getAppletInfo();
+
+export const appletPathList = appletListInfo.path;
+export const appletPathMap = appletListInfo.nodeMap;
 
 const nexApplets = (path: string): React.FC<any> | null => {
   //console.log("findNexApplets1 path:", path);
@@ -202,8 +214,13 @@ const nexApplets = (path: string): React.FC<any> | null => {
 };
 
 export const nexAppletMap: Record<string, React.FC<any> | null> =
-  appletPathList.reduce((acc: Record<string, React.FC<any> | null>, item) => {
-    acc[item.path] = nexApplets(item.path);
+  appletList.reduce((acc: Record<string, React.FC<any> | null>, folder) => {
+    if (folder.children && Array.isArray(folder.children)) {
+      folder.children.forEach((applet: any) => {
+        const appletPath = `/${folder.name}/${applet.name}`;
+        acc[appletPath] = applet.app;
+      });
+    }
     return acc;
   }, {});
 
