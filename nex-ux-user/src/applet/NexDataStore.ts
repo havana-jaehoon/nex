@@ -312,7 +312,7 @@ export class NexDataStore {
 
     //this.upload();
     this.fetch();
-    //if (this.element) this.startFetchInterval(interval);
+    if (this.element) this.startFetchInterval(interval);
   }
 
   async fetch() {
@@ -500,89 +500,7 @@ export class NexDataStore {
     };
   }
 
-  /*
-  getValuesByCondition(
-    conditions: any[],
-    tFeatures?: string[] // 출력 할 행의 feature 이름들
-  ): NexData {
-    //const newDataStore = new NexDataStore("", "", "");
-    const data: any[] = [];
 
-    // format 그룹 즉 tree 구조일 경우를 고려 필요함.
-    const features =
-      this.format.features || this.format.children[0].features || [];
-    const conds = conditions.map((condition) => ({
-      index: features.findIndex(
-        (feature: any) => feature.name === condition.feature
-      ),
-      value: condition.value,
-      method: condition.method,
-    }));
-
-    // tFeatures가 없거나 빈 배열이면 전체 컬럼 인덱스 사용
-
-    //console.log(`conds: ${JSON.stringify(conds, null, 2)}`);
-    // 조건에 맞는 행 추출
-    const filteredRows =
-      !conditions || conditions.length === 0
-        ? (this.odata ?? [])
-        : (this.odata ?? []).filter((row: any) =>
-            conds.every((condition) => {
-              const cell = row[condition.index];
-              const value = condition.value;
-              switch (condition.method) {
-                case "starts-with":
-                  return typeof cell === "string" && cell.startsWith(value);
-                case "ends-with":
-                  return typeof cell === "string" && cell.endsWith(value);
-                case "contains":
-                  return typeof cell === "string" && cell.includes(value);
-                case "path-match":
-                  return (
-                    cell === value ||
-                    (typeof cell === "string" && cell.startsWith(value + "."))
-                  );
-                case "greater-than":
-                  return Number(cell) > Number(value);
-                case "less-than":
-                  return Number(cell) < Number(value);
-                case "match":
-                default:
-                  return cell === value;
-              }
-            })
-          );
-
-    // tFeatures 있으면 에 해당하는 컬럼만 추출, 없으면 모두
-    let tIndexes: number[] = [];
-    if (tFeatures && tFeatures.length > 0) {
-      tIndexes = tFeatures.map((feature) =>
-        features.findIndex((f: any) => f.name === feature)
-      );
-      filteredRows.forEach((row: any) => {
-        data.push(tIndexes.map((idx) => row[idx]));
-      });
-    } else {
-      filteredRows.forEach((row: any) => {
-        data.push([...row]); // 전체 행을 복사
-      });
-    }
-
-    // format & features 설정
-    let format: any = {};
-    //let features: any[] = [];
-    if (this.isTree || tIndexes.length === 0) {
-      format = { ...this.format };
-    } else {
-      format = {
-        ...this.format,
-        features: tIndexes.map((idx) => this.format.features[idx]),
-      };
-    }
-
-    return { csv: data, format: format };
-  }
-*/
   getIndexesByCondition(conditions: any[]): number[] {
     const matchingIndexes: number[] = [];
 

@@ -150,7 +150,7 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
       </NexDiv>
       {isChildOpend && isChildren ? (
         <NexDiv direction="row" width="100%">
-          <Stack spacing={0.5} direction="column" width="100%">
+          <Stack spacing={1} direction="column" width="100%">
             {node.children?.map((child: any, index: number) => (
               <NexMenuItem
                 key={index}

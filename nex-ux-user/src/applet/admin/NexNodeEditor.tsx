@@ -58,6 +58,7 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
 
       // main node 타입
       if (i === 0) {
+        content.store && content.store.stopFetchInterval();
         const tdata = content.indexes
           ? content.indexes?.map((i: number) => content.data[i]) || []
           : content.data || [];

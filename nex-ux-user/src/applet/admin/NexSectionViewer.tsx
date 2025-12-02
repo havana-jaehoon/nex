@@ -90,6 +90,8 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
       // main node 타입
       if (i === 0) {
         const indexes = content.indexes;
+        content.store && content.store.stopFetchInterval();
+
         let contentsData = [];
         if (!indexes)
           // indexes 가 없으면 전체 데이터
