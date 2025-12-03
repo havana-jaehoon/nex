@@ -364,7 +364,7 @@
             "icon": null,
             "color": "#f0142f",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "warning",
@@ -372,7 +372,7 @@
             "icon": null,
             "color": "#feb200",
             "isKey": false,
-            "featureType": "UINT32"
+            "featureType": "NUMBER"
           }
         ]
       }
@@ -403,7 +403,7 @@
             "icon": null,
             "color": "#f0142f",
             "isKey": false,
-            "featureType": "UINT32"
+            "featureType": "NUMBER"
           }
         ]
       }
@@ -426,7 +426,7 @@
             "icon": null,
             "color": "#003da5",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "line2",
@@ -434,7 +434,7 @@
             "icon": null,
             "color": "#d50032",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "line3",
@@ -442,7 +442,7 @@
             "icon": null,
             "color": "#d96b80",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "line4",
@@ -450,7 +450,7 @@
             "icon": null,
             "color": "#73c42d",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "line5",
@@ -458,7 +458,7 @@
             "icon": null,
             "color": "#7ba05b",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "line6",
@@ -466,7 +466,7 @@
             "icon": null,
             "color": "#adb81d",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           }
         ]
       }
@@ -627,7 +627,7 @@
             "icon": null,
             "color": "#0000FF",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "line2",
@@ -635,7 +635,7 @@
             "icon": null,
             "color": "#FF0000",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "line3",
@@ -643,7 +643,7 @@
             "icon": null,
             "color": "#FF00FF",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "line4",
@@ -651,7 +651,7 @@
             "icon": null,
             "color": "#00FF00",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "line5",
@@ -659,7 +659,7 @@
             "icon": null,
             "color": "#FFA500",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "line6",
@@ -667,7 +667,7 @@
             "icon": null,
             "color": "#6A5ACD",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           }
         ]
       }
@@ -698,7 +698,7 @@
             "icon": null,
             "color": "#FF0000",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "main-air-compressor",
@@ -706,7 +706,7 @@
             "icon": null,
             "color": "#00BFFF",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "aux-air-compressor",
@@ -714,7 +714,7 @@
             "icon": null,
             "color": "#6A5ACD",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "door",
@@ -722,7 +722,7 @@
             "icon": null,
             "color": "#FF00FF",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "hvac",
@@ -730,7 +730,7 @@
             "icon": null,
             "color": "#00FF00",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "traction-motor",
@@ -738,7 +738,7 @@
             "icon": null,
             "color": "#FFA500",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "fire-detector",
@@ -746,7 +746,7 @@
             "icon": null,
             "color": "#FF1493",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "axle-bearing",
@@ -754,7 +754,7 @@
             "icon": null,
             "color": "#0000FF",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "broadcast-device",
@@ -762,7 +762,7 @@
             "icon": null,
             "color": "#FF4500",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           }
         ]
       }
@@ -792,7 +792,7 @@
             "icon": null,
             "color": "#0000FF",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "line2",
@@ -800,7 +800,7 @@
             "icon": null,
             "color": "#FF0000",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "line3",
@@ -808,7 +808,7 @@
             "icon": null,
             "color": "#FF00FF",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "line4",
@@ -816,7 +816,7 @@
             "icon": null,
             "color": "#00FF00",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "line5",
@@ -824,7 +824,7 @@
             "icon": null,
             "color": "#FFA500",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           },
           {
             "name": "line6",
@@ -832,7 +832,7 @@
             "icon": null,
             "color": "#6A5ACD",
             "isKey": false,
-            "featureType": "UINT16"
+            "featureType": "NUMBER"
           }
         ]
       }

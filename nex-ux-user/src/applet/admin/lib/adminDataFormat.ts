@@ -196,10 +196,7 @@ const featureTypeLiterals = [
     name: NexFeatureType.INDEX,
     dispName: "자동발행숫자",
   },
-  {
-    name: NexFeatureType.FLOAT,
-    dispName: "32비트 부동소수점",
-  },
+
   {
     name: NexFeatureType.PATH,
     dispName: "경로",

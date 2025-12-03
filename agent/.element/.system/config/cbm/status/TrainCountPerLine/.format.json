@@ -9,7 +9,7 @@
       "icon": null,
       "color": "#003da5",
       "isKey": false,
-      "featureType": "UINT16"
+      "featureType": "NUMBER"
     },
     {
       "name": "line2",
@@ -17,7 +17,7 @@
       "icon": null,
       "color": "#d50032",
       "isKey": false,
-      "featureType": "UINT16"
+      "featureType": "NUMBER"
     },
     {
       "name": "line3",
@@ -25,7 +25,7 @@
       "icon": null,
       "color": "#d96b80",
       "isKey": false,
-      "featureType": "UINT16"
+      "featureType": "NUMBER"
     },
     {
       "name": "line4",
@@ -33,7 +33,7 @@
       "icon": null,
       "color": "#73c42d",
       "isKey": false,
-      "featureType": "UINT16"
+      "featureType": "NUMBER"
     },
     {
       "name": "line5",
@@ -41,7 +41,7 @@
       "icon": null,
       "color": "#7ba05b",
       "isKey": false,
-      "featureType": "UINT16"
+      "featureType": "NUMBER"
     },
     {
       "name": "line6",
@@ -49,7 +49,7 @@
       "icon": null,
       "color": "#adb81d",
       "isKey": false,
-      "featureType": "UINT16"
+      "featureType": "NUMBER"
     }
   ]
 }

@@ -12,6 +12,7 @@ import NexSampleListApp from "./sample/NexSampleListApp";
 import NexCountApp from "./status/NexCountApp";
 import NexStatusApp from "./status/NexStatusApp";
 import NexTableApp from "./table/NexTableApp";
+import PXSearchingTable from "./table/PXSearchingTable";
 
 const appletList = [
   {
@@ -64,6 +65,12 @@ const appletList = [
         dispName: "테이블",
         type: "applet",
         app: NexTableApp,
+      },
+      {
+        name: "PXSearchingTable",
+        dispName: "PX 검색 테이블",
+        type: "applet",
+        app: PXSearchingTable,
       },
     ],
   },

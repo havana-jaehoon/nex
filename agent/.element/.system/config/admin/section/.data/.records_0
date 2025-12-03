@@ -1436,32 +1436,11 @@
         "direction": "row",
         "size": "",
         "padding": "",
-        "applet": "/table/NexTable",
+        "app-padding": "",
+        "applet": "/table/PXSearchingTable",
         "contents": [
           "/cbm/status/LossPerLine"
         ]
-      }
-    }
-  ],
-  [
-    237,
-    "/Home/Body/Main/NewProject/new-section-174348",
-    "",
-    "",
-    {
-      "1": {
-        "name": "new-section-174348",
-        "dispName": "",
-        "description": "",
-        "type": "section",
-        "icon": "",
-        "color": "",
-        "isRoutes": "",
-        "route": "",
-        "size": 3,
-        "padding": "",
-        "applet": "",
-        "contents": ""
       }
     }
   ],

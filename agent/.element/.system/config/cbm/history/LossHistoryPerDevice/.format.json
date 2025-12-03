@@ -17,7 +17,7 @@
       "icon": null,
       "color": "#FF0000",
       "isKey": false,
-      "featureType": "UINT16"
+      "featureType": "NUMBER"
     },
     {
       "name": "main-air-compressor",
@@ -25,7 +25,7 @@
       "icon": null,
       "color": "#00BFFF",
       "isKey": false,
-      "featureType": "UINT16"
+      "featureType": "NUMBER"
     },
     {
       "name": "aux-air-compressor",
@@ -33,7 +33,7 @@
       "icon": null,
       "color": "#6A5ACD",
       "isKey": false,
-      "featureType": "UINT16"
+      "featureType": "NUMBER"
     },
     {
       "name": "door",
@@ -41,7 +41,7 @@
       "icon": null,
       "color": "#FF00FF",
       "isKey": false,
-      "featureType": "UINT16"
+      "featureType": "NUMBER"
     },
     {
       "name": "hvac",
@@ -49,7 +49,7 @@
       "icon": null,
       "color": "#00FF00",
       "isKey": false,
-      "featureType": "UINT16"
+      "featureType": "NUMBER"
     },
     {
       "name": "traction-motor",
@@ -57,7 +57,7 @@
       "icon": null,
       "color": "#FFA500",
       "isKey": false,
-      "featureType": "UINT16"
+      "featureType": "NUMBER"
     },
     {
       "name": "fire-detector",
@@ -65,7 +65,7 @@
       "icon": null,
       "color": "#FF1493",
       "isKey": false,
-      "featureType": "UINT16"
+      "featureType": "NUMBER"
     },
     {
       "name": "axle-bearing",
@@ -73,7 +73,7 @@
       "icon": null,
       "color": "#0000FF",
       "isKey": false,
-      "featureType": "UINT16"
+      "featureType": "NUMBER"
     },
     {
       "name": "broadcast-device",
@@ -81,7 +81,7 @@
       "icon": null,
       "color": "#FF4500",
       "isKey": false,
-      "featureType": "UINT16"
+      "featureType": "NUMBER"
     }
   ]
 }

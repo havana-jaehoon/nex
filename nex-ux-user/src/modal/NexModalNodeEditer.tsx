@@ -125,8 +125,7 @@ function getAtPath(obj: any, path: string[]) {
 
 function isNumber(featureType: NexFeatureType) {
   if (
-    featureType === NexFeatureType.NUMBER ||
-    featureType === NexFeatureType.FLOAT
+    featureType === NexFeatureType.NUMBER
   )
     return true;
   return false;

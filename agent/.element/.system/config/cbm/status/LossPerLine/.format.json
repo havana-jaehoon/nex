@@ -16,7 +16,7 @@
       "icon": null,
       "color": "#f0142f",
       "isKey": false,
-      "featureType": "UINT16"
+      "featureType": "NUMBER"
     },
     {
       "name": "warning",
@@ -24,7 +24,7 @@
       "icon": null,
       "color": "#feb200",
       "isKey": false,
-      "featureType": "UINT32"
+      "featureType": "NUMBER"
     }
   ]
 }

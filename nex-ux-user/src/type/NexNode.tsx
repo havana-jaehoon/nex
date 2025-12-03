@@ -20,7 +20,6 @@ export enum NexNodeType {
 export enum NexFeatureType {
   INDEX = "INDEX", // 자동 증가 숫자
   NUMBER = "NUMBER",
-  FLOAT = "FLOAT",
   BOOLEAN = "BOOLEAN",
   STRING = "STRING",
   // 아래는 String 기반의 특수 유형
