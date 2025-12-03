@@ -4,6 +4,7 @@ import NexConfigStore from "applet/NexConfigStore";
 import { observer } from "mobx-react-lite";
 import { NexDiv } from "component/base/NexBaseComponents";
 import NexPageViewer from "page/NexPageViewer";
+import NexPlayground from "page/NexPlayground";
 import NexStoreProvider from "provider/NexStoreProvider";
 import { useEffect, useState } from "react";
 import { set } from "mobx";
