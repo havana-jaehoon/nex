@@ -1410,9 +1410,10 @@
         "color": "",
         "isRoutes": "",
         "route": "new",
-        "direction": "column",
+        "direction": "row",
         "size": "",
         "padding": "",
+        "app-padding": "",
         "applet": "",
         "contents": ""
       }
@@ -1676,6 +1677,29 @@
         "color": "",
         "isRoutes": "",
         "route": "test2",
+        "size": "",
+        "padding": "",
+        "app-padding": "",
+        "applet": "",
+        "contents": ""
+      }
+    }
+  ],
+  [
+    252,
+    "/Home/Body/Main/new-section-185937",
+    "",
+    "",
+    {
+      "5": {
+        "name": "new-section-185937",
+        "dispName": "",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
         "size": "",
         "padding": "",
         "app-padding": "",

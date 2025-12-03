@@ -6,7 +6,9 @@ import {
   Autocomplete,
   Box,
   Button,
+  Checkbox,
   FormControl,
+  FormControlLabel,
   Grid,
   IconButton,
   MenuItem,
@@ -88,13 +90,16 @@ function isNumber(featureType: NexFeatureType) {
   return false;
 }
 
-function asFeatureValue(value: string, featureType: NexFeatureType) {
-  if (featureType === NexFeatureType.STRING) return value;
-  if (featureType === NexFeatureType.BOOLEAN) return value === "true";
-  if (isNumber(featureType)) {
+function asFeatureValue(value: any, featureType: NexFeatureType) {
+  if (featureType === NexFeatureType.STRING) {
+    return String(value);
+  }
+  if (featureType === NexFeatureType.BOOLEAN) return Boolean(value);
+  if (featureType === NexFeatureType.NUMBER) {
     if (value === "" || value == null) return "";
-    const n = Number(value);
-    return Number.isFinite(n) && n >= 0 ? n : "";
+    //const n = Number(value);
+    //return Number.isFinite(n) && n >= 0 ? n : "";
+    return Number(value);
   }
   return value;
 }
@@ -129,32 +134,6 @@ const ItemInput: React.FC<ItemInputProps> = ({
   const [systemName, setSystemName] = useState<string>("");
   const [pathValue, setPathValue] = useState<string>("");
   const [nodeValue, setNodeValue] = useState<string>("");
-
-  //const [pathSelections, setPathSelections] = useState<any[] | null>(null);
-  //const [nodeSelections, setNodeSelections] = useState<any[] | null>(null);
-  /*
-  let pathSelections: any[] | null = null;
-
-  if (
-    label === NexNodeType.SYSTEM ||
-    label === NexNodeType.STORAGE ||
-    label === NexNodeType.FORMAT ||
-    label === NexNodeType.FORMAT ||
-    label === NexNodeType.STORE ||
-    label === NexNodeType.PROCESSOR ||
-    label === NexNodeType.ELEMENT ||
-    label === NexNodeType.CONTENTS ||
-    label === NexNodeType.APPLET ||
-    label === NexNodeType.THEME ||
-    label === NexNodeType.USER ||
-    label === "icon" ||
-    label === "sources"
-  ) {
-    if (nodes[label]) {
-      pathSelections = nodePaths[label];
-    }
-  } 
-*/
 
   const pathSelections = useMemo(() => {
     if (label === "icon") return null;
@@ -438,6 +417,22 @@ const ItemInput: React.FC<ItemInputProps> = ({
           />
         )}
       </Stack>
+    );
+  }
+
+  if (featureType === NexFeatureType.BOOLEAN) {
+    // Boolean 입력 폼
+    const checked = value === true || value === "true";
+    return (
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={checked}
+            onChange={(e) => onChange(argPath, featureType, e.target.checked)}
+          />
+        }
+        label={label}
+      />
     );
   }
 
@@ -842,7 +837,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   const handlePrimitiveChange = (
     argPath: string[], // path within the node
     featureType: NexFeatureType,
-    raw: string
+    raw: any
   ) => {
     console.log(`# handlePrimitiveChange : ${argPath.join(".")} = ${raw}`);
 
