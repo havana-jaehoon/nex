@@ -1280,5 +1280,21 @@
         ]
       }
     }
+  ],
+  [
+    134,
+    "/cbm/new-folder-174340",
+    "",
+    "webclient",
+    {
+      "4": {
+        "name": "new-folder-174340",
+        "dispName": "",
+        "description": "",
+        "type": "folder",
+        "icon": "",
+        "color": ""
+      }
+    }
   ]
 ]

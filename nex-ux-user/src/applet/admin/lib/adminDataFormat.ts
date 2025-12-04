@@ -884,12 +884,30 @@ const sectionNodeDef = {
     },
     {
       name: "contents", // applet 경로
-      dispName: "Contents Path List",
+      dispName: "컨텐츠",
       icon: null,
       color: null,
       featureType: NexFeatureType.STRING_ARRAY, //
       uxSize: 12,
     },
+    {
+      name: "visibleFeatures",
+      dispName: "피처",
+      icon: null,
+      color: null,
+      featureType: NexFeatureType.NUMBER_ARRAY,
+      uxSize: 12,
+    },
+    {
+      name: "refreshTime",
+      dispName: "갱신주기(초)",
+      icon: null,
+      color: null,
+      featureType: NexFeatureType.NUMBER,
+      uxSize: 6,
+    },
+
+
   ],
 };
 

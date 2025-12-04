@@ -12,7 +12,39 @@
       "color": null,
       "isKey": true,
       "featureType": "STRING",
-      "dispName": "이름"
+      "dispName": "이름",
+      "literals": [
+        {
+          "name": "호남선",
+          "dispName": "",
+          "icon": "/config/element",
+          "color": "red"
+        },
+        {
+          "name": "경부선",
+          "dispName": "",
+          "icon": "/config/contents",
+          "color": "blue"
+        },
+        {
+          "name": "전라선",
+          "dispName": "",
+          "icon": "/config/processor",
+          "color": "green"
+        },
+        {
+          "name": "태백선",
+          "dispName": "",
+          "icon": "/config/system",
+          "color": "orage"
+        },
+        {
+          "name": "미배치",
+          "dispName": "",
+          "icon": "/config/format",
+          "color": "green"
+        }
+      ]
     },
     {
       "name": "alert",

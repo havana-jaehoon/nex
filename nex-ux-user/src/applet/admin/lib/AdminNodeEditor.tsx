@@ -616,7 +616,35 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
                 >
                   {recordFields.map((f, i) => {
                     const size = (f as any).uxSize || 6;
-                    if (f.featureType === NexFeatureType.LITERALS) {
+                    if (f.featureType === NexFeatureType.RECORDS) {
+                      return (
+                        <Grid item key={i} xs={size}>
+                          <RecordsEditor
+                            id={`${id}.${rIdx}.${f.name}`}
+                            name={f.name}
+                            dispName={f.dispName || f.name}
+                            placeholder={(f as any).description}
+                            nodes={nodes}
+                            nodePaths={nodePaths}
+                            rows={row[f.name] || []}
+                            setRows={(newNestedRows) => {
+                              const next = [...rows];
+                              next[rIdx] = {
+                                ...next[rIdx],
+                                [f.name]: newNestedRows,
+                              };
+                              setRows(next);
+                            }}
+                            recordFields={(f as any).records}
+                            argPath={[...argPath, rIdx.toString(), f.name]}
+                            renderFeature={renderFeature}
+                          />
+                        </Grid>
+                      );
+                    }
+
+                    if ((f.featureType === NexFeatureType.LITERALS || f.featureType === NexFeatureType.STRING)
+                      && f.literals && f.literals.length > 0) {
                       return (
                         <Grid item key={i} xs={size}>
                           <LabeledSelect
@@ -636,6 +664,7 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
                         </Grid>
                       );
                     }
+
 
                     if (f.featureType === NexFeatureType.STRING_ARRAY) {
                       const arr = Array.isArray(row[f.name]) ? row[f.name] : [];

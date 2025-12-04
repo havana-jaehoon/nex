@@ -53,6 +53,8 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
 
     const [modifiedCount, setModifiedCount] = useState<number>(0);
 
+
+
     if (appletPath !== "" && !app) {
       console.log(
         `NexAppProvider => section=${JSON.stringify(section)}, appletPath=${appletPath}`
@@ -123,6 +125,33 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
       modifiedCount,
       ...Object.values(storeMap).map((store) => store.odata),
     ]);
+
+    const refreshTime = section?.refreshTime || 0;
+
+    React.useEffect(() => {
+
+      if (refreshTime > 0) {
+        const interval = setInterval(() => {
+          contents.forEach((content) => {
+            if (content.store) {
+
+              //content.store.refreshInterval = refreshTime;
+              content.store.fetch();
+            }
+          });
+        }, refreshTime * 1000);
+
+        return () => clearInterval(interval);
+      } else {
+        contents.forEach((content) => {
+          if (content.store) {
+
+            //content.store.refreshInterval = refreshTime;
+            content.store.fetch();
+          }
+        });
+      }
+    }, [refreshTime]);
 
     const handleSelect = (contentsIndex: number, row: any) => {
       if (row && contents.length > contentsIndex) {

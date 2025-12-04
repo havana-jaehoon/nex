@@ -171,6 +171,7 @@ export class NexDataStore {
   name: string = ""; // label name
   url: string = ""; // 데이터 소스 URL
   //path: string = "/"; // 데이터 소스 경로
+  fetchInterval: number = 0; // fetch 주기
   path: string = ""; // element 경로
 
   element: any = null; // element 정보
@@ -255,7 +256,10 @@ export class NexDataStore {
     }
 
     this.url = `http://${systemIp}:${systemPort}/data-api${this.path}`;
-
+    this.fetchInterval = makePeriodMSec(
+      this.element?.processingInterval,
+      this.element?.processingUnit
+    );
     this.ioffset = 0;
     this.foffset = 0;
 
@@ -267,6 +271,7 @@ export class NexDataStore {
     makeObservable(this, {
       name: observable,
       url: observable,
+      fetchInterval: observable,
       element: observable,
       format: observable,
       idata: observable,
@@ -304,14 +309,10 @@ export class NexDataStore {
     //this.getValuesByCondition = this.getValuesByCondition.bind(this);
     //this.buildTreeData = this.buildTreeData.bind(this);
 
-    const interval = makePeriodMSec(
-      this.element?.processingInterval,
-      this.element?.processingUnit
-    );
 
     //this.upload();
-    this.fetch();
-    if (this.element) this.startFetchInterval(interval);
+    //this.fetch();
+    //if (this.element) this.startFetchInterval(interval);
   }
 
   async fetch() {
