@@ -12,14 +12,11 @@ import {
 } from "@mui/material";
 import NexNodeItem from "./lib/NexNodeItem";
 
-import { MdCreateNewFolder, MdEdit, MdNewLabel } from "react-icons/md";
-import { clamp } from "utils/util";
-import NexModalNodeEditer from "modal/NexModalNodeEditer";
+
 import { buildNexTree } from "utils/NexTreeNode";
 import { getAdminNodeFromType } from "./lib/adminDataFormat";
 import { NexNodeType } from "type/NexNode";
-import { set } from "mobx";
-import { data, Route } from "react-router-dom";
+
 import { getThemeStyle } from "type/NexTheme";
 import axios from "axios";
 import pxConfig from "config/px-config.json";
@@ -34,11 +31,10 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const [systemName, setSystemName] = useState<string>("");
   const [storageName, setStorageName] = useState<string>("");
   const [mainDatas, setMainDatas] = useState<any[]>([]);
-  //const [curRecord, setCurRecord] = useState<any>(null);
   const [curNode, setCurNode] = useState<any>(null);
   const [selectedPath, setSelectedPath] = useState<string>("");
-  //const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [selectedKeys, setSelectedKeys] = useState<number[]>([]);
+  const projectName = "";
 
   const style = getThemeStyle(theme, "applet");
   const activeColor = style.activeColor;
@@ -155,9 +151,6 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   };
 
   const handleAddFolder = async () => {
-    const projectName = "";
-    const systemName = "";
-
     const now = new Date();
     const nodeName = `new-folder-${now.getHours().toString().padStart(2, "0")}${now.getMinutes().toString().padStart(2, "0")}${now.getSeconds().toString().padStart(2, "0")}`;
 
@@ -218,9 +211,6 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   };
 
   const handleAddEntity = async () => {
-    const projectName = "";
-    const systemName = "";
-
     const now = new Date();
     const nodeName = `new-${type}-${now.getHours().toString().padStart(2, "0")}${now.getMinutes().toString().padStart(2, "0")}${now.getSeconds().toString().padStart(2, "0")}`;
     const newNode = {

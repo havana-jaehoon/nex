@@ -225,7 +225,7 @@
     "",
     "",
     {
-      "15": {
+      "12": {
         "name": "cbm",
         "dispName": "CBM",
         "description": "CBM 데모",
@@ -300,6 +300,39 @@
         "icon": "",
         "color": "",
         "route": ""
+      }
+    }
+  ],
+  [
+    23,
+    "/sample",
+    "",
+    "",
+    {
+      "4": {
+        "name": "sample",
+        "dispName": "샘플 애플릿",
+        "description": "",
+        "type": "folder",
+        "icon": "",
+        "color": ""
+      }
+    }
+  ],
+  [
+    25,
+    "/sample/base",
+    "",
+    "",
+    {
+      "0": {
+        "name": "base",
+        "dispName": "기본 샘플",
+        "description": "",
+        "type": "menu",
+        "icon": "",
+        "color": "",
+        "route": "/sample/base"
       }
     }
   ]

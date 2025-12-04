@@ -3,7 +3,7 @@ import { NexDiv, NexLabel } from "../component/base/NexBaseComponents";
 //import NexAppletStoreTest from "../applet/nexAppletStoreTest";
 import { Route, Routes } from "react-router-dom";
 import { NexStoreContext } from "provider/NexStoreProvider";
-import NexAppProvider from "applet/NexAppProvider";
+import NexAppProvider from "provider/NexAppProvider";
 import { defaultThemeStyle, getThemeStyle, NexThemeStyle } from "type/NexTheme";
 
 interface NexPageViewerProps {
@@ -66,23 +66,23 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
     <Routes>
       {section.children && Array.isArray(section.children)
         ? (section.children as any[]).map((child, index) => (
-            <Route
-              key={index}
-              path={
-                child.route && child.route !== ""
-                  ? `${child.route}/*`
-                  : `${child.name}`
-              }
-              element={
-                <NexPageViewer
-                  key={index}
-                  section={child}
-                  isVisibleBorder={isVisibleBorder}
-                  isVisibleTitle={isVisibleTitle}
-                />
-              }
-            />
-          ))
+          <Route
+            key={index}
+            path={
+              child.route && child.route !== ""
+                ? `${child.route}/*`
+                : `${child.name}`
+            }
+            element={
+              <NexPageViewer
+                key={index}
+                section={child}
+                isVisibleBorder={isVisibleBorder}
+                isVisibleTitle={isVisibleTitle}
+              />
+            }
+          />
+        ))
         : null}
     </Routes>
   );

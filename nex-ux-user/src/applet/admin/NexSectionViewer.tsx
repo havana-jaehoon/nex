@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import { clamp } from "utils/util";
 import { defaultThemeStyle, getThemeStyle } from "type/NexTheme";
 import AdminNodeEditor from "./lib/AdminNodeEditor";
-import { buildAdminConfig } from "applet/NexConfigStore";
+import { buildAdminConfig } from "store/NexConfigStore";
 import NexPagePreviewer from "./lib/NexPagePreviewer";
 import {
   Autocomplete,

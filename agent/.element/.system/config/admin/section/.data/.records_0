@@ -1641,65 +1641,46 @@
   ],
   [
     248,
-    "/Home/Body/Main/new-section-205808",
+    "/Home/Body/Main/sample",
     "",
     "",
     {
       "3": {
-        "name": "new-section-205808",
-        "dispName": "",
+        "name": "sample",
+        "dispName": "샘플 애플릿",
         "description": "",
         "type": "section",
         "icon": "",
         "color": "",
-        "isRoutes": "",
-        "route": "admin2",
+        "isRoutes": true,
+        "route": "sample",
         "size": "",
         "padding": "",
         "app-padding": "",
-        "applet": "",
-        "contents": ""
+        "applet": "/sample/NexSampleList",
+        "contents": [
+          "/cbm/status/LossPerLine",
+          "/cbm/status/LossPerDevice",
+          "/cbm/status/TrainCountPerLine"
+        ]
       }
     }
   ],
   [
-    249,
-    "/Home/Body/Main/new-section-205911",
+    254,
+    "/Home/Body/Main/sample/base",
     "",
     "",
     {
-      "4": {
-        "name": "new-section-205911",
-        "dispName": "",
+      "0": {
+        "name": "base",
+        "dispName": "기본",
         "description": "",
         "type": "section",
         "icon": "",
         "color": "",
         "isRoutes": "",
-        "route": "test2",
-        "size": "",
-        "padding": "",
-        "app-padding": "",
-        "applet": "",
-        "contents": ""
-      }
-    }
-  ],
-  [
-    252,
-    "/Home/Body/Main/new-section-185937",
-    "",
-    "",
-    {
-      "5": {
-        "name": "new-section-185937",
-        "dispName": "",
-        "description": "",
-        "type": "section",
-        "icon": "",
-        "color": "",
-        "isRoutes": "",
-        "route": "",
+        "route": "base",
         "size": "",
         "padding": "",
         "app-padding": "",

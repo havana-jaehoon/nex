@@ -1,7 +1,7 @@
-import NexDataStore from "applet/NexDataStore";
+import NexDataStore from "store/NexDataStore";
 import { createContext, useMemo } from "react";
 import { observer } from "mobx-react-lite";
-import NexConfigStore from "applet/NexConfigStore";
+import NexConfigStore from "store/NexConfigStore";
 import {
   NexThemeUser,
   defaultThemeUser,

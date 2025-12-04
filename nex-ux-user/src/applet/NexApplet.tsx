@@ -8,7 +8,7 @@ import { clamp } from "utils/util";
 import NexSelector from "store/NexSelector";
 import { NexThemeUser } from "../type/NexTheme";
 import { nexIcon, nexNodeIcon } from "icon/NexIcon";
-import { NexContents } from "./NexAppProvider";
+import { NexContents } from "provider/NexAppProvider";
 
 /*
 export interface NexAppData {

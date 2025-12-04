@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import { NexDiv } from "../../component/base/NexBaseComponents";
 
 import { clamp } from "../../utils/util";
-import NexDataStore from "../NexDataStore";
+import NexDataStore from "store/NexDataStore";
 import NexLineChartApp from "../chart/NexLineChartApp";
 import EMU150TrainAccordion from "./lib/EMU150TrainAccordion";
 import { getThemeStyle } from "type/NexTheme";

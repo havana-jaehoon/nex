@@ -1,6 +1,6 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import nexConfig from "applet/NexConfigStore";
-import NexConfigStore from "applet/NexConfigStore";
+import nexConfig from "store/NexConfigStore";
+import NexConfigStore from "store/NexConfigStore";
 import { observer } from "mobx-react-lite";
 import { NexDiv } from "component/base/NexBaseComponents";
 import NexPageViewer from "page/NexPageViewer";

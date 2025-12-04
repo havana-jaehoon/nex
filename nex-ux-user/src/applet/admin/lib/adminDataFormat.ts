@@ -206,10 +206,6 @@ const featureTypeLiterals = [
     dispName: "JSON 객체",
   },
   {
-    name: NexFeatureType.JSON,
-    dispName: "JSON 객체",
-  },
-  {
     name: NexFeatureType.BOOLEAN,
     dispName: "불리언",
   },
@@ -217,10 +213,7 @@ const featureTypeLiterals = [
     name: NexFeatureType.BINARY,
     dispName: "바이너리",
   },
-  {
-    name: NexFeatureType.BINARY,
-    dispName: "바이너리",
-  },
+
   {
     name: NexFeatureType.DATE,
     dispName: "날짜",
@@ -260,15 +253,15 @@ const featureTypeLiterals = [
   { name: NexFeatureType.URL, dispName: "URL" },
   {
     name: NexFeatureType.LITERALS,
-    dispName: "리터럴 목록",
+    dispName: "리터럴",
   },
   {
     name: NexFeatureType.RECORDS,
-    dispName: "레코드 목록",
+    dispName: "레코드리스트",
   },
   {
     name: NexFeatureType.ATTRIBUTES,
-    dispName: "속성 목록",
+    dispName: "속성",
   },
 ];
 
@@ -463,20 +456,46 @@ const formatNodeDef: any = {
           name: "featureType",
           dispName: "피처 타입",
           featureType: NexFeatureType.LITERALS,
-          uxSize: 3,
           literals: featureTypeLiterals,
+          uxSize: 3,
         },
         {
           name: "isKey",
           dispName: "키",
           featureType: NexFeatureType.BOOLEAN,
-          uxSize: 1,
+          uxSize: 3,
         },
         {
-          name: "uxSize",
-          dispName: "UX 크기",
-          featureType: NexFeatureType.NUMBER,
-          uxSize: 2,
+          name: "literals",
+          dispName: "리터럴",
+          featureType: NexFeatureType.RECORDS,
+          records: [
+            {
+              name: "name",
+              dispName: "리터럴 이름",
+              featureType: NexFeatureType.STRING,
+              uxSize: 3,
+            },
+            {
+              name: "dispName",
+              dispName: "리터럴 표시 이름",
+              featureType: NexFeatureType.STRING,
+              uxSize: 3,
+            },
+            {
+              name: "icon",
+              dispName: "아이콘",
+              featureType: NexFeatureType.STRING,
+              uxSize: 3,
+            },
+            {
+              name: "color",
+              dispName: "컬러 코드",
+              featureType: NexFeatureType.STRING,
+              uxSize: 3,
+            },
+          ],
+          uxSize: 6,
         },
       ],
     },

@@ -10,7 +10,17 @@
       "icon": null,
       "color": null,
       "isKey": true,
-      "featureType": "STRING"
+      "featureType": "LITERAL",
+      "literals": [
+        { "name": "1호선", "dispName": "경부선", "icon": "", "color": "" },
+        { "name": "2호선", "dispName": "2호선", "icon": "", "color": "" },
+        { "name": "3호선", "dispName": "3호선", "icon": "", "color": "" },
+        { "name": "4호선", "dispName": "4호선", "icon": "", "color": "" },
+        { "name": "5호선", "dispName": "5호선", "icon": "", "color": "" },
+        { "name": "6호선", "dispName": "6호선", "icon": "", "color": "" },
+        { "name": "7호선", "dispName": "7호선", "icon": "", "color": "" },
+        { "name": "8호선", "dispName": "8호선", "icon": "", "color": "" }
+      ]
     },
     {
       "name": "train",

@@ -1,6 +1,6 @@
 import React from "react";
 import NexApp from "./NexApp";
-import { configStore } from "applet/NexConfigStore";
+import { configStore } from "store/NexConfigStore";
 
 function App() {
   return <NexApp configStore={configStore} />;

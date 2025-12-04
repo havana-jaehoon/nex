@@ -79,7 +79,7 @@ export const pxIconMap: Record<
 
 const iconList: any[] = Object.keys(pxIconMap).map((key) => ({
   path: key,
-  name: pxIconMap[key].name,
+  name: key,
   dispName: pxIconMap[key].dispName,
   helper: `${pxIconMap[key].dispName}(${key})`,
 }));

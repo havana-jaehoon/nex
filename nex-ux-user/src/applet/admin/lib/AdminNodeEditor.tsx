@@ -107,9 +107,10 @@ function asFeatureValue(value: any, featureType: NexFeatureType) {
 // ===== UI atoms =====
 
 interface ItemInputProps {
-  label: string;
+  name: string;
+  dispName: string;
+  //label: string;
   value: any;
-  itemType: string;
   argPath: string[];
   featureType: any;
   nodes: any;
@@ -122,9 +123,10 @@ interface ItemInputProps {
 }
 
 const ItemInput: React.FC<ItemInputProps> = ({
-  label,
+  name,
+  dispName,
+  //label,
   value,
-  itemType,
   argPath,
   featureType,
   nodes,
@@ -136,23 +138,23 @@ const ItemInput: React.FC<ItemInputProps> = ({
   const [nodeValue, setNodeValue] = useState<string>("");
 
   const pathSelections = useMemo(() => {
-    if (label === "icon") return null;
-    if (label === "sources") {
+    if (name === "icon") return null;
+    if (name === "sources") {
       return nodePaths["element"] ? nodePaths["element"][systemName] : null;
     }
-    if (label === NexNodeType.APPLET) {
+    if (name === NexNodeType.APPLET) {
       return appletPathList;
     }
-    return nodePaths[label]
-      ? nodePaths[label][systemName]
-        ? nodePaths[label][systemName]
+    return nodePaths[name]
+      ? nodePaths[name][systemName]
+        ? nodePaths[name][systemName]
         : null
       : null;
-  }, [label, systemName, nodePaths]);
+  }, [name, systemName, nodePaths]);
 
   const nodeSelections = useMemo(() => {
-    if (label === "icon") return pxIconList;
-    if (label === "sources") {
+    if (name === "icon") return pxIconList;
+    if (name === "sources") {
       const tnodes = nodes["element"]
         ? nodes["element"][systemName]
           ? nodes["element"][systemName][pathValue]
@@ -169,18 +171,18 @@ const ItemInput: React.FC<ItemInputProps> = ({
       return tnodes;
     }
 
-    if (label === NexNodeType.APPLET) {
+    if (name === NexNodeType.APPLET) {
       return appletPathMap[pathValue] ? appletPathMap[pathValue] : null;
     }
 
-    return nodes[label]
-      ? nodes[label][systemName]
-        ? nodes[label][systemName][pathValue]
-          ? nodes[label][systemName][pathValue]
+    return nodes[name]
+      ? nodes[name][systemName]
+        ? nodes[name][systemName][pathValue]
+          ? nodes[name][systemName][pathValue]
           : null
         : null
       : null;
-  }, [label, systemName, pathValue]);
+  }, [name, systemName, pathValue]);
 
   const systemSelections = nodes["system"]
     ? nodes["system"][""]
@@ -190,7 +192,7 @@ const ItemInput: React.FC<ItemInputProps> = ({
 
   useEffect(() => {
     //console.log(`ItemInput: pathValue changed: ${pathValue}`);
-    if (label === "sources") {
+    if (name === "sources") {
       const sysName = value ? value.split(":")[0] : "";
       const elPath = value ? value.split(":")[1] : "";
       const parentPath = elPath.split("/").slice(0, -1).join("/");
@@ -201,26 +203,26 @@ const ItemInput: React.FC<ItemInputProps> = ({
       setSystemName(sysName);
       setPathValue(parentPath);
       setNodeValue(nodeName);
-    } else if (label === NexNodeType.SYSTEM || label === "icon") {
+    } else if (name === NexNodeType.SYSTEM || name === "icon") {
       setNodeValue(value);
-    } else if (label === NexNodeType.STORAGE) {
+    } else if (name === NexNodeType.STORAGE) {
       const parentPath = value.split("/").slice(0, -1).join("/");
       const nodeName = value.split("/").slice(-1)[0];
       setNodeValue(nodeName);
-    } else if (label === NexNodeType.ELEMENT) {
+    } else if (name === NexNodeType.ELEMENT) {
       const parentPath = value.split("/").slice(0, -1).join("/");
       const nodeName = value.split("/").slice(-1)[0];
       setSystemName("webclient");
       setPathValue(parentPath);
       setNodeValue(nodeName);
     } else if (
-      label === NexNodeType.FORMAT ||
-      label === NexNodeType.STORE ||
-      label === NexNodeType.PROCESSOR ||
-      label === NexNodeType.CONTENTS ||
-      label === NexNodeType.APPLET ||
-      label === NexNodeType.THEME ||
-      label === NexNodeType.USER
+      name === NexNodeType.FORMAT ||
+      name === NexNodeType.STORE ||
+      name === NexNodeType.PROCESSOR ||
+      name === NexNodeType.CONTENTS ||
+      name === NexNodeType.APPLET ||
+      name === NexNodeType.THEME ||
+      name === NexNodeType.USER
     ) {
       const parentPath = value.split("/").slice(0, -1).join("/");
       const nodeName = value.split("/").slice(-1)[0];
@@ -233,7 +235,7 @@ const ItemInput: React.FC<ItemInputProps> = ({
   }, [value]);
 
   // system ,  path , node-name 각각 선택
-  if (label === "sources") {
+  if (name === "sources") {
     return (
       <Stack direction="row" spacing={1} width="100%">
         {systemSelections && (
@@ -260,7 +262,7 @@ const ItemInput: React.FC<ItemInputProps> = ({
         {pathSelections ? (
           <TextField
             select
-            label={`${label}-path`}
+            label={`${dispName} 경로`}
             variant="standard"
             value={pathValue}
             onChange={(e) => {
@@ -283,7 +285,7 @@ const ItemInput: React.FC<ItemInputProps> = ({
           <>
             <TextField
               disabled
-              label={`${label}-path`}
+              label={`${dispName} 경로`}
               variant="standard"
               value={pathValue}
               style={{ flex: 1, width: "50%" }}
@@ -297,7 +299,7 @@ const ItemInput: React.FC<ItemInputProps> = ({
         {nodeSelections ? (
           <TextField
             select
-            label={label}
+            label={`${dispName} 이름`}
             variant="standard"
             value={nodeValue}
             onChange={(e) => {
@@ -319,7 +321,7 @@ const ItemInput: React.FC<ItemInputProps> = ({
         ) : (
           <TextField
             disabled
-            label={label}
+            label={`${dispName} 이름`}
             variant="standard"
             value={nodeValue}
             style={{ flex: 1, width: "50%" }}
@@ -330,11 +332,11 @@ const ItemInput: React.FC<ItemInputProps> = ({
   }
 
   // node-name 만 선택
-  if (label === NexNodeType.SYSTEM || label === "icon") {
+  if (name === NexNodeType.SYSTEM || name === "icon") {
     return nodeSelections ? (
       <TextField
         select
-        label={label}
+        label={`${dispName} 이름`}
         variant="standard"
         value={nodeValue}
         onChange={(e) => {
@@ -349,28 +351,28 @@ const ItemInput: React.FC<ItemInputProps> = ({
         ))}
       </TextField>
     ) : (
-      `${label} 데이터가 없습니다.`
+      `${dispName} 데이터가 없습니다.`
     );
   }
 
   // path , node-name 선택
   if (
-    label === NexNodeType.FORMAT ||
-    label === NexNodeType.STORE ||
-    label === NexNodeType.PROCESSOR ||
-    label === NexNodeType.ELEMENT ||
-    label === NexNodeType.STORAGE ||
-    label === NexNodeType.CONTENTS ||
-    label === NexNodeType.APPLET ||
-    label === NexNodeType.THEME ||
-    label === NexNodeType.USER
+    name === NexNodeType.FORMAT ||
+    name === NexNodeType.STORE ||
+    name === NexNodeType.PROCESSOR ||
+    name === NexNodeType.ELEMENT ||
+    name === NexNodeType.STORAGE ||
+    name === NexNodeType.CONTENTS ||
+    name === NexNodeType.APPLET ||
+    name === NexNodeType.THEME ||
+    name === NexNodeType.USER
   ) {
     return (
       <Stack direction="row" spacing={1} width="100%">
         {pathSelections && (
           <TextField
             select
-            label={`${label}-dir`}
+            label={`${dispName} 경로`}
             variant="standard"
             value={pathValue ?? ""}
             onChange={(e) => {
@@ -388,7 +390,7 @@ const ItemInput: React.FC<ItemInputProps> = ({
         {nodeSelections ? (
           <TextField
             select
-            label={label}
+            label={`${dispName} 이름`}
             variant="standard"
             value={nodeValue ?? ""}
             onChange={(e) => {
@@ -410,7 +412,7 @@ const ItemInput: React.FC<ItemInputProps> = ({
         ) : (
           <TextField
             disabled
-            label={label}
+            label={`${dispName} 이름`}
             variant="standard"
             value={""}
             style={{ flex: 1, width: "50%" }}
@@ -431,7 +433,7 @@ const ItemInput: React.FC<ItemInputProps> = ({
             onChange={(e) => onChange(argPath, featureType, e.target.checked)}
           />
         }
-        label={label}
+        label={dispName}
       />
     );
   }
@@ -440,8 +442,8 @@ const ItemInput: React.FC<ItemInputProps> = ({
   return (
     <TextField
       variant="standard"
-      label={label}
-      type={itemType}
+      label={dispName}
+      type={featureType === NexFeatureType.NUMBER_ARRAY ? "number" : "text"}
       value={value ?? ""}
       style={{ flex: 1, width: "100%" }}
       onChange={(e) => onChange(argPath, featureType, e.target.value)}
@@ -449,17 +451,9 @@ const ItemInput: React.FC<ItemInputProps> = ({
   );
 };
 
-interface ArrayItemInputProps {
-  label: string;
-  value: any;
-  index: number;
-  featureName: string;
-  nodes: any;
-  nodePaths: any;
-}
-
 interface SelectProps {
-  label: string;
+  name: string;
+  dispName: string;
   placeholder?: string;
   value: string;
   onChange: (v: string) => void;
@@ -467,7 +461,8 @@ interface SelectProps {
 }
 
 const LabeledSelect: React.FC<SelectProps> = ({
-  label,
+  name,
+  dispName,
   placeholder,
   value,
   onChange,
@@ -477,7 +472,7 @@ const LabeledSelect: React.FC<SelectProps> = ({
 
   if (literals.length === 0) {
     console.warn(
-      `# LabeledSelect: no valid literals : label=${label}, value=${value}, opts=${JSON.stringify(literals, null, 2)}`
+      `# LabeledSelect: no valid literals : name=${dispName}(${name}), value=${value}, opts=${JSON.stringify(literals, null, 2)}`
     );
     return null;
   }
@@ -486,7 +481,7 @@ const LabeledSelect: React.FC<SelectProps> = ({
 
   if (!isValid) {
     console.warn(
-      `# LabeledSelect: invalid value : label=${label}, value=${value}, opts=${JSON.stringify(literals, null, 2)}`
+      `# LabeledSelect: invalid value : name=${dispName}(${name}), value=${value}, opts=${JSON.stringify(literals, null, 2)}`
     );
     //onChange(literals[0].name);
   }
@@ -499,7 +494,7 @@ const LabeledSelect: React.FC<SelectProps> = ({
           console.log(`LabeledSelect: onChange : ${e.target.value}`);
           onChange(e.target.value);
         }}
-        label={label}
+        label={dispName}
         style={{ width: "100%" }}
       >
         {literals.map((litObj, index) => (
@@ -515,8 +510,11 @@ const LabeledSelect: React.FC<SelectProps> = ({
 // Records editor (list of strings OR structured rows)
 interface RecordsEditorProps {
   id: string;
-  label: string;
+  name: string;
+  dispName: string;
   placeholder?: string;
+  nodes: any;
+  nodePaths: any;
   rows: any[];
   setRows: (rows: any[]) => void;
   recordFields?: any[]; // if provided, render object rows with these fields
@@ -526,14 +524,18 @@ interface RecordsEditorProps {
 
 const RecordsEditor: React.FC<RecordsEditorProps> = ({
   id,
-  label,
+  name,
+  dispName,
   placeholder,
+  nodes,
+  nodePaths,
   rows,
   setRows,
   recordFields,
   renderFeature,
   argPath,
 }) => {
+
   const addRow = (index: number) => {
     if (recordFields && recordFields.length > 0) {
       const base: any = {};
@@ -554,7 +556,9 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
     }
     console.log("# RecordsEditor: addRow", {
       id,
-      label,
+      name,
+      dispName,
+      placeholder,
       rows: JSON.stringify(rows),
     });
   };
@@ -582,7 +586,7 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
   return (
     <NexDiv width="100%" direction="column">
       <Typography variant="subtitle2" sx={{ fontWeight: "bold", md: 1 }}>
-        {label}
+        {dispName}
       </Typography>
       {recordFields && (
         <Stack spacing={1.5} width="100%" direction="column" sx={{ p: 1 }}>
@@ -616,7 +620,8 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
                       return (
                         <Grid item key={i} xs={size}>
                           <LabeledSelect
-                            label={f.dispName || f.name}
+                            name={f.name}
+                            dispName={f.dispName || f.name}
                             value={row[f.name] ?? ""}
                             literals={f.literals || []}
                             onChange={(value) => {
@@ -648,16 +653,19 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
                       };
                       return (
                         <Grid item key={i} xs={size}>
-                          <TextField
-                            label={f.dispName || f.name}
-                            variant="standard"
+                          <ItemInput
+                            name={f.name}
+                            dispName={f.dispName || f.name}
                             value={row[f.name] ?? ""}
-                            style={{ width: "100%" }}
-                            onChange={(e) => {
+                            featureType={f.featureType}
+                            argPath={argPath}
+                            nodes={nodes}
+                            nodePaths={nodePaths}
+                            onChange={(argPath, featureType, value) => {
                               const next = [...rows];
                               next[rIdx] = {
                                 ...next[rIdx],
-                                [f.name]: e.target.value,
+                                [f.name]: value,
                               };
                               setRows(next);
                             }}
@@ -668,16 +676,20 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
 
                     return (
                       <Grid item key={i} xs={size}>
-                        <TextField
-                          label={f.dispName || f.name}
-                          variant="standard"
+
+                        <ItemInput
+                          name={f.name}
+                          dispName={f.dispName || f.name}
                           value={row[f.name] ?? ""}
-                          style={{ width: "100%" }}
-                          onChange={(e) => {
+                          featureType={f.featureType}
+                          argPath={argPath}
+                          nodes={nodes}
+                          nodePaths={nodePaths}
+                          onChange={(argPath, featureType, value) => {
                             const next = [...rows];
                             next[rIdx] = {
                               ...next[rIdx],
-                              [f.name]: e.target.value,
+                              [f.name]: value,
                             };
                             setRows(next);
                           }}
@@ -949,7 +961,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
     </Stack>
   );
 
-  const iconSubItem = (key: string, label: string) => {
+  const iconSubItem = (key: string) => {
     return (
       <NexDiv
         direction="row"
@@ -974,14 +986,16 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
   const renderFeature = (feature: any, parentPath: string[] = []) => {
     const argPath = [...parentPath, feature.name];
     const id = argPath.join(".");
-    const label = feature.name;
+    //const label = feature.name;
+    const name = feature.name;
+    const dispName = feature.dispName || feature.name;
     const placeholder =
       (feature as any).description || feature.dispName || undefined;
 
     if (feature.featureType === NexFeatureType.ATTRIBUTES) {
       return (
         <NexDiv key={feature.name} width="100%" direction="column">
-          {iconSubItem(id, label)}
+          {iconSubItem(id)}
           <Stack
             spacing={0.5}
             direction="column"
@@ -1003,7 +1017,8 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
         <NexDiv width="100%" align="flex-end">
           <LabeledSelect
             key={id}
-            label={label}
+            name={name}
+            dispName={dispName}
             placeholder={placeholder}
             value={value}
             literals={feature.literals || []}
@@ -1023,8 +1038,11 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
         <NexDiv key={id} width="100%">
           <RecordsEditor
             key={id}
+            nodes={nodes}
+            nodePaths={nodePaths}
             id={id}
-            label={label}
+            name={name}
+            dispName={dispName}
             placeholder={placeholder}
             rows={rows}
             setRows={(r) => handleRecordsChange(argPath, r)}
@@ -1041,12 +1059,12 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
     ) {
       const arr =
         (getAtPath(editingNode, argPath) as any[]) &&
-        Array.isArray(getAtPath(editingNode, argPath))
+          Array.isArray(getAtPath(editingNode, argPath))
           ? (getAtPath(editingNode, argPath) as any[])
           : [];
 
-      const itemType =
-        feature.featureType === NexFeatureType.NUMBER_ARRAY ? "number" : "text";
+      //const itemType =
+      //  feature.featureType === NexFeatureType.NUMBER_ARRAY ? "number" : "text";
 
       const updateArray = (nextArr: any[]) => {
         const nextNode = { ...editingNode };
@@ -1058,12 +1076,12 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
       const updateItem = (idx: number, raw: string) => {
         const nextArr = [...arr];
         nextArr[idx] =
-          itemType === "number" ? (raw === "" ? "" : Number(raw)) : raw;
+          feature.featureType === NexFeatureType.NUMBER_ARRAY ? (raw === "" ? "" : Number(raw)) : raw;
         updateArray(nextArr);
       };
 
       const addItem = () => {
-        updateArray([...arr, itemType === "number" ? "" : ""]);
+        updateArray([...arr, feature.featureType === NexFeatureType.NUMBER_ARRAY ? "" : ""]);
       };
 
       const removeItem = (idx: number) => {
@@ -1071,143 +1089,11 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
         updateArray(nextArr);
       };
 
-      const arrayItemView = (label: string, value: any, index: number) => {
-        let pathSelections: [] | null = null;
-        let nodeSelections: [] | null = null;
-        let pathValue = "";
-        let nodeValue = value;
-        if (feature.name === "sources") {
-          const systemOptions = nodes["system"][""] || [];
-          const elementList = nodes["element"]["config"] || [];
-          console.log(`# elementList: ${JSON.stringify(elementList, null, 2)}`);
-
-          const systemName = value ? value.split(":")[0] : "";
-          const elementPath = value ? value.split(":")[1] : "";
-          const elementOptions = (sysName: string) =>
-            elementList.filter((el: any) => el.system === sysName);
-          return (
-            <>
-              <TextField
-                select
-                label={"system"}
-                variant="standard"
-                value={systemName ?? ""}
-                onChange={(e) => updateItem(index, e.target.value)}
-                style={{ flex: 1, width: "100%" }}
-              >
-                {systemOptions.map((item: any) => (
-                  <MenuItem key={item.path} value={item.name}>
-                    {item.helper}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                select
-                label={"element"}
-                variant="standard"
-                value={elementPath ?? ""}
-                onChange={(e) =>
-                  updateItem(index, `${systemName}:${e.target.value}`)
-                }
-                style={{ flex: 1, width: "100%" }}
-              >
-                {elementOptions(systemName).map((item: any) => (
-                  <MenuItem key={item.path} value={item.path}>
-                    {item.helper}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </>
-          );
-        }
-
-        if (
-          feature.name === NexNodeType.SYSTEM ||
-          feature.name === NexNodeType.STORAGE ||
-          feature.name === NexNodeType.FORMAT ||
-          feature.name === NexNodeType.FORMAT ||
-          feature.name === NexNodeType.STORE ||
-          feature.name === NexNodeType.PROCESSOR ||
-          feature.name === NexNodeType.ELEMENT ||
-          feature.name === NexNodeType.CONTENTS ||
-          feature.name === NexNodeType.APPLET ||
-          feature.name === NexNodeType.THEME ||
-          feature.name === NexNodeType.USER
-        ) {
-          if (nodes[feature.name]) {
-            //selectOptions = nodes[feature.name];
-            pathSelections = nodePaths[feature.name];
-            //nodeSelections = nodes[feature.name];
-            pathValue = value.toString().split("/").slice(0, -1).join("/");
-            nodeValue = value.toString().split("/").slice(-1)[0];
-            nodeSelections = nodes[feature.name][pathValue];
-            nodeSelections = nodes[feature.name];
-          }
-        }
-
-        const setPathValue = (path: string) => {
-          updateItem(index, path);
-        };
-
-        const setNodeValue = (nodeName: string) => {
-          updateItem(index, `${pathValue}/${nodeName}`);
-        };
-
-        if (nodeSelections || pathSelections) {
-          return (
-            <>
-              {pathSelections && (
-                <TextField
-                  select
-                  label={label}
-                  variant="standard"
-                  value={pathValue ?? ""}
-                  onChange={(e) => setPathValue(e.target.value)}
-                  style={{ flex: 1, width: "100%" }}
-                >
-                  {pathSelections.map((item: any) => (
-                    <MenuItem key={item.path} value={item.path}>
-                      {item.helper}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              )}
-              {nodeSelections && (
-                <TextField
-                  select
-                  label={label}
-                  variant="standard"
-                  value={nodeValue ?? ""}
-                  onChange={(e) => setNodeValue(e.target.value)}
-                  style={{ flex: 1, width: "100%" }}
-                >
-                  {nodeSelections.map((item: any) => (
-                    <MenuItem key={item.path} value={item.path}>
-                      {item.helper}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              )}
-            </>
-          );
-        }
-
-        return (
-          <TextField
-            variant="standard"
-            label={`${label}[${index}]`}
-            type={itemType}
-            value={value ?? ""}
-            style={{ flex: 1, width: "100%" }}
-            onChange={(e) => updateItem(index, e.target.value)}
-          />
-        );
-      };
 
       return (
         <NexDiv key={id} width="100%" direction="column">
           <Typography variant="subtitle2" sx={{ fontWeight: "bold", mb: 0.5 }}>
-            {label}
+            {dispName}
           </Typography>
           <Stack spacing={0.5} direction="column" width="100%">
             {arr.map((v, i) => (
@@ -1219,9 +1105,9 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
               >
                 {/*arrayItemView(label, v, i)*/}
                 <ItemInput
-                  label={label}
+                  name={name}
+                  dispName={dispName}
                   value={v}
-                  itemType={itemType}
                   argPath={argPath}
                   featureType={feature.featureType}
                   nodes={nodes}
@@ -1259,132 +1145,16 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
     const type = isNumber(feature.featureType)
       ? "number"
       : feature.name.toLowerCase().includes("passwd") ||
-          feature.name.toLowerCase().includes("password")
+        feature.name.toLowerCase().includes("password")
         ? "password"
         : "text";
 
-    const itemView = (
-      label: string, // feature name
-      value: any, // feature value
-      itemType: string,
-      argPath: string[],
-      featureType: any
-    ) => {
-      //let selectOptions: any[] | null = null;
-      let pathSelections: any[] | null = null;
-      let nodeSelections: any[] | null = null;
-
-      let pathValue = "";
-      let nodeValue = value;
-
-      if (
-        label === NexNodeType.SYSTEM ||
-        label === NexNodeType.STORAGE ||
-        label === NexNodeType.FORMAT ||
-        label === NexNodeType.FORMAT ||
-        label === NexNodeType.STORE ||
-        label === NexNodeType.PROCESSOR ||
-        label === NexNodeType.ELEMENT ||
-        label === NexNodeType.CONTENTS ||
-        label === NexNodeType.APPLET ||
-        label === NexNodeType.THEME ||
-        label === NexNodeType.USER
-      ) {
-        if (nodes[feature.name]) {
-          //selectOptions = nodes[feature.name];
-          pathSelections = nodePaths[feature.name];
-          //nodeSelections = nodes[feature.name];
-          pathValue = value.toString().split("/").slice(0, -1).join("/");
-          nodeValue = value.toString().split("/").slice(-1)[0];
-
-          if (pathValue !== "") nodeSelections = nodes[feature.name][pathValue];
-        }
-      } else if (feature.name === "icon") {
-        //selectOptions = pxIconList;
-        pathSelections = null;
-        pathValue = "";
-        nodeValue = value;
-        nodeSelections = pxIconList;
-
-        //nodeSelections = pxIconList;
-      }
-
-      // pathValue 가 변경될때  nodeSelections 를 갱싱하려면
-
-      const setPathValue = (path: string) => {
-        handlePrimitiveChange(argPath, featureType, path);
-      };
-
-      const setNodeValue = (nodeName: string) => {
-        handlePrimitiveChange(
-          argPath,
-          featureType,
-          pathValue === "" ? nodeName : `${pathValue}/${nodeName}`
-        );
-      };
-
-      if (pathSelections || nodeSelections) {
-        return (
-          <>
-            {pathSelections && (
-              <TextField
-                select
-                label={`${label}-dir`}
-                variant="standard"
-                value={value ?? ""}
-                onChange={(e) =>
-                  handlePrimitiveChange(argPath, featureType, e.target.value)
-                }
-                style={{ flex: 1, width: "100%" }}
-              >
-                {pathSelections.map((item: any) => (
-                  <MenuItem key={item.path} value={item.path}>
-                    {item.helper}
-                  </MenuItem>
-                ))}
-              </TextField>
-            )}
-            {nodeSelections && (
-              <TextField
-                select
-                label={label}
-                variant="standard"
-                value={value ?? ""}
-                onChange={(e) =>
-                  handlePrimitiveChange(argPath, featureType, e.target.value)
-                }
-                style={{ flex: 1, width: "100%" }}
-              >
-                {nodeSelections.map((item: any) => (
-                  <MenuItem key={item.path} value={item.path}>
-                    {item.helper}
-                  </MenuItem>
-                ))}
-              </TextField>
-            )}
-          </>
-        );
-      }
-
-      return (
-        <TextField
-          variant="standard"
-          label={label}
-          type={itemType}
-          value={value ?? ""}
-          style={{ flex: 1, width: "100%" }}
-          onChange={(e) =>
-            handlePrimitiveChange(argPath, feature.featureType, e.target.value)
-          }
-        />
-      );
-    };
 
     return (
       <ItemInput
-        label={label}
+        name={name}
+        dispName={dispName}
         value={value}
-        itemType={type}
         argPath={argPath}
         featureType={feature.featureType}
         nodes={nodes}
@@ -1392,7 +1162,6 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
         onChange={handlePrimitiveChange}
       />
     );
-    //return itemView(label, value, type,  argPath, feature.featureType);
   };
 
   return (
@@ -1424,12 +1193,14 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
             flex="10"
             width="100%"
             style={{ minHeight: 0, overflow: "auto" }}
+            direction="column"
           >
             {bodyFields()}
+            {true && editingNode && (
+              <pre>{JSON.stringify(editingNode, null, 2)}</pre>
+            )}
           </NexDiv>
-          {true && editingNode && (
-            <pre>{JSON.stringify(editingNode, null, 2)}</pre>
-          )}
+
           <NexDiv flex="1" width="100%">
             {tailFields()}
           </NexDiv>

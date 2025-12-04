@@ -1,19 +1,23 @@
 {
   "name": "AlertCount",
   "dispName": "주의 경고 건수",
+  "description": "",
   "type": "format",
+  "icon": "",
+  "color": "",
   "features": [
     {
       "name": "label",
-      "icon": null,
+      "icon": "/config/menu",
       "color": null,
       "isKey": true,
-      "featureType": "STRING"
+      "featureType": "STRING",
+      "dispName": "이름"
     },
     {
       "name": "alert",
       "dispName": "경고",
-      "icon": null,
+      "icon": "/config/storage",
       "color": "#f0142f",
       "isKey": false,
       "featureType": "NUMBER"
@@ -21,7 +25,7 @@
     {
       "name": "warning",
       "dispName": "주의",
-      "icon": null,
+      "icon": "/config/new-entity",
       "color": "#feb200",
       "isKey": false,
       "featureType": "NUMBER"
