@@ -1,4 +1,6 @@
 import copy
+
+import numpy as np
 import pandas as pd
 from readerwriterlock import rwlock
 from typing import Dict, Tuple, Optional
@@ -10,16 +12,33 @@ from util.pi_http.http_handler import BodyData, Server_Dynamic_Handler, HandlerR
 from util.log_util import Logger
 
 
-def _http_response(result: HandlerResult) -> Response:
+def _http_response(accept_format: str, result: HandlerResult) -> Response:
     status, body, headers, media = result.status, result.body, result.headers, result.media_type
     if body is None:
         return Response(status_code=status, headers=headers)
+
     if isinstance(body, dict):
         return JSONResponse(content=body, status_code=status, headers=headers)
     if isinstance(body, pd.DataFrame):
-        return Response(content=body.to_csv(index=False), status_code=status, headers=headers, media_type=media or "text/csv")
+        if accept_format == "text/csv":
+            return Response(content=body.to_csv(index=False), status_code=status, headers=headers, media_type=media or "text/csv")
+        else:
+            if hasattr(body, "select_dtypes"):
+                datetime_cols = body.select_dtypes(include=['datetime', 'datetimetz']).columns
+                for col in datetime_cols:
+                    body[col] = body[col].astype(str)
+            clean_data = body.replace({np.nan: None, np.inf: None, -np.inf: None}).values.tolist()
+            return JSONResponse(content=clean_data, status_code=status, headers=headers)
     if isinstance(body, list):
-        return Response(content=HttpUtil.get_csv_content(body), status_code=status, headers=headers, media_type=media or "text/csv")
+        if accept_format == "text/csv":
+            return Response(content=HttpUtil.get_csv_content(body), status_code=status, headers=headers, media_type=media or "text/csv")
+        else:
+            if len(body) > 0 and isinstance(body[0], dict):
+                keys = list(body[0].keys())
+                two_dim_list = [ [ row.get(k) for k in keys ] for row in body ]
+            else:
+                two_dim_list = body
+            return JSONResponse(content=two_dim_list, status_code=status, headers=headers)
     if isinstance(body, (bytes, bytearray, memoryview)):
         return Response(content=body, status_code=status, headers=headers, media_type=media or "application/octet-stream")
     if isinstance(body, str):
@@ -116,7 +135,8 @@ class DynamicRouteProc:
         try:
             handler_result = await handler(handler_args, kwargs)
             self._logger.log_verbose(f"HttpServer : route({full_path}) : rsp={handler_result.status}")
-            res = _http_response(handler_result)
+            accept_format = req.headers.get("accept", "")
+            res = _http_response(accept_format, handler_result)
             return res
         except Exception as e:
             import traceback

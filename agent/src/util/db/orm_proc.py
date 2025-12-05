@@ -13,6 +13,7 @@ from strenum import StrEnum
 from util.db.orm_def import OrmDbType
 from util.db import orm_param
 from util.db.orm_oracle import OrmOracle
+from util.db.orm_mysql import OrmMysql
 from util.scheme_define import SchemaDefinition, MetaKeyword, FieldDefinition
 
 
@@ -242,17 +243,25 @@ class OrmProc:
                     session.commit()
 
     def createSchemaFromTable(self, table_name: str) -> SchemaDefinition:
-        ins = inspect(self._engine)
-        cols = ins.get_columns(table_name)
-        pk = ins.get_pk_constraint(table_name)
-        pk_cols = set(pk.get('constrained_columns') or [])
         fields: List[FieldDefinition] = []
-        for col in cols:
-            python_type = self._ormType2pythonType(col["type"])
-            meta = {}
-            if col["name"] in pk_cols:
-                meta[MetaKeyword.IS_KEY] = True
-            fields.append(FieldDefinition(name=col["name"], python_type=python_type, metadata=meta))
+        try:
+            ins = inspect(self._engine)
+            cols = ins.get_columns(table_name)
+            pk = ins.get_pk_constraint(table_name)
+            pk_cols = set(pk.get('constrained_columns') or [])
+            for col in cols:
+                python_type = self._ormType2pythonType(col["type"])
+                meta = {}
+                if col["name"] in pk_cols:
+                    meta[MetaKeyword.IS_KEY] = True
+                fields.append(FieldDefinition(name=col["name"], python_type=python_type, metadata=meta))
+        except Exception as e:
+            if self._engine.dialect.name == 'mysql':
+                fields = OrmMysql.inspect_columns_without_comment(self._engine, table_name)
+            elif self._engine.dialect.name == 'oracle':
+                fields = OrmOracle.inspect_columns_without_comment(self._engine, table_name)
+            else:
+                raise e
         return SchemaDefinition(name=table_name, fields=fields)
 
     def createTableFromSchema(self, schema: SchemaDefinition):
@@ -331,7 +340,9 @@ class OrmProc:
     def inspect_table_names(self, schema: Optional[str] = None) -> List[str]:
         with self._get_read_session() as session:
             inspector = inspect(session.bind)
-            return inspector.get_table_names(schema=schema)
+            table_list = inspector.get_table_names(schema=schema)
+            view_list = inspector.get_view_names(schema=schema)
+            return table_list + view_list
 
     async def get_data_async(self,
                              schema_name: str,

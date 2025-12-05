@@ -7,7 +7,7 @@ COMMON_OPTS = {
 
 DIALECT_OPTS = {
     "mysql": {
-        "encoding",
+        "encoding"
     },
     "postgresql": {
         "executemany_mode",
@@ -29,6 +29,6 @@ DIALECT_OPTS = {
 
 
 def filterEngineOptions(db_type: str, **options) -> dict:
-    allowed = COMMON_OPTS | DIALECT_OPTS.get(db_type, set())
+    allowed = COMMON_OPTS | DIALECT_OPTS.get(db_type.lower(), set())
     filtered = {k: v for k, v in options.items() if k in allowed}
     return filtered

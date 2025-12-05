@@ -46,7 +46,7 @@ class ConfigAgentMgr(ConfigBaseMgr):
 
     def _queryConfig(self) -> Optional[dict]:
         if not self._auth.isAuth:
-            self._logger.log_error(f'ConfigClientMgr : queryConfig : fail : not auth status')
+            self._logger.log_error(f'ConfigAgentMgr : queryConfig : fail : not auth status')
             return None
         else:
             return HttpReqMgr().getByAddress(self._serverIp,
@@ -66,19 +66,19 @@ class ConfigAgentMgr(ConfigBaseMgr):
 
     def _initOwnConfig(self):
         try:
-            self._logger.log_info(f'ConfigClientMgr : initOwnConfig : start')
+            self._logger.log_info(f'ConfigAgentMgr : initOwnConfig : start')
             config_data = self._queryConfig()
             if config_data and isinstance(config_data, dict):
                 self._applyConfig(config_data)
-                self._logger.log_info(f'ConfigClientMgr : initOwnConfig : init success')
+                self._logger.log_info(f'ConfigAgentMgr : initOwnConfig : init success')
             else:
                 if self._elementCfgs.load() and self._systemCfg.load():
-                    self._logger.log_info(f'ConfigClientMgr : initOwnConfig : load installed config')
+                    self._logger.log_info(f'ConfigAgentMgr : initOwnConfig : load installed config')
                 else:
                     raise Exception('load fail')
         except Exception as e:
-            self._logger.log_error(f'ConfigClientMgr : initOwnConfig : fail to {e}')
-            raise Exception(f'ConfigClientMgr : initOwnConfig fail to {e}')
+            self._logger.log_error(f'ConfigAgentMgr : initOwnConfig : fail to {e}')
+            raise Exception(f'ConfigAgentMgr : initOwnConfig fail to {e}')
 
     def _messageQHandler(self, msg: MessageQueueData):
         try:
@@ -105,7 +105,7 @@ class ConfigAgentMgr(ConfigBaseMgr):
 
     async def _rcvReqConfigUpdate(self, handler_args: HandlerArgs, kwargs: dict) -> HandlerResult:
         try:
-            self._logger.log_info(f'ConfigServerMgr : config update : start')
+            self._logger.log_info(f'ConfigAgentMgr : config update : start')
 
             loop = asyncio.get_running_loop()
             future: asyncio.Future = loop.create_future()
@@ -116,22 +116,22 @@ class ConfigAgentMgr(ConfigBaseMgr):
                     messageBody=handler_args.body,
                     future=future)
             )
-            result: HandlerResult = await asyncio.wait_for(future, timeout=20.0)
+            result: HandlerResult = await asyncio.wait_for(future, timeout=300.0)
 
-            self._logger.log_info(f'ConfigServerMgr : config update : success')
+            self._logger.log_info(f'ConfigAgentMgr : config update : success')
             return result
         except asyncio.TimeoutError:
-            self._logger.log_error('ConfigServerMgr : config update : timeout')
+            self._logger.log_error('ConfigAgentMgr : config update : timeout')
             return HandlerResult(status=504, body='timeout')
         except Exception as e:
-            self._logger.log_error(f'ConfigServerMgr : config update ({handler_args, kwargs}) : {e}')
+            self._logger.log_error(f'ConfigAgentMgr : config update ({handler_args, kwargs}) : {e}')
             return HandlerResult(status=500, body=f'exception : {e}')
 
     def start(self):
-        self._logger.log_info(f'ConfigClientMgr : start')
+        self._logger.log_info(f'ConfigAgentMgr : start')
         # start auth
         if self._auth.init():
-            self._logger.log_info(f'ConfigClientMgr : auth-agent init success')
+            self._logger.log_info(f'ConfigAgentMgr : auth-agent init success')
         else:
             raise Exception('auth-agent init fail')
 
