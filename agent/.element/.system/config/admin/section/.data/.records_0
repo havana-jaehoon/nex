@@ -32,7 +32,7 @@
     {
       "0": {
         "name": "Head",
-        "dispName": "PX Builder",
+        "dispName": "Head",
         "description": "Head View",
         "type": "section",
         "icon": "",
@@ -40,13 +40,13 @@
         "isRoutes": "",
         "route": "",
         "direction": "row",
-        "size": 7,
+        "size": 6,
         "padding": "",
-        "app-padding": "12px",
-        "applet": "/head/PXHeadApplet",
-        "contents": [
-          "/admin/menu"
-        ]
+        "app-padding": "",
+        "applet": "",
+        "contents": [],
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],
@@ -1063,10 +1063,12 @@
         "size": "8",
         "padding": "",
         "app-padding": "",
-        "applet": "/chart/NexLineChart",
+        "applet": "/chart/PXLineChartApp",
         "contents": [
           "/cbm/history/MaintenancePerLineHistory"
-        ]
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],
@@ -1115,10 +1117,12 @@
         "size": "4",
         "padding": "",
         "app-padding": "",
-        "applet": "/chart/NexLineChart",
+        "applet": "/chart/PXLineChartApp",
         "contents": [
           "/cbm/history/LossHistoryPerDevice"
-        ]
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],
@@ -1141,10 +1145,12 @@
         "size": "1",
         "padding": "",
         "app-padding": "",
-        "applet": "/table/NexTable",
+        "applet": "/table/PXSearchingTable",
         "contents": [
           "/cbm/event/RTMaintenanceInfo"
-        ]
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],
@@ -1167,10 +1173,12 @@
         "size": "1",
         "padding": "",
         "app-padding": "",
-        "applet": "/table/NexTable",
+        "applet": "/table/PXSearchingTable",
         "contents": [
           "/cbm/event/SystemEventInfo"
-        ]
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],
@@ -1769,6 +1777,56 @@
         "contents": [
           "/cbm/status/SelectedLossPerLine"
         ],
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    263,
+    "/Home/Head/new-section-205546",
+    "",
+    "",
+    {
+      "0": {
+        "name": "new-section-205546",
+        "dispName": "PX Builder",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 6,
+        "padding": "",
+        "app-padding": "",
+        "applet": "/head/PXHeadApplet",
+        "contents": [],
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    264,
+    "/Home/Head/new-section-205554",
+    "",
+    "",
+    {
+      "1": {
+        "name": "new-section-205554",
+        "dispName": "",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 1,
+        "padding": "",
+        "app-padding": "",
+        "applet": "/admin/NexConfigDist",
+        "contents": [],
         "visibleFeatures": "",
         "refreshTime": ""
       }

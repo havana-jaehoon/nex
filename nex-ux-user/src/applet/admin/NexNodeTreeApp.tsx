@@ -224,10 +224,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     } else if (
       curNode.type === NexNodeType.FOLDER ||
       (type === NexNodeType.SECTION &&
-        (curNode.applet === undefined ||
-          curNode.contents === undefined ||
-          curNode.applet === "" ||
-          curNode.contents.length === 0))
+        (curNode.applet === undefined || curNode.applet === ""))
     ) {
       parentPath = selectedPath;
     } else {
@@ -412,16 +409,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
         }}
       >
         <span style={{ height: gapSize }} />
-        <span style={{ height: gapSize }} />
-        <Button
-          variant="contained"
-          size="large"
-          fullWidth
-          onClick={handleApplyConfig}
-        >
-          설정 적용
-        </Button>
-        <span style={{ height: gapSize }} />
+
 
         {systemSelector()}
         <Stack spacing={1} direction="row" justifyContent="end" width="100%">

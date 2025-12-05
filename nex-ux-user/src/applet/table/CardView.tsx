@@ -391,7 +391,6 @@ const CardView: React.FC<CardViewProps> = ({
             <Box sx={{ p: 1.5, borderBottom: "1px solid #e0e0e0", bgcolor: "#f8f9fa", flexShrink: 0 }}>
                 <Stack direction="row" justifyContent="space-between" alignItems="center">
                     <Stack direction="row" spacing={1} alignItems="center">
-                        <Typography fontWeight="bold">{name}</Typography>
                         <Typography variant="body2" color="text.secondary">({sortedData.length} items)</Typography>
                     </Stack>
 

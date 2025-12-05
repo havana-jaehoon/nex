@@ -267,11 +267,8 @@ const ItemInput: React.FC<ItemInputProps> = ({
             value={pathValue}
             onChange={(e) => {
               //setPathValue(e.target.value)
-              onChange(
-                argPath,
-                featureType,
-                `${systemName}:${e.target.value}/`
-              );
+              const outValue = e.target.value === "" ? "" : `${systemName}:${e.target.value}/`;
+              onChange(argPath, featureType, outValue);
             }}
             style={{ flex: 1, width: "50%" }}
           >
@@ -376,7 +373,9 @@ const ItemInput: React.FC<ItemInputProps> = ({
             variant="standard"
             value={pathValue ?? ""}
             onChange={(e) => {
-              onChange(argPath, featureType, `${e.target.value}/`);
+              const outValue = e.target.value === "" ? "" : `${e.target.value}/`;
+              console.log(`outValue: ${outValue}`);
+              onChange(argPath, featureType, outValue);
             }}
             style={{ flex: 1, width: "50%" }}
           >

@@ -1,26 +1,44 @@
 {
   "files": {
-    "main.js": "/static/js/main.7b1656ac.js",
+    "main.js": "/static/js/main.e5e6af8e.js",
     "static/js/453.dbccf10c.chunk.js": "/static/js/453.dbccf10c.chunk.js",
+    "static/media/logo-korail.svg": "/static/media/logo-korail.9cace2b27dd8ebd3fe48f297f2382d72.svg",
+    "static/media/icon-train.svg": "/static/media/icon-train.230b396e147d05beb5b5754ffb9cef77.svg",
+    "static/media/icon-settings.svg": "/static/media/icon-settings.61765808e4e4f235c1f3b3f67c9d7de6.svg",
     "static/media/applet.svg": "/static/media/applet.41e96d94dc66256394fd6a5fd2895195.svg",
     "static/media/store.svg": "/static/media/store.8e1bce7a61949b6c6aac06ff9efe726a.svg",
     "static/media/storage.svg": "/static/media/storage.05373d9f4cfa6a31e9d6052021357d27.svg",
     "static/media/processor.svg": "/static/media/processor.3d02ddd432c940bb706ea0a5b60d4b86.svg",
     "static/media/menu.svg": "/static/media/menu.0294d7229e07aacb45397cfbb9d96004.svg",
+    "static/media/icon-dashboard.svg": "/static/media/icon-dashboard.7fdaf5ca48ada2576a3f9c821f89fd19.svg",
     "static/media/system.svg": "/static/media/system.d5142010c148ae66ed943963f6af7831.svg",
     "static/media/new-entity.svg": "/static/media/new-entity.71dccb41cc813e9657ab6e6795ce317f.svg",
     "static/media/element.svg": "/static/media/element.33f82d572fd65dfadb736fdb349df6c9.svg",
+    "static/media/icon-table.svg": "/static/media/icon-table.07d0d6618f3501adb91c845a40c94568.svg",
+    "static/media/icon-device-info.svg": "/static/media/icon-device-info.b25709608301f5a5d7f2d9c8992c4699.svg",
+    "static/media/icon-dashboard-list.svg": "/static/media/icon-dashboard-list.500037a1dd1ac74417262e55e9b23baa.svg",
+    "static/media/icon-list.svg": "/static/media/icon-list.891043731b95e630d1d384a2a8f2379f.svg",
     "static/media/format.svg": "/static/media/format.832edda2f96ffb72c501f67d9af918d6.svg",
     "static/media/contents.svg": "/static/media/contents.68875bb7acc49ed8439a25451c739fc3.svg",
+    "static/media/icon-tree-device-type.svg": "/static/media/icon-tree-device-type.3ff29e1150e307a4a9d0b0972a5ea9b3.svg",
+    "static/media/icon-line-chart.svg": "/static/media/icon-line-chart.969073efef1c65180b1add899fc2b003.svg",
     "static/media/new-folder.svg": "/static/media/new-folder.59ab5eee5796218044adcb0dcf8b069c.svg",
+    "static/media/icon-bar-chart.svg": "/static/media/icon-bar-chart.63d3890cbe504030d0cf62112e896c80.svg",
+    "static/media/icon-tree-carriage.svg": "/static/media/icon-tree-carriage.c441556f7fad130638ccd65919d8be42.svg",
+    "static/media/icon-tree-line.svg": "/static/media/icon-tree-line.9b46d3aa527bb0d077fcbae482cff588.svg",
+    "static/media/icon-maintenance.svg": "/static/media/icon-maintenance.4643cb932c8d193c68e0a6a81c807a74.svg",
+    "static/media/icon-gauge-bar.svg": "/static/media/icon-gauge-bar.956a929a5c2ee30403afe3e1b4da1ca5.svg",
     "static/media/section.svg": "/static/media/section.5d19d221a792dc072c129a506404e2f8.svg",
     "static/media/theme.svg": "/static/media/theme.3dd063e73e99fad40df360f763026ba0.svg",
     "index.html": "/index.html",
     "static/media/user.svg": "/static/media/user.ff7bbb46a1ac2f783d06cd8d22c15ffd.svg",
-    "main.7b1656ac.js.map": "/static/js/main.7b1656ac.js.map",
+    "static/media/icon-tree-formation.svg": "/static/media/icon-tree-formation.9cdeb49053edcafa4cd9c531ff0e4cb5.svg",
+    "static/media/icon-download.svg": "/static/media/icon-download.7c1f789268544c50d0c3980128f56e1e.svg",
+    "static/media/icon-remove-circle.svg": "/static/media/icon-remove-circle.2926cea019587d603006dad158c65be4.svg",
+    "main.e5e6af8e.js.map": "/static/js/main.e5e6af8e.js.map",
     "453.dbccf10c.chunk.js.map": "/static/js/453.dbccf10c.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.7b1656ac.js"
+    "static/js/main.e5e6af8e.js"
   ]
 }

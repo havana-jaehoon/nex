@@ -41,7 +41,8 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
 
   const [hovered, setHovered] = React.useState(false);
   const isRoutes = section && Boolean(section.isRoutes) === true;
-  const isContents = section && section.contents;
+  const isContents = section && section.applet !== undefined && section.applet !== "";
+  // && section.contents && isCon;
   const isLastSection = section && !section.children;
   const isApplet = section && section.applet && section.applet !== "";
   const isSelected =

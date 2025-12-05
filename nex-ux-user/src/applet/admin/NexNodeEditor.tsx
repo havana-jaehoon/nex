@@ -25,7 +25,7 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
   //console.log("NexNodeEditor: stores=", JSON.stringify(stores, null, 2));
   const errorMsg = () => {
     // check isTree, volatility, features.length ...
-    if (contents?.length < 1) return "NexNodeEditor must be one store element.";
+    if (contents?.length < 1) return "NexNodeEditor Applet must be one or more store element.";
     return null;
   };
 
@@ -92,17 +92,12 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
           if (node.type === NexNodeType.FOLDER) {
             if (!pathList[nodeType][systemName]) {
               pathList[nodeType][systemName] = [
-                {
-                  index: -1,
-                  path: "",
-                  name: "",
-                  dispName: "/",
-                  helper: "Root(/)",
-                },
+                { index: 0, path: "", name: "", dispName: "없음", helper: "None" },
+
               ];
             }
             pathList[nodeType][systemName].push({
-              index: i,
+              index: i + 2,
               path: path,
               name: node.name,
               dispName: node.dispName,
@@ -121,10 +116,10 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
             if (!nodeList[nodeType][systemName])
               nodeList[nodeType][systemName] = {};
             if (!nodeList[nodeType][systemName][parentPath])
-              nodeList[nodeType][systemName][parentPath] = [];
+              nodeList[nodeType][systemName][parentPath] = [{ index: 0, path: "", name: "", dispName: "없음", helper: "None" }];
 
             nodeList[nodeType][systemName][parentPath].push({
-              index: i,
+              index: i + 1,
               path: path, // 필요한가?
               name: node.name,
               dispName: node.dispName,

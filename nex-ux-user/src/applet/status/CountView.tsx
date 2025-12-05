@@ -3,6 +3,7 @@ import { Stack, Paper, Typography } from "@mui/material";
 import { NexDiv } from "../../component/base/NexBaseComponents";
 import { getThemeStyle, contrastColor } from "type/NexTheme";
 import { clamp } from "../../utils/util";
+import PXIcon from "icon/pxIcon";
 
 export interface CountViewProps {
     name: string;
@@ -50,23 +51,31 @@ const CountView: React.FC<CountViewProps> = ({
 
             <Stack width="100%" spacing={gap}>
                 {data && data.map((row, rIdx) => {
-                    const label = row[0];
-                    const value = row[1];
+                    const column1 = row[0];
+                    const column2 = row[1];
                     // Use color from the first feature if available, or default
-                    const featureColor = features[0]?.color || "#888888";
+                    const feature = features[0];
+                    //console.log(JSON.stringify(feature, null, 2));
+                    const literals = feature?.literals ?? [];
+                    const literal = literals.find((lit: any) => lit.name === column1);
+                    console.log(`column1: ${column1} Literal: ${JSON.stringify(literals, null, 2)} => ${JSON.stringify(literal, null, 2)}`);
+                    const featureColor = literal?.color || "#888888";
+                    const icon = <PXIcon path={literal?.icon} color={contrastColor(featureColor)} />;
 
                     return (
                         <NexDiv key={rIdx} direction="row" width="100%">
+
                             <NexDiv
                                 flex="1"
                                 width="50%"
                                 borderRadius="0.5rem"
                                 justify="center"
+                                align="center"
                                 bgColor={featureColor}
                                 color={contrastColor(featureColor)}
                                 padding="0.5rem"
                             >
-                                {label}
+                                {icon} {column1}
                             </NexDiv>
                             <NexDiv
                                 flex="1"
@@ -76,7 +85,7 @@ const CountView: React.FC<CountViewProps> = ({
                                 padding="0.5rem"
                                 fontWeight="bold"
                             >
-                                {value}
+                                {column2}
                             </NexDiv>
                         </NexDiv>
                     );

@@ -306,9 +306,7 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
       parentPath = "";
     } else if (
       selectedSection.applet === undefined ||
-      selectedSection.contents === undefined ||
-      selectedSection.applet === "" ||
-      selectedSection.contents.length === 0
+      selectedSection.applet === ""
     ) {
       parentPath = selectedPath;
     } else {

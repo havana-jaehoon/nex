@@ -21,7 +21,7 @@ const NexPageViewer: React.FC<NexPageViewerProps> = ({
   const { theme } = context;
 
   const isRoutes = section && section.isRoutes === true;
-  const isContents = section && section.contents;
+  const isContents = section && section.applet !== undefined && section.applet !== "";
   //console.log("NexPageViewer section:", JSON.stringify(section, null, 2));
 
   const style = getThemeStyle(theme, "default");

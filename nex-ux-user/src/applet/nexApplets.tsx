@@ -15,6 +15,7 @@ import NexTableApp from "./table/NexTableApp";
 import PXBaseTable from "./table/PXBaseTable";
 import PXCardView from "./table/PXCardView";
 import PXLineChartApp from "./chart/PXLineChartApp";
+import NexConfigDistApp from "./admin/NexConfigDistApp";
 
 const appletList = [
   {
@@ -169,16 +170,17 @@ const appletList = [
         type: "applet",
         app: NexSectionViewer,
       },
+      { name: "NexConfigDist", dispName: "설정 파일 배포", type: "applet", app: NexConfigDistApp },
     ],
   },
 ];
 
 const getAppletInfo: () => { path: any; nodeMap: any } = () => {
-  const pathList: any = [];
+  const pathList: any = [{ index: 0, path: "", name: "", dispName: "없음", helper: "None" }];
   const nodeMap: any = {};
   appletList.forEach((folder, index) => {
     pathList.push({
-      index: index,
+      index: index + 1,
       path: `/${folder.name}`,
       name: folder.name,
       dispName: folder?.dispName || folder.name,
@@ -186,7 +188,7 @@ const getAppletInfo: () => { path: any; nodeMap: any } = () => {
     });
 
     if (folder.children && Array.isArray(folder.children)) {
-      nodeMap[`/${folder.name}`] = [];
+      nodeMap[`/${folder.name}`] = [{ index: 0, path: "", name: "", dispName: "없음", helper: "None" }];
       nodeMap[`/${folder.name}`] = folder.children.map(
         (applet: any, i: number) => {
           const path = `/${folder.name}/${applet.name}`;
@@ -194,7 +196,7 @@ const getAppletInfo: () => { path: any; nodeMap: any } = () => {
           const dispName = applet.dispName || applet.name;
           const helper = `${dispName}(${path})`;
           return {
-            index: i,
+            index: i + 1,
             path: path,
             name: name,
             dispName: dispName,

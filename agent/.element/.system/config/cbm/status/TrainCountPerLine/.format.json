@@ -1,53 +1,32 @@
 {
-  "name": "TrainCountPerLine",
-  "dispName": "건수",
+  "name": "Counting",
+  "dispName": "호선별 차량 수",
+  "description": "",
   "type": "format",
+  "icon": "",
+  "color": "",
   "features": [
     {
-      "name": "line1",
-      "dispName": "경부선",
+      "name": "line",
+      "dispName": "노선선",
       "icon": null,
-      "color": "#003da5",
-      "isKey": false,
-      "featureType": "NUMBER"
+      "color": null,
+      "isKey": true,
+      "featureType": "LITERALS",
+      "literals": [
+        {
+          "name": "경부선",
+          "dispName": "경부선",
+          "icon": "/config/contents",
+          "color": "red"
+        }
+      ]
     },
     {
-      "name": "line2",
-      "dispName": "호남선",
+      "name": "count",
+      "dispName": "건수",
       "icon": null,
-      "color": "#d50032",
-      "isKey": false,
-      "featureType": "NUMBER"
-    },
-    {
-      "name": "line3",
-      "dispName": "동해선",
-      "icon": null,
-      "color": "#d96b80",
-      "isKey": false,
-      "featureType": "NUMBER"
-    },
-    {
-      "name": "line4",
-      "dispName": " 전라선",
-      "icon": null,
-      "color": "#73c42d",
-      "isKey": false,
-      "featureType": "NUMBER"
-    },
-    {
-      "name": "line5",
-      "dispName": "태백선",
-      "icon": null,
-      "color": "#7ba05b",
-      "isKey": false,
-      "featureType": "NUMBER"
-    },
-    {
-      "name": "line6",
-      "dispName": "미배치",
-      "icon": null,
-      "color": "#adb81d",
+      "color": "#f0142f",
       "isKey": false,
       "featureType": "NUMBER"
     }

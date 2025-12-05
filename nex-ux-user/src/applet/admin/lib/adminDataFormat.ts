@@ -829,7 +829,7 @@ const sectionNodeDef = {
     },
     {
       name: "route", // 경로
-      dispName: '경로(예시 : "home" 또는 "dashboard")',
+      dispName: '페이지 라우트 이름',
       icon: null,
       color: null,
       isKey: false,

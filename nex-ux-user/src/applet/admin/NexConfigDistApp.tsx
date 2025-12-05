@@ -5,7 +5,7 @@ import { NexDiv, NexLabel } from "../../component/base/NexBaseComponents";
 import { Box, Button, ButtonGroup, IconButton, Stack } from "@mui/material";
 import NexNodeItem from "./lib/NexNodeItem";
 
-import { MdAdd, MdDelete, MdDownload, MdEdit } from "react-icons/md";
+import { MdAdd, MdCloudUpload, MdDelete, MdDownload, MdEdit } from "react-icons/md";
 import { clamp } from "utils/util";
 import { getThemeStyle } from "type/NexTheme";
 import axios from "axios";
@@ -29,8 +29,6 @@ const NexConfigDistApp: React.FC<NexAppProps> = observer((props) => {
   // 1.1 NexApplet 의 데이터 유형 체크
   const errorMsg = () => {
     // check isTree, volatility, features.length ...
-    if (!contents || contents.length < 1)
-      return "NexNodeTreeApp must be one more element.";
     return null;
   };
 
@@ -41,31 +39,37 @@ const NexConfigDistApp: React.FC<NexAppProps> = observer((props) => {
   const bgColor = appletStyle.bgColor;
   const fontSize = appletStyle.fontSize || "1rem";
 
-  const features =
-    contents?.[0].store.format.features ||
-    contents?.[0].store.format.children?.[0].features ||
-    [];
 
-  const nameIndex = features.findIndex((f: any) => f.name === "dispName") || 4;
 
-  const handleClick = () => {
-    axios
-      .request({
-        method: "post",
-        url: pxConfig["command-url"] + "/dist",
-      })
-      .then((response) => {
-        console.log("NexConfigDistApp::handleClick() response:", response);
-      });
-    window.location.reload();
+  const handleClick = async () => {
+    try {
+      await axios
+        .request({
+          method: "get",
+          url: pxConfig["command-url"] + "/dist",
+        })
+        .then((response) => {
+          console.log("NexConfigDistApp::handleClick() response:", response);
+          window.location.reload();
+        });
+    } catch (error) {
+      console.error("Failed to apply config:", error);
+    }
   };
 
   return (
     <NexApplet {...props} error={errorMsg()}>
-      <NexDiv direction="column" width="100%" height="100%">
-        <IconButton onClick={() => handleClick()}>
-          <MdDownload />
-        </IconButton>
+      <NexDiv width="100%" height="100%" direction="row">
+
+        <Button
+          variant="contained"
+          size="large"
+          fullWidth
+          startIcon={<MdCloudUpload />}
+          onClick={handleClick}
+        >
+          설정 데이터 적용
+        </Button>
       </NexDiv>
     </NexApplet>
   );

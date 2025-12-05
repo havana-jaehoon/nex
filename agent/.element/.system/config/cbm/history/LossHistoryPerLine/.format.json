@@ -1,7 +1,10 @@
 {
   "name": "LossHistoryPerLine",
   "dispName": "호선별 손실 이력",
+  "description": "",
   "type": "format",
+  "icon": "",
+  "color": "",
   "features": [
     {
       "name": "date",
@@ -12,52 +15,50 @@
       "featureType": "DATE"
     },
     {
-      "name": "line1",
-      "dispName": "경부선",
+      "name": "line",
+      "dispName": "노선",
       "icon": null,
       "color": "#0000FF",
       "isKey": false,
-      "featureType": "NUMBER"
-    },
-    {
-      "name": "line2",
-      "dispName": "호남선",
-      "icon": null,
-      "color": "#FF0000",
-      "isKey": false,
-      "featureType": "NUMBER"
-    },
-    {
-      "name": "line3",
-      "dispName": "전라선",
-      "icon": null,
-      "color": "#FF00FF",
-      "isKey": false,
-      "featureType": "NUMBER"
-    },
-    {
-      "name": "line4",
-      "dispName": "동해선",
-      "icon": null,
-      "color": "#00FF00",
-      "isKey": false,
-      "featureType": "NUMBER"
-    },
-    {
-      "name": "line5",
-      "dispName": "태백선",
-      "icon": null,
-      "color": "#FFA500",
-      "isKey": false,
-      "featureType": "NUMBER"
-    },
-    {
-      "name": "line6",
-      "dispName": "미배치",
-      "icon": null,
-      "color": "#6A5ACD",
-      "isKey": false,
-      "featureType": "NUMBER"
+      "featureType": "STRING",
+      "literals": [
+        {
+          "name": "경부선",
+          "dispName": "경부선",
+          "icon": "/cbm/train",
+          "color": "#0000FF"
+        },
+        {
+          "name": "호남선",
+          "dispName": "호남선",
+          "icon": "/cbm/train",
+          "color": "#FF0000"
+        },
+        {
+          "name": "전라선",
+          "dispName": "전라선",
+          "icon": "/cbm/train",
+          "color": "#FF00FF"
+        },
+        {
+          "name": "동해선",
+          "dispName": "동해선",
+          "icon": "/cbm/train",
+          "color": "#00FF00"
+        },
+        {
+          "name": "태백선",
+          "dispName": "태백선",
+          "icon": "/cbm/train",
+          "color": "#FFA500"
+        },
+        {
+          "name": "미배치",
+          "dispName": "미배치",
+          "icon": "/cbm/train",
+          "color": "#6A5ACD"
+        }
+      ]
     }
   ]
 }

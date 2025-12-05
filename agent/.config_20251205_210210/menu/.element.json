@@ -1,0 +1,17 @@
+{
+  "name": "menu",
+  "dispName": "메뉴",
+  "description": "메뉴",
+  "type": "element",
+  "icon": "",
+  "color": "",
+  "storage": "/disk",
+  "format": "/admin/node",
+  "store": "/static",
+  "processor": "/common/transparent",
+  "processingInterval": "10",
+  "processingUnit": "SEC",
+  "sources": [
+    "config:/admin/menu"
+  ]
+}
