@@ -14,6 +14,7 @@ import NexStatusApp from "./status/NexStatusApp";
 import NexTableApp from "./table/NexTableApp";
 import PXBaseTable from "./table/PXBaseTable";
 import PXCardView from "./table/PXCardView";
+import PXLineChartApp from "./chart/PXLineChartApp";
 
 const appletList = [
   {
@@ -53,6 +54,12 @@ const appletList = [
         dispName: "라인 차트",
         type: "applet",
         app: NexLineChartApp,
+      },
+      {
+        name: "PXLineChartApp",
+        dispName: "PX 라인 차트",
+        type: "applet",
+        app: PXLineChartApp,
       },
     ],
   },
@@ -133,7 +140,6 @@ const appletList = [
       },
     ],
   },
-
   {
     name: "admin",
     dispName: "관리자",
@@ -145,7 +151,6 @@ const appletList = [
         type: "applet",
         app: NexMenuApp,
       },
-
       {
         name: "NexNodeEditor",
         dispName: "노드 편집기",

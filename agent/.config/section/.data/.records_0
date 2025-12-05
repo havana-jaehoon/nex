@@ -1009,10 +1009,12 @@
         "size": "8",
         "padding": "",
         "app-padding": "",
-        "applet": "/chart/NexLineChart",
+        "applet": "/chart/PXLineChartApp",
         "contents": [
           "/cbm/history/LossHistoryPerLine"
-        ]
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],

@@ -1,0 +1,252 @@
+[
+  [
+    200,
+    "/.ext/cbm_db/train_infer_job",
+    "",
+    "",
+    {
+      "176": {
+        "name": "train_infer_job",
+        "dispName": "train_infer_job",
+        "type": "format",
+        "features": [
+          {
+            "name": "id",
+            "dispName": "id",
+            "type": "feature",
+            "isKey": true,
+            "featureType": "NUMBER"
+          },
+          {
+            "name": "train",
+            "dispName": "train",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "NUMBER"
+          },
+          {
+            "name": "line",
+            "dispName": "line",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "NUMBER"
+          },
+          {
+            "name": "data_start_time",
+            "dispName": "data_start_time",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "TIMESTAMP"
+          },
+          {
+            "name": "data_end_time",
+            "dispName": "data_end_time",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "TIMESTAMP"
+          },
+          {
+            "name": "status",
+            "dispName": "status",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "STRING"
+          },
+          {
+            "name": "anod_level_code",
+            "dispName": "anod_level_code",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "NUMBER"
+          }
+        ]
+      }
+    }
+  ],
+  [
+    201,
+    "/.ext/cbm_db/train_job_result_detail",
+    "",
+    "",
+    {
+      "177": {
+        "name": "train_job_result_detail",
+        "dispName": "train_job_result_detail",
+        "type": "format",
+        "features": [
+          {
+            "name": "learning_job",
+            "dispName": "learning_job",
+            "type": "feature",
+            "isKey": true,
+            "featureType": "NUMBER"
+          },
+          {
+            "name": "epoch",
+            "dispName": "epoch",
+            "type": "feature",
+            "isKey": true,
+            "featureType": "NUMBER"
+          },
+          {
+            "name": "train_loss",
+            "dispName": "train_loss",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "FLOAT"
+          },
+          {
+            "name": "val_loss",
+            "dispName": "val_loss",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "FLOAT"
+          },
+          {
+            "name": "epoch_result",
+            "dispName": "epoch_result",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "STRING"
+          }
+        ]
+      }
+    }
+  ],
+  [
+    202,
+    "/.ext/cbm_db/_auth",
+    "",
+    "",
+    {
+      "178": {
+        "name": "_auth",
+        "dispName": "_auth",
+        "type": "format",
+        "features": [
+          {
+            "name": "agent_id",
+            "dispName": "agent_id",
+            "type": "feature",
+            "isKey": true,
+            "featureType": "STRING"
+          },
+          {
+            "name": "project",
+            "dispName": "project",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "STRING"
+          },
+          {
+            "name": "system",
+            "dispName": "system",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "STRING"
+          },
+          {
+            "name": "secret_key",
+            "dispName": "secret_key",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "STRING"
+          },
+          {
+            "name": "created_at",
+            "dispName": "created_at",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "TIMESTAMP"
+          }
+        ]
+      }
+    }
+  ],
+  [
+    203,
+    "/.ext/cbm_db/status_DegradPerDevice",
+    "",
+    "",
+    {
+      "179": {
+        "name": "status_DegradPerDevice",
+        "dispName": "status_DegradPerDevice",
+        "type": "format",
+        "features": [
+          {
+            "name": "label",
+            "dispName": "label",
+            "type": "feature",
+            "isKey": true,
+            "featureType": "STRING"
+          },
+          {
+            "name": "alert",
+            "dispName": "alert",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "NUMBER"
+          },
+          {
+            "name": "warning",
+            "dispName": "warning",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "NUMBER"
+          },
+          {
+            "name": "created_at",
+            "dispName": "created_at",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "TIMESTAMP"
+          }
+        ]
+      }
+    }
+  ],
+  [
+    204,
+    "/.ext/cbm_db/status_DegradPerLine",
+    "",
+    "",
+    {
+      "180": {
+        "name": "status_DegradPerLine",
+        "dispName": "status_DegradPerLine",
+        "type": "format",
+        "features": [
+          {
+            "name": "label",
+            "dispName": "label",
+            "type": "feature",
+            "isKey": true,
+            "featureType": "STRING"
+          },
+          {
+            "name": "alert",
+            "dispName": "alert",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "NUMBER"
+          },
+          {
+            "name": "warning",
+            "dispName": "warning",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "NUMBER"
+          },
+          {
+            "name": "created_at",
+            "dispName": "created_at",
+            "type": "feature",
+            "isKey": false,
+            "featureType": "TIMESTAMP"
+          }
+        ]
+      }
+    }
+  ]
+]
