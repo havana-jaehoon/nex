@@ -12,7 +12,8 @@ import NexSampleListApp from "./sample/NexSampleListApp";
 import NexCountApp from "./status/NexCountApp";
 import NexStatusApp from "./status/NexStatusApp";
 import NexTableApp from "./table/NexTableApp";
-import PXSearchingTable from "./table/PXSearchingTable";
+import PXBaseTable from "./table/PXBaseTable";
+import PXCardView from "./table/PXCardView";
 
 const appletList = [
   {
@@ -70,7 +71,20 @@ const appletList = [
         name: "PXSearchingTable",
         dispName: "PX 검색 테이블",
         type: "applet",
-        app: PXSearchingTable,
+        app: PXBaseTable,
+      },
+    ],
+  },
+  {
+    name: "card",
+    dispName: "카드",
+    type: "folder",
+    children: [
+      {
+        name: "CardView",
+        dispName: "카드뷰",
+        type: "applet",
+        app: PXCardView,
       },
     ],
   },

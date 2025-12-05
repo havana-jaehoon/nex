@@ -65,8 +65,19 @@
     {
       "0": {
         "name": "Line",
+        "dispName": "",
+        "description": "",
         "type": "contents",
+        "icon": "",
+        "color": "",
         "element": "/cbm/config/Line",
+        "conditions": [],
+        "selections": [
+          {
+            "key": "line",
+            "feature": "name"
+          }
+        ],
         "condition": [],
         "selection": [
           {
@@ -232,8 +243,19 @@
     {
       "0": {
         "name": "LossPerLine",
+        "dispName": "",
+        "description": "",
         "type": "contents",
+        "icon": "",
+        "color": "",
         "element": "/cbm/status/LossPerLine",
+        "conditions": [],
+        "selections": [
+          {
+            "key": "line",
+            "feature": "label"
+          }
+        ],
         "condition": [],
         "selection": []
       }
@@ -1007,6 +1029,31 @@
         "color": "",
         "element": "",
         "conditions": [],
+        "selections": []
+      }
+    }
+  ],
+  [
+    57,
+    "/cbm/status/SelectedLossPerLine",
+    "",
+    "",
+    {
+      "3": {
+        "name": "SelectedLossPerLine",
+        "dispName": "노선별열화율(선택)",
+        "description": "",
+        "type": "contents",
+        "icon": "",
+        "color": "",
+        "element": "/cbm/status/LossPerLine",
+        "conditions": [
+          {
+            "key": "line",
+            "feature": "label",
+            "method": "match"
+          }
+        ],
         "selections": []
       }
     }

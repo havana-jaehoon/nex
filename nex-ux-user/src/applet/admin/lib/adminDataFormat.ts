@@ -829,7 +829,7 @@ const sectionNodeDef = {
     },
     {
       name: "route", // 경로
-      dispName: '경로 (예시 : "/home" 또는 "/dashboard")',
+      dispName: '경로(예시 : "home" 또는 "dashboard")',
       icon: null,
       color: null,
       isKey: false,
@@ -922,7 +922,7 @@ const contentsNodeDef = {
     ...commonFeatures.slice(4),
     {
       name: "element", // 경로
-      dispName: '경로 (예시 : "/home" 또는 "/dashboard")',
+      dispName: '엘리먼트',
       icon: null,
       color: null,
       featureType: NexFeatureType.STRING, // 경로는 문자열로 처리
@@ -930,7 +930,7 @@ const contentsNodeDef = {
     },
     {
       name: "conditions",
-      dispName: "데이터 출력조건",
+      dispName: "데이터 조건",
       icon: null,
       color: null,
       featureType: NexFeatureType.RECORDS,
@@ -963,7 +963,7 @@ const contentsNodeDef = {
     },
     {
       name: "selections",
-      dispName: "데이터 출력조건",
+      dispName: "데이터 선택",
       icon: null,
       color: null,
       featureType: NexFeatureType.RECORDS,

@@ -1410,12 +1410,14 @@
         "color": "",
         "isRoutes": "",
         "route": "new",
-        "direction": "row",
+        "direction": "column",
         "size": "",
         "padding": "",
         "app-padding": "",
         "applet": "",
-        "contents": ""
+        "contents": "",
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],
@@ -1427,7 +1429,7 @@
     {
       "0": {
         "name": "new-section-174337",
-        "dispName": "",
+        "dispName": "테이블테스트",
         "description": "",
         "type": "section",
         "icon": "",
@@ -1441,7 +1443,9 @@
         "applet": "/table/PXSearchingTable",
         "contents": [
           "/cbm/status/LossPerLine"
-        ]
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],
@@ -1686,6 +1690,85 @@
         "app-padding": "",
         "applet": "",
         "contents": ""
+      }
+    }
+  ],
+  [
+    255,
+    "/Home/Body/Main/NewProject/new-section-124539",
+    "",
+    "",
+    {
+      "1": {
+        "name": "new-section-124539",
+        "dispName": "",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": "",
+        "padding": "",
+        "app-padding": "",
+        "applet": "",
+        "contents": "",
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    256,
+    "/Home/Body/Main/NewProject/new-section-124539/new-section-124607",
+    "",
+    "",
+    {
+      "0": {
+        "name": "new-section-124607",
+        "dispName": "카드테스트",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": "",
+        "padding": "",
+        "app-padding": "",
+        "applet": "/card/CardView",
+        "contents": [
+          "/cbm/status/LossPerLine"
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    257,
+    "/Home/Body/Main/NewProject/new-section-124539/new-section-124608",
+    "",
+    "",
+    {
+      "1": {
+        "name": "new-section-124608",
+        "dispName": "선택된카드",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": "",
+        "padding": "",
+        "app-padding": "",
+        "applet": "/card/CardView",
+        "contents": [
+          "/cbm/status/SelectedLossPerLine"
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ]

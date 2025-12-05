@@ -3,6 +3,8 @@
   "dispName": "호선",
   "description": "호선 데이터 포맷",
   "type": "format",
+  "icon": "",
+  "color": "",
   "features": [
     {
       "name": "name",
