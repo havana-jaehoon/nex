@@ -32,50 +32,33 @@ class ElementEntity:
         self.applyConfig(element_cfg, scheduler)
 
     def __str__(self):
-        with self._configRWLock.gen_rlock():
-            return f'ElementEntity({self._config})'
+        return f'ElementEntity({self._config})'
 
     # scheduler-job handler
     def _interval_proc(self):
-        with self._configRWLock.gen_rlock():
-            if not self._processor:
+        if not self._processor:
+            return
+        try:
+            # get source
+            arg_list = []
+            source_list = self._config.getConfig('element').get('sources')
+            if source_list:
+                source_list = [ (source, None) for source in source_list ]
+                Logger().log_info(f"ElementEntity({self._config.id}) : query source : {source_list}")
+                df_list = HttpReqMgr().getMany(source_list)
+                arg_list = [(source, df) if isinstance(df, pd.DataFrame) else (source, pd.DataFrame()) for source, df in zip(source_list, df_list)]
+
+            # execute processor
+            proc_df = self._processor.process(arg_list)
+            if proc_df is None:
                 return
-            try:
-                # get source
-                arg_list = []
-                source_list = self._config.getConfig('element').get('sources')
-                if source_list:
-                    source_list = [ (source, None) for source in source_list ]
-                    Logger().log_info(f"ElementEntity({self._config.id}) : query source : {source_list}")
-                    df_list = HttpReqMgr().getMany(source_list)
-                    arg_list = [(source, df) if isinstance(df, pd.DataFrame) else (source, pd.DataFrame()) for source, df in zip(source_list, df_list)]
 
-                # execute processor
-                proc_df = self._processor.process(arg_list)
-                if proc_df is None:
-                    return
-
-                # set data to store
-                self.setData(proc_df)
-            except Exception as e:
-                import traceback
-                tb_str = traceback.format_exc()
-                Logger().log_error(f'ElementEntity({self._config.id}) : process error : {tb_str}')
-
-    # element-query handler
-    async def _queryHandler(self, handler_args: HandlerArgs, kwargs: dict) -> HandlerResult:
-        with self._configRWLock.gen_rlock():
-            if self._processor and self._processor.is_query_custom_handler:
-                return await self._processor.query_custom_handler(handler_args, kwargs)
-            else:
-                # set columns and filter from exp later
-                # ??????
-
-                if handler_args.method == 'GET':
-                    data_df = await self.getDataAsync()
-                    return HandlerResult(status=200, body=data_df)
-                else:
-                    return HandlerResult(status=405, body='Method Not Allowed, use GET')
+            # set data to store
+            self._setData(proc_df)
+        except Exception as e:
+            import traceback
+            tb_str = traceback.format_exc()
+            Logger().log_error(f'ElementEntity({self._config.id}) : process error : {tb_str}')
 
     def _reset(self):
         self._config = None
@@ -130,11 +113,26 @@ class ElementEntity:
                     trigger_args['seconds'] = processing_interval
                 self._schedulerJob = scheduler.add_job(self._interval_proc, 'interval', **trigger_args)
 
+    async def _getDataAsync(self, filters: Optional[Dict[str, Any]] = None, columns: Optional[List[str]] = None) -> pd.DataFrame:
+        Logger().log_info(f'ElementEntity({self._config.id}) : {self._scheme.name} : query start : {filters}, {columns}')
+        if self._storage:
+            return await self._storage.getDataAsync(self._scheme.name, filters, columns)
+        else:
+            return pd.DataFrame()
+
+    def _setData(self, data: pd.DataFrame):
+        Logger().log_info(f'ElementEntity({self._config.id}) : {self._scheme.name} : set data start')
+        if self._storage:
+            chunk_size = self._config.getConfig('store').get('record').get('chunkSize', 1000)
+            allowed_upsert = self._config.getConfig('store').get('record').get('allowUpsert', True)
+            self._storage.setData(self._scheme.name, data, chunk_size, allowed_upsert)
+
     def stop(self):
         with self._configRWLock.gen_wlock():
             self._reset()
 
     def getDataSync(self, filters: Optional[Dict[str, Any]] = None, columns: Optional[List[str]] = None) -> pd.DataFrame:
+        Logger().log_info(f'ElementEntity({self._config.id}) : {self._scheme.name} : query start : {filters}, {columns}')
         with self._configRWLock.gen_rlock():
             if self._storage:
                 return self._storage.getData(self._scheme.name, filters, columns)
@@ -142,6 +140,7 @@ class ElementEntity:
                 return pd.DataFrame()
 
     async def getDataAsync(self, filters: Optional[Dict[str, Any]] = None, columns: Optional[List[str]] = None) -> pd.DataFrame:
+        Logger().log_info(f'ElementEntity({self._config.id}) : {self._scheme.name} : query start : {filters}, {columns}')
         with self._configRWLock.gen_rlock():
             if self._storage:
                 return await self._storage.getDataAsync(self._scheme.name, filters, columns)
@@ -149,6 +148,7 @@ class ElementEntity:
                 return pd.DataFrame()
 
     def setData(self, data: pd.DataFrame):
+        Logger().log_info(f'ElementEntity({self._config.id}) : {self._scheme.name} : set data start')
         with self._configRWLock.gen_rlock():
             if self._storage:
                 chunk_size = self._config.getConfig('store').get('record').get('chunkSize', 1000)
@@ -157,7 +157,7 @@ class ElementEntity:
 
     def applyConfig(self, element_cfg: ElementCfg, scheduler: BaseScheduler):
         with self._configRWLock.gen_wlock():
-            if DictUtil.deep_equal_ignore_order(self._config, element_cfg):
+            if self._config and DictUtil.deep_equal_ignore_order(self._config.getConfigAll(), element_cfg.getConfigAll()):
                 Logger().log_info(f'Element is not applied (config same) : {self._config.id}')
                 return
             else:
@@ -181,6 +181,21 @@ class ElementEntity:
         with self._configRWLock.gen_rlock():
             return self._config.url
 
+    # element-query handler
+    async def queryHandler(self, handler_args: HandlerArgs, kwargs: dict) -> HandlerResult:
+        with self._configRWLock.gen_rlock():
+            if self._processor and self._processor.is_query_custom_handler:
+                return await self._processor.query_custom_handler(handler_args, kwargs)
+            else:
+                # set columns and filter from exp later
+                # ??????
+
+                if handler_args.method == 'GET':
+                    data_df = await self._getDataAsync()
+                    return HandlerResult(status=200, body=data_df)
+                else:
+                    return HandlerResult(status=405, body='Method Not Allowed, use GET')
+
     def getQueryHandler(self) -> Tuple[Server_Dynamic_Handler, dict]:
         kwargs = {}
-        return self._queryHandler, kwargs
+        return self.queryHandler, kwargs

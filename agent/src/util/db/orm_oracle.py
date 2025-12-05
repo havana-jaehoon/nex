@@ -1,9 +1,71 @@
 import pandas as pd
 from typing import List, Optional, Sequence, Any, Type
 from sqlalchemy import text
+from datetime import datetime
+from util.scheme_define import FieldDefinition, MetaKeyword
 
 
 class OrmOracle:
+
+    @staticmethod
+    def inspect_columns_without_comment(engine, table_name: str) -> List[FieldDefinition]:
+        fields: List[FieldDefinition] = []
+        with engine.connect() as conn:
+            # Oracle stores table names in uppercase by default usually, but we should respect input
+            # However, standard practice is often uppercase. Let's try to match exact first.
+            # If table_name is not quoted, it might be case sensitive or not.
+            # For simplicity in this fallback, we assume the user provided name matches the DB storage (often UPPERCASE).
+            
+            # 1. Get Columns
+            query_cols = text("""
+                SELECT COLUMN_NAME, DATA_TYPE, DATA_PRECISION, DATA_SCALE
+                FROM ALL_TAB_COLUMNS
+                WHERE TABLE_NAME = :table_name
+                ORDER BY COLUMN_ID
+            """)
+            rows = conn.execute(query_cols, {"table_name": table_name}).fetchall()
+            
+            # 2. Get PKs
+            query_pk = text("""
+                SELECT cols.COLUMN_NAME
+                FROM ALL_CONSTRAINTS cons, ALL_CONS_COLUMNS cols
+                WHERE cols.TABLE_NAME = :table_name
+                  AND cons.CONSTRAINT_TYPE = 'P'
+                  AND cons.CONSTRAINT_NAME = cols.CONSTRAINT_NAME
+                  AND cons.OWNER = cols.OWNER
+            """)
+            pk_rows = conn.execute(query_pk, {"table_name": table_name}).fetchall()
+            pk_cols = set(row[0] for row in pk_rows)
+
+            for row in rows:
+                col_name = row[0]
+                data_type = row[1].upper()
+                precision = row[2]
+                scale = row[3]
+
+                python_type = str
+                if data_type in ('NUMBER', 'INTEGER', 'SMALLINT'):
+                    if scale is not None and scale > 0:
+                        python_type = float
+                    elif precision is not None and precision > 0:
+                        python_type = int
+                    else:
+                        # NUMBER without precision/scale can be anything, defaulting to float or int?
+                        # Usually int if no scale.
+                        python_type = int
+                elif data_type in ('FLOAT', 'BINARY_FLOAT', 'BINARY_DOUBLE'):
+                    python_type = float
+                elif data_type in ('DATE', 'TIMESTAMP', 'TIMESTAMP(6)'): 
+                    # Oracle TIMESTAMP can have various suffixes
+                    python_type = datetime
+                elif 'TIMESTAMP' in data_type:
+                    python_type = datetime
+                
+                meta = {}
+                if col_name in pk_cols:
+                    meta[MetaKeyword.IS_KEY] = True
+                fields.append(FieldDefinition(name=col_name, python_type=python_type, metadata=meta))
+        return fields
 
     @staticmethod
     def merge_upsert(

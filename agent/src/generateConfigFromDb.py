@@ -23,7 +23,7 @@ def generateConfig(storage_config: dict, schema: Optional[str] = None) -> Option
     if not storage_v:
         return None
 
-    storage_type, storage_info = storage_v
+    storage_name, storage_type, storage_info = storage_v
     if storage_type.upper() != "DB":
         return None
 

@@ -15,11 +15,17 @@ class FieldDefinition:
     python_type: Type
     metadata: Dict[str, Any]
 
+    def __str__(self):
+        return f"{self.name}: {self.python_type}, {self.metadata}"
+
 
 @dataclass(frozen=True)
 class SchemaDefinition:
     name: str
     fields: List[FieldDefinition]
+
+    def __str__(self):
+        return f"{self.name}: {self.fields}"
 
     def change_name(self, new_name: str) -> 'SchemaDefinition':
         return replace(self, name=new_name)

@@ -84,6 +84,10 @@ class ElementCfg:
             cfg = self._configMap.get(config_type.lower(), None)
             return copy.deepcopy(cfg) if cfg else None
 
+    def getConfigAll(self) -> dict:
+        with self._apiLock:
+            return copy.deepcopy(self._configMap)
+
 
 class ElementCfgs:
 
@@ -223,6 +227,10 @@ class ElementCfgs:
         reordered_data = self._reorder_by_elements(config_data)
         if not reordered_data:
             self._logger.log_info(f'ElementCfgs : init : element data is empty')
+            with self._apiLock:
+                if reset:
+                    self._deleteAllFiles()
+                    self._reset()
             return True
         with self._apiLock:
             try:
