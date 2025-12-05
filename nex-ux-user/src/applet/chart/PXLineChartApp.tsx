@@ -28,7 +28,7 @@ const PXLineChartApp: React.FC<NexAppProps> = observer((props) => {
         });
 
         setContexts(ctxs);
-    }, [contents, ...(contents?.map((cts) => cts.store.odata) || [])]);
+    }, [contents, ...(contents?.map((cts) => cts.store?.odata) || [])]);
 
     return (
         <NexApplet {...props} error={errorMsg()}>

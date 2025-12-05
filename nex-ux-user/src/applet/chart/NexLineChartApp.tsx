@@ -54,7 +54,7 @@ const NexLineChartApp: React.FC<NexAppProps> = observer((props) => {
   const chartStyle = getThemeStyle(theme, "chart");
   const contentsFontSize =
     chartStyle.fontSize[
-      clamp(fontLevel - 1, 0, chartStyle.fontSize?.length - 1)
+    clamp(fontLevel - 1, 0, chartStyle.fontSize?.length - 1)
     ] || "1rem";
 
   // 1.3 contents 에서 store, data, format 정보 가져오기
@@ -76,7 +76,7 @@ const NexLineChartApp: React.FC<NexAppProps> = observer((props) => {
 
     setFeatures(cts.format.features || []);
     setDatas(tdata);
-  }, [contents]);
+  }, [contents, ...(contents?.map((cts) => cts.store?.odata) || [])]);
 
   // 1.4 data store 에서 출력할 데이터를 Applet 에서 사용할 수 있는 형태로 변환.
   const chartData = useMemo(() => {

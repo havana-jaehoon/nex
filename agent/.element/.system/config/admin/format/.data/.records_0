@@ -441,8 +441,8 @@
         "color": "",
         "features": [
           {
-            "name": "label",
-            "dispName": "라벨",
+            "name": "line",
+            "dispName": "노선선",
             "icon": null,
             "color": null,
             "isKey": true,

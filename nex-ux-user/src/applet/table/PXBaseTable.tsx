@@ -23,9 +23,6 @@ const PXBaseTable: React.FC<NexAppProps> = observer((props) => {
 
     if (!contents || contents?.length < 1) return;
 
-    const datasList: any[] = [];
-    const featuresList: any[] = [];
-    const storeList: any[] = [];
 
     const ctxs: any[] = [];
     contents.forEach((cts: any) => {
@@ -39,7 +36,7 @@ const PXBaseTable: React.FC<NexAppProps> = observer((props) => {
     })
 
     setContexts(ctxs);
-  }, [contents, ...(contents?.map((cts) => cts.store.odata) || [])]);
+  }, [contents, ...(contents?.map((cts) => cts.store?.odata) || [])]);
 
   return (
     <NexApplet {...props} error={errorMsg()}>

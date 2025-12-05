@@ -31,7 +31,6 @@ const NexSampleListApp: React.FC<NexAppProps> = observer((props) => {
 
   // 1.3 contents 에서 store, data, format 정보 가져오기
   //  Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
-  const storeIndex = 0; // only 1 store
   const [datasList, setDatasList] = useState<any[]>([]);
   const [featuresList, setFeaturesList] = useState<any[]>([]);
 
@@ -55,13 +54,14 @@ const NexSampleListApp: React.FC<NexAppProps> = observer((props) => {
 
       featuresList.push(cts.format.features || []);
       datasList.push(tdata);
+
       storeList.push(cts.store);
     })
 
     setFeaturesList(featuresList);
     setDatasList(datasList);
     setStoreList(storeList);
-  }, [contents, ...(contents?.map((cts) => cts.store.odata) || [])]);
+  }, [contents, ...(contents?.map((cts) => cts.store?.odata) || [])]);
 
   // 2. data store 에서 출력할 데이터를 Applet 에서 사용할 수 있는 형태로 변환.
   // 외부 Component 사용시 자료구조가 store 에서 사용되는 구조와 다른 경우 변환.
