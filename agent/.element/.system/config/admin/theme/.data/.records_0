@@ -22,7 +22,7 @@
             "activeBgColor": "#e8edf7",
             "hoverColor": "#393c45",
             "hoverBgColor": "#e8edf7",
-            "fontFamily": "Arial, sans-serif",
+            "fontFamily": "Pretendard",
             "gap": "",
             "padding": "",
             "fontSize": "1rem"
@@ -36,7 +36,7 @@
             "activeBgColor": "#dbe5ef",
             "hoverColor": "#393c45",
             "hoverBgColor": "#e8edf7",
-            "fontFamily": "Arial, sans-serif",
+            "fontFamily": "Pretendard",
             "borderRadius": "8px",
             "boxShadow": "0 2px 4px rgba(0, 0, 0, 0.1)",
             "border": "2px solid #E5E5E5",
@@ -53,7 +53,7 @@
             "activeBgColor": "#e8edf7",
             "hoverColor": "#393c45",
             "hoverBgColor": "#e8edf7",
-            "fontFamily": "Arial, sans-serif",
+            "fontFamily": "Pretendard",
             "fontSize": "1rem",
             "borderRadius": "4px"
           },
@@ -66,20 +66,20 @@
             "activeBgColor": "#e8edf7",
             "hoverColor": "#393c45",
             "hoverBgColor": "#e8edf7",
-            "fontFamily": "Arial, sans-serif",
+            "fontFamily": "Pretendard",
             "fontSize": "1rem",
             "borderRadius": "4px"
           },
           {
             "name": "menu",
             "color": "#393c45",
-            "bgColor": "#e8edf7",
+            "bgColor": "#ffffff",
             "bdColor": "#cccccc",
             "activeColor": "#0B6ABC",
             "activeBgColor": "#ffffff",
             "hoverColor": "#393c45",
             "hoverBgColor": "#e8edf7",
-            "fontFamily": "Arial, sans-serif",
+            "fontFamily": "Pretendard",
             "fontSize": "1rem",
             "borderRadius": "1px",
             "padding": "1px"
@@ -87,25 +87,25 @@
           {
             "name": "table",
             "color": "#393c45",
-            "bgColor": "#e8edf7",
+            "bgColor": "#ffffff",
             "bdColor": "#cccccc",
             "activeColor": "#393c45",
             "activeBgColor": "#e8edf7",
             "hoverColor": "#393c45",
             "hoverBgColor": "#e8edf7",
-            "fontFamily": "Arial, sans-serif",
+            "fontFamily": "Pretendard",
             "fontSize": "1rem"
           },
           {
             "name": "chart",
             "color": "#393c45",
-            "bgColor": "#e8edf7",
+            "bgColor": "#ffffff",
             "bdColor": "#cccccc",
             "activeColor": "#393c45",
             "activeBgColor": "#e8edf7",
             "hoverColor": "#393c45",
             "hoverBgColor": "#e8edf7",
-            "fontFamily": "Arial, sans-serif",
+            "fontFamily": "Pretendard",
             "fontSize": "1rem"
           }
         ]
@@ -135,7 +135,7 @@
             "activeBgColor": "#e8edf7",
             "hoverColor": "#393c45",
             "hoverBgColor": "#e8edf7",
-            "fontFamily": "Arial, sans-serif",
+            "fontFamily": "Pretendard",
             "gap": "",
             "padding": "",
             "fontSize": "1rem"
@@ -149,7 +149,7 @@
             "activeBgColor": "#dbe5ef",
             "hoverColor": "#393c45",
             "hoverBgColor": "#e8edf7",
-            "fontFamily": "Arial, sans-serif",
+            "fontFamily": "Pretendard",
             "borderRadius": "8px",
             "boxShadow": "0 2px 4px rgba(0, 0, 0, 0.1)",
             "border": "2px solid #E5E5E5",
@@ -166,7 +166,7 @@
             "activeBgColor": "#e8edf7",
             "hoverColor": "#393c45",
             "hoverBgColor": "#e8edf7",
-            "fontFamily": "Arial, sans-serif",
+            "fontFamily": "Pretendard",
             "fontSize": "1rem",
             "borderRadius": "4px"
           },
@@ -179,7 +179,7 @@
             "activeBgColor": "#e8edf7",
             "hoverColor": "#393c45",
             "hoverBgColor": "#e8edf7",
-            "fontFamily": "Arial, sans-serif",
+            "fontFamily": "Pretendard",
             "fontSize": "1rem",
             "borderRadius": "4px"
           },
@@ -192,7 +192,7 @@
             "activeBgColor": "#ffffff",
             "hoverColor": "#393c45",
             "hoverBgColor": "#e8edf7",
-            "fontFamily": "Arial, sans-serif",
+            "fontFamily": "Pretendard",
             "fontSize": "1rem",
             "borderRadius": "1px",
             "padding": "1px"
@@ -206,7 +206,7 @@
             "activeBgColor": "#e8edf7",
             "hoverColor": "#393c45",
             "hoverBgColor": "#e8edf7",
-            "fontFamily": "Arial, sans-serif",
+            "fontFamily": "Pretendard",
             "fontSize": "1rem"
           },
           {
@@ -218,7 +218,7 @@
             "activeBgColor": "#e8edf7",
             "hoverColor": "#393c45",
             "hoverBgColor": "#e8edf7",
-            "fontFamily": "Arial, sans-serif",
+            "fontFamily": "Pretendard",
             "fontSize": "1rem"
           }
         ]

@@ -17,8 +17,38 @@
         {
           "name": "경부선",
           "dispName": "경부선",
-          "icon": "/config/contents",
-          "color": "red"
+          "icon": "",
+          "color": "#003da5"
+        },
+        {
+          "name": "호남선",
+          "dispName": "호남선",
+          "icon": "",
+          "color": "#d50032"
+        },
+        {
+          "name": "전라선",
+          "dispName": "전라선",
+          "icon": "",
+          "color": "#73c42d"
+        },
+        {
+          "name": "동해선",
+          "dispName": "동해선",
+          "icon": "",
+          "color": "#d96b80"
+        },
+        {
+          "name": "태백선",
+          "dispName": "태백선",
+          "icon": "",
+          "color": "#7ba05b"
+        },
+        {
+          "name": "미배치",
+          "dispName": "미배치",
+          "icon": "",
+          "color": "#adb81d"
         }
       ]
     },

@@ -34,6 +34,7 @@ import {
 } from "react-icons/md";
 import { clamp } from "../../utils/util";
 import { getThemeStyle } from "type/NexTheme";
+import PXIcon from "icon/pxIcon";
 
 const rowsPerPageOptions = [10, 25, 50, 100];
 
@@ -70,6 +71,7 @@ interface SortConfig {
 }
 
 export interface SearchingTableProps {
+    visableName?: boolean;
     name: string;
     data: any[];
     features: any[];
@@ -79,6 +81,7 @@ export interface SearchingTableProps {
 }
 
 const SearchingTable: React.FC<SearchingTableProps> = ({
+    visableName = false,
     name,
     data,
     features,
@@ -112,7 +115,8 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
     };
 
     const style = getThemeStyle(theme, "table");
-    const fontLevel = user?.fontLevel || 5;
+    const color = style.color ?? "#000";
+    const bgColor = style.bgColor ?? "#fff";
     const contentsFontSize = style.fontSize ?? "1rem";
 
     // --- Handlers: Filter Management ---
@@ -294,7 +298,7 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
 
         if (isNumber) {
             return (
-                <Stack direction="row" spacing={1} alignItems="center">
+                <Stack direction="row" spacing={1} alignItems="center" sx={{ color: color, backgroundColor: bgColor }}>
                     <TextField
                         size="small"
                         placeholder="Min"
@@ -398,9 +402,9 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
             {/* 1. Toolbar */}
             <Box sx={{ p: 1.5, borderBottom: "1px solid #e0e0e0", bgcolor: "#f8f9fa", flexShrink: 0 }}>
                 <Stack direction="row" justifyContent="space-between" alignItems="center">
-                    <Stack direction="row" spacing={1} alignItems="center">
+                    {visableName && <Stack direction="row" spacing={1} alignItems="center">
                         <Typography fontWeight="bold">{name}</Typography>
-                    </Stack>
+                    </Stack>}
 
                     <Stack direction="row" spacing={1}>
                         <Button
@@ -435,7 +439,7 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
             <Collapse in={showFieldSelector}>
                 <Box sx={{ p: 1, borderBottom: "1px solid #e0e0e0", bgcolor: "#fff" }}>
                     <Typography variant="subtitle2" gutterBottom fontWeight="bold">
-                        기능 설정 (검색 및 정렬)
+                        필드 설정 (검색 및 정렬)
                     </Typography>
                     <Box
                         sx={{
@@ -568,25 +572,34 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
                                         onClick={() => handleHeaderClick(feature.name)}
                                         sx={{
                                             fontWeight: "bold",
-                                            backgroundColor: "#f5f5f5",
+                                            backgroundColor: feature.bgColor || "#f5f5f5",
+                                            color: feature.color || "inherit",
                                             whiteSpace: "nowrap",
                                             cursor: isSortable ? "pointer" : "default",
                                             userSelect: "none",
-                                            "&:hover": isSortable ? { backgroundColor: "#eeeeee" } : {},
+                                            "&:hover": isSortable ? { backgroundColor: feature.bgColor ? feature.bgColor : "#eeeeee" } : {},
                                         }}
                                     >
                                         <Stack direction="row" alignItems="center" spacing={0.5}>
-                                            <span>{feature.dispName || feature.name}</span>
+                                            {feature.icon && (
+                                                <PXIcon
+                                                    path={feature.icon}
+                                                    color={feature.color || "inherit"}
+                                                    width="1rem"
+                                                    height="1rem"
+                                                />
+                                            )}
+                                            <span style={{ color: feature.color || "inherit" }}>{feature.dispName || feature.name}</span>
                                             {/* 소팅 아이콘 표시 */}
                                             {isSortable && (
-                                                <Box sx={{ display: "flex", alignItems: "center", color: isSorted ? "primary.main" : "text.disabled" }}>
+                                                <Box sx={{ display: "flex", alignItems: "center", color: isSorted ? (feature.color || "primary.main") : "text.disabled" }}>
                                                     {sortDir === "asc" ? (
                                                         <MdArrowDropUp size={20} />
                                                     ) : sortDir === "desc" ? (
                                                         <MdArrowDropDown size={20} />
                                                     ) : (
                                                         // 정렬 가능하지만 현재 정렬 안됨 (흐릿한 아이콘)
-                                                        <MdSort size={16} style={{ opacity: 0.3 }} />
+                                                        <MdSort size={20} style={{ opacity: 0.3 }} />
                                                     )}
                                                 </Box>
                                             )}
@@ -621,22 +634,50 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
                                             },
                                         }}
                                     >
-                                        {row.map((cell: any, cIdx: number) => (
-                                            <TableCell
-                                                key={cIdx}
-                                                align={
-                                                    features[cIdx].align ||
-                                                    (TYPE_CATEGORY.NUMBER.includes(features[cIdx].featureType)
-                                                        ? "right"
-                                                        : "left")
-                                                }
-                                                sx={{
-                                                    color: isSelected ? style.activeColor : "inherit",
-                                                }}
-                                            >
-                                                {safeStringify(cell)}
-                                            </TableCell>
-                                        ))}
+                                        {row.map((cell: any, cIdx: number) => {
+                                            const feature = features[cIdx];
+                                            const literal = feature.literals?.find((lit: any) => lit.name === cell);
+
+                                            // Determine display value
+                                            const displayValue = literal ? (literal.dispName || literal.name) : safeStringify(cell);
+
+                                            // Determine styles (Literal > Feature > Inherit)
+                                            // Priority: Literal > Feature (Column) > Default
+                                            const cellColor = literal?.color || feature.color || "inherit";
+                                            const cellBgColor = literal?.bgColor || feature.bgColor || "inherit";
+                                            const cellIcon = literal?.icon;
+
+                                            return (
+                                                <TableCell
+                                                    key={cIdx}
+                                                    align={
+                                                        feature.align ||
+                                                        (TYPE_CATEGORY.NUMBER.includes(feature.featureType)
+                                                            ? "right"
+                                                            : "left")
+                                                    }
+                                                    sx={{
+                                                        color: isSelected ? style.activeColor : cellColor,
+                                                        backgroundColor: isSelected ? "inherit" : cellBgColor,
+                                                    }}
+                                                >
+                                                    <Stack direction="row" alignItems="center" spacing={0.5} justifyContent={
+                                                        feature.align === 'center' ? 'center' :
+                                                            (feature.align === 'right' || TYPE_CATEGORY.NUMBER.includes(feature.featureType)) ? 'flex-end' : 'flex-start'
+                                                    }>
+                                                        {cellIcon && (
+                                                            <PXIcon
+                                                                path={cellIcon}
+                                                                color={isSelected ? style.activeColor : cellColor}
+                                                                width="1rem"
+                                                                height="1rem"
+                                                            />
+                                                        )}
+                                                        <span style={{ color: isSelected ? style.activeColor : cellColor }}>{displayValue}</span>
+                                                    </Stack>
+                                                </TableCell>
+                                            );
+                                        })}
                                     </TableRow>
                                 );
                             })

@@ -67,8 +67,9 @@ const NexConfigDistApp: React.FC<NexAppProps> = observer((props) => {
           fullWidth
           startIcon={<MdCloudUpload />}
           onClick={handleClick}
+          sx={{ width: "100%", height: "100%" }}
         >
-          설정 데이터 적용
+          설정 적용
         </Button>
       </NexDiv>
     </NexApplet>

@@ -70,10 +70,10 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
   const defaultStyle = getThemeStyle(theme, "default");
   const style = getThemeStyle(theme, "applet");
 
-  const fontSize = defaultStyle?.fontSize || "1rem";
+  const fontSize = style?.fontSize || "1rem";
 
-  const color = defaultStyle?.color || "#393c45";
-  const bgColor = defaultStyle?.bgColor || "#e8edf7";
+  const color = style?.color || "#393c45";
+  const bgColor = style?.bgColor || "#e8edf7";
 
   const storeIndex = 0; // only 1 store
   //const [data, setData] = useState<any>(null);
@@ -484,7 +484,7 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
         color="inherit"
         title="크게"
         onClick={() => resize(1)}
-        size="small"
+        size="medium"
         startIcon={<MdArrowDropUp />}
         sx={{ flex: 1 }}
       >
@@ -495,7 +495,7 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
         color="inherit"
         title="작게"
         onClick={() => resize(-1)}
-        size="small"
+        size="medium"
         startIcon={<MdArrowDropDown />}
         sx={{ flex: 1 }}
       >
@@ -506,7 +506,7 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
         color="inherit"
         title="앞으로"
         onClick={() => reorder(-1)}
-        size="small"
+        size="medium"
         startIcon={<MdArrowLeft />}
         sx={{ flex: 1 }}
       >
@@ -517,41 +517,34 @@ const NexSectionViewer: React.FC<NexAppProps> = observer((props) => {
         color="inherit"
         title="뒤로"
         onClick={() => reorder(1)}
-        size="small"
+        size="medium"
         startIcon={<MdArrowRight />}
         sx={{ flex: 1 }}
       >
         뒤로
       </Button>
       <Button
-        size="large"
+        size="medium"
         variant="contained"
         title="추가"
         onClick={() => handleAdd()}
         startIcon={<MdNewLabel />}
-        sx={{ flex: 1.5 }}
+        sx={{ flex: 2 }}
       >
         추가
       </Button>
       <Button
-        size="large"
+        size="medium"
         variant="contained"
         color="error"
         title="삭제"
         onClick={() => handleRemove()}
         startIcon={<MdCancel />}
-        sx={{ flex: 1.5 }}
+        sx={{ flex: 2 }}
       >
         삭제
       </Button>
-      <Button
-        size="large"
-        variant="contained"
-        onClick={() => handleApplyConfig()}
-        sx={{ flex: 3 }}
-      >
-        설정 서버 반영
-      </Button>
+
     </Stack>
   );
 

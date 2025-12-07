@@ -377,31 +377,31 @@
               {
                 "name": "호남선",
                 "dispName": "",
-                "icon": "/config/element",
+                "icon": "/cbm/train",
                 "color": "red"
               },
               {
                 "name": "경부선",
                 "dispName": "",
-                "icon": "/config/contents",
+                "icon": "/cbm/train",
                 "color": "blue"
               },
               {
                 "name": "전라선",
                 "dispName": "",
-                "icon": "/config/processor",
+                "icon": "/cbm/train",
                 "color": "green"
               },
               {
                 "name": "태백선",
                 "dispName": "",
-                "icon": "/config/system",
+                "icon": "/cbm/train",
                 "color": "orage"
               },
               {
                 "name": "미배치",
                 "dispName": "",
-                "icon": "/config/format",
+                "icon": "/cbm/train",
                 "color": "green"
               }
             ]
@@ -409,7 +409,7 @@
           {
             "name": "alert",
             "dispName": "경고",
-            "icon": "/config/storage",
+            "icon": "",
             "color": "#f0142f",
             "isKey": false,
             "featureType": "NUMBER"
@@ -417,7 +417,7 @@
           {
             "name": "warning",
             "dispName": "주의",
-            "icon": "/config/new-entity",
+            "icon": "",
             "color": "#feb200",
             "isKey": false,
             "featureType": "NUMBER"
@@ -451,8 +451,38 @@
               {
                 "name": "경부선",
                 "dispName": "경부선",
-                "icon": "/config/contents",
-                "color": "red"
+                "icon": "",
+                "color": "#003da5"
+              },
+              {
+                "name": "호남선",
+                "dispName": "호남선",
+                "icon": "",
+                "color": "#d50032"
+              },
+              {
+                "name": "전라선",
+                "dispName": "전라선",
+                "icon": "",
+                "color": "#73c42d"
+              },
+              {
+                "name": "동해선",
+                "dispName": "동해선",
+                "icon": "",
+                "color": "#d96b80"
+              },
+              {
+                "name": "태백선",
+                "dispName": "태백선",
+                "icon": "",
+                "color": "#7ba05b"
+              },
+              {
+                "name": "미배치",
+                "dispName": "미배치",
+                "icon": "",
+                "color": "#adb81d"
               }
             ]
           },

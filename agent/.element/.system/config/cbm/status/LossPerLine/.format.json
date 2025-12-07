@@ -17,31 +17,31 @@
         {
           "name": "호남선",
           "dispName": "",
-          "icon": "/config/element",
+          "icon": "/cbm/train",
           "color": "red"
         },
         {
           "name": "경부선",
           "dispName": "",
-          "icon": "/config/contents",
+          "icon": "/cbm/train",
           "color": "blue"
         },
         {
           "name": "전라선",
           "dispName": "",
-          "icon": "/config/processor",
+          "icon": "/cbm/train",
           "color": "green"
         },
         {
           "name": "태백선",
           "dispName": "",
-          "icon": "/config/system",
+          "icon": "/cbm/train",
           "color": "orage"
         },
         {
           "name": "미배치",
           "dispName": "",
-          "icon": "/config/format",
+          "icon": "/cbm/train",
           "color": "green"
         }
       ]
@@ -49,7 +49,7 @@
     {
       "name": "alert",
       "dispName": "경고",
-      "icon": "/config/storage",
+      "icon": "",
       "color": "#f0142f",
       "isKey": false,
       "featureType": "NUMBER"
@@ -57,7 +57,7 @@
     {
       "name": "warning",
       "dispName": "주의",
-      "icon": "/config/new-entity",
+      "icon": "",
       "color": "#feb200",
       "isKey": false,
       "featureType": "NUMBER"

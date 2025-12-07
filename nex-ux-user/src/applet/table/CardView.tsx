@@ -28,6 +28,7 @@ import {
 } from "react-icons/md";
 import { clamp } from "../../utils/util";
 import { getThemeStyle } from "type/NexTheme";
+import PXIcon from "icon/pxIcon";
 
 // --- Feature Types Definition ---
 const TYPE_CATEGORY = {
@@ -639,33 +640,74 @@ const CardView: React.FC<CardViewProps> = ({
                                     >
                                         <CardContent>
                                             <Stack spacing={1}>
-                                                {features.map((feature, cIdx) => (
-                                                    <Stack
-                                                        key={cIdx}
-                                                        direction="row"
-                                                        justifyContent="space-between"
-                                                        alignItems="flex-start"
-                                                        spacing={1}
-                                                    >
-                                                        <Typography
-                                                            variant="caption"
-                                                            color="text.secondary"
-                                                            sx={{ minWidth: 80, fontWeight: "bold" }}
-                                                        >
-                                                            {feature.dispName || feature.name}
-                                                        </Typography>
-                                                        <Typography
-                                                            variant="body2"
+                                                {features.map((feature, cIdx) => {
+                                                    const cellValue = row[cIdx];
+                                                    const literal = feature.literals?.find((lit: any) => lit.name === cellValue);
+
+                                                    // Feature (Label) Styles
+                                                    const labelColor = feature.color || "text.secondary";
+                                                    const labelBgColor = feature.bgColor || "transparent";
+                                                    const labelIcon = feature.icon;
+
+                                                    // Literal (Value) Styles
+                                                    const displayValue = literal ? (literal.dispName || literal.name) : safeStringify(cellValue);
+                                                    const valueColor = literal?.color || feature.color || "inherit";
+                                                    const valueBgColor = literal?.bgColor || feature.bgColor || "transparent";
+                                                    const valueIcon = literal?.icon;
+
+                                                    return (
+                                                        <Stack
+                                                            key={cIdx}
+                                                            direction="row"
+                                                            justifyContent="space-between"
+                                                            alignItems="center"
+                                                            spacing={1}
                                                             sx={{
-                                                                wordBreak: "break-all",
-                                                                textAlign: "right",
-                                                                color: isSelected ? style.activeColor : "inherit",
+                                                                bgcolor: (labelBgColor !== "transparent" || valueBgColor !== "transparent") ? "#f9f9f9" : "transparent",
+                                                                p: (labelBgColor !== "transparent" || valueBgColor !== "transparent") ? 0.5 : 0,
+                                                                borderRadius: 1
                                                             }}
                                                         >
-                                                            {safeStringify(row[cIdx])}
-                                                        </Typography>
-                                                    </Stack>
-                                                ))}
+                                                            <Stack direction="row" alignItems="center" spacing={0.5} sx={{ minWidth: 80, bgcolor: labelBgColor, px: labelBgColor !== "transparent" ? 0.5 : 0, borderRadius: 0.5 }}>
+                                                                {labelIcon && (
+                                                                    <PXIcon
+                                                                        path={labelIcon}
+                                                                        color={labelColor}
+                                                                        width="0.875rem"
+                                                                        height="0.875rem"
+                                                                    />
+                                                                )}
+                                                                <Typography
+                                                                    variant="caption"
+                                                                    sx={{ fontWeight: "bold", color: labelColor }}
+                                                                >
+                                                                    {feature.dispName || feature.name}
+                                                                </Typography>
+                                                            </Stack>
+
+                                                            <Stack direction="row" alignItems="center" spacing={0.5} sx={{ bgcolor: valueBgColor, px: valueBgColor !== "transparent" ? 0.5 : 0, borderRadius: 0.5 }}>
+                                                                {valueIcon && (
+                                                                    <PXIcon
+                                                                        path={valueIcon}
+                                                                        color={valueColor}
+                                                                        width="0.9rem"
+                                                                        height="0.9rem"
+                                                                    />
+                                                                )}
+                                                                <Typography
+                                                                    variant="body2"
+                                                                    sx={{
+                                                                        wordBreak: "break-all",
+                                                                        textAlign: "right",
+                                                                        color: isSelected ? style.activeColor : valueColor,
+                                                                    }}
+                                                                >
+                                                                    {displayValue}
+                                                                </Typography>
+                                                            </Stack>
+                                                        </Stack>
+                                                    );
+                                                })}
                                             </Stack>
                                         </CardContent>
                                     </Card>

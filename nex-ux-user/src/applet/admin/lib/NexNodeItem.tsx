@@ -69,9 +69,9 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
   );*/
 
   const fontSize = style.fontSize;
-  const borderFontSize = `calc(${fontSize} * 1.5)`;
+  const height = `calc(${fontSize} * 1.5)`;
   // 들여쓰기 크기
-  const tabSize = `calc(${fontSize} * ${depts})`;
+  const indentation = `calc(${fontSize} * 0.8 * ${depts})`;
 
   useEffect(() => {
     if (node && node.data) {
@@ -85,9 +85,9 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
       setNodeType(type);
       setIsChildren(
         type === NexNodeType.FOLDER ||
-          (type === NexNodeType.SECTION &&
-            node.children &&
-            node.children.length > 0)
+        (type === NexNodeType.SECTION &&
+          node.children &&
+          node.children.length > 0)
       );
     }
   }, [node]);
@@ -114,71 +114,71 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
       direction="column"
       width="100%"
       justify="flex-start"
-      bgColor={isSelected ? selectedBgColor : "inherit"}
-      color={isSelected || isSelected ? selectedColor : "black"}
-      fontSize={fontSize}
+      align="center"
+
       title={caption}
     >
       <NexDiv
         direction="row"
         width="100%"
-        height={borderFontSize}
+        height={height}
         align="center"
         justify="flex-start"
         cursor="pointer"
+        color={isSelected || isSelected ? selectedColor : "black"}
+        bgColor={isSelected ? selectedBgColor : "inherit"}
+        fontWeight={isSelected || isSelected ? "bold" : "normal"}
+        fontSize={fontSize}
         onClick={(e) => {
           e.preventDefault();
           handleSelect(index);
         }}
       >
-        {isSelected ? (
-          <NexDiv width="0.5rem" height="100%" bgColor={selectedColor} />
-        ) : (
-          <NexDiv width="0.5rem" height="100%" bgColor="inherit" />
-        )}
 
-        <span style={{ width: tabSize }} />
-        {isChildren ? (
+        <NexDiv width="5px" height="90%" bgColor={isSelected ? selectedColor : "inherit"} style={{ borderRadius: "2px" }} />
+
+
+        <NexDiv width="100%" height="100%" padding={` 0 0  0 ${indentation}`}>
+
           <NexDiv
             justify="center"
             align="center"
-            width={borderFontSize}
+            width={fontSize}
             height="100%"
-            color={selectedColor}
             cursor="pointer"
           >
-            {isChildOpend ? (
+            {isChildren && (isChildOpend ? (
               <MdKeyboardArrowDown />
             ) : (
               <MdChevronRight size={fontSize} />
-            )}
+            ))}
           </NexDiv>
-        ) : (
-          <span style={{ width: fontSize }} />
-        )}
-        <NexLabel width="96%" height="100%">
-          {jsonData && (jsonData?.dispName || jsonData?.name || "No Name")}
-        </NexLabel>
 
-        {isSelected && onRemove && (
-          <IconButton
-            size="small"
-            onClick={(e) => {
-              e.stopPropagation();
-              onRemove(index);
-            }}
-            title="삭제"
-          >
-            <MdClose
-              fontSize={`calc(${fontSize} * 0.7)`}
-              color={selectedColor}
-            />
-          </IconButton>
-        )}
+          <NexLabel width="100%" height="100%" style={{ paddingLeft: "2px" }}>
+            {jsonData && (jsonData?.dispName || jsonData?.name || "No Name")}
+          </NexLabel>
+
+          {isSelected && onRemove && (
+            <IconButton
+              size="small"
+              onClick={(e) => {
+                e.stopPropagation();
+                onRemove(index);
+              }}
+              title="삭제"
+            >
+              <MdClose
+                fontSize={`calc(${fontSize} * 0.8)`}
+                color={selectedColor}
+              />
+            </IconButton>
+          )}
+        </NexDiv>
+
       </NexDiv>
       {isChildOpend && isChildren ? (
         <NexDiv direction="row" width="100%" justify="start">
-          <Stack spacing={0.5} direction="column" width="100%">
+          <Stack spacing={0.8} direction="column" width="100%">
             {node.children?.map((child: any, index: number) => (
               <NexNodeItem
                 key={index}

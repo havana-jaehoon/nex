@@ -1,20 +1,20 @@
 import path from "path";
 import NexNodeEditor from "./admin/NexNodeEditor";
-import NexNodeSelctor from "./admin/NexNodeSelector";
 import NexNodeTreeApp from "./admin/NexNodeTreeApp";
 import NexSectionViewer from "./admin/NexSectionViewer";
-import StorageElementGenerator from "./admin/StorageElementGenerator";
 import NexLineChartApp from "./chart/NexLineChartApp";
-import EMU150TrainLineInfoApp from "./emu150/EMU150TrainLineInfo";
 import PXHeadApp from "./head/PHeadApplet";
 import NexMenuApp from "./menu/NexMenuApp";
 import NexSampleListApp from "./sample/NexSampleListApp";
 import NexCountApp from "./status/NexCountApp";
 import NexStatusApp from "./status/NexStatusApp";
 import NexTableApp from "./table/NexTableApp";
-import PXBaseTable from "./table/PXBaseTable";
+import PXBaseTable from "./table/PXBaseTableApp";
 import PXCardView from "./table/PXCardView";
 import PXLineChartApp from "./chart/PXLineChartApp";
+import PXBarChartApp from "./chart/PXBarChartApp";
+import PXPieChartApp from "./chart/PXPieChartApp";
+import PXBaseChart from "./chart/PXBaseChart";
 import NexConfigDistApp from "./admin/NexConfigDistApp";
 
 const appletList = [
@@ -61,6 +61,24 @@ const appletList = [
         dispName: "PX 라인 차트",
         type: "applet",
         app: PXLineChartApp,
+      },
+      {
+        name: "PXBarChartApp",
+        dispName: "PX 바 차트",
+        type: "applet",
+        app: PXBarChartApp,
+      },
+      {
+        name: "PXPieChartApp",
+        dispName: "PX 파이 차트",
+        type: "applet",
+        app: PXPieChartApp,
+      },
+      {
+        name: "PXBaseChart",
+        dispName: "PX 통합 차트",
+        type: "applet",
+        app: PXBaseChart,
       },
     ],
   },
@@ -128,19 +146,7 @@ const appletList = [
       },
     ],
   },
-  {
-    name: "cbm",
-    dispName: "CBM",
-    type: "folder",
-    children: [
-      {
-        name: "TrainInfoLine",
-        dispName: "호선별열차정보",
-        type: "applet",
-        app: EMU150TrainLineInfoApp,
-      },
-    ],
-  },
+
   {
     name: "admin",
     dispName: "관리자",

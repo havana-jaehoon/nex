@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import NexApplet, { NexAppProps } from "../NexApplet";
 import { NexDiv } from "../../component/base/NexBaseComponents";
 import NexMenuItem from "./lib/NexMenuItem";
 import { useNavigate } from "react-router-dom";
-import { buildMenuTree } from "./lib/NexMenuNode";
 import { clamp } from "utils/util";
 import { getThemeStyle } from "type/NexTheme";
 import { buildNexTree } from "utils/NexTreeNode";
@@ -17,7 +16,6 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
 
   const [selectedPath, setSelectedPath] = useState<string>("");
 
-  //const style = getThemeStyle(theme, "menu");
   const style = getThemeStyle(theme, "applet");
 
   const color = style.color;
@@ -42,9 +40,6 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
   // 1.3 contents 에서 store, data, format 정보 가져오기
   //  Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
   const storeIndex = 0; // only 1 store
-  const [datas, setDatas] = useState<any[]>([]);
-  const [features, setFeatures] = useState<any[]>([]);
-
   const [nexTree, setNexTree] = useState<any>(null);
   const [store, setStore] = useState<any>(null);
 
@@ -69,8 +64,6 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
     //setFormat(cts.format);
     //setSelectedKeys(cts.selectedKeys);
   }, [contents]);
-
-  const menuData = useMemo(() => buildMenuTree(datas), [datas]);
 
   const navigate = useNavigate();
   const handleClick = (path: string) => {

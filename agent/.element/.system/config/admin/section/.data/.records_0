@@ -40,7 +40,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "row",
-        "size": 6,
+        "size": 7,
         "padding": "",
         "app-padding": "",
         "applet": "",
@@ -1009,7 +1009,7 @@
         "size": "8",
         "padding": "",
         "app-padding": "",
-        "applet": "/chart/PXLineChartApp",
+        "applet": "/chart/PXBaseChart",
         "contents": [
           "/cbm/history/LossHistoryPerLine"
         ],
@@ -1117,7 +1117,7 @@
         "size": "4",
         "padding": "",
         "app-padding": "",
-        "applet": "/chart/PXLineChartApp",
+        "applet": "/chart/PXBarChartApp",
         "contents": [
           "/cbm/history/LossHistoryPerDevice"
         ],
@@ -1439,7 +1439,7 @@
     {
       "0": {
         "name": "new-section-174337",
-        "dispName": "테이블테스트",
+        "dispName": "",
         "description": "",
         "type": "section",
         "icon": "",
@@ -1797,7 +1797,7 @@
         "color": "",
         "isRoutes": "",
         "route": "",
-        "size": 6,
+        "size": 9,
         "padding": "",
         "app-padding": "",
         "applet": "/head/PXHeadApplet",
@@ -1823,8 +1823,8 @@
         "isRoutes": "",
         "route": "",
         "size": 1,
-        "padding": "",
-        "app-padding": "",
+        "padding": "0",
+        "app-padding": "0",
         "applet": "/admin/NexConfigDist",
         "contents": [],
         "visibleFeatures": "",

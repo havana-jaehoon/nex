@@ -1,17 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./index.css";
+import "./assets/fonts/Pretendard1.3.9/web/static/pretendard.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Modal from "react-modal";
 
 Modal.setAppElement("#root");
 
+import { ThemeProvider, CssBaseline } from "@mui/material";
+import theme from "./muiTheme";
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <App />
+    </ThemeProvider>
   </React.StrictMode>
 );
 

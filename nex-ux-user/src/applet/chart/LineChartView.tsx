@@ -9,7 +9,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { Paper, Typography, Box } from "@mui/material";
+import { Paper, Typography, Box, Select, MenuItem, FormControl } from "@mui/material";
 import { getThemeStyle } from "type/NexTheme";
 import { clamp } from "../../utils/util";
 import { NexDiv } from "../../component/base/NexBaseComponents";
@@ -22,6 +22,37 @@ export interface LineChartViewProps {
   user?: any;
   theme?: any;
 }
+
+const CHART_STYLES = {
+  default: {
+    label: "Default",
+    lineType: "monotone",
+    strokeWidth: 2,
+    dot: { r: 1 },
+    gridDash: "3 3",
+  },
+  smooth: {
+    label: "Smooth",
+    lineType: "natural",
+    strokeWidth: 3,
+    dot: false,
+    gridDash: "3 3",
+  },
+  step: {
+    label: "Step",
+    lineType: "step",
+    strokeWidth: 2,
+    dot: { r: 2 },
+    gridDash: "5 5",
+  },
+  linear: {
+    label: "Sharp",
+    lineType: "linear",
+    strokeWidth: 1,
+    dot: { r: 3 },
+    gridDash: "1 1",
+  },
+};
 
 // Helper to generate colors
 const COLORS = [
@@ -56,7 +87,7 @@ const CustomLegend = ({ payload, features }: any) => (
       return (
         <NexDiv
           key={`item-${index}`}
-          style={{ color: color, marginBottom: 6 }}
+          style={{ marginBottom: 6 }}
           align="center"
           direction="row"
           fontSize={fontSize}
@@ -88,6 +119,8 @@ const LineChartView: React.FC<LineChartViewProps> = ({
   user,
   theme,
 }) => {
+  const [chartStyle, setChartStyle] = React.useState<string>("default");
+
   const style = getThemeStyle(theme, "chart");
   const contentsFontSize = style.fontSize;
 
@@ -120,6 +153,8 @@ const LineChartView: React.FC<LineChartViewProps> = ({
     return { chartData: resultData, seriesNames: Array.from(seriesSet) };
   }, [data]);
 
+  const currentStyle = CHART_STYLES[chartStyle as keyof typeof CHART_STYLES];
+
   return (
     <Paper
       elevation={0}
@@ -131,17 +166,46 @@ const LineChartView: React.FC<LineChartViewProps> = ({
         overflow: "hidden",
         fontSize: contentsFontSize,
         p: 0,
+        position: "relative",
       }}
     >
+      <Box
+        sx={{
+          position: "absolute",
+          top: 10,
+          right: 20,
+          zIndex: 10,
+          bgcolor: "background.paper",
+          borderRadius: 1,
+          boxShadow: 1,
+        }}
+      >
+        <FormControl size="small" variant="outlined">
+          <Select
+            value={chartStyle}
+            onChange={(e) => setChartStyle(e.target.value)}
+            displayEmpty
+            inputProps={{ "aria-label": "Chart Style" }}
+            sx={{ fontSize: "0.8rem", height: 30 }}
+          >
+            {Object.entries(CHART_STYLES).map(([key, value]) => (
+              <MenuItem key={key} value={key} sx={{ fontSize: "0.8rem" }}>
+                {value.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
+
       <Box sx={{ flex: 1, width: "100%", minHeight: 0 }}>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={chartData}
-            margin={{ top: 20, right: 0, left: 0, bottom: 0 }}
+            margin={{ top: 20, right: 15, left: 0, bottom: 15 }}
           >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis />
+            <CartesianGrid strokeDasharray={currentStyle.gridDash} />
+            <XAxis dataKey="date" tickMargin={15} />
+            <YAxis tickMargin={5} />
             <Tooltip />
             <Legend
               verticalAlign="middle"
@@ -158,10 +222,12 @@ const LineChartView: React.FC<LineChartViewProps> = ({
               return (
                 <Line
                   key={seriesName}
-                  type="monotone"
+                  type={currentStyle.lineType as any}
                   dataKey={seriesName}
                   stroke={color}
-                  activeDot={{ r: 1 }}
+                  strokeWidth={currentStyle.strokeWidth}
+                  dot={currentStyle.dot}
+                  activeDot={{ r: 4 }}
                 />
               );
             })}

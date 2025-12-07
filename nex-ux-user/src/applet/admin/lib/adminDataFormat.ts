@@ -1128,7 +1128,10 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.LITERALS,
-          literals: [{ name: "Arial, sans-serif", dispName: "Arial" }],
+          literals: [{ name: "Pretendard", dispName: "Pretendard" },
+          { name: "Arial", dispName: "Arial" },
+          { name: "sans-serif", dispName: "sans-serif" }
+          ],
           uxSize: 3,
         },
         {

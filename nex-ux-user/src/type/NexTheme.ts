@@ -58,7 +58,7 @@ export const defaultThemeStyle: NexThemeStyle = {
   activeBgColor: "#e8edf7", // 활성화 배경색, 여러 색상을 지원하기 위해 배열로 변경
   hoverColor: "#393c45",
   hoverBgColor: "#e8edf7", // 호버 배경색, 여러 색상을 지원하기 위해 배열로 변경
-  fontFamily: "Arial, sans-serif",
+  fontFamily: "Pretendard, Arial, sans-serif",
   gap: "2rem",
   padding: "0.2rem",
   fontSize: "1rem",
@@ -76,7 +76,7 @@ export const defaultTheme: NexTheme = [
     hoverColor: "#393c45",
     hoverBgColor: "#e8edf7", // 호버 배경색, 여러 색상을 지원하기 위해 배열로 변경
 
-    fontFamily: "Arial, sans-serif",
+    fontFamily: "Pretendard, Arial, sans-serif",
     borderRadius: "0.5rem", // all | top right bottom left
     padding: "0rem", // all | top right bottom left
     gap: "0rem",
@@ -92,7 +92,7 @@ export const defaultTheme: NexTheme = [
     hoverColor: "#393c45",
     hoverBgColor: "#e8edf7", // 호버 배경색, 여러 색상을 지원하기 위해 배열로 변경
 
-    fontFamily: "Arial, sans-serif",
+    fontFamily: "Pretendard, Arial, sans-serif",
     fontSize: "1rem",
     borderRadius: "4px",
   },

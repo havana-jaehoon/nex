@@ -41,7 +41,7 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
 
   const [hovered, setHovered] = React.useState(false);
   const isRoutes = section && Boolean(section.isRoutes) === true;
-  const isContents = section && section.applet !== undefined && section.applet !== "";
+  //const isContents = section && section.applet !== undefined && section.applet !== "";
   // && section.contents && isCon;
   const isLastSection = section && !section.children;
   const isApplet = section && section.applet && section.applet !== "";
@@ -52,24 +52,25 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
   const border = style.border || "none";
   const borderRadius = style.borderRadius || "0";
   const boxShadow = style.boxShadow || "none";
-  const appletBgColor = style.bgColor || "#ffffff";
+
 
   const color = style.color;
   const bgColor = style.bgColor;
-  const activeColor1 = style.activeColor;
-  const activeColor2 = style.activeColor;
+  const activeColor = style.activeColor;
+
+  const fontSize = style.fontSize || "1rem";
+  const height = `calc(${fontSize} * 1.5)`;
 
   if (!section) return null;
 
   const sectionInfo = JSON.stringify(section.name, null, 2);
 
-  const lastView = isContents ? (
+  const lastView = isApplet ? (
     <NexDiv
       width="100%"
       height="100%"
       direction="column"
-      color={color}
-      bgColor={bgColor}
+      bgColor={"#e7f5ff"}
       border={border}
       borderRadius={borderRadius}
       padding={gap}
@@ -179,14 +180,16 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
       width="100%"
       height="100%"
       flex={section.size || "1"}
-      color={color}
-      bgColor={isSelected ? activeColor2 : hovered ? "lightblue" : "lightgray"}
+      color={isSelected ? activeColor : color}
+      bgColor={bgColor}
+      fontWeight={isSelected ? "bold" : "normal"}
+      fontSize={fontSize}
       border={
         isSelected
-          ? "5px solid " + activeColor2
+          ? "3px solid " + activeColor
           : hovered
             ? "1px solid lightblue"
-            : "none"
+            : "1px solid lightgray"
       }
       title={sectionInfo}
       onClick={(e: React.MouseEvent<HTMLDivElement>) => {
@@ -205,12 +208,9 @@ const NexPagePreviewer: React.FC<NexPagePreviewerProps> = ({
       {!isPreview && !isLastSection ? (
         <NexDiv
           width="100%"
-          height="20px"
-          border={isSelected ? "none" : "1px solid white"}
-          bgColor={
-            isSelected ? activeColor2 : hovered ? "lightblue" : "lightgray"
-          }
-          align="stretch"
+          height="1.5rem"
+          align="center"
+          justify="center"
         >
           {section.dispName || section.name}\
         </NexDiv>

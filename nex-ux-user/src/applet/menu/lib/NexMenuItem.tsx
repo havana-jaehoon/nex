@@ -9,7 +9,6 @@ import { defaultThemeStyle, getThemeStyle, NexTheme } from "type/NexTheme";
 import { NexMenuNode } from "./NexMenuNode";
 import { NexNodeType } from "type/NexNode";
 import { Stack } from "@mui/material";
-import { json } from "stream/consumers";
 import PXIcon from "icon/pxIcon";
 
 interface NexMenuItemProps {
@@ -30,19 +29,16 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
   onClick,
   onSelect,
 }) => {
-  //const { label, icon, path, children } = item;
   const [path, setPath] = useState("");
   const [index, setIndex] = useState(-1);
   const [jsonData, setJsonData] = useState<any>(null);
   const [nodeType, setNodeType] = useState<string | null>(null);
 
-  const [isChildOpend, setChildOpened] = useState<boolean>(false);
+  const [isChildOpened, setChildOpened] = useState<boolean>(false);
   const [isSelected, setSelected] = useState<boolean>(false);
   const [isChildren, setIsChildren] = useState<boolean>(false);
   const [isSelectedRoot, setIsSelectedRoot] = useState<boolean>(false);
   const [isRoute, setIsRoute] = useState<boolean>(false);
-  //const [isSelected, setSelected] = useState<boolean>(false);
-  //const color = item[6];
 
   useEffect(() => {
     if (node && node.data) {
@@ -56,9 +52,9 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
       setNodeType(type);
       setIsChildren(
         type === NexNodeType.FOLDER ||
-          (type === NexNodeType.MENU &&
-            node.children &&
-            node.children.length > 0)
+        (type === NexNodeType.MENU &&
+          node.children &&
+          node.children.length > 0)
       );
       const bSelectedRoot =
         selectedPath.startsWith(node.data[1]) && depts === 0;
@@ -73,30 +69,30 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
   }, [node, selectedPath]);
 
   const defaultStyle = getThemeStyle(theme, "default");
-  //const menuStyle = getThemeStyle(theme, "menu");
-  const menuStyle = getThemeStyle(theme, "applet");
+  const menuStyle = getThemeStyle(theme, "menu");
 
   const selectedColor = menuStyle.activeColor;
   const selectedBgColor = depts !== 0 ? "inherit" : menuStyle.activeBgColor;
 
-  const fontSize = defaultStyle.fontSize;
-  const tabSize = `calc(${fontSize} * ${depts} / 1.5)`;
+  const fontSize = depts === 0 ? `calc(${menuStyle.fontSize} * 1.1)` : menuStyle.fontSize;
+  const iconSize = `calc(${fontSize} * 1)`;
+  const height = `calc(${fontSize} * 1.8)`;
 
-  const iconSize = `calc(${fontSize} * 1.2)`;
+
+  // Calculate indentation
+  const indentation = `calc(${depts} * 1.0rem)`; // Adjust multiplier as needed
 
   const handleClick = () => {
     if (isRoute) {
       onSelect(path);
       onClick(jsonData.route || "");
     }
-    if (isChildren) setChildOpened(!isChildOpend);
-    console.log("handleClick: route=", node.route);
+    if (isChildren) setChildOpened(!isChildOpened);
+    //console.log("handleClick: route=", node.route);
   };
 
   const handleChildClick = (route: string) => {
-    console.log("handleChildClick: route=", route);
-    //onSelect && onSelect(label);
-
+    //console.log("handleChildClick: route=", route);
     onClick(route);
   };
 
@@ -105,67 +101,75 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
       direction="column"
       width="100%"
       justify="flex-start"
-      bgColor={isSelectedRoot || isChildOpend ? selectedBgColor : "inherit"}
+      bgColor={isSelectedRoot || isChildOpened ? selectedBgColor : "inherit"}
       color={isSelectedRoot || isSelected ? selectedColor : "black"}
       fontSize={fontSize}
     >
       <NexDiv
         direction="row"
         width="100%"
-        height={`calc(${fontSize} * 1.5)`}
+        height={height} // Increased height for better touch target
         align="center"
         justify="flex-start"
         onClick={handleClick}
         title={jsonData?.route || ""}
+        style={{
+          cursor: "pointer",
+          paddingLeft: indentation,
+        }}
       >
-        {isSelected ? (
-          <NexDiv width="0.5rem" height="80%" bgColor={selectedColor} />
-        ) : (
-          <NexDiv width="0.5rem" height="90%" bgColor="inherit" />
-        )}
-        <span style={{ width: tabSize }} />
+        <Stack direction="row" alignItems="center" spacing={0.8} sx={{ width: "100%", height: "inherit" }}>
+          {/* Selection Indicator */}
+          <NexDiv width="6px" height="70%" bgColor={isSelected ? selectedColor : "transparent"} style={{ marginRight: "0.5rem", borderRadius: "2px" }} />
 
-        {jsonData && jsonData.icon && jsonData.icon !== "" && (
-          <>
+          {/* Icon */}
+          {jsonData && jsonData.icon && jsonData.icon !== "" && (
             <PXIcon
               path={jsonData?.icon || ""}
               width={iconSize}
               height={iconSize}
             />
-            <span style={{ width: fontSize }} />
-          </>
-        )}
-        <NexLabel width="96%" height="100%">
-          {jsonData?.dispName || jsonData?.name || ""}
-        </NexLabel>
-        <NexDiv justify="end" width="2rem" height="100%" color={selectedColor}>
-          {isChildren ? (
-            isChildOpend ? (
-              <MdKeyboardArrowDown />
-            ) : (
-              <MdKeyboardArrowRight />
-            )
-          ) : null}
-        </NexDiv>
-      </NexDiv>
-      {isChildOpend && isChildren ? (
-        <NexDiv direction="row" width="100%">
-          <Stack spacing={1} direction="column" width="100%">
-            {node.children?.map((child: any, index: number) => (
-              <NexMenuItem
-                key={index}
-                depts={depts + 1}
-                node={child}
-                theme={theme}
-                onSelect={onSelect}
-                selectedPath={selectedPath}
-                onClick={handleChildClick}
-              />
-            ))}
-          </Stack>
-        </NexDiv>
-      ) : null}
-    </NexDiv>
+          )}
+
+          {/* Label */}
+          <NexLabel align="center" width="auto" height="100%" style={{ fontWeight: isSelectedRoot || isSelected ? "bold" : "normal", flex: 1, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+            {jsonData?.dispName || jsonData?.name || ""}
+          </NexLabel>
+
+          {/* Expand/Collapse Icon */}
+          <NexDiv justify="center" align="center" width={fontSize} height="100%" color={selectedColor}>
+            {isChildren ? (
+              isChildOpened ? (
+                <MdKeyboardArrowDown size={height} />
+              ) : (
+                <MdKeyboardArrowRight size={height} />
+              )
+            ) : null}
+          </NexDiv>
+        </Stack>
+      </NexDiv >
+
+      {/* Children */}
+      {
+        isChildOpened && isChildren ? (
+          <NexDiv direction="row" width="100%">
+            <Stack spacing={1} direction="column" width="100%">
+              {node.children?.map((child: any, index: number) => (
+                <NexMenuItem
+                  key={index}
+                  depts={depts + 1}
+                  node={child}
+                  theme={theme}
+                  onSelect={onSelect}
+                  selectedPath={selectedPath}
+                  onClick={handleChildClick}
+                />
+              ))}
+            </Stack>
+          </NexDiv>
+        ) : null
+      }
+    </NexDiv >
   );
 };
 
