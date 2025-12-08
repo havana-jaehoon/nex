@@ -8,7 +8,9 @@ import { clamp } from "../../utils/util";
 import { Box, Button, Stack } from "@mui/material";
 import { getThemeStyle } from "type/NexTheme";
 import PXIcon from "icon/pxIcon";
-
+import axios from "axios";
+import pxConfig from "config/px-config.json";
+import { MdCloudUpload } from "react-icons/md";
 //import { fieldPaths } from "test/data/testProjects";
 
 const PXHeadApp: React.FC<NexAppProps> = observer((props) => {
@@ -19,23 +21,51 @@ const PXHeadApp: React.FC<NexAppProps> = observer((props) => {
   // 1.2 Apllet 에서 사용할 contents 의 폰트 사이즈를 theme 로 부터 가져오기
   const fontLevel = user?.fontLevel || 5; // Default font level if not provided
 
-  const style = getThemeStyle(theme, "table");
-  const contentsFontSize =
-    style.fontSize[clamp(fontLevel + 3, 0, style.fontSize?.length - 1)] ||
-    "1rem";
+  const style = getThemeStyle(theme, "applet");
+  const contentsFontSize = `calc(${style.fontSize ?? "1rem"} * 1.4)`;
+  const color = style.color ?? "#000000";
+
+
+  const handleClick = async () => {
+    try {
+      await axios
+        .request({
+          method: "get",
+          url: pxConfig["command-url"] + "/dist",
+        })
+        .then((response) => {
+          console.log("NexConfigDistApp::handleClick() response:", response);
+          window.location.reload();
+        });
+    } catch (error) {
+      console.error("Failed to apply config:", error);
+    }
+  };
 
   return (
     <NexDiv
-      direction="column"
       width="100%"
       height="100%"
-      align="flex-start"
+      align="center"
       justify="center"
       fontSize={contentsFontSize}
       fontWeight="bold"
-      color={style.color}
+      color={color}
     >
-      <NexLabel> {name} </NexLabel>
+      <NexLabel flex="9" align="center" > {name} </NexLabel>
+      <NexDiv flex="1" width="100%" height="100%" direction="row">
+
+        <Button
+          variant="contained"
+          size="large"
+          fullWidth
+          startIcon={<MdCloudUpload />}
+          onClick={handleClick}
+          sx={{ width: "100%", height: "100%" }}
+        >
+          설정 적용
+        </Button>
+      </NexDiv>
     </NexDiv>
   );
 });
