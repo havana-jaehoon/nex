@@ -1320,5 +1320,43 @@
         "sources": ""
       }
     }
+  ],
+  [
+    136,
+    "/new-folder-2344081",
+    "",
+    "analysis",
+    {
+      "0": {
+        "name": "new-folder-2344081",
+        "dispName": "",
+        "description": "",
+        "type": "folder",
+        "icon": "",
+        "color": ""
+      }
+    }
+  ],
+  [
+    137,
+    "/new-folder-2344081/new-element-234419",
+    "",
+    "analysis",
+    {
+      "0": {
+        "name": "new-element-234419",
+        "dispName": "",
+        "description": "",
+        "type": "element",
+        "icon": "",
+        "color": "",
+        "storage": "",
+        "format": "",
+        "store": "",
+        "processor": "",
+        "processingInterval": "",
+        "sources": ""
+      }
+    }
   ]
 ]

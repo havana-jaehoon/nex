@@ -44,7 +44,7 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
 
   const contentsOdata = useMemo(
     () => contents?.map((c) => c.store.odata),
-    [contents]
+    [contents, ...(contents?.map((cts) => cts.store.odata) || [])]
   );
 
   useEffect(() => {

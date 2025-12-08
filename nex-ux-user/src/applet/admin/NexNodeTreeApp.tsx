@@ -33,7 +33,8 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const [mainDatas, setMainDatas] = useState<any[]>([]);
   const [curNode, setCurNode] = useState<any>(null);
   const [selectedPath, setSelectedPath] = useState<string>("");
-  const [selectedKeys, setSelectedKeys] = useState<number[]>([]);
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+  //const [selectedKeys, setSelectedKeys] = useState<number[]>([]);
   const projectName = "";
 
   const style = getThemeStyle(theme, "applet");
@@ -72,16 +73,18 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
         let contentsData = [];
         if (!indexes)
           // indexes 가 없으면 전체 데이터
-          contentsData = content.data;
+          contentsData = [...content.data];
         else {
           contentsData = indexes.map((index: number) => content.data[index]);
         }
 
+
+
+
         setMainDatas(contentsData);
-        //const tree = buildNexTree(contentsData);
+
+
         setType(nodeType);
-        //setNexTree(tree);
-        setSelectedKeys(content.selectedKeys);
       }
 
       if (!nodeList[nodeType]) nodeList[nodeType] = [];
@@ -100,8 +103,10 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       });
     });
 
+
+
     setNodes(nodeList);
-  }, [contents]);
+  }, [contents, JSON.stringify(contents?.map((cts) => cts.store.odata) || [])]);
 
   const treeData = useMemo(() => {
     let selectedDatas: any[] = [];
@@ -109,8 +114,13 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       if (type !== NexNodeType.ELEMENT || data[3] === systemName) {
         selectedDatas.push(data);
       }
+      if (selectedIndex === data[0]) {
+        setSelectedPath(data[1]);
+      } else {
+        setSelectedPath("");
+      }
     });
-
+    //console.log(`# treeData selectedDatas: ${selectedDatas.length}, ${systemName}, ${JSON.stringify(selectedDatas)}`);
     return buildNexTree(selectedDatas);
   }, [mainDatas, systemName]);
 
@@ -118,11 +128,13 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     const row = treeData?.getNode(index) || null;
 
     if (!row || row.length !== 5) {
+      setSelectedIndex(-1);
       setSelectedPath("");
-      //setSelectedIndex(-1);
     } else {
+      console.log(`# handleSelect index: ${index}/${row[0]}/${row[1]}, row: ${row}`);
+
+      setSelectedIndex(index);
       setSelectedPath(row[1]);
-      //setSelectedIndex(index);
       const node = Object.values(row[4])[0];
       setCurNode(node);
     }
@@ -130,6 +142,8 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     //setCurRecord(row);
 
     if (onSelect) {
+      console.log(`# handleSelect index: ${index}, row: ${row}`);
+
       onSelect(0, row); // Assuming single store for now
     }
   };
@@ -293,7 +307,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       return;
     }
     // 삭제한 노드가 선택된 노드인 경우 선택 해제
-    if (index === selectedKeys[0]) {
+    if (index === selectedIndex) {
       handleSelect(-1);
     }
   };
@@ -340,7 +354,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
         >
           <Select
             value={systemName}
-            onChange={(e) => setSystemName(e.target.value as string)}
+            onChange={(e) => { setSystemName(e.target.value as string); handleSelect(-1); }}
             fullWidth={true}
             displayEmpty
             renderValue={(selected) => {
@@ -379,7 +393,10 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
           <Button
             variant="contained"
             sx={{ width: "70%" }}
-            onClick={handleGenDbData}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleGenDbData();
+            }}
           >
             DB 데이터 생성
           </Button>
@@ -416,7 +433,10 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
           {!(type === NexNodeType.SYSTEM || type === NexNodeType.SECTION) && (
             <IconButton
               title="폴더 추가"
-              onClick={handleAddFolder}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleAddFolder();
+              }}
               sx={{ color: color, alignItems: "flex-center" }}
             >
               <PXIcon
@@ -431,7 +451,10 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
           <IconButton
             title="엔티티 추가"
             sx={{ color: color, alignItems: "flex-center" }}
-            onClick={handleAddEntity}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleAddEntity();
+            }}
           >
             <PXIcon
               path="/config/new-entity"
@@ -461,7 +484,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
                       user={user}
                       onSelect={handleSelect}
                       onRemove={handleRemove}
-                      selectedIndex={selectedKeys[0]}
+                      selectedIndex={selectedIndex}
                     />
                   )
               )}
