@@ -118,10 +118,16 @@ const NexNodeEditor: React.FC<NexAppProps> = observer((props) => {
             if (!nodeList[nodeType][systemName][parentPath])
               nodeList[nodeType][systemName][parentPath] = [{ index: 0, path: "", name: "", dispName: "없음", helper: "None" }];
 
+            let nodeName = node.name;
+            if (node.type === NexNodeType.STORAGE) {
+              nodeName = "/" + node.name;
+            }
+
+
             nodeList[nodeType][systemName][parentPath].push({
               index: i + 1,
               path: path, // 필요한가?
-              name: node.name,
+              name: nodeName,
               dispName: node.dispName,
               system: systemName,
               helper: `${node.dispName || node.name}`,

@@ -67,7 +67,7 @@ const NexApplet: React.FC<NexAppProps> = observer(
     const padding = style.padding || "8px";
 
     const fontFamily = style.fontFamily || "Pretendard";
-    console.log("NexApplet fontFamily: ", fontFamily);
+    //console.log("NexApplet fontFamily: ", fontFamily);
 
     return (
       <NexDiv width="100%" height="100%">

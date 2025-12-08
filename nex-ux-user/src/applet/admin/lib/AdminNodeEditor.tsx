@@ -207,7 +207,7 @@ const ItemInput: React.FC<ItemInputProps> = ({
       setNodeValue(value);
     } else if (name === NexNodeType.STORAGE) {
       const parentPath = value.split("/").slice(0, -1).join("/");
-      const nodeName = value.split("/").slice(-1)[0];
+      const nodeName = `/${value.split("/").slice(-1)[0]}`;
       setNodeValue(nodeName);
     } else if (name === NexNodeType.ELEMENT) {
       const parentPath = value.split("/").slice(0, -1).join("/");
@@ -470,13 +470,11 @@ const LabeledSelect: React.FC<SelectProps> = ({
   const fontSize = "1rem";
 
   if (literals.length === 0) {
-    console.warn(
-      `# LabeledSelect: no valid literals : name=${dispName}(${name}), value=${value}, opts=${JSON.stringify(literals, null, 2)}`
-    );
+
     return null;
   }
 
-  const isValid = literals.some((litObj) => litObj.name === value);
+  const isValid = value === "" || literals.some((litObj) => litObj.name === value);
 
   if (!isValid) {
     console.warn(
@@ -542,7 +540,7 @@ const RecordsEditor: React.FC<RecordsEditorProps> = ({
         if ((f as any).featureType === NexFeatureType.ATTRIBUTES) {
           base[f.name] = getAdminNodeFromFeatures((f as any).attributes);
         } else if ((f as any).featureType === NexFeatureType.RECORDS) {
-          base[f.name] = "";
+          base[f.name] = [];
         } else if ((f as any).featureType === NexFeatureType.LITERALS) {
           base[f.name] = "";
         } else {

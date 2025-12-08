@@ -56,7 +56,7 @@ const CountView: React.FC<CountViewProps> = ({
                     // Use color from the first feature if available, or default
                     const feature = features[0];
                     //console.log(JSON.stringify(feature, null, 2));
-                    const literals = feature?.literals ?? [];
+                    const literals = (Array.isArray(feature?.literals) ? feature?.literals : []) as any[];
                     const literal = literals.find((lit: any) => lit.name === column1);
                     console.log(`column1: ${column1} Literal: ${JSON.stringify(literals, null, 2)} => ${JSON.stringify(literal, null, 2)}`);
                     const featureColor = literal?.color || "#888888";

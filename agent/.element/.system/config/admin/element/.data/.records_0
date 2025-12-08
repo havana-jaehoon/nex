@@ -1298,5 +1298,27 @@
         "color": ""
       }
     }
+  ],
+  [
+    135,
+    "/new-element-194223",
+    "",
+    "webclient",
+    {
+      "2": {
+        "name": "new-element-194223",
+        "dispName": "",
+        "description": "",
+        "type": "element",
+        "icon": "",
+        "color": "",
+        "storage": "",
+        "format": "",
+        "store": "",
+        "processor": "",
+        "processingInterval": "",
+        "sources": ""
+      }
+    }
   ]
 ]

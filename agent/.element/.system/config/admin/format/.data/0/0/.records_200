@@ -248,5 +248,22 @@
         ]
       }
     }
+  ],
+  [
+    205,
+    "/new-format-193921",
+    "",
+    "",
+    {
+      "4": {
+        "name": "new-format-193921",
+        "dispName": "",
+        "description": "",
+        "type": "format",
+        "icon": "",
+        "color": "",
+        "features": []
+      }
+    }
   ]
 ]

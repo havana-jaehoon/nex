@@ -52,10 +52,7 @@ const NexLineChartApp: React.FC<NexAppProps> = observer((props) => {
   const fontLevel = user?.fontLevel || 5; // Default font level if not provided
 
   const chartStyle = getThemeStyle(theme, "chart");
-  const contentsFontSize =
-    chartStyle.fontSize[
-    clamp(fontLevel - 1, 0, chartStyle.fontSize?.length - 1)
-    ] || "1rem";
+  const contentsFontSize = `calc(${chartStyle.fontSize ?? "1rem"} * 1.4)`;
 
   // 1.3 contents 에서 store, data, format 정보 가져오기
   //  Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
