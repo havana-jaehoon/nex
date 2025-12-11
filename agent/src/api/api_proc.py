@@ -80,7 +80,7 @@ class HttpReqMgr(SingletonInstance):
         sub_url = f'{url_def.DATA_URL_PREFIX}{sub_url}'
         url = HttpReqMgr._getUrlBySystem(system_name, sub_url, **source_param)
         Logger().log_info(f"HttpReq : Get-Req : {system_name} => {url}")
-        return url, self._http_client.get_async_sync_result(url, HttpReqMgr.REQ_TIME_OUT)
+        return url, self._http_client.get_async_sync_result(url, HttpReqMgr.REQ_TIME_OUT, { "accept": "text/csv" })
 
     def _sendGetByAddressAsyncResult(self, target_ip: str, target_port: int, sub_url: str, sub_url_param: dict=None, result_loop: Optional[asyncio.AbstractEventLoop]=None) \
             -> Tuple[str, asyncio.Future]:
@@ -98,7 +98,7 @@ class HttpReqMgr(SingletonInstance):
         sub_url = f'{url_def.DATA_URL_PREFIX}{sub_url}'
         url = HttpReqMgr._getUrlBySystem(system_name, sub_url, **source_param)
         Logger().log_info(f"HttpReq : Get-Req : {system_name} => {url}")
-        return url, self._http_client.get_async(url, HttpReqMgr.REQ_TIME_OUT, result_loop)
+        return url, self._http_client.get_async(url, HttpReqMgr.REQ_TIME_OUT, result_loop, { "accept": "text/csv" })
 
     def getByAddress(self, target_ip: str, target_port: int, sub_url: str, sub_url_param: dict=None) -> Optional[Any]:
         url, fut = self._sendGetByAddressSyncResult(target_ip, target_port, sub_url, sub_url_param)

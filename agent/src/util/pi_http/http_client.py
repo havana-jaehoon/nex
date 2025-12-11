@@ -82,9 +82,9 @@ class HttpClient:
             self._logger.log_error(f"http-post(async): {url} : exception {exc} : {response_code}")
         return response_code, body_str
 
-    async def _get_async(self, url: str, timeout: int=5) -> Tuple[int, str, bytes]:
+    async def _get_async(self, url: str, timeout: int=5, headers: dict=None) -> Tuple[int, str, bytes]:
         try:
-            response = await self._http_client_async.get(url, timeout=timeout)
+            response = await self._http_client_async.get(url, headers=headers, timeout=timeout)
             response_code = response.status_code
             content_type = response.headers.get('content-type')
             body_data = response.content
@@ -108,8 +108,8 @@ class HttpClient:
             result_loop = asyncio.get_running_loop()
         return asyncio.wrap_future(future, loop=result_loop)
 
-    def get_async(self, url: str, timeout: int=5, result_loop: Optional[asyncio.AbstractEventLoop]=None) -> asyncio.Future:
-        future = asyncio.run_coroutine_threadsafe(self._get_async(url, timeout), self._loop)
+    def get_async(self, url: str, timeout: int=5, result_loop: Optional[asyncio.AbstractEventLoop]=None, headers: dict=None) -> asyncio.Future:
+        future = asyncio.run_coroutine_threadsafe(self._get_async(url, timeout, headers), self._loop)
         if not result_loop:
             result_loop = asyncio.get_running_loop()
         return asyncio.wrap_future(future, loop=result_loop)
@@ -119,8 +119,8 @@ class HttpClient:
         future = asyncio.run_coroutine_threadsafe(self._post_async(url, data, timeout), self._loop)
         return future
 
-    def get_async_sync_result(self, url: str, timeout: int=5) -> concurrent.futures.Future:
-        future = asyncio.run_coroutine_threadsafe(self._get_async(url, timeout), self._loop)
+    def get_async_sync_result(self, url: str, timeout: int=5, headers: dict=None) -> concurrent.futures.Future:
+        future = asyncio.run_coroutine_threadsafe(self._get_async(url, timeout, headers), self._loop)
         return future
 
     # ----- sync API -----
