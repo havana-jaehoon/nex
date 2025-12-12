@@ -84,7 +84,9 @@ class ElementEntity:
         except Exception as e:
             self._scheme = None
             self._storage = None
-            Logger().log_error(f"ElementEntity({self._config.id}) : fail to create storage/schema : {e}")
+            import traceback
+            tb_str = traceback.format_exc()
+            Logger().log_error(f"ElementEntity({self._config.id}) : fail to create storage/schema : {e} : {tb_str}")
 
     def _applyProcessor(self):
         processor_name = self._config.getConfig('element').get('processor')
@@ -123,8 +125,13 @@ class ElementEntity:
     def _setData(self, data: pd.DataFrame):
         Logger().log_info(f'ElementEntity({self._config.id}) : {self._scheme.name} : set data start')
         if self._storage:
-            chunk_size = self._config.getConfig('store').get('record').get('chunkSize', 1000)
-            allowed_upsert = self._config.getConfig('store').get('record').get('allowUpsert', True)
+            store_config = self._config.getConfig('store')
+            if store_config:
+                chunk_size = store_config.get('record', {}).get('chunkSize', 1000)
+                allowed_upsert = store_config.get('record', {}).get('allowUpsert', True)
+            else:
+                chunk_size = 1000
+                allowed_upsert = True
             self._storage.setData(self._scheme.name, data, chunk_size, allowed_upsert)
 
     def stop(self):
@@ -148,11 +155,16 @@ class ElementEntity:
                 return pd.DataFrame()
 
     def setData(self, data: pd.DataFrame):
-        Logger().log_info(f'ElementEntity({self._config.id}) : {self._scheme.name} : set data start')
+        Logger().log_info(f'ElementEntity({self._config.id}) : {self._scheme.name} : set data')
         with self._configRWLock.gen_rlock():
             if self._storage:
-                chunk_size = self._config.getConfig('store').get('record').get('chunkSize', 1000)
-                allowed_upsert = self._config.getConfig('store').get('record').get('allowUpsert', True)
+                store_config = self._config.getConfig('store')
+                if store_config:
+                    chunk_size = store_config.get('record', {}).get('chunkSize', 1000)
+                    allowed_upsert = store_config.get('record', {}).get('allowUpsert', True)
+                else:
+                    chunk_size = 1000
+                    allowed_upsert = True
                 self._storage.setData(self._scheme.name, data, chunk_size, allowed_upsert)
 
     def applyConfig(self, element_cfg: ElementCfg, scheduler: BaseScheduler):
