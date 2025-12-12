@@ -1,0 +1,17 @@
+{
+  "name": "element",
+  "dispName": "데이터 엘리먼트",
+  "description": "데이터 엘리먼트",
+  "type": "element",
+  "icon": "",
+  "color": "",
+  "storage": "/disk",
+  "format": "/admin/node",
+  "store": "/static",
+  "processor": "/common/transparent",
+  "processingInterval": "10",
+  "processingUnit": "SEC",
+  "sources": [
+    "config:/admin/element"
+  ]
+}

@@ -14,8 +14,10 @@ import PXCardView from "./table/PXCardView";
 import PXLineChartApp from "./chart/PXLineChartApp";
 import PXBarChartApp from "./chart/PXBarChartApp";
 import PXPieChartApp from "./chart/PXPieChartApp";
-import PXBaseChart from "./chart/PXBaseChart";
+
 import NexConfigDistApp from "./admin/NexConfigDistApp";
+import PXJsonEditor from "./admin/PXJsonEditor";
+import PXBaseChart from "./chart/PXBaseChart";
 
 const appletList = [
   {
@@ -76,7 +78,7 @@ const appletList = [
       },
       {
         name: "PXBaseChart",
-        dispName: "PX 통합 차트",
+        dispName: "PX 기본 차트",
         type: "applet",
         app: PXBaseChart,
       },
@@ -163,6 +165,12 @@ const appletList = [
         dispName: "노드 편집기",
         type: "applet",
         app: NexNodeEditor,
+      },
+      {
+        name: "PXJsonEditor",
+        dispName: "PX JSON 편집기",
+        type: "applet",
+        app: PXJsonEditor,
       },
       {
         name: "NexNodeTree",

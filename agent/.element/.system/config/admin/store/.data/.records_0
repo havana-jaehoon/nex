@@ -30,12 +30,14 @@
         "name": "temporary",
         "dispName": "시간정책",
         "description": "시간 데이터 보관 정책",
-        "type": "folder"
+        "type": "folder",
+        "icon": "",
+        "color": ""
       }
     }
   ],
   [
-    1,
+    2,
     "/temporary/sec",
     "",
     "",
@@ -49,7 +51,7 @@
     }
   ],
   [
-    2,
+    3,
     "/temporary/minuite",
     "",
     "",
@@ -63,7 +65,7 @@
     }
   ],
   [
-    3,
+    4,
     "/temporary/hour",
     "",
     "",
@@ -77,7 +79,7 @@
     }
   ],
   [
-    4,
+    5,
     "/temporary/day",
     "",
     "",

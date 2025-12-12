@@ -1,0 +1,17 @@
+{
+  "name": "user",
+  "dispName": "사용자",
+  "description": "사용자",
+  "type": "element",
+  "icon": "",
+  "color": "",
+  "storage": "/disk",
+  "format": "/admin/node",
+  "store": "/static",
+  "processor": "/common/transparent",
+  "processingInterval": "10",
+  "processingUnit": "SEC",
+  "sources": [
+    "config:/admin/user"
+  ]
+}

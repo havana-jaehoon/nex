@@ -1,0 +1,12 @@
+{
+  "name": "analysis",
+  "dispName": "분석서버",
+  "description": "",
+  "type": "system",
+  "icon": "",
+  "color": "",
+  "address": {
+    "ip": "",
+    "port": ""
+  }
+}

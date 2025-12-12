@@ -1,0 +1,33 @@
+[
+  [
+    0,
+    "/common",
+    "",
+    "",
+    {
+      "0": {
+        "name": "common",
+        "dispName": "관리자용 데이터",
+        "description": "관리자용 데이터 엘리먼트 폴더",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    1,
+    "/common/transparent",
+    "",
+    "",
+    {
+      "0": {
+        "name": "transparent",
+        "dispName": "",
+        "type": "processor",
+        "module": {
+          "version": "0",
+          "history": ""
+        }
+      }
+    }
+  ]
+]

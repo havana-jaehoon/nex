@@ -16,7 +16,7 @@ import { clamp } from "../../utils/util";
 import { defaultThemeStyle, getThemeStyle } from "type/NexTheme";
 
 const NexTableApp: React.FC<NexAppProps> = observer((props) => {
-  const { contents, user, theme } = props;
+  const { contents, user, theme, onSelect } = props;
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import NexApplet, { NexAppProps } from "../NexApplet";
 import PieChartView from "./PieChartView";
+import { getThemeStyle } from "type/NexTheme";
 
 const PXPieChartApp: React.FC<NexAppProps> = observer((props) => {
     const { contents, user, theme } = props;

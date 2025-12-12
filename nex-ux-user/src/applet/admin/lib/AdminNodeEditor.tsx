@@ -287,10 +287,7 @@ const ItemInput: React.FC<ItemInputProps> = ({
               value={pathValue}
               style={{ flex: 1, width: "50%" }}
             />
-            <pre>
-              {" "}
-              {`${JSON.stringify(nodePaths["element"][systemName], null, 2)}`}{" "}
-            </pre>
+
           </>
         )}
         {nodeSelections ? (
@@ -1222,12 +1219,12 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
             direction="column"
           >
             {bodyFields()}
-            {true && editingNode && (
+            {false && editingNode && (
               <pre>{JSON.stringify(editingNode, null, 2)}</pre>
             )}
           </NexDiv>
 
-          <NexDiv flex="1" width="100%">
+          <NexDiv width="100%" height="40px">
             {tailFields()}
           </NexDiv>
         </Stack>

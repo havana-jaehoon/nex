@@ -247,7 +247,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "row",
-        "size": "3",
+        "size": 2,
         "padding": "",
         "app-padding": "",
         "applet": "/admin/NexNodeTree",
@@ -273,7 +273,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "row",
-        "size": "6",
+        "size": 3,
         "padding": "",
         "app-padding": "",
         "applet": "/admin/NexNodeEditor",
@@ -298,64 +298,66 @@
         "color": "",
         "isRoutes": "",
         "route": "store",
-        "direction": "column",
+        "direction": "row",
         "size": "1",
         "padding": "",
         "app-padding": "",
         "applet": "",
-        "contents": ""
+        "contents": "",
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],
   [
     111,
-    "/Home/Body/Main/Admin/Store/데이터 보관정책",
+    "/Home/Body/Main/Admin/Store/1",
     "",
     "",
     {
       "0": {
-        "name": "데이터 보관정책",
-        "dispName": "StoreFinder",
+        "name": "1",
+        "dispName": "1",
         "description": "StoreFinder Section",
         "type": "section",
         "icon": "",
         "color": "",
         "isRoutes": "",
         "route": "",
-        "direction": "row",
-        "size": "10",
+        "direction": "column",
+        "size": 2,
         "padding": "",
         "app-padding": "",
-        "applet": "/admin/NexNodeTree",
-        "contents": [
-          "/admin/store"
-        ]
+        "applet": "",
+        "contents": [],
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],
   [
     112,
-    "/Home/Body/Main/Admin/Store/StoreEditor",
+    "/Home/Body/Main/Admin/Store/2",
     "",
     "",
     {
       "1": {
-        "name": "StoreEditor",
-        "dispName": "데이터 보관정책 편집",
+        "name": "2",
+        "dispName": "2",
         "description": "데이터 보관정책 편집",
         "type": "section",
         "icon": "",
         "color": "",
         "isRoutes": "",
         "route": "",
-        "direction": "row",
-        "size": 21,
+        "direction": "column",
+        "size": 3,
         "padding": "",
         "app-padding": "",
-        "applet": "/admin/NexNodeEditor",
-        "contents": [
-          "/admin/SelectedStore"
-        ]
+        "applet": "",
+        "contents": [],
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],
@@ -1009,7 +1011,7 @@
         "size": "8",
         "padding": "",
         "app-padding": "",
-        "applet": "/chart/PXBaseChart",
+        "applet": "/chart/PXLineChartApp",
         "contents": [
           "/cbm/history/LossHistoryPerLine"
         ],
@@ -1117,7 +1119,7 @@
         "size": "4",
         "padding": "",
         "app-padding": "",
-        "applet": "/chart/PXBarChartApp",
+        "applet": "/chart/PXLineChartApp",
         "contents": [
           "/cbm/history/LossHistoryPerDevice"
         ],
@@ -1190,7 +1192,7 @@
     {
       "0": {
         "name": "Left",
-        "dispName": "",
+        "dispName": "메뉴 검색",
         "description": "",
         "type": "section",
         "icon": "",
@@ -1198,84 +1200,43 @@
         "isRoutes": "",
         "route": "",
         "direction": "column",
-        "size": 1,
-        "padding": "",
-        "applet": "",
-        "contents": ""
-      }
-    }
-  ],
-  [
-    226,
-    "/Home/Body/Main/Admin/Menu/Right",
-    "",
-    "",
-    {
-      "1": {
-        "name": "Right",
-        "dispName": "",
-        "description": "",
-        "type": "section",
-        "icon": "",
-        "color": "",
-        "isRoutes": "",
-        "route": "",
-        "direction": "row",
         "size": 2,
-        "padding": "",
-        "applet": "",
-        "contents": ""
-      }
-    }
-  ],
-  [
-    227,
-    "/Home/Body/Main/Admin/Menu/Left/MenuFinder",
-    "",
-    "",
-    {
-      "0": {
-        "name": "MenuFinder",
-        "dispName": "메뉴",
-        "description": "엘리먼트",
-        "type": "section",
-        "icon": "",
-        "color": "",
-        "isRoutes": "",
-        "route": "",
-        "direction": "row",
-        "size": 1,
         "padding": "",
         "app-padding": "",
         "applet": "/admin/NexNodeTree",
         "contents": [
           "/admin/menu"
-        ]
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],
   [
-    228,
-    "/Home/Body/Main/Admin/Menu/Left/MenuEditor",
+    226,
+    "/Home/Body/Main/Admin/Menu/edit-menu",
     "",
     "",
     {
       "1": {
-        "name": "MenuEditor",
-        "dispName": "메뉴 편집",
+        "name": "edit-menu",
+        "dispName": "메뉴편집",
         "description": "",
         "type": "section",
-        "icon": "",
+        "icon": "/config/menu",
         "color": "",
         "isRoutes": "",
         "route": "",
         "direction": "row",
         "size": 3,
         "padding": "",
+        "app-padding": "",
         "applet": "/admin/NexNodeEditor",
         "contents": [
           "/admin/SelectedMenu"
-        ]
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],
@@ -1295,7 +1256,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "column",
-        "size": "",
+        "size": 2,
         "padding": "",
         "applet": "",
         "contents": ""
@@ -1317,11 +1278,14 @@
         "color": "",
         "isRoutes": "",
         "route": "",
-        "direction": "row",
+        "direction": "column",
         "size": 3,
         "padding": "",
+        "app-padding": "",
         "applet": "",
-        "contents": ""
+        "contents": "",
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],
@@ -1341,7 +1305,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "row",
-        "size": "",
+        "size": 3,
         "padding": "",
         "applet": "/admin/NexNodeTree",
         "contents": [
@@ -1358,7 +1322,7 @@
     {
       "1": {
         "name": "Editior",
-        "dispName": "스토리지 편집",
+        "dispName": "시스템 검색",
         "description": "",
         "type": "section",
         "icon": "",
@@ -1366,12 +1330,15 @@
         "isRoutes": "",
         "route": "",
         "direction": "row",
-        "size": 3,
+        "size": 5,
         "padding": "",
-        "applet": "/admin/NexNodeEditor",
+        "app-padding": "",
+        "applet": "/admin/NexNodeTree",
         "contents": [
-          "/admin/SelectedStorage"
-        ]
+          "/admin/system"
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],
@@ -1809,12 +1776,39 @@
   ],
   [
     264,
-    "/Home/Head/new-section-205554",
+    "/Home/Body/Main/Admin/Menu/edit-menu2",
     "",
     "",
     {
-      "1": {
-        "name": "new-section-205554",
+      "2": {
+        "name": "edit-menu2",
+        "dispName": "메뉴편집(JSON)",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 3,
+        "padding": "",
+        "app-padding": "",
+        "applet": "/admin/PXJsonEditor",
+        "contents": [
+          "/admin/SelectedMenu"
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    265,
+    "/Home/Body/Main/Admin/Storage/new-section-171706",
+    "",
+    "",
+    {
+      "2": {
+        "name": "new-section-171706",
         "dispName": "",
         "description": "",
         "type": "section",
@@ -1822,11 +1816,328 @@
         "color": "",
         "isRoutes": "",
         "route": "",
-        "size": 1,
-        "padding": "0",
-        "app-padding": "0",
-        "applet": "/admin/NexConfigDist",
-        "contents": [],
+        "direction": "column",
+        "size": 3,
+        "padding": "",
+        "app-padding": "",
+        "applet": "",
+        "contents": "",
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    266,
+    "/Home/Body/Main/Admin/Storage/Right/new-section-171728",
+    "",
+    "",
+    {
+      "0": {
+        "name": "new-section-171728",
+        "dispName": "스토리지 편집",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 3,
+        "padding": "",
+        "app-padding": "",
+        "applet": "/admin/NexNodeEditor",
+        "contents": [
+          "/admin/SelectedStorage"
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    267,
+    "/Home/Body/Main/Admin/Storage/Right/new-section-171731",
+    "",
+    "",
+    {
+      "1": {
+        "name": "new-section-171731",
+        "dispName": "",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 5,
+        "padding": "",
+        "app-padding": "",
+        "applet": "/admin/NexNodeEditor",
+        "contents": [
+          "/admin/SelectedSystem"
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    268,
+    "/Home/Body/Main/Admin/Storage/new-section-171706/new-section-171744",
+    "",
+    "",
+    {
+      "0": {
+        "name": "new-section-171744",
+        "dispName": "스토리지 편집(JSON)",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 3,
+        "padding": "",
+        "app-padding": "",
+        "applet": "/admin/PXJsonEditor",
+        "contents": [
+          "/admin/SelectedStorage"
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    269,
+    "/Home/Body/Main/Admin/Storage/new-section-171706/new-section-171745",
+    "",
+    "",
+    {
+      "1": {
+        "name": "new-section-171745",
+        "dispName": "",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 5,
+        "padding": "",
+        "app-padding": "",
+        "applet": "/admin/PXJsonEditor",
+        "contents": [
+          "/admin/SelectedSystem"
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    270,
+    "/Home/Body/Main/Admin/Format/new-section-232739",
+    "",
+    "",
+    {
+      "2": {
+        "name": "new-section-232739",
+        "dispName": "",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 3,
+        "padding": "",
+        "app-padding": "",
+        "applet": "",
+        "contents": "",
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    271,
+    "/Home/Body/Main/Admin/Store/3",
+    "",
+    "",
+    {
+      "2": {
+        "name": "3",
+        "dispName": "3",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "column",
+        "size": 3,
+        "padding": "",
+        "app-padding": "",
+        "applet": "",
+        "contents": "",
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    272,
+    "/Home/Body/Main/Admin/Store/1/StoreFinder",
+    "",
+    "",
+    {
+      "0": {
+        "name": "StoreFinder",
+        "dispName": "저장정책 검색",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 2,
+        "padding": "",
+        "app-padding": "",
+        "applet": "/admin/NexNodeTree",
+        "contents": [
+          "/admin/store"
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    273,
+    "/Home/Body/Main/Admin/Store/1/new-section-233109",
+    "",
+    "",
+    {
+      "1": {
+        "name": "new-section-233109",
+        "dispName": "",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 3,
+        "padding": "",
+        "app-padding": "",
+        "applet": "",
+        "contents": "",
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    274,
+    "/Home/Body/Main/Admin/Store/2/StoreEditor",
+    "",
+    "",
+    {
+      "0": {
+        "name": "StoreEditor",
+        "dispName": "저장정책편집",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "direction": "row",
+        "size": 2,
+        "padding": "",
+        "app-padding": "",
+        "applet": "/admin/NexNodeEditor",
+        "contents": [
+          "/admin/SelectedStore"
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    275,
+    "/Home/Body/Main/Admin/Store/2/new-section-233122",
+    "",
+    "",
+    {
+      "1": {
+        "name": "new-section-233122",
+        "dispName": "",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 3,
+        "padding": "",
+        "app-padding": "",
+        "applet": "",
+        "contents": "",
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    276,
+    "/Home/Body/Main/Admin/Store/3/StoreJsonEditor",
+    "",
+    "",
+    {
+      "0": {
+        "name": "StoreJsonEditor",
+        "dispName": "저장정책 편집(JSON)",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 2,
+        "padding": "",
+        "app-padding": "",
+        "applet": "/admin/PXJsonEditor",
+        "contents": [
+          "/admin/SelectedStore"
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    277,
+    "/Home/Body/Main/Admin/Store/3/new-section-233145",
+    "",
+    "",
+    {
+      "1": {
+        "name": "new-section-233145",
+        "dispName": "",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 3,
+        "padding": "",
+        "app-padding": "",
+        "applet": "",
+        "contents": "",
         "visibleFeatures": "",
         "refreshTime": ""
       }

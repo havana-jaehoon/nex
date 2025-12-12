@@ -25,18 +25,18 @@ export interface BarChartViewProps {
 const CHART_STYLES = {
     default: {
         label: "Default",
-        radius: [4, 4, 0, 0] as [number, number, number, number],
+        type: "default",
         gridDash: "3 3",
     },
-    sharp: {
-        label: "Sharp",
-        radius: [0, 0, 0, 0] as [number, number, number, number],
+    stacked: {
+        label: "Stacked",
+        type: "stacked",
         gridDash: "3 3",
     },
-    rounded: {
-        label: "Rounded",
-        radius: [10, 10, 0, 0] as [number, number, number, number],
-        gridDash: "5 5",
+    horizontal: {
+        label: "Horizontal",
+        type: "horizontal",
+        gridDash: "3 3",
     },
 };
 
@@ -131,7 +131,7 @@ const BarChartView: React.FC<BarChartViewProps> = ({
             seriesSet.add(seriesName);
         });
 
-        // Convert to array and sort by date (assuming date string is sortable or use timestamp)
+        // Convert to array and sort by date
         const resultData = Object.values(groupedData).sort((a: any, b: any) => {
             return new Date(a.date).getTime() - new Date(b.date).getTime();
         });
@@ -140,6 +140,7 @@ const BarChartView: React.FC<BarChartViewProps> = ({
     }, [data]);
 
     const currentStyle = CHART_STYLES[chartStyle as keyof typeof CHART_STYLES];
+    const isHorizontal = currentStyle.type === "horizontal";
 
     return (
         <Paper
@@ -186,12 +187,22 @@ const BarChartView: React.FC<BarChartViewProps> = ({
             <Box sx={{ flex: 1, width: "100%", minHeight: 0 }}>
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart
+                        layout={isHorizontal ? "vertical" : "horizontal"}
                         data={chartData}
                         margin={{ top: 20, right: 15, left: 0, bottom: 15 }}
                     >
                         <CartesianGrid strokeDasharray={currentStyle.gridDash} />
-                        <XAxis dataKey="date" tickMargin={15} />
-                        <YAxis tickMargin={5} />
+                        {isHorizontal ? (
+                            <>
+                                <XAxis type="number" />
+                                <YAxis dataKey="date" type="category" width={80} />
+                            </>
+                        ) : (
+                            <>
+                                <XAxis dataKey="date" tickMargin={15} />
+                                <YAxis tickMargin={5} />
+                            </>
+                        )}
                         <Tooltip />
                         <Legend
                             verticalAlign="middle"
@@ -209,8 +220,9 @@ const BarChartView: React.FC<BarChartViewProps> = ({
                                 <Bar
                                     key={seriesName}
                                     dataKey={seriesName}
+                                    stackId={currentStyle.type === "stacked" ? "a" : undefined}
                                     fill={color}
-                                    radius={currentStyle.radius}
+                                    barSize={isHorizontal ? 20 : undefined}
                                 />
                             );
                         })}

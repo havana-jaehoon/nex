@@ -1,0 +1,10 @@
+{
+  "name": "webclient",
+  "dispName": "웹클라이언트",
+  "description": "웹클라이언트",
+  "type": "system",
+  "address": {
+    "ip": "",
+    "port": 0
+  }
+}

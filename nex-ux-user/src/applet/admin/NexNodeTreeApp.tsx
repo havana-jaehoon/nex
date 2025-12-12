@@ -77,13 +77,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
         else {
           contentsData = indexes.map((index: number) => content.data[index]);
         }
-
-
-
-
         setMainDatas(contentsData);
-
-
         setType(nodeType);
       }
 
@@ -110,16 +104,21 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
 
   const treeData = useMemo(() => {
     let selectedDatas: any[] = [];
-    mainDatas.forEach((data: any) => {
-      if (type !== NexNodeType.ELEMENT || data[3] === systemName) {
-        selectedDatas.push(data);
+    let isModified = false;
+    mainDatas.forEach((row: any) => {
+      if (type !== NexNodeType.ELEMENT || row[3] === systemName) {
+        selectedDatas.push(row);
       }
-      if (selectedIndex === data[0]) {
-        setSelectedPath(data[1]);
-      } else {
-        setSelectedPath("");
+      if (selectedIndex === row[0]) {
+        isModified = true;
+        setSelectedPath(row[1]);
+        setCurNode(Object.values(row[4])[0]);
       }
     });
+    if (!isModified) {
+      setSelectedIndex(-1);
+      setSelectedPath("");
+    }
     //console.log(`# treeData selectedDatas: ${selectedDatas.length}, ${systemName}, ${JSON.stringify(selectedDatas)}`);
     return buildNexTree(selectedDatas);
   }, [mainDatas, systemName]);
@@ -131,19 +130,14 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       setSelectedIndex(-1);
       setSelectedPath("");
     } else {
-      console.log(`# handleSelect index: ${index}/${row[0]}/${row[1]}, row: ${row}`);
-
+      //console.log(`# handleSelect index: ${index}/${row[0]}/${row[1]}, row: ${row}`);
       setSelectedIndex(index);
       setSelectedPath(row[1]);
-      const node = Object.values(row[4])[0];
-      setCurNode(node);
+      setCurNode(Object.values(row[4])[0]);
     }
 
-    //setCurRecord(row);
-
     if (onSelect) {
-      console.log(`# handleSelect index: ${index}, row: ${row}`);
-
+      //console.log(`# handleSelect index: ${index}, row: ${row}`);
       onSelect(0, row); // Assuming single store for now
     }
   };
@@ -168,7 +162,6 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     const now = new Date();
     const nodeName = `new-folder-${now.getHours().toString().padStart(2, "0")}${now.getMinutes().toString().padStart(2, "0")}${now.getSeconds().toString().padStart(2, "0")}`;
 
-    //const defaultNode = getAdminNodeFromType(NexNodeType.FOLDER);
     const newNode = {
       ...getAdminNodeFromType(NexNodeType.FOLDER),
       name: nodeName,
@@ -215,7 +208,9 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     if (!newRecord) return;
 
     console.log(
-      "handleAddFolder: newRecord=",
+      "handleAddFolder: curNode=",
+      selectedPath, selectedIndex,
+      "newRecord=",
       JSON.stringify(newRecord, null, 2)
     );
     const bres = await onAdd?.(storeIndex, newRecord);

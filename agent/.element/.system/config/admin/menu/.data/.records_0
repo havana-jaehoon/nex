@@ -7,7 +7,7 @@
     {
       "2": {
         "name": "admin",
-        "dispName": "프로젝트관리",
+        "dispName": "프로젝트빌더",
         "description": "프로젝트관리",
         "type": "folder",
         "icon": "",
@@ -40,7 +40,7 @@
     {
       "1": {
         "name": "storage",
-        "dispName": "스토리지",
+        "dispName": "스토리지/시스템",
         "description": "스토리지설정",
         "type": "menu",
         "icon": "/config/storage",
@@ -74,8 +74,8 @@
     {
       "3": {
         "name": "store",
-        "dispName": "데이터 보관정책",
-        "description": "데이터 보관정책 설정",
+        "dispName": "데이터 보관정책/프로세서",
+        "description": "데이터 보관정책/프로세서 설정",
         "type": "menu",
         "icon": "/config/store",
         "color": "",
@@ -333,6 +333,39 @@
         "icon": "",
         "color": "",
         "route": "/sample/base"
+      }
+    }
+  ],
+  [
+    26,
+    "/new-folder-160138",
+    "",
+    "",
+    {
+      "5": {
+        "name": "new-folder-160138",
+        "dispName": "시연용",
+        "description": "",
+        "type": "folder",
+        "icon": "",
+        "color": ""
+      }
+    }
+  ],
+  [
+    27,
+    "/new-folder-160138/new-menu-160152",
+    "",
+    "",
+    {
+      "0": {
+        "name": "new-menu-160152",
+        "dispName": "시연데모페이지",
+        "description": "",
+        "type": "menu",
+        "icon": "",
+        "color": "",
+        "route": "/admin/format"
       }
     }
   ]

@@ -62,5 +62,33 @@
         }
       }
     }
+  ],
+  [
+    1,
+    "/memory",
+    "",
+    "",
+    {
+      "2": {
+        "name": "memory",
+        "dispName": "메모리",
+        "description": "",
+        "type": "storage",
+        "icon": "",
+        "color": "",
+        "db": {
+          "ip": "",
+          "port": "",
+          "user": "",
+          "password": "",
+          "name": ""
+        },
+        "hdfs": {
+          "ip": "",
+          "port": "",
+          "path": ""
+        }
+      }
+    }
   ]
 ]

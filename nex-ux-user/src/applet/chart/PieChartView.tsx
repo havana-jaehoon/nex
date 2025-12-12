@@ -20,27 +20,29 @@ export interface PieChartViewProps {
     theme?: any;
 }
 
-const CHART_STYLES = {
+interface ChartStyle {
+    label: string;
+    innerRadius: string | number;
+    outerRadius: string | number;
+    paddingAngle?: number;
+}
+
+const CHART_STYLES: Record<string, ChartStyle> = {
     default: {
         label: "Default",
         innerRadius: 0,
         outerRadius: "80%",
-        paddingAngle: 0,
     },
     donut: {
         label: "Donut",
-        innerRadius: "40%",
+        innerRadius: "50%",
         outerRadius: "80%",
-        paddingAngle: 2,
     },
-    rose: {
-        label: "Rose",
+    rose: { // Approximated with Pie for now, Recharts has RadialBar/Radar for true variations
+        label: "Rose (Pie style)",
+        innerRadius: 20,
         outerRadius: "80%",
-        paddingAngle: 0,
-        // Note: Recharts doesn't strictly support 'rose' type natively in simple Pie without specific data manipulation for radius, 
-        // but we can adjust existing properties or just use this as a placeholder for a different look.
-        // For now, let's just make it a thinner donut.
-        innerRadius: "60%",
+        paddingAngle: 5
     },
 };
 
@@ -109,35 +111,33 @@ const PieChartView: React.FC<PieChartViewProps> = ({
     user,
     theme,
 }) => {
-    const [chartStyle, setChartStyle] = React.useState<string>("default");
+    const [chartStyle, setChartStyle] = React.useState<string>("donut");
 
     const style = getThemeStyle(theme, "chart");
     const contentsFontSize = style.fontSize;
 
     // Data Transformation
     // Input: [[date, name, value], ...]
-    // We need to aggregate values by series name for a Pie Chart.
-    const pieData = useMemo(() => {
+    // For Pie, we usually aggregate by Name (feature 1), summing values (feature 2)
+    // Or just take the latest date's values.
+    // Let's Aggregate by Name for this example effectively like a Pivot.
+    const chartData = useMemo(() => {
         if (!data || data.length === 0) return [];
 
         const groupedData: Record<string, number> = {};
 
         data.forEach((row) => {
-            // date = row[0] (ignored for aggregation)
             const seriesName = row[1];
-            const value = row[2];
+            const value = Number(row[2]) || 0;
 
+            // Simple aggregation: Sum by series name
             if (!groupedData[seriesName]) {
                 groupedData[seriesName] = 0;
             }
-            // Simple Sum Aggregation
-            groupedData[seriesName] += Number(value) || 0;
+            groupedData[seriesName] += value;
         });
 
-        return Object.entries(groupedData).map(([name, value]) => ({
-            name,
-            value,
-        })).sort((a, b) => b.value - a.value); // Sort by value desc
+        return Object.entries(groupedData).map(([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value);
     }, [data]);
 
     const currentStyle = CHART_STYLES[chartStyle as keyof typeof CHART_STYLES];
@@ -188,23 +188,22 @@ const PieChartView: React.FC<PieChartViewProps> = ({
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                         <Pie
-                            data={pieData}
+                            data={chartData}
                             cx="50%"
                             cy="50%"
                             labelLine={false}
                             label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                            outerRadius={currentStyle.outerRadius}
                             innerRadius={currentStyle.innerRadius}
-                            paddingAngle={currentStyle.paddingAngle}
+                            outerRadius={currentStyle.outerRadius}
+                            paddingAngle={currentStyle.paddingAngle || 0}
                             fill="#8884d8"
                             dataKey="value"
                         >
-                            {pieData.map((entry, index) => {
+                            {chartData.map((entry, index) => {
                                 const literal = features?.[1]?.literals?.find(
                                     (lit: any) => lit.name === entry.name
                                 );
                                 const color = literal?.color || COLORS[index % COLORS.length];
-
                                 return <Cell key={`cell-${index}`} fill={color} />;
                             })}
                         </Pie>

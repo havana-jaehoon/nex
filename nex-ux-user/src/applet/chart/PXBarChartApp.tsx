@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import NexApplet, { NexAppProps } from "../NexApplet";
 import BarChartView from "./BarChartView";
+import { getThemeStyle } from "type/NexTheme";
 
 const PXBarChartApp: React.FC<NexAppProps> = observer((props) => {
     const { contents, user, theme } = props;

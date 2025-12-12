@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import NexApplet, { NexAppProps } from "../NexApplet";
 import LineChartView from "./LineChartView";
+import { getThemeStyle } from "type/NexTheme";
 
 const PXLineChartApp: React.FC<NexAppProps> = observer((props) => {
     const { contents, user, theme } = props;
@@ -14,6 +15,8 @@ const PXLineChartApp: React.FC<NexAppProps> = observer((props) => {
     };
 
     const [contexts, setContexts] = useState<any[]>([]);
+    const chartStyle = getThemeStyle(theme, "chart");
+    const contentsFontSize = `calc(${chartStyle.fontSize ?? "1rem"} * 1.4)`;
 
     useEffect(() => {
         if (!contents || contents?.length < 1) return;

@@ -129,13 +129,10 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     const refreshTime = section?.refreshTime || 0;
 
     React.useEffect(() => {
-
       if (refreshTime > 0) {
         const interval = setInterval(() => {
           contents.forEach((content) => {
             if (content.store) {
-
-              //content.store.refreshInterval = refreshTime;
               content.store.fetch();
             }
           });
@@ -145,8 +142,6 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
       } else {
         contents.forEach((content) => {
           if (content.store) {
-
-            //content.store.refreshInterval = refreshTime;
             content.store.fetch();
           }
         });
@@ -166,10 +161,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
               (feature: any) => feature.name === selection.feature
             );
 
-            // find data
-            //contents[contentsIndex].csv.find((r: any) => {});
             if (featureIndex >= 0 && row[featureIndex] !== undefined) {
-              //console.log(`NexAppProvider: handleSelect - Setting selector ${selection.key} = ${row[featureIndex]}`);
               selector.set(selection.key, row[featureIndex]);
             }
           });
