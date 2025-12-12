@@ -1192,8 +1192,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
       direction="column"
       width="100%"
       height="100%"
-      padding="1rem"
-      bgColor={bgColor}
+      bgColor={true ? "white" : bgColor}
       color={color}
       fontSize={fontSize}
     >
@@ -1224,7 +1223,7 @@ const AdminNodeEditor: React.FC<AdminNodeEditorProps> = (props) => {
             )}
           </NexDiv>
 
-          <NexDiv width="100%" height="40px">
+          <NexDiv width="100%" align="flex-end" justify="flex-end">
             {tailFields()}
           </NexDiv>
         </Stack>

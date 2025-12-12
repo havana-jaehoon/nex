@@ -34,18 +34,18 @@
   ],
   [
     2,
-    "/admin/storage",
+    "/admin/system",
     "",
     "",
     {
       "1": {
-        "name": "storage",
-        "dispName": "스토리지/시스템",
-        "description": "스토리지설정",
+        "name": "system",
+        "dispName": "시스템/스토리지",
+        "description": "시스템 & 스토리지 관리",
         "type": "menu",
-        "icon": "/config/storage",
+        "icon": "/config/system",
         "color": "",
-        "route": "/admin/storage"
+        "route": "/admin/system"
       }
     }
   ],
@@ -74,46 +74,12 @@
     {
       "3": {
         "name": "store",
-        "dispName": "데이터 보관정책/프로세서",
-        "description": "데이터 보관정책/프로세서 설정",
+        "dispName": "데이터 보관 및 처리",
+        "description": "데이터 보관 및 처리",
         "type": "menu",
         "icon": "/config/store",
         "color": "",
-        "route": "/admin/store"
-      }
-    }
-  ],
-  [
-    5,
-    "/admin/processor",
-    "",
-    "",
-    {
-      "4": {
-        "name": "processor",
-        "dispName": "데이터 프로세서",
-        "description": "데이터 프로세서 설정",
-        "type": "menu",
-        "icon": "/config/processor",
-        "color": "",
-        "route": "/admin/processor"
-      }
-    }
-  ],
-  [
-    6,
-    "/admin/system",
-    "",
-    "",
-    {
-      "5": {
-        "name": "system",
-        "dispName": "시스템",
-        "description": "시스템 설정",
-        "type": "menu",
-        "icon": "/config/system",
-        "color": "",
-        "route": "/admin/system"
+        "route": "/admin/store-processor"
       }
     }
   ],
@@ -123,7 +89,7 @@
     "",
     "",
     {
-      "6": {
+      "4": {
         "name": "element",
         "dispName": "데이터 엘리먼트",
         "description": "데이터 엘리먼트 설정",
@@ -140,7 +106,7 @@
     "",
     "",
     {
-      "7": {
+      "5": {
         "name": "contents",
         "dispName": "데이터 컨텐츠",
         "description": "웹 데이터 컨텐츠 설정",
@@ -157,9 +123,9 @@
     "",
     "",
     {
-      "8": {
+      "6": {
         "name": "section",
-        "dispName": "섹션",
+        "dispName": "웹 섹션",
         "description": "웹 데이터 섹션 설정",
         "type": "menu",
         "icon": "/config/section",
@@ -174,7 +140,7 @@
     "",
     "",
     {
-      "9": {
+      "7": {
         "name": "user",
         "dispName": "사용자",
         "description": "사용자 설정",
@@ -191,7 +157,7 @@
     "",
     "",
     {
-      "10": {
+      "8": {
         "name": "theme",
         "dispName": "테마",
         "description": "테마 설정",
@@ -208,7 +174,7 @@
     "",
     "",
     {
-      "11": {
+      "9": {
         "name": "dashboard",
         "dispName": "대시보드",
         "description": "대시보드 설정",

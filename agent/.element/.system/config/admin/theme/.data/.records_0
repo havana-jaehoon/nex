@@ -16,7 +16,7 @@
           {
             "name": "default",
             "color": "#111111",
-            "bgColor": "#CCCCCC",
+            "bgColor": "#ffffff",
             "bdColor": "#cccccc",
             "activeColor": "#393c45",
             "activeBgColor": "#e8edf7",

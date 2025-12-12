@@ -97,8 +97,6 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       });
     });
 
-
-
     setNodes(nodeList);
   }, [contents, JSON.stringify(contents?.map((cts) => cts.store.odata) || [])]);
 
@@ -425,7 +423,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
 
         {systemSelector()}
         <Stack spacing={1} direction="row" justifyContent="end" width="100%">
-          {!(type === NexNodeType.SYSTEM || type === NexNodeType.SECTION) && (
+          {!(type === NexNodeType.SYSTEM || type === NexNodeType.SECTION || type === NexNodeType.STORAGE) && (
             <IconButton
               title="폴더 추가"
               onClick={(e) => {
