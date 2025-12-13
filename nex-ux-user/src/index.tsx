@@ -5,11 +5,10 @@ import "./assets/fonts/Pretendard1.3.9/web/static/pretendard.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Modal from "react-modal";
-
-Modal.setAppElement("#root");
-
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import theme from "./muiTheme";
+
+Modal.setAppElement("#root");
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

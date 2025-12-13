@@ -119,7 +119,7 @@ const PXJsonEditor: React.FC<NexAppProps> = observer((props) => {
                         theme={"rjv-default"}
                         name={null}
                         displayDataTypes={false}
-                        collapsed={2}
+                        collapsed={false}
                         onEdit={isEditMode ? handleJsonUpdate : false}
                         onAdd={isEditMode ? handleJsonUpdate : false}
                         onDelete={isEditMode ? handleJsonUpdate : false}

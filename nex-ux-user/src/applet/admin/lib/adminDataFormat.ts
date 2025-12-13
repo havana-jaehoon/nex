@@ -10,13 +10,13 @@ const commonFeatures: any[] = [
     name: "name",
     dispName: "이름",
     featureType: NexFeatureType.STRING,
-    uxSize: 6,
+    uxSize: 12,
   },
   {
     name: "dispName",
     dispName: "출력이름",
     featureType: NexFeatureType.STRING,
-    uxSize: 6,
+    uxSize: 12,
   },
   {
     name: "description",
@@ -35,13 +35,13 @@ const commonFeatures: any[] = [
     name: "icon",
     dispName: "아이콘",
     featureType: NexFeatureType.STRING,
-    uxSize: 6,
+    uxSize: 12,
   },
   {
     name: "color",
     dispName: "컬러",
     featureType: NexFeatureType.STRING,
-    uxSize: 6,
+    uxSize: 12,
   },
 ];
 
@@ -426,44 +426,38 @@ const formatNodeDef: any = {
           name: "name",
           dispName: "피처 이름",
           featureType: NexFeatureType.STRING,
-          uxSize: 3,
+          uxSize: 6,
         },
         {
           name: "dispName",
           dispName: "피처 표시 이름",
           featureType: NexFeatureType.STRING,
-          uxSize: 3,
-        },
-        {
-          name: "description",
-          dispName: "피처 설명",
-          featureType: NexFeatureType.STRING,
           uxSize: 6,
-        },
-        {
-          name: "icon",
-          dispName: "아이콘",
-          featureType: NexFeatureType.STRING,
-          uxSize: 3,
-        },
-        {
-          name: "color",
-          dispName: "컬러 코드",
-          featureType: NexFeatureType.STRING,
-          uxSize: 3,
         },
         {
           name: "featureType",
           dispName: "피처 타입",
           featureType: NexFeatureType.LITERALS,
           literals: featureTypeLiterals,
-          uxSize: 3,
+          uxSize: 6,
         },
         {
           name: "isKey",
           dispName: "키",
           featureType: NexFeatureType.BOOLEAN,
-          uxSize: 3,
+          uxSize: 6,
+        },
+        {
+          name: "icon",
+          dispName: "아이콘",
+          featureType: NexFeatureType.STRING,
+          uxSize: 6,
+        },
+        {
+          name: "color",
+          dispName: "컬러 코드",
+          featureType: NexFeatureType.STRING,
+          uxSize: 6,
         },
         {
           name: "literals",
@@ -495,7 +489,7 @@ const formatNodeDef: any = {
               uxSize: 3,
             },
           ],
-          uxSize: 6,
+          uxSize: 12,
         },
       ],
     },
@@ -742,39 +736,39 @@ const elementNodeDef: any = {
     ...commonFeatures.slice(4),
     {
       name: "storage",
-      dispName: "저장소 경로",
+      dispName: "저장소",
       icon: null,
       color: null,
       isKey: false,
       featureType: NexFeatureType.STRING, // 데이터 포맷 경로는 문자열로 처리
-      uxSize: 6,
+      uxSize: 12,
     },
     {
       name: "format",
-      dispName: "데이터 포맷 경로",
+      dispName: "데이터 포맷",
       icon: null,
       color: null,
       isKey: false,
       featureType: NexFeatureType.STRING, // 데이터 포맷 경로는 문자열로 처리
-      uxSize: 6,
+      uxSize: 12,
     },
     {
       name: "store",
-      dispName: "보관 정책 경로",
+      dispName: "보관 정책",
       icon: null,
       color: null,
       isKey: false,
       featureType: NexFeatureType.STRING, // 보관 정책 경로는 문자열로 처리
-      uxSize: 6,
+      uxSize: 12,
     },
     {
       name: "processor",
-      dispName: "데이터 수집 및 처리 모듈 경로",
+      dispName: "데이터 처리",
       icon: null,
       color: null,
       isKey: false,
       featureType: NexFeatureType.STRING, // 데이터 수집 및 처리 모듈 경로는 문자열로 처리
-      uxSize: 6,
+      uxSize: 12,
     },
     {
       name: "processingInterval", // 데이터 수집 주기
@@ -799,7 +793,7 @@ const elementNodeDef: any = {
     },
     {
       name: "sources",
-      dispName: "데이터 소스 경로",
+      dispName: "데이터 소스",
       icon: null,
       color: null,
 
@@ -904,7 +898,7 @@ const sectionNodeDef = {
       icon: null,
       color: null,
       featureType: NexFeatureType.NUMBER,
-      uxSize: 6,
+      uxSize: 12,
     },
 
 
@@ -941,7 +935,7 @@ const contentsNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING,
-          uxSize: 3,
+          uxSize: 4,
         },
         {
           name: "feature",
@@ -949,7 +943,7 @@ const contentsNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING,
-          uxSize: 3,
+          uxSize: 4,
         },
         {
           name: "method",
@@ -957,7 +951,7 @@ const contentsNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING,
-          uxSize: 3,
+          uxSize: 4,
         },
       ],
     },
@@ -974,7 +968,7 @@ const contentsNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING,
-          uxSize: 3,
+          uxSize: 6,
         },
         {
           name: "feature",
@@ -982,7 +976,7 @@ const contentsNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING,
-          uxSize: 3,
+          uxSize: 6,
         },
       ],
     },
@@ -1019,19 +1013,19 @@ const themeNodeDef = {
     featureObjects[NexNodeType.THEME],
     ...commonFeatures.slice(4),
     {
-      name: "theme", // 경로
-      dispName: "테마",
+      name: "theme", // 테마 스타일 이름
+      dispName: "테마 스타일",
       icon: null,
       color: null,
       featureType: NexFeatureType.RECORDS, // 경로는 문자열로 처리
       records: [
         {
           name: "name",
-          dispName: "스타일",
+          dispName: "이름",
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING, // DB IP 주소는 문자열로 처리
-          uxSize: 6,
+          uxSize: 12,
         },
         {
           name: "gap",
@@ -1039,7 +1033,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING, // DB IP 주소는 문자열로 처리
-          uxSize: 3,
+          uxSize: 6,
         },
         {
           name: "padding",
@@ -1047,7 +1041,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING, // DB IP 주소는 문자열로 처리
-          uxSize: 3,
+          uxSize: 6,
         },
         {
           name: "border",
@@ -1055,7 +1049,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING, // DB IP 주소는 문자열로 처리
-          uxSize: 6,
+          uxSize: 12,
         },
         {
           name: "borderRadius",
@@ -1063,7 +1057,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING, // DB IP 주소는 문자열로 처리
-          uxSize: 6,
+          uxSize: 12,
         },
         {
           name: "boxShadow",
@@ -1071,7 +1065,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING, // DB IP 주소는 문자열로 처리
-          uxSize: 6,
+          uxSize: 12,
         },
         {
           name: "color",
@@ -1079,7 +1073,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING, // DB IP 주소는 문자열로 처리
-          uxSize: 3,
+          uxSize: 6,
         },
         {
           name: "bgColor",
@@ -1087,7 +1081,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING,
-          uxSize: 3,
+          uxSize: 6,
         },
         {
           name: "bdColor",
@@ -1095,7 +1089,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING,
-          uxSize: 3,
+          uxSize: 6,
         },
         {
           name: "hoverColor",
@@ -1103,7 +1097,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING,
-          uxSize: 3,
+          uxSize: 6,
         },
         {
           name: "activeColor",
@@ -1111,7 +1105,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING,
-          uxSize: 3,
+          uxSize: 6,
         },
         {
           name: "activeBgColor",
@@ -1119,7 +1113,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING,
-          uxSize: 3,
+          uxSize: 6,
         },
 
         {
@@ -1132,7 +1126,7 @@ const themeNodeDef = {
           { name: "Arial", dispName: "Arial" },
           { name: "sans-serif", dispName: "sans-serif" }
           ],
-          uxSize: 3,
+          uxSize: 6,
         },
         {
           name: "fontSize",
@@ -1140,7 +1134,7 @@ const themeNodeDef = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING,
-          uxSize: 3,
+          uxSize: 6,
         },
       ],
     },
@@ -1167,7 +1161,7 @@ const userNodeDef: NexFormatNode = {
           featureType: NexFeatureType.EMAIL, // 사용자 ID는 문자열로 처리
           icon: null,
           color: null,
-          uxSize: 3,
+          uxSize: 12,
         },
         {
           name: "password", // 사용자 ID
@@ -1175,7 +1169,7 @@ const userNodeDef: NexFormatNode = {
           featureType: NexFeatureType.PASSWORD,
           icon: null,
           color: null,
-          uxSize: 3,
+          uxSize: 12,
         },
         {
           name: "level", // 사용자 ID
@@ -1189,7 +1183,7 @@ const userNodeDef: NexFormatNode = {
           ],
           icon: null,
           color: null,
-          uxSize: 3,
+          uxSize: 12,
         },
         {
           name: "theme", // 사용자 ID
@@ -1197,7 +1191,7 @@ const userNodeDef: NexFormatNode = {
           featureType: NexFeatureType.STRING,
           icon: null,
           color: null,
-          uxSize: 6,
+          uxSize: 12,
         },
         {
           name: "themeLevel", // 사용자 ID
@@ -1205,7 +1199,7 @@ const userNodeDef: NexFormatNode = {
           featureType: NexFeatureType.NUMBER,
           icon: null,
           color: null,
-          uxSize: 2,
+          uxSize: 12,
         },
       ],
     },

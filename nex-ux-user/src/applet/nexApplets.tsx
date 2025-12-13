@@ -18,6 +18,7 @@ import PXPieChartApp from "./chart/PXPieChartApp";
 import NexConfigDistApp from "./admin/NexConfigDistApp";
 import PXJsonEditor from "./admin/PXJsonEditor";
 import PXBaseChart from "./chart/PXBaseChart";
+import PXConfigNodeEditor from "./admin/PXConfigNodeEditor";
 
 const appletList = [
   {
@@ -177,6 +178,12 @@ const appletList = [
         dispName: "노드 검색기",
         type: "applet",
         app: NexNodeTreeApp,
+      },
+      {
+        name: "PXConfigNodeEditor",
+        dispName: "PX 노드 편집기",
+        type: "applet",
+        app: PXConfigNodeEditor,
       },
       {
         name: "SectionViewer",

@@ -276,13 +276,15 @@
         "isRoutes": "",
         "route": "",
         "direction": "row",
-        "size": 4,
+        "size": 6,
         "padding": "",
         "app-padding": "",
-        "applet": "/admin/NexNodeEditor",
+        "applet": "/admin/PXConfigNodeEditor",
         "contents": [
           "/admin/SelectedFormat"
-        ]
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],
@@ -354,7 +356,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "column",
-        "size": 4,
+        "size": 6,
         "padding": "",
         "app-padding": "",
         "applet": "",
@@ -466,14 +468,16 @@
         "isRoutes": "",
         "route": "",
         "direction": "row",
-        "size": 5,
+        "size": 7,
         "padding": "",
         "app-padding": "",
-        "applet": "/admin/NexNodeEditor",
+        "applet": "/admin/PXConfigNodeEditor",
         "contents": [
           "/admin/SelectedContents",
           "/admin/element"
-        ]
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],
@@ -500,12 +504,12 @@
     "",
     "",
     {
-      "2": {
+      "1": {
         "name": "Left",
         "dispName": "섹션 검색 & 편집",
         "description": "섹션",
         "type": "section",
-        "size": 3,
+        "size": 7,
         "direction": "column"
       }
     }
@@ -528,11 +532,14 @@
         "direction": "column",
         "size": "2",
         "padding": "",
-        "applet": "/admin/NexNodeEditor",
+        "app-padding": "",
+        "applet": "/admin/PXConfigNodeEditor",
         "contents": [
           "/admin/SelectedSection",
           "/admin/contents"
-        ]
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],
@@ -542,7 +549,7 @@
     "",
     "",
     {
-      "0": {
+      "2": {
         "name": "Preview",
         "dispName": "미리보기",
         "description": "웹섹션 미리보기",
@@ -552,7 +559,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "column",
-        "size": 10,
+        "size": 14,
         "padding": "",
         "applet": "/admin/SectionViewer",
         "contents": [
@@ -627,7 +634,7 @@
         "size": 4,
         "padding": "",
         "app-padding": "",
-        "applet": "/admin/NexNodeEditor",
+        "applet": "/admin/PXConfigNodeEditor",
         "contents": [
           "/admin/SelectedTheme"
         ],
@@ -1022,10 +1029,10 @@
         "isRoutes": "",
         "route": "",
         "direction": "row",
-        "size": 4,
+        "size": 6,
         "padding": "",
         "app-padding": "",
-        "applet": "/admin/NexNodeEditor",
+        "applet": "/admin/PXConfigNodeEditor",
         "contents": [
           "/admin/SelectedMenu"
         ],
@@ -1073,7 +1080,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "column",
-        "size": 4,
+        "size": 6,
         "padding": "",
         "app-padding": "",
         "applet": "",
@@ -1212,7 +1219,7 @@
         "size": 4,
         "padding": "",
         "app-padding": "",
-        "applet": "/admin/NexNodeEditor",
+        "applet": "/admin/PXConfigNodeEditor",
         "contents": [
           "/admin/SelectedUser"
         ],
@@ -1444,7 +1451,7 @@
         "color": "",
         "isRoutes": "",
         "route": "",
-        "size": 4,
+        "size": 6,
         "padding": "",
         "app-padding": "",
         "applet": "/admin/PXJsonEditor",
@@ -1472,7 +1479,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "column",
-        "size": 4,
+        "size": 6,
         "padding": "",
         "app-padding": "",
         "applet": "",
@@ -1500,7 +1507,7 @@
         "size": 5,
         "padding": "",
         "app-padding": "",
-        "applet": "/admin/NexNodeEditor",
+        "applet": "/admin/PXConfigNodeEditor",
         "contents": [
           "/admin/SelectedStorage"
         ],
@@ -1527,7 +1534,7 @@
         "size": 5,
         "padding": "",
         "app-padding": "",
-        "applet": "/admin/NexNodeEditor",
+        "applet": "/admin/PXConfigNodeEditor",
         "contents": [
           "/admin/SelectedSystem"
         ],
@@ -1605,10 +1612,10 @@
         "color": "",
         "isRoutes": "",
         "route": "",
-        "size": 4,
+        "size": 6,
         "padding": "",
         "app-padding": "",
-        "applet": "/admin/PXJsonEditor",
+        "applet": "/admin/NexNodeEditor",
         "contents": [
           "/admin/SelectedFormat"
         ],
@@ -1633,7 +1640,7 @@
         "isRoutes": "",
         "route": "",
         "direction": "column",
-        "size": 4,
+        "size": 6,
         "padding": "",
         "app-padding": "",
         "applet": "",
@@ -1850,17 +1857,18 @@
         "color": "",
         "isRoutes": "",
         "route": "",
-        "size": 4,
+        "size": 6,
         "padding": "",
         "app-padding": "",
-        "applet": "/admin/NexNodeEditor",
+        "applet": "/admin/PXConfigNodeEditor",
         "contents": [
           "/admin/SelectedElement",
           "/admin/system",
           "/admin/format",
           "/admin/store",
           "/admin/processor",
-          "/admin/element"
+          "/admin/element",
+          "/admin/storage"
         ],
         "visibleFeatures": "",
         "refreshTime": ""
@@ -1882,7 +1890,7 @@
         "color": "",
         "isRoutes": "",
         "route": "",
-        "size": 4,
+        "size": 6,
         "padding": "",
         "app-padding": "",
         "applet": "/admin/PXJsonEditor",
@@ -1909,7 +1917,7 @@
         "color": "",
         "isRoutes": "",
         "route": "",
-        "size": 5,
+        "size": 7,
         "padding": "",
         "app-padding": "",
         "applet": "/admin/PXJsonEditor",
@@ -1927,7 +1935,7 @@
     "",
     "",
     {
-      "1": {
+      "0": {
         "name": "SectionFinder",
         "dispName": "웹 섹션",
         "description": "",
@@ -1936,7 +1944,7 @@
         "color": "",
         "isRoutes": "",
         "route": "",
-        "size": 2,
+        "size": 3,
         "padding": "",
         "app-padding": "",
         "applet": "/admin/NexNodeTree",

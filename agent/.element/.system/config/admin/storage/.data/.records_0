@@ -10,6 +10,8 @@
         "dispName": "로컬디스크",
         "description": "로컬디스크",
         "type": "storage",
+        "icon": "",
+        "color": "",
         "storageType": "disk",
         "db": {
           "dbType": "oracle",
