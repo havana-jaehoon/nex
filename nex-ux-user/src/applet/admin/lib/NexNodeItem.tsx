@@ -74,10 +74,11 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
   const indentation = `calc(${fontSize} * 0.8 * ${depts})`;
 
   useEffect(() => {
-    if (node && node.data) {
-      setPath(node.data[1]);
-      setIndex(node.data[0]);
-      const objData: any = Object.values(node.data[4])[0];
+    const record = node.data || node._record;
+    if (node && record) {
+      setPath(record[1]);
+      setIndex(record[0]);
+      const objData: any = Object.values(record[4])[0];
       setJsonData(objData);
 
       const type = objData["type"] || null;
@@ -94,7 +95,7 @@ const NexNodeItem: React.FC<NexNodeItemProps> = ({
 
   useEffect(() => {
     setSelected(selectedIndex >= 0 && selectedIndex === index);
-  }, [selectedIndex]);
+  }, [selectedIndex, index]);
 
   //console.log("NexNodeItem: theme=", JSON.stringify(theme, null, 2));
 

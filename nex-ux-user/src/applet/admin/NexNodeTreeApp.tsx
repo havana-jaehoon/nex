@@ -21,6 +21,8 @@ import { getThemeStyle } from "type/NexTheme";
 import axios from "axios";
 import pxConfig from "config/px-config.json";
 import PXIcon from "icon/pxIcon";
+import { MdCreate, MdGeneratingTokens, MdNewReleases, MdArrowUpward, MdArrowDownward } from "react-icons/md";
+import { buildAdminConfig } from "store/NexConfigStore";
 
 const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   const { name, contents, theme, user, onSelect, onUpdate, onAdd, onRemove } =
@@ -79,25 +81,26 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
         }
         setMainDatas(contentsData);
         setType(nodeType);
+      } else {
+        if (!nodeList[nodeType]) nodeList[nodeType] = [{ index: i, name: "", dispName: "None" }];
+
+        content.data.forEach((item: any) => {
+          const obj = item[4];
+          const node: any = Object.values(obj)[0];
+          if (node?.type === nodeType) {
+
+            // folder 제외
+            nodeList[nodeType].push({
+              index: i,
+              name: node.name,
+              dispName: node.dispName,
+            });
+          }
+        });
       }
-
-      if (!nodeList[nodeType]) nodeList[nodeType] = [];
-
-      content.data.forEach((item: any) => {
-        const obj = item[4];
-        const node: any = Object.values(obj)[0];
-        if (node?.type === nodeType) {
-          // folder 제외
-          nodeList[nodeType].push({
-            index: i,
-            name: node.name,
-            dispName: node.dispName,
-          });
-        }
-      });
     });
-
     setNodes(nodeList);
+
   }, [contents, JSON.stringify(contents?.map((cts) => cts.store.odata) || [])]);
 
   const treeData = useMemo(() => {
@@ -117,8 +120,12 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       setSelectedIndex(-1);
       setSelectedPath("");
     }
-    //console.log(`# treeData selectedDatas: ${selectedDatas.length}, ${systemName}, ${JSON.stringify(selectedDatas)}`);
-    return buildNexTree(selectedDatas);
+
+    const tree = buildAdminConfig(selectedDatas);
+    const indexMap: any = {};
+    selectedDatas.forEach((row) => (indexMap[row[0]] = row));
+
+    return { data: tree, getNode: (i: number) => indexMap[i] };
   }, [mainDatas, systemName]);
 
   const handleSelect = (index: number) => {
@@ -276,6 +283,36 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
     }
   };
 
+
+
+  const reorder = async (diff: number) => {
+    if (selectedIndex < 0) return;
+    // TODO 순서 변경
+    const newRecord = mainDatas
+      ? mainDatas.find((record: any) => record[0] === selectedIndex)
+      : null;
+    if (!newRecord || newRecord.length !== 5) return;
+    const keys = Object.keys(newRecord[4] || {});
+    if (keys.length === 0) return;
+    const orderIndex = Number(keys[0]);
+    const values = Object.values(newRecord[4] || {});
+    if (values.length === 0) return;
+    const prevSection: any = values[0] || {};
+
+    newRecord[4] = { [orderIndex + diff]: prevSection };
+
+    console.log(
+      `reorder node(diff=${diff}): ${JSON.stringify(newRecord, null, 2)}`
+    );
+
+    const bres = await onUpdate?.(storeIndex, newRecord);
+    console.log("reorder result:", JSON.stringify(bres, null, 2));
+    if (!bres) {
+      newRecord[4] = { [orderIndex]: prevSection };
+    }
+  };
+
+
   const handleRemove = (index: number) => {
     //    setSelectedPath(path);
     const row = treeData.getNode(index);
@@ -341,12 +378,13 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
       return (
         <Stack
           spacing={1}
-          direction="row"
+          direction="column"
           justifyContent="space-between"
           width="100%"
         >
           <Select
             value={systemName}
+            variant="outlined"
             onChange={(e) => { setSystemName(e.target.value as string); handleSelect(-1); }}
             fullWidth={true}
             displayEmpty
@@ -364,35 +402,42 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
               </MenuItem>
             ))}
           </Select>
-          <Select
-            value={storageName}
-            fullWidth={true}
-            onChange={(e) => setStorageName(e.target.value as string)}
-            displayEmpty
-            renderValue={(selected) => {
-              if (selected === "") return "스토리지 선택";
-              const item = nodes[NexNodeType.SYSTEM].find(
-                (n: any) => n.name === selected
-              );
-              return item ? item.dispName : selected;
-            }}
-          >
-            {nodes[NexNodeType.STORAGE].map((node: any, index: number) => (
-              <MenuItem key={index} value={node.name}>
-                {node.dispName}
-              </MenuItem>
-            ))}
-          </Select>
-          <Button
-            variant="contained"
-            sx={{ width: "70%" }}
-            onClick={(e) => {
-              e.stopPropagation();
-              handleGenDbData();
-            }}
-          >
-            DB 데이터 생성
-          </Button>
+          <Stack spacing={1} direction="row" justifyContent="space-between" width="100%">
+            <Select
+              value={storageName}
+              variant="outlined"
+              fullWidth={true}
+              onChange={(e) => setStorageName(e.target.value as string)}
+              displayEmpty
+              renderValue={(selected) => {
+                if (selected === "") return "스토리지 선택";
+                const item = nodes[NexNodeType.SYSTEM].find(
+                  (n: any) => n.name === selected
+                );
+                return item ? item.dispName : selected;
+              }}
+              sx={{ flex: 7 }}
+            >
+              {nodes[NexNodeType.STORAGE].map((node: any, index: number) => (
+                <MenuItem key={index} value={node.name}>
+                  {node.dispName}
+                </MenuItem>
+              ))}
+            </Select>
+            <Button
+              fullWidth={true}
+              variant="outlined"
+              size="large"
+              color="inherit"
+              sx={{ flex: 3 }}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleGenDbData();
+              }}
+              startIcon={<MdCreate />}>
+              테이블 불러오기
+            </Button>
+          </Stack>
         </Stack>
       );
     }
@@ -423,6 +468,31 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
 
         {systemSelector()}
         <Stack spacing={1} direction="row" justifyContent="end" width="100%">
+          {selectedIndex >= 0 && (
+            <>
+              <IconButton
+                title="위로 이동"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  reorder(-1);
+                }}
+                sx={{ color: color, alignItems: "flex-center" }}
+              >
+                <MdArrowUpward size={iconSize} />
+              </IconButton>
+              <IconButton
+                title="아래로 이동"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  reorder(1);
+                }}
+                sx={{ color: color, alignItems: "flex-center" }}
+              >
+                <MdArrowDownward size={iconSize} />
+              </IconButton>
+              <div style={{ borderLeft: `1px solid ${color}`, height: "60%", margin: "auto 4px" }} />
+            </>
+          )}
           {!(type === NexNodeType.SYSTEM || type === NexNodeType.SECTION || type === NexNodeType.STORAGE) && (
             <IconButton
               title="폴더 추가"

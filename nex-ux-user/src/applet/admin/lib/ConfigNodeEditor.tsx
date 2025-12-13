@@ -215,7 +215,6 @@ const ItemInput: React.FC<ItemInputProps> = ({
                 NexNodeType.CONTENTS,
                 NexNodeType.APPLET,
                 NexNodeType.THEME,
-                NexNodeType.USER,
             ].includes(name as NexNodeType)
         ) {
             const parentPath = value.split("/").slice(0, -1).join("/");
@@ -336,7 +335,6 @@ const ItemInput: React.FC<ItemInputProps> = ({
             NexNodeType.CONTENTS,
             NexNodeType.APPLET,
             NexNodeType.THEME,
-            NexNodeType.USER,
         ].includes(name as NexNodeType)
     ) {
         return (
@@ -840,18 +838,18 @@ const ConfigNodeEditor: React.FC<ConfigNodeEditorProps> = (props) => {
         setIsOpen({ ...isOpen, [key]: open });
     };
 
-    const iconSubItem = (key: string) => (
+    const iconSubItem = (id: string, name: string, dispName: string) => (
         <NexDiv
             direction="row"
             align="center"
             justify="space-between"
-            onClick={() => toggleSubItem(key)}
+            onClick={() => toggleSubItem(id)}
             cursor="pointer"
             width="100%"
         >
-            <NexLabel fontSize={fontSize}>{key}</NexLabel>
+            <NexLabel fontSize={fontSize}>{dispName}</NexLabel>
             <NexDiv align="end">
-                {isOpen[key] !== false ? (
+                {isOpen[id] !== false ? (
                     <MdKeyboardArrowDown />
                 ) : (
                     <MdKeyboardArrowRight />
@@ -869,27 +867,54 @@ const ConfigNodeEditor: React.FC<ConfigNodeEditorProps> = (props) => {
 
         if (feature.featureType === NexFeatureType.ATTRIBUTES) {
             return (
-                <NexDiv key={feature.name} width="100%" direction="column">
-                    {iconSubItem(id)}
-                    <Stack
-                        spacing={0.5}
-                        direction="column"
-                        width="100%"
-                        paddingLeft={fontSize}
-                    >
-                        {isOpen[id] !== false &&
-                            feature.attributes.map((child: any) =>
+                <Box
+                    key={id}
+                    width="100%"
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    sx={{
+                        borderRadius: 1,
+                        borderLeft: "1px solid #EFEFEF",
+                        borderRight: "1px solid #EFEFEF",
+                        "&:hover": {
+                            border: "1px solid #AAAAAA",
+                        },
+                    }}
+                >
+                    <Box width="100%" display="flex" flexDirection="row" justifyContent="space-between" alignItems="center" bgcolor="#EFEFEF" onClick={() => toggleSubItem(id)} style={{ cursor: "pointer" }}>
+                        <Typography variant="body2" fontWeight="bold" alignContent="center">{dispName}</Typography>
+                        <IconButton
+                            size="small"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                toggleSubItem(id);
+                            }}
+                            title={isOpen[id] ? "숨기기" : "보이기"}
+                        >
+                            {isOpen[id] ? <MdVisibilityOff /> : <MdVisibility />}
+                        </IconButton>
+
+                    </Box>
+                    {isOpen[id] !== false &&
+                        <Stack
+                            spacing={0.5}
+                            direction="column"
+                            width="100%"
+                            paddingLeft={fontSize}
+                        >
+                            {feature.attributes.map((child: any) =>
                                 renderFeature(child, argPath)
                             )}
-                    </Stack>
-                </NexDiv>
+                        </Stack>}
+                </Box>
             );
         }
 
         if (feature.featureType === NexFeatureType.LITERALS) {
             const value = String(getAtPath(editingNode, argPath) ?? "");
             return (
-                <NexDiv width="100%" align="flex-end">
+                <NexDiv key={id} width="100%" align="flex-end">
                     <LabeledSelect
                         key={id}
                         name={name}
@@ -1009,6 +1034,7 @@ const ConfigNodeEditor: React.FC<ConfigNodeEditorProps> = (props) => {
 
         return (
             <ItemInput
+                key={id}
                 name={name}
                 dispName={dispName}
                 value={value}

@@ -193,14 +193,14 @@
   ],
   [
     90,
-    "/Home/Body/Main/Admin/Storage",
+    "/Home/Body/Main/Admin/System",
     "",
     "",
     {
       "1": {
-        "name": "Storage",
-        "dispName": "Storage",
-        "description": "Storage Section",
+        "name": "System",
+        "dispName": "시스템",
+        "description": "시스템",
         "type": "section",
         "icon": "",
         "color": "",
@@ -223,7 +223,7 @@
     "",
     "",
     {
-      "2": {
+      "3": {
         "name": "Format",
         "dispName": "Format",
         "description": "Format Section",
@@ -294,7 +294,7 @@
     "",
     "",
     {
-      "3": {
+      "4": {
         "name": "Store",
         "dispName": "Store",
         "description": "Store Section",
@@ -302,7 +302,7 @@
         "icon": "",
         "color": "",
         "isRoutes": "",
-        "route": "store-processor",
+        "route": "store",
         "direction": "row",
         "size": "1",
         "padding": "",
@@ -372,7 +372,7 @@
     "",
     "",
     {
-      "4": {
+      "5": {
         "name": "Element",
         "dispName": "Element",
         "description": "Element Section",
@@ -415,7 +415,7 @@
     "",
     "",
     {
-      "5": {
+      "6": {
         "name": "Contents",
         "dispName": "웹컨텐츠",
         "description": "웹컨텐츠",
@@ -487,7 +487,7 @@
     "",
     "",
     {
-      "6": {
+      "7": {
         "name": "Section",
         "dispName": "웹섹션",
         "description": "웹섹션",
@@ -525,7 +525,7 @@
         "dispName": "섹션 편집",
         "description": "섹션 편집",
         "type": "section",
-        "icon": "",
+        "icon": "/config/section",
         "color": "",
         "isRoutes": "",
         "route": "",
@@ -554,18 +554,21 @@
         "dispName": "미리보기",
         "description": "웹섹션 미리보기",
         "type": "section",
-        "icon": "",
+        "icon": "/config/section",
         "color": "",
         "isRoutes": "",
         "route": "",
         "direction": "column",
         "size": 14,
         "padding": "",
+        "app-padding": "",
         "applet": "/admin/SectionViewer",
         "contents": [
           "/admin/section",
           "/admin/contents"
         ],
+        "visibleFeatures": "",
+        "refreshTime": "",
         "isRoute": ""
       }
     }
@@ -576,7 +579,7 @@
     "",
     "",
     {
-      "7": {
+      "8": {
         "name": "Theme",
         "dispName": "웹테마",
         "description": "웹테마",
@@ -649,9 +652,9 @@
     "",
     "",
     {
-      "8": {
+      "9": {
         "name": "Web",
-        "dispName": "WEB설정",
+        "dispName": "WEB 사용자",
         "description": "사용자",
         "type": "section",
         "icon": "",
@@ -661,8 +664,11 @@
         "direction": "row",
         "size": "1",
         "padding": "",
+        "app-padding": "",
         "applet": "",
-        "contents": ""
+        "contents": "",
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],
@@ -996,7 +1002,7 @@
         "dispName": "메뉴 검색",
         "description": "",
         "type": "section",
-        "icon": "",
+        "icon": "/config/menu",
         "color": "",
         "isRoutes": "",
         "route": "",
@@ -1043,7 +1049,7 @@
   ],
   [
     230,
-    "/Home/Body/Main/Admin/Storage/Left",
+    "/Home/Body/Main/Admin/System/Left",
     "",
     "",
     {
@@ -1066,7 +1072,7 @@
   ],
   [
     231,
-    "/Home/Body/Main/Admin/Storage/Right",
+    "/Home/Body/Main/Admin/System/Right",
     "",
     "",
     {
@@ -1091,36 +1097,8 @@
     }
   ],
   [
-    232,
-    "/Home/Body/Main/Admin/Storage/Left/StorageFinder",
-    "",
-    "",
-    {
-      "1": {
-        "name": "StorageFinder",
-        "dispName": "스토리지",
-        "description": "",
-        "type": "section",
-        "icon": "",
-        "color": "",
-        "isRoutes": "",
-        "route": "",
-        "direction": "row",
-        "size": 5,
-        "padding": "",
-        "app-padding": "",
-        "applet": "/admin/NexNodeTree",
-        "contents": [
-          "/admin/storage"
-        ],
-        "visibleFeatures": "",
-        "refreshTime": ""
-      }
-    }
-  ],
-  [
     233,
-    "/Home/Body/Main/Admin/Storage/Left/SystemFinder",
+    "/Home/Body/Main/Admin/System/Left/SystemFinder",
     "",
     "",
     {
@@ -1129,7 +1107,7 @@
         "dispName": "시스템",
         "description": "",
         "type": "section",
-        "icon": "",
+        "icon": "/config/system",
         "color": "",
         "isRoutes": "",
         "route": "",
@@ -1447,7 +1425,7 @@
         "dispName": "메뉴편집(JSON)",
         "description": "",
         "type": "section",
-        "icon": "",
+        "icon": "/config/menu",
         "color": "",
         "isRoutes": "",
         "route": "",
@@ -1465,7 +1443,7 @@
   ],
   [
     265,
-    "/Home/Body/Main/Admin/Storage/new-section-171706",
+    "/Home/Body/Main/Admin/System/new-section-171706",
     "",
     "",
     {
@@ -1490,35 +1468,8 @@
     }
   ],
   [
-    266,
-    "/Home/Body/Main/Admin/Storage/Right/StorageEditor",
-    "",
-    "",
-    {
-      "1": {
-        "name": "StorageEditor",
-        "dispName": "스토리지 편집",
-        "description": "",
-        "type": "section",
-        "icon": "",
-        "color": "",
-        "isRoutes": "",
-        "route": "",
-        "size": 5,
-        "padding": "",
-        "app-padding": "",
-        "applet": "/admin/PXConfigNodeEditor",
-        "contents": [
-          "/admin/SelectedStorage"
-        ],
-        "visibleFeatures": "",
-        "refreshTime": ""
-      }
-    }
-  ],
-  [
     267,
-    "/Home/Body/Main/Admin/Storage/Right/SystemEditor",
+    "/Home/Body/Main/Admin/System/Right/SystemEditor",
     "",
     "",
     {
@@ -1544,35 +1495,8 @@
     }
   ],
   [
-    268,
-    "/Home/Body/Main/Admin/Storage/new-section-171706/StorageJsonEditor",
-    "",
-    "",
-    {
-      "1": {
-        "name": "StorageJsonEditor",
-        "dispName": "스토리지 편집(JSON)",
-        "description": "",
-        "type": "section",
-        "icon": "",
-        "color": "",
-        "isRoutes": "",
-        "route": "",
-        "size": 5,
-        "padding": "",
-        "app-padding": "",
-        "applet": "/admin/PXJsonEditor",
-        "contents": [
-          "/admin/SelectedStorage"
-        ],
-        "visibleFeatures": "",
-        "refreshTime": ""
-      }
-    }
-  ],
-  [
     269,
-    "/Home/Body/Main/Admin/Storage/new-section-171706/SystemJsonEditor",
+    "/Home/Body/Main/Admin/System/new-section-171706/SystemJsonEditor",
     "",
     "",
     {
@@ -1615,7 +1539,7 @@
         "size": 6,
         "padding": "",
         "app-padding": "",
-        "applet": "/admin/NexNodeEditor",
+        "applet": "/admin/PXJsonEditor",
         "contents": [
           "/admin/SelectedFormat"
         ],
@@ -1678,33 +1602,6 @@
     }
   ],
   [
-    273,
-    "/Home/Body/Main/Admin/Store/1/ProcessorFinder",
-    "",
-    "",
-    {
-      "1": {
-        "name": "ProcessorFinder",
-        "dispName": "데이터 프로세서",
-        "description": "",
-        "type": "section",
-        "icon": "",
-        "color": "",
-        "isRoutes": "",
-        "route": "",
-        "size": 2,
-        "padding": "",
-        "app-padding": "",
-        "applet": "/admin/NexNodeTree",
-        "contents": [
-          "/admin/processor"
-        ],
-        "visibleFeatures": "",
-        "refreshTime": ""
-      }
-    }
-  ],
-  [
     274,
     "/Home/Body/Main/Admin/Store/2/StoreEditor",
     "",
@@ -1733,33 +1630,6 @@
     }
   ],
   [
-    275,
-    "/Home/Body/Main/Admin/Store/2/ProcessorEditor",
-    "",
-    "",
-    {
-      "1": {
-        "name": "ProcessorEditor",
-        "dispName": "데이터 프로세서 편집",
-        "description": "",
-        "type": "section",
-        "icon": "",
-        "color": "",
-        "isRoutes": "",
-        "route": "",
-        "size": 2,
-        "padding": "",
-        "app-padding": "",
-        "applet": "/admin/NexNodeEditor",
-        "contents": [
-          "/admin/SelectedProcessor"
-        ],
-        "visibleFeatures": "",
-        "refreshTime": ""
-      }
-    }
-  ],
-  [
     276,
     "/Home/Body/Main/Admin/Store/3/StoreJsonEditor",
     "",
@@ -1780,33 +1650,6 @@
         "applet": "/admin/PXJsonEditor",
         "contents": [
           "/admin/SelectedStore"
-        ],
-        "visibleFeatures": "",
-        "refreshTime": ""
-      }
-    }
-  ],
-  [
-    277,
-    "/Home/Body/Main/Admin/Store/3/ProcessorJsonEditor",
-    "",
-    "",
-    {
-      "1": {
-        "name": "ProcessorJsonEditor",
-        "dispName": "데이터 프로세서 편집(JSON)",
-        "description": "",
-        "type": "section",
-        "icon": "",
-        "color": "",
-        "isRoutes": "",
-        "route": "",
-        "size": 2,
-        "padding": "",
-        "app-padding": "",
-        "applet": "/admin/PXJsonEditor",
-        "contents": [
-          "/admin/SelectedProcessor"
         ],
         "visibleFeatures": "",
         "refreshTime": ""
@@ -1940,7 +1783,7 @@
         "dispName": "웹 섹션",
         "description": "",
         "type": "section",
-        "icon": "",
+        "icon": "/config/section",
         "color": "",
         "isRoutes": "",
         "route": "",
@@ -1977,6 +1820,218 @@
         "applet": "/admin/PXJsonEditor",
         "contents": [
           "/admin/SelectedTheme"
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    285,
+    "/Home/Body/Main/Admin/Storage",
+    "",
+    "",
+    {
+      "2": {
+        "name": "Storage",
+        "dispName": "데이터 저장소",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "storage",
+        "size": "",
+        "padding": "",
+        "app-padding": "",
+        "applet": "",
+        "contents": "",
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    286,
+    "/Home/Body/Main/Admin/Storage/StorageFinder",
+    "",
+    "",
+    {
+      "0": {
+        "name": "StorageFinder",
+        "dispName": "데이터 저장소",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 4,
+        "padding": "",
+        "app-padding": "",
+        "applet": "/admin/NexNodeTree",
+        "contents": [
+          "/admin/storage"
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    287,
+    "/Home/Body/Main/Admin/Storage/StorageEditor",
+    "",
+    "",
+    {
+      "1": {
+        "name": "StorageEditor",
+        "dispName": "데이터 저장소 편집",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 6,
+        "padding": "",
+        "app-padding": "",
+        "applet": "/admin/PXConfigNodeEditor",
+        "contents": [
+          "/admin/SelectedStorage"
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    288,
+    "/Home/Body/Main/Admin/Storage/StorageJsonEditor",
+    "",
+    "",
+    {
+      "2": {
+        "name": "StorageJsonEditor",
+        "dispName": "데이터 저장소 편집(JSON)",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 6,
+        "padding": "",
+        "app-padding": "",
+        "applet": "/admin/PXJsonEditor",
+        "contents": [
+          "/admin/SelectedStorage"
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    289,
+    "/Home/Body/Main/Admin/Processor",
+    "",
+    "",
+    {
+      "10": {
+        "name": "Processor",
+        "dispName": "데이터 처리",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "processor",
+        "size": "",
+        "padding": "",
+        "app-padding": "",
+        "applet": "",
+        "contents": "",
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    290,
+    "/Home/Body/Main/Admin/Processor/ProcessorFinder",
+    "",
+    "",
+    {
+      "0": {
+        "name": "ProcessorFinder",
+        "dispName": "데이터 처리",
+        "description": "",
+        "type": "section",
+        "icon": "/config/processor",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 4,
+        "padding": "",
+        "app-padding": "",
+        "applet": "/admin/NexNodeTree",
+        "contents": [
+          "/admin/processor"
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    291,
+    "/Home/Body/Main/Admin/Processor/ProcessorEditor",
+    "",
+    "",
+    {
+      "1": {
+        "name": "ProcessorEditor",
+        "dispName": "데이터 처리 편집",
+        "description": "",
+        "type": "section",
+        "icon": "/config/processor",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 6,
+        "padding": "",
+        "app-padding": "",
+        "applet": "/admin/PXConfigNodeEditor",
+        "contents": [
+          "/admin/SelectedProcessor"
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
+      }
+    }
+  ],
+  [
+    292,
+    "/Home/Body/Main/Admin/Processor/ProcessorJsonEditor",
+    "",
+    "",
+    {
+      "2": {
+        "name": "ProcessorJsonEditor",
+        "dispName": "데이터 처리 편집(JSON)",
+        "description": "",
+        "type": "section",
+        "icon": "",
+        "color": "",
+        "isRoutes": "",
+        "route": "",
+        "size": 6,
+        "padding": "",
+        "app-padding": "",
+        "applet": "/admin/PXJsonEditor",
+        "contents": [
+          "/admin/SelectedProcessor"
         ],
         "visibleFeatures": "",
         "refreshTime": ""

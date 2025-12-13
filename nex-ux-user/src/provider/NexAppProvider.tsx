@@ -228,6 +228,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
         {app &&
           React.createElement(app, {
             name: name,
+            icon: icon,
             contents: contents,
             selector: selector,
             user: user,

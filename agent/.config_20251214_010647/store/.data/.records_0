@@ -1,0 +1,221 @@
+[
+  [
+    0,
+    "/static",
+    "",
+    "",
+    {
+      "0": {
+        "name": "static",
+        "type": "store",
+        "record": {
+          "nature": "static",
+          "unit": "NONE",
+          "block": "NONE",
+          "expire": "-1",
+          "expireUnit": "NONE",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    1,
+    "/temporary",
+    "",
+    "",
+    {
+      "1": {
+        "name": "temporary",
+        "dispName": "시간정책",
+        "description": "시간 데이터 보관 정책",
+        "type": "folder",
+        "icon": "",
+        "color": ""
+      }
+    }
+  ],
+  [
+    2,
+    "/temporary/sec",
+    "",
+    "",
+    {
+      "0": {
+        "name": "sec",
+        "dispName": "초단위저장",
+        "description": "초 단위 파일보관 정책",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    3,
+    "/temporary/minuite",
+    "",
+    "",
+    {
+      "1": {
+        "name": "minuite",
+        "dispName": "분단위저장",
+        "description": "분 단위 파일보관 정책",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    4,
+    "/temporary/hour",
+    "",
+    "",
+    {
+      "2": {
+        "name": "hour",
+        "dispName": "시간단위저장",
+        "description": "시간 단위 파일보관 정책",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    5,
+    "/temporary/day",
+    "",
+    "",
+    {
+      "2": {
+        "name": "day",
+        "dispName": "일단위저장",
+        "description": "일 단위 파일보관 정책",
+        "type": "folder"
+      }
+    }
+  ],
+  [
+    100,
+    "/temporary/minuite/infinite",
+    "",
+    "",
+    {
+      "0": {
+        "name": "infinite",
+        "type": "store",
+        "record": {
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "-1",
+          "expireUnit": "NONE",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    101,
+    "/temporary/minuite/1day",
+    "",
+    "",
+    {
+      "0": {
+        "name": "1day",
+        "type": "store",
+        "record": {
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "1",
+          "expireUnit": "DAY",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    102,
+    "/temporary/minuite/7day",
+    "",
+    "",
+    {
+      "1": {
+        "name": "7day",
+        "type": "store",
+        "record": {
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "7",
+          "expireUnit": "DAY",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    103,
+    "/temporary/minuite/15day",
+    "",
+    "",
+    {
+      "2": {
+        "name": "15day",
+        "type": "store",
+        "record": {
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "15",
+          "expireUnit": "DAY",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    104,
+    "/temporary/minuite/1month",
+    "",
+    "",
+    {
+      "3": {
+        "name": "1month",
+        "type": "store",
+        "record": {
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "1",
+          "expireUnit": "MONTH",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ],
+  [
+    105,
+    "/temporary/minuite/1year",
+    "",
+    "",
+    {
+      "4": {
+        "name": "1year",
+        "type": "store",
+        "record": {
+          "nature": "temporary",
+          "unit": "SEC",
+          "block": "MIN",
+          "expire": "1",
+          "expireUnit": "YEAR",
+          "allowDuplication": "false",
+          "allowKeepValue": "false"
+        }
+      }
+    }
+  ]
+]

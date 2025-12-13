@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 
-import { Alert, AlertTitle } from "@mui/material";
+import { Alert, AlertTitle, Stack } from "@mui/material";
 import { NexDiv, NexLabel } from "../component/base/NexBaseComponents";
 
 import { defaultThemeStyle, getThemeStyle, NexTheme } from "type/NexTheme";
@@ -9,6 +9,7 @@ import NexSelector from "store/NexSelector";
 import { NexThemeUser } from "../type/NexTheme";
 import { nexIcon, nexNodeIcon } from "icon/NexIcon";
 import { NexContents } from "provider/NexAppProvider";
+import PXIcon from "icon/pxIcon";
 
 /*
 export interface NexAppData {
@@ -56,9 +57,8 @@ const NexApplet: React.FC<NexAppProps> = observer(
     const fontLevel = user?.fontLevel || 5; // Default font level if not provided
 
     const style = getThemeStyle(theme, "applet");
-    const fontSize =
-      style?.fontSize[clamp(fontLevel, 0, style?.fontSize?.length - 1)] ||
-      "1rem";
+    const fontSize = style?.fontSize || "1rem";
+    const titleFontSize = `calc(${fontSize} * 1.2)`;
 
     const color = style.color || "#000000";
     const bgColor = style.bgColor || "#FFFFFF";
@@ -82,13 +82,18 @@ const NexApplet: React.FC<NexAppProps> = observer(
           padding={padding}
           fontSize={fontSize}
         >
-          {nexIcon(icon, fontSize)}
-          {(name || name !== "") && (
+
+
+          {(name || icon) && (
             <NexDiv
               fontWeight="bold"
               height={`calc(${fontSize} *2)`} // 0.5rem for padding
+              fontSize={titleFontSize}
             >
-              <NexLabel>{name}</NexLabel>
+              <Stack direction="row" alignItems="center" spacing={1}>
+                {icon && <PXIcon path={icon} width={titleFontSize} height={titleFontSize} fontWeight="bold" />}
+                {name && <NexLabel>{name}</NexLabel>}
+              </Stack>
             </NexDiv>
           )}
 

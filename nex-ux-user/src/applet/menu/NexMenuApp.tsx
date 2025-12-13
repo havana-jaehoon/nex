@@ -6,7 +6,7 @@ import NexMenuItem from "./lib/NexMenuItem";
 import { useNavigate } from "react-router-dom";
 import { clamp } from "utils/util";
 import { getThemeStyle } from "type/NexTheme";
-import { buildNexTree } from "utils/NexTreeNode";
+import { buildAdminConfig } from "store/NexConfigStore";
 import { Stack } from "@mui/material";
 
 // CSV-Style menu data : type(item | folder), path, name, dispName, description, icon, color, route )
@@ -57,9 +57,9 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
       contentsData = indexes.map((index: number) => cts.data[index]);
     }
 
-    const tree = buildNexTree(contentsData);
+    const tree = buildAdminConfig(contentsData);
     //console.log("NexMenuApp: nexTree=", JSON.stringify(tree, null, 2));
-    setNexTree(tree);
+    setNexTree({ data: tree });
     setStore(cts.store);
     //setFormat(cts.format);
     //setSelectedKeys(cts.selectedKeys);

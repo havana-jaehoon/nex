@@ -308,7 +308,7 @@ const storageNodeDef: NexFormatNode = {
         { name: "db", dispName: "데이터베이스", icon: "", color: "" },
         { name: "hdfs", dispName: "HDFS", icon: "", color: "" },
       ],
-      uxSize: 3,
+      uxSize: 12,
     },
     {
       name: "db",
@@ -327,7 +327,7 @@ const storageNodeDef: NexFormatNode = {
             { name: "mysql", dispName: "MySQL", icon: "", color: "" },
             { name: "oracle", dispName: "Oracle", icon: "", color: "" },
           ],
-          uxSize: 3,
+          uxSize: 12,
         },
         {
           name: "ip",
@@ -335,7 +335,7 @@ const storageNodeDef: NexFormatNode = {
           icon: null,
           color: null,
           featureType: NexFeatureType.ADDRESS, // DB IP 주소는 문자열로 처리
-          uxSize: 3,
+          uxSize: 12,
         },
         {
           name: "port",
@@ -343,7 +343,7 @@ const storageNodeDef: NexFormatNode = {
           icon: null,
           color: null,
           featureType: "UINT32",
-          uxSize: 2,
+          uxSize: 12,
         },
         {
           name: "user",
@@ -351,7 +351,7 @@ const storageNodeDef: NexFormatNode = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING, // DB 사용자 문자열로 처리
-          uxSize: 3,
+          uxSize: 12,
         },
         {
           name: "password",
@@ -359,7 +359,7 @@ const storageNodeDef: NexFormatNode = {
           icon: null,
           color: null,
           featureType: NexFeatureType.PASSWORD, // DB 비밀번호는 문자열로 처리
-          uxSize: 3,
+          uxSize: 12,
         },
         {
           name: "name",
@@ -367,7 +367,7 @@ const storageNodeDef: NexFormatNode = {
           icon: null,
           color: null,
           featureType: NexFeatureType.STRING, // DB 이름은 문자열로 처리
-          uxSize: 3,
+          uxSize: 12,
         },
       ],
     },
@@ -384,7 +384,7 @@ const storageNodeDef: NexFormatNode = {
           icon: null,
           color: null,
           featureType: NexFeatureType.ADDRESS, // HDFS IP 주소는 문자열로 처리
-          uxSize: 3,
+          uxSize: 12,
         },
         {
           name: "port",
@@ -392,7 +392,7 @@ const storageNodeDef: NexFormatNode = {
           icon: null,
           color: null,
           featureType: "UINT32",
-          uxSize: 2,
+          uxSize: 12,
         },
         {
           name: "path",
@@ -401,7 +401,7 @@ const storageNodeDef: NexFormatNode = {
           color: null,
           isKey: false,
           featureType: NexFeatureType.STRING, // HDFS 경로는 문자열로 처리
-          uxSize: 6,
+          uxSize: 12,
         },
       ],
     },

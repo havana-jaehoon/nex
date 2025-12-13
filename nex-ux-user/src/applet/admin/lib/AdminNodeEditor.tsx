@@ -221,8 +221,7 @@ const ItemInput: React.FC<ItemInputProps> = ({
       name === NexNodeType.PROCESSOR ||
       name === NexNodeType.CONTENTS ||
       name === NexNodeType.APPLET ||
-      name === NexNodeType.THEME ||
-      name === NexNodeType.USER
+      name === NexNodeType.THEME
     ) {
       const parentPath = value.split("/").slice(0, -1).join("/");
       const nodeName = value.split("/").slice(-1)[0];
@@ -358,9 +357,7 @@ const ItemInput: React.FC<ItemInputProps> = ({
     name === NexNodeType.STORAGE ||
     name === NexNodeType.CONTENTS ||
     name === NexNodeType.APPLET ||
-    name === NexNodeType.THEME ||
-    name === NexNodeType.USER
-  ) {
+    name === NexNodeType.THEME) {
     return (
       <Stack direction="row" spacing={1} width="100%">
         {pathSelections && (

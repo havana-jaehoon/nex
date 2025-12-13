@@ -5,7 +5,7 @@
     "",
     "",
     {
-      "2": {
+      "0": {
         "name": "admin",
         "dispName": "프로젝트빌더",
         "description": "프로젝트관리",
@@ -40,8 +40,8 @@
     {
       "1": {
         "name": "system",
-        "dispName": "시스템/스토리지",
-        "description": "시스템 & 스토리지 관리",
+        "dispName": "시스템",
+        "description": "시스템 설정",
         "type": "menu",
         "icon": "/config/system",
         "color": "",
@@ -55,7 +55,7 @@
     "",
     "",
     {
-      "2": {
+      "3": {
         "name": "format",
         "dispName": "데이터 포맷",
         "description": "데이터 포맷 설정",
@@ -72,14 +72,14 @@
     "",
     "",
     {
-      "3": {
+      "4": {
         "name": "store",
-        "dispName": "데이터 보관 및 처리",
-        "description": "데이터 보관 및 처리",
+        "dispName": "데이터 보관정책",
+        "description": "데이터 보관정책",
         "type": "menu",
         "icon": "/config/store",
         "color": "",
-        "route": "/admin/store-processor"
+        "route": "/admin/store"
       }
     }
   ],
@@ -89,7 +89,7 @@
     "",
     "",
     {
-      "4": {
+      "6": {
         "name": "element",
         "dispName": "데이터 엘리먼트",
         "description": "데이터 엘리먼트 설정",
@@ -106,7 +106,7 @@
     "",
     "",
     {
-      "5": {
+      "7": {
         "name": "contents",
         "dispName": "데이터 컨텐츠",
         "description": "웹 데이터 컨텐츠 설정",
@@ -123,7 +123,7 @@
     "",
     "",
     {
-      "6": {
+      "8": {
         "name": "section",
         "dispName": "웹 섹션",
         "description": "웹 데이터 섹션 설정",
@@ -140,7 +140,7 @@
     "",
     "",
     {
-      "7": {
+      "9": {
         "name": "user",
         "dispName": "사용자",
         "description": "사용자 설정",
@@ -157,7 +157,7 @@
     "",
     "",
     {
-      "8": {
+      "10": {
         "name": "theme",
         "dispName": "테마",
         "description": "테마 설정",
@@ -174,7 +174,7 @@
     "",
     "",
     {
-      "9": {
+      "11": {
         "name": "dashboard",
         "dispName": "대시보드",
         "description": "대시보드 설정",
@@ -258,7 +258,7 @@
     "",
     "",
     {
-      "0": {
+      "2": {
         "name": "dashboard",
         "dispName": "대시보드",
         "description": "",
@@ -332,6 +332,40 @@
         "icon": "",
         "color": "",
         "route": "/admin/format"
+      }
+    }
+  ],
+  [
+    28,
+    "/admin/storage",
+    "",
+    "",
+    {
+      "2": {
+        "name": "storage",
+        "dispName": "데이터 저장소",
+        "description": "",
+        "type": "menu",
+        "icon": "/config/storage",
+        "color": "",
+        "route": "/admin/storage"
+      }
+    }
+  ],
+  [
+    29,
+    "/admin/processor",
+    "",
+    "",
+    {
+      "5": {
+        "name": "processor",
+        "dispName": "데이터 처리",
+        "description": "",
+        "type": "menu",
+        "icon": "/config/processor",
+        "color": "",
+        "route": "/admin/processor"
       }
     }
   ]

@@ -41,10 +41,11 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
   const [isRoute, setIsRoute] = useState<boolean>(false);
 
   useEffect(() => {
-    if (node && node.data) {
-      setPath(node.data[1]);
-      setIndex(node.data[0]);
-      const objData: any = Object.values(node.data[4])[0];
+    const record = node.data || node._record;
+    if (node && record) {
+      setPath(record[1]);
+      setIndex(record[0]);
+      const objData: any = Object.values(record[4])[0];
       setJsonData(objData);
 
       const type = objData["type"] || null;
@@ -57,12 +58,12 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
           node.children.length > 0)
       );
       const bSelectedRoot =
-        selectedPath.startsWith(node.data[1]) && depts === 0;
+        selectedPath.startsWith(record[1]) && depts === 0;
       if (bSelectedRoot) {
         setChildOpened(true);
       }
 
-      setSelected(selectedPath === node.data[1]);
+      setSelected(selectedPath === record[1]);
       setIsSelectedRoot(bSelectedRoot);
       setIsRoute(objData.route !== undefined && objData.route !== "");
     }
