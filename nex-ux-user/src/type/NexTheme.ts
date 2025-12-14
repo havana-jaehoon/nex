@@ -32,7 +32,9 @@ export const getThemeStyle = (
   theme: NexTheme | null | undefined,
   themeName: string
 ): NexThemeStyle => {
-  return theme?.find((t) => t.name === themeName) ?? defaultThemeStyle;
+  const style = theme?.find((t) => t.name === themeName) ?? theme?.find((t) => t.name === "default") ?? defaultThemeStyle;
+  //console.log("getThemeStyle: style=", JSON.stringify(style, null, 2));
+  return style;
 };
 
 export type NexTheme = NexThemeStyle[];
@@ -52,7 +54,7 @@ export const defaultThemeUser: NexThemeUser = {
 export const defaultThemeStyle: NexThemeStyle = {
   name: "default",
   color: "#393c45",
-  bgColor: "#eeeeee",
+  bgColor: "gray",
   bdColor: "#cccccc", // 테두리 색상, 여러 색상을 지원하기 위해 배열로 변경
   activeColor: "#393c45",
   activeBgColor: "#e8edf7", // 활성화 배경색, 여러 색상을 지원하기 위해 배열로 변경

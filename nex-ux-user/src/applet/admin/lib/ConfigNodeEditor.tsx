@@ -35,6 +35,7 @@ import { defaultThemeStyle, NexThemeStyle } from "type/NexTheme";
 import { pxIconList } from "icon/pxIcon";
 import { appletPathList, appletPathMap } from "applet/nexApplets";
 
+
 // ===== Constants =====
 const gridMidSpacing = 3;
 const gridMidColumns = 12;
@@ -88,7 +89,7 @@ interface RecordsEditorProps {
 export interface ConfigNodeEditorProps {
     node: any;
     fontLevel?: number;
-    style?: NexThemeStyle;
+    themeStyle?: NexThemeStyle;
     nodes: any;
     nodePaths: any;
     onAdd?(data: any): void;
@@ -769,7 +770,7 @@ const ConfigNodeEditor: React.FC<ConfigNodeEditorProps> = (props) => {
         node,
         nodes,
         nodePaths,
-        style = defaultThemeStyle,
+        themeStyle,
         onUpdate,
         onAdd,
     } = props;
@@ -794,9 +795,10 @@ const ConfigNodeEditor: React.FC<ConfigNodeEditorProps> = (props) => {
         setFeatures(tfeatures);
     }, [node]);
 
-    const fontSize = style.fontSize || "1rem";
-    const color = style.color;
-    const bgColor = style.bgColor;
+    console.log("ConfigNodeEditor: themeStyle=", JSON.stringify(themeStyle, null, 2));
+    const fontSize = themeStyle?.fontSize || "1rem";
+    const color = themeStyle?.color;
+    const bgColor = themeStyle?.bgColor;
 
     const handleReset = () => {
         setEditingNode(orgNode);
@@ -1135,15 +1137,11 @@ const ConfigNodeEditor: React.FC<ConfigNodeEditorProps> = (props) => {
                     height="100%"
                     style={{ minHeight: 0 }}
                 >
+
                     <NexDiv width="100%">{headFields()}</NexDiv>
-                    <NexDiv
-                        flex="10"
-                        width="100%"
-                        style={{ minHeight: 0, overflow: "auto" }}
-                        direction="column"
-                    >
+                    <Box width="100%" height="100%" overflow="auto" borderRadius={2} bgcolor={bgColor}>
                         {bodyFields()}
-                    </NexDiv>
+                    </Box>
                     <NexDiv width="100%" align="flex-end" justify="flex-end">
                         {tailFields()}
                     </NexDiv>

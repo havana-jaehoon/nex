@@ -4,7 +4,6 @@ import NexApplet, { NexAppProps } from "../NexApplet";
 import { NexDiv } from "../../component/base/NexBaseComponents";
 import NexMenuItem from "./lib/NexMenuItem";
 import { useNavigate } from "react-router-dom";
-import { clamp } from "utils/util";
 import { getThemeStyle } from "type/NexTheme";
 import { buildAdminConfig } from "store/NexConfigStore";
 import { Stack } from "@mui/material";
@@ -31,11 +30,8 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
   };
 
   // 1.2 Apllet 에서 사용할 contents 의 폰트 사이즈를 theme 로 부터 가져오기
-  const fontLevel = user?.fontLevel || 5; // Default font level if not provided
 
-  const contentsFontSize =
-    style.fontSize[clamp(fontLevel - 1, 0, style.fontSize?.length - 1)] ||
-    "1rem";
+  const contentsFontSize = `calc(${style.fontSize} * 1.1)`;
 
   // 1.3 contents 에서 store, data, format 정보 가져오기
   //  Freatures 에서 feature 별 Icon, color 정보 등을 가져오기
@@ -78,6 +74,7 @@ const NexMenuApp: React.FC<NexAppProps> = observer((props) => {
       width="100%"
       height="100%"
       overflow="auto"
+      fontSize={contentsFontSize}
     >
       <Stack
         direction="column"

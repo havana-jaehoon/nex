@@ -4,6 +4,7 @@ import NexApplet, { NexAppProps } from "../NexApplet";
 import { NexDiv, NexLabel } from "../../component/base/NexBaseComponents";
 import {
   Alert,
+  Box,
   Button,
   IconButton,
   MenuItem,
@@ -529,10 +530,8 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
           </IconButton>
         </Stack>
 
-        <span style={{ height: gapSize }} />
-        <span style={{ height: gapSize }} />
 
-        <NexDiv width="100%" overflow="auto">
+        <Box width="100%" height="100%" overflow="auto" border={style.border} p={style.padding} borderRadius={2}>
           <Stack spacing={0.5} direction="column" width="100%">
             {treeData &&
               treeData.data &&
@@ -552,7 +551,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
                   )
               )}
           </Stack>
-        </NexDiv>
+        </Box>
       </NexDiv>
     </NexApplet>
   );

@@ -107,11 +107,13 @@
         "direction": "row",
         "size": "1",
         "padding": "",
-        "app-padding": "",
+        "app-padding": "8px 8px 8px 0",
         "applet": "/admin/menu",
         "contents": [
           "/admin/menu"
-        ]
+        ],
+        "visibleFeatures": "",
+        "refreshTime": ""
       }
     }
   ],

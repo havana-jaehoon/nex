@@ -34,6 +34,7 @@ const PXCardView: React.FC<NexAppProps> = observer((props) => {
         <NexApplet {...props} error={errorMsg()}>
             {contexts && contexts.map((ctx: any, index: number) => (
                 <CardView
+                    key={index}
                     name={ctx.store.name}
                     data={ctx.data}
                     features={ctx.features}

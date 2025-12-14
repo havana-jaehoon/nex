@@ -75,20 +75,13 @@ const NexApplet: React.FC<NexAppProps> = observer(
           direction="column"
           width="100%"
           height="100%"
-          color={color}
-          bgColor={bgColor}
-          fontFamily={fontFamily}
-          borderRadius={style?.borderRadius || "8px"}
-          padding={padding}
-          fontSize={fontSize}
         >
-
-
           {(name || icon) && (
             <NexDiv
               fontWeight="bold"
               height={`calc(${fontSize} *2)`} // 0.5rem for padding
               fontSize={titleFontSize}
+              color={color}
             >
               <Stack direction="row" alignItems="center" spacing={1}>
                 {icon && <PXIcon path={icon} width={titleFontSize} height={titleFontSize} fontWeight="bold" />}

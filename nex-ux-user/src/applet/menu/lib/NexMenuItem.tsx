@@ -69,19 +69,19 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
     }
   }, [node, selectedPath]);
 
-  const defaultStyle = getThemeStyle(theme, "default");
   const menuStyle = getThemeStyle(theme, "menu");
+  const color = menuStyle.color;
 
   const selectedColor = menuStyle.activeColor;
   const selectedBgColor = depts !== 0 ? "inherit" : menuStyle.activeBgColor;
 
-  const fontSize = depts === 0 ? `calc(${menuStyle.fontSize} * 1.1)` : menuStyle.fontSize;
+  const fontSize = depts === 0 ? `calc(${menuStyle.fontSize} * 1.2)` : menuStyle.fontSize;
   const iconSize = `calc(${fontSize} * 1)`;
-  const height = `calc(${fontSize} * 1.8)`;
+  const height = `calc(${fontSize} * 1.6)`;
 
 
   // Calculate indentation
-  const indentation = `calc(${depts} * 1.0rem)`; // Adjust multiplier as needed
+  const indentation = `calc(${depts} * 1rem)`; // Adjust multiplier as needed
 
   const handleClick = () => {
     if (isRoute) {
@@ -103,7 +103,7 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
       width="100%"
       justify="flex-start"
       bgColor={isSelectedRoot || isChildOpened ? selectedBgColor : "inherit"}
-      color={isSelectedRoot || isSelected ? selectedColor : "black"}
+      color={isSelectedRoot || isSelected ? selectedColor : color}
       fontSize={fontSize}
     >
       <NexDiv
@@ -133,7 +133,7 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
           )}
 
           {/* Label */}
-          <NexLabel align="center" width="auto" height="100%" style={{ fontWeight: isSelectedRoot || isSelected ? "bold" : "normal", flex: 1, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+          <NexLabel align="center" width="auto" height="100%" style={{ fontWeight: "bold", flex: 1, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
             {jsonData?.dispName || jsonData?.name || ""}
           </NexLabel>
 

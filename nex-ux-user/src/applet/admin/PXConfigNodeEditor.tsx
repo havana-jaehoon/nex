@@ -29,12 +29,13 @@ const PXConfigNodeEditor: React.FC<NexAppProps> = observer((props) => {
         return null;
     };
 
-    const defaultStyle = getThemeStyle(theme, "default");
+    const style = getThemeStyle(theme, "editor");
+    console.log("PXConfigNodeEditor: style=", JSON.stringify(style, null, 2));
 
-    const fontSize = defaultStyle?.fontSize || "1rem";
+    const fontSize = style?.fontSize || "1rem";
 
-    const color = defaultStyle?.color || "#393c45";
-    const bgColor = defaultStyle?.bgColor || "#e8edf7";
+    const color = style?.color || "#393c45";
+    const bgColor = style?.bgColor || "#e8edf7";
 
     const storeIndex = 0; // only 1 store
     const [record, setRecord] = useState<any>(null);
@@ -139,48 +140,12 @@ const PXConfigNodeEditor: React.FC<NexAppProps> = observer((props) => {
         pathList[NexNodeType.APPLET] = appletPathList;
         nodeList[NexNodeType.APPLET] = appletPathMap;
 
-        /*
-        console.log(
-          "NexNodeEditor: nodePaths=",
-          JSON.stringify(pathList[NexNodeType.ELEMENT], null, 2)
-        );
-    
-           console.log(
-          "NexNodeEditor: nodes=",
-          JSON.stringify(nodeList[NexNodeType.ELEMENT], null, 2)
-        );
-    */
+
         setNodePaths(pathList);
         setNodes(nodeList);
     }, [contents, contentsOdata]);
 
-    /*
-    useEffect(() => {
-      const cts = contents?.[storeIndex];
-      if (!cts || !cts.store) {
-        setFeatures([]);
-        setRecord(null);
-        setNode(null);
-        return;
-      }
-  
-      setFeatures(cts.format.features || []);
-  
-      const tdata = cts.indexes
-        ? cts.indexes?.map((i: number) => cts.data[i]) || []
-        : cts.data || [];
-  
-      let curRecord = null;
-      let curNode = null;
-      if (tdata.length > 0) {
-        curRecord = tdata[0];
-        curNode = Object.values(tdata[0][4])[0];
-      }
-  
-      setRecord(curRecord);
-      setNode(curNode);
-    }, [contents, contentsOdata]);
-  */
+
     const handleUpdate = (newNode: any) => {
         //console.log("handleUpdate : ", JSON.stringify(newNode, null, 2));
 
@@ -230,6 +195,7 @@ const PXConfigNodeEditor: React.FC<NexAppProps> = observer((props) => {
                         nodes={nodes}
                         nodePaths={nodePaths}
                         onUpdate={handleUpdate}
+                        themeStyle={style}
                     />
                 </NexDiv>
             ) : null}

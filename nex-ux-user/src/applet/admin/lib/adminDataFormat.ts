@@ -277,12 +277,12 @@ const menuNodeDef: NexFormatNode = {
 
     {
       name: "route",
-      dispName: "라우트",
+      dispName: "라우트 경로",
       description: "메뉴 라우트 정보",
       icon: null,
       color: null,
       featureType: NexFeatureType.STRING, // DB IP 주소는 문자열로 처리
-      uxSize: 3,
+      uxSize: 12,
     },
   ],
 };
@@ -814,7 +814,7 @@ const sectionNodeDef = {
     ...commonFeatures.slice(4),
     {
       name: "isRoutes", // 경로
-      dispName: "페이지",
+      dispName: "하위 페이지 설정 여부",
       icon: null,
       color: null,
       isKey: false,
@@ -823,7 +823,7 @@ const sectionNodeDef = {
     },
     {
       name: "route", // 경로
-      dispName: '페이지 라우트 이름',
+      dispName: '라우트 경로',
       icon: null,
       color: null,
       isKey: false,

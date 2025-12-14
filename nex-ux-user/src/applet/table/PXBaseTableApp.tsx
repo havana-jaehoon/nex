@@ -42,6 +42,7 @@ const PXBaseTableApp: React.FC<NexAppProps> = observer((props) => {
     <NexApplet {...props} error={errorMsg()}>
       {contexts && contexts.map((ctx: any, index: number) => (
         <SearchingTable
+          key={index}
           visableName={contexts.length > 1}
           name={ctx.store.name}
           data={ctx.data}

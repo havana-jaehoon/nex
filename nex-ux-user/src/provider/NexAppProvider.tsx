@@ -43,7 +43,7 @@ const NexAppProvider: React.FC<NexAppProviderProps> = observer(
     const boxShadow = appletStyle.boxShadow || "none";
     const appletBgColor = appletStyle.bgColor || "#ffffff";
 
-    const padding = section["app-padding"] || appletStyle.padding || "12px";
+    const padding = section["app-padding"] || appletStyle.padding || "8px";
 
     //const dataStores = elementPaths?.map((path) => stores[path]);
     const appletPath = section?.applet || "";
