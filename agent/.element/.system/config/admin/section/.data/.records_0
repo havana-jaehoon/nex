@@ -107,7 +107,7 @@
         "direction": "row",
         "size": "1",
         "padding": "",
-        "app-padding": "8px 8px 8px 0",
+        "app-padding": "16px 16px 16px 0",
         "applet": "/admin/menu",
         "contents": [
           "/admin/menu"

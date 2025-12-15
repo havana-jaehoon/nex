@@ -81,7 +81,7 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
 
 
   // Calculate indentation
-  const indentation = `calc(${depts} * 1rem)`; // Adjust multiplier as needed
+  const indentation = `calc(${depts} * ${fontSize})`; // Adjust multiplier as needed
 
   const handleClick = () => {
     if (isRoute) {
@@ -116,13 +116,12 @@ const NexMenuItem: React.FC<NexMenuItemProps> = ({
         title={jsonData?.route || ""}
         style={{
           cursor: "pointer",
-          paddingLeft: indentation,
         }}
       >
         <Stack direction="row" alignItems="center" spacing={0.8} sx={{ width: "100%", height: "inherit" }}>
           {/* Selection Indicator */}
-          <NexDiv width="6px" height="70%" bgColor={isSelected ? selectedColor : "transparent"} style={{ marginRight: "0.5rem", borderRadius: "2px" }} />
-
+          <NexDiv width="5px" height="70%" bgColor={isSelected ? selectedColor : "transparent"} style={{ borderRadius: "2px" }} />
+          <NexDiv width={indentation} />
           {/* Icon */}
           {jsonData && jsonData.icon && jsonData.icon !== "" && (
             <PXIcon

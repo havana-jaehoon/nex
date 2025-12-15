@@ -10,7 +10,7 @@
         "dispName": "프로젝트빌더",
         "description": "프로젝트관리",
         "type": "folder",
-        "icon": "",
+        "icon": "/cbm/dashboard-list",
         "color": ""
       }
     }

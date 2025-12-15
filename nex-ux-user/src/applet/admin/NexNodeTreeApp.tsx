@@ -428,6 +428,7 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
             <Button
               fullWidth={true}
               variant="outlined"
+              disabled={storageName === "" || systemName === ""}
               size="large"
               color="inherit"
               sx={{ flex: 3 }}
