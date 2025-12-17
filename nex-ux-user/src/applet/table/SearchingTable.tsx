@@ -97,15 +97,26 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
     const [selectedRow, setSelectedRow] = useState<any | null>(null);
 
     // Sorting State
-    const [sortableFields, setSortableFields] = useState<string[]>([]); // 소팅 허용된 필드 목록
+    const [sortableFields, setSortableFields] = useState<string[]>([]);
     const [currentSort, setCurrentSort] = useState<SortConfig>({
         key: "",
         direction: null,
     });
 
-    // Drag & Drop State
+    // Feature Config State (Reordering & Hiding)
+    const [orderedFeatures, setOrderedFeatures] = useState<any[]>([]);
+    const [hiddenFields, setHiddenFields] = useState<string[]>([]);
+
+    // Drag & Drop Refs
     const dragItem = useRef<number | null>(null);
     const dragOverItem = useRef<number | null>(null);
+    const dragFeatureItem = useRef<number | null>(null);
+    const dragFeatureOverItem = useRef<number | null>(null);
+
+    // Initialize orderedFeatures when features prop changes
+    React.useEffect(() => {
+        setOrderedFeatures(features.map((f, i) => ({ ...f, originalIndex: i })));
+    }, [features]);
 
     // --- Helpers ---
     const safeStringify = (value: any): string => {
@@ -163,7 +174,6 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
             setSortableFields((prev) => [...prev, featureName]);
         } else {
             setSortableFields((prev) => prev.filter((f) => f !== featureName));
-            // 만약 현재 정렬 중인 키가 비활성화되면 정렬 초기화
             if (currentSort.key === featureName) {
                 setCurrentSort({ key: "", direction: null });
             }
@@ -171,22 +181,28 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
     };
 
     const handleHeaderClick = (featureName: string) => {
-        // 소팅이 허용되지 않은 컬럼이면 무시
         if (!sortableFields.includes(featureName)) return;
 
         setCurrentSort((prev) => {
-            // 다른 컬럼을 클릭했으면 해당 컬럼 오름차순 시작
             if (prev.key !== featureName) {
                 return { key: featureName, direction: "asc" };
             }
-            // 같은 컬럼 클릭: asc -> desc -> null (초기화)
             if (prev.direction === "asc") return { key: featureName, direction: "desc" };
             if (prev.direction === "desc") return { key: "", direction: null };
             return { key: featureName, direction: "asc" };
         });
     };
 
-    // --- Handlers: Drag & Drop ---
+    // --- Handlers: Visibility Management ---
+    const handleToggleVisible = (featureName: string, isVisible: boolean) => {
+        if (isVisible) {
+            setHiddenFields((prev) => prev.filter((f) => f !== featureName));
+        } else {
+            setHiddenFields((prev) => [...prev, featureName]);
+        }
+    };
+
+    // --- Handlers: Drag & Drop (Filters) ---
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>, position: number) => {
         dragItem.current = position;
     };
@@ -208,6 +224,29 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
         dragOverItem.current = null;
     };
 
+    // --- Handlers: Drag & Drop (Features) ---
+    const handleFeatureDragStart = (e: React.DragEvent<HTMLDivElement>, position: number) => {
+        dragFeatureItem.current = position;
+    };
+
+    const handleFeatureDragEnter = (e: React.DragEvent<HTMLDivElement>, position: number) => {
+        dragFeatureOverItem.current = position;
+        if (dragFeatureItem.current !== null && dragFeatureItem.current !== position) {
+            const newOrdered = [...orderedFeatures];
+            const draggedItem = newOrdered[dragFeatureItem.current];
+            newOrdered.splice(dragFeatureItem.current, 1);
+            newOrdered.splice(position, 0, draggedItem);
+            setOrderedFeatures(newOrdered);
+            dragFeatureItem.current = position;
+        }
+    };
+
+    const handleFeatureDragEnd = () => {
+        dragFeatureItem.current = null;
+        dragFeatureOverItem.current = null;
+    };
+
+
     // --- Data Processing (Filter -> Sort -> Page) ---
 
     // 1. Filter
@@ -217,6 +256,7 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
 
         return data.filter((row) => {
             return filters.every((filter) => {
+                // Find index via name in original features because row data is physically ordered by original features
                 const featureIndex = features.findIndex((f) => f.name === filter.featureName);
                 if (featureIndex === -1) return true;
 
@@ -248,7 +288,6 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
 
     // 2. Sort
     const sortedData = useMemo(() => {
-        // 정렬 설정이 없으면 필터된 데이터 그대로 반환 (데이터 순서)
         if (!currentSort.key || !currentSort.direction) {
             return filteredData;
         }
@@ -260,14 +299,12 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
         const isNumber = TYPE_CATEGORY.NUMBER.includes(featureType);
         const isDate = TYPE_CATEGORY.DATE.includes(featureType);
 
-        // 복사본을 만들어 정렬
         const targetData = [...filteredData];
 
         return targetData.sort((a, b) => {
             const valA = a[featureIndex];
             const valB = b[featureIndex];
 
-            // Null handling (nulls last)
             if (valA === null || valA === undefined) return 1;
             if (valB === null || valB === undefined) return -1;
 
@@ -278,7 +315,6 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
             } else if (isDate) {
                 compareResult = new Date(valA).getTime() - new Date(valB).getTime();
             } else {
-                // String comparison
                 compareResult = String(valA).localeCompare(String(valB));
             }
 
@@ -387,6 +423,8 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
         );
     }
 
+    const displayedFeatures = orderedFeatures.filter(f => !hiddenFields.includes(f.name));
+
     return (
         <Paper
             elevation={0}
@@ -425,7 +463,7 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
                             onClick={() => {
                                 setFilters([]);
                                 setPage(0);
-                                setCurrentSort({ key: "", direction: null }); // 정렬도 초기화
+                                setCurrentSort({ key: "", direction: null });
                             }}
                             disabled={filters.length === 0 && !currentSort.direction}
                         >
@@ -439,7 +477,7 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
             <Collapse in={showFieldSelector}>
                 <Box sx={{ p: 1, borderBottom: "1px solid #e0e0e0", bgcolor: "#fff" }}>
                     <Typography variant="subtitle2" gutterBottom fontWeight="bold">
-                        필드 설정 (검색 및 정렬)
+                        필드 설정 (순서 변경, 숨김, 검색 및 정렬)
                     </Typography>
                     <Box
                         sx={{
@@ -452,17 +490,53 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
                         }}
                     >
                         <Grid container spacing={1}>
-                            {features.map((feature) => {
+                            {orderedFeatures.map((feature, index) => {
                                 const isSearchChecked = filters.some((f) => f.featureName === feature.name);
                                 const isSortChecked = sortableFields.includes(feature.name);
+                                const isVisible = !hiddenFields.includes(feature.name);
 
                                 return (
-                                    <Grid item xs={12} sm={6} md={4} lg={3} key={feature.name}>
-                                        <Box sx={{ p: 1, border: "1px solid #eee", borderRadius: 1, bgcolor: "#fff" }}>
-                                            <Typography variant="body2" fontWeight="bold" gutterBottom>
-                                                {feature.dispName || feature.name}
-                                            </Typography>
-                                            <Stack direction="row" spacing={2}>
+                                    <Grid
+                                        item
+                                        xs={12} sm={6} md={4} lg={3}
+                                        key={feature.name}
+                                        draggable
+                                        onDragStart={(e) => handleFeatureDragStart(e, index)}
+                                        onDragEnter={(e) => handleFeatureDragEnter(e, index)}
+                                        onDragEnd={handleFeatureDragEnd}
+                                        onDragOver={(e) => e.preventDefault()}
+                                        sx={{ cursor: 'move' }}
+                                    >
+                                        <Box
+                                            sx={{
+                                                p: 1,
+                                                border: "1px solid #eee",
+                                                borderRadius: 1,
+                                                bgcolor: "#fff",
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                position: "relative"
+                                            }}
+                                        >
+                                            <Stack direction="row" spacing={1} alignItems="center" mb={0.5}>
+                                                <MdDragIndicator color="#bdbdbd" style={{ cursor: 'grab' }} />
+                                                <Typography variant="body2" fontWeight="bold" noWrap>
+                                                    {feature.dispName || feature.name}
+                                                </Typography>
+                                            </Stack>
+
+                                            <Stack direction="row" spacing={1} flexWrap="wrap">
+                                                <FormControlLabel
+                                                    control={
+                                                        <Checkbox
+                                                            size="small"
+                                                            checked={isVisible}
+                                                            onChange={(e) => handleToggleVisible(feature.name, e.target.checked)}
+                                                        />
+                                                    }
+                                                    label={<Typography variant="caption">보기</Typography>}
+                                                    sx={{ mr: 0, ml: 0 }}
+                                                />
                                                 <FormControlLabel
                                                     control={
                                                         <Checkbox
@@ -472,7 +546,7 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
                                                         />
                                                     }
                                                     label={<Typography variant="caption">검색</Typography>}
-                                                    sx={{ mr: 0 }}
+                                                    sx={{ mr: 0, ml: 0 }}
                                                 />
                                                 <FormControlLabel
                                                     control={
@@ -483,7 +557,7 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
                                                         />
                                                     }
                                                     label={<Typography variant="caption">정렬</Typography>}
-                                                    sx={{ mr: 0 }}
+                                                    sx={{ mr: 0, ml: 0 }}
                                                 />
                                             </Stack>
                                         </Box>
@@ -560,14 +634,14 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
                 <Table stickyHeader size="small">
                     <TableHead>
                         <TableRow>
-                            {features.map((feature, index) => {
+                            {displayedFeatures.map((feature, index) => {
                                 const isSortable = sortableFields.includes(feature.name);
                                 const isSorted = currentSort.key === feature.name;
                                 const sortDir = isSorted ? currentSort.direction : null;
 
                                 return (
                                     <TableCell
-                                        key={index}
+                                        key={feature.name}
                                         align="left"
                                         onClick={() => handleHeaderClick(feature.name)}
                                         sx={{
@@ -598,7 +672,6 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
                                                     ) : sortDir === "desc" ? (
                                                         <MdArrowDropDown size={20} />
                                                     ) : (
-                                                        // 정렬 가능하지만 현재 정렬 안됨 (흐릿한 아이콘)
                                                         <MdSort size={20} style={{ opacity: 0.3 }} />
                                                     )}
                                                 </Box>
@@ -634,22 +707,21 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
                                             },
                                         }}
                                     >
-                                        {row.map((cell: any, cIdx: number) => {
-                                            const feature = features[cIdx];
-                                            const literal = feature.literals?.find((lit: any) => lit.name === cell);
+                                        {/* Render cells based on displayedFeatures order */}
+                                        {displayedFeatures.map((feature: any, cIdx: number) => {
+                                            // Access the data using the original index
+                                            const cell = row[feature.originalIndex];
 
-                                            // Determine display value
+                                            const literal = feature.literals?.find((lit: any) => lit.name === cell);
                                             const displayValue = literal ? (literal.dispName || literal.name) : safeStringify(cell);
 
-                                            // Determine styles (Literal > Feature > Inherit)
-                                            // Priority: Literal > Feature (Column) > Default
                                             const cellColor = literal?.color || feature.color || "inherit";
                                             const cellBgColor = literal?.bgColor || feature.bgColor || "inherit";
                                             const cellIcon = literal?.icon;
 
                                             return (
                                                 <TableCell
-                                                    key={cIdx}
+                                                    key={feature.name}
                                                     align={
                                                         feature.align ||
                                                         (TYPE_CATEGORY.NUMBER.includes(feature.featureType)
@@ -683,7 +755,7 @@ const SearchingTable: React.FC<SearchingTableProps> = ({
                             })
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={features.length} align="center" sx={{ py: 6, color: "text.secondary" }}>
+                                <TableCell colSpan={displayedFeatures.length} align="center" sx={{ py: 6, color: "text.secondary" }}>
                                     데이터가 없습니다.
                                 </TableCell>
                             </TableRow>
