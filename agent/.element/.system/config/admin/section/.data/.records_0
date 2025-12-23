@@ -725,7 +725,7 @@
     "",
     "",
     {
-      "0": {
+      "1": {
         "name": "Left",
         "type": "section",
         "size": "1",
@@ -739,7 +739,7 @@
     "",
     "",
     {
-      "1": {
+      "0": {
         "name": "Right",
         "type": "section",
         "size": "1",
@@ -753,7 +753,7 @@
     "",
     "",
     {
-      "0": {
+      "1": {
         "name": "Top",
         "type": "section",
         "size": "1",
@@ -767,7 +767,7 @@
     "",
     "",
     {
-      "1": {
+      "0": {
         "name": "Bottom",
         "type": "section",
         "size": "1",
@@ -781,7 +781,7 @@
     "",
     "",
     {
-      "0": {
+      "1": {
         "name": "LossPerLine",
         "dispName": "노선별 열화 현황",
         "description": "",
@@ -807,7 +807,7 @@
     "",
     "",
     {
-      "1": {
+      "0": {
         "name": "LossHistoryPerLine",
         "dispName": "노선별 열화 이력",
         "description": "",
@@ -820,7 +820,7 @@
         "size": "8",
         "padding": "",
         "app-padding": "",
-        "applet": "/chart/PXLineChartApp",
+        "applet": "/chart/PXBaseChart",
         "contents": [
           "/cbm/history/LossHistoryPerLine"
         ],
@@ -928,9 +928,9 @@
         "size": "4",
         "padding": "",
         "app-padding": "",
-        "applet": "/chart/PXLineChartApp",
+        "applet": "/table/PXSearchingTable",
         "contents": [
-          "/cbm/history/LossHistoryPerDevice"
+          "/cbm/config/TrainPerLine"
         ],
         "visibleFeatures": "",
         "refreshTime": ""
@@ -1127,60 +1127,6 @@
     }
   ],
   [
-    235,
-    "/Home/Body/Main/NewProject",
-    "",
-    "",
-    {
-      "2": {
-        "name": "NewProject",
-        "dispName": "뉴프로젝트",
-        "description": "",
-        "type": "section",
-        "icon": "",
-        "color": "",
-        "isRoutes": "",
-        "route": "new",
-        "direction": "column",
-        "size": "",
-        "padding": "",
-        "app-padding": "",
-        "applet": "",
-        "contents": "",
-        "visibleFeatures": "",
-        "refreshTime": ""
-      }
-    }
-  ],
-  [
-    236,
-    "/Home/Body/Main/NewProject/new-section-174337",
-    "",
-    "",
-    {
-      "0": {
-        "name": "new-section-174337",
-        "dispName": "",
-        "description": "",
-        "type": "section",
-        "icon": "",
-        "color": "",
-        "isRoutes": "",
-        "route": "",
-        "direction": "row",
-        "size": "",
-        "padding": "",
-        "app-padding": "",
-        "applet": "/table/PXSearchingTable",
-        "contents": [
-          "/cbm/status/LossPerLine"
-        ],
-        "visibleFeatures": "",
-        "refreshTime": ""
-      }
-    }
-  ],
-  [
     238,
     "/Home/Body/Main/Admin/Web/UserEditor",
     "",
@@ -1268,7 +1214,7 @@
     "",
     "",
     {
-      "3": {
+      "2": {
         "name": "sample",
         "dispName": "샘플 애플릿",
         "description": "",
@@ -1309,85 +1255,6 @@
         "app-padding": "",
         "applet": "",
         "contents": ""
-      }
-    }
-  ],
-  [
-    255,
-    "/Home/Body/Main/NewProject/new-section-124539",
-    "",
-    "",
-    {
-      "1": {
-        "name": "new-section-124539",
-        "dispName": "",
-        "description": "",
-        "type": "section",
-        "icon": "",
-        "color": "",
-        "isRoutes": "",
-        "route": "",
-        "size": "",
-        "padding": "",
-        "app-padding": "",
-        "applet": "",
-        "contents": "",
-        "visibleFeatures": "",
-        "refreshTime": ""
-      }
-    }
-  ],
-  [
-    256,
-    "/Home/Body/Main/NewProject/new-section-124539/new-section-124607",
-    "",
-    "",
-    {
-      "0": {
-        "name": "new-section-124607",
-        "dispName": "카드테스트",
-        "description": "",
-        "type": "section",
-        "icon": "",
-        "color": "",
-        "isRoutes": "",
-        "route": "",
-        "size": "",
-        "padding": "",
-        "app-padding": "",
-        "applet": "/card/CardView",
-        "contents": [
-          "/cbm/status/LossPerLine"
-        ],
-        "visibleFeatures": "",
-        "refreshTime": ""
-      }
-    }
-  ],
-  [
-    257,
-    "/Home/Body/Main/NewProject/new-section-124539/new-section-124608",
-    "",
-    "",
-    {
-      "1": {
-        "name": "new-section-124608",
-        "dispName": "선택된카드",
-        "description": "",
-        "type": "section",
-        "icon": "",
-        "color": "",
-        "isRoutes": "",
-        "route": "",
-        "size": "",
-        "padding": "",
-        "app-padding": "",
-        "applet": "/card/CardView",
-        "contents": [
-          "/cbm/status/SelectedLossPerLine"
-        ],
-        "visibleFeatures": "",
-        "refreshTime": ""
       }
     }
   ],
@@ -1434,7 +1301,7 @@
         "size": 6,
         "padding": "",
         "app-padding": "",
-        "applet": "/admin/PXJsonEditor",
+        "applet": "/card/CardView",
         "contents": [
           "/admin/SelectedMenu"
         ],

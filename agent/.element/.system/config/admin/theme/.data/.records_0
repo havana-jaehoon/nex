@@ -139,6 +139,22 @@
             "activeBgColor": "",
             "fontFamily": "",
             "fontSize": ""
+          },
+          {
+            "name": "",
+            "gap": "",
+            "padding": "",
+            "border": "",
+            "borderRadius": "",
+            "boxShadow": "",
+            "color": "",
+            "bgColor": "",
+            "bdColor": "",
+            "hoverColor": "",
+            "activeColor": "",
+            "activeBgColor": "",
+            "fontFamily": "",
+            "fontSize": ""
           }
         ]
       }

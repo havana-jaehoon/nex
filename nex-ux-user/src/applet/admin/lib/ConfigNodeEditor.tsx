@@ -795,7 +795,7 @@ const ConfigNodeEditor: React.FC<ConfigNodeEditorProps> = (props) => {
         setFeatures(tfeatures);
     }, [node]);
 
-    console.log("ConfigNodeEditor: themeStyle=", JSON.stringify(themeStyle, null, 2));
+    //console.log("ConfigNodeEditor: themeStyle=", JSON.stringify(themeStyle, null, 2));
     const fontSize = themeStyle?.fontSize || "1rem";
     const color = themeStyle?.color;
     const bgColor = themeStyle?.bgColor;

@@ -5,7 +5,7 @@
     "",
     "",
     {
-      "2": {
+      "0": {
         "name": "admin",
         "dispName": "프로젝트빌더",
         "description": "프로젝트관리",
@@ -225,7 +225,7 @@
     "",
     "",
     {
-      "0": {
+      "1": {
         "name": "sample",
         "dispName": "샘플페이지",
         "description": "",
@@ -258,7 +258,7 @@
     "",
     "",
     {
-      "1": {
+      "2": {
         "name": "cbm",
         "dispName": "CBM 프로젝트",
         "description": "",

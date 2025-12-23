@@ -5,7 +5,7 @@
     "",
     "",
     {
-      "0": {
+      "2": {
         "name": "admin",
         "dispName": "프로젝트빌더",
         "description": "프로젝트관리",
@@ -186,156 +186,6 @@
     }
   ],
   [
-    14,
-    "/cbm",
-    "",
-    "",
-    {
-      "12": {
-        "name": "cbm",
-        "dispName": "CBM",
-        "description": "CBM 데모",
-        "icon": "",
-        "color": "",
-        "type": "folder"
-      }
-    }
-  ],
-  [
-    15,
-    "/cbm/dashboard",
-    "",
-    "",
-    {
-      "14": {
-        "name": "dashboard",
-        "dispName": "대시보드",
-        "description": "CBM 대시보드",
-        "icon": "",
-        "color": "",
-        "type": "menu",
-        "route": "/cbm/dashboard"
-      }
-    }
-  ],
-  [
-    17,
-    "/cbm/lineinfo",
-    "",
-    "",
-    {
-      "1": {
-        "name": "lineinfo",
-        "dispName": "호선정보",
-        "description": "",
-        "type": "menu",
-        "icon": "",
-        "color": "",
-        "route": "/cbm/lineinfo"
-      }
-    }
-  ],
-  [
-    18,
-    "/new",
-    "",
-    "",
-    {
-      "1": {
-        "name": "new",
-        "dispName": "뉴프로젝트",
-        "description": "",
-        "type": "menu",
-        "icon": "",
-        "color": "",
-        "route": "/new"
-      }
-    }
-  ],
-  [
-    19,
-    "/dashboard",
-    "",
-    "",
-    {
-      "2": {
-        "name": "dashboard",
-        "dispName": "대시보드",
-        "description": "",
-        "type": "menu",
-        "icon": "",
-        "color": "",
-        "route": ""
-      }
-    }
-  ],
-  [
-    23,
-    "/sample",
-    "",
-    "",
-    {
-      "4": {
-        "name": "sample",
-        "dispName": "샘플 애플릿",
-        "description": "",
-        "type": "folder",
-        "icon": "",
-        "color": ""
-      }
-    }
-  ],
-  [
-    25,
-    "/sample/base",
-    "",
-    "",
-    {
-      "0": {
-        "name": "base",
-        "dispName": "기본 샘플",
-        "description": "",
-        "type": "menu",
-        "icon": "",
-        "color": "",
-        "route": "/sample/base"
-      }
-    }
-  ],
-  [
-    26,
-    "/new-folder-160138",
-    "",
-    "",
-    {
-      "5": {
-        "name": "new-folder-160138",
-        "dispName": "시연용",
-        "description": "",
-        "type": "folder",
-        "icon": "",
-        "color": ""
-      }
-    }
-  ],
-  [
-    27,
-    "/new-folder-160138/new-menu-160152",
-    "",
-    "",
-    {
-      "0": {
-        "name": "new-menu-160152",
-        "dispName": "시연데모페이지",
-        "description": "",
-        "type": "menu",
-        "icon": "",
-        "color": "",
-        "route": "/admin/format"
-      }
-    }
-  ],
-  [
     28,
     "/admin/storage",
     "",
@@ -366,6 +216,89 @@
         "icon": "/config/processor",
         "color": "",
         "route": "/admin/processor"
+      }
+    }
+  ],
+  [
+    30,
+    "/sample",
+    "",
+    "",
+    {
+      "0": {
+        "name": "sample",
+        "dispName": "샘플페이지",
+        "description": "",
+        "type": "folder",
+        "icon": "",
+        "color": ""
+      }
+    }
+  ],
+  [
+    31,
+    "/sample/data-sample",
+    "",
+    "",
+    {
+      "0": {
+        "name": "data-sample",
+        "dispName": "데이터 출력",
+        "description": "",
+        "type": "menu",
+        "icon": "/config/contents",
+        "color": "",
+        "route": "/sample/base"
+      }
+    }
+  ],
+  [
+    32,
+    "/cbm",
+    "",
+    "",
+    {
+      "1": {
+        "name": "cbm",
+        "dispName": "CBM 프로젝트",
+        "description": "",
+        "type": "folder",
+        "icon": "",
+        "color": ""
+      }
+    }
+  ],
+  [
+    33,
+    "/cbm/dashboard",
+    "",
+    "",
+    {
+      "1": {
+        "name": "dashboard",
+        "dispName": "대시보드",
+        "description": "",
+        "type": "menu",
+        "icon": "/cbm/dashboard",
+        "color": "",
+        "route": "/cbm/dashboard"
+      }
+    }
+  ],
+  [
+    34,
+    "/cbm/cbm-test",
+    "",
+    "",
+    {
+      "0": {
+        "name": "cbm-test",
+        "dispName": "테스트",
+        "description": "",
+        "type": "menu",
+        "icon": "",
+        "color": "",
+        "route": "/cbm"
       }
     }
   ]

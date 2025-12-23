@@ -225,24 +225,30 @@
           {
             "name": "line",
             "dispName": "호선명",
-            "icon": null,
-            "color": null,
+            "icon": "/cbm/device-info",
+            "color": "blue",
             "isKey": true,
             "featureType": "STRING",
             "literals": [
               {
                 "name": "호남선",
                 "dispName": "호남선",
-                "icon": "/config/element",
+                "icon": "/cbm/train",
                 "color": "red"
+              },
+              {
+                "name": "경부선",
+                "dispName": "경부선",
+                "icon": "/cbm/tree-carriage",
+                "color": "#393c45"
               }
             ]
           },
           {
             "name": "train",
             "dispName": "편성번호",
-            "icon": null,
-            "color": null,
+            "icon": "/cbm/list",
+            "color": "red",
             "isKey": true,
             "featureType": "STRING"
           }
@@ -403,6 +409,12 @@
                 "dispName": "",
                 "icon": "/cbm/train",
                 "color": "green"
+              },
+              {
+                "name": "동해선",
+                "dispName": "",
+                "icon": "/cbm/tree-carriage",
+                "color": "orange"
               }
             ]
           },

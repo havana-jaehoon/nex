@@ -725,7 +725,7 @@
     "",
     "",
     {
-      "1": {
+      "0": {
         "name": "Left",
         "type": "section",
         "size": "1",
@@ -739,7 +739,7 @@
     "",
     "",
     {
-      "0": {
+      "1": {
         "name": "Right",
         "type": "section",
         "size": "1",
@@ -753,7 +753,7 @@
     "",
     "",
     {
-      "1": {
+      "0": {
         "name": "Top",
         "type": "section",
         "size": "1",
@@ -767,7 +767,7 @@
     "",
     "",
     {
-      "0": {
+      "1": {
         "name": "Bottom",
         "type": "section",
         "size": "1",
@@ -781,7 +781,7 @@
     "",
     "",
     {
-      "1": {
+      "0": {
         "name": "LossPerLine",
         "dispName": "노선별 열화 현황",
         "description": "",
@@ -807,7 +807,7 @@
     "",
     "",
     {
-      "0": {
+      "1": {
         "name": "LossHistoryPerLine",
         "dispName": "노선별 열화 이력",
         "description": "",

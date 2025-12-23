@@ -43,6 +43,12 @@
           "dispName": "",
           "icon": "/cbm/train",
           "color": "green"
+        },
+        {
+          "name": "동해선",
+          "dispName": "",
+          "icon": "/cbm/tree-carriage",
+          "color": "orange"
         }
       ]
     },

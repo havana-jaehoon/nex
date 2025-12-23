@@ -130,6 +130,12 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
   }, [mainDatas, systemName]);
 
   const handleSelect = (index: number) => {
+    console.log(`# handleSelect index: ${index}`);
+    if (index < 0) {
+      setSelectedIndex(-1);
+      setSelectedPath("");
+      return;
+    }
     const row = treeData?.getNode(index) || null;
 
     if (!row || row.length !== 5) {
@@ -458,12 +464,6 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
         width="100%"
         height="100%"
         fontSize={fontSize}
-        onClick={(e) => {
-          // 컨테이너 자신을 직접 클릭한 경우(빈 영역)만 선택 해제
-          // 자식 요소를 클릭한 경우(e.target !== e.currentTarget)에는 무시
-          if (e.currentTarget !== e.target) return;
-          handleSelect(-1);
-        }}
       >
         <span style={{ height: gapSize }} />
 
@@ -532,7 +532,10 @@ const NexNodeTreeApp: React.FC<NexAppProps> = observer((props) => {
         </Stack>
 
 
-        <Box width="100%" height="100%" overflow="auto" border={style.border} p={style.padding} borderRadius={2}>
+        <Box width="100%" height="100%" overflow="auto" border={style.border} p={style.padding} borderRadius={2} onClick={(e) => {
+          if (e.currentTarget !== e.target) return;
+          handleSelect(-1);
+        }}>
           <Stack spacing={0.5} direction="column" width="100%">
             {treeData &&
               treeData.data &&

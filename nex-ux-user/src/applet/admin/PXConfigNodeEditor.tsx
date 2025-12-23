@@ -30,7 +30,7 @@ const PXConfigNodeEditor: React.FC<NexAppProps> = observer((props) => {
     };
 
     const style = getThemeStyle(theme, "editor");
-    console.log("PXConfigNodeEditor: style=", JSON.stringify(style, null, 2));
+    //console.log("PXConfigNodeEditor: style=", JSON.stringify(style, null, 2));
 
     const fontSize = style?.fontSize || "1rem";
 
