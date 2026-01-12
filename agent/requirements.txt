@@ -58,7 +58,6 @@ PyJWT==2.9.0
 pyparsing==3.2.0
 python-dateutil==2.9.0.post0
 pytz==2025.2
-pywin32==308
 pyzmq==26.2.0
 readerwriterlock==1.0.9
 requests==2.32.3

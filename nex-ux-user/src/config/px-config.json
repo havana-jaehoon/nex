@@ -1,6 +1,6 @@
 {
-  "config-url": "http://localhost:9080/config-api",
-  "command-url": "http://localhost:9080/cmd-api",
+  "config-url": "http://192.168.0.159:9080/config-api",
+  "command-url": "http://192.168.0.159:9080/cmd-api",
   "project": "",
   "system": "webclient"
 }

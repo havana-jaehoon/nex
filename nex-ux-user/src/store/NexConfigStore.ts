@@ -180,7 +180,7 @@ class NexConfigStore {
         },
       });
 
-      //const datas = JSON.parse(JSON.stringify(response.data, null, 2));
+      const datas = JSON.parse(JSON.stringify(response.data, null, 2));
 
       if (response.status < 200 || response.status >= 300) {
         console.error("Failed to fetch uploadConfig:", response);
